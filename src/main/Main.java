@@ -9,8 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import logicaNegocios.ControladoraGlobal;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,24 +25,23 @@ public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = null;
         EntityManager em = null;
+
         try {
             emf = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
             em = emf.createEntityManager();
             System.out.println("EntityManager Created: " + emf);
+
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-            if (emf != null) {
-                emf.close();
-            }
         }
-        
-        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal();
-        
-
+        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
+        unaControladoraGlobal.crearCategoria(4, "Menores");
+        if (em != null) {
+            em.close();
+        }
+        if (emf != null) {
+            emf.close();
+        }
     }
 
 }
