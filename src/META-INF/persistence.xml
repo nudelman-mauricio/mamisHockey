@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="mamisHockeyPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>logicaNegocios.Localidad</class>
+    <class>logicaNegocios.Arbitro</class>
+    <class>logicaNegocios.Socia</class>
+    <class>logicaNegocios.Cancha</class>
+    <class>logicaNegocios.Club</class>
+    <class>logicaNegocios.cuerpoTecnico</class>
+    <class>logicaNegocios.Gol</class>
+    <class>logicaNegocios.Equipo</class>
+    <class>logicaNegocios.Indumentaria</class>
+    <class>logicaNegocios.EstadoActiva</class>
+    <class>logicaNegocios.EstadoBaja</class>
+    <class>logicaNegocios.EstadoLicencia</class>
+    <class>logicaNegocios.EstadoJugadora</class>
+    <class>logicaNegocios.Pase</class>
+    <class>logicaNegocios.Deuda</class>
+    <class>logicaNegocios.ConceptoDeportivo</class>
+    <class>logicaNegocios.PagoDeuda</class>
+    <class>logicaNegocios.ConceptoEgreso</class>
+    <class>logicaNegocios.ConceptoIngreso</class>
+    <class>logicaNegocios.ControladoraContabilidad</class>
+    <class>logicaNegocios.IngresoOtro</class>
+    <class>logicaNegocios.Egreso</class>
+    <class>logicaNegocios.Categoria</class>
+    <class>logicaNegocios.FechaTorneo</class>
+    <class>logicaNegocios.Partido</class>
+    <class>logicaNegocios.TarjetaAmarilla</class>
+    <class>logicaNegocios.TarjetaRoja</class>
+    <class>logicaNegocios.TarjetaVerde</class>
+    <class>logicaNegocios.Sancion</class>
+    <class>logicaNegocios.SancionTribunal</class>
+    <class>logicaNegocios.Torneo</class>
+    <class>logicaNegocios.ControladoraDeportiva</class>
+    <class>logicaNegocios.ControladoraEntidades</class>
+    <class>logicaNegocios.ControladoraGlobal</class>
+    <class>logicaNegocios.Estado</class>
+    <class>logicaNegocios.Tarjeta</class>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mamisHockeyDB"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="Mauricio123"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
