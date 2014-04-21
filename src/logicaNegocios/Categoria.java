@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Categoria implements Serializable {
+public class Categoria implements Serializable, Comparable {
 
     @Basic
     private int cantMenores;
@@ -22,6 +22,7 @@ public class Categoria implements Serializable {
     private String nombre;
 
     public Categoria() {
+
     }
 
     public Categoria(int cantMenores, String nombre) {
@@ -53,4 +54,15 @@ public class Categoria implements Serializable {
         this.nombre = nombre;
     }
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Categoria) {
+            Categoria categoria = (Categoria) aux;
+            if (this.idCategoria > categoria.idCategoria) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

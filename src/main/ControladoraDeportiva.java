@@ -1,8 +1,10 @@
 package main;
 
 import java.util.Collection;
+import java.util.TreeSet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import logicaNegocios.Categoria;
 import logicaNegocios.Sancion;
@@ -16,19 +18,23 @@ public class ControladoraDeportiva {
     private EntityManager entityManager;
 
     public ControladoraDeportiva(EntityManager em) {
-        this.entityManager = em;
+        this.entityManager = em;        
+        
+        Query q = em.createQuery("SELECT unaCategoria FROM Categoria unaCategoria");
+        this.categorias = new TreeSet(q.getResultList());
+
     }
 
     public void crearCategoria(int cantMenores, String nombre) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Categoria unaCategoria = new Categoria(cantMenores, nombre);            
+            Categoria unaCategoria = new Categoria(cantMenores, nombre);
             entityManager.persist(unaCategoria);
-            this.categorias.add(unaCategoria);
+            //this.categorias.add(unaCategoria);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Exception de Guardar");
+            JOptionPane.showMessageDialog(null, "Exception de Guardar");
             tx.rollback();
         }
     }
