@@ -142,7 +142,7 @@ public class ControladoraDeportiva {
         try {
             unTorneo.setBorradoLogico(false);
             entityManager.persist(unTorneo);
-            categorias.remove(unTorneo);
+            torneos.remove(unTorneo);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
