@@ -36,11 +36,11 @@ public  class Equipo implements Serializable {
     @Basic
     private String nombre;
 
-    @OneToOne(optional=false,targetEntity=cuerpoTecnico.class)
-    private cuerpoTecnico unAyudanteCampo;
+    @OneToOne(optional=false,targetEntity=CuerpoTecnico.class)
+    private CuerpoTecnico unAyudanteCampo;
 
-    @OneToOne(optional=false,targetEntity=cuerpoTecnico.class)
-    private cuerpoTecnico unPreparadorFisico;
+    @OneToOne(optional=false,targetEntity=CuerpoTecnico.class)
+    private CuerpoTecnico unPreparadorFisico;
 
     @OneToOne(optional=false,targetEntity=Socia.class)
     private Socia unaCapitana;
@@ -51,8 +51,8 @@ public  class Equipo implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(optional=false,targetEntity=cuerpoTecnico.class)
-    private cuerpoTecnico unDT;
+    @OneToOne(optional=false,targetEntity=CuerpoTecnico.class)
+    private CuerpoTecnico unDT;
 
     public Equipo(){
 
@@ -136,23 +136,23 @@ public  class Equipo implements Serializable {
 
 
 
-   public cuerpoTecnico getUnAyudanteCampo() {
+   public CuerpoTecnico getUnAyudanteCampo() {
         return this.unAyudanteCampo;
     }
 
 
-  public void setUnAyudanteCampo (cuerpoTecnico unAyudanteCampo) {
+  public void setUnAyudanteCampo (CuerpoTecnico unAyudanteCampo) {
         this.unAyudanteCampo = unAyudanteCampo;
     }
 
 
 
-   public cuerpoTecnico getUnPreparadorFisico() {
+   public CuerpoTecnico getUnPreparadorFisico() {
         return this.unPreparadorFisico;
     }
 
 
-  public void setUnPreparadorFisico (cuerpoTecnico unPreparadorFisico) {
+  public void setUnPreparadorFisico (CuerpoTecnico unPreparadorFisico) {
         this.unPreparadorFisico = unPreparadorFisico;
     }
 
@@ -191,12 +191,12 @@ public  class Equipo implements Serializable {
 
 
 
-   public cuerpoTecnico getUnDT() {
+   public CuerpoTecnico getUnDT() {
         return this.unDT;
     }
 
 
-  public void setUnDT (cuerpoTecnico unDT) {
+  public void setUnDT (CuerpoTecnico unDT) {
         this.unDT = unDT;
     }
 

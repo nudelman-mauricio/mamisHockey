@@ -6,27 +6,27 @@ import logicaNegocios.Arbitro;
 import logicaNegocios.Club;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
-import logicaNegocios.cuerpoTecnico;
+import logicaNegocios.CuerpoTecnico;
 
 public class ControladoraEntidades {
 
-    private Collection<cuerpoTecnico> cuerpoTecnicos;
+    private Collection<CuerpoTecnico> cuerpoTecnicos;
     private Collection<Arbitro> arbitros;
     private Collection<Club> clubes;
     private Collection<Socia> socias;
     private Collection<Localidad> localidades;
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
 
     public ControladoraEntidades(EntityManager em) {
         this.entityManager = em;
     }
 
-    public Collection<cuerpoTecnico> getCuerpoTecnicos() {
+    public Collection<CuerpoTecnico> getCuerpoTecnicos() {
         return this.cuerpoTecnicos;
     }
 
-    public void setCuerpoTecnicos(Collection<cuerpoTecnico> cuerpoTecnicos) {
+    public void setCuerpoTecnicos(Collection<CuerpoTecnico> cuerpoTecnicos) {
         this.cuerpoTecnicos = cuerpoTecnicos;
     }
 

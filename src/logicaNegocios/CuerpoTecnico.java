@@ -6,7 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 
 @Entity
-public  class cuerpoTecnico extends Persona implements Serializable {
+public  class CuerpoTecnico extends Persona implements Serializable {
 
     @Basic
     private String fotocopiaDni;
@@ -14,7 +14,10 @@ public  class cuerpoTecnico extends Persona implements Serializable {
     @Basic
     private boolean activo;
 
-    public cuerpoTecnico(){
+    @Basic
+    private boolean borradoLogico;
+
+    public CuerpoTecnico(){
 
     }
 
@@ -37,6 +40,17 @@ public  class cuerpoTecnico extends Persona implements Serializable {
 
   public void setActivo (boolean activo) {
         this.activo = activo;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

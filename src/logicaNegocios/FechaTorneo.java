@@ -23,6 +23,9 @@ public  class FechaTorneo implements Serializable {
     @OneToMany(targetEntity=Partido.class)
     private Collection<Partido> partidos;
 
+    @Basic
+    private boolean borradoLogico;
+
     public FechaTorneo(){
 
     }
@@ -57,6 +60,17 @@ public  class FechaTorneo implements Serializable {
 
   public void setPartidos (Collection<Partido> partidos) {
         this.partidos = partidos;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

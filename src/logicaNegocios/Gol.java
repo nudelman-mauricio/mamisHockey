@@ -21,6 +21,9 @@ public  class Gol implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idGol;
 
+    @Basic
+    private boolean borradoLogico;
+
     public Gol(){
 
     }
@@ -55,6 +58,17 @@ public  class Gol implements Serializable {
 
   public void setIdGol (Long idGol) {
         this.idGol = idGol;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

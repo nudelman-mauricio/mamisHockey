@@ -32,6 +32,9 @@ public  class Egreso implements Serializable {
     @Basic
     private String observacion;
 
+    @Basic
+    private boolean borradoLogico;
+
     public Egreso(){
 
     }
@@ -88,6 +91,17 @@ public  class Egreso implements Serializable {
 
   public void setObservacion (String observacion) {
         this.observacion = observacion;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

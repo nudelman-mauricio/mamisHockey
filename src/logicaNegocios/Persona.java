@@ -16,16 +16,16 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public abstract class Persona implements Serializable {
 
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fechaIngreso;
+
     @Basic
     private String domicilio;
 
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaNacimiento;
-
-    @Temporal(TemporalType.DATE)
-    @Basic
-    private Date anoIngreso;
 
     @Column(length=100)
     @Basic
@@ -62,6 +62,17 @@ public abstract class Persona implements Serializable {
     }
 
 
+   public Date getFechaIngreso() {
+        return this.fechaIngreso;
+    }
+
+
+  public void setFechaIngreso (Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+
+
    public String getDomicilio() {
         return this.domicilio;
     }
@@ -80,17 +91,6 @@ public abstract class Persona implements Serializable {
 
   public void setFechaNacimiento (Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
-    }
-
-
-
-   public Date getAnoIngreso() {
-        return this.anoIngreso;
-    }
-
-
-  public void setAnoIngreso (Date anoIngreso) {
-        this.anoIngreso = anoIngreso;
     }
 
 

@@ -14,12 +14,12 @@ public  class Cancha implements Serializable {
     @Basic
     private String nombre;
 
-    @Basic
-    private boolean activa;
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idCancha;
+
+    @Basic
+    private boolean seOcupa;
 
     @Basic
     private boolean borradoLogico;
@@ -40,17 +40,6 @@ public  class Cancha implements Serializable {
 
 
 
-    public boolean isActiva() {
-        return this.activa;
-    }
-
-
-  public void setActiva (boolean activa) {
-        this.activa = activa;
-    }
-
-
-
    public Long getIdCancha() {
         return this.idCancha;
     }
@@ -58,6 +47,17 @@ public  class Cancha implements Serializable {
 
   public void setIdCancha (Long idCancha) {
         this.idCancha = idCancha;
+    }
+
+
+
+    public boolean isSeOcupa() {
+        return this.seOcupa;
+    }
+
+
+  public void setSeOcupa (boolean seOcupa) {
+        this.seOcupa = seOcupa;
     }
 
 

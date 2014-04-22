@@ -31,6 +31,9 @@ public  class Socia extends Persona implements Serializable {
     @OneToMany(targetEntity=Gol.class)
     private Collection<Gol> goles;
 
+    @Basic
+    private boolean borradoLogico;
+
     @OneToMany(targetEntity=Estado.class)
     private Collection<Estado> estados;
 
@@ -112,6 +115,17 @@ public  class Socia extends Persona implements Serializable {
 
   public void setGoles (Collection<Gol> goles) {
         this.goles = goles;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 

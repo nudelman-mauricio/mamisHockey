@@ -19,7 +19,7 @@ public  class Sancion implements Serializable {
     @Basic
     private Date fecha;
 
-    @OneToOne(optional=false,targetEntity=Tarjeta.class,mappedBy="unaSancion")
+    @OneToOne(optional=false,targetEntity=Tarjeta.class)
     private Tarjeta unaTarjeta;
 
     @OneToOne(optional=false,targetEntity=SancionTribunal.class)
@@ -34,6 +34,9 @@ public  class Sancion implements Serializable {
 
     @OneToOne(optional=false,targetEntity=Partido.class)
     private Partido unPartido;
+
+    @Basic
+    private boolean borradoLogico;
 
     public Sancion(){
 
@@ -102,6 +105,17 @@ public  class Sancion implements Serializable {
 
   public void setUnPartido (Partido unPartido) {
         this.unPartido = unPartido;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

@@ -34,6 +34,9 @@ public  class SancionTribunal implements Serializable {
     @Basic
     private String numeroResolucion;
 
+    @Basic
+    private boolean borradoLogico;
+
     public SancionTribunal(){
 
     }
@@ -101,6 +104,17 @@ public  class SancionTribunal implements Serializable {
 
   public void setNumeroResolucion (String numeroResolucion) {
         this.numeroResolucion = numeroResolucion;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

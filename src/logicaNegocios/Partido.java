@@ -17,6 +17,9 @@ import javax.persistence.TemporalType;
 @Entity
 public  class Partido implements Serializable {
 
+    @OneToMany(targetEntity=Gol.class)
+    private Collection<Gol> goles;
+
     @OneToOne(optional=false,targetEntity=Equipo.class)
     private Equipo unEquipoVisitante;
 
@@ -49,15 +52,26 @@ public  class Partido implements Serializable {
     @OneToOne(optional=false,targetEntity=Equipo.class)
     private Equipo unEquipoLocal;
 
-    @OneToMany(targetEntity=Gol.class)
-    private Collection<Gol> goles;
-
     @Basic
     private String nombreAyudanteMesaVisitante;
+
+    @Basic
+    private boolean borradoLogico;
 
     public Partido(){
 
     }
+
+
+   public Collection<Gol> getGoles() {
+        return this.goles;
+    }
+
+
+  public void setGoles (Collection<Gol> goles) {
+        this.goles = goles;
+    }
+
 
 
    public Equipo getUnEquipoVisitante() {
@@ -170,17 +184,6 @@ public  class Partido implements Serializable {
 
 
 
-   public Collection<Gol> getGoles() {
-        return this.goles;
-    }
-
-
-  public void setGoles (Collection<Gol> goles) {
-        this.goles = goles;
-    }
-
-
-
    public String getNombreAyudanteMesaVisitante() {
         return this.nombreAyudanteMesaVisitante;
     }
@@ -188,6 +191,17 @@ public  class Partido implements Serializable {
 
   public void setNombreAyudanteMesaVisitante (String nombreAyudanteMesaVisitante) {
         this.nombreAyudanteMesaVisitante = nombreAyudanteMesaVisitante;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

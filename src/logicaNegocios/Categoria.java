@@ -21,6 +21,9 @@ public class Categoria implements Serializable, Comparable {
     @Basic
     private String nombre;
 
+    @Basic
+    private boolean borradoLogico;
+
     public Categoria() {
 
     }
@@ -28,6 +31,7 @@ public class Categoria implements Serializable, Comparable {
     public Categoria(int cantMenores, String nombre) {
         this.cantMenores = cantMenores;
         this.nombre = nombre;
+        this.borradoLogico = true;
     }
 
     public int getCantMenores() {
@@ -54,6 +58,14 @@ public class Categoria implements Serializable, Comparable {
         this.nombre = nombre;
     }
 
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+    public void setBorradoLogico(boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
+    }
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -65,4 +77,11 @@ public class Categoria implements Serializable, Comparable {
         }
         return retorno;
     }
+
+    //------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
+    @Override
+    public String toString() {
+        return "Categoria{" + "cantMenores=" + cantMenores + ", idCategoria=" + idCategoria + ", nombre=" + nombre + ", borradoLogico=" + borradoLogico + '}';
+    }
+
 }

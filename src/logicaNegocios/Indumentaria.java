@@ -24,6 +24,9 @@ public  class Indumentaria implements Serializable {
     @Basic
     private String pollera;
 
+    @Basic
+    private boolean borradoLogico;
+
     public Indumentaria(){
 
     }
@@ -69,6 +72,17 @@ public  class Indumentaria implements Serializable {
 
   public void setPollera (String pollera) {
         this.pollera = pollera;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

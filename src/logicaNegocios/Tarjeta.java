@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public  class Tarjeta implements Serializable {
@@ -28,8 +27,8 @@ public  class Tarjeta implements Serializable {
     @Basic
     private String observacion;
 
-    @OneToOne(optional=false,targetEntity=Sancion.class)
-    private Sancion unaSancion;
+    @Basic
+    private boolean borradoLogico;
 
     public Tarjeta(){
 
@@ -91,13 +90,13 @@ public  class Tarjeta implements Serializable {
 
 
 
-   public Sancion getUnaSancion() {
-        return this.unaSancion;
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
     }
 
 
-  public void setUnaSancion (Sancion unaSancion) {
-        this.unaSancion = unaSancion;
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

@@ -34,6 +34,9 @@ public  class Estado implements Serializable {
     @Basic
     private boolean activa;
 
+    @Basic
+    private boolean borradoLogico;
+
     public Estado(){
 
     }
@@ -101,6 +104,17 @@ public  class Estado implements Serializable {
 
   public void setActiva (boolean activa) {
         this.activa = activa;
+    }
+
+
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+
+  public void setBorradoLogico (boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 
 }

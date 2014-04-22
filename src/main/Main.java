@@ -9,9 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,8 +32,22 @@ public class Main {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //----------------------------------------- CODIGO DE PRUEBAS -----------------------------------------
         ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
         unaControladoraGlobal.crearCategoria(4, "Menores");
+//        Date ;
+//        unaControladoraGlobal.crearTorneo(null, null, null);
+        
+        
+        Long aux = new Long("251");
+        unaControladoraGlobal.eliminarCategoria(unaControladoraGlobal.buscarCategoria(aux));
+        
+        System.out.println(unaControladoraGlobal.buscarCategoria(aux));
+        
+        System.out.println("");
+        
+        //----------------------------------------- FIN CODIGO DE PRUEBAS -----------------------------------------
         if (em != null) {
             em.close();
         }
