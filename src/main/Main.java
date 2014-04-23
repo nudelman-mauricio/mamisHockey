@@ -32,21 +32,21 @@ public class Main {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //----------------------------------------- CODIGO DE PRUEBAS -----------------------------------------
         ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
         unaControladoraGlobal.crearCategoria(4, "Menores");
 //        Date ;
 //        unaControladoraGlobal.crearTorneo(null, null, null);
-        
-        
-        Long aux = new Long("251");
-        unaControladoraGlobal.eliminarCategoria(unaControladoraGlobal.buscarCategoria(aux));
-        
-        System.out.println(unaControladoraGlobal.buscarCategoria(aux));
-        
+
+        System.out.println(unaControladoraGlobal.getUnaControladoraDeportiva().buscarCategoriaBD(new Long("1")));
+
+//        Long aux = new Long("251");
+//        unaControladoraGlobal.eliminarCategoria(unaControladoraGlobal.buscarCategoria(aux));
+//        
+//        System.out.println(unaControladoraGlobal.buscarCategoria(aux));
         System.out.println("");
-        
+
         //----------------------------------------- FIN CODIGO DE PRUEBAS -----------------------------------------
         if (em != null) {
             em.close();

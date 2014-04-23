@@ -72,9 +72,17 @@ public class ControladoraEntidades {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
     
-    //------------------------------ARBITROS------------------------------------    
+//------------------------------ARBITROS----------------------------------------   
+    public Arbitro buscarArbitroBD(Long dni) {
+        Arbitro resultado = null;
+        Query traerArbitro = this.entityManager.createQuery("SELECT A FROM Arbitro A WHERE A.dni = " + dni);
+        resultado = (Arbitro) traerArbitro.getResultList();
+        return resultado;
+    }
+    
     public Arbitro buscarArbitro(Long dni) {
         Arbitro resultado = null;
+        
         for (Arbitro aux : arbitros) {
             if (Objects.equals(aux.getDni(), dni)) {
                 resultado = aux;
@@ -139,5 +147,74 @@ public class ControladoraEntidades {
             tx.rollback();
         }
     }
-    //-------------------------------FIN TORNEOS--------------------------------
+//------------------------------FIN ARBITROS------------------------------------
+    
+//------------------------------CUERPO TECNICO----------------------------------   
+    public CuerpoTecnico buscarCuerpoTecnico(Long dni) {
+        CuerpoTecnico resultado = null;
+        for (CuerpoTecnico aux : cuerpoTecnicos) {
+            if (Objects.equals(aux.getDni(), dni)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni, activo);
+            entityManager.persist(unCuerpoTecnico);
+            this.cuerpoTecnicos.add(unCuerpoTecnico);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear Cuerpo Tecnico" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+//    public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
+//
+//        unArbitro.setDni(dni);
+//        unArbitro.setApellido(apellido);
+//        unArbitro.setNombre(nombre);
+//        unArbitro.setUnaLocalidad(unaLocalidad);
+//        unArbitro.setDomicilio(domicilio);
+//        unArbitro.setFechaNacimiento(fechaNacimiento);
+//        unArbitro.setTelFijo(telFijo);
+//        unArbitro.setTelCelular(telCelular);
+//        unArbitro.setEmail(email);
+//        unArbitro.setFechaIngreso(fechaIngreso);
+//        unArbitro.setBorradoLogico(borradoLogico);
+//        unArbitro.setFotocopiaDni(fotocopiaDni);
+//
+//        EntityTransaction tx = entityManager.getTransaction();
+//        tx.begin();
+//        try {
+//            entityManager.persist(unArbitro);
+//            tx.commit();
+//        } catch (Exception e) {
+//            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+//            System.out.println("Error de Modificar Arbitro" + e.getMessage());
+//            tx.rollback();
+//        }
+//    }
+//
+//    public void eliminarArbitro(Arbitro unArbitro) {
+//        EntityTransaction tx = entityManager.getTransaction();
+//        tx.begin();
+//        try {
+//            unArbitro.setBorradoLogico(false);
+//            entityManager.persist(unArbitro);
+//            arbitros.remove(unArbitro); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
+//            tx.commit();
+//        } catch (Exception e) {
+//            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+//            System.out.println("Error en Eliminar Arbitro" + e.getMessage());
+//            tx.rollback();
+//        }
+//    }
+//------------------------------FIN CUERPO TECNICO------------------------------------
 }

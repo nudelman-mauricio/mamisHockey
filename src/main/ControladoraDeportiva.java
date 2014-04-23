@@ -70,6 +70,13 @@ public class ControladoraDeportiva {
         }
         return resultado;
     }
+    
+    public Categoria buscarCategoriaBD(Long id) {
+        Categoria resultado = null;
+        Query traerCategoria = this.entityManager.createQuery("SELECT a FROM Categoria a WHERE a.idCategoria = " + id);
+        resultado = (Categoria) traerCategoria.getSingleResult();
+        return resultado;
+    }
 
     public void crearCategoria(int cantMenores, String nombre) {
         EntityTransaction tx = entityManager.getTransaction();
