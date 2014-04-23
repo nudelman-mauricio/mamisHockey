@@ -30,11 +30,37 @@ public class ControladoraDeportiva {
         this.torneos = new TreeSet(traerTorneos.getResultList());
 
         //CONSULTA PARA CARGAR TODAS LAS SANCIONES DE LA BD
-        Query traerSanciones = em.createQuery("SELECT auxS FROM Categoria auxS");
+        Query traerSanciones = em.createQuery("SELECT auxS FROM Sancion auxS");
         this.sanciones = new TreeSet(traerSanciones.getResultList());
     }
+  
+//------------------------------ GETERS Y SETERS -------------------------------
+    public Collection<Torneo> getTorneos() {
+        return this.torneos;
+    }
 
-    //----------------------------CATEGORIAS-------------------------------------
+    public void setTorneos(Collection<Torneo> torneos) {
+        this.torneos = torneos;
+    }
+
+    public Collection<Categoria> getCategorias() {
+        return this.categorias;
+    }
+
+    public void setCategorias(Collection<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    public Collection<Sancion> getSanciones() {
+        return this.sanciones;
+    }
+
+    public void setSanciones(Collection<Sancion> sanciones) {
+        this.sanciones = sanciones;
+    }
+ //----------------------------- FIN GETERS Y SETERS ---------------------------
+    
+    //------------------------------CATEGORIAS----------------------------------
     public Categoria buscarCategoria(Long id) {
         Categoria resultado = null;
         for (Categoria aux : categorias) {
@@ -82,7 +108,7 @@ public class ControladoraDeportiva {
         try {
             unaCategoria.setBorradoLogico(false);
             entityManager.persist(unaCategoria);
-            categorias.remove(unaCategoria);
+            categorias.remove(unaCategoria);//ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -90,7 +116,6 @@ public class ControladoraDeportiva {
             tx.rollback();
         }
     }
-
     //------------------------------FIN CATEGORIAS------------------------------
     
     //------------------------------TORNEOS-------------------------------------    
@@ -142,7 +167,7 @@ public class ControladoraDeportiva {
         try {
             unTorneo.setBorradoLogico(false);
             entityManager.persist(unTorneo);
-            torneos.remove(unTorneo);
+            torneos.remove(unTorneo);//ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -150,32 +175,6 @@ public class ControladoraDeportiva {
             tx.rollback();
         }
     }
-
-    //-------------------------------FIN TORNEOS--------------------------------
+    //------------------------------FIN TORNEOS---------------------------------
     
-    //---------------------------- GETERS Y SETERS -------------------------------------
-    public Collection<Torneo> getTorneos() {
-        return this.torneos;
-    }
-
-    public void setTorneos(Collection<Torneo> torneos) {
-        this.torneos = torneos;
-    }
-
-    public Collection<Categoria> getCategorias() {
-        return this.categorias;
-    }
-
-    public void setCategorias(Collection<Categoria> categorias) {
-        this.categorias = categorias;
-    }
-
-    public Collection<Sancion> getSanciones() {
-        return this.sanciones;
-    }
-
-    public void setSanciones(Collection<Sancion> sanciones) {
-        this.sanciones = sanciones;
-    }
-
 }

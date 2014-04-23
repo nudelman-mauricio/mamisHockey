@@ -2,8 +2,7 @@ package main;
 
 import java.util.Date;
 import javax.persistence.EntityManager;
-import logicaNegocios.Categoria;
-import logicaNegocios.Torneo;
+import logicaNegocios.*;
 
 public class ControladoraGlobal {
 
@@ -16,12 +15,35 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades = new ControladoraEntidades(em);
         this.unaControladoraDeportiva = new ControladoraDeportiva(em);
     }
-    
-    //----------------------------CATEGORIAS-------------------------------------
+
+//------------------------------ARBITROS----------------------------------------    
+    public Arbitro buscarArbitro(Long dni) {
+        return this.unaControladoraEntidades.buscarArbitro(dni);
+    }
+
+    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
+        this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni);
+
+    }
+
+    public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
+        if (unArbitro != null) {
+            this.unaControladoraEntidades.modificarArbitro(unArbitro, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni);
+        }
+    }
+
+    public void eliminarArbitro(Arbitro unArbitro) {
+        if (unArbitro != null) {
+            this.unaControladoraEntidades.eliminarArbitro(unArbitro);
+        }
+    }
+//-------------------------------FIN ARBITROS----------------------------------- 
+
+//----------------------------CATEGORIAS----------------------------------------
     public Categoria buscarCategoria(Long id) {
         return this.unaControladoraDeportiva.buscarCategoria(id);
     }
-    
+
     public void crearCategoria(int cantMenores, String nombre) {
         this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
     }
@@ -30,7 +52,7 @@ public class ControladoraGlobal {
         if (unaCategoria != null) {
             this.unaControladoraDeportiva.modificarCategoria(unaCategoria, cantMenores, nombre);
         }
-    }    
+    }
 
     public void eliminarCategoria(Categoria unaCategoria) {
         if (unaCategoria != null) {
@@ -38,7 +60,7 @@ public class ControladoraGlobal {
         }
     }
     //------------------------------FIN CATEGORIAS------------------------------
-    
+
     //------------------------------TORNEOS-------------------------------------    
     public Torneo buscarTorneo(Long id) {
         return this.unaControladoraDeportiva.buscarTorneo(id);
@@ -61,7 +83,6 @@ public class ControladoraGlobal {
     }
 
     //-------------------------------FIN TORNEOS--------------------------------
-
     //---------------------------- GETERS Y SETERS -------------------------------------
     public ControladoraContabilidad getUnaControladoraContabilidad() {
         return this.unaControladoraContabilidad;
