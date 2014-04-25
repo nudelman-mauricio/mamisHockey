@@ -3,13 +3,17 @@ package logicaNegocios;
 import java.io.Serializable;
 
 import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Query;
 
 @Entity
 public class Club implements Serializable {
@@ -38,7 +42,7 @@ public class Club implements Serializable {
 
     @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
-
+                
     public Club() {
 
     }
@@ -117,4 +121,77 @@ public class Club implements Serializable {
         this.unaLocalidad = unaLocalidad;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+    
+//------------------------------EQUIPOS-----------------------------------------   
+    public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
+        Equipo resultado;
+        Query traerEquipo = entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idequipo = " + id);
+        resultado = (Equipo) traerEquipo.getResultList();
+        return resultado;
+    }
+
+    public Equipo buscarEquipo(Long id) {
+        Equipo resultado = null;
+        for (Equipo aux : equipos) {
+            if (Objects.equals(aux.getIdEquipo(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel,Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente,  Socia unaDelegada, Socia unaDelegadaSuplente,CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            Equipo unaEquipo = new Equipo(nombre, plantel, indumentarias, unaCapitana, unaCapitanaSuplente, unaDelegada, unaDelegadaSuplente, unDT, unPreparadorFisico, unAyudanteCampo, borradoLogico);
+            entityManager.persist(unaEquipo);
+            this.equipos.add(unaEquipo);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear Equipos" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarEquipo(EntityManager entityManager, Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente,  Socia unaDelegada, Socia unaDelegadaSuplente,CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {  
+        
+        unEquipo.setNombre(nombre);
+        unEquipo.setUnaCapitana(unaCapitana);
+        unEquipo.setUnaCapitanaSuplente(unaCapitanaSuplente);
+        unEquipo.setUnaDelegada(unaDelegada);
+        unEquipo.setUnaDelegadaSuplente(unaDelegadaSuplente);
+        unEquipo.setUnDT(unDT);
+        unEquipo.setUnPreparadorFisico(unPreparadorFisico);
+        unEquipo.setUnAyudanteCampo(unAyudanteCampo);
+        unEquipo.setBorradoLogico(borradoLogico);
+           
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unEquipo);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarEquipo(EntityManager entityManager, Equipo unEquipo) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unEquipo.setBorradoLogico(false);
+            entityManager.persist(unEquipo);
+            equipos.remove(unEquipo); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error en Eliminar Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN EQUIPOS-------------------------------------
 }

@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public  class Equipo implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idEquipo;
@@ -58,6 +58,19 @@ public  class Equipo implements Serializable {
 
     }
 
+    public Equipo(String nombre, Collection<Socia> plantel,Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente,  Socia unaDelegada, Socia unaDelegadaSuplente,CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico){
+        this.nombre = nombre;
+        this.plantel = plantel;
+        this.indumentarias = indumentarias;
+        this.unaCapitana = unaCapitana;
+        this.unaCapitanaSuplente = unaCapitanaSuplente;
+        this.unaDelegada=  unaDelegada;
+        this.unaDelegadaSuplente = unaDelegadaSuplente;
+        this.unDT = unDT;
+        this.unPreparadorFisico = unPreparadorFisico;
+        this.unAyudanteCampo = unAyudanteCampo;
+        this.borradoLogico = borradoLogico;
+    }
 
    public Long getIdEquipo() {
         return this.idEquipo;
