@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public  class Club implements Serializable {
+public class Club implements Serializable {
 
     @Basic
     private String nombrePresidente;
@@ -20,115 +20,101 @@ public  class Club implements Serializable {
     @Basic
     private String logo;
 
-    @OneToMany(targetEntity=Cancha.class)
+    @OneToMany(targetEntity = Cancha.class)
     private Collection<Cancha> canchas;
 
     @Basic
     private String nombre;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idClub;
 
     @Basic
     private boolean borradoLogico;
 
-    @OneToMany(targetEntity=Equipo.class)
+    @OneToMany(targetEntity = Equipo.class)
     private Collection<Equipo> equipos;
 
-    @OneToOne(optional=false,targetEntity=Localidad.class)
+    @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
 
-    public Club(){
+    public Club() {
 
     }
 
+    public Club(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+        this.idClub = idClub;
+        this.nombre = nombre;
+        this.logo = logo;
+        this.nombrePresidente = nombrePresidente;
+        this.unaLocalidad = unaLocalidad;
+        this.borradoLogico = borradoLogico;
+    }
 
-   public String getNombrePresidente() {
+//---------------------------- GETERS Y SETERS ---------------------------------
+    public String getNombrePresidente() {
         return this.nombrePresidente;
     }
 
-
-  public void setNombrePresidente (String nombrePresidente) {
+    public void setNombrePresidente(String nombrePresidente) {
         this.nombrePresidente = nombrePresidente;
     }
 
-
-
-   public String getLogo() {
+    public String getLogo() {
         return this.logo;
     }
 
-
-  public void setLogo (String logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 
-
-
-   public Collection<Cancha> getCanchas() {
+    public Collection<Cancha> getCanchas() {
         return this.canchas;
     }
 
-
-  public void setCanchas (Collection<Cancha> canchas) {
+    public void setCanchas(Collection<Cancha> canchas) {
         this.canchas = canchas;
     }
 
-
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getIdClub() {
+    public Long getIdClub() {
         return this.idClub;
     }
 
-
-  public void setIdClub (Long idClub) {
+    public void setIdClub(Long idClub) {
         this.idClub = idClub;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
-
-
-   public Collection<Equipo> getEquipos() {
+    public Collection<Equipo> getEquipos() {
         return this.equipos;
     }
 
-
-  public void setEquipos (Collection<Equipo> equipos) {
+    public void setEquipos(Collection<Equipo> equipos) {
         this.equipos = equipos;
     }
 
-
-
-   public Localidad getUnaLocalidad() {
+    public Localidad getUnaLocalidad() {
         return this.unaLocalidad;
     }
 
-
-  public void setUnaLocalidad (Localidad unaLocalidad) {
+    public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 }
-
