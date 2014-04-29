@@ -39,9 +39,9 @@ public class Sancion implements Serializable {
     private boolean borradoLogico;
 
     public Sancion() {
-
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getFecha() {
         return this.fecha;
     }
@@ -97,5 +97,6 @@ public class Sancion implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
 }

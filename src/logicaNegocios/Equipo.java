@@ -72,6 +72,7 @@ public class Equipo implements Serializable {
         this.borradoLogico = borradoLogico;
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public Long getIdEquipo() {
         return this.idEquipo;
     }
@@ -175,5 +176,5 @@ public class Equipo implements Serializable {
     public void setUnDT(CuerpoTecnico unDT) {
         this.unDT = unDT;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 }

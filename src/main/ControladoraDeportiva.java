@@ -58,9 +58,9 @@ public class ControladoraDeportiva {
     public void setSanciones(Collection<Sancion> sanciones) {
         this.sanciones = sanciones;
     }
- //----------------------------- FIN GETERS Y SETERS ---------------------------
+//----------------------------- FIN GETERS Y SETERS ----------------------------
     
-    //------------------------------CATEGORIAS----------------------------------
+//------------------------------CATEGORIAS--------------------------------------
     public Categoria buscarCategoria(Long id) {
         Categoria resultado = null;
         for (Categoria aux : categorias) {
@@ -123,9 +123,9 @@ public class ControladoraDeportiva {
             tx.rollback();
         }
     }
-    //------------------------------FIN CATEGORIAS------------------------------
-    
-    //------------------------------TORNEOS-------------------------------------    
+//------------------------------FIN CATEGORIAS----------------------------------
+  
+//------------------------------TORNEOS-----------------------------------------
     public Torneo buscarTorneo(Long id) {
         Torneo resultado = null;
         for (Torneo aux : torneos) {
@@ -182,6 +182,9 @@ public class ControladoraDeportiva {
             tx.rollback();
         }
     }
-    //------------------------------FIN TORNEOS---------------------------------
+//------------------------------FIN TORNEOS-------------------------------------
+
+//--------------------------------SANCIONES-------------------------------------
     
+//------------------------------FIN SANCIONES-----------------------------------
 }

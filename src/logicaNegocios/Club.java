@@ -119,36 +119,36 @@ public class Club implements Serializable {
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
-    //----------------------------- FIN GETERS Y SETERS ----------------------------
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
 //------------------------------EQUIPOS-----------------------------------------   
-    public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
-        Equipo resultado;
-        Query traerEquipo = entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idequipo = " + id);
-        resultado = (Equipo) traerEquipo.getResultList();
-        return resultado;
-    }
-
-    public Equipo buscarEquipo(Long id) {
-        Equipo resultado = null;
-        for (Equipo aux : equipos) {
-            if (Objects.equals(aux.getIdEquipo(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
+//    public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
+//        Equipo resultado;
+//        Query traerEquipo = entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idequipo = " + id);
+//        resultado = (Equipo) traerEquipo.getSingleResult();
+//        return resultado;
+//    }
+//
+//    public Equipo buscarEquipoCollection(Long id) {
+//        Equipo resultado = null;
+//        for (Equipo aux : equipos) {
+//            if (Objects.equals(aux.getIdEquipo(), id)) {
+//                resultado = aux;
+//            }
+//        }
+//        return resultado;
+//    }
 
     public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Equipo unaEquipo = new Equipo(nombre, plantel, indumentarias, unaCapitana, unaCapitanaSuplente, unaDelegada, unaDelegadaSuplente, unDT, unPreparadorFisico, unAyudanteCampo, borradoLogico);
-            entityManager.persist(unaEquipo);
-            this.equipos.add(unaEquipo);
+            Equipo unEquipo = new Equipo(nombre, plantel, indumentarias, unaCapitana, unaCapitanaSuplente, unaDelegada, unaDelegadaSuplente, unDT, unPreparadorFisico, unAyudanteCampo, borradoLogico);
+            entityManager.persist(unEquipo);
+            this.equipos.add(unEquipo);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
             System.out.println("Exception Crear Equipos" + e.getMessage());
             tx.rollback();
         }
@@ -172,7 +172,7 @@ public class Club implements Serializable {
             entityManager.persist(unEquipo);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
             System.out.println("Error de Modificar Equipo" + e.getMessage());
             tx.rollback();
         }
@@ -184,14 +184,63 @@ public class Club implements Serializable {
         try {
             unEquipo.setBorradoLogico(false);
             entityManager.persist(unEquipo);
-            equipos.remove(unEquipo); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
+            equipos.remove(unEquipo);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
             System.out.println("Error en Eliminar Equipo" + e.getMessage());
             tx.rollback();
         }
     }
 //------------------------------FIN EQUIPOS-------------------------------------
+
+//-------------------------------- CANCHAS -------------------------------------
+    public void crearCancha(EntityManager entityManager, String nombre, boolean seOcupa) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            Cancha unaCancha = new Cancha(nombre, seOcupa);
+            entityManager.persist(unaCancha);
+            this.canchas.add(unaCancha);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
+            System.out.println("Exception Crear Cancha" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarCancha(EntityManager entityManager, Cancha unaCancha, String nombre, boolean seOcupa, boolean borradoLogico) {
+        unaCancha.setNombre(nombre);
+        unaCancha.setSeOcupa(seOcupa);
+        unaCancha.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unaCancha);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
+            System.out.println("Error de Modificar Cancha" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarCancha(EntityManager entityManager, Cancha unaCancha) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unaCancha.setBorradoLogico(false);
+            entityManager.persist(unaCancha);
+            equipos.remove(unaCancha); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
+            System.out.println("Error en Eliminar Cancha" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//-------------------------------- FIN CANCHAS ---------------------------------
 
 }

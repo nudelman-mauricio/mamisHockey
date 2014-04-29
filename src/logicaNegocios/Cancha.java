@@ -25,9 +25,14 @@ public class Cancha implements Serializable {
     private boolean borradoLogico;
 
     public Cancha() {
-
     }
 
+    public Cancha(String nombre, boolean seOcupa) {
+        this.nombre = nombre;
+        this.seOcupa = seOcupa;
+    }
+
+//---------------------------- GETERS Y SETERS ---------------------------------
     public String getNombre() {
         return this.nombre;
     }
@@ -59,5 +64,6 @@ public class Cancha implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
 }

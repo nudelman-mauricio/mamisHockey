@@ -26,6 +26,7 @@ public class Arbitro extends Persona implements Serializable {
         this.borradoLogico = borradoLogico;
     }
 
+//---------------------------- GETERS Y SETERS ---------------------------------
     public String getFotocopiaDni() {
         return this.fotocopiaDni;
     }
@@ -41,5 +42,6 @@ public class Arbitro extends Persona implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
 }

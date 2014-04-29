@@ -34,6 +34,7 @@ public class Categoria implements Serializable, Comparable {
         this.borradoLogico = true;
     }
 
+//---------------------------- GETERS Y SETERS ---------------------------------
     public int getCantMenores() {
         return this.cantMenores;
     }
@@ -65,6 +66,7 @@ public class Categoria implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
     @Override
     public int compareTo(Object aux) {
