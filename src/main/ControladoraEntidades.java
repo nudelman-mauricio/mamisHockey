@@ -1,4 +1,4 @@
- package main;
+package main;
 
 import java.util.Collection;
 import java.util.Date;
@@ -29,19 +29,19 @@ public class ControladoraEntidades {
         //CONSULTA PARA CARGAR TODAS LOS cuerpoTecnico DE LA BD
         Query traerCuerpoTecnico = em.createQuery("SELECT auxH FROM CuerpoTecnico auxH");
         this.cuerpoTecnicos = new TreeSet(traerCuerpoTecnico.getResultList());
-        
+
         //CONSULTA PARA CARGAR TODAS LOS ARBITROS DE LA BD
         Query traerArbitros = em.createQuery("SELECT auxH FROM Arbitro auxH");
         this.arbitros = new TreeSet(traerArbitros.getResultList());
-        
+
         //CONSULTA PARA CARGAR TODAS LOS CLUBES DE LA BD
         Query traerClubes = em.createQuery("SELECT auxH FROM Club auxH");
         this.clubes = new TreeSet(traerClubes.getResultList());
-        
+
         //CONSULTA PARA CARGAR TODAS LOS SOCIAS DE LA BD
         Query traerSocias = em.createQuery("SELECT auxH FROM Socia auxH");
         this.socias = new TreeSet(traerSocias.getResultList());
-        
+
         //CONSULTA PARA CARGAR TODAS LOS LOCALIDADES DE LA BD
         Query traerLocalidades = em.createQuery("SELECT auxH FROM Localidad auxH");
         this.localidades = new TreeSet(traerLocalidades.getResultList());
@@ -275,14 +275,14 @@ public class ControladoraEntidades {
         }
     }
 
-    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {  
+    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setIdClub(idClub);
         unClub.setNombre(nombre);
         unClub.setLogo(logo);
         unClub.setNombrePresidente(nombrePresidente);
         unClub.setUnaLocalidad(unaLocalidad);
         unClub.setBorradoLogico(borradoLogico);
-        
+
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
@@ -310,7 +310,7 @@ public class ControladoraEntidades {
         }
     }
 //------------------------------FIN CLUBES--------------------------------------
-    
+
 //------------------------------SOCIAS------------------------------------------   
     public Socia buscarSociaBD(Long dni) {
         Socia resultado;
@@ -335,7 +335,7 @@ public class ControladoraEntidades {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Socia unaSocia = new Socia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotoCarnet,exJugadora);
+            Socia unaSocia = new Socia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotoCarnet, exJugadora);
             entityManager.persist(unaSocia);
             this.socias.add(unaSocia);
             tx.commit();
@@ -348,7 +348,7 @@ public class ControladoraEntidades {
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
             Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
-            boolean borradoLogico, String fotoCarnet, boolean exJugadora) {  
+            boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
         unaSocia.setDni(dni);
         unaSocia.setApellido(apellido);
         unaSocia.setNombre(nombre);
@@ -363,7 +363,7 @@ public class ControladoraEntidades {
         unaSocia.setFotoCarnet(fotoCarnet);
         unaSocia.setExJugadora(exJugadora);
         unaSocia.setBorradoLogico(borradoLogico);
-        
+
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
@@ -391,7 +391,7 @@ public class ControladoraEntidades {
         }
     }
 //------------------------------FIN SOCIAS--------------------------------------
-    
+
 //------------------------------LOCALIDADES-------------------------------------   
     public Localidad buscarLocalidBD(Long id) {
         Localidad resultado;
@@ -425,11 +425,11 @@ public class ControladoraEntidades {
         }
     }
 
-    public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {  
+    public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {
         unaLocalidad.setNombre(nombre);
         unaLocalidad.setCodPostal(codPostal);
         unaLocalidad.setBorradoLogico(borradoLogico);
-        
+
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
