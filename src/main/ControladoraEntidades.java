@@ -1,4 +1,4 @@
-package main;
+ package main;
 
 import java.util.Collection;
 import java.util.Date;
@@ -35,7 +35,7 @@ public class ControladoraEntidades {
         this.arbitros = new TreeSet(traerArbitros.getResultList());
         
         //CONSULTA PARA CARGAR TODAS LOS CLUBES DE LA BD
-        Query traerClubes = em.createQuery("SELECT auxH FROM Clubes auxH");
+        Query traerClubes = em.createQuery("SELECT auxH FROM Club auxH");
         this.clubes = new TreeSet(traerClubes.getResultList());
         
         //CONSULTA PARA CARGAR TODAS LOS SOCIAS DE LA BD
@@ -43,7 +43,7 @@ public class ControladoraEntidades {
         this.socias = new TreeSet(traerSocias.getResultList());
         
         //CONSULTA PARA CARGAR TODAS LOS LOCALIDADES DE LA BD
-        Query traerLocalidades = em.createQuery("SELECT auxH FROM Localidades auxH");
+        Query traerLocalidades = em.createQuery("SELECT auxH FROM Localidad auxH");
         this.localidades = new TreeSet(traerLocalidades.getResultList());
     }
 
