@@ -2,7 +2,6 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -45,13 +44,13 @@ public class Club implements Serializable {
 
     }
 
-    public Club(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+    public Club(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
         this.idClub = idClub;
         this.nombre = nombre;
         this.logo = logo;
         this.nombrePresidente = nombrePresidente;
         this.unaLocalidad = unaLocalidad;
-        this.borradoLogico = borradoLogico;
+        this.borradoLogico = false;
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -137,11 +136,11 @@ public class Club implements Serializable {
 //        }
 //        return resultado;
 //    }
-    public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+    public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Equipo unEquipo = new Equipo(nombre, plantel, indumentarias, unaCapitana, unaCapitanaSuplente, unaDelegada, unaDelegadaSuplente, unDT, unPreparadorFisico, unAyudanteCampo, borradoLogico);
+            Equipo unEquipo = new Equipo(nombre, plantel, indumentarias, unaCapitana, unaDelegada, unDT);
             entityManager.persist(unEquipo);
             this.equipos.add(unEquipo);
             tx.commit();

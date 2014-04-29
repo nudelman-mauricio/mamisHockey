@@ -31,6 +31,7 @@ public class Cancha implements Serializable {
     public Cancha(String nombre, boolean seOcupa) {
         this.nombre = nombre;
         this.seOcupa = seOcupa;
+        this.borradoLogico = false;
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------

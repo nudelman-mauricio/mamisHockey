@@ -45,7 +45,7 @@ public class Torneo implements Serializable, Comparable {
         this.fechaInicio = diaInicio;
         this.unaCategoria = unaCategoria;
         this.nombre = nombre;
-        this.borradoLogico = true;
+        this.borradoLogico = false;
     }
 
     public Date getFechaInicio() {

@@ -34,9 +34,6 @@ public class Socia extends Persona implements Serializable {
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
 
-    @Basic
-    private boolean borradoLogico;
-
     @OneToMany(targetEntity = Estado.class)
     private Collection<Estado> estados;
 
@@ -44,11 +41,10 @@ public class Socia extends Persona implements Serializable {
 
     }
 
-    public Socia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
-        super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico);
+    public Socia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
+        super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.fotoCarnet = fotoCarnet;
         this.exJugadora = exJugadora;
-        this.borradoLogico = borradoLogico;
     }
 
     public String getNumeroCamiseta() {
@@ -113,14 +109,6 @@ public class Socia extends Persona implements Serializable {
 
     public void setGoles(Collection<Gol> goles) {
         this.goles = goles;
-    }
-
-    public boolean isBorradoLogico() {
-        return this.borradoLogico;
-    }
-
-    public void setBorradoLogico(boolean borradoLogico) {
-        this.borradoLogico = borradoLogico;
     }
 
     public Collection<Estado> getEstados() {

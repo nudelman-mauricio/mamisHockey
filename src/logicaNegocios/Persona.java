@@ -61,18 +61,15 @@ public abstract class Persona implements Serializable {
 
     }
 
-    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico) {
+    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
         this.unaLocalidad = unaLocalidad;
         this.domicilio = domicilio;
         this.fechaNacimiento = fechaNacimiento;
-        this.telFijo = telFijo;
-        this.telCelular = telCelular;
-        this.email = email;
         this.fechaIngreso = fechaIngreso;
-        this.borradoLogico = borradoLogico;
+        this.borradoLogico = false;
     }
 
     public Date getFechaIngreso() {
