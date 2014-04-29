@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,6 +21,16 @@ public class SancionTribunal implements Serializable {
 
     @Basic
     private int cantFechas;
+
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fecha;
+
+    @OneToOne(optional = false, targetEntity = Tarjeta.class)
+    private Tarjeta unaTarjeta;
+
+    @OneToOne(optional = false, targetEntity = Partido.class)
+    private Partido unPartido;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,6 +66,30 @@ public class SancionTribunal implements Serializable {
 
     public void setCantFechas(int cantFechas) {
         this.cantFechas = cantFechas;
+    }
+
+    public Date getFecha() {
+        return this.fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Tarjeta getUnaTarjeta() {
+        return this.unaTarjeta;
+    }
+
+    public void setUnaTarjeta(Tarjeta unaTarjeta) {
+        this.unaTarjeta = unaTarjeta;
+    }
+
+    public Partido getUnPartido() {
+        return this.unPartido;
+    }
+
+    public void setUnPartido(Partido unPartido) {
+        this.unPartido = unPartido;
     }
 
     public Long getIdSancionTribunal() {

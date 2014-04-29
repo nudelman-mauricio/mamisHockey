@@ -25,6 +25,7 @@ public class Cancha implements Serializable {
     private boolean borradoLogico;
 
     public Cancha() {
+
     }
 
     public Cancha(String nombre, boolean seOcupa) {

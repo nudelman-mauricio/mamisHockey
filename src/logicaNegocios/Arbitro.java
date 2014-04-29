@@ -18,9 +18,7 @@ public class Arbitro extends Persona implements Serializable {
 
     }
 
-    public Arbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
-            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
-            boolean borradoLogico, String fotocopiaDni) {
+    public Arbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico);
         this.fotocopiaDni = fotocopiaDni;
         this.borradoLogico = borradoLogico;
@@ -43,5 +41,4 @@ public class Arbitro extends Persona implements Serializable {
         this.borradoLogico = borradoLogico;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-
 }

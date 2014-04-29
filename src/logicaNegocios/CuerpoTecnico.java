@@ -21,9 +21,7 @@ public class CuerpoTecnico extends Persona implements Serializable {
 
     }
 
-    public CuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
-            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
-            boolean borradoLogico, String fotocopiaDni, boolean activo) {
+    public CuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico);
         this.fotocopiaDni = fotocopiaDni;
         this.borradoLogico = borradoLogico;

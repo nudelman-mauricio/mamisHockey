@@ -150,13 +150,13 @@ public class ControladoraEntidades {
         }
     }
 
-    public void eliminarCuerpoTecnico(Arbitro unCuerpoTecnico) {
+    public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
             unCuerpoTecnico.setBorradoLogico(false);
             entityManager.persist(unCuerpoTecnico);
-            cuerpoTecnicos.remove(unCuerpoTecnico); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
+            cuerpoTecnicos.remove(unCuerpoTecnico);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------

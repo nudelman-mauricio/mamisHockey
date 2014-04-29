@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Query;
 
 @Entity
 public class Club implements Serializable {
@@ -138,7 +137,6 @@ public class Club implements Serializable {
 //        }
 //        return resultado;
 //    }
-
     public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -242,5 +240,4 @@ public class Club implements Serializable {
         }
     }
 //-------------------------------- FIN CANCHAS ---------------------------------
-
 }

@@ -31,11 +31,11 @@ public abstract class Persona implements Serializable {
     @Basic
     private String apellido;
 
-    @OneToMany(targetEntity = Sancion.class)
-    private Collection<Sancion> sanciones;
-
     @Basic
     private String telFijo;
+
+    @OneToMany(targetEntity = SancionTribunal.class)
+    private Collection<SancionTribunal> sancionesTribunal;
 
     @Column(length = 100)
     @Basic
@@ -61,9 +61,7 @@ public abstract class Persona implements Serializable {
 
     }
 
-    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
-            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
-            boolean borradoLogico) {
+    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -75,7 +73,6 @@ public abstract class Persona implements Serializable {
         this.email = email;
         this.fechaIngreso = fechaIngreso;
         this.borradoLogico = borradoLogico;
-
     }
 
     public Date getFechaIngreso() {
@@ -110,20 +107,20 @@ public abstract class Persona implements Serializable {
         this.apellido = apellido;
     }
 
-    public Collection<Sancion> getSanciones() {
-        return this.sanciones;
-    }
-
-    public void setSanciones(Collection<Sancion> sanciones) {
-        this.sanciones = sanciones;
-    }
-
     public String getTelFijo() {
         return this.telFijo;
     }
 
     public void setTelFijo(String telFijo) {
         this.telFijo = telFijo;
+    }
+
+    public Collection<SancionTribunal> getSancionesTribunal() {
+        return this.sancionesTribunal;
+    }
+
+    public void setSancionesTribunal(Collection<SancionTribunal> sancionesTribunal) {
+        this.sancionesTribunal = sancionesTribunal;
     }
 
     public String getNombre() {

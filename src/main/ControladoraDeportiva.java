@@ -8,14 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.Categoria;
-import logicaNegocios.Sancion;
+import logicaNegocios.SancionTribunal;
 import logicaNegocios.Torneo;
 
 public class ControladoraDeportiva {
 
     private Collection<Torneo> torneos;
     private Collection<Categoria> categorias;
-    private Collection<Sancion> sanciones;
+    private Collection<SancionTribunal> sancionesTribunal;
     private final EntityManager entityManager;
 
     public ControladoraDeportiva(EntityManager em) {
@@ -24,16 +24,8 @@ public class ControladoraDeportiva {
         //CONSULTA PARA CARGAR TODAS LAS CATEGORIAS DE LA BD
         Query traerCategorias = em.createQuery("SELECT auxC FROM Categoria auxC");
         this.categorias = new TreeSet(traerCategorias.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS TORNEOS DE LA BD
-        Query traerTorneos = em.createQuery("SELECT auxT FROM Torneo auxT");
-        this.torneos = new TreeSet(traerTorneos.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LAS SANCIONES DE LA BD
-        Query traerSanciones = em.createQuery("SELECT auxS FROM Sancion auxS");
-        this.sanciones = new TreeSet(traerSanciones.getResultList());
     }
-  
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public Collection<Torneo> getTorneos() {
         return this.torneos;
@@ -51,15 +43,15 @@ public class ControladoraDeportiva {
         this.categorias = categorias;
     }
 
-    public Collection<Sancion> getSanciones() {
-        return this.sanciones;
+    public Collection<SancionTribunal> getSanciones() {
+        return this.sancionesTribunal;
     }
 
-    public void setSanciones(Collection<Sancion> sanciones) {
-        this.sanciones = sanciones;
+    public void setSanciones(Collection<SancionTribunal> sancionesTribunal) {
+        this.sancionesTribunal = sancionesTribunal;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-    
+
 //------------------------------CATEGORIAS--------------------------------------
     public Categoria buscarCategoria(Long id) {
         Categoria resultado = null;
@@ -70,7 +62,7 @@ public class ControladoraDeportiva {
         }
         return resultado;
     }
-    
+
     public Categoria buscarCategoriaBD(Long id) {
         Categoria resultado = null;
         Query traerCategoria = this.entityManager.createQuery("SELECT a FROM Categoria a WHERE a.idCategoria = " + id);
@@ -124,7 +116,7 @@ public class ControladoraDeportiva {
         }
     }
 //------------------------------FIN CATEGORIAS----------------------------------
-  
+
 //------------------------------TORNEOS-----------------------------------------
     public Torneo buscarTorneo(Long id) {
         Torneo resultado = null;
