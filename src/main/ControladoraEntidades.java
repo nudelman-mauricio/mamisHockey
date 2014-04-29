@@ -107,11 +107,11 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
+    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni, activo);
+            CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
             entityManager.persist(unCuerpoTecnico);
             this.cuerpoTecnicos.add(unCuerpoTecnico);
             tx.commit();
@@ -184,11 +184,11 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
+    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Arbitro unArbitro = new Arbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni);
+            Arbitro unArbitro = new Arbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
             entityManager.persist(unArbitro);
             this.arbitros.add(unArbitro);
             tx.commit();
@@ -260,11 +260,11 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearClub(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+    public void crearClub(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Club unClub = new Club(idClub, nombre, logo, nombrePresidente, unaLocalidad, borradoLogico);
+            Club unClub = new Club(idClub, nombre, logo, nombrePresidente, unaLocalidad);
             entityManager.persist(unClub);
             this.clubes.add(unClub);
             tx.commit();
@@ -329,13 +329,11 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
-            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
-            boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
+    public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Socia unaSocia = new Socia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotoCarnet, exJugadora);
+            Socia unaSocia = new Socia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
             entityManager.persist(unaSocia);
             this.socias.add(unaSocia);
             tx.commit();
@@ -410,11 +408,11 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearLocalidad(String nombre, String codPostal, boolean borradoLogico) {
+    public void crearLocalidad(String nombre, String codPostal) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Localidad unaLocalidad = new Localidad(nombre, codPostal, borradoLogico);
+            Localidad unaLocalidad = new Localidad(nombre, codPostal);
             entityManager.persist(unaLocalidad);
             this.localidades.add(unaLocalidad);
             tx.commit();

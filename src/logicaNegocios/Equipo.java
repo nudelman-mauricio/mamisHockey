@@ -45,6 +45,9 @@ public class Equipo implements Serializable {
     @OneToOne(optional = false, targetEntity = Socia.class)
     private Socia unaCapitana;
 
+    @OneToMany(targetEntity = SancionTribunal.class)
+    private Collection<SancionTribunal> sancionesTribunal;
+
     @OneToMany(targetEntity = Socia.class)
     private Collection<Socia> plantel;
 
@@ -58,18 +61,14 @@ public class Equipo implements Serializable {
 
     }
 
-    public Equipo(String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+    public Equipo(String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         this.nombre = nombre;
         this.plantel = plantel;
         this.indumentarias = indumentarias;
         this.unaCapitana = unaCapitana;
-        this.unaCapitanaSuplente = unaCapitanaSuplente;
         this.unaDelegada = unaDelegada;
-        this.unaDelegadaSuplente = unaDelegadaSuplente;
         this.unDT = unDT;
-        this.unPreparadorFisico = unPreparadorFisico;
-        this.unAyudanteCampo = unAyudanteCampo;
-        this.borradoLogico = borradoLogico;
+        this.borradoLogico = false;
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -153,6 +152,14 @@ public class Equipo implements Serializable {
         this.unaCapitana = unaCapitana;
     }
 
+    public Collection<SancionTribunal> getSancionesTribunal() {
+        return this.sancionesTribunal;
+    }
+
+    public void setSancionesTribunal(Collection<SancionTribunal> sancionesTribunal) {
+        this.sancionesTribunal = sancionesTribunal;
+    }
+
     public Collection<Socia> getPlantel() {
         return this.plantel;
     }
@@ -176,5 +183,5 @@ public class Equipo implements Serializable {
     public void setUnDT(CuerpoTecnico unDT) {
         this.unDT = unDT;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+
 }

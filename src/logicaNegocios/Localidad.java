@@ -28,10 +28,10 @@ public class Localidad implements Serializable {
 
     }
 
-    public Localidad(String nombre, String codPostal, boolean borradoLogico) {
+    public Localidad(String nombre, String codPostal) {
         this.nombre = nombre;
         this.codPostal = codPostal;
-        this.borradoLogico = borradoLogico;
+        this.borradoLogico = false;
     }
 
     public Long getIdLocalidad() {
