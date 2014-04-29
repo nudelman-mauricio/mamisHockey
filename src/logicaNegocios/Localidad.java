@@ -9,10 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public  class Localidad implements Serializable {
+public class Localidad implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idLocalidad;
 
     @Basic
@@ -24,58 +24,46 @@ public  class Localidad implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Localidad(){
+    public Localidad() {
 
     }
-    
-    public Localidad(String nombre, String codPostal, boolean borradoLogico){
+
+    public Localidad(String nombre, String codPostal, boolean borradoLogico) {
         this.nombre = nombre;
         this.codPostal = codPostal;
         this.borradoLogico = borradoLogico;
     }
 
-
-   public Long getIdLocalidad() {
+    public Long getIdLocalidad() {
         return this.idLocalidad;
     }
 
-
-  public void setIdLocalidad (Long idLocalidad) {
+    public void setIdLocalidad(Long idLocalidad) {
         this.idLocalidad = idLocalidad;
     }
 
-
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public String getCodPostal() {
+    public String getCodPostal() {
         return this.codPostal;
     }
 
-
-  public void setCodPostal (String codPostal) {
+    public void setCodPostal(String codPostal) {
         this.codPostal = codPostal;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

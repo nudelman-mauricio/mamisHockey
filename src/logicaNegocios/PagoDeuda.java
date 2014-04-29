@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class PagoDeuda implements Serializable {
+public class PagoDeuda implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -22,7 +22,7 @@ public  class PagoDeuda implements Serializable {
     private double monto;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPagoDeuda;
 
     @Basic
@@ -31,63 +31,48 @@ public  class PagoDeuda implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public PagoDeuda(){
+    public PagoDeuda() {
 
     }
 
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public double getMonto() {
+    public double getMonto() {
         return this.monto;
     }
 
-
-  public void setMonto (double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
-
-
-   public Long getIdPagoDeuda() {
+    public Long getIdPagoDeuda() {
         return this.idPagoDeuda;
     }
 
-
-  public void setIdPagoDeuda (Long idPagoDeuda) {
+    public void setIdPagoDeuda(Long idPagoDeuda) {
         this.idPagoDeuda = idPagoDeuda;
     }
 
-
-
-   public String getObservacion() {
+    public String getObservacion() {
         return this.observacion;
     }
 
-
-  public void setObservacion (String observacion) {
+    public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

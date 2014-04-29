@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class Estado implements Serializable {
+public class Estado implements Serializable {
 
     @Basic
     private boolean jugadora;
@@ -22,7 +22,7 @@ public  class Estado implements Serializable {
     private Date fecha;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEstado;
 
     @Basic
@@ -37,85 +37,64 @@ public  class Estado implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Estado(){
+    public Estado() {
 
     }
-
 
     public boolean isJugadora() {
         return this.jugadora;
     }
 
-
-  public void setJugadora (boolean jugadora) {
+    public void setJugadora(boolean jugadora) {
         this.jugadora = jugadora;
     }
 
-
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public Long getIdEstado() {
+    public Long getIdEstado() {
         return this.idEstado;
     }
 
-
-  public void setIdEstado (Long idEstado) {
+    public void setIdEstado(Long idEstado) {
         this.idEstado = idEstado;
     }
-
-
 
     public boolean isLicencia() {
         return this.licencia;
     }
 
-
-  public void setLicencia (boolean licencia) {
+    public void setLicencia(boolean licencia) {
         this.licencia = licencia;
     }
-
-
 
     public boolean isBaja() {
         return this.baja;
     }
 
-
-  public void setBaja (boolean baja) {
+    public void setBaja(boolean baja) {
         this.baja = baja;
     }
-
-
 
     public boolean isActiva() {
         return this.activa;
     }
 
-
-  public void setActiva (boolean activa) {
+    public void setActiva(boolean activa) {
         this.activa = activa;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

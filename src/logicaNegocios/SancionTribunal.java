@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class SancionTribunal implements Serializable {
+public class SancionTribunal implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -22,7 +22,7 @@ public  class SancionTribunal implements Serializable {
     private int cantFechas;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSancionTribunal;
 
     @Basic
@@ -37,85 +37,64 @@ public  class SancionTribunal implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public SancionTribunal(){
+    public SancionTribunal() {
 
     }
 
-
-   public Date getVencimiento() {
+    public Date getVencimiento() {
         return this.vencimiento;
     }
 
-
-  public void setVencimiento (Date vencimiento) {
+    public void setVencimiento(Date vencimiento) {
         this.vencimiento = vencimiento;
     }
 
-
-
-   public int getCantFechas() {
+    public int getCantFechas() {
         return this.cantFechas;
     }
 
-
-  public void setCantFechas (int cantFechas) {
+    public void setCantFechas(int cantFechas) {
         this.cantFechas = cantFechas;
     }
 
-
-
-   public Long getIdSancionTribunal() {
+    public Long getIdSancionTribunal() {
         return this.idSancionTribunal;
     }
 
-
-  public void setIdSancionTribunal (Long idSancionTribunal) {
+    public void setIdSancionTribunal(Long idSancionTribunal) {
         this.idSancionTribunal = idSancionTribunal;
     }
 
-
-
-   public int getCantFechasCumplidas() {
+    public int getCantFechasCumplidas() {
         return this.cantFechasCumplidas;
     }
 
-
-  public void setCantFechasCumplidas (int cantFechasCumplidas) {
+    public void setCantFechasCumplidas(int cantFechasCumplidas) {
         this.cantFechasCumplidas = cantFechasCumplidas;
     }
 
-
-
-   public String getObservacion() {
+    public String getObservacion() {
         return this.observacion;
     }
 
-
-  public void setObservacion (String observacion) {
+    public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
 
-
-
-   public String getNumeroResolucion() {
+    public String getNumeroResolucion() {
         return this.numeroResolucion;
     }
 
-
-  public void setNumeroResolucion (String numeroResolucion) {
+    public void setNumeroResolucion(String numeroResolucion) {
         this.numeroResolucion = numeroResolucion;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

@@ -27,24 +27,24 @@ public abstract class Persona implements Serializable {
     @Basic
     private Date fechaNacimiento;
 
-    @Column(length=100)
+    @Column(length = 100)
     @Basic
     private String apellido;
 
-    @OneToMany(targetEntity=Sancion.class)
+    @OneToMany(targetEntity = Sancion.class)
     private Collection<Sancion> sanciones;
 
     @Basic
     private String telFijo;
 
-    @Column(length=100)
+    @Column(length = 100)
     @Basic
     private String nombre;
 
     @Id
     private Long dni;
 
-    @Column(length=100)
+    @Column(length = 100)
     @Basic
     private String email;
 
@@ -54,16 +54,16 @@ public abstract class Persona implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(optional=false,targetEntity=Localidad.class)
+    @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
 
-    public Persona(){
+    public Persona() {
 
     }
-    
-    public Persona(Long dni,String apellido,String nombre,Localidad unaLocalidad,String domicilio,
-            Date fechaNacimiento,String telFijo,String telCelular,String email,Date fechaIngreso, 
-            boolean borradoLogico){
+
+    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
+            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
+            boolean borradoLogico) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -75,138 +75,103 @@ public abstract class Persona implements Serializable {
         this.email = email;
         this.fechaIngreso = fechaIngreso;
         this.borradoLogico = borradoLogico;
-        
+
     }
 
-   public Date getFechaIngreso() {
+    public Date getFechaIngreso() {
         return this.fechaIngreso;
     }
 
-
-  public void setFechaIngreso (Date fechaIngreso) {
+    public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
-
-
-   public String getDomicilio() {
+    public String getDomicilio() {
         return this.domicilio;
     }
 
-
-  public void setDomicilio (String domicilio) {
+    public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
 
-
-
-   public Date getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return this.fechaNacimiento;
     }
 
-
-  public void setFechaNacimiento (Date fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-
-
-   public String getApellido() {
+    public String getApellido() {
         return this.apellido;
     }
 
-
-  public void setApellido (String apellido) {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
-
-
-   public Collection<Sancion> getSanciones() {
+    public Collection<Sancion> getSanciones() {
         return this.sanciones;
     }
 
-
-  public void setSanciones (Collection<Sancion> sanciones) {
+    public void setSanciones(Collection<Sancion> sanciones) {
         this.sanciones = sanciones;
     }
 
-
-
-   public String getTelFijo() {
+    public String getTelFijo() {
         return this.telFijo;
     }
 
-
-  public void setTelFijo (String telFijo) {
+    public void setTelFijo(String telFijo) {
         this.telFijo = telFijo;
     }
 
-
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getDni() {
+    public Long getDni() {
         return this.dni;
     }
 
-
-  public void setDni (Long dni) {
+    public void setDni(Long dni) {
         this.dni = dni;
     }
 
-
-
-   public String getEmail() {
+    public String getEmail() {
         return this.email;
     }
 
-
-  public void setEmail (String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-
-
-   public String getTelCelular() {
+    public String getTelCelular() {
         return this.telCelular;
     }
 
-
-  public void setTelCelular (String telCelular) {
+    public void setTelCelular(String telCelular) {
         this.telCelular = telCelular;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
-
-
-   public Localidad getUnaLocalidad() {
+    public Localidad getUnaLocalidad() {
         return this.unaLocalidad;
     }
 
-
-  public void setUnaLocalidad (Localidad unaLocalidad) {
+    public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
 
 }
-

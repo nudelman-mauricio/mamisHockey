@@ -9,13 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public  class Cancha implements Serializable {
+public class Cancha implements Serializable {
 
     @Basic
     private String nombre;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCancha;
 
     @Basic
@@ -24,52 +24,40 @@ public  class Cancha implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Cancha(){
+    public Cancha() {
 
     }
 
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getIdCancha() {
+    public Long getIdCancha() {
         return this.idCancha;
     }
 
-
-  public void setIdCancha (Long idCancha) {
+    public void setIdCancha(Long idCancha) {
         this.idCancha = idCancha;
     }
-
-
 
     public boolean isSeOcupa() {
         return this.seOcupa;
     }
 
-
-  public void setSeOcupa (boolean seOcupa) {
+    public void setSeOcupa(boolean seOcupa) {
         this.seOcupa = seOcupa;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

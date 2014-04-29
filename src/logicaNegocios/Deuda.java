@@ -15,9 +15,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class Deuda implements Serializable {
+public class Deuda implements Serializable {
 
-    @OneToMany(targetEntity=PagoDeuda.class)
+    @OneToMany(targetEntity = PagoDeuda.class)
     private Collection<PagoDeuda> pagosDeuda;
 
     @Temporal(TemporalType.DATE)
@@ -31,10 +31,10 @@ public  class Deuda implements Serializable {
     private boolean saldado;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
 
-    @OneToOne(optional=false,targetEntity=ConceptoDeportivo.class)
+    @OneToOne(optional = false, targetEntity = ConceptoDeportivo.class)
     private ConceptoDeportivo unConceptoDeportivo;
 
     @Basic
@@ -43,96 +43,72 @@ public  class Deuda implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Deuda(){
+    public Deuda() {
 
     }
 
-
-   public Collection<PagoDeuda> getPagosDeuda() {
+    public Collection<PagoDeuda> getPagosDeuda() {
         return this.pagosDeuda;
     }
 
-
-  public void setPagosDeuda (Collection<PagoDeuda> pagosDeuda) {
+    public void setPagosDeuda(Collection<PagoDeuda> pagosDeuda) {
         this.pagosDeuda = pagosDeuda;
     }
 
-
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public double getMonto() {
+    public double getMonto() {
         return this.monto;
     }
 
-
-  public void setMonto (double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
-
-
 
     public boolean isSaldado() {
         return this.saldado;
     }
 
-
-  public void setSaldado (boolean saldado) {
+    public void setSaldado(boolean saldado) {
         this.saldado = saldado;
     }
 
-
-
-   public Long getIdDeuda() {
+    public Long getIdDeuda() {
         return this.idDeuda;
     }
 
-
-  public void setIdDeuda (Long idDeuda) {
+    public void setIdDeuda(Long idDeuda) {
         this.idDeuda = idDeuda;
     }
 
-
-
-   public ConceptoDeportivo getUnConceptoDeportivo() {
+    public ConceptoDeportivo getUnConceptoDeportivo() {
         return this.unConceptoDeportivo;
     }
 
-
-  public void setUnConceptoDeportivo (ConceptoDeportivo unConceptoDeportivo) {
+    public void setUnConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         this.unConceptoDeportivo = unConceptoDeportivo;
     }
 
-
-
-   public String getObservacion() {
+    public String getObservacion() {
         return this.observacion;
     }
 
-
-  public void setObservacion (String observacion) {
+    public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

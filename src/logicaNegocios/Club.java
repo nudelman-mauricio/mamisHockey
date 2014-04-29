@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -42,7 +41,7 @@ public class Club implements Serializable {
 
     @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
-                
+
     public Club() {
 
     }
@@ -120,8 +119,8 @@ public class Club implements Serializable {
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
-    
+    //----------------------------- FIN GETERS Y SETERS ----------------------------
+
 //------------------------------EQUIPOS-----------------------------------------   
     public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
         Equipo resultado;
@@ -140,7 +139,7 @@ public class Club implements Serializable {
         return resultado;
     }
 
-    public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel,Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente,  Socia unaDelegada, Socia unaDelegadaSuplente,CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+    public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
@@ -155,8 +154,8 @@ public class Club implements Serializable {
         }
     }
 
-    public void modificarEquipo(EntityManager entityManager, Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente,  Socia unaDelegada, Socia unaDelegadaSuplente,CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {  
-        
+    public void modificarEquipo(EntityManager entityManager, Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+
         unEquipo.setNombre(nombre);
         unEquipo.setUnaCapitana(unaCapitana);
         unEquipo.setUnaCapitanaSuplente(unaCapitanaSuplente);
@@ -166,7 +165,7 @@ public class Club implements Serializable {
         unEquipo.setUnPreparadorFisico(unPreparadorFisico);
         unEquipo.setUnAyudanteCampo(unAyudanteCampo);
         unEquipo.setBorradoLogico(borradoLogico);
-           
+
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
@@ -194,4 +193,5 @@ public class Club implements Serializable {
         }
     }
 //------------------------------FIN EQUIPOS-------------------------------------
+
 }

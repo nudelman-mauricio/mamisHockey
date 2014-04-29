@@ -83,7 +83,8 @@ public class ControladoraGlobal {
     }
 
     //-------------------------------FIN TORNEOS--------------------------------
-    //---------------------------- GETERS Y SETERS -------------------------------------
+    
+    //---------------------------- GETERS Y SETERS -----------------------------
     public ControladoraContabilidad getUnaControladoraContabilidad() {
         return this.unaControladoraContabilidad;
     }
@@ -107,4 +108,5 @@ public class ControladoraGlobal {
     public void setUnaControladoraDeportiva(ControladoraDeportiva unaControladoraDeportiva) {
         this.unaControladoraDeportiva = unaControladoraDeportiva;
     }
+    //---------------------------- GETERS Y SETERS -----------------------------
 }

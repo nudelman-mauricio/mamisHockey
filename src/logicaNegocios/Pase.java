@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class Pase implements Serializable {
+public class Pase implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -22,73 +22,58 @@ public  class Pase implements Serializable {
     @Basic
     private double monto;
 
-    @OneToOne(optional=false,targetEntity=Equipo.class)
+    @OneToOne(optional = false, targetEntity = Equipo.class)
     private Equipo unEquipo;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPase;
 
     @Basic
     private boolean borradoLogico;
 
-    public Pase(){
+    public Pase() {
 
     }
 
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public double getMonto() {
+    public double getMonto() {
         return this.monto;
     }
 
-
-  public void setMonto (double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
-
-
-   public Equipo getUnEquipo() {
+    public Equipo getUnEquipo() {
         return this.unEquipo;
     }
 
-
-  public void setUnEquipo (Equipo unEquipo) {
+    public void setUnEquipo(Equipo unEquipo) {
         this.unEquipo = unEquipo;
     }
 
-
-
-   public Long getIdPase() {
+    public Long getIdPase() {
         return this.idPase;
     }
 
-
-  public void setIdPase (Long idPase) {
+    public void setIdPase(Long idPase) {
         this.idPase = idPase;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

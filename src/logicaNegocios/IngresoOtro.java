@@ -13,20 +13,20 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class IngresoOtro implements Serializable {
+public class IngresoOtro implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idIngrsoOtro;
 
     @Basic
     private double monto;
 
-    @OneToOne(optional=false,targetEntity=ConceptoIngreso.class)
+    @OneToOne(optional = false, targetEntity = ConceptoIngreso.class)
     private ConceptoIngreso unConceptoIngreso;
 
     @Basic
@@ -35,74 +35,56 @@ public  class IngresoOtro implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public IngresoOtro(){
+    public IngresoOtro() {
 
     }
 
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public Long getIdIngrsoOtro() {
+    public Long getIdIngrsoOtro() {
         return this.idIngrsoOtro;
     }
 
-
-  public void setIdIngrsoOtro (Long idIngrsoOtro) {
+    public void setIdIngrsoOtro(Long idIngrsoOtro) {
         this.idIngrsoOtro = idIngrsoOtro;
     }
 
-
-
-   public double getMonto() {
+    public double getMonto() {
         return this.monto;
     }
 
-
-  public void setMonto (double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
-
-
-   public ConceptoIngreso getUnConceptoIngreso() {
+    public ConceptoIngreso getUnConceptoIngreso() {
         return this.unConceptoIngreso;
     }
 
-
-  public void setUnConceptoIngreso (ConceptoIngreso unConceptoIngreso) {
+    public void setUnConceptoIngreso(ConceptoIngreso unConceptoIngreso) {
         this.unConceptoIngreso = unConceptoIngreso;
     }
 
-
-
-   public String getDetalle() {
+    public String getDetalle() {
         return this.detalle;
     }
 
-
-  public void setDetalle (String detalle) {
+    public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

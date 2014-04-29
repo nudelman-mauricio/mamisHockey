@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class Egreso implements Serializable {
+public class Egreso implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -23,10 +23,10 @@ public  class Egreso implements Serializable {
     private double monto;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEgreso;
 
-    @OneToOne(optional=false,targetEntity=ConceptoEgreso.class)
+    @OneToOne(optional = false, targetEntity = ConceptoEgreso.class)
     private ConceptoEgreso unConceptoEgreso;
 
     @Basic
@@ -35,74 +35,56 @@ public  class Egreso implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Egreso(){
+    public Egreso() {
 
     }
 
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public double getMonto() {
+    public double getMonto() {
         return this.monto;
     }
 
-
-  public void setMonto (double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
-
-
-   public Long getIdEgreso() {
+    public Long getIdEgreso() {
         return this.idEgreso;
     }
 
-
-  public void setIdEgreso (Long idEgreso) {
+    public void setIdEgreso(Long idEgreso) {
         this.idEgreso = idEgreso;
     }
 
-
-
-   public ConceptoEgreso getUnConceptoEgreso() {
+    public ConceptoEgreso getUnConceptoEgreso() {
         return this.unConceptoEgreso;
     }
 
-
-  public void setUnConceptoEgreso (ConceptoEgreso unConceptoEgreso) {
+    public void setUnConceptoEgreso(ConceptoEgreso unConceptoEgreso) {
         this.unConceptoEgreso = unConceptoEgreso;
     }
 
-
-
-   public String getObservacion() {
+    public String getObservacion() {
         return this.observacion;
     }
 
-
-  public void setObservacion (String observacion) {
+    public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public  class Indumentaria implements Serializable {
+public class Indumentaria implements Serializable {
 
     @Basic
     private String camiseta;
@@ -18,7 +18,7 @@ public  class Indumentaria implements Serializable {
     private String media;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idIndumentaria;
 
     @Basic
@@ -27,63 +27,48 @@ public  class Indumentaria implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Indumentaria(){
+    public Indumentaria() {
 
     }
 
-
-   public String getCamiseta() {
+    public String getCamiseta() {
         return this.camiseta;
     }
 
-
-  public void setCamiseta (String camiseta) {
+    public void setCamiseta(String camiseta) {
         this.camiseta = camiseta;
     }
 
-
-
-   public String getMedia() {
+    public String getMedia() {
         return this.media;
     }
 
-
-  public void setMedia (String media) {
+    public void setMedia(String media) {
         this.media = media;
     }
 
-
-
-   public Long getIdIndumentaria() {
+    public Long getIdIndumentaria() {
         return this.idIndumentaria;
     }
 
-
-  public void setIdIndumentaria (Long idIndumentaria) {
+    public void setIdIndumentaria(Long idIndumentaria) {
         this.idIndumentaria = idIndumentaria;
     }
 
-
-
-   public String getPollera() {
+    public String getPollera() {
         return this.pollera;
     }
 
-
-  public void setPollera (String pollera) {
+    public void setPollera(String pollera) {
         this.pollera = pollera;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

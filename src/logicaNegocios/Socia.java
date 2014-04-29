@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -16,6 +15,9 @@ public class Socia extends Persona implements Serializable {
 
     @Basic
     private String fotoCarnet;
+
+    @OneToMany(targetEntity = Ergometria.class)
+    private Collection<Ergometria> ergometrias;
 
     @Basic
     private boolean exJugadora;
@@ -65,6 +67,14 @@ public class Socia extends Persona implements Serializable {
 
     public void setFotoCarnet(String fotoCarnet) {
         this.fotoCarnet = fotoCarnet;
+    }
+
+    public Collection<Ergometria> getErgometrias() {
+        return this.ergometrias;
+    }
+
+    public void setErgometrias(Collection<Ergometria> ergometrias) {
+        this.ergometrias = ergometrias;
     }
 
     public boolean isExJugadora() {

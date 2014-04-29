@@ -11,67 +11,55 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public  class FechaTorneo implements Serializable {
+public class FechaTorneo implements Serializable {
 
     @Basic
     private int numeroFecha;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idFecha;
 
-    @OneToMany(targetEntity=Partido.class)
+    @OneToMany(targetEntity = Partido.class)
     private Collection<Partido> partidos;
 
     @Basic
     private boolean borradoLogico;
 
-    public FechaTorneo(){
+    public FechaTorneo() {
 
     }
 
-
-   public int getNumeroFecha() {
+    public int getNumeroFecha() {
         return this.numeroFecha;
     }
 
-
-  public void setNumeroFecha (int numeroFecha) {
+    public void setNumeroFecha(int numeroFecha) {
         this.numeroFecha = numeroFecha;
     }
 
-
-
-   public Long getIdFecha() {
+    public Long getIdFecha() {
         return this.idFecha;
     }
 
-
-  public void setIdFecha (Long idFecha) {
+    public void setIdFecha(Long idFecha) {
         this.idFecha = idFecha;
     }
 
-
-
-   public Collection<Partido> getPartidos() {
+    public Collection<Partido> getPartidos() {
         return this.partidos;
     }
 
-
-  public void setPartidos (Collection<Partido> partidos) {
+    public void setPartidos(Collection<Partido> partidos) {
         this.partidos = partidos;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

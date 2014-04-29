@@ -15,41 +15,41 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public  class Partido implements Serializable {
+public class Partido implements Serializable {
 
-    @OneToMany(targetEntity=Gol.class)
+    @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
 
-    @OneToOne(optional=false,targetEntity=Equipo.class)
+    @OneToOne(optional = false, targetEntity = Equipo.class)
     private Equipo unEquipoVisitante;
 
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
 
-    @OneToMany(targetEntity=Tarjeta.class)
+    @OneToMany(targetEntity = Tarjeta.class)
     private Collection<Tarjeta> tarjetas;
 
     @Basic
     private String nombreAyudanteMesaLocal;
 
-    @OneToOne(optional=false,targetEntity=Arbitro.class)
+    @OneToOne(optional = false, targetEntity = Arbitro.class)
     private Arbitro unArbitro1;
 
-    @OneToOne(optional=false,targetEntity=Arbitro.class)
+    @OneToOne(optional = false, targetEntity = Arbitro.class)
     private Arbitro unArbitro2;
 
-    @OneToOne(optional=false,targetEntity=Cancha.class)
+    @OneToOne(optional = false, targetEntity = Cancha.class)
     private Cancha unaCancha;
 
     @Basic
     private String observaciones;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPartido;
 
-    @OneToOne(optional=false,targetEntity=Equipo.class)
+    @OneToOne(optional = false, targetEntity = Equipo.class)
     private Equipo unEquipoLocal;
 
     @Basic
@@ -58,151 +58,112 @@ public  class Partido implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Partido(){
+    public Partido() {
 
     }
 
-
-   public Collection<Gol> getGoles() {
+    public Collection<Gol> getGoles() {
         return this.goles;
     }
 
-
-  public void setGoles (Collection<Gol> goles) {
+    public void setGoles(Collection<Gol> goles) {
         this.goles = goles;
     }
 
-
-
-   public Equipo getUnEquipoVisitante() {
+    public Equipo getUnEquipoVisitante() {
         return this.unEquipoVisitante;
     }
 
-
-  public void setUnEquipoVisitante (Equipo unEquipoVisitante) {
+    public void setUnEquipoVisitante(Equipo unEquipoVisitante) {
         this.unEquipoVisitante = unEquipoVisitante;
     }
 
-
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public Collection<Tarjeta> getTarjetas() {
+    public Collection<Tarjeta> getTarjetas() {
         return this.tarjetas;
     }
 
-
-  public void setTarjetas (Collection<Tarjeta> tarjetas) {
+    public void setTarjetas(Collection<Tarjeta> tarjetas) {
         this.tarjetas = tarjetas;
     }
 
-
-
-   public String getNombreAyudanteMesaLocal() {
+    public String getNombreAyudanteMesaLocal() {
         return this.nombreAyudanteMesaLocal;
     }
 
-
-  public void setNombreAyudanteMesaLocal (String nombreAyudanteMesaLocal) {
+    public void setNombreAyudanteMesaLocal(String nombreAyudanteMesaLocal) {
         this.nombreAyudanteMesaLocal = nombreAyudanteMesaLocal;
     }
 
-
-
-   public Arbitro getUnArbitro1() {
+    public Arbitro getUnArbitro1() {
         return this.unArbitro1;
     }
 
-
-  public void setUnArbitro1 (Arbitro unArbitro1) {
+    public void setUnArbitro1(Arbitro unArbitro1) {
         this.unArbitro1 = unArbitro1;
     }
 
-
-
-   public Arbitro getUnArbitro2() {
+    public Arbitro getUnArbitro2() {
         return this.unArbitro2;
     }
 
-
-  public void setUnArbitro2 (Arbitro unArbitro2) {
+    public void setUnArbitro2(Arbitro unArbitro2) {
         this.unArbitro2 = unArbitro2;
     }
 
-
-
-   public Cancha getUnaCancha() {
+    public Cancha getUnaCancha() {
         return this.unaCancha;
     }
 
-
-  public void setUnaCancha (Cancha unaCancha) {
+    public void setUnaCancha(Cancha unaCancha) {
         this.unaCancha = unaCancha;
     }
 
-
-
-   public String getObservaciones() {
+    public String getObservaciones() {
         return this.observaciones;
     }
 
-
-  public void setObservaciones (String observaciones) {
+    public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
 
-
-
-   public Long getIdPartido() {
+    public Long getIdPartido() {
         return this.idPartido;
     }
 
-
-  public void setIdPartido (Long idPartido) {
+    public void setIdPartido(Long idPartido) {
         this.idPartido = idPartido;
     }
 
-
-
-   public Equipo getUnEquipoLocal() {
+    public Equipo getUnEquipoLocal() {
         return this.unEquipoLocal;
     }
 
-
-  public void setUnEquipoLocal (Equipo unEquipoLocal) {
+    public void setUnEquipoLocal(Equipo unEquipoLocal) {
         this.unEquipoLocal = unEquipoLocal;
     }
 
-
-
-   public String getNombreAyudanteMesaVisitante() {
+    public String getNombreAyudanteMesaVisitante() {
         return this.nombreAyudanteMesaVisitante;
     }
 
-
-  public void setNombreAyudanteMesaVisitante (String nombreAyudanteMesaVisitante) {
+    public void setNombreAyudanteMesaVisitante(String nombreAyudanteMesaVisitante) {
         this.nombreAyudanteMesaVisitante = nombreAyudanteMesaVisitante;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

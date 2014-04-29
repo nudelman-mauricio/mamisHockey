@@ -9,10 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public  class ConceptoIngreso implements Serializable {
+public class ConceptoIngreso implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idConceptoIngreso;
 
     @Basic
@@ -24,52 +24,40 @@ public  class ConceptoIngreso implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public ConceptoIngreso(){
+    public ConceptoIngreso() {
 
     }
 
-
-   public Long getIdConceptoIngreso() {
+    public Long getIdConceptoIngreso() {
         return this.idConceptoIngreso;
     }
 
-
-  public void setIdConceptoIngreso (Long idConceptoIngreso) {
+    public void setIdConceptoIngreso(Long idConceptoIngreso) {
         this.idConceptoIngreso = idConceptoIngreso;
     }
 
-
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public String getDetalle() {
+    public String getDetalle() {
         return this.detalle;
     }
 
-
-  public void setDetalle (String detalle) {
+    public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
 }
-

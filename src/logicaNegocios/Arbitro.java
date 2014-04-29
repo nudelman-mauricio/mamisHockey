@@ -2,7 +2,6 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 
@@ -19,10 +18,10 @@ public class Arbitro extends Persona implements Serializable {
 
     }
 
-    public Arbitro(Long dni,String apellido,String nombre,Localidad unaLocalidad,String domicilio,
-            Date fechaNacimiento,String telFijo,String telCelular,String email,Date fechaIngreso, 
-            boolean borradoLogico,String fotocopiaDni) {
-        super(dni,apellido,nombre,unaLocalidad,domicilio,fechaNacimiento,telFijo,telCelular,email,fechaIngreso,borradoLogico);
+    public Arbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
+            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
+            boolean borradoLogico, String fotocopiaDni) {
+        super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico);
         this.fotocopiaDni = fotocopiaDni;
         this.borradoLogico = borradoLogico;
     }
