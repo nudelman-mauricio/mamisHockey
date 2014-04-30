@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 import java.util.TreeSet;
 import javax.persistence.EntityManager;
@@ -220,9 +221,9 @@ public class ControladoraContabilidad {
     
     //----------------------------- CONCEPTO EGRESO ----------------------------
          
-        public ConceptoEgreso buscarConceptoEgresoBD(Long id) {
+    public ConceptoEgreso buscarConceptoEgresoBD(Long id) {
         ConceptoEgreso resultado;
-        Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM CuerpoTecnico auxCE WHERE auxCE.id = " + id);
+        Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE WHERE auxCE.id = " + id);
         resultado = (ConceptoEgreso) traerConceptoEgreso.getResultList();
         return resultado;
     }
@@ -276,7 +277,7 @@ public class ControladoraContabilidad {
         try {
             unConceptoEgreso.setBorradoLogico(false);
             entityManager.persist(unConceptoEgreso);
-            conceptosIngreso.remove(unConceptoEgreso);
+            conceptosEgreso.remove(unConceptoEgreso);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -285,4 +286,143 @@ public class ControladoraContabilidad {
         }
     }
     //----------------------------- FIN CONCEPTO EGRESO ----------------------------
+    
+    //----------------------------- INGRESOSOTRO -----------------------------------
+    public IngresoOtro buscarIngresosOtroBD(Long id) {
+        IngresoOtro resultado;
+        Query traerIngresoOtro = this.entityManager.createQuery("SELECT auxIO FROM IngresoOtro auxIO WHERE auxIO.id = " + id);
+        resultado = (IngresoOtro) traerIngresoOtro.getResultList();
+        return resultado;
+    }
+
+    public IngresoOtro buscarIngresosOtro(Long id) {
+        IngresoOtro resultado = null;
+        for (IngresoOtro aux : ingresosOtro) {
+            if (Objects.equals(aux.getIdIngresoOtro(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            IngresoOtro unIngresoOtro = new IngresoOtro(fecha,monto,unConceptoIngreso,detalle);
+            entityManager.persist(unIngresoOtro);
+            this.ingresosOtro.add(unIngresoOtro);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear IngresoOtro" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarIngresoOtro(IngresoOtro unIngresoOtro,Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle, boolean borradoLogico) {
+
+        unIngresoOtro.setFecha(fecha);
+        unIngresoOtro.setMonto(monto);
+        unIngresoOtro.setUnConceptoIngreso(unConceptoIngreso);
+        unIngresoOtro.setDetalle(detalle);
+        unIngresoOtro.setBorradoLogico(borradoLogico);
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unIngresoOtro);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar IngresoOtro" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarIngresoOtro (IngresoOtro unIngresoOtro) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unIngresoOtro.setBorradoLogico(false);
+            entityManager.persist(unIngresoOtro);
+            ingresosOtro.remove(unIngresoOtro);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error al Eliminar IngresoOtro" + e.getMessage());
+            tx.rollback();
+        }
+    }
+        
+    //----------------------------- FIN INGRESOSOTRO -------------------------------
+    
+    //----------------------------- EGRESOS ----------------------------------------
+    
+    public Egreso buscarEgresoBD(Long id) {
+        Egreso resultado;
+        Query traerEgreso = this.entityManager.createQuery("SELECT auxE FROM Egreso auxE WHERE auxE.id = " + id);
+        resultado = (Egreso) traerEgreso.getResultList();
+        return resultado;
+    }
+
+    public Egreso buscarEgreso(Long id) {
+        Egreso resultado = null;
+        for (Egreso aux : egresos) {
+            if (Objects.equals(aux.getIdEgreso(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            Egreso unEgreso = new Egreso(fecha,monto,unConceptoEgreso,observacion);
+            entityManager.persist(unEgreso);
+            this.egresos.add(unEgreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception al Crear Egreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarEgreso(Egreso unEgreso, Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion, boolean borradoLogico) {
+
+        unEgreso.setFecha(fecha);
+        unEgreso.setMonto(monto);
+        unEgreso.setUnConceptoEgreso(unConceptoEgreso);
+        unEgreso.setObservacion(observacion);
+        unEgreso.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unEgreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar Egreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarEgreso (Egreso unEgreso) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unEgreso.setBorradoLogico(false);
+            entityManager.persist(unEgreso);
+            egresos.remove(unEgreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error al Eliminar Egreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+    //----------------------------- FIN EGRESOS ------------------------------------
 }
