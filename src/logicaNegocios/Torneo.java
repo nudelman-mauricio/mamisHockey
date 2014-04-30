@@ -36,10 +36,7 @@ public class Torneo implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
-
-    public Torneo() {
-
-    }
+   
 
     public Torneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         this.fechaInicio = diaInicio;

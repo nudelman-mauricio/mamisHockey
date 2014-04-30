@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Tarjeta implements Serializable {
+public class Tarjeta implements Serializable, Comparable {
 
     @Basic
     private boolean roja;
@@ -30,8 +30,12 @@ public class Tarjeta implements Serializable {
     @Basic
     private boolean borradoLogico;
 
-    public Tarjeta() {
-
+    public Tarjeta(boolean roja, boolean amarilla, boolean verde, String observacion) {
+           this.roja = roja;
+           this.amarilla= amarilla;
+           this.verde = verde;
+           this.observacion = observacion;
+           this.borradoLogico = false;     
     }
 
     public boolean isRoja() {
@@ -80,6 +84,18 @@ public class Tarjeta implements Serializable {
 
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
+    }
+
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Tarjeta) {
+            Tarjeta unaTarjeta = (Tarjeta) aux;
+            if (this.idTarjeta > unaTarjeta.idTarjeta) {
+                retorno = 1;
+            }
+        }
+        return retorno;
     }
 
 }

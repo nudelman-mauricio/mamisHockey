@@ -10,7 +10,6 @@ import javax.persistence.Query;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.ConceptoIngreso;
-import logicaNegocios.CuerpoTecnico;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 
@@ -84,7 +83,7 @@ public class ControladoraContabilidad {
     //------------------------------CONCEPTO DEPORTIVOS----------------------------------   
     public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
         ConceptoDeportivo resultado;
-        Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM CuerpoTecnico auxCD WHERE auxCD.id = " + id);
+        Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM ConceptoDeportivo auxCD WHERE auxCD.id = " + id);
         resultado = (ConceptoDeportivo) traerConceptoDeportivo.getResultList();
         return resultado;
     }
@@ -154,7 +153,7 @@ public class ControladoraContabilidad {
     
     public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
         ConceptoIngreso resultado;
-        Query traerConceptoIngreso = this.entityManager.createQuery("SELECT auxCI FROM CuerpoTecnico auxCI WHERE auxCI.id = " + id);
+        Query traerConceptoIngreso = this.entityManager.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI WHERE auxCI.id = " + id);
         resultado = (ConceptoIngreso) traerConceptoIngreso.getResultList();
         return resultado;
     }
