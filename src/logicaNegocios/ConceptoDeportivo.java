@@ -30,6 +30,14 @@ public class ConceptoDeportivo implements Serializable {
     public ConceptoDeportivo() {
 
     }
+    
+    public ConceptoDeportivo(Long id, double monto, String nombre, String detalle) {
+        this.idConceptoDeportivo = id;
+        this.monto = monto;
+        this.nombre = nombre;
+        this.detalle = detalle;
+        this.borradoLogico = false;               
+    }
 
     public double getMonto() {
         return this.monto;

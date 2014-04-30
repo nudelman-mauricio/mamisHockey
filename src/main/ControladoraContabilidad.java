@@ -1,12 +1,15 @@
 package main;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.TreeSet;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.ConceptoIngreso;
+import logicaNegocios.CuerpoTecnico;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 
@@ -22,7 +25,7 @@ public class ControladoraContabilidad {
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
         
-        //CONSULTA PARA CARGAR TODAS LOS CONCEPTO DEPORTIVOS DE LA BD
+        //CONSULTA PARA CARGAR TODAS LOS CONCEPTOS DEPORTIVOS DE LA BD
         Query traerConceptosDeportivos = em.createQuery("SELECT auxCP FROM ConceptoDeportivo auxCP");
         this.conceptosDeportivo = new TreeSet(traerConceptosDeportivos.getResultList());
         
@@ -75,5 +78,79 @@ public class ControladoraContabilidad {
     public void setConceptosEgreso(Collection<ConceptoEgreso> conceptosEgreso) {
         this.conceptosEgreso = conceptosEgreso;
     }
+    
+    //----------------------------- FIN GETERS Y SETERS ----------------------------
+    
+    //------------------------------CONCEPTO DEPORTIVOS----------------------------------   
+    
+     public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
+        ConceptoDeportivo resultado;
+        Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM CuerpoTecnico auxCD WHERE auxCD.id = " + id);
+        resultado = (ConceptoDeportivo) traerConceptoDeportivo.getResultList();
+        return resultado;
+    }
+     
+      public ConceptoDeportivo buscarConceptoDeportivo(Long id) {
+        ConceptoDeportivo resultado = null;
+        for (ConceptoDeportivo aux : conceptosDeportivo) {
+            if (Objects.equals(aux.getIdConceptoDeportivo(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+      
+       public void crearConceptoDeportivo(Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(id, monto, nombre, detalle);
+            entityManager.persist(unConceptoDeportivo);
+            this.conceptosDeportivo.add(unConceptoDeportivo);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear ConceptoDeportivo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+       
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
 
+        unConceptoDeportivo.setIdConceptoDeportivo(id);
+        unConceptoDeportivo.setMonto(monto);
+        unConceptoDeportivo.setNombre(nombre);
+        unConceptoDeportivo.setDetalle(detalle);
+        unConceptoDeportivo.setBorradoLogico(borradoLogico);        
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unConceptoDeportivo);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar ConceptoDeportivo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+    
+    public void eliminarConceptoDeportivo (ConceptoDeportivo unConceptoDeportivo) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unConceptoDeportivo.setBorradoLogico(false);
+            entityManager.persist(unConceptoDeportivo);
+            conceptosDeportivo.remove(unConceptoDeportivo);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error al Eliminar ConceptoDeportivo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+    
+    //----------------------------- FIN CONCEPTODEPORTIVO ----------------------------
+    
+    
 }
