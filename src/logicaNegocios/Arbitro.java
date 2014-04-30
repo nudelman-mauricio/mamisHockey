@@ -12,7 +12,6 @@ public class Arbitro extends Persona implements Serializable {
     private String fotocopiaDni;
 
     public Arbitro() {
-
     }
 
     public Arbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
@@ -27,5 +26,5 @@ public class Arbitro extends Persona implements Serializable {
     public void setFotocopiaDni(String fotocopiaDni) {
         this.fotocopiaDni = fotocopiaDni;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 }
