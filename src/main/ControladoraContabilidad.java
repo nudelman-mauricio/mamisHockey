@@ -115,7 +115,6 @@ public class ControladoraContabilidad {
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
 
-        unConceptoDeportivo.setIdConceptoDeportivo(id);
         unConceptoDeportivo.setMonto(monto);
         unConceptoDeportivo.setNombre(nombre);
         unConceptoDeportivo.setDetalle(detalle);
@@ -149,4 +148,73 @@ public class ControladoraContabilidad {
     }
 
     //----------------------------- FIN CONCEPTODEPORTIVO ----------------------------
+    
+    //----------------------------- CONCEPTOINGRESO ----------------------------------
+    
+    public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
+        ConceptoIngreso resultado;
+        Query traerConceptoIngreso = this.entityManager.createQuery("SELECT auxCI FROM CuerpoTecnico auxCI WHERE auxCI.id = " + id);
+        resultado = (ConceptoIngreso) traerConceptoIngreso.getResultList();
+        return resultado;
+    }
+
+    public ConceptoIngreso buscarConceptoIngreso(Long id) {
+        ConceptoIngreso resultado = null;
+        for (ConceptoIngreso aux : conceptosIngreso) {
+            if (Objects.equals(aux.getIdConceptoIngreso(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearConceptoIngreso(String nombre, String detalle) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            ConceptoIngreso unConceptoIngreso = new ConceptoIngreso(nombre, detalle);
+            entityManager.persist(unConceptoIngreso);
+            this.conceptosIngreso.add(unConceptoIngreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear ConceptoIngreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarConceptoIngreso(ConceptoIngreso unConceptoIngreso, String nombre, String detalle, boolean borradoLogico) {
+
+        unConceptoIngreso.setNombre(nombre);        
+        unConceptoIngreso.setDetalle(detalle);
+        unConceptoIngreso.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unConceptoIngreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar ConceptoIngreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarConceptoIngreso (ConceptoIngreso unConceptoIngreso) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unConceptoIngreso.setBorradoLogico(false);
+            entityManager.persist(unConceptoIngreso);
+            conceptosIngreso.remove(unConceptoIngreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error al Eliminar ConceptoIngreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+    
+    //----------------------------- FIN CONCEPTOINGRESO ----------------------------
 }
