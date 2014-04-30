@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Deuda implements Serializable {
+public class Deuda implements Serializable, Comparable {
 
     @OneToMany(targetEntity = PagoDeuda.class)
     private Collection<PagoDeuda> pagosDeuda;
@@ -47,6 +47,16 @@ public class Deuda implements Serializable {
 
     }
 
+    public Deuda(Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
+        this.fecha = fecha;
+        this.monto = monto;
+        this.saldado = saldado;
+        this.unConceptoDeportivo = unConceptoDeportivo;
+        this.observacion = observacion;
+        this.borradoLogico = false;
+    }
+
+//---------------------------- GETERS Y SETERS ---------------------------------
     public Collection<PagoDeuda> getPagosDeuda() {
         return this.pagosDeuda;
     }
@@ -109,6 +119,19 @@ public class Deuda implements Serializable {
 
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
+    }
+
+//----------------------------- FIN GETERS Y SETERS ----------------------------
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Deuda) {
+            Deuda deuda = (Deuda) aux;
+            if (this.idDeuda > deuda.idDeuda) {
+                retorno = 1;
+            }
+        }
+        return retorno;
     }
 
 }

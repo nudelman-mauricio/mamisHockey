@@ -22,7 +22,8 @@ public class CuerpoTecnico extends Persona implements Serializable {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.activo = activo;
     }
-
+    
+//---------------------------- GETERS Y SETERS ---------------------------------
     public String getFotocopiaDni() {
         return this.fotocopiaDni;
     }
@@ -38,5 +39,5 @@ public class CuerpoTecnico extends Persona implements Serializable {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 }
