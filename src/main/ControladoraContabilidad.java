@@ -217,4 +217,72 @@ public class ControladoraContabilidad {
     }
     
     //----------------------------- FIN CONCEPTOINGRESO ----------------------------
+    
+    //----------------------------- CONCEPTO EGRESO ----------------------------
+         
+        public ConceptoEgreso buscarConceptoEgresoBD(Long id) {
+        ConceptoEgreso resultado;
+        Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM CuerpoTecnico auxCE WHERE auxCE.id = " + id);
+        resultado = (ConceptoEgreso) traerConceptoEgreso.getResultList();
+        return resultado;
+    }
+
+    public ConceptoEgreso buscarConceptoEgreso(Long id) {
+        ConceptoEgreso resultado = null;
+        for (ConceptoEgreso aux : conceptosEgreso) {
+            if (Objects.equals(aux.getIdConceptoEgreso(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearConceptoEgreso(String nombre, String detalle) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            ConceptoEgreso unConceptoEgreso = new ConceptoEgreso(nombre, detalle);
+            entityManager.persist(unConceptoEgreso);
+            this.conceptosEgreso.add(unConceptoEgreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear ConceptoEgreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarConceptoEgreso(ConceptoEgreso unConceptoEgreso, String nombre, String detalle, boolean borradoLogico) {
+
+        unConceptoEgreso.setNombre(nombre);        
+        unConceptoEgreso.setDetalle(detalle);
+        unConceptoEgreso.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unConceptoEgreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar ConceptoEgreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarConceptoEgreso (ConceptoEgreso unConceptoEgreso) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unConceptoEgreso.setBorradoLogico(false);
+            entityManager.persist(unConceptoEgreso);
+            conceptosIngreso.remove(unConceptoEgreso);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error al Eliminar ConceptoEgreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+    //----------------------------- FIN CONCEPTO EGRESO ----------------------------
 }
