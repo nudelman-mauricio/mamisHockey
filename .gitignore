@@ -213,3 +213,11 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+############################################
+##  Ignorar archivos locales de propiedades by PELA  LEAN
+############################################
+local.properties
+.classpath
+.settings/
+.loadpath
