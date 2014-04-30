@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ConceptoDeportivo implements Serializable {
+public class ConceptoDeportivo implements Serializable, Comparable {
 
     @Basic
     private double monto;
@@ -39,6 +39,7 @@ public class ConceptoDeportivo implements Serializable {
         this.borradoLogico = false;               
     }
 
+//---------------------------- GETERS Y SETERS ---------------------------------
     public double getMonto() {
         return this.monto;
     }
@@ -78,5 +79,17 @@ public class ConceptoDeportivo implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof ConceptoDeportivo) {
+            ConceptoDeportivo conceptoDeportivo = (ConceptoDeportivo) aux;
+            if (this.idConceptoDeportivo > conceptoDeportivo.idConceptoDeportivo) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

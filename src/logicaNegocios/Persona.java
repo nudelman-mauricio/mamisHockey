@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @MappedSuperclass
-public abstract class Persona implements Serializable {
+public abstract class Persona implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -168,4 +168,15 @@ public abstract class Persona implements Serializable {
         this.unaLocalidad = unaLocalidad;
     }
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Persona) {
+            Persona persona = (Persona) aux;
+            if (this.dni > persona.dni) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

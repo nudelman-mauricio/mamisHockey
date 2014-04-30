@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Cancha implements Serializable {
+public class Cancha implements Serializable, Comparable {
 
     @Basic
     private String nombre;
@@ -66,6 +66,18 @@ public class Cancha implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Cancha) {
+            Cancha cancha = (Cancha) aux;
+            if (this.idCancha > cancha.idCancha) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 
 }

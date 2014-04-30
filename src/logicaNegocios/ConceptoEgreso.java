@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ConceptoEgreso implements Serializable {
+public class ConceptoEgreso implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +28,13 @@ public class ConceptoEgreso implements Serializable {
 
     }
 
+    public ConceptoEgreso(String nombre, String detalle) {
+        this.nombre = nombre;
+        this.detalle = detalle;
+        this.borradoLogico = false;
+    }
+
+//---------------------------- GETERS Y SETERS ---------------------------------
     public Long getIdConceptoEgreso() {
         return this.idConceptoEgreso;
     }
@@ -59,5 +66,17 @@ public class ConceptoEgreso implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof ConceptoEgreso) {
+            ConceptoEgreso conceptoEgreso = (ConceptoEgreso) aux;
+            if (this.idConceptoEgreso > conceptoEgreso.idConceptoEgreso) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

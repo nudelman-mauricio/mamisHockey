@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Club implements Serializable {
+public class Club implements Serializable, Comparable {
 
     @Basic
     private String nombrePresidente;
@@ -117,7 +117,19 @@ public class Club implements Serializable {
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
+
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Club) {
+            Club club = (Club) aux;
+            if (this.idClub > club.idClub) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 
 //------------------------------EQUIPOS-----------------------------------------   
 //    public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
@@ -179,7 +191,7 @@ public class Club implements Serializable {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unEquipo.setBorradoLogico(false);
+            unEquipo.setBorradoLogico(true);
             entityManager.persist(unEquipo);
             equipos.remove(unEquipo);
             tx.commit();
@@ -228,9 +240,9 @@ public class Club implements Serializable {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unaCancha.setBorradoLogico(false);
+            unaCancha.setBorradoLogico(true);
             entityManager.persist(unaCancha);
-            equipos.remove(unaCancha); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
+            canchas.remove(unaCancha); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------

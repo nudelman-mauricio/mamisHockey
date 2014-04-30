@@ -31,7 +31,7 @@ public class Categoria implements Serializable, Comparable {
     public Categoria(int cantMenores, String nombre) {
         this.cantMenores = cantMenores;
         this.nombre = nombre;
-        this.borradoLogico = true;
+        this.borradoLogico = false;
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -80,7 +80,7 @@ public class Categoria implements Serializable, Comparable {
         return retorno;
     }
 
-    //------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
+    //----------------------------------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
     @Override
     public String toString() {
         return "Categoria{" + "cantMenores=" + cantMenores + ", idCategoria=" + idCategoria + ", nombre=" + nombre + ", borradoLogico=" + borradoLogico + '}';
