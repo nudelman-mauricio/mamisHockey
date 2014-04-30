@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Egreso implements Serializable {
+public class Egreso implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -39,6 +39,15 @@ public class Egreso implements Serializable {
 
     }
 
+    public Egreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
+        this.fecha = fecha;
+        this.monto = monto;
+        this.unConceptoEgreso = unConceptoEgreso;
+        this.observacion = observacion;
+        this.borradoLogico = false;
+    }    
+    
+//---------------------------- GETERS Y SETERS ---------------------------------
     public Date getFecha() {
         return this.fecha;
     }
@@ -86,5 +95,17 @@ public class Egreso implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Egreso) {
+            Egreso egreso = (Egreso) aux;
+            if (this.idEgreso > egreso.idEgreso) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Estado implements Serializable {
+public class Estado implements Serializable, Comparable {
 
     @Basic
     private boolean jugadora;
@@ -41,6 +41,16 @@ public class Estado implements Serializable {
 
     }
 
+    public Estado(boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
+        this.jugadora = jugadora;
+        this.fecha = fecha;
+        this.licencia = licencia;
+        this.baja = baja;
+        this.activa = activa;
+        this.borradoLogico = false;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public boolean isJugadora() {
         return this.jugadora;
     }
@@ -96,5 +106,17 @@ public class Estado implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Estado) {
+            Estado estado = (Estado) aux;
+            if (this.idEstado > estado.idEstado) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

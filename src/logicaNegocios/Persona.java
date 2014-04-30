@@ -72,6 +72,7 @@ public abstract class Persona implements Serializable, Comparable {
         this.borradoLogico = false;
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getFechaIngreso() {
         return this.fechaIngreso;
     }

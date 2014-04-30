@@ -21,7 +21,7 @@ public class IngresoOtro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idIngrsoOtro;
+    private Long idIngresoOtro;
 
     @Basic
     private double monto;
@@ -48,11 +48,11 @@ public class IngresoOtro implements Serializable {
     }
 
     public Long getIdIngrsoOtro() {
-        return this.idIngrsoOtro;
+        return this.idIngresoOtro;
     }
 
-    public void setIdIngrsoOtro(Long idIngrsoOtro) {
-        this.idIngrsoOtro = idIngrsoOtro;
+    public void setIdIngrsoOtro(Long idIngresoOtro) {
+        this.idIngresoOtro = idIngresoOtro;
     }
 
     public double getMonto() {

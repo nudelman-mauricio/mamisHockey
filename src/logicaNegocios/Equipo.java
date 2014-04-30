@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Equipo implements Serializable {
+public class Equipo implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,10 +61,8 @@ public class Equipo implements Serializable {
 
     }
 
-    public Equipo(String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
+    public Equipo(String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         this.nombre = nombre;
-        this.plantel = plantel;
-        this.indumentarias = indumentarias;
         this.unaCapitana = unaCapitana;
         this.unaDelegada = unaDelegada;
         this.unDT = unDT;
@@ -183,5 +181,17 @@ public class Equipo implements Serializable {
     public void setUnDT(CuerpoTecnico unDT) {
         this.unDT = unDT;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
+   
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Equipo) {
+            Equipo equipo = (Equipo) aux;
+            if (this.idEquipo > equipo.idEquipo) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

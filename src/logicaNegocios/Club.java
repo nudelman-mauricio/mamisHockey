@@ -148,11 +148,11 @@ public class Club implements Serializable, Comparable {
 //        }
 //        return resultado;
 //    }
-    public void crearEquipo(EntityManager entityManager, String nombre, Collection<Socia> plantel, Collection<Indumentaria> indumentarias, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
+    public void crearEquipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Equipo unEquipo = new Equipo(nombre, plantel, indumentarias, unaCapitana, unaDelegada, unDT);
+            Equipo unEquipo = new Equipo(nombre, unaCapitana, unaDelegada, unDT);
             entityManager.persist(unEquipo);
             this.equipos.add(unEquipo);
             tx.commit();

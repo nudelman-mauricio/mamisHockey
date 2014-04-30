@@ -120,8 +120,8 @@ public class Deuda implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -133,5 +133,4 @@ public class Deuda implements Serializable, Comparable {
         }
         return retorno;
     }
-
 }

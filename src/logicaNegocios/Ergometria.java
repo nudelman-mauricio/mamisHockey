@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Ergometria implements Serializable {
+public class Ergometria implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -36,6 +36,14 @@ public class Ergometria implements Serializable {
 
     }
 
+    public Ergometria(Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
+        this.fechaCaducidad = fechaCaducidad;
+        this.fechaRealizacion = fechaRealizacion;
+        this.aprobado = aprobado;
+        this.comentarios = comentarios;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getFechaCaducidad() {
         return this.fechaCaducidad;
     }
@@ -75,5 +83,17 @@ public class Ergometria implements Serializable {
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Ergometria) {
+            Ergometria ergometria = (Ergometria) aux;
+            if (this.idErgometria > ergometria.idErgometria) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }
