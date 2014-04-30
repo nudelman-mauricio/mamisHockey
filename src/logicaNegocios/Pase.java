@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Pase implements Serializable {
+public class Pase implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -36,6 +36,14 @@ public class Pase implements Serializable {
 
     }
 
+    public Pase(Date fecha, double monto, Equipo unEquipo) {
+        this.fecha = fecha;
+        this.monto = monto;
+        this.unEquipo = unEquipo;
+        this.borradoLogico = false;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getFecha() {
         return this.fecha;
     }
@@ -75,5 +83,17 @@ public class Pase implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Pase) {
+            Pase pase = (Pase) aux;
+            if (this.idPase > pase.idPase) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

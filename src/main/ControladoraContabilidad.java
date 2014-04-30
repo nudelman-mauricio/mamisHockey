@@ -308,7 +308,8 @@ public class ControladoraContabilidad {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            IngresoOtro unIngresoOtro = new IngresoOtro(fecha,monto,unConceptoIngreso,detalle);
+            IngresoOtro unIngresoOtro = new IngresoOtro(fecha,monto,detalle);
+            // LINEA EN LA QUE SE TIENE QUE AGREGAR EL CONCEPTO
             entityManager.persist(unIngresoOtro);
             this.ingresosOtro.add(unIngresoOtro);
             tx.commit();

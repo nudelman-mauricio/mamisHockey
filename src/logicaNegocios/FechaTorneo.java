@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class FechaTorneo implements Serializable {
+public class FechaTorneo implements Serializable, Comparable {
 
     @Basic
     private int numeroFecha;
@@ -30,6 +30,12 @@ public class FechaTorneo implements Serializable {
 
     }
 
+    public FechaTorneo(int numeroFecha) {
+        this.numeroFecha = numeroFecha;
+        this.borradoLogico = false;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public int getNumeroFecha() {
         return this.numeroFecha;
     }
@@ -61,5 +67,17 @@ public class FechaTorneo implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof FechaTorneo) {
+            FechaTorneo fechaTorneo = (FechaTorneo) aux;
+            if (this.idFecha > fechaTorneo.idFecha) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

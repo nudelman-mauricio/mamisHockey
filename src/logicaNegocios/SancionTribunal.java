@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class SancionTribunal implements Serializable {
+public class SancionTribunal implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -52,6 +52,15 @@ public class SancionTribunal implements Serializable {
 
     }
 
+    public SancionTribunal(Date vencimiento, int cantFechas, Date fecha, String observacion) {
+        this.vencimiento = vencimiento;
+        this.cantFechas = cantFechas;
+        this.fecha = fecha;
+        this.observacion = observacion;
+        this.borradoLogico = false;
+    }
+    
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getVencimiento() {
         return this.vencimiento;
     }
@@ -131,5 +140,17 @@ public class SancionTribunal implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof SancionTribunal) {
+            SancionTribunal sancionTribunal = (SancionTribunal) aux;
+            if (this.idSancionTribunal > sancionTribunal.idSancionTribunal) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

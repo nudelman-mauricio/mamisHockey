@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Partido implements Serializable {
+public class Partido implements Serializable, Comparable {
 
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
@@ -62,6 +62,18 @@ public class Partido implements Serializable {
 
     }
 
+    public Partido(Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+        this.unEquipoVisitante = unEquipoVisitante;
+        this.fecha = fecha;
+        this.unArbitro1 = unArbitro1;
+        this.unArbitro2 = unArbitro2;
+        this.unaCancha = unaCancha;
+        this.observaciones = observaciones;
+        this.unEquipoLocal = unEquipoLocal;
+        this.borradoLogico = false;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public Collection<Gol> getGoles() {
         return this.goles;
     }
@@ -165,5 +177,17 @@ public class Partido implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Partido) {
+            Partido partido = (Partido) aux;
+            if (this.idPartido > partido.idPartido) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

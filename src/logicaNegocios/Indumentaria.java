@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Indumentaria implements Serializable {
+public class Indumentaria implements Serializable, Comparable {
 
     @Basic
     private String camiseta;
@@ -31,6 +31,14 @@ public class Indumentaria implements Serializable {
 
     }
 
+    public Indumentaria(String camiseta, String media, String pollera) {
+        this.camiseta = camiseta;
+        this.media = media;
+        this.pollera = pollera;
+        this.borradoLogico = false;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public String getCamiseta() {
         return this.camiseta;
     }
@@ -70,5 +78,17 @@ public class Indumentaria implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Indumentaria) {
+            Indumentaria indumentaria = (Indumentaria) aux;
+            if (this.idIndumentaria > indumentaria.idIndumentaria) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

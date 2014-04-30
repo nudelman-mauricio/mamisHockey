@@ -113,7 +113,7 @@ public class Estado implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Estado) {
             Estado estado = (Estado) aux;
-            if (this.idEstado > estado.idEstado) {
+            if (this.idEstado > estado.idEstado) {// --------- VER POSIBILIDAD DE COMPARAR POR FECHA
                 retorno = 1;
             }
         }

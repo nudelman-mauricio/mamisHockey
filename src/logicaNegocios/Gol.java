@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Gol implements Serializable {
+public class Gol implements Serializable, Comparable {
 
     @Basic
     private String tiempo;
@@ -28,6 +28,13 @@ public class Gol implements Serializable {
 
     }
 
+    public Gol(String tiempo, boolean autoGol) {
+        this.tiempo = tiempo;
+        this.autoGol = autoGol;
+        this.borradoLogico = false;
+    }
+    
+//------------------------------ GETERS Y SETERS -------------------------------
     public String getTiempo() {
         return this.tiempo;
     }
@@ -59,5 +66,17 @@ public class Gol implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Gol) {
+            Gol gol = (Gol) aux;
+            if (this.idGol > gol.idGol) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

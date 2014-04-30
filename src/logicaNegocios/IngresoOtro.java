@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class IngresoOtro implements Serializable {
+public class IngresoOtro implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -39,6 +39,14 @@ public class IngresoOtro implements Serializable {
 
     }
 
+    public IngresoOtro(Date fecha, double monto, String detalle) {
+        this.fecha = fecha;
+        this.monto = monto;
+        this.detalle = detalle;
+        this.borradoLogico = false;
+    }
+
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getFecha() {
         return this.fecha;
     }
@@ -86,5 +94,21 @@ public class IngresoOtro implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof IngresoOtro) {
+            IngresoOtro ingresoOtro = (IngresoOtro) aux;
+            if (this.idIngresoOtro > ingresoOtro.idIngresoOtro) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
+
+    public Object getIdIngresoOtro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -168,6 +168,7 @@ public abstract class Persona implements Serializable, Comparable {
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
     @Override
     public int compareTo(Object aux) {

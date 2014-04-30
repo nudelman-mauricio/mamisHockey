@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Localidad implements Serializable {
+public class Localidad implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +34,7 @@ public class Localidad implements Serializable {
         this.borradoLogico = false;
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public Long getIdLocalidad() {
         return this.idLocalidad;
     }
@@ -65,5 +66,17 @@ public class Localidad implements Serializable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Localidad) {
+            Localidad localidad = (Localidad) aux;
+            if (this.idLocalidad > localidad.idLocalidad) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
 }

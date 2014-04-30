@@ -46,7 +46,8 @@ public class Socia extends Persona implements Serializable {
         this.fotoCarnet = fotoCarnet;
         this.exJugadora = exJugadora;
     }
-
+    
+//------------------------------ GETERS Y SETERS -------------------------------
     public String getNumeroCamiseta() {
         return this.numeroCamiseta;
     }
@@ -118,5 +119,5 @@ public class Socia extends Persona implements Serializable {
     public void setEstados(Collection<Estado> estados) {
         this.estados = estados;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
 }
