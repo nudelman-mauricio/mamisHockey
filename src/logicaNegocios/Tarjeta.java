@@ -38,6 +38,7 @@ public class Tarjeta implements Serializable, Comparable {
            this.borradoLogico = false;     
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public boolean isRoja() {
         return this.roja;
     }
@@ -85,7 +86,8 @@ public class Tarjeta implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

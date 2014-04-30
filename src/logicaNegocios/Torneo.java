@@ -45,6 +45,7 @@ public class Torneo implements Serializable, Comparable {
         this.borradoLogico = false;
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public Date getFechaInicio() {
         return this.fechaInicio;
     }
@@ -92,7 +93,8 @@ public class Torneo implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
+//----------------------------- FIN GETERS Y SETERS ----------------------------
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -104,7 +106,8 @@ public class Torneo implements Serializable, Comparable {
         }
         return retorno;
     }
-
+    
+    //----------------------------------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
     @Override
     public String toString() {
         return "Torneo{" + "diaInicio=" + fechaInicio + ", fechasTorneo=" + fechasTorneo + ", unaCategoria=" + unaCategoria + ", nombre=" + nombre + ", idTorneo=" + idTorneo + ", borradoLogico=" + borradoLogico + '}';
