@@ -31,8 +31,7 @@ public class ConceptoDeportivo implements Serializable, Comparable {
 
     }
     
-    public ConceptoDeportivo(Long id, double monto, String nombre, String detalle) {
-        this.idConceptoDeportivo = id;
+    public ConceptoDeportivo(double monto, String nombre, String detalle) {
         this.monto = monto;
         this.nombre = nombre;
         this.detalle = detalle;

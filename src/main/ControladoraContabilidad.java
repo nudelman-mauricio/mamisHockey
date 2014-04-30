@@ -24,19 +24,19 @@ public class ControladoraContabilidad {
 
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
-        
+
         //CONSULTA PARA CARGAR TODAS LOS CONCEPTOS DEPORTIVOS DE LA BD
         Query traerConceptosDeportivos = em.createQuery("SELECT auxCP FROM ConceptoDeportivo auxCP");
         this.conceptosDeportivo = new TreeSet(traerConceptosDeportivos.getResultList());
-        
+
         //CONSULTA PARA CARGAR TODAS LOS CONCEPTO INGRESOS DE LA BD
         Query traerConceptosIngreso = em.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI");
-        this.conceptosIngreso = new TreeSet(traerConceptosIngreso.getResultList());        
-        
-         //CONSULTA PARA CARGAR TODAS LOS CONCEPTO EGRESOS DE LA BD
+        this.conceptosIngreso = new TreeSet(traerConceptosIngreso.getResultList());
+
+        //CONSULTA PARA CARGAR TODAS LOS CONCEPTO EGRESOS DE LA BD
         Query traerConceptosEgreso = em.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE");
-        this.conceptosEgreso = new TreeSet(traerConceptosEgreso.getResultList());        
-                       
+        this.conceptosEgreso = new TreeSet(traerConceptosEgreso.getResultList());
+
     }
 
     public Collection<ConceptoDeportivo> getConceptosDeportivo() {
@@ -78,19 +78,17 @@ public class ControladoraContabilidad {
     public void setConceptosEgreso(Collection<ConceptoEgreso> conceptosEgreso) {
         this.conceptosEgreso = conceptosEgreso;
     }
-    
+
     //----------------------------- FIN GETERS Y SETERS ----------------------------
-    
     //------------------------------CONCEPTO DEPORTIVOS----------------------------------   
-    
-     public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
+    public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
         ConceptoDeportivo resultado;
         Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM CuerpoTecnico auxCD WHERE auxCD.id = " + id);
         resultado = (ConceptoDeportivo) traerConceptoDeportivo.getResultList();
         return resultado;
     }
-     
-      public ConceptoDeportivo buscarConceptoDeportivo(Long id) {
+
+    public ConceptoDeportivo buscarConceptoDeportivo(Long id) {
         ConceptoDeportivo resultado = null;
         for (ConceptoDeportivo aux : conceptosDeportivo) {
             if (Objects.equals(aux.getIdConceptoDeportivo(), id)) {
@@ -99,12 +97,12 @@ public class ControladoraContabilidad {
         }
         return resultado;
     }
-      
-       public void crearConceptoDeportivo(Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
+
+    public void crearConceptoDeportivo(double monto, String nombre, String detalle) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(id, monto, nombre, detalle);
+            ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(monto, nombre, detalle);
             entityManager.persist(unConceptoDeportivo);
             this.conceptosDeportivo.add(unConceptoDeportivo);
             tx.commit();
@@ -114,14 +112,14 @@ public class ControladoraContabilidad {
             tx.rollback();
         }
     }
-       
+
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
 
         unConceptoDeportivo.setIdConceptoDeportivo(id);
         unConceptoDeportivo.setMonto(monto);
         unConceptoDeportivo.setNombre(nombre);
         unConceptoDeportivo.setDetalle(detalle);
-        unConceptoDeportivo.setBorradoLogico(borradoLogico);        
+        unConceptoDeportivo.setBorradoLogico(borradoLogico);
 
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -134,8 +132,8 @@ public class ControladoraContabilidad {
             tx.rollback();
         }
     }
-    
-    public void eliminarConceptoDeportivo (ConceptoDeportivo unConceptoDeportivo) {
+
+    public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
@@ -149,8 +147,6 @@ public class ControladoraContabilidad {
             tx.rollback();
         }
     }
-    
+
     //----------------------------- FIN CONCEPTODEPORTIVO ----------------------------
-    
-    
 }
