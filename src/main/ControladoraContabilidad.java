@@ -1,7 +1,9 @@
 package main;
 
 import java.util.Collection;
+import java.util.TreeSet;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.ConceptoIngreso;
@@ -19,6 +21,19 @@ public class ControladoraContabilidad {
 
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
+        
+        //CONSULTA PARA CARGAR TODAS LOS CONCEPTO DEPORTIVOS DE LA BD
+        Query traerConceptosDeportivos = em.createQuery("SELECT auxCP FROM ConceptoDeportivo auxCP");
+        this.conceptosDeportivo = new TreeSet(traerConceptosDeportivos.getResultList());
+        
+        //CONSULTA PARA CARGAR TODAS LOS CONCEPTO INGRESOS DE LA BD
+        Query traerConceptosIngreso = em.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI");
+        this.conceptosIngreso = new TreeSet(traerConceptosIngreso.getResultList());        
+        
+         //CONSULTA PARA CARGAR TODAS LOS CONCEPTO EGRESOS DE LA BD
+        Query traerConceptosEgreso = em.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE");
+        this.conceptosEgreso = new TreeSet(traerConceptosEgreso.getResultList());        
+                       
     }
 
     public Collection<ConceptoDeportivo> getConceptosDeportivo() {
