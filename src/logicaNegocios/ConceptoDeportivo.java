@@ -28,7 +28,6 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public ConceptoDeportivo() {
-
     }
     
     public ConceptoDeportivo(double monto, String nombre, String detalle) {

@@ -58,7 +58,6 @@ public class Equipo implements Serializable, Comparable {
     private CuerpoTecnico unDT;
 
     public Equipo() {
-
     }
 
     public Equipo(String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
@@ -182,7 +181,11 @@ public class Equipo implements Serializable, Comparable {
         this.unDT = unDT;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-   
+
+    public void agregarSancionTribunal(SancionTribunal unaSancionTribunal) {
+        sancionesTribunal.add(unaSancionTribunal);
+    }
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

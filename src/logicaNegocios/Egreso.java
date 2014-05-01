@@ -36,7 +36,6 @@ public class Egreso implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Egreso() {
-
     }
 
     public Egreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {

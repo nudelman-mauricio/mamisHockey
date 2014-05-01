@@ -169,7 +169,11 @@ public abstract class Persona implements Serializable, Comparable {
         this.unaLocalidad = unaLocalidad;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-
+    
+    public void agregarSancionTribunal(SancionTribunal unaSancionTribunal) {
+        sancionesTribunal.add(unaSancionTribunal);
+    }
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

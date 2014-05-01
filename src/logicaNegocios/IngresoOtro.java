@@ -39,8 +39,9 @@ public class IngresoOtro implements Serializable, Comparable {
 
     }
 
-    public IngresoOtro(Date fecha, double monto, String detalle) {
+    public IngresoOtro(Date fecha, ConceptoIngreso unConceptoIngreso, double monto, String detalle) {
         this.fecha = fecha;
+        this.unConceptoIngreso = unConceptoIngreso;
         this.monto = monto;
         this.detalle = detalle;
         this.borradoLogico = false;

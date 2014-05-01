@@ -679,16 +679,16 @@
                 <Bounds x="-249.0" y="466.0" width="193.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868975724" id="_1397868975724_gui">
-                <Bounds x="-210.0" y="285.0" width="168.0" height="24.0"/>
+                <Bounds x="-210.0" y="285.0" width="164.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869170762" id="_1397869170762_gui">
-                <Bounds x="-443.0" y="311.0" width="166.0" height="24.0"/>
+                <Bounds x="-443.0" y="311.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869355771" id="_1397869355771_gui">
                 <Bounds x="314.0" y="407.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869438638" id="_1397869438638_gui">
-                <Bounds x="428.0" y="35.0" width="170.0" height="24.0"/>
+                <Bounds x="360.0" y="45.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
                 <Bounds x="628.0" y="-591.0" width="137.0" height="24.0"/>

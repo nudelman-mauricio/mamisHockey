@@ -8,7 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.Categoria;
+import logicaNegocios.Equipo;
+import logicaNegocios.Partido;
+import logicaNegocios.Persona;
 import logicaNegocios.SancionTribunal;
+import logicaNegocios.Tarjeta;
 import logicaNegocios.Torneo;
 
 public class ControladoraDeportiva {
@@ -105,9 +109,8 @@ public class ControladoraDeportiva {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unaCategoria.setBorradoLogico(false);
+            unaCategoria.setBorradoLogico(true);
             entityManager.persist(unaCategoria);
-            categorias.remove(unaCategoria);//ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -164,9 +167,8 @@ public class ControladoraDeportiva {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unTorneo.setBorradoLogico(false);
+            unTorneo.setBorradoLogico(true);
             entityManager.persist(unTorneo);
-            torneos.remove(unTorneo);//ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -177,6 +179,74 @@ public class ControladoraDeportiva {
 //------------------------------FIN TORNEOS-------------------------------------
 
 //--------------------------------SANCIONES-------------------------------------
-    
+    public SancionTribunal buscarSancionTribunal(Long id) {
+        SancionTribunal resultado = null;
+        for (SancionTribunal aux : sancionesTribunal) {
+            if (Objects.equals(aux.getIdSancionTribunal(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date vencimiento, int cantFechas, Date fecha, String observacion) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            SancionTribunal unaSancionTribunal = new SancionTribunal(vencimiento, cantFechas, fecha, observacion);
+            entityManager.persist(unaSancionTribunal);
+            this.sancionesTribunal.add(unaSancionTribunal);
+            if (unEquipo != null) {
+                unEquipo.agregarSancionTribunal(unaSancionTribunal);
+                entityManager.persist(unEquipo);
+            }
+            if (unaPersona != null) {
+                unaPersona.agregarSancionTribunal(unaSancionTribunal);
+                entityManager.persist(unaPersona);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear Sanciones Tribunal" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date vencimiento, int cantFechas, Date fecha, String observacion, Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico) {
+        unaSancionTribunal.setVencimiento(vencimiento);
+        unaSancionTribunal.setCantFechas(cantFechas);
+        unaSancionTribunal.setFecha(fecha);
+        unaSancionTribunal.setObservacion(observacion);
+        unaSancionTribunal.setUnaTarjeta(unaTarjeta);
+        unaSancionTribunal.setUnPartido(unPartido);
+        unaSancionTribunal.setCantFechasCumplidas(cantFechasCumplidas);
+        unaSancionTribunal.setNumeroResolucion(numeroResolucion);
+        unaSancionTribunal.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unaSancionTribunal);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar Sancion Tribunal" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unaSancionTribunal.setBorradoLogico(true);
+            entityManager.persist(unaSancionTribunal);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error en Eliminar Sancion Tribunal" + e.getMessage());
+            tx.rollback();
+        }
+    }
 //------------------------------FIN SANCIONES-----------------------------------
 }

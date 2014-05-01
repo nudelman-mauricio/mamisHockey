@@ -2,6 +2,7 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Query;
 
 @Entity
 public class Club implements Serializable, Comparable {
@@ -41,7 +43,6 @@ public class Club implements Serializable, Comparable {
     private Localidad unaLocalidad;
 
     public Club() {
-
     }
 
     public Club(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
@@ -132,22 +133,23 @@ public class Club implements Serializable, Comparable {
     }
 
 //------------------------------EQUIPOS-----------------------------------------   
-//    public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
-//        Equipo resultado;
-//        Query traerEquipo = entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idequipo = " + id);
-//        resultado = (Equipo) traerEquipo.getSingleResult();
-//        return resultado;
-//    }
-//
-//    public Equipo buscarEquipoCollection(Long id) {
-//        Equipo resultado = null;
-//        for (Equipo aux : equipos) {
-//            if (Objects.equals(aux.getIdEquipo(), id)) {
-//                resultado = aux;
-//            }
-//        }
-//        return resultado;
-//    }
+    public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
+        Equipo resultado;
+        Query traerEquipo = entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idequipo = " + id);
+        resultado = (Equipo) traerEquipo.getSingleResult();
+        return resultado;
+    }
+
+    public Equipo buscarEquipo(Long id) {
+        Equipo resultado = null;
+        for (Equipo aux : equipos) {
+            if (Objects.equals(aux.getIdEquipo(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
     public void crearEquipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -155,6 +157,7 @@ public class Club implements Serializable, Comparable {
             Equipo unEquipo = new Equipo(nombre, unaCapitana, unaDelegada, unDT);
             entityManager.persist(unEquipo);
             this.equipos.add(unEquipo);
+            entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
@@ -164,7 +167,6 @@ public class Club implements Serializable, Comparable {
     }
 
     public void modificarEquipo(EntityManager entityManager, Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
-
         unEquipo.setNombre(nombre);
         unEquipo.setUnaCapitana(unaCapitana);
         unEquipo.setUnaCapitanaSuplente(unaCapitanaSuplente);
@@ -193,7 +195,6 @@ public class Club implements Serializable, Comparable {
         try {
             unEquipo.setBorradoLogico(true);
             entityManager.persist(unEquipo);
-            equipos.remove(unEquipo);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
@@ -211,6 +212,7 @@ public class Club implements Serializable, Comparable {
             Cancha unaCancha = new Cancha(nombre, seOcupa);
             entityManager.persist(unaCancha);
             this.canchas.add(unaCancha);
+            entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
@@ -242,7 +244,6 @@ public class Club implements Serializable, Comparable {
         try {
             unaCancha.setBorradoLogico(true);
             entityManager.persist(unaCancha);
-            canchas.remove(unaCancha); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------

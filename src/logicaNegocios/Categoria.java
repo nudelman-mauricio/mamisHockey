@@ -25,7 +25,6 @@ public class Categoria implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Categoria() {
-
     }
 
     public Categoria(int cantMenores, String nombre) {
