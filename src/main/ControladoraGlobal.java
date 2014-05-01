@@ -11,9 +11,9 @@ public class ControladoraGlobal {
     private ControladoraDeportiva unaControladoraDeportiva;
 
     public ControladoraGlobal(EntityManager em) {
-        this.unaControladoraContabilidad = new ControladoraContabilidad(em);
+        /*this.unaControladoraContabilidad = new ControladoraContabilidad(em);
         this.unaControladoraEntidades = new ControladoraEntidades(em);
-        this.unaControladoraDeportiva = new ControladoraDeportiva(em);
+        this.unaControladoraDeportiva = new ControladoraDeportiva(em);*/
     }
 
 //------------------------------ARBITROS----------------------------------------    

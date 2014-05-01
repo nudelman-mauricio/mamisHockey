@@ -1,8 +1,8 @@
 package main;
 
+import Interfaces.MenuPrincipalInterface;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 public class Main {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = null;
+        /*EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
@@ -45,7 +45,10 @@ public class Main {
         }
         if (emf != null) {
             emf.close();
-        }
+        } */
+        MenuPrincipalInterface unaVentana = new MenuPrincipalInterface ();
+        unaVentana.setVisible(true);
+        
     }
 
 }

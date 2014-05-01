@@ -25,7 +25,7 @@ public class ControladoraEntidades {
 
     public ControladoraEntidades(EntityManager em) {
         this.entityManager = em;
-
+        
         //CONSULTA PARA CARGAR TODAS LOS cuerpoTecnico DE LA BD
         Query traerCuerpoTecnico = em.createQuery("SELECT auxH FROM CuerpoTecnico auxH");
         this.cuerpoTecnicos = new TreeSet(traerCuerpoTecnico.getResultList());
@@ -45,6 +45,7 @@ public class ControladoraEntidades {
         //CONSULTA PARA CARGAR TODAS LOS LOCALIDADES DE LA BD
         Query traerLocalidades = em.createQuery("SELECT auxH FROM Localidad auxH");
         this.localidades = new TreeSet(traerLocalidades.getResultList());
+        
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
