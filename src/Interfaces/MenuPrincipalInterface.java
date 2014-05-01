@@ -36,11 +36,9 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemSalir = new javax.swing.JMenuItem();
-        jMenuTorneo = new javax.swing.JMenu();
-        jMenuItemAdmTorneo = new javax.swing.JMenuItem();
-        jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
-        jMenuItemArbitros = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuSocias = new javax.swing.JMenu();
+        jMenuItemAdmSocias = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuEquipo = new javax.swing.JMenu();
         jMenuItemAdmEquipos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -57,8 +55,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemAdmIngresos = new javax.swing.JMenuItem();
         jMenuItemAdmEgresos = new javax.swing.JMenuItem();
         jMenuItemBalanceMensual = new javax.swing.JMenuItem();
-        jMenuSocias = new javax.swing.JMenu();
-        jMenuItemAdmSocias = new javax.swing.JMenuItem();
+        jMenuTorneo = new javax.swing.JMenu();
+        jMenuItemAdmTorneo = new javax.swing.JMenuItem();
+        jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
+        jMenuItemArbitros = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,31 +76,25 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuArchivo);
 
-        jMenuTorneo.setText("Torneo");
+        jMenuSocias.setText("Socias");
 
-        jMenuItemAdmTorneo.setText("Administrar Torneo");
-        jMenuItemAdmTorneo.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAdmSocias.setText("Nueva Socia");
+        jMenuItemAdmSocias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAdmTorneoActionPerformed(evt);
+                jMenuItemAdmSociasActionPerformed(evt);
             }
         });
-        jMenuTorneo.add(jMenuItemAdmTorneo);
+        jMenuSocias.add(jMenuItemAdmSocias);
 
-        jMenuItemEstadisticaTorneo.setText("Estadisticas");
-        jMenuItemEstadisticaTorneo.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("Administrar Socia");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEstadisticaTorneoActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenuTorneo.add(jMenuItemEstadisticaTorneo);
+        jMenuSocias.add(jMenuItem2);
 
-        jMenuItemArbitros.setText("Arbitros");
-        jMenuTorneo.add(jMenuItemArbitros);
-
-        jMenuItem3.setText("Canchas");
-        jMenuTorneo.add(jMenuItem3);
-
-        jMenuBar1.add(jMenuTorneo);
+        jMenuBar1.add(jMenuSocias);
 
         jMenuEquipo.setText("Equipo");
 
@@ -163,12 +158,31 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuContabilidad);
 
-        jMenuSocias.setText("Socias");
+        jMenuTorneo.setText("Torneo");
 
-        jMenuItemAdmSocias.setText("Administrar Socias");
-        jMenuSocias.add(jMenuItemAdmSocias);
+        jMenuItemAdmTorneo.setText("Administrar Torneo");
+        jMenuItemAdmTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAdmTorneoActionPerformed(evt);
+            }
+        });
+        jMenuTorneo.add(jMenuItemAdmTorneo);
 
-        jMenuBar1.add(jMenuSocias);
+        jMenuItemEstadisticaTorneo.setText("Estadisticas");
+        jMenuItemEstadisticaTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEstadisticaTorneoActionPerformed(evt);
+            }
+        });
+        jMenuTorneo.add(jMenuItemEstadisticaTorneo);
+
+        jMenuItemArbitros.setText("Arbitros");
+        jMenuTorneo.add(jMenuItemArbitros);
+
+        jMenuItem3.setText("Canchas");
+        jMenuTorneo.add(jMenuItem3);
+
+        jMenuBar1.add(jMenuTorneo);
 
         setJMenuBar(jMenuBar1);
 
@@ -180,17 +194,14 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 458, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
-       crearTorneoJPanel unPanel = new crearTorneoJPanel();
-       this.getContentPane().add(unPanel);
-       this.show();
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
     private void jMenuItemAdmTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmTorneoActionPerformed
@@ -208,6 +219,16 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemDelegadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDelegadasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemDelegadasActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
+        InterfaceBuscarSocia unaInterfaceBuscarSocia = new InterfaceBuscarSocia();
+        unaInterfaceBuscarSocia.setVisible(true);
+                
+    }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,6 +273,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuContabilidad;
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemAdmClubes;
     private javax.swing.JMenuItem jMenuItemAdmEgresos;

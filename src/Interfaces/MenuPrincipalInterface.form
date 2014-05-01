@@ -22,36 +22,26 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuTorneo">
+        <Menu class="javax.swing.JMenu" name="jMenuSocias">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Torneo"/>
+            <Property name="text" type="java.lang.String" value="Socias"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmTorneo">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmSocias">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Torneo"/>
+                <Property name="text" type="java.lang.String" value="Nueva Socia"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmTorneoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmSociasActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEstadisticaTorneo">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Estadisticas"/>
+                <Property name="text" type="java.lang.String" value="Administrar Socia"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEstadisticaTorneoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemArbitros">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Arbitros"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Canchas"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -149,14 +139,35 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuSocias">
+        <Menu class="javax.swing.JMenu" name="jMenuTorneo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Socias"/>
+            <Property name="text" type="java.lang.String" value="Torneo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmSocias">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmTorneo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Socias"/>
+                <Property name="text" type="java.lang.String" value="Administrar Torneo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmTorneoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEstadisticaTorneo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estadisticas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEstadisticaTorneoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemArbitros">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arbitros"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Canchas"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -192,7 +203,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="458" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="460" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
