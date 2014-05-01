@@ -1,10 +1,12 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -182,9 +184,121 @@ public class Equipo implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
-    public void agregarSancionTribunal(SancionTribunal unaSancionTribunal) {
-        sancionesTribunal.add(unaSancionTribunal);
+//-----------------------------------DEUDAS-------------------------------------
+    public void crearDeuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            Deuda unaDeuda = new Deuda(fecha, monto, saldado, unConceptoDeportivo, observacion);
+            entityManager.persist(unaDeuda);
+            this.deudas.add(unaDeuda);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear Deuda en Equipo" + e.getMessage());
+            tx.rollback();
+        }
     }
+
+    public void modificarDeuda(EntityManager entityManager, Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
+        unaDeuda.setFecha(fecha);
+        unaDeuda.setMonto(monto);
+        unaDeuda.setSaldado(saldado);
+        unaDeuda.setUnConceptoDeportivo(unConceptoDeportivo);
+        unaDeuda.setObservacion(observacion);
+        unaDeuda.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unaDeuda);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar Deuda en Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarDeuda(EntityManager entityManager, Deuda unaDeuda) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unaDeuda.setBorradoLogico(true);
+            entityManager.persist(unaDeuda);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error en Eliminar Deuda en Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//---------------------------------FIN DEUDAS-----------------------------------
+
+//--------------------------------INDUMENTARIAS---------------------------------
+    public void crearIndumentaria(EntityManager entityManager, String camiseta, String media, String pollera) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            Indumentaria unaIndumentaria = new Indumentaria(camiseta, media, pollera);
+            entityManager.persist(unaIndumentaria);
+            this.indumentarias.add(unaIndumentaria);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Crear Indumentaria en Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria, String camiseta, String media, String pollera, boolean borradoLogico) {
+        unaIndumentaria.setCamiseta(camiseta);
+        unaIndumentaria.setMedia(media);
+        unaIndumentaria.setPollera(pollera);
+        unaIndumentaria.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(unaIndumentaria);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar Indumentaria en Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unaIndumentaria.setBorradoLogico(true);
+            entityManager.persist(unaIndumentaria);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error en Eliminar Indumentaria en Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN INDUMENTARIAS-------------------------------
+
+//----------------------------- SANCIONES TRIBUNAL -----------------------------
+    public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {        
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            sancionesTribunal.add(unaSancionTribunal);
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Agregar Sancion Tribunal en Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//--------------------------- FIN SANCIONES TRIBUNAL ---------------------------
 
     @Override
     public int compareTo(Object aux) {

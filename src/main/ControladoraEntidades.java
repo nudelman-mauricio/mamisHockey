@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.Arbitro;
-import logicaNegocios.Cancha;
 import logicaNegocios.Club;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
@@ -123,7 +122,6 @@ public class ControladoraEntidades {
     }
 
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
-
         unCuerpoTecnico.setDni(dni);
         unCuerpoTecnico.setApellido(apellido);
         unCuerpoTecnico.setNombre(nombre);
@@ -154,9 +152,8 @@ public class ControladoraEntidades {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unCuerpoTecnico.setBorradoLogico(false);
+            unCuerpoTecnico.setBorradoLogico(true);
             entityManager.persist(unCuerpoTecnico);
-            cuerpoTecnicos.remove(unCuerpoTecnico);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -200,7 +197,6 @@ public class ControladoraEntidades {
     }
 
     public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
-
         unArbitro.setDni(dni);
         unArbitro.setApellido(apellido);
         unArbitro.setNombre(nombre);
@@ -230,9 +226,8 @@ public class ControladoraEntidades {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unArbitro.setBorradoLogico(false);
+            unArbitro.setBorradoLogico(true);
             entityManager.persist(unArbitro);
-            arbitros.remove(unArbitro); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -299,9 +294,8 @@ public class ControladoraEntidades {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unClub.setBorradoLogico(false);
+            unClub.setBorradoLogico(true);
             entityManager.persist(unClub);
-            clubes.remove(unClub); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -344,9 +338,7 @@ public class ControladoraEntidades {
         }
     }
 
-    public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio,
-            Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso,
-            boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
+    public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
         unaSocia.setDni(dni);
         unaSocia.setApellido(apellido);
         unaSocia.setNombre(nombre);
@@ -378,9 +370,8 @@ public class ControladoraEntidades {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unaSocia.setBorradoLogico(false);
+            unaSocia.setBorradoLogico(true);
             entityManager.persist(unaSocia);
-            socias.remove(unaSocia); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -444,9 +435,8 @@ public class ControladoraEntidades {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            unaLocalidad.setBorradoLogico(false);
+            unaLocalidad.setBorradoLogico(true);
             entityManager.persist(unaLocalidad);
-            localidades.remove(unaLocalidad); //ME PARECE QUE ESTA LINEA NO VA (BORRADO LOGICO)
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------

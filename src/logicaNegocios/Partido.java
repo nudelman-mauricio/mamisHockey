@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -59,7 +58,6 @@ public class Partido implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Partido() {
-
     }
 
     public Partido(Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {

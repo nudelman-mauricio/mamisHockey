@@ -1,11 +1,12 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
@@ -58,7 +59,6 @@ public abstract class Persona implements Serializable, Comparable {
     private Localidad unaLocalidad;
 
     public Persona() {
-
     }
 
     public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
@@ -169,11 +169,21 @@ public abstract class Persona implements Serializable, Comparable {
         this.unaLocalidad = unaLocalidad;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-    
-    public void agregarSancionTribunal(SancionTribunal unaSancionTribunal) {
-        sancionesTribunal.add(unaSancionTribunal);
+
+    public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            sancionesTribunal.add(unaSancionTribunal);
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Agregar Sancion Tribunal en Persona" + e.getMessage());
+            tx.rollback();
+        }
     }
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

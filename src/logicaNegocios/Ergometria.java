@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -33,7 +32,6 @@ public class Ergometria implements Serializable, Comparable {
     private String comentarios;
 
     public Ergometria() {
-
     }
 
     public Ergometria(Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {

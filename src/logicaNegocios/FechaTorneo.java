@@ -27,7 +27,6 @@ public class FechaTorneo implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public FechaTorneo() {
-
     }
 
     public FechaTorneo(int numeroFecha) {
@@ -69,6 +68,13 @@ public class FechaTorneo implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+//-----------------------------------PARTIDOS-----------------------------------
+    /*
+    Cada constructor de todas las clases tiene que ser el encargado de persistir la nueva entidad
+    cada seter tiene que ser el encargado de persistir
+    los modificar gigantes no deberian existir
+    */
+//---------------------------------FIN PARTIDOS---------------------------------
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

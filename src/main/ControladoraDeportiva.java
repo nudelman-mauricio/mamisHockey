@@ -197,12 +197,10 @@ public class ControladoraDeportiva {
             entityManager.persist(unaSancionTribunal);
             this.sancionesTribunal.add(unaSancionTribunal);
             if (unEquipo != null) {
-                unEquipo.agregarSancionTribunal(unaSancionTribunal);
-                entityManager.persist(unEquipo);
+                unEquipo.agregarSancionTribunal(entityManager, unaSancionTribunal);
             }
             if (unaPersona != null) {
-                unaPersona.agregarSancionTribunal(unaSancionTribunal);
-                entityManager.persist(unaPersona);
+                unaPersona.agregarSancionTribunal(entityManager, unaSancionTribunal);
             }
             tx.commit();
         } catch (Exception e) {

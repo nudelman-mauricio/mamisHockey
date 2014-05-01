@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +46,6 @@ public class Deuda implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Deuda() {
-
     }
 
     public Deuda(Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
@@ -121,6 +122,55 @@ public class Deuda implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+
+//--------------------------------PAGO DEUDA------------------------------------
+    public void agregarPagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {
+        this.pagosDeuda.add(new PagoDeuda(fecha, monto, observacion));
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Exception Agregar PagoDeuda en Deuda" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void modificarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda, Date fecha, double monto, String observacion, boolean borradoLogico) {
+        unPagoDeuda.setFecha(fecha);
+        unPagoDeuda.setMonto(monto);
+        unPagoDeuda.setObservacion(observacion);
+        unPagoDeuda.setBorradoLogico(borradoLogico);
+
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Modificar PagoDeuda en Deuda" + e.getMessage());
+            tx.rollback();
+        }
+    }
+
+    public void eliminarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            unPagoDeuda.setBorradoLogico(true);
+            entityManager.persist(unPagoDeuda);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error en Eliminar CuerpoTecnico" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PAGO DEUDA----------------------------------
 
     @Override
     public int compareTo(Object aux) {

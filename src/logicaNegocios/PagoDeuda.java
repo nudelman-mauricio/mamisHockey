@@ -32,7 +32,6 @@ public class PagoDeuda implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public PagoDeuda() {
-
     }
 
     public PagoDeuda(Date fecha, double monto, String observacion) {

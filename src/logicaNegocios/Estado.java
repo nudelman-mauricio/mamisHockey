@@ -38,7 +38,6 @@ public class Estado implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Estado() {
-
     }
 
     public Estado(boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
