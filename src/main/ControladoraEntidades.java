@@ -107,18 +107,9 @@ public class ControladoraEntidades {
     }
 
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
-            entityManager.persist(unCuerpoTecnico);
-            this.cuerpoTecnicos.add(unCuerpoTecnico);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Cuerpo Tecnico" + e.getMessage());
-            tx.rollback();
-        }
+        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
+        this.cuerpoTecnicos.add(unCuerpoTecnico);
+            
     }
 
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
@@ -136,30 +127,12 @@ public class ControladoraEntidades {
         unCuerpoTecnico.setFotocopiaDni(fotocopiaDni);
         unCuerpoTecnico.setActivo(activo);
 
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unCuerpoTecnico);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar CuerpoTecnico" + e.getMessage());
-            tx.rollback();
-        }
+        unCuerpoTecnico.persistir(entityManager);
     }
 
     public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unCuerpoTecnico.setBorradoLogico(true);
-            entityManager.persist(unCuerpoTecnico);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar CuerpoTecnico" + e.getMessage());
-            tx.rollback();
-        }
+        unCuerpoTecnico.setBorradoLogico(true);
+        unCuerpoTecnico.persistir(entityManager);            
     }
 //------------------------------FIN CUERPO TECNICO------------------------------
 
