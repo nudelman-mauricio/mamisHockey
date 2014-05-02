@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -79,7 +78,7 @@ public class ConceptoIngreso implements Serializable, Comparable {
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Concepto Deportivo" + e.getMessage());
+            System.out.println("Error de Persistir Concepto Ingreso" + e.getMessage());
             tx.rollback();
         }
     }
@@ -96,5 +95,4 @@ public class ConceptoIngreso implements Serializable, Comparable {
         }
         return retorno;
     }
-
 }
