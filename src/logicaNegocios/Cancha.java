@@ -1,9 +1,10 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,13 +26,13 @@ public class Cancha implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Cancha() {
-
     }
 
-    public Cancha(String nombre, boolean seOcupa) {
+    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa) {
         this.nombre = nombre;
         this.seOcupa = seOcupa;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -68,6 +69,21 @@ public class Cancha implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+//----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Cancha" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

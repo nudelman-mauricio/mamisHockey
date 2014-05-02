@@ -206,50 +206,32 @@ public class Club implements Serializable, Comparable {
 
 //-------------------------------- CANCHAS -------------------------------------
     public void crearCancha(EntityManager entityManager, String nombre, boolean seOcupa) {
+        Cancha unaCancha = new Cancha(entityManager, nombre, seOcupa);
+
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Cancha unaCancha = new Cancha(nombre, seOcupa);
-            entityManager.persist(unaCancha);
             this.canchas.add(unaCancha);
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Exception Crear Cancha" + e.getMessage());
+            System.out.println("Error de Agregar Cancha en Club" + e.getMessage());
             tx.rollback();
         }
+
     }
 
     public void modificarCancha(EntityManager entityManager, Cancha unaCancha, String nombre, boolean seOcupa, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
         unaCancha.setSeOcupa(seOcupa);
         unaCancha.setBorradoLogico(borradoLogico);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaCancha);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error de Modificar Cancha" + e.getMessage());
-            tx.rollback();
-        }
+        unaCancha.persistir(entityManager);
     }
 
     public void eliminarCancha(EntityManager entityManager, Cancha unaCancha) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unaCancha.setBorradoLogico(true);
-            entityManager.persist(unaCancha);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error en Eliminar Cancha" + e.getMessage());
-            tx.rollback();
-        }
+        unaCancha.setBorradoLogico(true);
+        unaCancha.persistir(entityManager);
     }
 //-------------------------------- FIN CANCHAS ---------------------------------
 }
