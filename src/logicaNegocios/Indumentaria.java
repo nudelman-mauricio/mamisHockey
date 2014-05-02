@@ -1,9 +1,10 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,14 +29,14 @@ public class Indumentaria implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Indumentaria() {
-
     }
 
-    public Indumentaria(String camiseta, String media, String pollera) {
+    public Indumentaria(EntityManager entityManager, String camiseta, String media, String pollera) {
         this.camiseta = camiseta;
         this.media = media;
         this.pollera = pollera;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -79,6 +80,21 @@ public class Indumentaria implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Indumentaria" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 
     @Override
     public int compareTo(Object aux) {

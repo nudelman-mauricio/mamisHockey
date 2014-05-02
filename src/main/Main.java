@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import logicaNegocios.Indumentaria;
 
 /**
  *
@@ -27,17 +28,21 @@ public class Main {
 
         //----------------------------------------- CODIGO DE PRUEBAS -----------------------------------------
         ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
-        unaControladoraGlobal.crearCategoria(4, "Menores");
+
+        Indumentaria unaIndumentaria = new Indumentaria(em, "rojo", "amarillo", "verde");
+        
+        
+        
+//        unaControladoraGlobal.crearCategoria(4, "Menores");
 //        Date ;
 //        unaControladoraGlobal.crearTorneo(null, null, null);
 
-        System.out.println(unaControladoraGlobal.getUnaControladoraDeportiva().buscarCategoriaBD(new Long("1")));
+//        System.out.println(unaControladoraGlobal.getUnaControladoraDeportiva().buscarCategoriaBD(new Long("1")));
 
 //        Long aux = new Long("251");
 //        unaControladoraGlobal.eliminarCategoria(unaControladoraGlobal.buscarCategoria(aux));
 //        
 //        System.out.println(unaControladoraGlobal.buscarCategoria(aux));
-        System.out.println("");
 
         //----------------------------------------- FIN CODIGO DE PRUEBAS -----------------------------------------
         if (em != null) {

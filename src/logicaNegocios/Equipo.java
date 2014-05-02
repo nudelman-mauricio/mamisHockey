@@ -192,6 +192,7 @@ public class Equipo implements Serializable, Comparable {
             Deuda unaDeuda = new Deuda(fecha, monto, saldado, unConceptoDeportivo, observacion);
             entityManager.persist(unaDeuda);
             this.deudas.add(unaDeuda);
+            entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
@@ -240,7 +241,7 @@ public class Equipo implements Serializable, Comparable {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {
-            Indumentaria unaIndumentaria = new Indumentaria(camiseta, media, pollera);
+            Indumentaria unaIndumentaria = new Indumentaria(entityManager, camiseta, media, pollera);
             entityManager.persist(unaIndumentaria);
             this.indumentarias.add(unaIndumentaria);
             tx.commit();
@@ -257,16 +258,7 @@ public class Equipo implements Serializable, Comparable {
         unaIndumentaria.setPollera(pollera);
         unaIndumentaria.setBorradoLogico(borradoLogico);
 
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaIndumentaria);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Indumentaria en Equipo" + e.getMessage());
-            tx.rollback();
-        }
+        unaIndumentaria.persistir(entityManager);
     }
 
     public void eliminarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
