@@ -30,6 +30,9 @@ public class Tarjeta implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
+    public Tarjeta() {               
+    }
+    
     public Tarjeta(boolean roja, boolean amarilla, boolean verde, String observacion) {
            this.roja = roja;
            this.amarilla= amarilla;
@@ -37,7 +40,8 @@ public class Tarjeta implements Serializable, Comparable {
            this.observacion = observacion;
            this.borradoLogico = false;     
     }
-
+    
+    
 //------------------------------ GETERS Y SETERS -------------------------------
     public boolean isRoja() {
         return this.roja;
