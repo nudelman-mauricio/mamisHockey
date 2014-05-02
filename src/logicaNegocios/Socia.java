@@ -165,6 +165,198 @@ public class Socia extends Persona implements Serializable {
        //unaErgometria.setBorradoLogico(true);
       // unPartido.persistir(entityManager);
     }
-//---------------------------------FIN PARTIDOS---------------------------------
+//---------------------------------FIN ERGOMETRIAS---------------------------------
+    
+ //-----------------------------------TARJETAS-----------------------------------
+    public Tarjeta buscarTarjetaBD(Long id) {
+        Tarjeta resultado;
+        Query traerTarjeta = this.entityManager.createQuery("SELECT auxT FROM Tarjeta auxT WHERE auxT.id = " + id);
+        resultado = (Tarjeta) traerTarjeta.getResultList();
+        return resultado;
+    }
+
+    public Tarjeta buscarTarjeta(Long id) {
+        Tarjeta resultado = null;
+        for (Tarjeta aux : tarjetas) {
+            if (Objects.equals(aux.getIdTarjeta(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearTarjeta(EntityManager em, boolean roja, boolean amarilla, boolean verde, String observacion) {
+        Tarjeta unaTarjeta = new Tarjeta(em, roja,amarilla,verde,observacion);
+        this.tarjetas.add(unaTarjeta);            
+    }
+
+    public void modificarTarjeta(Tarjeta unaTarjeta, EntityManager em, boolean roja, boolean amarilla, boolean verde, String observacion, boolean borradoLogico) {
+        unaTarjeta.setAmarilla(amarilla);
+        unaTarjeta.setBorradoLogico(borradoLogico);
+        unaTarjeta.setObservacion(observacion);
+        unaTarjeta.setRoja(roja);
+        unaTarjeta.setVerde(verde);
+        
+        unaTarjeta.persistir(entityManager);        
+    }
+
+    public void eliminarunaTarjeta(Tarjeta unaTarjeta) {
+      unaTarjeta.setBorradoLogico(true);
+      unaTarjeta.persistir(entityManager);
+    }
+//---------------------------------FIN TARJETAS---------------------------------
+    
+ //-----------------------------------PASES-----------------------------------
+    public Pase buscarPaseBD(Long id) {
+        Pase resultado;
+        Query traerPase = this.entityManager.createQuery("SELECT auxP FROM Pase auxP WHERE auxP.id = " + id);
+        resultado = (Pase) traerPase.getResultList();
+        return resultado;
+    }
+
+    public Pase buscarPase(Long id) {
+        Pase resultado = null;
+        for (Pase aux : pases) {
+            if (Objects.equals(aux.getIdPase(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearPase(EntityManager entityManager,Date fecha, double monto, Equipo unEquipo) {
+        Pase unPase = new Pase(entityManager,fecha,monto,unEquipo);
+        this.pases.add(unPase);            
+    }
+
+    public void modificarPase(Pase unPase, EntityManager entityManager,Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
+        unPase.setFecha(fecha);
+        unPase.setMonto(monto);
+        unPase.setUnEquipo(unEquipo);
+        unPase.setBorradoLogico(borradoLogico);        
+        unPase.persistir(entityManager);        
+    }
+
+    public void eliminarunPase(Pase unPase) {
+      unPase.setBorradoLogico(true);
+      unPase.persistir(entityManager);
+    }
+//---------------------------------FIN PASES---------------------------------
+    
+//-----------------------------------DEUDAS-------------------------------------
+    
+     public Deuda buscarDeudaBD(Long id) {
+        Deuda resultado;
+        Query traerDeuda = this.entityManager.createQuery("SELECT auxD FROM Deuda auxD WHERE auxD.id = " + id);
+        resultado = (Deuda) traerDeuda.getResultList();
+        return resultado;
+    }
+
+    public Deuda buscarDeuda(Long id) {
+        Deuda resultado = null;
+        for (Deuda aux : deudas) {
+            if (Objects.equals(aux.getIdDeuda(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+    public void crearDeuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
+        Deuda unaDeuda = new Deuda(entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+        this.deudas.add(unaDeuda);            
+    }
+
+    public void modificarDeuda(EntityManager entityManager, Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
+        unaDeuda.setFecha(fecha);
+        unaDeuda.setMonto(monto);
+        unaDeuda.setSaldado(saldado);
+        unaDeuda.setUnConceptoDeportivo(unConceptoDeportivo);
+        unaDeuda.setObservacion(observacion);
+        unaDeuda.setBorradoLogico(borradoLogico);
+
+        unaDeuda.persistir(entityManager);
+    }
+
+    public void eliminarDeuda(EntityManager entityManager, Deuda unaDeuda) {
+        unaDeuda.setBorradoLogico(true);
+        unaDeuda.persistir(entityManager);
+    }
+//---------------------------------FIN DEUDAS-----------------------------------
+    
+//-----------------------------------GOLES-------------------------------------
+    
+     public Gol buscarGolBD(Long id) {
+        Gol resultado;
+        Query traerGol = this.entityManager.createQuery("SELECT auxG FROM Gol auxG WHERE auxG.id = " + id);
+        resultado = (Gol) traerGol.getResultList();
+        return resultado;
+    }
+
+    public Gol buscarGol(Long id) {
+        Gol resultado = null;
+        for (Gol aux : goles) {
+            if (Objects.equals(aux.getIdGol(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+    public void crearGol(EntityManager entityManager, String tiempo, boolean autoGol) {
+        Gol unGol = new Gol(entityManager, tiempo, autoGol);
+        this.goles.add(unGol);            
+    }
+
+    public void modificarGol(EntityManager entityManager,Gol unGol, String tiempo, boolean autoGol, boolean borradoLogico) {
+        unGol.setTiempo(tiempo);
+        unGol.setAutoGol(autoGol);
+        unGol.setBorradoLogico(borradoLogico);
+        unGol.persistir(entityManager);
+    }
+
+    public void eliminarunGol(EntityManager entityManager, Gol unGol) {
+        unGol.setBorradoLogico(true);
+        unGol.persistir(entityManager);
+    }
+//---------------------------------FIN GOLES-----------------------------------
+
+//-----------------------------------ESTADOS-------------------------------------
+    
+     public Estado buscarEstadoBD(Long id) {
+        Estado resultado;
+        Query traerEstado = this.entityManager.createQuery("SELECT auxE FROM Estado auxE WHERE auxE.id = " + id);
+        resultado = (Estado) traerEstado.getResultList();
+        return resultado;
+    }
+
+    public Estado buscarEstado(Long id) {
+        Estado resultado = null;
+        for (Estado aux : estados) {
+            if (Objects.equals(aux.getIdEstado(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+    public void crearEstado(EntityManager entityManager, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
+        Estado unEstado = new Estado(entityManager, jugadora, fecha, licencia, baja, activa);
+        this.estados.add(unEstado);            
+    }
+
+    public void modificarEstado(EntityManager entityManager,Estado unEstado,  boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa, boolean borradoLogico) {
+        unEstado.setJugadora(jugadora);
+        unEstado.setFecha(fecha);
+        unEstado.setLicencia(licencia);
+        unEstado.setBaja(baja);
+        unEstado.setActiva(activa);
+        unEstado.setBorradoLogico(borradoLogico);
+        
+        unEstado.persistir(entityManager);
+    }
+
+    public void eliminarunEstado(EntityManager entityManager,Estado unEstado) {
+        unEstado.setBorradoLogico(true);
+        unEstado.persistir(entityManager);
+    }
+//---------------------------------FIN ESTADOS-----------------------------------
     
  }
