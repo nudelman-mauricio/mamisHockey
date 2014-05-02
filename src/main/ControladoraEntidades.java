@@ -181,19 +181,9 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Arbitro unArbitro = new Arbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
-            entityManager.persist(unArbitro);
-            this.arbitros.add(unArbitro);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Arbitro" + e.getMessage());
-            tx.rollback();
-        }
+    public void crearArbitro(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
+        Arbitro unArbitro = new Arbitro(entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
+        this.arbitros.add(unArbitro);
     }
 
     public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
