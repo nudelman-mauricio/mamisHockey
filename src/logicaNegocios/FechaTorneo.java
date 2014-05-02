@@ -3,6 +3,8 @@ package logicaNegocios;
 import java.io.Serializable;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 
 @Entity
 public class FechaTorneo implements Serializable, Comparable {
@@ -27,6 +30,8 @@ public class FechaTorneo implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    
+    private EntityManager entityManager;
 
     public FechaTorneo() {
     }
@@ -34,7 +39,7 @@ public class FechaTorneo implements Serializable, Comparable {
     public FechaTorneo(EntityManager entityManager, int numeroFecha) {
         this.numeroFecha = numeroFecha;
         this.borradoLogico = false;
-        
+        this.entityManager = entityManager;
         this.persistir(entityManager);
     }
 
@@ -73,11 +78,45 @@ public class FechaTorneo implements Serializable, Comparable {
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
 //-----------------------------------PARTIDOS-----------------------------------
-    /*
-    Cada constructor de todas las clases tiene que ser el encargado de persistir la nueva entidad
-    cada seter tiene que ser el encargado de persistir
-    los modificar gigantes no deberian existir
-    */
+    public Partido buscarPartidoBD(Long id) {
+        Partido resultado;
+        Query traerPartido = this.entityManager.createQuery("SELECT auxP FROM Partido auxP WHERE auxP.id = " + id);
+        resultado = (Partido) traerPartido.getResultList();
+        return resultado;
+    }
+
+    public Partido buscarPartido(Long id) {
+        Partido resultado = null;
+        for (Partido aux : partidos) {
+            if (Objects.equals(aux.getIdPartido(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearPartido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+        Partido unPartido = new Partido(entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unaCancha, observaciones, unEquipoLocal);
+        this.partidos.add(unPartido);            
+    }
+
+    public void modificarPartido(Partido unPartido, EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+        unPartido.setBorradoLogico(borradoLogico);
+        unPartido.setFecha(fecha);
+        unPartido.setObservaciones(observaciones);
+        unPartido.setUnArbitro1(unArbitro1);
+        unPartido.setUnArbitro2(unArbitro2);
+        unPartido.setUnEquipoLocal(unEquipoLocal);
+        unPartido.setUnEquipoVisitante(unEquipoVisitante);
+        unPartido.setUnaCancha(unaCancha);
+        
+        unPartido.persistir(entityManager);        
+    }
+
+    public void eliminarEgreso(Partido unPartido) {
+       unPartido.setBorradoLogico(true);
+       unPartido.persistir(entityManager);
+    }
 //---------------------------------FIN PARTIDOS---------------------------------
     @Override
     public int compareTo(Object aux) {

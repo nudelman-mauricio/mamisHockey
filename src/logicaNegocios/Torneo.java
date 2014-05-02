@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -38,6 +40,9 @@ public class Torneo implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    
+    private EntityManager entityManager;
+    
 
     public Torneo() {
     }
@@ -47,7 +52,7 @@ public class Torneo implements Serializable, Comparable {
         this.unaCategoria = unaCategoria;
         this.nombre = nombre;
         this.borradoLogico = false;
-        
+        this.entityManager = em;
         this.persistir(em);
     }
 
@@ -112,6 +117,42 @@ public class Torneo implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+    //-----------------------------------FechasTorneo-----------------------------------
+    public FechaTorneo buscarFechaTorneoBd(Long id) {
+        FechaTorneo resultado;
+        Query traerFechaTorneo = this.entityManager.createQuery("SELECT auxFT FROM FechaTorneo auxFT WHERE auxFT.id = " + id);
+        resultado = (FechaTorneo) traerFechaTorneo.getResultList();
+        return resultado;
+    }
+
+    public FechaTorneo buscarFechaTorneo(Long id) {
+        FechaTorneo resultado = null;
+        for (FechaTorneo aux : fechasTorneo) {
+            if (Objects.equals(aux.getIdFecha(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearFechaTorneo(EntityManager entityManager, int numeroFecha) {
+        FechaTorneo unaFechaTorneo = new FechaTorneo(entityManager, numeroFecha );
+        this.fechasTorneo.add(unaFechaTorneo);            
+    }
+
+    public void modificarFechaTorneo(FechaTorneo unaFechaTorneo, EntityManager entityManager, int numeroFecha, boolean borradoLogico) {
+        unaFechaTorneo.setNumeroFecha(numeroFecha);
+        unaFechaTorneo.setBorradoLogico(borradoLogico);
+        
+        unaFechaTorneo.persistir(entityManager);
+    }
+
+    public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
+       unaFechaTorneo.setBorradoLogico(true);
+       unaFechaTorneo.persistir(entityManager);
+    }
+//---------------------------------FIN PARTIDOS---------------------------------
     
     //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
