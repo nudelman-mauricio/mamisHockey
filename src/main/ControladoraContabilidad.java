@@ -209,18 +209,8 @@ public class ControladoraContabilidad {
     }
 
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            IngresoOtro unIngresoOtro = new IngresoOtro(fecha, unConceptoIngreso, monto, detalle);
-            entityManager.persist(unIngresoOtro);
-            this.ingresosOtro.add(unIngresoOtro);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear IngresoOtro" + e.getMessage());
-            tx.rollback();
-        }
+        IngresoOtro unIngresoOtro = new IngresoOtro(entityManager,fecha, unConceptoIngreso, monto, detalle);
+        this.ingresosOtro.add(unIngresoOtro);           
     }
 
     public void modificarIngresoOtro(IngresoOtro unIngresoOtro, Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle, boolean borradoLogico) {
@@ -229,30 +219,13 @@ public class ControladoraContabilidad {
         unIngresoOtro.setUnConceptoIngreso(unConceptoIngreso);
         unIngresoOtro.setDetalle(detalle);
         unIngresoOtro.setBorradoLogico(borradoLogico);
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unIngresoOtro);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar IngresoOtro" + e.getMessage());
-            tx.rollback();
-        }
+       
+        unIngresoOtro.persistir(entityManager);
     }
 
     public void eliminarIngresoOtro(IngresoOtro unIngresoOtro) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unIngresoOtro.setBorradoLogico(true);
-            entityManager.persist(unIngresoOtro);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error al Eliminar IngresoOtro" + e.getMessage());
-            tx.rollback();
-        }
+        unIngresoOtro.setBorradoLogico(true);
+        unIngresoOtro.persistir(entityManager);        
     }
 //----------------------------- FIN INGRESOSOTRO -------------------------------
 
@@ -275,18 +248,8 @@ public class ControladoraContabilidad {
     }
 
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Egreso unEgreso = new Egreso(fecha, monto, unConceptoEgreso, observacion);
-            entityManager.persist(unEgreso);
-            this.egresos.add(unEgreso);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception al Crear Egreso" + e.getMessage());
-            tx.rollback();
-        }
+        Egreso unEgreso = new Egreso(entityManager,fecha, monto, unConceptoEgreso, observacion);
+        this.egresos.add(unEgreso);            
     }
 
     public void modificarEgreso(Egreso unEgreso, Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion, boolean borradoLogico) {
@@ -295,31 +258,14 @@ public class ControladoraContabilidad {
         unEgreso.setUnConceptoEgreso(unConceptoEgreso);
         unEgreso.setObservacion(observacion);
         unEgreso.setBorradoLogico(borradoLogico);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unEgreso);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Egreso" + e.getMessage());
-            tx.rollback();
-        }
+        
+        unEgreso.persistir(entityManager);
+        
     }
 
     public void eliminarEgreso(Egreso unEgreso) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unEgreso.setBorradoLogico(true);
-            entityManager.persist(unEgreso);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error al Eliminar Egreso" + e.getMessage());
-            tx.rollback();
-        }
+       unEgreso.setBorradoLogico(true);
+       unEgreso.persistir(entityManager);
     }
 //----------------------------- FIN EGRESOS ------------------------------------
 }

@@ -202,19 +202,8 @@ public class Equipo implements Serializable, Comparable {
 
 //-----------------------------------DEUDAS-------------------------------------
     public void crearDeuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Deuda unaDeuda = new Deuda(fecha, monto, saldado, unConceptoDeportivo, observacion);
-            entityManager.persist(unaDeuda);
-            this.deudas.add(unaDeuda);
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Deuda en Equipo" + e.getMessage());
-            tx.rollback();
-        }
+        Deuda unaDeuda = new Deuda(entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+        this.deudas.add(unaDeuda);            
     }
 
     public void modificarDeuda(EntityManager entityManager, Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
@@ -225,30 +214,12 @@ public class Equipo implements Serializable, Comparable {
         unaDeuda.setObservacion(observacion);
         unaDeuda.setBorradoLogico(borradoLogico);
 
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaDeuda);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Deuda en Equipo" + e.getMessage());
-            tx.rollback();
-        }
+        unaDeuda.persistir(entityManager);
     }
 
     public void eliminarDeuda(EntityManager entityManager, Deuda unaDeuda) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unaDeuda.setBorradoLogico(true);
-            entityManager.persist(unaDeuda);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Deuda en Equipo" + e.getMessage());
-            tx.rollback();
-        }
+        unaDeuda.setBorradoLogico(true);
+        unaDeuda.persistir(entityManager);
     }
 //---------------------------------FIN DEUDAS-----------------------------------
 

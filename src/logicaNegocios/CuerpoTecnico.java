@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 @Entity
 public class CuerpoTecnico extends Persona implements Serializable {
@@ -17,9 +19,10 @@ public class CuerpoTecnico extends Persona implements Serializable {
     public CuerpoTecnico() {
     }
 
-    public CuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
+    public CuerpoTecnico(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.activo = activo;
+        this.persistir(entityManager);
     }
     
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -39,4 +42,5 @@ public class CuerpoTecnico extends Persona implements Serializable {
         this.activo = activo;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+
 }

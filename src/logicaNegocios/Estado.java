@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,13 +42,15 @@ public class Estado implements Serializable, Comparable {
     public Estado() {
     }
 
-    public Estado(boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
+    public Estado(EntityManager entityManager, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
         this.jugadora = jugadora;
         this.fecha = fecha;
         this.licencia = licencia;
         this.baja = baja;
         this.activa = activa;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -118,4 +122,19 @@ public class Estado implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+     //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Estado" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }

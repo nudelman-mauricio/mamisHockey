@@ -48,13 +48,14 @@ public class Deuda implements Serializable, Comparable {
     public Deuda() {
     }
 
-    public Deuda(Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
+    public Deuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
         this.fecha = fecha;
         this.monto = monto;
         this.saldado = saldado;
         this.unConceptoDeportivo = unConceptoDeportivo;
         this.observacion = observacion;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -154,4 +155,19 @@ public class Deuda implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+     //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Deuda" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }

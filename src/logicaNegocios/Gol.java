@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,10 +30,12 @@ public class Gol implements Serializable, Comparable {
 
     }
 
-    public Gol(String tiempo, boolean autoGol) {
+    public Gol(EntityManager entityManager, String tiempo, boolean autoGol) {
         this.tiempo = tiempo;
         this.autoGol = autoGol;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
     
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -79,4 +83,19 @@ public class Gol implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+     //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Gol" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }

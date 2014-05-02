@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,12 +41,14 @@ public class IngresoOtro implements Serializable, Comparable {
 
     }
 
-    public IngresoOtro(Date fecha, ConceptoIngreso unConceptoIngreso, double monto, String detalle) {
+    public IngresoOtro(EntityManager entityManager, Date fecha, ConceptoIngreso unConceptoIngreso, double monto, String detalle) {
         this.fecha = fecha;
         this.unConceptoIngreso = unConceptoIngreso;
         this.monto = monto;
         this.detalle = detalle;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -112,4 +116,19 @@ public class IngresoOtro implements Serializable, Comparable {
     public Object getIdIngresoOtro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+     //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir IngresoOtro" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }
