@@ -333,49 +333,21 @@ public class ControladoraEntidades {
     }
 
     public void crearLocalidad(String nombre, String codPostal) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Localidad unaLocalidad = new Localidad(nombre, codPostal);
-            entityManager.persist(unaLocalidad);
-            this.localidades.add(unaLocalidad);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Localidad" + e.getMessage());
-            tx.rollback();
-        }
+            Localidad unaLocalidad = new Localidad(entityManager,nombre, codPostal);            
+            this.localidades.add(unaLocalidad);            
     }
 
     public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {
         unaLocalidad.setNombre(nombre);
         unaLocalidad.setCodPostal(codPostal);
         unaLocalidad.setBorradoLogico(borradoLogico);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaLocalidad);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Localidades" + e.getMessage());
-            tx.rollback();
-        }
+        
+        unaLocalidad.persistir(entityManager);        
     }
 
     public void eliminarLocalidad(Localidad unaLocalidad) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
             unaLocalidad.setBorradoLogico(true);
-            entityManager.persist(unaLocalidad);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Localidad" + e.getMessage());
-            tx.rollback();
-        }
+            unaLocalidad.persistir(entityManager);            
     }
 //------------------------------FIN LOCALIDADES---------------------------------
 }
