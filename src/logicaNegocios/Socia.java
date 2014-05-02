@@ -3,11 +3,13 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 
 @Entity
 public class Socia extends Persona implements Serializable {
@@ -38,6 +40,8 @@ public class Socia extends Persona implements Serializable {
 
     @OneToMany(targetEntity = Estado.class)
     private Collection<Estado> estados;
+    
+    private EntityManager entityManager;
 
     public Socia() {
 
@@ -47,6 +51,7 @@ public class Socia extends Persona implements Serializable {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.fotoCarnet = fotoCarnet;
         this.exJugadora = exJugadora;
+        this.entityManager = entityManager;
         this.persistir(entityManager);
     }
     
@@ -124,6 +129,42 @@ public class Socia extends Persona implements Serializable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
  
+//-----------------------------------ERGOMETRIA-----------------------------------
+    public Ergometria buscarErgometriaBD(Long id) {
+        Ergometria resultado;
+        Query traerErgometria = this.entityManager.createQuery("SELECT auxE FROM Ergometria auxE WHERE auxE.id = " + id);
+        resultado = (Ergometria) traerErgometria.getResultList();
+        return resultado;
+    }
 
+    public Ergometria buscarErgometria(Long id) {
+        Ergometria resultado = null;
+        for (Ergometria aux : ergometrias) {
+            if (Objects.equals(aux.getIdErgometria(), id)) {
+                resultado = aux;
+            }
+        }
+        return resultado;
+    }
+
+    public void crearErgometria(EntityManager entityManager, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
+        Ergometria unaErgometria = new Ergometria(entityManager, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
+        this.ergometrias.add(unaErgometria);            
+    }
+
+    public void modificarPartido(Ergometria unaErgometria, EntityManager entityManager, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
+        unaErgometria.setAprobado(aprobado);
+        unaErgometria.setComentarios(comentarios);
+        unaErgometria.setFechaCaducidad(fechaCaducidad);
+        unaErgometria.setFechaRealizacion(fechaRealizacion);
+        
+        unaErgometria.persistir(entityManager);        
+    }
+
+    public void eliminarErgometria(Ergometria unaErgometria) {
+       //unaErgometria.setBorradoLogico(true);
+      // unPartido.persistir(entityManager);
+    }
+//---------------------------------FIN PARTIDOS---------------------------------
     
  }
