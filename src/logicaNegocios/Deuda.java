@@ -125,18 +125,7 @@ public class Deuda implements Serializable, Comparable {
 
 //--------------------------------PAGO DEUDA------------------------------------
     public void agregarPagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {
-        this.pagosDeuda.add(new PagoDeuda(fecha, monto, observacion));
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Agregar PagoDeuda en Deuda" + e.getMessage());
-            tx.rollback();
-        }
+        this.pagosDeuda.add(new PagoDeuda(entityManager, fecha, monto, observacion));        
     }
 
     public void modificarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda, Date fecha, double monto, String observacion, boolean borradoLogico) {
@@ -145,30 +134,12 @@ public class Deuda implements Serializable, Comparable {
         unPagoDeuda.setObservacion(observacion);
         unPagoDeuda.setBorradoLogico(borradoLogico);
 
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar PagoDeuda en Deuda" + e.getMessage());
-            tx.rollback();
-        }
+        unPagoDeuda.persistir(entityManager);
     }
 
     public void eliminarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
             unPagoDeuda.setBorradoLogico(true);
-            entityManager.persist(unPagoDeuda);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar CuerpoTecnico" + e.getMessage());
-            tx.rollback();
-        }
+            unPagoDeuda.persistir(entityManager);            
     }
 //------------------------------FIN PAGO DEUDA----------------------------------
 

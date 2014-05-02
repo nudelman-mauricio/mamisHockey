@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,11 +38,13 @@ public class Pase implements Serializable, Comparable {
 
     }
 
-    public Pase(Date fecha, double monto, Equipo unEquipo) {
+    public Pase(EntityManager entityManager,Date fecha, double monto, Equipo unEquipo) {
         this.fecha = fecha;
         this.monto = monto;
         this.unEquipo = unEquipo;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -96,4 +100,19 @@ public class Pase implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+       //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Pase" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,11 +36,13 @@ public class PagoDeuda implements Serializable, Comparable {
     public PagoDeuda() {
     }
 
-    public PagoDeuda(Date fecha, double monto, String observacion) {
+    public PagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {
         this.fecha = fecha;
         this.monto = monto;
         this.observacion = observacion;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -94,4 +98,19 @@ public class PagoDeuda implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+ //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir PagoDeuda" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }

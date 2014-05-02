@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -60,7 +62,7 @@ public class Partido implements Serializable, Comparable {
     public Partido() {
     }
 
-    public Partido(Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+    public Partido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         this.unEquipoVisitante = unEquipoVisitante;
         this.fecha = fecha;
         this.unArbitro1 = unArbitro1;
@@ -69,6 +71,8 @@ public class Partido implements Serializable, Comparable {
         this.observaciones = observaciones;
         this.unEquipoLocal = unEquipoLocal;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -187,5 +191,20 @@ public class Partido implements Serializable, Comparable {
             }
         }
         return retorno;
+    }   
+    
+    //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Partido" + e.getMessage());
+            tx.rollback();
+        }
     }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }
