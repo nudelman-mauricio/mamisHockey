@@ -181,8 +181,8 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearArbitro(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
-        Arbitro unArbitro = new Arbitro(entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
+    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
+        Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.arbitros.add(unArbitro);
     }
 
@@ -246,18 +246,8 @@ public class ControladoraEntidades {
     }
 
     public void crearClub(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Club unClub = new Club(idClub, nombre, logo, nombrePresidente, unaLocalidad);
-            entityManager.persist(unClub);
-            this.clubes.add(unClub);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Club" + e.getMessage());
-            tx.rollback();
-        }
+        Club unClub = new Club(this.entityManager, nombre, logo, nombrePresidente, unaLocalidad);
+        this.clubes.add(unClub);
     }
 
     public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
@@ -267,31 +257,12 @@ public class ControladoraEntidades {
         unClub.setNombrePresidente(nombrePresidente);
         unClub.setUnaLocalidad(unaLocalidad);
         unClub.setBorradoLogico(borradoLogico);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unClub);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Club" + e.getMessage());
-            tx.rollback();
-        }
+        unClub.persistir(entityManager);
     }
 
     public void eliminarClub(Club unClub) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unClub.setBorradoLogico(true);
-            entityManager.persist(unClub);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Club" + e.getMessage());
-            tx.rollback();
-        }
+        unClub.setBorradoLogico(true);
+        unClub.persistir(entityManager);
     }
 //------------------------------FIN CLUBES--------------------------------------
 

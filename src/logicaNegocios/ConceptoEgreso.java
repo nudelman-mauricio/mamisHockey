@@ -1,9 +1,10 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,10 +28,11 @@ public class ConceptoEgreso implements Serializable, Comparable {
     public ConceptoEgreso() {
     }
 
-    public ConceptoEgreso(String nombre, String detalle) {
+    public ConceptoEgreso(EntityManager entityManager, String nombre, String detalle) {
         this.nombre = nombre;
         this.detalle = detalle;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -66,6 +68,21 @@ public class ConceptoEgreso implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Concepto Egreso" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 
     @Override
     public int compareTo(Object aux) {

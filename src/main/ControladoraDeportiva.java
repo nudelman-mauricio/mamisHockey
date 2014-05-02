@@ -75,48 +75,19 @@ public class ControladoraDeportiva {
     }
 
     public void crearCategoria(int cantMenores, String nombre) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Categoria unaCategoria = new Categoria(cantMenores, nombre);
-            entityManager.persist(unaCategoria);
-            this.categorias.add(unaCategoria);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Categoria" + e.getMessage());
-            tx.rollback();
-        }
+        Categoria unaCategoria = new Categoria(entityManager, cantMenores, nombre);
+        this.categorias.add(unaCategoria);
     }
 
     public void modificarCategoria(Categoria unaCategoria, int cantMenores, String nombre) {
         unaCategoria.setCantMenores(cantMenores);
         unaCategoria.setNombre(nombre);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaCategoria);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Categoria");
-            tx.rollback();
-        }
+        unaCategoria.persistir(entityManager);
     }
 
     public void eliminarCategoria(Categoria unaCategoria) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unaCategoria.setBorradoLogico(true);
-            entityManager.persist(unaCategoria);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en eliminar categoria" + e.getMessage());
-            tx.rollback();
-        }
+        unaCategoria.setBorradoLogico(true);
+        unaCategoria.persistir(entityManager);
     }
 //------------------------------FIN CATEGORIAS----------------------------------
 

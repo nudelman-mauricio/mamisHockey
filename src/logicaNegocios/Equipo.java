@@ -62,12 +62,13 @@ public class Equipo implements Serializable, Comparable {
     public Equipo() {
     }
 
-    public Equipo(String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
+    public Equipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         this.nombre = nombre;
         this.unaCapitana = unaCapitana;
         this.unaDelegada = unaDelegada;
         this.unDT = unDT;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -184,6 +185,21 @@ public class Equipo implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+//----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
+            System.out.println("Error de Persistir Equipo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
+
 //-----------------------------------DEUDAS-------------------------------------
     public void crearDeuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
         EntityTransaction tx = entityManager.getTransaction();
@@ -277,7 +293,7 @@ public class Equipo implements Serializable, Comparable {
 //------------------------------FIN INDUMENTARIAS-------------------------------
 
 //----------------------------- SANCIONES TRIBUNAL -----------------------------
-    public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {        
+    public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         try {

@@ -16,105 +16,105 @@ import javax.persistence.Query;
 
 @Entity
 public class Club implements Serializable, Comparable {
-
+    
     @Basic
     private String nombrePresidente;
-
+    
     @Basic
     private String logo;
-
+    
     @OneToMany(targetEntity = Cancha.class)
     private Collection<Cancha> canchas;
-
+    
     @Basic
     private String nombre;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idClub;
-
+    
     @Basic
     private boolean borradoLogico;
-
+    
     @OneToMany(targetEntity = Equipo.class)
     private Collection<Equipo> equipos;
-
+    
     @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
-
+    
     public Club() {
     }
-
-    public Club(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
-        this.idClub = idClub;
+    
+    public Club(EntityManager entityManager, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
         this.nombre = nombre;
         this.logo = logo;
         this.nombrePresidente = nombrePresidente;
         this.unaLocalidad = unaLocalidad;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
     public String getNombrePresidente() {
         return this.nombrePresidente;
     }
-
+    
     public void setNombrePresidente(String nombrePresidente) {
         this.nombrePresidente = nombrePresidente;
     }
-
+    
     public String getLogo() {
         return this.logo;
     }
-
+    
     public void setLogo(String logo) {
         this.logo = logo;
     }
-
+    
     public Collection<Cancha> getCanchas() {
         return this.canchas;
     }
-
+    
     public void setCanchas(Collection<Cancha> canchas) {
         this.canchas = canchas;
     }
-
+    
     public String getNombre() {
         return this.nombre;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     public Long getIdClub() {
         return this.idClub;
     }
-
+    
     public void setIdClub(Long idClub) {
         this.idClub = idClub;
     }
-
+    
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
-
+    
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
+    
     public Collection<Equipo> getEquipos() {
         return this.equipos;
     }
-
+    
     public void setEquipos(Collection<Equipo> equipos) {
         this.equipos = equipos;
     }
-
+    
     public Localidad getUnaLocalidad() {
         return this.unaLocalidad;
     }
-
+    
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
@@ -132,6 +132,21 @@ public class Club implements Serializable, Comparable {
         return retorno;
     }
 
+//----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
+            System.out.println("Error de Persistir Club" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
+
 //------------------------------EQUIPOS-----------------------------------------   
     public Equipo buscarEquipoBD(EntityManager entityManager, Long id) {
         Equipo resultado;
@@ -139,7 +154,7 @@ public class Club implements Serializable, Comparable {
         resultado = (Equipo) traerEquipo.getSingleResult();
         return resultado;
     }
-
+    
     public Equipo buscarEquipo(Long id) {
         Equipo resultado = null;
         for (Equipo aux : equipos) {
@@ -149,23 +164,13 @@ public class Club implements Serializable, Comparable {
         }
         return resultado;
     }
-
+    
     public void crearEquipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Equipo unEquipo = new Equipo(nombre, unaCapitana, unaDelegada, unDT);
-            entityManager.persist(unEquipo);
-            this.equipos.add(unEquipo);
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Exception Crear Equipos" + e.getMessage());
-            tx.rollback();
-        }
+        Equipo unEquipo = new Equipo(entityManager, nombre, unaCapitana, unaDelegada, unDT);
+        this.equipos.add(unEquipo);
+        this.persistir(entityManager);
     }
-
+    
     public void modificarEquipo(EntityManager entityManager, Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
         unEquipo.setNombre(nombre);
         unEquipo.setUnaCapitana(unaCapitana);
@@ -176,59 +181,29 @@ public class Club implements Serializable, Comparable {
         unEquipo.setUnPreparadorFisico(unPreparadorFisico);
         unEquipo.setUnAyudanteCampo(unAyudanteCampo);
         unEquipo.setBorradoLogico(borradoLogico);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unEquipo);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error de Modificar Equipo" + e.getMessage());
-            tx.rollback();
-        }
+        unEquipo.persistir(entityManager);
     }
-
+    
     public void eliminarEquipo(EntityManager entityManager, Equipo unEquipo) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unEquipo.setBorradoLogico(true);
-            entityManager.persist(unEquipo);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error en Eliminar Equipo" + e.getMessage());
-            tx.rollback();
-        }
+        unEquipo.setBorradoLogico(true);
+        unEquipo.persistir(entityManager);
     }
 //------------------------------FIN EQUIPOS-------------------------------------
 
 //-------------------------------- CANCHAS -------------------------------------
     public void crearCancha(EntityManager entityManager, String nombre, boolean seOcupa) {
         Cancha unaCancha = new Cancha(entityManager, nombre, seOcupa);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            this.canchas.add(unaCancha);
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error de Agregar Cancha en Club" + e.getMessage());
-            tx.rollback();
-        }
-
+        this.canchas.add(unaCancha);
+        this.persistir(entityManager);
     }
-
+    
     public void modificarCancha(EntityManager entityManager, Cancha unaCancha, String nombre, boolean seOcupa, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
         unaCancha.setSeOcupa(seOcupa);
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(entityManager);
     }
-
+    
     public void eliminarCancha(EntityManager entityManager, Cancha unaCancha) {
         unaCancha.setBorradoLogico(true);
         unaCancha.persistir(entityManager);

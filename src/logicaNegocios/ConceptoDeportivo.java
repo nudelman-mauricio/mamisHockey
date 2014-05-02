@@ -1,9 +1,10 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,12 +30,13 @@ public class ConceptoDeportivo implements Serializable, Comparable {
 
     public ConceptoDeportivo() {
     }
-    
-    public ConceptoDeportivo(double monto, String nombre, String detalle) {
+
+    public ConceptoDeportivo(EntityManager entityManager, double monto, String nombre, String detalle) {
         this.monto = monto;
         this.nombre = nombre;
         this.detalle = detalle;
-        this.borradoLogico = false;               
+        this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
@@ -79,6 +81,21 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+//----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Concepto Deportivo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
