@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,12 +54,14 @@ public class SancionTribunal implements Serializable, Comparable {
 
     }
 
-    public SancionTribunal(Date vencimiento, int cantFechas, Date fecha, String observacion) {
+    public SancionTribunal(EntityManager entityManager,Date vencimiento, int cantFechas, Date fecha, String observacion) {
         this.vencimiento = vencimiento;
         this.cantFechas = cantFechas;
         this.fecha = fecha;
         this.observacion = observacion;
         this.borradoLogico = false;
+        
+        this.persistir(entityManager);
     }
     
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -153,4 +157,19 @@ public class SancionTribunal implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+     //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir SancionTribunal" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 }

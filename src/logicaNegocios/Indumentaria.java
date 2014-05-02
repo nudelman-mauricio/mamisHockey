@@ -89,7 +89,7 @@ public class Indumentaria implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
             System.out.println("Error de Persistir Indumentaria" + e.getMessage());
             tx.rollback();
         }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,12 +35,14 @@ public class Tarjeta implements Serializable, Comparable {
     public Tarjeta() {               
     }
     
-    public Tarjeta(boolean roja, boolean amarilla, boolean verde, String observacion) {
+    public Tarjeta(EntityManager em, boolean roja, boolean amarilla, boolean verde, String observacion) {
            this.roja = roja;
            this.amarilla= amarilla;
            this.verde = verde;
            this.observacion = observacion;
-           this.borradoLogico = false;     
+           this.borradoLogico = false;   
+           
+           this.persistir(em);
     }
     
     
@@ -103,5 +107,20 @@ public class Tarjeta implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+    //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Tarjeta" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 
 }

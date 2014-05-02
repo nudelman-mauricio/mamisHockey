@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -41,10 +43,11 @@ public class Socia extends Persona implements Serializable {
 
     }
 
-    public Socia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
+    public Socia(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.fotoCarnet = fotoCarnet;
         this.exJugadora = exJugadora;
+        this.persistir(entityManager);
     }
     
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -120,4 +123,7 @@ public class Socia extends Persona implements Serializable {
         this.estados = estados;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-}
+ 
+
+    
+ }

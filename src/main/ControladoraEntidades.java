@@ -314,18 +314,8 @@ public class ControladoraEntidades {
     }
 
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Socia unaSocia = new Socia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
-            entityManager.persist(unaSocia);
-            this.socias.add(unaSocia);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Socia" + e.getMessage());
-            tx.rollback();
-        }
+            Socia unaSocia = new Socia(entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
+            this.socias.add(unaSocia);            
     }
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
@@ -344,30 +334,12 @@ public class ControladoraEntidades {
         unaSocia.setExJugadora(exJugadora);
         unaSocia.setBorradoLogico(borradoLogico);
 
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaSocia);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Socia" + e.getMessage());
-            tx.rollback();
-        }
+        unaSocia.persistir(entityManager);
     }
 
     public void eliminarSocia(Socia unaSocia) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
             unaSocia.setBorradoLogico(true);
-            entityManager.persist(unaSocia);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Socia" + e.getMessage());
-            tx.rollback();
-        }
+            unaSocia.persistir(entityManager);            
     }
 //------------------------------FIN SOCIAS--------------------------------------
 

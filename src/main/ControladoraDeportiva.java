@@ -132,49 +132,22 @@ public class ControladoraDeportiva {
     }
 
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            Torneo unTorneo = new Torneo(diaInicio, unaCategoria, nombre);
-            entityManager.persist(unTorneo);
-            this.torneos.add(unTorneo);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Torneo" + e.getMessage());
-            tx.rollback();
-        }
+            Torneo unTorneo = new Torneo(entityManager, diaInicio, unaCategoria, nombre);
+            this.torneos.add(unTorneo);           
     }
 
     public void modificarTorneo(Torneo unTorneo, Date fechaInicio, Categoria unaCategoria, String nombre) {
         unTorneo.setFechaInicio(fechaInicio);
         unTorneo.setUnaCategoria(unaCategoria);
         unTorneo.setNombre(nombre);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unTorneo);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Torneo" + e.getMessage());
-            tx.rollback();
-        }
+        
+        unTorneo.persistir(entityManager);
+        
     }
 
     public void eliminarTorneo(Torneo unTorneo) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unTorneo.setBorradoLogico(true);
-            entityManager.persist(unTorneo);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Torneo" + e.getMessage());
-            tx.rollback();
-        }
+        unTorneo.setBorradoLogico(true);
+        unTorneo.persistir(entityManager);       
     }
 //------------------------------FIN TORNEOS-------------------------------------
 
@@ -190,24 +163,8 @@ public class ControladoraDeportiva {
     }
 
     public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date vencimiento, int cantFechas, Date fecha, String observacion) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            SancionTribunal unaSancionTribunal = new SancionTribunal(vencimiento, cantFechas, fecha, observacion);
-            entityManager.persist(unaSancionTribunal);
-            this.sancionesTribunal.add(unaSancionTribunal);
-            if (unEquipo != null) {
-                unEquipo.agregarSancionTribunal(entityManager, unaSancionTribunal);
-            }
-            if (unaPersona != null) {
-                unaPersona.agregarSancionTribunal(entityManager, unaSancionTribunal);
-            }
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Crear Sanciones Tribunal" + e.getMessage());
-            tx.rollback();
-        }
+        SancionTribunal unaSancionTribunal = new SancionTribunal(entityManager,vencimiento, cantFechas, fecha, observacion);
+        this.sancionesTribunal.add(unaSancionTribunal);            
     }
 
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date vencimiento, int cantFechas, Date fecha, String observacion, Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico) {
@@ -221,30 +178,12 @@ public class ControladoraDeportiva {
         unaSancionTribunal.setNumeroResolucion(numeroResolucion);
         unaSancionTribunal.setBorradoLogico(borradoLogico);
 
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unaSancionTribunal);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Sancion Tribunal" + e.getMessage());
-            tx.rollback();
-        }
+        unaSancionTribunal.persistir(entityManager);
     }
 
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
             unaSancionTribunal.setBorradoLogico(true);
-            entityManager.persist(unaSancionTribunal);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Sancion Tribunal" + e.getMessage());
-            tx.rollback();
-        }
+            unaSancionTribunal.persistir(entityManager);
     }
 //------------------------------FIN SANCIONES-----------------------------------
 }

@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,11 +42,13 @@ public class Torneo implements Serializable, Comparable {
     public Torneo() {
     }
 
-    public Torneo(Date diaInicio, Categoria unaCategoria, String nombre) {
+    public Torneo(EntityManager em, Date diaInicio, Categoria unaCategoria, String nombre) {
         this.fechaInicio = diaInicio;
         this.unaCategoria = unaCategoria;
         this.nombre = nombre;
         this.borradoLogico = false;
+        
+        this.persistir(em);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
@@ -108,6 +112,21 @@ public class Torneo implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+    //----------------------------------PERSISTENCIA--------------------------------
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Torneo" + e.getMessage());
+            tx.rollback();
+        }
+    }
+//------------------------------FIN PERSISTENCIA--------------------------------
 
     //----------------------------------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
     @Override
