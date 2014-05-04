@@ -184,6 +184,8 @@ public class InterfaceClub extends javax.swing.JFrame {
                 .addGap(58, 58, 58))
         );
 
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/CAPRI2.jpg"))); // NOI18N
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jToggleButton1.setText("...");
