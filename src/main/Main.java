@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Main {
             emf.close();
         } */
         MenuPrincipalInterface unaVentana = new MenuPrincipalInterface ();
+        SwingUtilities.updateComponentTreeUI ( unaVentana ) ;        
         unaVentana.setVisible(true);
         
     }
