@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -27,17 +26,15 @@ public class Gol implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Gol() {
-
     }
 
     public Gol(EntityManager entityManager, String tiempo, boolean autoGol) {
         this.tiempo = tiempo;
         this.autoGol = autoGol;
         this.borradoLogico = false;
-        
         this.persistir(entityManager);
     }
-    
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public String getTiempo() {
         return this.tiempo;
@@ -83,8 +80,8 @@ public class Gol implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

@@ -7,46 +7,44 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.OneToMany;
 import javax.persistence.Query;
 
 @Entity
 public class Socia extends Persona implements Serializable {
-
+    
     @Basic
     private String numeroCamiseta;
-
+    
     @Basic
     private String fotoCarnet;
-
+    
     @OneToMany(targetEntity = Ergometria.class)
     private Collection<Ergometria> ergometrias;
-
+    
     @Basic
     private boolean exJugadora;
-
+    
     @OneToMany(targetEntity = Tarjeta.class)
     private Collection<Tarjeta> tarjetas;
-
+    
     @OneToMany(targetEntity = Pase.class)
     private Collection<Pase> pases;
-
+    
     @OneToMany(targetEntity = Deuda.class)
     private Collection<Deuda> deudas;
-
+    
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
-
+    
     @OneToMany(targetEntity = Estado.class)
     private Collection<Estado> estados;
     
     private EntityManager entityManager;
-
+    
     public Socia() {
-
     }
-
+    
     public Socia(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
         this.fotoCarnet = fotoCarnet;
@@ -54,81 +52,81 @@ public class Socia extends Persona implements Serializable {
         this.entityManager = entityManager;
         this.persistir(entityManager);
     }
-    
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public String getNumeroCamiseta() {
         return this.numeroCamiseta;
     }
-
+    
     public void setNumeroCamiseta(String numeroCamiseta) {
         this.numeroCamiseta = numeroCamiseta;
     }
-
+    
     public String getFotoCarnet() {
         return this.fotoCarnet;
     }
-
+    
     public void setFotoCarnet(String fotoCarnet) {
         this.fotoCarnet = fotoCarnet;
     }
-
+    
     public Collection<Ergometria> getErgometrias() {
         return this.ergometrias;
     }
-
+    
     public void setErgometrias(Collection<Ergometria> ergometrias) {
         this.ergometrias = ergometrias;
     }
-
+    
     public boolean isExJugadora() {
         return this.exJugadora;
     }
-
+    
     public void setExJugadora(boolean exJugadora) {
         this.exJugadora = exJugadora;
     }
-
+    
     public Collection<Tarjeta> getTarjetas() {
         return this.tarjetas;
     }
-
+    
     public void setTarjetas(Collection<Tarjeta> tarjetas) {
         this.tarjetas = tarjetas;
     }
-
+    
     public Collection<Pase> getPases() {
         return this.pases;
     }
-
+    
     public void setPases(Collection<Pase> pases) {
         this.pases = pases;
     }
-
+    
     public Collection<Deuda> getDeudas() {
         return this.deudas;
     }
-
+    
     public void setDeudas(Collection<Deuda> deudas) {
         this.deudas = deudas;
     }
-
+    
     public Collection<Gol> getGoles() {
         return this.goles;
     }
-
+    
     public void setGoles(Collection<Gol> goles) {
         this.goles = goles;
     }
-
+    
     public Collection<Estado> getEstados() {
         return this.estados;
     }
-
+    
     public void setEstados(Collection<Estado> estados) {
         this.estados = estados;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
- 
+
 //-----------------------------------ERGOMETRIA-----------------------------------
     public Ergometria buscarErgometriaBD(Long id) {
         Ergometria resultado;
@@ -136,7 +134,7 @@ public class Socia extends Persona implements Serializable {
         resultado = (Ergometria) traerErgometria.getResultList();
         return resultado;
     }
-
+    
     public Ergometria buscarErgometria(Long id) {
         Ergometria resultado = null;
         for (Ergometria aux : ergometrias) {
@@ -146,35 +144,35 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
-
+    
     public void crearErgometria(EntityManager entityManager, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         Ergometria unaErgometria = new Ergometria(entityManager, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
-        this.ergometrias.add(unaErgometria);            
+        this.ergometrias.add(unaErgometria);
     }
-
+    
     public void modificarPartido(Ergometria unaErgometria, EntityManager entityManager, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         unaErgometria.setAprobado(aprobado);
         unaErgometria.setComentarios(comentarios);
         unaErgometria.setFechaCaducidad(fechaCaducidad);
         unaErgometria.setFechaRealizacion(fechaRealizacion);
         
-        unaErgometria.persistir(entityManager);        
+        unaErgometria.persistir(entityManager);
     }
-
+    
     public void eliminarErgometria(Ergometria unaErgometria) {
-       //unaErgometria.setBorradoLogico(true);
-      // unPartido.persistir(entityManager);
+        //unaErgometria.setBorradoLogico(true);
+        // unPartido.persistir(entityManager);
     }
 //---------------------------------FIN ERGOMETRIAS---------------------------------
-    
- //-----------------------------------TARJETAS-----------------------------------
+
+    //-----------------------------------TARJETAS-----------------------------------
     public Tarjeta buscarTarjetaBD(Long id) {
         Tarjeta resultado;
         Query traerTarjeta = this.entityManager.createQuery("SELECT auxT FROM Tarjeta auxT WHERE auxT.id = " + id);
         resultado = (Tarjeta) traerTarjeta.getResultList();
         return resultado;
     }
-
+    
     public Tarjeta buscarTarjeta(Long id) {
         Tarjeta resultado = null;
         for (Tarjeta aux : tarjetas) {
@@ -184,12 +182,12 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
-
+    
     public void crearTarjeta(EntityManager em, boolean roja, boolean amarilla, boolean verde, String observacion) {
-        Tarjeta unaTarjeta = new Tarjeta(em, roja,amarilla,verde,observacion);
-        this.tarjetas.add(unaTarjeta);            
+        Tarjeta unaTarjeta = new Tarjeta(em, roja, amarilla, verde, observacion);
+        this.tarjetas.add(unaTarjeta);
     }
-
+    
     public void modificarTarjeta(Tarjeta unaTarjeta, EntityManager em, boolean roja, boolean amarilla, boolean verde, String observacion, boolean borradoLogico) {
         unaTarjeta.setAmarilla(amarilla);
         unaTarjeta.setBorradoLogico(borradoLogico);
@@ -197,23 +195,23 @@ public class Socia extends Persona implements Serializable {
         unaTarjeta.setRoja(roja);
         unaTarjeta.setVerde(verde);
         
-        unaTarjeta.persistir(entityManager);        
+        unaTarjeta.persistir(entityManager);
     }
-
+    
     public void eliminarunaTarjeta(Tarjeta unaTarjeta) {
-      unaTarjeta.setBorradoLogico(true);
-      unaTarjeta.persistir(entityManager);
+        unaTarjeta.setBorradoLogico(true);
+        unaTarjeta.persistir(entityManager);
     }
 //---------------------------------FIN TARJETAS---------------------------------
-    
- //-----------------------------------PASES-----------------------------------
+
+    //-----------------------------------PASES-----------------------------------
     public Pase buscarPaseBD(Long id) {
         Pase resultado;
         Query traerPase = this.entityManager.createQuery("SELECT auxP FROM Pase auxP WHERE auxP.id = " + id);
         resultado = (Pase) traerPase.getResultList();
         return resultado;
     }
-
+    
     public Pase buscarPase(Long id) {
         Pase resultado = null;
         for (Pase aux : pases) {
@@ -223,35 +221,34 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
-
-    public void crearPase(EntityManager entityManager,Date fecha, double monto, Equipo unEquipo) {
-        Pase unPase = new Pase(entityManager,fecha,monto,unEquipo);
-        this.pases.add(unPase);            
+    
+    public void crearPase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo) {
+        Pase unPase = new Pase(entityManager, fecha, monto, unEquipo);
+        this.pases.add(unPase);
     }
-
-    public void modificarPase(Pase unPase, EntityManager entityManager,Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
+    
+    public void modificarPase(Pase unPase, EntityManager entityManager, Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
         unPase.setFecha(fecha);
         unPase.setMonto(monto);
         unPase.setUnEquipo(unEquipo);
-        unPase.setBorradoLogico(borradoLogico);        
-        unPase.persistir(entityManager);        
+        unPase.setBorradoLogico(borradoLogico);
+        unPase.persistir(entityManager);
     }
-
+    
     public void eliminarunPase(Pase unPase) {
-      unPase.setBorradoLogico(true);
-      unPase.persistir(entityManager);
+        unPase.setBorradoLogico(true);
+        unPase.persistir(entityManager);
     }
 //---------------------------------FIN PASES---------------------------------
-    
+
 //-----------------------------------DEUDAS-------------------------------------
-    
-     public Deuda buscarDeudaBD(Long id) {
+    public Deuda buscarDeudaBD(Long id) {
         Deuda resultado;
         Query traerDeuda = this.entityManager.createQuery("SELECT auxD FROM Deuda auxD WHERE auxD.id = " + id);
         resultado = (Deuda) traerDeuda.getResultList();
         return resultado;
     }
-
+    
     public Deuda buscarDeuda(Long id) {
         Deuda resultado = null;
         for (Deuda aux : deudas) {
@@ -261,11 +258,12 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
+    
     public void crearDeuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
         Deuda unaDeuda = new Deuda(entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
-        this.deudas.add(unaDeuda);            
+        this.deudas.add(unaDeuda);
     }
-
+    
     public void modificarDeuda(EntityManager entityManager, Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
         unaDeuda.setFecha(fecha);
         unaDeuda.setMonto(monto);
@@ -273,61 +271,36 @@ public class Socia extends Persona implements Serializable {
         unaDeuda.setUnConceptoDeportivo(unConceptoDeportivo);
         unaDeuda.setObservacion(observacion);
         unaDeuda.setBorradoLogico(borradoLogico);
-
+        
         unaDeuda.persistir(entityManager);
     }
-
+    
     public void eliminarDeuda(EntityManager entityManager, Deuda unaDeuda) {
         unaDeuda.setBorradoLogico(true);
         unaDeuda.persistir(entityManager);
     }
 //---------------------------------FIN DEUDAS-----------------------------------
-    
+
 //-----------------------------------GOLES-------------------------------------
+    public void agregarGol(EntityManager entityManager, Gol unGol) {
+        this.goles.add(unGol);
+        this.persistir(entityManager);
+    }
     
-     public Gol buscarGolBD(Long id) {
-        Gol resultado;
-        Query traerGol = this.entityManager.createQuery("SELECT auxG FROM Gol auxG WHERE auxG.id = " + id);
-        resultado = (Gol) traerGol.getResultList();
-        return resultado;
-    }
-
-    public Gol buscarGol(Long id) {
-        Gol resultado = null;
-        for (Gol aux : goles) {
-            if (Objects.equals(aux.getIdGol(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-    public void crearGol(EntityManager entityManager, String tiempo, boolean autoGol) {
-        Gol unGol = new Gol(entityManager, tiempo, autoGol);
-        this.goles.add(unGol);            
-    }
-
-    public void modificarGol(EntityManager entityManager,Gol unGol, String tiempo, boolean autoGol, boolean borradoLogico) {
-        unGol.setTiempo(tiempo);
-        unGol.setAutoGol(autoGol);
-        unGol.setBorradoLogico(borradoLogico);
-        unGol.persistir(entityManager);
-    }
-
-    public void eliminarunGol(EntityManager entityManager, Gol unGol) {
-        unGol.setBorradoLogico(true);
-        unGol.persistir(entityManager);
+    public void quitarGol(EntityManager entityManager, Gol unGol) {
+        this.goles.remove(unGol);
+        this.persistir(entityManager);
     }
 //---------------------------------FIN GOLES-----------------------------------
 
 //-----------------------------------ESTADOS-------------------------------------
-    
-     public Estado buscarEstadoBD(Long id) {
+    public Estado buscarEstadoBD(Long id) {
         Estado resultado;
         Query traerEstado = this.entityManager.createQuery("SELECT auxE FROM Estado auxE WHERE auxE.id = " + id);
         resultado = (Estado) traerEstado.getResultList();
         return resultado;
     }
-
+    
     public Estado buscarEstado(Long id) {
         Estado resultado = null;
         for (Estado aux : estados) {
@@ -337,12 +310,13 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
+    
     public void crearEstado(EntityManager entityManager, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
         Estado unEstado = new Estado(entityManager, jugadora, fecha, licencia, baja, activa);
-        this.estados.add(unEstado);            
+        this.estados.add(unEstado);
     }
-
-    public void modificarEstado(EntityManager entityManager,Estado unEstado,  boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa, boolean borradoLogico) {
+    
+    public void modificarEstado(EntityManager entityManager, Estado unEstado, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa, boolean borradoLogico) {
         unEstado.setJugadora(jugadora);
         unEstado.setFecha(fecha);
         unEstado.setLicencia(licencia);
@@ -352,11 +326,10 @@ public class Socia extends Persona implements Serializable {
         
         unEstado.persistir(entityManager);
     }
-
-    public void eliminarunEstado(EntityManager entityManager,Estado unEstado) {
+    
+    public void eliminarunEstado(EntityManager entityManager, Estado unEstado) {
         unEstado.setBorradoLogico(true);
         unEstado.persistir(entityManager);
     }
-//---------------------------------FIN ESTADOS-----------------------------------
-    
- }
+//---------------------------------FIN ESTADOS----------------------------------
+}

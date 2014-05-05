@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;

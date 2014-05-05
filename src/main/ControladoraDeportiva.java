@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.TreeSet;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.Categoria;
 import logicaNegocios.Equipo;

@@ -71,7 +71,6 @@ public class Partido implements Serializable, Comparable {
         this.observaciones = observaciones;
         this.unEquipoLocal = unEquipoLocal;
         this.borradoLogico = false;
-        
         this.persistir(entityManager);
     }
 
@@ -191,9 +190,9 @@ public class Partido implements Serializable, Comparable {
             }
         }
         return retorno;
-    }   
-    
-    //----------------------------------PERSISTENCIA--------------------------------
+    }
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -207,4 +206,34 @@ public class Partido implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
+
+//----------------------------------GOLES---------------------------------------
+    public void crearGol(EntityManager entityManager, Socia unaSocia, String tiempo, boolean autoGol) {
+        Gol unGol = new Gol(entityManager, tiempo, autoGol);
+        unaSocia.agregarGol(entityManager, unGol);
+        this.goles.add(unGol);
+        this.persistir(entityManager);
+    }
+
+    public void modificarGol(EntityManager entityManager, Gol unGol, String tiempo, boolean autoGol, boolean borradoLogico) {
+        unGol.setTiempo(tiempo);
+        unGol.setAutoGol(autoGol);
+        unGol.setBorradoLogico(borradoLogico);
+        unGol.persistir(entityManager);
+    }
+
+    public void cambiarAutoraGol(EntityManager entityManager, Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
+        unaAutoraActual.quitarGol(entityManager, unGol);
+        unaAutoraNueva.agregarGol(entityManager, unGol);
+    }
+
+    public void eliminarGol(EntityManager entityManager, Gol unGol) {
+        unGol.setBorradoLogico(true);
+        unGol.persistir(entityManager);
+    }
+//--------------------------------FIN GOLES-------------------------------------
+    
+//---------------------------------TARJETAS-------------------------------------
+    
+//-------------------------------FIN TARJETAS-----------------------------------
 }

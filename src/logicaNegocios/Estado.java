@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -48,8 +47,7 @@ public class Estado implements Serializable, Comparable {
         this.licencia = licencia;
         this.baja = baja;
         this.activa = activa;
-        this.borradoLogico = false;
-        
+        this.borradoLogico = false;        
         this.persistir(entityManager);
     }
 
@@ -123,7 +121,7 @@ public class Estado implements Serializable, Comparable {
         return retorno;
     }
     
-     //----------------------------------PERSISTENCIA--------------------------------
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

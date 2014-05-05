@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
@@ -30,8 +29,6 @@ public class FechaTorneo implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
-    
-    private EntityManager entityManager;
 
     public FechaTorneo() {
     }
@@ -39,7 +36,6 @@ public class FechaTorneo implements Serializable, Comparable {
     public FechaTorneo(EntityManager entityManager, int numeroFecha) {
         this.numeroFecha = numeroFecha;
         this.borradoLogico = false;
-        this.entityManager = entityManager;
         this.persistir(entityManager);
     }
 
@@ -78,9 +74,9 @@ public class FechaTorneo implements Serializable, Comparable {
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
 //-----------------------------------PARTIDOS-----------------------------------
-    public Partido buscarPartidoBD(Long id) {
+    public Partido buscarPartidoBD(EntityManager entityManager, Long id) {
         Partido resultado;
-        Query traerPartido = this.entityManager.createQuery("SELECT auxP FROM Partido auxP WHERE auxP.id = " + id);
+        Query traerPartido = entityManager.createQuery("SELECT auxP FROM Partido auxP WHERE auxP.id = " + id);
         resultado = (Partido) traerPartido.getResultList();
         return resultado;
     }
@@ -97,10 +93,11 @@ public class FechaTorneo implements Serializable, Comparable {
 
     public void crearPartido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         Partido unPartido = new Partido(entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unaCancha, observaciones, unEquipoLocal);
-        this.partidos.add(unPartido);            
+        this.partidos.add(unPartido);
+        this.persistir(entityManager);
     }
 
-    public void modificarPartido(Partido unPartido, EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+    public void modificarPartido(EntityManager entityManager, Partido unPartido, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.setFecha(fecha);
         unPartido.setObservaciones(observaciones);
@@ -109,15 +106,15 @@ public class FechaTorneo implements Serializable, Comparable {
         unPartido.setUnEquipoLocal(unEquipoLocal);
         unPartido.setUnEquipoVisitante(unEquipoVisitante);
         unPartido.setUnaCancha(unaCancha);
-        
-        unPartido.persistir(entityManager);        
+        unPartido.persistir(entityManager);
     }
 
-    public void eliminarEgreso(Partido unPartido) {
-       unPartido.setBorradoLogico(true);
-       unPartido.persistir(entityManager);
+    public void eliminarPartido(EntityManager entityManager, Partido unPartido) {
+        unPartido.setBorradoLogico(true);
+        unPartido.persistir(entityManager);
     }
 //---------------------------------FIN PARTIDOS---------------------------------
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -129,8 +126,8 @@ public class FechaTorneo implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

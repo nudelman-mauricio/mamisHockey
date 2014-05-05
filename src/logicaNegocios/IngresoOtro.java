@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -38,7 +37,6 @@ public class IngresoOtro implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public IngresoOtro() {
-
     }
 
     public IngresoOtro(EntityManager entityManager, Date fecha, ConceptoIngreso unConceptoIngreso, double monto, String detalle) {
@@ -47,7 +45,6 @@ public class IngresoOtro implements Serializable, Comparable {
         this.monto = monto;
         this.detalle = detalle;
         this.borradoLogico = false;
-        
         this.persistir(entityManager);
     }
 
@@ -116,8 +113,8 @@ public class IngresoOtro implements Serializable, Comparable {
     public Object getIdIngresoOtro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+    //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 @Entity
 public class CuerpoTecnico extends Persona implements Serializable {

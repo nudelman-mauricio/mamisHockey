@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -126,7 +125,8 @@ public class Deuda implements Serializable, Comparable {
 
 //--------------------------------PAGO DEUDA------------------------------------
     public void agregarPagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {
-        this.pagosDeuda.add(new PagoDeuda(entityManager, fecha, monto, observacion));        
+        this.pagosDeuda.add(new PagoDeuda(entityManager, fecha, monto, observacion));
+        this.persistir(entityManager);
     }
 
     public void modificarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda, Date fecha, double monto, String observacion, boolean borradoLogico) {
@@ -134,13 +134,12 @@ public class Deuda implements Serializable, Comparable {
         unPagoDeuda.setMonto(monto);
         unPagoDeuda.setObservacion(observacion);
         unPagoDeuda.setBorradoLogico(borradoLogico);
-
         unPagoDeuda.persistir(entityManager);
     }
 
     public void eliminarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
-            unPagoDeuda.setBorradoLogico(true);
-            unPagoDeuda.persistir(entityManager);            
+        unPagoDeuda.setBorradoLogico(true);
+        unPagoDeuda.persistir(entityManager);
     }
 //------------------------------FIN PAGO DEUDA----------------------------------
 
@@ -155,8 +154,8 @@ public class Deuda implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

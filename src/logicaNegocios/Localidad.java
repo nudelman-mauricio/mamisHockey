@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -27,14 +26,12 @@ public class Localidad implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Localidad() {
-
     }
 
     public Localidad(EntityManager entityManager, String nombre, String codPostal) {
         this.nombre = nombre;
         this.codPostal = codPostal;
         this.borradoLogico = false;
-        
         this.persistir(entityManager);
     }
 
@@ -83,8 +80,8 @@ public class Localidad implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-    //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
