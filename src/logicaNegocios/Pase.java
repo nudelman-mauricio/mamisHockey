@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -35,15 +34,13 @@ public class Pase implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Pase() {
-
     }
 
-    public Pase(EntityManager entityManager,Date fecha, double monto, Equipo unEquipo) {
+    public Pase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo) {
         this.fecha = fecha;
         this.monto = monto;
         this.unEquipo = unEquipo;
         this.borradoLogico = false;
-        
         this.persistir(entityManager);
     }
 
@@ -100,8 +97,8 @@ public class Pase implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-       //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

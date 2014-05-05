@@ -41,7 +41,6 @@ public class Ergometria implements Serializable, Comparable {
         this.fechaRealizacion = fechaRealizacion;
         this.aprobado = aprobado;
         this.comentarios = comentarios;
-        
         this.persistir(entityManager);
     }
 
@@ -98,8 +97,8 @@ public class Ergometria implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -32,20 +31,18 @@ public class Tarjeta implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    public Tarjeta() {               
+    public Tarjeta() {
     }
-    
-    public Tarjeta(EntityManager em, boolean roja, boolean amarilla, boolean verde, String observacion) {
-           this.roja = roja;
-           this.amarilla= amarilla;
-           this.verde = verde;
-           this.observacion = observacion;
-           this.borradoLogico = false;   
-           
-           this.persistir(em);
+
+    public Tarjeta(EntityManager entityManager, boolean roja, boolean amarilla, boolean verde, String observacion) {
+        this.roja = roja;
+        this.amarilla = amarilla;
+        this.verde = verde;
+        this.observacion = observacion;
+        this.borradoLogico = false;
+        this.persistir(entityManager);
     }
-    
-    
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public boolean isRoja() {
         return this.roja;
@@ -95,7 +92,7 @@ public class Tarjeta implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -107,8 +104,8 @@ public class Tarjeta implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-    //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -122,5 +119,4 @@ public class Tarjeta implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
-
 }

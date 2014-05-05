@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -51,19 +50,17 @@ public class SancionTribunal implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public SancionTribunal() {
-
     }
 
-    public SancionTribunal(EntityManager entityManager,Date vencimiento, int cantFechas, Date fecha, String observacion) {
+    public SancionTribunal(EntityManager entityManager, Date vencimiento, int cantFechas, Date fecha, String observacion) {
         this.vencimiento = vencimiento;
         this.cantFechas = cantFechas;
         this.fecha = fecha;
         this.observacion = observacion;
         this.borradoLogico = false;
-        
         this.persistir(entityManager);
     }
-    
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public Date getVencimiento() {
         return this.vencimiento;
@@ -157,8 +154,8 @@ public class SancionTribunal implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

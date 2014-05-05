@@ -114,7 +114,7 @@ public class IngresoOtro implements Serializable, Comparable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    //----------------------------------PERSISTENCIA--------------------------------
+//----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

@@ -232,8 +232,9 @@ public class Partido implements Serializable, Comparable {
         unGol.persistir(entityManager);
     }
 //--------------------------------FIN GOLES-------------------------------------
-    
+
 //---------------------------------TARJETAS-------------------------------------
-    
+    falta acá capo 
 //-------------------------------FIN TARJETAS-----------------------------------
+
 }

@@ -170,19 +170,17 @@ public abstract class Persona implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+//------------------------------SANCION TRIBUNAL--------------------------------
     public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            sancionesTribunal.add(unaSancionTribunal);
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Exception Agregar Sancion Tribunal en Persona" + e.getMessage());
-            tx.rollback();
-        }
+        this.sancionesTribunal.add(unaSancionTribunal);
+        this.persistir(entityManager);
     }
+
+    public void quitarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
+        this.sancionesTribunal.remove(unaSancionTribunal);
+        this.persistir(entityManager);
+    }
+//------------------------------FIN SANCION TRIBUNAL----------------------------
 
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
