@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -26,16 +27,18 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
      */
     public MenuPrincipalInterface() {
         initComponents();
-        
+
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SkinLookAndFeel.setSkin(SkinLookAndFeel.loadThemePack("skins/blueMetalthemepack.zip"));
-            UIManager.setLookAndFeel("com.12fprod.gui.plaf.skin.SkinLookAndFeel");            
+            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/roueGreenthemepack.zip");
+            SkinLookAndFeel.setSkin(theSkinToUse);
+            UIManager.setLookAndFeel(new SkinLookAndFeel());
             
-        } catch (Exception e ) {
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
     }
 
     /**
@@ -244,7 +247,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
