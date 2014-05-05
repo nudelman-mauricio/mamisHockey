@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/logicaNegocios/SancionTribunal.java</file>
             <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/logicaNegocios/Club.java</file>
-            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/main/ControladoraEntidades.java</file>
+            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/Interfaces/InterfaceCuerpoTecnico.java</file>
             <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/Interfaces/InterfaceSocia.java</file>
+            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/Interfaces/MenuPrincipalInterface.java</file>
+            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/Interfaces/InterfaceClub.java</file>
+            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/Interfaces/InterfaceEquipo.java</file>
+            <file>file:/C:/Users/Lucas/Documents/GitHub/mamisHockey/src/Interfaces/InterfaceLocalidad.java</file>
         </group>
     </open-files>
 </project-private>

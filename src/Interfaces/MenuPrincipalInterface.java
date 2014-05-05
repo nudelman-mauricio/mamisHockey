@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
+import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 /**
  *
@@ -201,11 +205,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
-    
+
     }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
     private void jMenuItemAdmTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmTorneoActionPerformed
-                // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmTorneoActionPerformed
 
     private void jMenuItemEstadisticaTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadisticaTorneoActionPerformed
@@ -227,7 +231,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
         InterfaceBuscarSocia unaInterfaceBuscarSocia = new InterfaceBuscarSocia();
         unaInterfaceBuscarSocia.setVisible(true);
-                
+
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
     /**
@@ -256,6 +260,15 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuPrincipalInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
+        try {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SkinLookAndFeel.setSkin(SkinLookAndFeel.loadThemePack("skins\blueMetalthemepack.zip"));
+            UIManager.setLookAndFeel("com.12fprod.gui.plaf.skin.SkinLookAndFeel");
+            
+        } catch (Exception e ) {
+            System.out.println(e.getMessage());
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
