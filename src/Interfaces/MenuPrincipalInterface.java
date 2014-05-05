@@ -30,7 +30,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/roueGreenthemepack.zip");
+            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/tigerthemepack.zip");
             SkinLookAndFeel.setSkin(theSkinToUse);
             UIManager.setLookAndFeel(new SkinLookAndFeel());
             
