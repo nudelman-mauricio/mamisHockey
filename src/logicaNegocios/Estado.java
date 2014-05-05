@@ -15,9 +15,6 @@ import javax.persistence.TemporalType;
 @Entity
 public class Estado implements Serializable, Comparable {
 
-    @Basic
-    private boolean jugadora;
-
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
@@ -27,13 +24,7 @@ public class Estado implements Serializable, Comparable {
     private Long idEstado;
 
     @Basic
-    private boolean licencia;
-
-    @Basic
-    private boolean baja;
-
-    @Basic
-    private boolean activa;
+    private String tipo;
 
     @Basic
     private boolean borradoLogico;
@@ -41,25 +32,14 @@ public class Estado implements Serializable, Comparable {
     public Estado() {
     }
 
-    public Estado(EntityManager entityManager, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
-        this.jugadora = jugadora;
+    public Estado(EntityManager entityManager, Date fecha, String tipo) {
         this.fecha = fecha;
-        this.licencia = licencia;
-        this.baja = baja;
-        this.activa = activa;
-        this.borradoLogico = false;        
+        this.tipo = tipo;
+        this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
-    public boolean isJugadora() {
-        return this.jugadora;
-    }
-
-    public void setJugadora(boolean jugadora) {
-        this.jugadora = jugadora;
-    }
-
     public Date getFecha() {
         return this.fecha;
     }
@@ -76,28 +56,12 @@ public class Estado implements Serializable, Comparable {
         this.idEstado = idEstado;
     }
 
-    public boolean isLicencia() {
-        return this.licencia;
+    public String getTipo() {
+        return this.tipo;
     }
 
-    public void setLicencia(boolean licencia) {
-        this.licencia = licencia;
-    }
-
-    public boolean isBaja() {
-        return this.baja;
-    }
-
-    public void setBaja(boolean baja) {
-        this.baja = baja;
-    }
-
-    public boolean isActiva() {
-        return this.activa;
-    }
-
-    public void setActiva(boolean activa) {
-        this.activa = activa;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public boolean isBorradoLogico() {
@@ -120,7 +84,7 @@ public class Estado implements Serializable, Comparable {
         }
         return retorno;
     }
-    
+
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

@@ -23,7 +23,7 @@ public class CuerpoTecnico extends Persona implements Serializable {
         this.activo = activo;
         this.persistir(entityManager);
     }
-    
+
 //---------------------------- GETERS Y SETERS ---------------------------------
     public String getFotocopiaDni() {
         return this.fotocopiaDni;
@@ -41,5 +41,4 @@ public class CuerpoTecnico extends Persona implements Serializable {
         this.activo = activo;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-
 }

@@ -169,5 +169,4 @@ public class Torneo implements Serializable, Comparable {
     public String toString() {
         return "Torneo{" + "diaInicio=" + fechaInicio + ", fechasTorneo=" + fechasTorneo + ", unaCategoria=" + unaCategoria + ", nombre=" + nombre + ", idTorneo=" + idTorneo + ", borradoLogico=" + borradoLogico + '}';
     }
-
 }

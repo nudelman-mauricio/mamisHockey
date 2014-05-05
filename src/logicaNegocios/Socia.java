@@ -180,18 +180,16 @@ public class Socia extends Persona implements Serializable {
         return resultado;
     }
 
-    public void crearTarjeta(EntityManager entityManager, boolean roja, boolean amarilla, boolean verde, String observacion) {
-        Tarjeta unaTarjeta = new Tarjeta(entityManager, roja, amarilla, verde, observacion);
+    public void crearTarjeta(EntityManager entityManager, String tipo, String observacion) {
+        Tarjeta unaTarjeta = new Tarjeta(entityManager, tipo, observacion);
         this.tarjetas.add(unaTarjeta);
         this.persistir(entityManager);
     }
 
-    public void modificarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta, boolean roja, boolean amarilla, boolean verde, String observacion, boolean borradoLogico) {
-        unaTarjeta.setAmarilla(amarilla);
+    public void modificarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta, String tipo, String observacion, boolean borradoLogico) {
         unaTarjeta.setBorradoLogico(borradoLogico);
         unaTarjeta.setObservacion(observacion);
-        unaTarjeta.setRoja(roja);
-        unaTarjeta.setVerde(verde);
+        unaTarjeta.setTipo(tipo);
         unaTarjeta.persistir(entityManager);
     }
 
@@ -240,7 +238,7 @@ public class Socia extends Persona implements Serializable {
 //---------------------------------FIN PASES---------------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    public Deuda buscarDeudaBD(EntityManager entityManager,Long id) {
+    public Deuda buscarDeudaBD(EntityManager entityManager, Long id) {
         Deuda resultado;
         Query traerDeuda = entityManager.createQuery("SELECT auxD FROM Deuda auxD WHERE auxD.id = " + id);
         resultado = (Deuda) traerDeuda.getResultList();
@@ -292,7 +290,7 @@ public class Socia extends Persona implements Serializable {
 //---------------------------------FIN GOLES-----------------------------------
 
 //-----------------------------------ESTADOS-------------------------------------
-    public Estado buscarEstadoBD(EntityManager entityManager,Long id) {
+    public Estado buscarEstadoBD(EntityManager entityManager, Long id) {
         Estado resultado;
         Query traerEstado = entityManager.createQuery("SELECT auxE FROM Estado auxE WHERE auxE.id = " + id);
         resultado = (Estado) traerEstado.getResultList();
@@ -309,18 +307,15 @@ public class Socia extends Persona implements Serializable {
         return resultado;
     }
 
-    public void crearEstado(EntityManager entityManager, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa) {
-        Estado unEstado = new Estado(entityManager, jugadora, fecha, licencia, baja, activa);
+    public void crearEstado(EntityManager entityManager, String tipo, Date fecha) {
+        Estado unEstado = new Estado(entityManager, fecha, tipo);
         this.estados.add(unEstado);
         this.persistir(entityManager);
     }
 
-    public void modificarEstado(EntityManager entityManager, Estado unEstado, boolean jugadora, Date fecha, boolean licencia, boolean baja, boolean activa, boolean borradoLogico) {
-        unEstado.setJugadora(jugadora);
+    public void modificarEstado(EntityManager entityManager, Estado unEstado, String tipo, Date fecha, boolean borradoLogico) {
+        unEstado.setTipo(tipo);
         unEstado.setFecha(fecha);
-        unEstado.setLicencia(licencia);
-        unEstado.setBaja(baja);
-        unEstado.setActiva(activa);
         unEstado.setBorradoLogico(borradoLogico);
         unEstado.persistir(entityManager);
     }

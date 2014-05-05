@@ -95,7 +95,7 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

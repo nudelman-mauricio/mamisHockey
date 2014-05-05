@@ -13,6 +13,9 @@ import javax.persistence.Id;
 public class Cancha implements Serializable, Comparable {
 
     @Basic
+    private String tipo;
+
+    @Basic
     private String nombre;
 
     @Id
@@ -36,6 +39,14 @@ public class Cancha implements Serializable, Comparable {
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getNombre() {
         return this.nombre;
     }
@@ -83,7 +94,7 @@ public class Cancha implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

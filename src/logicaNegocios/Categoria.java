@@ -83,7 +83,7 @@ public class Categoria implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -101,5 +101,4 @@ public class Categoria implements Serializable, Comparable {
     public String toString() {
         return "Categoria{" + "cantMenores=" + cantMenores + ", idCategoria=" + idCategoria + ", nombre=" + nombre + ", borradoLogico=" + borradoLogico + '}';
     }
-
 }

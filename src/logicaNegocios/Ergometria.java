@@ -33,6 +33,9 @@ public class Ergometria implements Serializable, Comparable {
     @Basic
     private String comentarios;
 
+    @Basic
+    private boolean borradoLogico;
+
     public Ergometria() {
     }
 
@@ -83,6 +86,14 @@ public class Ergometria implements Serializable, Comparable {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public boolean isBorradoLogico() {
+        return this.borradoLogico;
+    }
+
+    public void setBorradoLogico(boolean borradoLogico) {
+        this.borradoLogico = borradoLogico;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 

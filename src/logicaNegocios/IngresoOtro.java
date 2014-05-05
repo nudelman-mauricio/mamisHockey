@@ -57,11 +57,11 @@ public class IngresoOtro implements Serializable, Comparable {
         this.fecha = fecha;
     }
 
-    public Long getIdIngrsoOtro() {
+    public Long getIdIngresoOtro() {
         return this.idIngresoOtro;
     }
 
-    public void setIdIngrsoOtro(Long idIngresoOtro) {
+    public void setIdIngresoOtro(Long idIngresoOtro) {
         this.idIngresoOtro = idIngresoOtro;
     }
 
@@ -108,10 +108,6 @@ public class IngresoOtro implements Serializable, Comparable {
             }
         }
         return retorno;
-    }
-
-    public Object getIdIngresoOtro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 //----------------------------------PERSISTENCIA--------------------------------

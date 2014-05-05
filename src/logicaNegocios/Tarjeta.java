@@ -12,18 +12,12 @@ import javax.persistence.Id;
 @Entity
 public class Tarjeta implements Serializable, Comparable {
 
-    @Basic
-    private boolean roja;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTarjeta;
 
     @Basic
-    private boolean amarilla;
-
-    @Basic
-    private boolean verde;
+    private String tipo;
 
     @Basic
     private String observacion;
@@ -34,24 +28,14 @@ public class Tarjeta implements Serializable, Comparable {
     public Tarjeta() {
     }
 
-    public Tarjeta(EntityManager entityManager, boolean roja, boolean amarilla, boolean verde, String observacion) {
-        this.roja = roja;
-        this.amarilla = amarilla;
-        this.verde = verde;
+    public Tarjeta(EntityManager entityManager, String tipo, String observacion) {
+        this.tipo = tipo;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
-    public boolean isRoja() {
-        return this.roja;
-    }
-
-    public void setRoja(boolean roja) {
-        this.roja = roja;
-    }
-
     public Long getIdTarjeta() {
         return this.idTarjeta;
     }
@@ -60,20 +44,12 @@ public class Tarjeta implements Serializable, Comparable {
         this.idTarjeta = idTarjeta;
     }
 
-    public boolean isAmarilla() {
-        return this.amarilla;
+    public String getTipo() {
+        return this.tipo;
     }
 
-    public void setAmarilla(boolean amarilla) {
-        this.amarilla = amarilla;
-    }
-
-    public boolean isVerde() {
-        return this.verde;
-    }
-
-    public void setVerde(boolean verde) {
-        this.verde = verde;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getObservacion() {
