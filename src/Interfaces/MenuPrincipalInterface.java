@@ -55,7 +55,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemSalir = new javax.swing.JMenuItem();
         jMenuSocias = new javax.swing.JMenu();
         jMenuItemAdmSocias = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemAdministrarSocias = new javax.swing.JMenuItem();
         jMenuEquipo = new javax.swing.JMenu();
         jMenuItemAdmEquipos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -103,13 +103,13 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuSocias.add(jMenuItemAdmSocias);
 
-        jMenuItem2.setText("Administrar Socia");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAdministrarSocias.setText("Administrar Socias");
+        jMenuItemAdministrarSocias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemAdministrarSociasActionPerformed(evt);
             }
         });
-        jMenuSocias.add(jMenuItem2);
+        jMenuSocias.add(jMenuItemAdministrarSocias);
 
         jMenuBar1.add(jMenuSocias);
 
@@ -237,9 +237,10 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemDelegadasActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
+        InterfaceGestionSocias unaInterfaceGestionSocias = new InterfaceGestionSocias();
+        unaInterfaceGestionSocias.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
         InterfaceBuscarSocia unaInterfaceBuscarSocia = new InterfaceBuscarSocia();
@@ -256,7 +257,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuContabilidad;
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemAdmClubes;
     private javax.swing.JMenuItem jMenuItemAdmEgresos;
@@ -265,6 +265,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAdmSanciones;
     private javax.swing.JMenuItem jMenuItemAdmSocias;
     private javax.swing.JMenuItem jMenuItemAdmTorneo;
+    private javax.swing.JMenuItem jMenuItemAdministrarSocias;
     private javax.swing.JMenuItem jMenuItemArbitros;
     private javax.swing.JMenuItem jMenuItemBalanceMensual;
     private javax.swing.JMenuItem jMenuItemDT;
