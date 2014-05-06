@@ -257,23 +257,23 @@ public class Socia extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButtonEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
-        jButtonEditar1.setText("Editar");
+        jButtonEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Transferencia.png"))); // NOI18N
+        jButtonEditar1.setText("Pases");
         jButtonEditar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButtonEliminar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
-        jButtonEliminar1.setText("Eliminar");
+        jButtonEliminar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
+        jButtonEliminar1.setText("Sanciones");
         jButtonEliminar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
-        jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png"))); // NOI18N
+        jButtonNuevo.setText("Tarjetas");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButton2.setText("Imprimir");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/corazon.png"))); // NOI18N
+        jButton2.setText("Ergometrias");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton2.addActionListener(new java.awt.event.ActionListener() {

@@ -10,12 +10,12 @@ package Interfaces;
  *
  * @author Lucas
  */
-public class InterfaceSocia extends javax.swing.JPanel {
+public class InterfaceSociaAuxiliar extends javax.swing.JPanel {
 
     /**
      * Creates new form SociaInterface
      */
-    public InterfaceSocia() {
+    public InterfaceSociaAuxiliar() {
         initComponents();
     }
 
