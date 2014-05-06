@@ -163,39 +163,14 @@ public class Socia extends Persona implements Serializable {
 //---------------------------------FIN ERGOMETRIAS---------------------------------
 
 //-----------------------------------TARJETAS-----------------------------------
-    public Tarjeta buscarTarjetaBD(EntityManager entityManager, Long id) {
-        Tarjeta resultado;
-        Query traerTarjeta = entityManager.createQuery("SELECT auxT FROM Tarjeta auxT WHERE auxT.id = " + id);
-        resultado = (Tarjeta) traerTarjeta.getResultList();
-        return resultado;
-    }
-
-    public Tarjeta buscarTarjeta(Long id) {
-        Tarjeta resultado = null;
-        for (Tarjeta aux : tarjetas) {
-            if (Objects.equals(aux.getIdTarjeta(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
-    public void crearTarjeta(EntityManager entityManager, String tipo, String observacion) {
-        Tarjeta unaTarjeta = new Tarjeta(entityManager, tipo, observacion);
+    public void agregarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
         this.tarjetas.add(unaTarjeta);
         this.persistir(entityManager);
     }
 
-    public void modificarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta, String tipo, String observacion, boolean borradoLogico) {
-        unaTarjeta.setBorradoLogico(borradoLogico);
-        unaTarjeta.setObservacion(observacion);
-        unaTarjeta.setTipo(tipo);
-        unaTarjeta.persistir(entityManager);
-    }
-
-    public void eliminarunaTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
-        unaTarjeta.setBorradoLogico(true);
-        unaTarjeta.persistir(entityManager);
+    public void quitarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
+        this.tarjetas.remove(unaTarjeta);
+        this.persistir(entityManager);
     }
 //---------------------------------FIN TARJETAS---------------------------------
 
@@ -277,7 +252,7 @@ public class Socia extends Persona implements Serializable {
     }
 //---------------------------------FIN DEUDAS-----------------------------------
 
-//-----------------------------------GOLES-------------------------------------
+//-----------------------------------GOLES--------------------------------------
     public void agregarGol(EntityManager entityManager, Gol unGol) {
         this.goles.add(unGol);
         this.persistir(entityManager);
@@ -287,7 +262,7 @@ public class Socia extends Persona implements Serializable {
         this.goles.remove(unGol);
         this.persistir(entityManager);
     }
-//---------------------------------FIN GOLES-----------------------------------
+//---------------------------------FIN GOLES------------------------------------
 
 //-----------------------------------ESTADOS-------------------------------------
     public Estado buscarEstadoBD(EntityManager entityManager, Long id) {

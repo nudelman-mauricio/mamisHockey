@@ -207,34 +207,28 @@ public class Partido implements Serializable, Comparable {
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-//----------------------------------GOLES---------------------------------------
-    public void crearGol(EntityManager entityManager, Socia unaSocia, String tiempo, boolean autoGol) {
-        Gol unGol = new Gol(entityManager, tiempo, autoGol);
-        unaSocia.agregarGol(entityManager, unGol);
+//-----------------------------------GOLES--------------------------------------
+    public void agregarGol(EntityManager entityManager, Gol unGol) {
         this.goles.add(unGol);
         this.persistir(entityManager);
     }
 
-    public void modificarGol(EntityManager entityManager, Gol unGol, String tiempo, boolean autoGol, boolean borradoLogico) {
-        unGol.setTiempo(tiempo);
-        unGol.setAutoGol(autoGol);
-        unGol.setBorradoLogico(borradoLogico);
-        unGol.persistir(entityManager);
+    public void quitarGol(EntityManager entityManager, Gol unGol) {
+        this.goles.remove(unGol);
+        this.persistir(entityManager);
     }
-
-    public void cambiarAutoraGol(EntityManager entityManager, Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
-        unaAutoraActual.quitarGol(entityManager, unGol);
-        unaAutoraNueva.agregarGol(entityManager, unGol);
-    }
-
-    public void eliminarGol(EntityManager entityManager, Gol unGol) {
-        unGol.setBorradoLogico(true);
-        unGol.persistir(entityManager);
-    }
-//--------------------------------FIN GOLES-------------------------------------
+//---------------------------------FIN GOLES------------------------------------
 
 //---------------------------------TARJETAS-------------------------------------
-    falta aca capo 
+    public void agregarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
+        this.tarjetas.add(unaTarjeta);
+        this.persistir(entityManager);
+    }
+
+    public void quitarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
+        this.tarjetas.remove(unaTarjeta);
+        this.persistir(entityManager);
+    }
 //-------------------------------FIN TARJETAS-----------------------------------
 
 }
