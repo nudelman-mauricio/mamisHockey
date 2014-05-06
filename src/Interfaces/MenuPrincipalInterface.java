@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,6 +31,8 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
      */
     public MenuPrincipalInterface() {
         initComponents();
+        //Icono de la ventana
+        setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
     }
 
     /**
