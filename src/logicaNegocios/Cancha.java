@@ -31,8 +31,9 @@ public class Cancha implements Serializable, Comparable {
     public Cancha() {
     }
 
-    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa) {
+    public Cancha(EntityManager entityManager, String nombre, String tipo, boolean seOcupa) {
         this.nombre = nombre;
+        this.tipo = tipo;
         this.seOcupa = seOcupa;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -80,6 +81,18 @@ public class Cancha implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Cancha) {
+            Cancha cancha = (Cancha) aux;
+            if (this.idCancha > cancha.idCancha) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
+
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
@@ -94,16 +107,4 @@ public class Cancha implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
-
-    @Override
-    public int compareTo(Object aux) {
-        int retorno = -1;
-        if (aux instanceof Cancha) {
-            Cancha cancha = (Cancha) aux;
-            if (this.idCancha > cancha.idCancha) {
-                retorno = 1;
-            }
-        }
-        return retorno;
-    }
 }
