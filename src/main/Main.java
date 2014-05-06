@@ -21,7 +21,7 @@ public class Main {
 
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/underlingthemepack.zip");
+            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/blueTurquesathemepack.zip");
             SkinLookAndFeel.setSkin(theSkinToUse);
             UIManager.setLookAndFeel(new SkinLookAndFeel());
             
