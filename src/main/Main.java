@@ -18,41 +18,7 @@ import javax.swing.UIManager;
 public class Main {
 
     public static void main(String[] args) {
-        /*EntityManagerFactory emf = null;
-        EntityManager em = null;
 
-        try {
-            emf = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
-            em = emf.createEntityManager();
-            System.out.println("EntityManager Created: " + emf);
-
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //----------------------------------------- CODIGO DE PRUEBAS -----------------------------------------
-        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
-        unaControladoraGlobal.crearCategoria(4, "Menores");
-//        Date ;
-//        unaControladoraGlobal.crearTorneo(null, null, null);
-
-        System.out.println(unaControladoraGlobal.getUnaControladoraDeportiva().buscarCategoriaBD(new Long("1")));
-
-//        Long aux = new Long("251");
-//        unaControladoraGlobal.eliminarCategoria(unaControladoraGlobal.buscarCategoria(aux));
-//        
-//        System.out.println(unaControladoraGlobal.buscarCategoria(aux));
-        System.out.println("");
-
-        //----------------------------------------- FIN CODIGO DE PRUEBAS -----------------------------------------
-        if (em != null) {
-            em.close();
-        }
-        if (emf != null) {
-            emf.close();
-        } */
-        
-        //Aplicar skin a la aplicacion. 
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
             Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/underlingthemepack.zip");

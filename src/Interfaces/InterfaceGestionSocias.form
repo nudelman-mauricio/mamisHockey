@@ -66,14 +66,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                  <Component id="jButtonNuevo" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Component id="jButtonNuevo" min="-2" pref="74" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButtonEditar" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Component id="jButtonEditar" min="-2" pref="74" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButtonEliminar" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Component id="jButtonEliminar" min="-2" pref="74" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="72" max="-2" attributes="0"/>
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="74" max="-2" attributes="0"/>
+                  <EmptySpace pref="80" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,7 +96,7 @@
         <Component class="javax.swing.JButton" name="jButtonEditar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos Nuevos/write.png"/>
+              <Image iconType="3" name="/Iconos Nuevos/Edit2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Editar"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -132,6 +132,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

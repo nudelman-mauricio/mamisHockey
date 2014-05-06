@@ -27,18 +27,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
      */
     public MenuPrincipalInterface() {
         initComponents();
-
-        try {
-            JFrame.setDefaultLookAndFeelDecorated(true);
-            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/underlingthemepack.zip");
-            SkinLookAndFeel.setSkin(theSkinToUse);
-            UIManager.setLookAndFeel(new SkinLookAndFeel());
-            
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
     }
 
     /**
@@ -50,6 +38,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemSalir = new javax.swing.JMenuItem();
@@ -79,6 +68,17 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 836, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 491, Short.MAX_VALUE)
+        );
 
         jMenuArchivo.setText("Archivo");
 
@@ -207,11 +207,15 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,9 +247,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
-        InterfaceBuscarSocia unaInterfaceBuscarSocia = new InterfaceBuscarSocia();
-        unaInterfaceBuscarSocia.setVisible(true);
-
+      
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
 
@@ -277,5 +279,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
