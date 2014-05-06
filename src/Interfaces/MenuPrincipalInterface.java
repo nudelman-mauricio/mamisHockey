@@ -243,8 +243,10 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDelegadasActionPerformed
 
     private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
-        InterfaceGestionSocias unaInterfaceGestionSocias = new InterfaceGestionSocias();
-        unaInterfaceGestionSocias.setVisible(true);
+        GestionSocias unaGestionSocias = new GestionSocias();
+        unaGestionSocias.pack();
+        unaGestionSocias.setVisible(true);       
+        this.jDesktopPane1.add(unaGestionSocias);  
     }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
