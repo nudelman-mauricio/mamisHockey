@@ -81,6 +81,18 @@ public class Indumentaria implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Indumentaria) {
+            Indumentaria indumentaria = (Indumentaria) aux;
+            if (this.idIndumentaria > indumentaria.idIndumentaria) {
+                retorno = 1;
+            }
+        }
+        return retorno;
+    }
+
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
@@ -95,16 +107,4 @@ public class Indumentaria implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
-
-    @Override
-    public int compareTo(Object aux) {
-        int retorno = -1;
-        if (aux instanceof Indumentaria) {
-            Indumentaria indumentaria = (Indumentaria) aux;
-            if (this.idIndumentaria > indumentaria.idIndumentaria) {
-                retorno = 1;
-            }
-        }
-        return retorno;
-    }
 }

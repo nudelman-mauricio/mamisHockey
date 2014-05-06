@@ -1,92 +1,26 @@
 package main;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
-import java.util.TreeSet;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.Arbitro;
 import logicaNegocios.Club;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
 import logicaNegocios.CuerpoTecnico;
+import logicaNegocios.Equipo;
+import logicaNegocios.Ergometria;
+import logicaNegocios.Estado;
+import logicaNegocios.Pase;
 
 public class ControladoraEntidades {
-
-    private Collection<CuerpoTecnico> cuerpoTecnicos;
-    private Collection<Arbitro> arbitros;
-    private Collection<Club> clubes;
-    private Collection<Socia> socias;
-    private Collection<Localidad> localidades;
+    
     private final EntityManager entityManager;
-
-    public ControladoraEntidades(EntityManager em) {
-        this.entityManager = em;
-
-        //CONSULTA PARA CARGAR TODAS LOS cuerpoTecnico DE LA BD
-        Query traerCuerpoTecnico = em.createQuery("SELECT auxH FROM CuerpoTecnico auxH");
-        this.cuerpoTecnicos = new TreeSet(traerCuerpoTecnico.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS ARBITROS DE LA BD
-        Query traerArbitros = em.createQuery("SELECT auxH FROM Arbitro auxH");
-        this.arbitros = new TreeSet(traerArbitros.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS CLUBES DE LA BD
-        Query traerClubes = em.createQuery("SELECT auxH FROM Club auxH");
-        this.clubes = new TreeSet(traerClubes.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS SOCIAS DE LA BD
-        Query traerSocias = em.createQuery("SELECT auxH FROM Socia auxH");
-        this.socias = new TreeSet(traerSocias.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS LOCALIDADES DE LA BD
-        Query traerLocalidades = em.createQuery("SELECT auxH FROM Localidad auxH");
-        this.localidades = new TreeSet(traerLocalidades.getResultList());
+    
+    public ControladoraEntidades(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
-
-//---------------------------- GETERS Y SETERS ---------------------------------
-    public Collection<CuerpoTecnico> getCuerpoTecnicos() {
-        return this.cuerpoTecnicos;
-    }
-
-    public void setCuerpoTecnicos(Collection<CuerpoTecnico> cuerpoTecnicos) {
-        this.cuerpoTecnicos = cuerpoTecnicos;
-    }
-
-    public Collection<Arbitro> getArbitros() {
-        return this.arbitros;
-    }
-
-    public void setArbitros(Collection<Arbitro> arbitros) {
-        this.arbitros = arbitros;
-    }
-
-    public Collection<Club> getClubes() {
-        return this.clubes;
-    }
-
-    public void setClubes(Collection<Club> clubes) {
-        this.clubes = clubes;
-    }
-
-    public Collection<Socia> getSocias() {
-        return this.socias;
-    }
-
-    public void setSocias(Collection<Socia> socias) {
-        this.socias = socias;
-    }
-
-    public Collection<Localidad> getLocalidades() {
-        return this.localidades;
-    }
-
-    public void setLocalidades(Collection<Localidad> localidades) {
-        this.localidades = localidades;
-    }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
 
 //------------------------------CUERPO TECNICO----------------------------------   
     public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
@@ -95,23 +29,12 @@ public class ControladoraEntidades {
         resultado = (CuerpoTecnico) traerCuerpoTecnico.getResultList();
         return resultado;
     }
-
-    public CuerpoTecnico buscarCuerpoTecnico(Long dni) {
-        CuerpoTecnico resultado = null;
-        for (CuerpoTecnico aux : cuerpoTecnicos) {
-            if (Objects.equals(aux.getDni(), dni)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
+    
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
-        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
-        this.cuerpoTecnicos.add(unCuerpoTecnico);
-            
+        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
+        
     }
-
+    
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
         unCuerpoTecnico.setDni(dni);
         unCuerpoTecnico.setApellido(apellido);
@@ -126,13 +49,12 @@ public class ControladoraEntidades {
         unCuerpoTecnico.setBorradoLogico(borradoLogico);
         unCuerpoTecnico.setFotocopiaDni(fotocopiaDni);
         unCuerpoTecnico.setActivo(activo);
-
-        unCuerpoTecnico.persistir(entityManager);
+        unCuerpoTecnico.persistir(this.entityManager);
     }
-
+    
     public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
         unCuerpoTecnico.setBorradoLogico(true);
-        unCuerpoTecnico.persistir(entityManager);            
+        unCuerpoTecnico.persistir(this.entityManager);
     }
 //------------------------------FIN CUERPO TECNICO------------------------------
 
@@ -143,22 +65,11 @@ public class ControladoraEntidades {
         resultado = (Arbitro) traerArbitro.getResultList();
         return resultado;
     }
-
-    public Arbitro buscarArbitro(Long dni) {
-        Arbitro resultado = null;
-        for (Arbitro aux : arbitros) {
-            if (Objects.equals(aux.getDni(), dni)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
+    
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
-        this.arbitros.add(unArbitro);
     }
-
+    
     public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
         unArbitro.setDni(dni);
         unArbitro.setApellido(apellido);
@@ -172,31 +83,12 @@ public class ControladoraEntidades {
         unArbitro.setFechaIngreso(fechaIngreso);
         unArbitro.setBorradoLogico(borradoLogico);
         unArbitro.setFotocopiaDni(fotocopiaDni);
-
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(unArbitro);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Modificar Arbitro" + e.getMessage());
-            tx.rollback();
-        }
+        unArbitro.persistir(this.entityManager);
     }
-
+    
     public void eliminarArbitro(Arbitro unArbitro) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            unArbitro.setBorradoLogico(true);
-            entityManager.persist(unArbitro);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error en Eliminar Arbitro" + e.getMessage());
-            tx.rollback();
-        }
+        unArbitro.setBorradoLogico(true);
+        unArbitro.persistir(this.entityManager);
     }
 //------------------------------FIN ARBITROS------------------------------------
 
@@ -207,22 +99,11 @@ public class ControladoraEntidades {
         resultado = (Club) traerClub.getResultList();
         return resultado;
     }
-
-    public Club buscarClub(Long idClub) {
-        Club resultado = null;
-        for (Club aux : clubes) {
-            if (Objects.equals(aux.getIdClub(), idClub)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
+    
+    public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
+        Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
-
-    public void crearClub(Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad) {
-        Club unClub = new Club(this.entityManager, nombre, logo, nombrePresidente, unaLocalidad);
-        this.clubes.add(unClub);
-    }
-
+    
     public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setIdClub(idClub);
         unClub.setNombre(nombre);
@@ -230,12 +111,12 @@ public class ControladoraEntidades {
         unClub.setNombrePresidente(nombrePresidente);
         unClub.setUnaLocalidad(unaLocalidad);
         unClub.setBorradoLogico(borradoLogico);
-        unClub.persistir(entityManager);
+        unClub.persistir(this.entityManager);
     }
-
+    
     public void eliminarClub(Club unClub) {
         unClub.setBorradoLogico(true);
-        unClub.persistir(entityManager);
+        unClub.persistir(this.entityManager);
     }
 //------------------------------FIN CLUBES--------------------------------------
 
@@ -246,22 +127,11 @@ public class ControladoraEntidades {
         resultado = (Socia) traerSocia.getResultList();
         return resultado;
     }
-
-    public Socia buscarSocia(Long dni) {
-        Socia resultado = null;
-        for (Socia aux : socias) {
-            if (Objects.equals(aux.getDni(), dni)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
+    
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
-            Socia unaSocia = new Socia(entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
-            this.socias.add(unaSocia);            
+        Socia unaSocia = new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
     }
-
+    
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
         unaSocia.setDni(dni);
         unaSocia.setApellido(apellido);
@@ -277,15 +147,46 @@ public class ControladoraEntidades {
         unaSocia.setFotoCarnet(fotoCarnet);
         unaSocia.setExJugadora(exJugadora);
         unaSocia.setBorradoLogico(borradoLogico);
-
-        unaSocia.persistir(entityManager);
+        unaSocia.persistir(this.entityManager);
     }
-
+    
     public void eliminarSocia(Socia unaSocia) {
-            unaSocia.setBorradoLogico(true);
-            unaSocia.persistir(entityManager);            
+        unaSocia.setBorradoLogico(true);
+        unaSocia.persistir(this.entityManager);
     }
 //------------------------------FIN SOCIAS--------------------------------------
+
+//-----------------------------------PASES--------------------------------------
+    public Pase buscarPaseBD(EntityManager entityManager, Long id) {
+        Pase resultado;
+        Query traerPase = entityManager.createQuery("SELECT auxP FROM Pase auxP WHERE auxP.id = " + id);
+        resultado = (Pase) traerPase.getResultList();
+        return resultado;
+    }
+    
+    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
+        Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo);
+        unaSocia.agregarPase(this.entityManager, unPase);
+    }
+    
+    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
+        unPase.setFecha(fecha);
+        unPase.setMonto(monto);
+        unPase.setUnEquipo(unEquipo);
+        unPase.setBorradoLogico(borradoLogico);
+        unPase.persistir(this.entityManager);
+    }
+    
+    public void modificarPaseDeSocia(Pase unPase, Socia unaSociaActual, Socia unaSociaNueva) {
+        unaSociaActual.quitarPase(this.entityManager, unPase);
+        unaSociaNueva.agregarPase(this.entityManager, unPase);
+    }
+    
+    public void eliminarPase(Pase unPase) {
+        unPase.setBorradoLogico(true);
+        unPase.persistir(this.entityManager);
+    }
+//---------------------------------FIN PASES------------------------------------
 
 //------------------------------LOCALIDADES-------------------------------------   
     public Localidad buscarLocalidBD(Long id) {
@@ -294,33 +195,84 @@ public class ControladoraEntidades {
         resultado = (Localidad) traerSocia.getResultList();
         return resultado;
     }
-
-    public Localidad buscarLocalidad(Long id) {
-        Localidad resultado = null;
-        for (Localidad aux : localidades) {
-            if (Objects.equals(aux.getIdLocalidad(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
+    
     public void crearLocalidad(String nombre, String codPostal) {
-            Localidad unaLocalidad = new Localidad(entityManager,nombre, codPostal);            
-            this.localidades.add(unaLocalidad);            
+        Localidad unaLocalidad = new Localidad(this.entityManager, nombre, codPostal);
     }
-
+    
     public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {
         unaLocalidad.setNombre(nombre);
         unaLocalidad.setCodPostal(codPostal);
         unaLocalidad.setBorradoLogico(borradoLogico);
-        
-        unaLocalidad.persistir(entityManager);        
+        unaLocalidad.persistir(this.entityManager);
     }
-
+    
     public void eliminarLocalidad(Localidad unaLocalidad) {
-            unaLocalidad.setBorradoLogico(true);
-            unaLocalidad.persistir(entityManager);            
+        unaLocalidad.setBorradoLogico(true);
+        unaLocalidad.persistir(this.entityManager);
     }
 //------------------------------FIN LOCALIDADES---------------------------------
+
+//-----------------------------------ERGOMETRIA---------------------------------
+    public Ergometria buscarErgometriaBD(Long id) {
+        Ergometria resultado;
+        Query traerErgometria = entityManager.createQuery("SELECT auxE FROM Ergometria auxE WHERE auxE.id = " + id);
+        resultado = (Ergometria) traerErgometria.getResultList();
+        return resultado;
+    }
+    
+    public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
+        Ergometria unaErgometria = new Ergometria(this.entityManager, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
+        unaSocia.agregarErgometria(this.entityManager, unaErgometria);
+    }
+    
+    public void modificarErgometria(Ergometria unaErgometria, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
+        unaErgometria.setAprobado(aprobado);
+        unaErgometria.setComentarios(comentarios);
+        unaErgometria.setFechaCaducidad(fechaCaducidad);
+        unaErgometria.setFechaRealizacion(fechaRealizacion);
+        unaErgometria.persistir(this.entityManager);
+    }
+    
+    public void cambiarErgometriaDeSocia(Ergometria unaErgometria, Socia unaSociaActual, Socia unaSociaNueva) {
+        unaSociaActual.quitarErgometria(this.entityManager, unaErgometria);
+        unaSociaNueva.agregarErgometria(this.entityManager, unaErgometria);
+    }
+    
+    public void eliminarErgometria(Ergometria unaErgometria) {
+        unaErgometria.setBorradoLogico(true);
+        unaErgometria.persistir(this.entityManager);
+    }
+//---------------------------------FIN ERGOMETRIAS---------------------------------
+
+//-----------------------------------ESTADOS-------------------------------------
+    public Estado buscarEstadoBD(EntityManager entityManager, Long id) {
+        Estado resultado;
+        Query traerEstado = entityManager.createQuery("SELECT auxE FROM Estado auxE WHERE auxE.id = " + id);
+        resultado = (Estado) traerEstado.getResultList();
+        return resultado;
+    }
+    
+    public void crearEstado(Socia unaSocia, String tipo, Date fecha) {
+        Estado unEstado = new Estado(this.entityManager, fecha, tipo);
+        unaSocia.agregarEstado(this.entityManager, unEstado);
+    }
+    
+    public void modificarEstado(Estado unEstado, String tipo, Date fecha, boolean borradoLogico) {
+        unEstado.setTipo(tipo);
+        unEstado.setFecha(fecha);
+        unEstado.setBorradoLogico(borradoLogico);
+        unEstado.persistir(this.entityManager);
+    }
+    
+    public void cambiarEstadoDeSocia(Estado unEstado, Socia unaSociaActual, Socia unaSociaNueva) {
+        unaSociaActual.quitarEstado(this.entityManager, unEstado);
+        unaSociaNueva.agregarEstado(this.entityManager, unEstado);
+    }
+    
+    public void eliminarEstado(Estado unEstado) {
+        unEstado.setBorradoLogico(true);
+        unEstado.persistir(this.entityManager);
+    }
+//---------------------------------FIN ESTADOS----------------------------------
 }

@@ -123,26 +123,6 @@ public class Deuda implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
-//--------------------------------PAGO DEUDA------------------------------------
-    public void agregarPagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {
-        this.pagosDeuda.add(new PagoDeuda(entityManager, fecha, monto, observacion));
-        this.persistir(entityManager);
-    }
-
-    public void modificarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda, Date fecha, double monto, String observacion, boolean borradoLogico) {
-        unPagoDeuda.setFecha(fecha);
-        unPagoDeuda.setMonto(monto);
-        unPagoDeuda.setObservacion(observacion);
-        unPagoDeuda.setBorradoLogico(borradoLogico);
-        unPagoDeuda.persistir(entityManager);
-    }
-
-    public void eliminarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
-        unPagoDeuda.setBorradoLogico(true);
-        unPagoDeuda.persistir(entityManager);
-    }
-//------------------------------FIN PAGO DEUDA----------------------------------
-
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -169,4 +149,16 @@ public class Deuda implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
+
+//--------------------------------PAGO DEUDA------------------------------------
+    public void agregarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
+        this.pagosDeuda.add(unPagoDeuda);
+        this.persistir(entityManager);
+    }
+
+    public void quitarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
+        this.pagosDeuda.remove(unPagoDeuda);
+        this.persistir(entityManager);
+    }
+//------------------------------FIN PAGO DEUDA----------------------------------
 }

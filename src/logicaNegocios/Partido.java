@@ -230,5 +230,4 @@ public class Partido implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 //-------------------------------FIN TARJETAS-----------------------------------
-
 }

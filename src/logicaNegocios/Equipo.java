@@ -61,7 +61,7 @@ public class Equipo implements Serializable, Comparable {
 
     public Equipo() {
     }
-    
+
     public Equipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         this.nombre = nombre;
         this.unaCapitana = unaCapitana;
@@ -201,46 +201,26 @@ public class Equipo implements Serializable, Comparable {
 //------------------------------FIN PERSISTENCIA--------------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    public void crearDeuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
-        Deuda unaDeuda = new Deuda(entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+    public void agregarDeuda(EntityManager entityManager, Deuda unaDeuda) {
         this.deudas.add(unaDeuda);
         this.persistir(entityManager);
     }
-    
-    public void modificarDeuda(EntityManager entityManager, Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
-        unaDeuda.setFecha(fecha);
-        unaDeuda.setMonto(monto);
-        unaDeuda.setSaldado(saldado);
-        unaDeuda.setUnConceptoDeportivo(unConceptoDeportivo);
-        unaDeuda.setObservacion(observacion);
-        unaDeuda.setBorradoLogico(borradoLogico);
-        unaDeuda.persistir(entityManager);
-    }
-    
-    public void eliminarDeuda(EntityManager entityManager, Deuda unaDeuda) {
-        unaDeuda.setBorradoLogico(true);
-        unaDeuda.persistir(entityManager);
+
+    public void quitarDeuda(EntityManager entityManager, Deuda unaDeuda) {
+        this.deudas.remove(unaDeuda);
+        this.persistir(entityManager);
     }
 //---------------------------------FIN DEUDAS-----------------------------------
 
 //--------------------------------INDUMENTARIAS---------------------------------
-    public void crearIndumentaria(EntityManager entityManager, String camiseta, String media, String pollera) {
-        Indumentaria unaIndumentaria = new Indumentaria(entityManager, camiseta, media, pollera);
+    public void agregarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
         this.indumentarias.add(unaIndumentaria);
         this.persistir(entityManager);
     }
-    
-    public void modificarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria, String camiseta, String media, String pollera, boolean borradoLogico) {
-        unaIndumentaria.setCamiseta(camiseta);
-        unaIndumentaria.setMedia(media);
-        unaIndumentaria.setPollera(pollera);
-        unaIndumentaria.setBorradoLogico(borradoLogico);
-        unaIndumentaria.persistir(entityManager);
-    }
-    
-    public void eliminarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
-        unaIndumentaria.setBorradoLogico(true);
-        entityManager.persist(unaIndumentaria);
+
+    public void quitarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
+        this.indumentarias.remove(unaIndumentaria);
+        this.persistir(entityManager);
     }
 //------------------------------FIN INDUMENTARIAS-------------------------------
 
@@ -249,7 +229,7 @@ public class Equipo implements Serializable, Comparable {
         this.sancionesTribunal.add(unaSancionTribunal);
         this.persistir(entityManager);
     }
-    
+
     public void quitarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
         this.sancionesTribunal.remove(unaSancionTribunal);
         this.persistir(entityManager);
@@ -261,7 +241,7 @@ public class Equipo implements Serializable, Comparable {
         this.plantel.add(unaSocia);
         this.persistir(entityManager);
     }
-    
+
     public void quitarPlantel(EntityManager entityManager, Socia unaSocia) {
         this.plantel.remove(unaSocia);
         this.persistir(entityManager);

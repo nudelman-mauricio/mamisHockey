@@ -6,21 +6,17 @@ import logicaNegocios.*;
 
 public class ControladoraGlobal {
 
-    private ControladoraContabilidad unaControladoraContabilidad;
-    private ControladoraEntidades unaControladoraEntidades;
-    private ControladoraDeportiva unaControladoraDeportiva;
+    private final ControladoraContabilidad unaControladoraContabilidad;
+    private final ControladoraEntidades unaControladoraEntidades;
+    private final ControladoraDeportiva unaControladoraDeportiva;
 
-    public ControladoraGlobal(EntityManager em) {
-        this.unaControladoraContabilidad = new ControladoraContabilidad(em);
-        this.unaControladoraEntidades = new ControladoraEntidades(em);
-        this.unaControladoraDeportiva = new ControladoraDeportiva(em);
+    public ControladoraGlobal(EntityManager entityManager) {
+        this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
+        this.unaControladoraEntidades = new ControladoraEntidades(entityManager);
+        this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
     }
 
-//------------------------------ARBITROS----------------------------------------    
-    public Arbitro buscarArbitro(Long dni) {
-        return this.unaControladoraEntidades.buscarArbitro(dni);
-    }
-
+//------------------------------ARBITROS----------------------------------------
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
     }
@@ -39,10 +35,6 @@ public class ControladoraGlobal {
 //-------------------------------FIN ARBITROS----------------------------------- 
 
 //----------------------------CATEGORIAS----------------------------------------
-    public Categoria buscarCategoria(Long id) {
-        return this.unaControladoraDeportiva.buscarCategoria(id);
-    }
-
     public void crearCategoria(int cantMenores, String nombre) {
         this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
     }
@@ -58,13 +50,9 @@ public class ControladoraGlobal {
             this.unaControladoraDeportiva.eliminarCategoria(unaCategoria);
         }
     }
-    //------------------------------FIN CATEGORIAS------------------------------
+//------------------------------FIN CATEGORIAS----------------------------------
 
-    //------------------------------TORNEOS-------------------------------------    
-    public Torneo buscarTorneo(Long id) {
-        return this.unaControladoraDeportiva.buscarTorneo(id);
-    }
-
+//------------------------------TORNEOS-----------------------------------------
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         this.unaControladoraDeportiva.crearTorneo(diaInicio, unaCategoria, nombre);
     }
@@ -81,30 +69,5 @@ public class ControladoraGlobal {
         }
     }
 
-    //-------------------------------FIN TORNEOS--------------------------------
-    //---------------------------- GETERS Y SETERS -----------------------------
-    public ControladoraContabilidad getUnaControladoraContabilidad() {
-        return this.unaControladoraContabilidad;
-    }
-
-    public void setUnaControladoraContabilidad(ControladoraContabilidad unaControladoraContabilidad) {
-        this.unaControladoraContabilidad = unaControladoraContabilidad;
-    }
-
-    public ControladoraEntidades getUnaControladoraEntidades() {
-        return this.unaControladoraEntidades;
-    }
-
-    public void setUnaControladoraEntidades(ControladoraEntidades unaControladoraEntidades) {
-        this.unaControladoraEntidades = unaControladoraEntidades;
-    }
-
-    public ControladoraDeportiva getUnaControladoraDeportiva() {
-        return this.unaControladoraDeportiva;
-    }
-
-    public void setUnaControladoraDeportiva(ControladoraDeportiva unaControladoraDeportiva) {
-        this.unaControladoraDeportiva = unaControladoraDeportiva;
-    }
-    //---------------------------- GETERS Y SETERS -----------------------------
+//-------------------------------FIN TORNEOS------------------------------------
 }

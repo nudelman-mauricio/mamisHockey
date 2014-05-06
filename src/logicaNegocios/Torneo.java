@@ -113,42 +113,6 @@ public class Torneo implements Serializable, Comparable {
         return retorno;
     }
 
-//---------------------------------FECHAS TORNEO--------------------------------
-    public FechaTorneo buscarFechaTorneoBd(EntityManager entityManager, Long id) {
-        FechaTorneo resultado;
-        Query traerFechaTorneo = entityManager.createQuery("SELECT auxFT FROM FechaTorneo auxFT WHERE auxFT.id = " + id);
-        resultado = (FechaTorneo) traerFechaTorneo.getResultList();
-        return resultado;
-    }
-
-    public FechaTorneo buscarFechaTorneo(Long id) {
-        FechaTorneo resultado = null;
-        for (FechaTorneo aux : fechasTorneo) {
-            if (Objects.equals(aux.getIdFecha(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
-    public void crearFechaTorneo(EntityManager entityManager, int numeroFecha) {
-        FechaTorneo unaFechaTorneo = new FechaTorneo(entityManager, numeroFecha);
-        this.fechasTorneo.add(unaFechaTorneo);
-        this.persistir(entityManager);
-    }
-
-    public void modificarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo, int numeroFecha, boolean borradoLogico) {
-        unaFechaTorneo.setNumeroFecha(numeroFecha);
-        unaFechaTorneo.setBorradoLogico(borradoLogico);
-        unaFechaTorneo.persistir(entityManager);
-    }
-
-    public void eliminarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
-        unaFechaTorneo.setBorradoLogico(true);
-        unaFechaTorneo.persistir(entityManager);
-    }
-//------------------------------FIN FECHAS TORNEO-------------------------------
-
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
@@ -163,6 +127,18 @@ public class Torneo implements Serializable, Comparable {
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
+
+//---------------------------------FECHAS TORNEO--------------------------------    
+    public void agregarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
+        this.fechasTorneo.add(unaFechaTorneo);
+        this.persistir(entityManager);
+    }
+
+    public void quitarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
+        this.fechasTorneo.remove(unaFechaTorneo);
+        this.persistir(entityManager);
+    }
+//------------------------------FIN FECHAS TORNEO-------------------------------
 
 //----------------------------------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
     @Override

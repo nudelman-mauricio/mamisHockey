@@ -1,85 +1,25 @@
 package main;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.Objects;
-import java.util.TreeSet;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.ConceptoIngreso;
+import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
+import logicaNegocios.Equipo;
 import logicaNegocios.IngresoOtro;
+import logicaNegocios.PagoDeuda;
+import logicaNegocios.Socia;
 
 public class ControladoraContabilidad {
 
-    private Collection<ConceptoDeportivo> conceptosDeportivo;
-    private Collection<ConceptoIngreso> conceptosIngreso;
-    private Collection<IngresoOtro> ingresosOtro;
-    private Collection<Egreso> egresos;
-    private Collection<ConceptoEgreso> conceptosEgreso;
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
-
-        //CONSULTA PARA CARGAR TODAS LOS CONCEPTOS DEPORTIVOS DE LA BD
-        Query traerConceptosDeportivos = em.createQuery("SELECT auxCP FROM ConceptoDeportivo auxCP");
-        this.conceptosDeportivo = new TreeSet(traerConceptosDeportivos.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS CONCEPTO INGRESOS DE LA BD
-        Query traerConceptosIngreso = em.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI");
-        this.conceptosIngreso = new TreeSet(traerConceptosIngreso.getResultList());
-
-        //CONSULTA PARA CARGAR TODAS LOS CONCEPTO EGRESOS DE LA BD
-        Query traerConceptosEgreso = em.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE");
-        this.conceptosEgreso = new TreeSet(traerConceptosEgreso.getResultList());
-
     }
-
-//---------------------------- GETERS Y SETERS ---------------------------------
-    public Collection<ConceptoDeportivo> getConceptosDeportivo() {
-        return this.conceptosDeportivo;
-    }
-
-    public void setConceptosDeportivo(Collection<ConceptoDeportivo> conceptosDeportivo) {
-        this.conceptosDeportivo = conceptosDeportivo;
-    }
-
-    public Collection<ConceptoIngreso> getConceptosIngreso() {
-        return this.conceptosIngreso;
-    }
-
-    public void setConceptosIngreso(Collection<ConceptoIngreso> conceptosIngreso) {
-        this.conceptosIngreso = conceptosIngreso;
-    }
-
-    public Collection<IngresoOtro> getIngresosOtro() {
-        return this.ingresosOtro;
-    }
-
-    public void setIngresosOtro(Collection<IngresoOtro> ingresosOtro) {
-        this.ingresosOtro = ingresosOtro;
-    }
-
-    public Collection<Egreso> getEgresos() {
-        return this.egresos;
-    }
-
-    public void setEgresos(Collection<Egreso> egresos) {
-        this.egresos = egresos;
-    }
-
-    public Collection<ConceptoEgreso> getConceptosEgreso() {
-        return this.conceptosEgreso;
-    }
-
-    public void setConceptosEgreso(Collection<ConceptoEgreso> conceptosEgreso) {
-        this.conceptosEgreso = conceptosEgreso;
-    }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
 
 //------------------------------CONCEPTO DEPORTIVOS-----------------------------  
     public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
@@ -89,19 +29,8 @@ public class ControladoraContabilidad {
         return resultado;
     }
 
-    public ConceptoDeportivo buscarConceptoDeportivo(Long id) {
-        ConceptoDeportivo resultado = null;
-        for (ConceptoDeportivo aux : conceptosDeportivo) {
-            if (Objects.equals(aux.getIdConceptoDeportivo(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
     public void crearConceptoDeportivo(double monto, String nombre, String detalle) {
-        ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(entityManager, monto, nombre, detalle);
-        this.conceptosDeportivo.add(unConceptoDeportivo);
+        ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(this.entityManager, monto, nombre, detalle);
     }
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
@@ -109,14 +38,76 @@ public class ControladoraContabilidad {
         unConceptoDeportivo.setNombre(nombre);
         unConceptoDeportivo.setDetalle(detalle);
         unConceptoDeportivo.setBorradoLogico(borradoLogico);
-        unConceptoDeportivo.persistir(entityManager);
+        unConceptoDeportivo.persistir(this.entityManager);
     }
 
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         unConceptoDeportivo.setBorradoLogico(true);
-        unConceptoDeportivo.persistir(entityManager);
+        unConceptoDeportivo.persistir(this.entityManager);
     }
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
+
+//-----------------------------------DEUDAS-------------------------------------
+    public void crearDeudaEquipo(Equipo unEquipo, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+        unEquipo.agregarDeuda(this.entityManager, unaDeuda);
+    }
+
+    public void crearDeudaSocia(Socia unaSocia, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+        unaSocia.agregarDeuda(this.entityManager, unaDeuda);
+    }
+
+    public void modificarDeuda(Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
+        unaDeuda.setFecha(fecha);
+        unaDeuda.setMonto(monto);
+        unaDeuda.setSaldado(saldado);
+        unaDeuda.setUnConceptoDeportivo(unConceptoDeportivo);
+        unaDeuda.setObservacion(observacion);
+        unaDeuda.setBorradoLogico(borradoLogico);
+        unaDeuda.persistir(this.entityManager);
+    }
+
+    public void cambiarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {
+        unEquipoActual.quitarDeuda(this.entityManager, unaDeuda);
+        unEquipoNuevo.agregarDeuda(this.entityManager, unaDeuda);
+    }
+
+    public void cambiarDeudaDeSocia(Deuda unaDeuda, Socia unaSociaActual, Socia unaSociaNueva) {
+        unaSociaActual.quitarDeuda(this.entityManager, unaDeuda);
+        unaSociaNueva.agregarDeuda(this.entityManager, unaDeuda);
+    }
+
+    public void eliminarDeuda(Deuda unaDeuda) {
+        unaDeuda.setBorradoLogico(true);
+        unaDeuda.persistir(this.entityManager);
+    }
+//---------------------------------FIN DEUDAS-----------------------------------
+
+//--------------------------------PAGO DEUDA------------------------------------
+    public void crearPagoDeuda(Deuda unaDeuda, Date fecha, double monto, String observacion) {
+        PagoDeuda unPagoDeuda = new PagoDeuda(this.entityManager, fecha, monto, observacion);
+        unaDeuda.agregarPagoDeuda(this.entityManager, unPagoDeuda);
+    }
+
+    public void modificarPagoDeuda(PagoDeuda unPagoDeuda, Date fecha, double monto, String observacion, boolean borradoLogico) {
+        unPagoDeuda.setFecha(fecha);
+        unPagoDeuda.setMonto(monto);
+        unPagoDeuda.setObservacion(observacion);
+        unPagoDeuda.setBorradoLogico(borradoLogico);
+        unPagoDeuda.persistir(this.entityManager);
+    }
+
+    public void cambiarPagoDeudaDeDeuda(PagoDeuda unPagoDeuda, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
+        unaDeudaActual.quitarPagoDeuda(this.entityManager, unPagoDeuda);
+        unaDeudaNueva.agregarPagoDeuda(this.entityManager, unPagoDeuda);
+    }
+
+    public void eliminarPagoDeuda(PagoDeuda unPagoDeuda) {
+        unPagoDeuda.setBorradoLogico(true);
+        unPagoDeuda.persistir(this.entityManager);
+    }
+//------------------------------FIN PAGO DEUDA----------------------------------
 
 //----------------------------- CONCEPTOINGRESO --------------------------------
     public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
@@ -126,31 +117,20 @@ public class ControladoraContabilidad {
         return resultado;
     }
 
-    public ConceptoIngreso buscarConceptoIngreso(Long id) {
-        ConceptoIngreso resultado = null;
-        for (ConceptoIngreso aux : conceptosIngreso) {
-            if (Objects.equals(aux.getIdConceptoIngreso(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
     public void crearConceptoIngreso(String nombre, String detalle) {
-        ConceptoIngreso unConceptoIngreso = new ConceptoIngreso(entityManager, nombre, detalle);
-        this.conceptosIngreso.add(unConceptoIngreso);
+        ConceptoIngreso unConceptoIngreso = new ConceptoIngreso(this.entityManager, nombre, detalle);
     }
 
     public void modificarConceptoIngreso(ConceptoIngreso unConceptoIngreso, String nombre, String detalle, boolean borradoLogico) {
         unConceptoIngreso.setNombre(nombre);
         unConceptoIngreso.setDetalle(detalle);
         unConceptoIngreso.setBorradoLogico(borradoLogico);
-        unConceptoIngreso.persistir(entityManager);
+        unConceptoIngreso.persistir(this.entityManager);
     }
 
     public void eliminarConceptoIngreso(ConceptoIngreso unConceptoIngreso) {
         unConceptoIngreso.setBorradoLogico(true);
-        unConceptoIngreso.persistir(entityManager);
+        unConceptoIngreso.persistir(this.entityManager);
     }
 //----------------------------- FIN CONCEPTOINGRESO ----------------------------
 
@@ -162,31 +142,20 @@ public class ControladoraContabilidad {
         return resultado;
     }
 
-    public ConceptoEgreso buscarConceptoEgreso(Long id) {
-        ConceptoEgreso resultado = null;
-        for (ConceptoEgreso aux : conceptosEgreso) {
-            if (Objects.equals(aux.getIdConceptoEgreso(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
     public void crearConceptoEgreso(String nombre, String detalle) {
-        ConceptoEgreso unConceptoEgreso = new ConceptoEgreso(entityManager, nombre, detalle);
-        this.conceptosEgreso.add(unConceptoEgreso);
+        ConceptoEgreso unConceptoEgreso = new ConceptoEgreso(this.entityManager, nombre, detalle);
     }
 
     public void modificarConceptoEgreso(ConceptoEgreso unConceptoEgreso, String nombre, String detalle, boolean borradoLogico) {
         unConceptoEgreso.setNombre(nombre);
         unConceptoEgreso.setDetalle(detalle);
         unConceptoEgreso.setBorradoLogico(borradoLogico);
-        unConceptoEgreso.persistir(entityManager);
+        unConceptoEgreso.persistir(this.entityManager);
     }
 
     public void eliminarConceptoEgreso(ConceptoEgreso unConceptoEgreso) {
         unConceptoEgreso.setBorradoLogico(true);
-        unConceptoEgreso.persistir(entityManager);
+        unConceptoEgreso.persistir(this.entityManager);
     }
 //----------------------------- FIN CONCEPTO EGRESO ----------------------------
 
@@ -198,19 +167,8 @@ public class ControladoraContabilidad {
         return resultado;
     }
 
-    public IngresoOtro buscarIngresosOtro(Long id) {
-        IngresoOtro resultado = null;
-        for (IngresoOtro aux : ingresosOtro) {
-            if (Objects.equals(aux.getIdIngresoOtro(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
-        IngresoOtro unIngresoOtro = new IngresoOtro(entityManager,fecha, unConceptoIngreso, monto, detalle);
-        this.ingresosOtro.add(unIngresoOtro);           
+        IngresoOtro unIngresoOtro = new IngresoOtro(this.entityManager, fecha, unConceptoIngreso, monto, detalle);
     }
 
     public void modificarIngresoOtro(IngresoOtro unIngresoOtro, Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle, boolean borradoLogico) {
@@ -219,13 +177,12 @@ public class ControladoraContabilidad {
         unIngresoOtro.setUnConceptoIngreso(unConceptoIngreso);
         unIngresoOtro.setDetalle(detalle);
         unIngresoOtro.setBorradoLogico(borradoLogico);
-       
-        unIngresoOtro.persistir(entityManager);
+        unIngresoOtro.persistir(this.entityManager);
     }
 
     public void eliminarIngresoOtro(IngresoOtro unIngresoOtro) {
         unIngresoOtro.setBorradoLogico(true);
-        unIngresoOtro.persistir(entityManager);        
+        unIngresoOtro.persistir(entityManager);
     }
 //----------------------------- FIN INGRESOSOTRO -------------------------------
 
@@ -237,19 +194,8 @@ public class ControladoraContabilidad {
         return resultado;
     }
 
-    public Egreso buscarEgreso(Long id) {
-        Egreso resultado = null;
-        for (Egreso aux : egresos) {
-            if (Objects.equals(aux.getIdEgreso(), id)) {
-                resultado = aux;
-            }
-        }
-        return resultado;
-    }
-
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
-        Egreso unEgreso = new Egreso(entityManager,fecha, monto, unConceptoEgreso, observacion);
-        this.egresos.add(unEgreso);            
+        Egreso unEgreso = new Egreso(this.entityManager, fecha, monto, unConceptoEgreso, observacion);
     }
 
     public void modificarEgreso(Egreso unEgreso, Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion, boolean borradoLogico) {
@@ -258,14 +204,13 @@ public class ControladoraContabilidad {
         unEgreso.setUnConceptoEgreso(unConceptoEgreso);
         unEgreso.setObservacion(observacion);
         unEgreso.setBorradoLogico(borradoLogico);
-        
-        unEgreso.persistir(entityManager);
-        
+        unEgreso.persistir(this.entityManager);
+
     }
 
     public void eliminarEgreso(Egreso unEgreso) {
-       unEgreso.setBorradoLogico(true);
-       unEgreso.persistir(entityManager);
+        unEgreso.setBorradoLogico(true);
+        unEgreso.persistir(this.entityManager);
     }
 //----------------------------- FIN EGRESOS ------------------------------------
 }

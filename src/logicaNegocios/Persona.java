@@ -170,17 +170,17 @@ public abstract class Persona implements Serializable, Comparable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
-//------------------------------SANCION TRIBUNAL--------------------------------
-    public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
-        this.sancionesTribunal.add(unaSancionTribunal);
-        this.persistir(entityManager);
+    @Override
+    public int compareTo(Object aux) {
+        int retorno = -1;
+        if (aux instanceof Persona) {
+            Persona persona = (Persona) aux;
+            if (this.dni > persona.dni) {
+                retorno = 1;
+            }
+        }
+        return retorno;
     }
-
-    public void quitarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
-        this.sancionesTribunal.remove(unaSancionTribunal);
-        this.persistir(entityManager);
-    }
-//------------------------------FIN SANCION TRIBUNAL----------------------------
 
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
@@ -197,15 +197,15 @@ public abstract class Persona implements Serializable, Comparable {
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-    @Override
-    public int compareTo(Object aux) {
-        int retorno = -1;
-        if (aux instanceof Persona) {
-            Persona persona = (Persona) aux;
-            if (this.dni > persona.dni) {
-                retorno = 1;
-            }
-        }
-        return retorno;
+//------------------------------SANCION TRIBUNAL--------------------------------
+    public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
+        this.sancionesTribunal.add(unaSancionTribunal);
+        this.persistir(entityManager);
     }
+
+    public void quitarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
+        this.sancionesTribunal.remove(unaSancionTribunal);
+        this.persistir(entityManager);
+    }
+//------------------------------FIN SANCION TRIBUNAL----------------------------
 }
