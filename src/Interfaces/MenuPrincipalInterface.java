@@ -33,6 +33,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         initComponents();
         //Icono de la ventana
         setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
+        
     }
 
     /**
@@ -75,6 +76,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Asociación de Mami's Hockey");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

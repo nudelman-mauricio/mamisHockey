@@ -6,6 +6,8 @@
 
 package Interfaces;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Leanwit
@@ -17,6 +19,8 @@ public class Socia extends javax.swing.JInternalFrame {
      */
     public Socia() {
         initComponents();
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/user.png")));
     }
 
     /**

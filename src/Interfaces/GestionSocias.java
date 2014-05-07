@@ -6,6 +6,8 @@
 
 package Interfaces;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Lucas
@@ -17,6 +19,8 @@ public class GestionSocias extends javax.swing.JInternalFrame {
      */
     public GestionSocias() {
         initComponents();
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/users.png")));
     }
 
     /**
