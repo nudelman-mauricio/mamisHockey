@@ -513,7 +513,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Tarjeta" minimized="true" id="_1397869941400">
+    <jpa:entity class="Tarjeta" minimized="false" id="_1397869941400">
         <jpa:attributes>
             <jpa:id name="idTarjeta" attribute-type="Long" id="_1398055421132525">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -530,26 +530,26 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="SancionTribunal" minimized="true" id="_1397870308298">
+    <jpa:entity class="SancionTribunal" minimized="false" id="_1397870308298">
         <jpa:attributes>
             <jpa:id name="idSancionTribunal" attribute-type="Long" id="_1397870321521266">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="numeroResolucion" attribute-type="String" id="_1397870325640267">
+            <jpa:basic name="numeroResolucion" optional="true" attribute-type="String" id="_1397870325640267">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="observacion" attribute-type="String" id="_1397870328849268">
+            <jpa:basic name="detalles" attribute-type="String" id="_1397870328849268">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="vencimiento" attribute-type="java.util.Date" id="_1397870331153269">
+            <jpa:basic name="vencimiento" optional="true" attribute-type="java.util.Date" id="_1397870331153269">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="cantFechas" attribute-type="int" id="_1397870333130270">
+            <jpa:basic name="cantFechas" optional="true" attribute-type="int" id="_1397870333130270">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="cantFechasCumplidas" attribute-type="int" id="_1397870334643271">
+            <jpa:basic name="cantFechasCumplidas" optional="true" attribute-type="int" id="_1397870334643271">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817521206776">
@@ -558,6 +558,9 @@
             <jpa:basic name="fecha" attribute-type="java.util.Date" id="_139880187439676">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="tema" attribute-type="String" id="_139947350466472">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
             <jpa:one-to-one name="unaTarjeta" target-entity="Tarjeta" optional="true" primaryKey="false" connected-entity-id="_1397869941400" id="_139880179023574">
                 <jpa:join-table/>
@@ -619,82 +622,82 @@
     <jpa:diagram id="_139786521181047">
         <plane elementRef="_139786521181046" id="_139786521181048_p">
             <shape elementRef="_1397865228592" id="_1397865228592_gui">
-                <Bounds x="1213.0" y="-782.0" width="162.0" height="24.0"/>
+                <Bounds x="1213.0" y="-782.0" width="144.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865386057" id="_1397865386057_gui">
-                <Bounds x="767.0" y="-732.0" width="153.0" height="24.0"/>
+                <Bounds x="767.0" y="-732.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865403582" id="_1397865403582_gui">
-                <Bounds x="1122.0" y="-422.0" width="140.0" height="26.0"/>
+                <Bounds x="1122.0" y="-422.0" width="138.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397865613179" id="_1397865613179_gui">
-                <Bounds x="409.0" y="-407.0" width="149.0" height="26.0"/>
+                <Bounds x="409.0" y="-407.0" width="131.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397865626096" id="_1397865626096_gui">
                 <Bounds x="326.0" y="-721.0" width="141.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865799360" id="_1397865799360_gui">
-                <Bounds x="-412.0" y="-732.0" width="155.0" height="24.0"/>
+                <Bounds x="-412.0" y="-732.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865962543" id="_1397865962543_gui">
-                <Bounds x="-284.0" y="-467.0" width="187.0" height="26.0"/>
+                <Bounds x="-284.0" y="-467.0" width="185.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397866303816" id="_1397866303816_gui">
-                <Bounds x="779.0" y="-181.0" width="132.0" height="24.0"/>
+                <Bounds x="779.0" y="-181.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
-                <Bounds x="36.0" y="-168.0" width="183.0" height="24.0"/>
+                <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866545595" id="_1397866545595_gui">
-                <Bounds x="-535.0" y="-243.0" width="173.0" height="24.0"/>
+                <Bounds x="-535.0" y="-243.0" width="171.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866760557" id="_1397866760557_gui">
-                <Bounds x="446.0" y="-181.0" width="137.0" height="24.0"/>
+                <Bounds x="446.0" y="-181.0" width="135.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397867932817" id="_1397867932817_gui">
-                <Bounds x="274.0" y="-94.0" width="132.0" height="24.0"/>
+                <Bounds x="274.0" y="-94.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868049586" id="_1397868049586_gui">
-                <Bounds x="-143.0" y="21.0" width="178.0" height="24.0"/>
+                <Bounds x="-143.0" y="21.0" width="132.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
-                <Bounds x="-386.0" y="115.0" width="206.0" height="24.0"/>
+                <Bounds x="-386.0" y="115.0" width="204.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868481186" id="_1397868481186_gui">
-                <Bounds x="-412.0" y="-57.0" width="163.0" height="24.0"/>
+                <Bounds x="-412.0" y="-57.0" width="161.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868806733" id="_1397868806733_gui">
-                <Bounds x="-497.0" y="466.0" width="192.0" height="24.0"/>
+                <Bounds x="-497.0" y="466.0" width="190.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868814587" id="_1397868814587_gui">
-                <Bounds x="-249.0" y="466.0" width="195.0" height="24.0"/>
+                <Bounds x="-249.0" y="466.0" width="193.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868975724" id="_1397868975724_gui">
-                <Bounds x="-210.0" y="285.0" width="168.0" height="24.0"/>
+                <Bounds x="-210.0" y="285.0" width="164.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869170762" id="_1397869170762_gui">
-                <Bounds x="-443.0" y="311.0" width="166.0" height="24.0"/>
+                <Bounds x="-443.0" y="311.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869355771" id="_1397869355771_gui">
-                <Bounds x="314.0" y="407.0" width="153.0" height="24.0"/>
+                <Bounds x="314.0" y="407.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869438638" id="_1397869438638_gui">
-                <Bounds x="360.0" y="45.0" width="172.0" height="24.0"/>
+                <Bounds x="360.0" y="45.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="628.0" y="-591.0" width="222.0" height="24.0"/>
+                <Bounds x="628.0" y="-591.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
-                <Bounds x="1139.0" y="254.0" width="138.0" height="24.0"/>
+                <Bounds x="1139.0" y="254.0" width="136.0" height="134.0"/>
             </shape>
             <shape elementRef="_1397870308298" id="_1397870308298_gui">
-                <Bounds x="613.0" y="482.0" width="190.0" height="24.0"/>
+                <Bounds x="613.0" y="482.0" width="188.0" height="294.0"/>
             </shape>
             <shape elementRef="_1397870789243" id="_1397870789243_gui">
-                <Bounds x="136.0" y="141.0" width="138.0" height="24.0"/>
+                <Bounds x="136.0" y="141.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1398774975217" id="_1398774975217_gui">
-                <Bounds x="185.0" y="-536.0" width="161.0" height="24.0"/>
+                <Bounds x="185.0" y="-536.0" width="159.0" height="24.0"/>
             </shape>
         </plane>
     </jpa:diagram>
