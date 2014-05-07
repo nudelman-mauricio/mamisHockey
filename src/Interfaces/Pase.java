@@ -19,7 +19,7 @@ public class Pase extends javax.swing.JInternalFrame {
     /**
      * Creates new form Pases
      */
-    public Pase(JInternalFrame unJInternalFrame) {
+    public Pase(JInternalFrame unJInternalFrame) {//FALTA AGREGAR LA VARIABLE DEL DNI----------
         initComponents();
         
         this.unJInternalFrame = unJInternalFrame;
@@ -106,7 +106,7 @@ public class Pase extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/floppy.png"))); // NOI18N
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

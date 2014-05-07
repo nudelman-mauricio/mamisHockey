@@ -147,7 +147,7 @@
         <Component class="javax.swing.JButton" name="jButtonGuardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos Nuevos/floppy.png"/>
+              <Image iconType="3" name="/Iconos Nuevos/save.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>

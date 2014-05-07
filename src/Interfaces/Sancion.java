@@ -19,7 +19,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     /**
      * Creates new form Sancion
      */
-    public Sancion(JInternalFrame unJInternalFrame) {
+    public Sancion(JInternalFrame unJInternalFrame) {//FALTA AGREGAR LA VARIABLE DEL DNI----------
         initComponents();
         
         this.unJInternalFrame = unJInternalFrame;

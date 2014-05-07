@@ -60,7 +60,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         jButtonSancion = new javax.swing.JButton();
         jButtonNuevo2 = new javax.swing.JButton();
         jButtonErgometria = new javax.swing.JButton();
-        jButtonEditar1 = new javax.swing.JButton();
+        jButtonDatos = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -258,6 +258,11 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         jButtonNuevo2.setText("Tarjetas");
         jButtonNuevo2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevo2ActionPerformed(evt);
+            }
+        });
 
         jButtonErgometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/corazon.png"))); // NOI18N
         jButtonErgometria.setText("Ergometrias");
@@ -269,17 +274,22 @@ public class GestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/user.png"))); // NOI18N
-        jButtonEditar1.setText("Datos");
-        jButtonEditar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/user.png"))); // NOI18N
+        jButtonDatos.setText("Datos");
+        jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jButtonEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -299,7 +309,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
                     .addComponent(jButtonNuevo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonErgometria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonSancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEditar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -379,6 +389,24 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         this.unjDesktopPane1.add(unaSancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
+    private void jButtonNuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevo2ActionPerformed
+        Tarjeta unaTarjeta = new Tarjeta(this);
+        unaTarjeta.pack();
+        unaTarjeta.setVisible(true);
+        centrar(unaTarjeta);
+        this.setVisible(false);
+        this.unjDesktopPane1.add(unaTarjeta);
+    }//GEN-LAST:event_jButtonNuevo2ActionPerformed
+
+    private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
+        Socia unaSocia = new Socia(this);
+        unaSocia.pack();
+        unaSocia.setVisible(true);
+        centrar(unaSocia);
+        this.setVisible(false);
+        this.unjDesktopPane1.add(unaSocia);
+    }//GEN-LAST:event_jButtonDatosActionPerformed
+
     public void centrar (JInternalFrame unJInternalFrame){
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -387,16 +415,12 @@ public class GestionSocias extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonEditar1;
+    private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonEliminar1;
     private javax.swing.JButton jButtonErgometria;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonNuevo1;
     private javax.swing.JButton jButtonNuevo2;
-    private javax.swing.JButton jButtonPases;
     private javax.swing.JButton jButtonPases1;
     private javax.swing.JButton jButtonSancion;
     private javax.swing.JPanel jPanel1;
@@ -404,7 +428,6 @@ public class GestionSocias extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
