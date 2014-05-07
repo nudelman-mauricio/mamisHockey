@@ -559,7 +559,7 @@
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="tema" attribute-type="String" id="_139947350466472">
+            <jpa:basic name="motivo" attribute-type="String" id="_139947350466472">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
             <jpa:one-to-one name="unaTarjeta" target-entity="Tarjeta" optional="true" primaryKey="false" connected-entity-id="_1397869941400" id="_139880179023574">
@@ -634,7 +634,7 @@
                 <Bounds x="409.0" y="-407.0" width="131.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397865626096" id="_1397865626096_gui">
-                <Bounds x="326.0" y="-721.0" width="141.0" height="24.0"/>
+                <Bounds x="326.0" y="-721.0" width="139.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865799360" id="_1397865799360_gui">
                 <Bounds x="-412.0" y="-732.0" width="130.0" height="24.0"/>
