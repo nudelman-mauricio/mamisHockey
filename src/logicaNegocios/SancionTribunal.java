@@ -30,6 +30,9 @@ public class SancionTribunal implements Serializable, Comparable {
     @OneToOne(optional = false, targetEntity = Tarjeta.class)
     private Tarjeta unaTarjeta;
 
+    @Basic
+    private String motivo;
+
     @OneToOne(optional = false, targetEntity = Partido.class)
     private Partido unPartido;
 
@@ -38,10 +41,10 @@ public class SancionTribunal implements Serializable, Comparable {
     private Long idSancionTribunal;
 
     @Basic
-    private int cantFechasCumplidas;
+    private String detalles;
 
     @Basic
-    private String observacion;
+    private int cantFechasCumplidas;
 
     @Basic
     private String numeroResolucion;
@@ -49,14 +52,10 @@ public class SancionTribunal implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    public SancionTribunal() {
-    }
-
-    public SancionTribunal(EntityManager entityManager, Date vencimiento, int cantFechas, Date fecha, String observacion) {
-        this.vencimiento = vencimiento;
-        this.cantFechas = cantFechas;
+    public SancionTribunal(EntityManager entityManager , Date fecha, String motivo, String detalles) {
         this.fecha = fecha;
-        this.observacion = observacion;
+        this.motivo = motivo;
+        this.detalles = detalles;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -94,6 +93,14 @@ public class SancionTribunal implements Serializable, Comparable {
         this.unaTarjeta = unaTarjeta;
     }
 
+    public String getMotivo() {
+        return this.motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
     public Partido getUnPartido() {
         return this.unPartido;
     }
@@ -110,20 +117,20 @@ public class SancionTribunal implements Serializable, Comparable {
         this.idSancionTribunal = idSancionTribunal;
     }
 
+    public String getDetalles() {
+        return this.detalles;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
+    }
+
     public int getCantFechasCumplidas() {
         return this.cantFechasCumplidas;
     }
 
     public void setCantFechasCumplidas(int cantFechasCumplidas) {
         this.cantFechasCumplidas = cantFechasCumplidas;
-    }
-
-    public String getObservacion() {
-        return this.observacion;
-    }
-
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
     }
 
     public String getNumeroResolucion() {

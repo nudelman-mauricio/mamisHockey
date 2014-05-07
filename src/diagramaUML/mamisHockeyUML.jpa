@@ -522,11 +522,14 @@
             <jpa:basic name="tipo" attribute-type="String" id="_1398055423177526">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="observacion" attribute-type="String" id="_1398055436571529">
+            <jpa:basic name="motivo" attribute-type="String" id="_1398055436571529">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817525425577">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="detalles" attribute-type="String" id="_1399474887957215">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
@@ -688,7 +691,7 @@
                 <Bounds x="628.0" y="-591.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
-                <Bounds x="1139.0" y="254.0" width="136.0" height="134.0"/>
+                <Bounds x="1140.0" y="256.0" width="136.0" height="155.0"/>
             </shape>
             <shape elementRef="_1397870308298" id="_1397870308298_gui">
                 <Bounds x="613.0" y="482.0" width="188.0" height="294.0"/>

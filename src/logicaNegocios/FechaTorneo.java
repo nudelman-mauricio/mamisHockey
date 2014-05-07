@@ -2,8 +2,6 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -12,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Query;
 
 @Entity
 public class FechaTorneo implements Serializable, Comparable {

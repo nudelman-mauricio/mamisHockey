@@ -46,8 +46,8 @@ public class Egreso implements Serializable, Comparable {
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
-    }    
-    
+    }
+
 //---------------------------- GETERS Y SETERS ---------------------------------
     public Date getFecha() {
         return this.fecha;
@@ -109,8 +109,8 @@ public class Egreso implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-     //----------------------------------PERSISTENCIA--------------------------------
+
+    //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();

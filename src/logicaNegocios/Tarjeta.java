@@ -20,7 +20,10 @@ public class Tarjeta implements Serializable, Comparable {
     private String tipo;
 
     @Basic
-    private String observacion;
+    private String motivo;
+
+    @Basic
+    private String detalles;
 
     @Basic
     private boolean borradoLogico;
@@ -28,9 +31,10 @@ public class Tarjeta implements Serializable, Comparable {
     public Tarjeta() {
     }
 
-    public Tarjeta(EntityManager entityManager, String tipo, String observacion) {
+    public Tarjeta(EntityManager entityManager, String tipo, String motivo, String detalles) {
         this.tipo = tipo;
-        this.observacion = observacion;
+        this.motivo = motivo;
+        this.detalles = detalles;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -52,12 +56,20 @@ public class Tarjeta implements Serializable, Comparable {
         this.tipo = tipo;
     }
 
-    public String getObservacion() {
-        return this.observacion;
+    public String getMotivo() {
+        return this.motivo;
     }
 
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getDetalles() {
+        return this.detalles;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
     }
 
     public boolean isBorradoLogico() {
