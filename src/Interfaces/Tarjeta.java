@@ -38,25 +38,25 @@ public class Tarjeta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButtonImprimir = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableTarjeta = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabelComentario = new javax.swing.JLabel();
+        jLabelFecha = new javax.swing.JLabel();
+        jTextFieldFecha = new javax.swing.JTextField();
+        jLabelTipoTarjeta = new javax.swing.JLabel();
+        jTextFieldTipoTarjeta = new javax.swing.JTextField();
+        jLabelTorneo = new javax.swing.JLabel();
+        jTextFieldTorneo = new javax.swing.JTextField();
+        jLabelPartido = new javax.swing.JLabel();
+        jTextFieldPartido = new javax.swing.JTextField();
+        jLabelMotivo = new javax.swing.JLabel();
+        jTextFieldMotivo = new javax.swing.JTextField();
+        jLabelDetalle = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaErgometriaComentario = new javax.swing.JTextArea();
+        jTextAreaDetalle = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jTextField7 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -66,9 +66,9 @@ public class Tarjeta extends javax.swing.JInternalFrame {
         jTextField9 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        jRadioButtonTipoTarjeta = new javax.swing.JRadioButton();
+        jRadioButtonTorneo = new javax.swing.JRadioButton();
+        jComboBoxBusqueda = new javax.swing.JComboBox();
         jPanel8 = new javax.swing.JPanel();
         jButtonBuscar = new javax.swing.JButton();
 
@@ -93,13 +93,13 @@ public class Tarjeta extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButton1.setText("Imprimir");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonImprimirActionPerformed(evt);
             }
         });
 
@@ -109,18 +109,18 @@ public class Tarjeta extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jButton1)
+                .addComponent(jButtonImprimir)
                 .addGap(3, 3, 3))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTarjeta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -131,7 +131,7 @@ public class Tarjeta extends javax.swing.JInternalFrame {
                 "Fecha", "Tipo de Tarjeta", "Torneo", "Partido"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableTarjeta);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -150,23 +150,23 @@ public class Tarjeta extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel7.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Fecha");
+        jLabelFecha.setText("Fecha");
 
-        jTextField2.setText("dd/mm/aaaa");
+        jTextFieldFecha.setText("dd/mm/aaaa");
 
-        jLabel5.setText("Tipo de Tarjeta");
+        jLabelTipoTarjeta.setText("Tipo de Tarjeta");
 
-        jLabel1.setText("Torneo");
+        jLabelTorneo.setText("Torneo");
 
-        jLabel2.setText("Partido");
+        jLabelPartido.setText("Partido");
 
-        jLabel4.setText("Motivo");
+        jLabelMotivo.setText("Motivo");
 
-        jLabelComentario.setText("Detalle");
+        jLabelDetalle.setText("Detalle");
 
-        jTextAreaErgometriaComentario.setColumns(20);
-        jTextAreaErgometriaComentario.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaErgometriaComentario);
+        jTextAreaDetalle.setColumns(20);
+        jTextAreaDetalle.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaDetalle);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -178,23 +178,23 @@ public class Tarjeta extends javax.swing.JInternalFrame {
                     .addContainerGap()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabelComentario)
+                            .addComponent(jLabelDetalle)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabelFechaRealizacion)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel5))
+                                .addComponent(jLabelMotivo)
+                                .addComponent(jLabelTorneo)
+                                .addComponent(jLabelFecha)
+                                .addComponent(jLabelPartido)
+                                .addComponent(jLabelTipoTarjeta))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField3)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                .addComponent(jTextField1)
-                                .addComponent(jTextField5)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextFieldPartido)
+                                .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                .addComponent(jTextFieldTorneo)
+                                .addComponent(jTextFieldMotivo)
+                                .addComponent(jTextFieldTipoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
@@ -204,28 +204,28 @@ public class Tarjeta extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelFechaRealizacion)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelFecha)
+                        .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelTipoTarjeta)
+                        .addComponent(jTextFieldTipoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelTorneo)
+                        .addComponent(jTextFieldTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
+                        .addComponent(jTextFieldPartido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelPartido))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
+                        .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelMotivo))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelComentario))
+                        .addComponent(jLabelDetalle))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -302,12 +302,12 @@ public class Tarjeta extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jRadioButton4.setText("Tipo de Tarjeta");
+        jRadioButtonTipoTarjeta.setText("Tipo de Tarjeta");
 
-        jRadioButton5.setText("Torneo");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonTorneo.setText("Torneo");
+        jRadioButtonTorneo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
+                jRadioButtonTorneoActionPerformed(evt);
             }
         });
 
@@ -319,12 +319,12 @@ public class Tarjeta extends javax.swing.JInternalFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(jRadioButton4)
+                        .addComponent(jRadioButtonTipoTarjeta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton5))
+                        .addComponent(jRadioButtonTorneo))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(3, 3, 3))
         );
         jPanel6Layout.setVerticalGroup(
@@ -332,10 +332,10 @@ public class Tarjeta extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5))
+                    .addComponent(jRadioButtonTipoTarjeta)
+                    .addComponent(jRadioButtonTorneo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
         );
 
@@ -412,13 +412,13 @@ public class Tarjeta extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
+    private void jRadioButtonTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTorneoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
+    }//GEN-LAST:event_jRadioButtonTorneoActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
@@ -430,18 +430,18 @@ public class Tarjeta extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JComboBox jComboBoxBusqueda;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabelComentario;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JLabel jLabelDetalle;
+    private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelMotivo;
+    private javax.swing.JLabel jLabelPartido;
+    private javax.swing.JLabel jLabelTipoTarjeta;
+    private javax.swing.JLabel jLabelTorneo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -450,19 +450,19 @@ public class Tarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButtonTipoTarjeta;
+    private javax.swing.JRadioButton jRadioButtonTorneo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextAreaErgometriaComentario;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable jTableTarjeta;
+    private javax.swing.JTextArea jTextAreaDetalle;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextFieldFecha;
+    private javax.swing.JTextField jTextFieldMotivo;
+    private javax.swing.JTextField jTextFieldPartido;
+    private javax.swing.JTextField jTextFieldTipoTarjeta;
+    private javax.swing.JTextField jTextFieldTorneo;
     // End of variables declaration//GEN-END:variables
 }
