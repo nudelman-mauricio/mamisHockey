@@ -6,17 +6,20 @@
 
 package Interfaces;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author Leanwit
  */
 public class Cancha extends javax.swing.JInternalFrame {
-
+    JDesktopPane jDesktopPane1;
     /**
      * Creates new form GestionClubCanchas
      */
-    public Cancha() {
+    public Cancha(JDesktopPane jDesktopPane1) {
         initComponents();
+        this.jDesktopPane1=jDesktopPane1;
     }
 
     /**
@@ -38,6 +41,7 @@ public class Cancha extends javax.swing.JInternalFrame {
         jButtonEditar = new javax.swing.JButton();
         jButtonEditar1 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Canchas - Nombre Club");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -77,6 +81,11 @@ public class Cancha extends javax.swing.JInternalFrame {
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/floppy.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
@@ -92,6 +101,11 @@ public class Cancha extends javax.swing.JInternalFrame {
         jButtonEditar1.setText("Editar");
         jButtonEditar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -144,6 +158,20 @@ public class Cancha extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        NuevaCancha unaNuevaCancha = new NuevaCancha(jDesktopPane1);
+        unaNuevaCancha.pack();
+        unaNuevaCancha.setVisible(true);
+        this.jDesktopPane1.add(unaNuevaCancha);          // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void jButtonEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditar1ActionPerformed
+        NuevaCancha unaNuevaCancha = new NuevaCancha(jDesktopPane1);
+        unaNuevaCancha.pack();
+        unaNuevaCancha.setVisible(true);
+        this.jDesktopPane1.add(unaNuevaCancha);          // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

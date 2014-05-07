@@ -169,6 +169,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuClub.setText("Club");
 
         jMenuItemAdmClubes.setText("Administrar Clubes");
+        jMenuItemAdmClubes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAdmClubesActionPerformed(evt);
+            }
+        });
         jMenuClub.add(jMenuItemAdmClubes);
 
         jMenuBar1.add(jMenuClub);
@@ -261,6 +266,13 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         unaSocia.setVisible(true);       
         this.jDesktopPane1.add(unaSocia);        
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
+
+    private void jMenuItemAdmClubesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmClubesActionPerformed
+        GestionClub unaGestionClub = new GestionClub(jDesktopPane1);
+        unaGestionClub.pack();
+        unaGestionClub.setVisible(true);
+        this.jDesktopPane1.add(unaGestionClub);// TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

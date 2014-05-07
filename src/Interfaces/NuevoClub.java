@@ -6,18 +6,22 @@
 
 package Interfaces;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author Leanwit
  */
 public class NuevoClub extends javax.swing.JInternalFrame {
-
+    JDesktopPane jDesktopPane1;
     /**
      * Creates new form NuevoClub
      */
-    public NuevoClub() {
+    public NuevoClub(JDesktopPane jDesktopPane1) {
         initComponents();
+        this.jDesktopPane1=jDesktopPane1;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,6 +46,7 @@ public class NuevoClub extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jToggleButton4 = new javax.swing.JToggleButton();
 
+        setClosable(true);
         setTitle("Nuevo Club");
 
         jLabel1.setText("Nombre");

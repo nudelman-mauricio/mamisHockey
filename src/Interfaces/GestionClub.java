@@ -6,17 +6,20 @@
 
 package Interfaces;
 
-/**
+import javax.swing.JDesktopPane;
+
+/*
  *
  * @author Leanwit
  */
 public class GestionClub extends javax.swing.JInternalFrame {
-
+    JDesktopPane jDesktopPane1;
     /**
      * Creates new form Club
      */
-    public GestionClub() {
+    public GestionClub(JDesktopPane jDesktopPane1) {
         initComponents();
+        this.jDesktopPane1 = jDesktopPane1;
     }
 
     /**
@@ -47,6 +50,8 @@ public class GestionClub extends javax.swing.JInternalFrame {
         jButtonEditar1 = new javax.swing.JButton();
         jButtonEditar2 = new javax.swing.JButton();
 
+        setClosable(true);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
@@ -58,6 +63,11 @@ public class GestionClub extends javax.swing.JInternalFrame {
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButton1.setText("Imprimir");
@@ -214,6 +224,11 @@ public class GestionClub extends javax.swing.JInternalFrame {
         jButtonEditar2.setText("Canchas");
         jButtonEditar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditar2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -300,6 +315,20 @@ public class GestionClub extends javax.swing.JInternalFrame {
     private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton5ActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        NuevoClub unNuevoClub = new NuevoClub(jDesktopPane1);
+        unNuevoClub.pack();
+        unNuevoClub.setVisible(true);
+        this.jDesktopPane1.add(unNuevoClub);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void jButtonEditar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditar2ActionPerformed
+        Cancha unaCancha = new Cancha(jDesktopPane1);
+        unaCancha.pack();
+        unaCancha.setVisible(true);
+        this.jDesktopPane1.add(unaCancha);         // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditar2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

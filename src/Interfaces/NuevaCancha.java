@@ -6,17 +6,20 @@
 
 package Interfaces;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author Leanwit
  */
 public class NuevaCancha extends javax.swing.JInternalFrame {
-
+     JDesktopPane jDesktopPane1;
     /**
      * Creates new form NuevaCancha
      */
-    public NuevaCancha() {
+    public NuevaCancha(JDesktopPane jDesktopPane1) {
         initComponents();
+        this.jDesktopPane1=jDesktopPane1;
     }
 
     /**
@@ -37,6 +40,8 @@ public class NuevaCancha extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jButtonEditar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
+
+        setClosable(true);
 
         jLabel1.setText("Nombre");
 
