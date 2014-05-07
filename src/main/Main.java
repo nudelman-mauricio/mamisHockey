@@ -31,7 +31,8 @@ public class Main {
         }
         //Creacion de la ventana
         MenuPrincipalInterface unaVentana = new MenuPrincipalInterface ();
-        SwingUtilities.updateComponentTreeUI ( unaVentana ) ;        
+        SwingUtilities.updateComponentTreeUI ( unaVentana ) ; 
+        unaVentana.setLocationRelativeTo(null);
         unaVentana.setVisible(true);
         
     }
