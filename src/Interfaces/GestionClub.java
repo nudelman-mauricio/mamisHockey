@@ -6,7 +6,10 @@
 
 package Interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /*
  *
@@ -320,6 +323,7 @@ public class GestionClub extends javax.swing.JInternalFrame {
         NuevoClub unNuevoClub = new NuevoClub(jDesktopPane1);
         unNuevoClub.pack();
         unNuevoClub.setVisible(true);
+        centrar(unNuevoClub);
         this.jDesktopPane1.add(unNuevoClub);        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -327,9 +331,15 @@ public class GestionClub extends javax.swing.JInternalFrame {
         Cancha unaCancha = new Cancha(jDesktopPane1);
         unaCancha.pack();
         unaCancha.setVisible(true);
+        centrar(unaCancha);
         this.jDesktopPane1.add(unaCancha);         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditar2ActionPerformed
-
+ 
+    public void centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

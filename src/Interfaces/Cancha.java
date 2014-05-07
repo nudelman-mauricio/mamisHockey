@@ -6,7 +6,10 @@
 
 package Interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -18,7 +21,7 @@ public class Cancha extends javax.swing.JInternalFrame {
      * Creates new form GestionClubCanchas
      */
     public Cancha(JDesktopPane jDesktopPane1) {
-        initComponents();
+        initComponents();        
         this.jDesktopPane1=jDesktopPane1;
     }
 
@@ -163,6 +166,7 @@ public class Cancha extends javax.swing.JInternalFrame {
         NuevaCancha unaNuevaCancha = new NuevaCancha(jDesktopPane1);
         unaNuevaCancha.pack();
         unaNuevaCancha.setVisible(true);
+        centrar(unaNuevaCancha);
         this.jDesktopPane1.add(unaNuevaCancha);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -170,9 +174,15 @@ public class Cancha extends javax.swing.JInternalFrame {
         NuevaCancha unaNuevaCancha = new NuevaCancha(jDesktopPane1);
         unaNuevaCancha.pack();
         unaNuevaCancha.setVisible(true);
+        centrar(unaNuevaCancha);
         this.jDesktopPane1.add(unaNuevaCancha);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditar1ActionPerformed
 
+     public void centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;

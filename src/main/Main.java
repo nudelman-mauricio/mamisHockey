@@ -34,7 +34,8 @@ public class Main {
         SwingUtilities.updateComponentTreeUI ( unaVentana ) ; 
         unaVentana.setLocationRelativeTo(null);
         unaVentana.setVisible(true);
-        
+        //Inicia la aplicacion en pantalla completa
+        unaVentana.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
 }

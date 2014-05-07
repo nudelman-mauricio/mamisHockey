@@ -186,6 +186,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Asociaci&#xf3;n de Mami&apos;s Hockey"/>
+    <Property name="extendedState" type="int" value="1"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>

@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -77,6 +78,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asociación de Mami's Hockey");
+        setExtendedState(1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -256,14 +258,16 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
         GestionSocias unaGestionSocias = new GestionSocias(jDesktopPane1);
         unaGestionSocias.pack();
-        unaGestionSocias.setVisible(true);       
+        unaGestionSocias.setVisible(true); 
+        centrar(unaGestionSocias);
         this.jDesktopPane1.add(unaGestionSocias);  
     }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
         Socia unaSocia = new Socia(jDesktopPane1);
         unaSocia.pack();
-        unaSocia.setVisible(true);       
+        unaSocia.setVisible(true);
+        centrar(unaSocia);
         this.jDesktopPane1.add(unaSocia);        
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
@@ -271,9 +275,15 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         GestionClub unaGestionClub = new GestionClub(jDesktopPane1);
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);
+        centrar(unaGestionClub);
         this.jDesktopPane1.add(unaGestionClub);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
+    public void centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;

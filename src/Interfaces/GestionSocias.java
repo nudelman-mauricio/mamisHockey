@@ -6,8 +6,11 @@
 
 package Interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -353,25 +356,34 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         unPase.pack();
         unPase.setVisible(true);
         this.setVisible(false);
+        centrar(unPase);
         this.unjDesktopPane1.add(unPase);
     }//GEN-LAST:event_jButtonPases1ActionPerformed
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
         Ergometria unaErgometria = new Ergometria(this);
         unaErgometria.pack();
-        unaErgometria.setVisible(true);
+        unaErgometria.setVisible(true);    
+        centrar(unaErgometria);        
         this.setVisible(false);
         this.unjDesktopPane1.add(unaErgometria);
+        
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
         Sancion unaSancion = new Sancion(this);
         unaSancion.pack();
         unaSancion.setVisible(true);
+        centrar(unaSancion);
         this.setVisible(false);
         this.unjDesktopPane1.add(unaSancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
+    public void centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
