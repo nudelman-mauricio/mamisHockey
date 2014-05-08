@@ -317,6 +317,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         unaGestionClub.setVisible(true);
         centrar(unaGestionClub);
         this.jDesktopPane1.add(unaGestionClub);
+
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
     private void jMenuItemNuevoCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed

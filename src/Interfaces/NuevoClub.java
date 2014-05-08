@@ -6,20 +6,24 @@
 
 package Interfaces;
 
-import javax.swing.JDesktopPane;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Leanwit
  */
 public class NuevoClub extends javax.swing.JInternalFrame {
-    JDesktopPane jDesktopPane1;
+    JInternalFrame unJInternalFrame;
     /**
      * Creates new form NuevoClub
      */
-    public NuevoClub(JDesktopPane jDesktopPane1) {
+    public NuevoClub(JInternalFrame unJInternalFrame) {
         initComponents();
-        this.jDesktopPane1=jDesktopPane1;
+        this.unJInternalFrame=unJInternalFrame;
+        centrar(this);
     }
     
 
@@ -48,6 +52,23 @@ public class NuevoClub extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Nuevo Club");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabelNombre.setText("Nombre");
 
@@ -198,7 +219,15 @@ public class NuevoClub extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPresidenteActionPerformed
 
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        unJInternalFrame.setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
 
+ public void centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
