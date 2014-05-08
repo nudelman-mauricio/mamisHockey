@@ -54,13 +54,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuSocias = new javax.swing.JMenu();
         jMenuItemAdmSocias = new javax.swing.JMenuItem();
         jMenuItemAdministrarSocias = new javax.swing.JMenuItem();
-        jMenuEquipo = new javax.swing.JMenu();
-        jMenuItemAdmEquipos = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItemDT = new javax.swing.JMenuItem();
-        jMenuItemDelegadas = new javax.swing.JMenuItem();
-        jMenuItemIndumentaria = new javax.swing.JMenuItem();
-        jMenuItemPrepFisico = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemAdmSanciones = new javax.swing.JMenuItem();
         jMenuItemFallosTribunal = new javax.swing.JMenuItem();
@@ -75,6 +68,19 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
         jMenuItemArbitros = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuEquipo = new javax.swing.JMenu();
+        jMenuItemAdmEquipos = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemDT = new javax.swing.JMenuItem();
+        jMenuItemDelegadas = new javax.swing.JMenuItem();
+        jMenuItemIndumentaria = new javax.swing.JMenuItem();
+        jMenuItemPrepFisico = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItemNuevoCuerpoTecnico = new javax.swing.JMenuItem();
+        jMenuItemGestionarCuerpoTecnico = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItemNuevoArbitro = new javax.swing.JMenuItem();
+        jMenuItemGestionarArbitro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asociación de Mami's Hockey");
@@ -109,6 +115,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuSocias.setText("Socias");
 
+        jMenuItemAdmSocias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Socia2.png"))); // NOI18N
         jMenuItemAdmSocias.setText("Nueva Socia");
         jMenuItemAdmSocias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +124,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuSocias.add(jMenuItemAdmSocias);
 
-        jMenuItemAdministrarSocias.setText("Administrar Socias");
+        jMenuItemAdministrarSocias.setText("Gestionar Socias");
         jMenuItemAdministrarSocias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAdministrarSociasActionPerformed(evt);
@@ -126,38 +133,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuSocias.add(jMenuItemAdministrarSocias);
 
         jMenuBar1.add(jMenuSocias);
-
-        jMenuEquipo.setText("Equipo");
-
-        jMenuItemAdmEquipos.setText("Administrar Equipos");
-        jMenuEquipo.add(jMenuItemAdmEquipos);
-
-        jMenuItem1.setText("Plantilla");
-        jMenuEquipo.add(jMenuItem1);
-
-        jMenuItemDT.setText("Director Tecnico");
-        jMenuItemDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDTActionPerformed(evt);
-            }
-        });
-        jMenuEquipo.add(jMenuItemDT);
-
-        jMenuItemDelegadas.setText("Delegadas");
-        jMenuItemDelegadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDelegadasActionPerformed(evt);
-            }
-        });
-        jMenuEquipo.add(jMenuItemDelegadas);
-
-        jMenuItemIndumentaria.setText("Indumentaria");
-        jMenuEquipo.add(jMenuItemIndumentaria);
-
-        jMenuItemPrepFisico.setText("Preparador Fisico");
-        jMenuEquipo.add(jMenuItemPrepFisico);
-
-        jMenuBar1.add(jMenuEquipo);
 
         jMenu1.setText("Sanciones");
 
@@ -220,6 +195,70 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuTorneo);
 
+        jMenuEquipo.setText("Equipo");
+
+        jMenuItemAdmEquipos.setText("Administrar Equipos");
+        jMenuEquipo.add(jMenuItemAdmEquipos);
+
+        jMenuItem1.setText("Plantilla");
+        jMenuEquipo.add(jMenuItem1);
+
+        jMenuItemDT.setText("Director Tecnico");
+        jMenuItemDT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDTActionPerformed(evt);
+            }
+        });
+        jMenuEquipo.add(jMenuItemDT);
+
+        jMenuItemDelegadas.setText("Delegadas");
+        jMenuItemDelegadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDelegadasActionPerformed(evt);
+            }
+        });
+        jMenuEquipo.add(jMenuItemDelegadas);
+
+        jMenuItemIndumentaria.setText("Indumentaria");
+        jMenuEquipo.add(jMenuItemIndumentaria);
+
+        jMenuItemPrepFisico.setText("Preparador Fisico");
+        jMenuEquipo.add(jMenuItemPrepFisico);
+
+        jMenuBar1.add(jMenuEquipo);
+
+        jMenu2.setText("Cuerpo Tecnico");
+
+        jMenuItemNuevoCuerpoTecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/CuerpoTecnico.png"))); // NOI18N
+        jMenuItemNuevoCuerpoTecnico.setText("Nuevo Cuerpo Tecnico");
+        jMenuItemNuevoCuerpoTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevoCuerpoTecnicoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemNuevoCuerpoTecnico);
+
+        jMenuItemGestionarCuerpoTecnico.setText("Gestionar Cuerpos Tecnicos");
+        jMenuItemGestionarCuerpoTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGestionarCuerpoTecnicoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemGestionarCuerpoTecnico);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Arbitros");
+
+        jMenuItemNuevoArbitro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/referee.png"))); // NOI18N
+        jMenuItemNuevoArbitro.setText("Nuevo Arbitro");
+        jMenu3.add(jMenuItemNuevoArbitro);
+
+        jMenuItemGestionarArbitro.setText("Gestionar Arbitros");
+        jMenu3.add(jMenuItemGestionarArbitro);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,8 +316,24 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);
         centrar(unaGestionClub);
-        this.jDesktopPane1.add(unaGestionClub);// TODO add your handling code here:
+        this.jDesktopPane1.add(unaGestionClub);
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
+
+    private void jMenuItemNuevoCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
+        CuerpoTecnico unaCuerpoTecnico = new CuerpoTecnico(jDesktopPane1);
+        unaCuerpoTecnico.pack();
+        unaCuerpoTecnico.setVisible(true);
+        centrar(unaCuerpoTecnico);
+        this.jDesktopPane1.add(unaCuerpoTecnico);
+    }//GEN-LAST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
+
+    private void jMenuItemGestionarCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
+        GestionCuerpoTecnico unGestionCuerpoTecnico = new GestionCuerpoTecnico(jDesktopPane1);
+        unGestionCuerpoTecnico.pack();
+        unGestionCuerpoTecnico.setVisible(true);
+        centrar(unGestionCuerpoTecnico);
+        this.jDesktopPane1.add(unGestionCuerpoTecnico);
+    }//GEN-LAST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
 
     public void centrar (JInternalFrame unJInternalFrame){
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -289,6 +344,8 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenuArchivo;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClub;
@@ -310,7 +367,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemDelegadas;
     private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
     private javax.swing.JMenuItem jMenuItemFallosTribunal;
+    private javax.swing.JMenuItem jMenuItemGestionarArbitro;
+    private javax.swing.JMenuItem jMenuItemGestionarCuerpoTecnico;
     private javax.swing.JMenuItem jMenuItemIndumentaria;
+    private javax.swing.JMenuItem jMenuItemNuevoArbitro;
+    private javax.swing.JMenuItem jMenuItemNuevoCuerpoTecnico;
     private javax.swing.JMenuItem jMenuItemPrepFisico;
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenu jMenuSocias;

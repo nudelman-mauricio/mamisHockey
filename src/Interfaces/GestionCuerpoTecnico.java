@@ -6,29 +6,26 @@
 
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Lucas
  */
-public class GestionSocias extends javax.swing.JInternalFrame {
-
+public class GestionCuerpoTecnico extends javax.swing.JInternalFrame {
+    
     private JDesktopPane unjDesktopPane1;
     /**
-     * Creates new form GestionSocias
+     * Creates new form GestionCuerpoTecnico
      */
-    public GestionSocias(JDesktopPane unjDesktopPane1) {
+    public GestionCuerpoTecnico(JDesktopPane unjDesktopPane1) {
         initComponents();
         
         this.unjDesktopPane1 = unjDesktopPane1;
         
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/users.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/CuerpoTecnico.png")));
     }
 
     /**
@@ -56,12 +53,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jButtonPases1 = new javax.swing.JButton();
-        jButtonSancion = new javax.swing.JButton();
-        jButtonNuevo2 = new javax.swing.JButton();
-        jButtonErgometria = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
-        jButtonEstado = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -98,7 +90,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +121,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButton6.setText("Nombre");
+        jRadioButton6.setText("Puesto");
         jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton6ActionPerformed(evt);
@@ -210,14 +202,13 @@ public class GestionSocias extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"34.826.274", null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"
+                "DNI", "Apellido", "Nombre", "Trabajando", "Equipo", "Puesto"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -230,50 +221,10 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonPases1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Transferencia.png"))); // NOI18N
-        jButtonPases1.setText("Pases");
-        jButtonPases1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPases1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPases1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPases1ActionPerformed(evt);
-            }
-        });
-
-        jButtonSancion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
-        jButtonSancion.setText("Sanciones");
-        jButtonSancion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonSancion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonSancion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSancionActionPerformed(evt);
-            }
-        });
-
-        jButtonNuevo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png"))); // NOI18N
-        jButtonNuevo2.setText("Tarjetas");
-        jButtonNuevo2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonNuevo2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonNuevo2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevo2ActionPerformed(evt);
-            }
-        });
-
-        jButtonErgometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/corazon.png"))); // NOI18N
-        jButtonErgometria.setText("Ergometrias");
-        jButtonErgometria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonErgometria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonErgometria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonErgometriaActionPerformed(evt);
-            }
-        });
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/user.png"))); // NOI18N
         jButtonDatos.setText("Datos");
@@ -285,45 +236,19 @@ public class GestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png"))); // NOI18N
-        jButtonEstado.setText("Estados");
-        jButtonEstado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEstado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEstadoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPases1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonErgometria, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonPases1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonNuevo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonErgometria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButtonDatos)
                 .addGap(3, 3, 3))
         );
 
@@ -346,8 +271,8 @@ public class GestionSocias extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
         );
@@ -375,73 +300,22 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jButtonPases1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPases1ActionPerformed
-        Pase unPase = new Pase(this);
-        unPase.pack();
-        unPase.setVisible(true);
-        this.setVisible(false);
-        centrar(unPase);
-        this.unjDesktopPane1.add(unPase);
-    }//GEN-LAST:event_jButtonPases1ActionPerformed
-
-    private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
-        Ergometria unaErgometria = new Ergometria(this);
-        unaErgometria.pack();
-        unaErgometria.setVisible(true);    
-        centrar(unaErgometria);        
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaErgometria);
-        
-    }//GEN-LAST:event_jButtonErgometriaActionPerformed
-
-    private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-        Sancion unaSancion = new Sancion(this);
-        unaSancion.pack();
-        unaSancion.setVisible(true);
-        centrar(unaSancion);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaSancion);
-    }//GEN-LAST:event_jButtonSancionActionPerformed
-
-    private void jButtonNuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevo2ActionPerformed
-        Tarjeta unaTarjeta = new Tarjeta(this);
-        unaTarjeta.pack();
-        unaTarjeta.setVisible(true);
-        centrar(unaTarjeta);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaTarjeta);
-    }//GEN-LAST:event_jButtonNuevo2ActionPerformed
-
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSocia = new Socia(this);
-        unaSocia.pack();
-        unaSocia.setVisible(true);
-        centrar(unaSocia);
+        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this);
+        unCuerpoTecnico.pack();
+        unCuerpoTecnico.setVisible(true);
+        //centrar(unCuerpoTecnico);----------------------------------------------------------
         this.setVisible(false);
-        this.unjDesktopPane1.add(unaSocia);
+        this.unjDesktopPane1.add(unCuerpoTecnico);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
-    private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEstadoActionPerformed
-
-    public void centrar (JInternalFrame unJInternalFrame){
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonErgometria;
-    private javax.swing.JButton jButtonEstado;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonNuevo2;
-    private javax.swing.JButton jButtonPases1;
-    private javax.swing.JButton jButtonSancion;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

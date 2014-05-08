@@ -28,7 +28,7 @@ public class Socia extends javax.swing.JInternalFrame {
         this.unJInternalFrame = null;
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/user.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socias2.png")));
         
     }
     
@@ -38,7 +38,7 @@ public class Socia extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/user.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socias2.png")));
         
     }
 
@@ -315,7 +315,7 @@ public class Socia extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         pack();

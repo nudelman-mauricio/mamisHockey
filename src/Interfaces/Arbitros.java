@@ -6,49 +6,17 @@
 
 package Interfaces;
 
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-
 /**
  *
  * @author Lucas
  */
-public class CuerpoTecnico extends javax.swing.JInternalFrame {
+public class Arbitros extends javax.swing.JInternalFrame {
 
-    private JDesktopPane unjDesktopPane1;
-    private JInternalFrame unJInternalFrame;
-    
     /**
-     * Creates new form CuerpoTecnico
+     * Creates new form Arbitros
      */
-    public CuerpoTecnico() {
+    public Arbitros() {
         initComponents();
-    }
-    
-    /**
-     * Creates new form CuerpoTecnico
-     */
-    public CuerpoTecnico(JDesktopPane unjDesktopPane1) {
-        initComponents();
-        
-        this.unjDesktopPane1 = unjDesktopPane1;
-        this.unJInternalFrame = null;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/CuerpoTecnico.png")));
-    }
-    
-    /**
-     * Creates new form CuerpoTecnico
-     */
-    public CuerpoTecnico(JInternalFrame unJInternalFrame) {//FALTA AGREGAR LA VARIABLE DEL DNI----------
-        initComponents();
-        
-        this.unJInternalFrame = unJInternalFrame;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/CuerpoTecnico.png")));
     }
 
     /**
@@ -84,25 +52,6 @@ public class CuerpoTecnico extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-
-        setClosable(true);
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameClosed(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -300,11 +249,7 @@ public class CuerpoTecnico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDNIActionPerformed
 
-    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        //SE cerro
-        this.unJInternalFrame.setVisible(true);
-    }//GEN-LAST:event_formInternalFrameClosed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
