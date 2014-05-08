@@ -275,8 +275,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemAdmClubesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmClubesActionPerformed
         GestionClub unaGestionClub = new GestionClub(jDesktopPane1);
         unaGestionClub.pack();
-        unaGestionClub.setVisible(true);
-        centrar(unaGestionClub);
+        unaGestionClub.setVisible(true);        
         this.jDesktopPane1.add(unaGestionClub);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 

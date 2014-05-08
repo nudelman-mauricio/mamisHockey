@@ -6,6 +6,8 @@
 
 package Interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
@@ -21,6 +23,7 @@ public class NuevaCancha extends javax.swing.JInternalFrame {
     public NuevaCancha(JInternalFrame unJInternalFrame) {
         initComponents();
         this.unJInternalFrame=unJInternalFrame;
+        centrar(this);
     }
 
     /**
@@ -180,7 +183,11 @@ public class NuevaCancha extends javax.swing.JInternalFrame {
         this.unJInternalFrame.setVisible(true);       // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameClosed
 
-
+ public void centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;

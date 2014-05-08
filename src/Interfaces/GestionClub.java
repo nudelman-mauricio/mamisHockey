@@ -23,6 +23,7 @@ public class GestionClub extends javax.swing.JInternalFrame {
     public GestionClub(JDesktopPane jDesktopPane1) {
         initComponents();
         this.jDesktopPane1 = jDesktopPane1;
+        centrar(this);
     }
 
     /**
@@ -323,8 +324,7 @@ public class GestionClub extends javax.swing.JInternalFrame {
         NuevoClub unNuevoClub = new NuevoClub(this);
         unNuevoClub.pack();
         unNuevoClub.setVisible(true);
-        this.setVisible(false);
-        centrar(unNuevoClub);
+        this.setVisible(false);        
         this.jDesktopPane1.add(unNuevoClub);        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -332,8 +332,7 @@ public class GestionClub extends javax.swing.JInternalFrame {
         Cancha unaCancha = new Cancha(this,jDesktopPane1);
         unaCancha.pack();
         unaCancha.setVisible(true);
-        this.setVisible(false);
-        centrar(unaCancha);        
+        this.setVisible(false);               
         this.jDesktopPane1.add(unaCancha);         // TODO add your handling code here:
     }//GEN-LAST:event_jButtoncanchasActionPerformed
  

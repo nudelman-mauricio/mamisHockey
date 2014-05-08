@@ -24,7 +24,8 @@ public class Cancha extends javax.swing.JInternalFrame {
     public Cancha(JInternalFrame unJInternalFrame,JDesktopPane unJDesktopPanel) {
         initComponents();        
         this.unJInternalFrame=unJInternalFrame;
-        this.unJDesktopPanel = unJDesktopPanel;
+        this.unJDesktopPanel = unJDesktopPanel;        
+        centrar(this);
     }
 
     /**
@@ -185,8 +186,7 @@ public class Cancha extends javax.swing.JInternalFrame {
         NuevaCancha unaNuevaCancha = new NuevaCancha(this);
         unaNuevaCancha.pack();
         unaNuevaCancha.setVisible(true);
-        this.setVisible(false);
-        centrar(unaNuevaCancha);
+        this.setVisible(false);        
         this.unJDesktopPanel.add(unaNuevaCancha);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -194,8 +194,7 @@ public class Cancha extends javax.swing.JInternalFrame {
         NuevaCancha unaNuevaCancha = new NuevaCancha(this);
         unaNuevaCancha.pack();
         unaNuevaCancha.setVisible(true);
-        this.setVisible(false);
-        centrar(unaNuevaCancha);
+        this.setVisible(false);        
         this.unJDesktopPanel.add(unaNuevaCancha);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
