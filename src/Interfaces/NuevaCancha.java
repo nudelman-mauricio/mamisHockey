@@ -7,19 +7,20 @@
 package Interfaces;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Leanwit
  */
 public class NuevaCancha extends javax.swing.JInternalFrame {
-     JDesktopPane jDesktopPane1;
+     JInternalFrame unJInternalFrame;
     /**
      * Creates new form NuevaCancha
      */
-    public NuevaCancha(JDesktopPane jDesktopPane1) {
+    public NuevaCancha(JInternalFrame unJInternalFrame) {
         initComponents();
-        this.jDesktopPane1=jDesktopPane1;
+        this.unJInternalFrame=unJInternalFrame;
     }
 
     /**
@@ -42,6 +43,23 @@ public class NuevaCancha extends javax.swing.JInternalFrame {
         jButtonGuardar = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabelNombre.setText("Nombre");
 
@@ -157,6 +175,10 @@ public class NuevaCancha extends javax.swing.JInternalFrame {
     private void jRadioButtonSeOcupaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSeOcupaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonSeOcupaActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);       // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

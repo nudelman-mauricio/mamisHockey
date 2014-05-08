@@ -16,13 +16,15 @@ import javax.swing.JInternalFrame;
  * @author Leanwit
  */
 public class Cancha extends javax.swing.JInternalFrame {
-    JDesktopPane jDesktopPane1;
+     JInternalFrame unJInternalFrame;
+     JDesktopPane unJDesktopPanel;
     /**
      * Creates new form GestionClubCanchas
      */
-    public Cancha(JDesktopPane jDesktopPane1) {
+    public Cancha(JInternalFrame unJInternalFrame,JDesktopPane unJDesktopPanel) {
         initComponents();        
-        this.jDesktopPane1=jDesktopPane1;
+        this.unJInternalFrame=unJInternalFrame;
+        this.unJDesktopPanel = unJDesktopPanel;
     }
 
     /**
@@ -46,6 +48,23 @@ public class Cancha extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Canchas - Nombre Club");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jTableCancha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,20 +182,26 @@ public class Cancha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        NuevaCancha unaNuevaCancha = new NuevaCancha(jDesktopPane1);
+        NuevaCancha unaNuevaCancha = new NuevaCancha(this);
         unaNuevaCancha.pack();
         unaNuevaCancha.setVisible(true);
+        this.setVisible(false);
         centrar(unaNuevaCancha);
-        this.jDesktopPane1.add(unaNuevaCancha);          // TODO add your handling code here:
+        this.unJDesktopPanel.add(unaNuevaCancha);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        NuevaCancha unaNuevaCancha = new NuevaCancha(jDesktopPane1);
+        NuevaCancha unaNuevaCancha = new NuevaCancha(this);
         unaNuevaCancha.pack();
         unaNuevaCancha.setVisible(true);
+        this.setVisible(false);
         centrar(unaNuevaCancha);
-        this.jDesktopPane1.add(unaNuevaCancha);          // TODO add your handling code here:
+        this.unJDesktopPanel.add(unaNuevaCancha);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
 
      public void centrar (JInternalFrame unJInternalFrame){
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
