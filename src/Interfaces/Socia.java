@@ -28,7 +28,7 @@ public class Socia extends javax.swing.JInternalFrame {
         this.unJInternalFrame = null;
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socias2.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         
     }
     
@@ -38,7 +38,7 @@ public class Socia extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socias2.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         
     }
 

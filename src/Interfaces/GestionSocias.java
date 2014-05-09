@@ -275,7 +275,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/user.png"))); // NOI18N
+        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

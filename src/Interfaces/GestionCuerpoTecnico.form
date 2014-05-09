@@ -371,7 +371,7 @@
         <Component class="javax.swing.JButton" name="jButtonDatos">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos Nuevos/user.png"/>
+              <Image iconType="3" name="/Iconos Nuevos/Datos.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Datos"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>

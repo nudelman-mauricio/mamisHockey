@@ -226,7 +226,7 @@ public class GestionCuerpoTecnico extends javax.swing.JInternalFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/user.png"))); // NOI18N
+        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

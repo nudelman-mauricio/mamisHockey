@@ -9,34 +9,20 @@
         </Property>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenuArchivo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Archivo"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSalir">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+S"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Salir"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSalirActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuSocias">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Socias"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/Socia2.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Socias        "/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmSocias">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos Nuevos/Socia2.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Nueva Socia"/>
               </Properties>
               <Events>
@@ -53,63 +39,75 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sanciones"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/referee.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Arbitros"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="       Arbitros     "/>
+          </AccessibilityProperties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmSanciones">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevoArbitro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Sanciones"/>
+                <Property name="text" type="java.lang.String" value="Nuevo Arbitro"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFallosTribunal">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarArbitro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="FallosTribunal"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuClub">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Club"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmClubes">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Clubes"/>
+                <Property name="text" type="java.lang.String" value="Gestionar Arbitros"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmClubesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarArbitroActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuContabilidad">
+        <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Contabilidad"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/CuerpoTecnico.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cpo. Tecnicos"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmIngresos">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevoCuerpoTecnico">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Ingresos"/>
+                <Property name="text" type="java.lang.String" value="Nuevo Cuerpo Tecnico"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNuevoCuerpoTecnicoActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmEgresos">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarCuerpoTecnico">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Egresos"/>
+                <Property name="text" type="java.lang.String" value="Gestionar Cuerpos Tecnicos"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemBalanceMensual">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Balance Mensual"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarCuerpoTecnicoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuTorneo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Torneo"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/Torneo.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Torneos"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmTorneo">
@@ -128,26 +126,48 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEstadisticaTorneoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemArbitros">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuClub">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/Club.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Clubes"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Arbitros"/>
+                <Property name="text" type="java.lang.String" value="Nuevo Club"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmClubes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Canchas"/>
+                <Property name="text" type="java.lang.String" value="Gestionar Clubes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmClubesActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuEquipo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Equipo"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/Equipoo.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Equipos"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmEquipos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Equipos"/>
+                <Property name="text" type="java.lang.String" value="Gestionar Equipos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -183,51 +203,50 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="jMenuContabilidad">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cuerpo Tecnico"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/Contabilidad.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Contabilidad"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevoCuerpoTecnico">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmIngresos">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos Nuevos/CuerpoTecnico.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Nuevo Cuerpo Tecnico"/>
+                <Property name="text" type="java.lang.String" value="Gestionar Ingresos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmEgresos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestionar Egresos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNuevoCuerpoTecnicoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmEgresosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarCuerpoTecnico">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemBalanceMensual">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gestionar Cuerpos Tecnicos"/>
+                <Property name="text" type="java.lang.String" value="Balance Mensual"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarCuerpoTecnicoActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Arbitros"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos Nuevos/Salir.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Salir"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevoArbitro">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos Nuevos/referee.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Nuevo Arbitro"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarArbitro">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Gestionar Arbitros"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu4ActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>
@@ -278,7 +297,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jDesktopPane1" alignment="0" pref="490" max="32767" attributes="0"/>
+              <Component id="jDesktopPane1" alignment="0" pref="477" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
