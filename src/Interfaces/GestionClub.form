@@ -380,7 +380,7 @@
             <Component class="javax.swing.JButton" name="jButtonEquipos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos Nuevos/Edit2.png"/>
+                  <Image iconType="3" name="/Iconos Nuevos/Equipoo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Equipos"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -390,7 +390,7 @@
             <Component class="javax.swing.JButton" name="jButtoncanchas">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos Nuevos/Edit2.png"/>
+                  <Image iconType="3" name="/Iconos Nuevos/Club.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Canchas"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>

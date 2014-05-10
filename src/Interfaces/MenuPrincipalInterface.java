@@ -75,7 +75,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asociación de Mami's Hockey");
@@ -246,15 +246,20 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuContabilidad);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
-        jMenu4.setText("Salir");
-        jMenu4.setMaximumSize(new java.awt.Dimension(129, 32767));
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+        jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
+        jMenuSalir.setText("Salir");
+        jMenuSalir.setMaximumSize(new java.awt.Dimension(129, 32767));
+        jMenuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuSalirMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu4);
+        jMenuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSalirActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -329,13 +334,19 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmEgresosActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-                // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
+          
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
+        this.setVisible(false);
+        this.dispose();              // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuSalirMouseClicked
 
     public void centrar (JInternalFrame unJInternalFrame){
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -347,7 +358,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClub;
     private javax.swing.JMenu jMenuContabilidad;
@@ -370,6 +380,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemGestionarCuerpoTecnico;
     private javax.swing.JMenuItem jMenuItemNuevoArbitro;
     private javax.swing.JMenuItem jMenuItemNuevoCuerpoTecnico;
+    private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
     private javax.swing.JPanel jPanel1;

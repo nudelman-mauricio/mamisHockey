@@ -219,12 +219,12 @@ public class GestionClub extends javax.swing.JInternalFrame {
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButtonEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtonEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipoo.png"))); // NOI18N
         jButtonEquipos.setText("Equipos");
         jButtonEquipos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEquipos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButtoncanchas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtoncanchas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Club.png"))); // NOI18N
         jButtoncanchas.setText("Canchas");
         jButtoncanchas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtoncanchas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
