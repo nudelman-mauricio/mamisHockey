@@ -65,16 +65,16 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemAdmClubes = new javax.swing.JMenuItem();
         jMenuEquipo = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItemAdmEquipos = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItemDT = new javax.swing.JMenuItem();
-        jMenuItemDelegadas = new javax.swing.JMenuItem();
-        jMenuItemIndumentaria = new javax.swing.JMenuItem();
-        jMenuItemPrepFisico = new javax.swing.JMenuItem();
         jMenuContabilidad = new javax.swing.JMenu();
         jMenuItemAdmIngresos = new javax.swing.JMenuItem();
         jMenuItemAdmEgresos = new javax.swing.JMenuItem();
         jMenuItemBalanceMensual = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -203,33 +203,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuEquipo.setText("Equipos");
         jMenuEquipo.setMaximumSize(new java.awt.Dimension(129, 32767));
 
+        jMenuItem6.setText("Nuevo Equipo");
+        jMenuEquipo.add(jMenuItem6);
+
         jMenuItemAdmEquipos.setText("Gestionar Equipos");
         jMenuEquipo.add(jMenuItemAdmEquipos);
-
-        jMenuItem1.setText("Plantilla");
-        jMenuEquipo.add(jMenuItem1);
-
-        jMenuItemDT.setText("Director Tecnico");
-        jMenuItemDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDTActionPerformed(evt);
-            }
-        });
-        jMenuEquipo.add(jMenuItemDT);
-
-        jMenuItemDelegadas.setText("Delegadas");
-        jMenuItemDelegadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDelegadasActionPerformed(evt);
-            }
-        });
-        jMenuEquipo.add(jMenuItemDelegadas);
-
-        jMenuItemIndumentaria.setText("Indumentaria");
-        jMenuEquipo.add(jMenuItemIndumentaria);
-
-        jMenuItemPrepFisico.setText("Preparador Fisico");
-        jMenuEquipo.add(jMenuItemPrepFisico);
 
         jMenuBar1.add(jMenuEquipo);
 
@@ -250,6 +228,21 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuItemBalanceMensual.setText("Balance Mensual");
         jMenuContabilidad.add(jMenuItemBalanceMensual);
+        jMenuContabilidad.add(jSeparator1);
+
+        jMenuItem5.setText("Conceptos Egresos");
+        jMenuContabilidad.add(jMenuItem5);
+
+        jMenuItem4.setText("Conceptos Ingreso");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenuContabilidad.add(jMenuItem4);
+
+        jMenuItem3.setText("Conceptos Deportivos");
+        jMenuContabilidad.add(jMenuItem3);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -278,14 +271,6 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItemDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemDTActionPerformed
-
-    private void jMenuItemDelegadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDelegadasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemDelegadasActionPerformed
 
     private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
         GestionSocias unaGestionSocias = new GestionSocias(jDesktopPane1);
@@ -348,6 +333,10 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
                 // TODO add your handling code here:
     }//GEN-LAST:event_jMenu4ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     public void centrar (JInternalFrame unJInternalFrame){
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -363,8 +352,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuClub;
     private javax.swing.JMenu jMenuContabilidad;
     private javax.swing.JMenu jMenuEquipo;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemAdmClubes;
     private javax.swing.JMenuItem jMenuItemAdmEgresos;
     private javax.swing.JMenuItem jMenuItemAdmEquipos;
@@ -373,17 +365,14 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAdmTorneo;
     private javax.swing.JMenuItem jMenuItemAdministrarSocias;
     private javax.swing.JMenuItem jMenuItemBalanceMensual;
-    private javax.swing.JMenuItem jMenuItemDT;
-    private javax.swing.JMenuItem jMenuItemDelegadas;
     private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
     private javax.swing.JMenuItem jMenuItemGestionarArbitro;
     private javax.swing.JMenuItem jMenuItemGestionarCuerpoTecnico;
-    private javax.swing.JMenuItem jMenuItemIndumentaria;
     private javax.swing.JMenuItem jMenuItemNuevoArbitro;
     private javax.swing.JMenuItem jMenuItemNuevoCuerpoTecnico;
-    private javax.swing.JMenuItem jMenuItemPrepFisico;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
