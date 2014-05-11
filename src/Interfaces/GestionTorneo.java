@@ -10,12 +10,12 @@ package Interfaces;
  *
  * @author Lucas
  */
-public class GestionEquipo extends javax.swing.JInternalFrame {
+public class GestionTorneo extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form GestionEquipo
+     * Creates new form GestionTorneo
      */
-    public GestionEquipo() {
+    public GestionTorneo() {
         initComponents();
     }
 
@@ -37,17 +37,16 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
         jTextFieldBusqueda = new javax.swing.JTextField();
         jRadioButtonDni = new javax.swing.JRadioButton();
         jRadioButtonApellido = new javax.swing.JRadioButton();
+        jRadioButtonNombre = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jButtonBuscar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableSocias = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jButtonSancion = new javax.swing.JButton();
+        jButtonPases = new javax.swing.JButton();
+        jButtonFechas = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
-        jButtonPlantel = new javax.swing.JButton();
-        jButtonContabilidad = new javax.swing.JButton();
-        jButtonIndumentaria = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -82,7 +81,7 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,10 +105,17 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
 
         jRadioButtonDni.setText("Nombre");
 
-        jRadioButtonApellido.setText("Club");
+        jRadioButtonApellido.setText("Categoria");
         jRadioButtonApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonApellidoActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonNombre.setText("Fecha");
+        jRadioButtonNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonNombreActionPerformed(evt);
             }
         });
 
@@ -120,20 +126,23 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jRadioButtonDni)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonApellido)))
-                .addGap(37, 37, 37))
+                        .addComponent(jRadioButtonApellido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonNombre))
+                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonDni)
-                    .addComponent(jRadioButtonApellido))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonNombre)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButtonDni)
+                        .addComponent(jRadioButtonApellido)))
                 .addGap(2, 2, 2)
                 .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
@@ -171,7 +180,7 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
@@ -190,7 +199,7 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Club", "Localidad", "Delegada", "Delegada Sup.", "Director Tecnico"
+                "Fecha de Inicio", "Nombre", "Categoria", "Cantidad de Fechas", "Fechas Jugadas", "Cantidad de Equipos"
             }
         ));
         jScrollPane1.setViewportView(jTableSocias);
@@ -203,58 +212,38 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButtonSancion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
-        jButtonSancion.setText("Sanciones");
-        jButtonSancion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonSancion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonSancion.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipoo.png"))); // NOI18N
+        jButtonPases.setText("Equipos");
+        jButtonPases.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPases.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPases.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSancionActionPerformed(evt);
+                jButtonPasesActionPerformed(evt);
+            }
+        });
+
+        jButtonFechas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Fechas.png"))); // NOI18N
+        jButtonFechas.setText("Fechas");
+        jButtonFechas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonFechas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonFechas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFechasActionPerformed(evt);
             }
         });
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
-        jButtonDatos.setText("Datos");
+        jButtonDatos.setText("Torneo");
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDatosActionPerformed(evt);
-            }
-        });
-
-        jButtonPlantel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/plantel.png"))); // NOI18N
-        jButtonPlantel.setText("Plantel");
-        jButtonPlantel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPlantel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPlantel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPlantelActionPerformed(evt);
-            }
-        });
-
-        jButtonContabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); // NOI18N
-        jButtonContabilidad.setText("Contabilidad");
-        jButtonContabilidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonContabilidad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonContabilidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonContabilidadActionPerformed(evt);
-            }
-        });
-
-        jButtonIndumentaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipo.png"))); // NOI18N
-        jButtonIndumentaria.setText("Indumentaria");
-        jButtonIndumentaria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonIndumentaria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonIndumentaria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonIndumentariaActionPerformed(evt);
             }
         });
 
@@ -265,13 +254,9 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPases, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonContabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -279,11 +264,9 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonSancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPlantel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonContabilidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonIndumentaria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -327,41 +310,35 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonApellidoActionPerformed
 
+    private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
+
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
+    private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
+       
+    }//GEN-LAST:event_jButtonPasesActionPerformed
+
+    private void jButtonFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFechasActionPerformed
         
-    }//GEN-LAST:event_jButtonSancionActionPerformed
+    }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
         
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
-    private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonContabilidadActionPerformed
-
-    private void jButtonPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlantelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonPlantelActionPerformed
-
-    private void jButtonIndumentariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIndumentariaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonIndumentariaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonContabilidad;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonFechas;
     private javax.swing.JButton jButtonImprimir;
-    private javax.swing.JButton jButtonIndumentaria;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonPlantel;
-    private javax.swing.JButton jButtonSancion;
+    private javax.swing.JButton jButtonPases;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -370,6 +347,7 @@ public class GestionEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButtonApellido;
     private javax.swing.JRadioButton jRadioButtonDni;
+    private javax.swing.JRadioButton jRadioButtonNombre;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSocias;
     private javax.swing.JTextField jTextFieldBusqueda;
