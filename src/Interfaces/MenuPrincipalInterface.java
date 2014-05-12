@@ -14,6 +14,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -86,6 +87,9 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -320,6 +324,18 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Config.png"))); // NOI18N
+        jMenu4.setText("Configuración");
+        jMenu4.setMaximumSize(new java.awt.Dimension(111, 32767));
+
+        jMenuItem11.setText("Estados de una Socia");
+        jMenu4.add(jMenuItem11);
+
+        jMenuItem12.setText("Localidades");
+        jMenu4.add(jMenuItem12);
+
+        jMenuBar1.add(jMenu4);
+
         jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
         jMenuSalir.setText("Salir");
         jMenuSalir.setMaximumSize(new java.awt.Dimension(129, 32767));
@@ -405,7 +421,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         unGestionEgresos.setVisible(true);       
         this.jDesktopPane1.add(unGestionEgresos);
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
-
+    
     private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
           
         // TODO add your handling code here:
@@ -468,6 +484,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClub;
@@ -475,6 +492,8 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
