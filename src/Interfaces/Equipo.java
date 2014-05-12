@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -12,11 +17,25 @@ package Interfaces;
  */
 public class Equipo extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Equipo
-     */
+    JDesktopPane unjDesktopPanel;
+    JInternalFrame unJInternalFrame;   
+
     public Equipo() {
         initComponents();
+    }
+
+    public Equipo(JDesktopPane unjDesktopPanel) {
+        initComponents();
+        this.unjDesktopPanel = unjDesktopPanel;
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipoo.png")));
+        centrar(this);
+    }
+
+    public Equipo(JInternalFrame unJInternalFrame) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipoo.png")));
+        centrar(this);
     }
 
     /**
@@ -60,6 +79,11 @@ public class Equipo extends javax.swing.JInternalFrame {
         jButtonEditar.setText("Cancelar");
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
@@ -244,7 +268,20 @@ public class Equipo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDNIActionPerformed
 
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        this.setVisible(false);
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        } else {
+            this.unjDesktopPanel.setVisible(true);
+        }                // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
+    public void centrar(JInternalFrame unJInternalFrame) {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;

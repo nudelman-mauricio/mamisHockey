@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
@@ -16,15 +16,18 @@ import javax.swing.JInternalFrame;
  * @author Leanwit
  */
 public class Cancha extends javax.swing.JInternalFrame {
-     JInternalFrame unJInternalFrame;
-     JDesktopPane unJDesktopPanel;
+
+    JInternalFrame unJInternalFrame;
+    JDesktopPane unJDesktopPanel;
+
     /**
      * Creates new form GestionClubCanchas
      */
-    public Cancha(JInternalFrame unJInternalFrame,JDesktopPane unJDesktopPanel) {
-        initComponents();        
-        this.unJInternalFrame=unJInternalFrame;
-        this.unJDesktopPanel = unJDesktopPanel;        
+    public Cancha(JInternalFrame unJInternalFrame, JDesktopPane unJDesktopPanel) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        this.unJDesktopPanel = unJDesktopPanel;
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png")));
         centrar(this);
     }
 
@@ -128,6 +131,11 @@ public class Cancha extends javax.swing.JInternalFrame {
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
@@ -174,6 +182,7 @@ public class Cancha extends javax.swing.JInternalFrame {
 
         jLabelNombre.setText("Nombre");
 
+        jTextFieldNombre.setEditable(false);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -182,7 +191,11 @@ public class Cancha extends javax.swing.JInternalFrame {
 
         jLabelTipo.setText("Tipo");
 
+        jComboBoxTipo.setEnabled(false);
+
         jLabelSeOcupa.setText("Se ocupa");
+
+        jCheckBoxSeOcupa.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -209,7 +222,7 @@ public class Cancha extends javax.swing.JInternalFrame {
                     .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelSeOcupa, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBoxSeOcupa))
                 .addGap(2, 2, 2)
@@ -245,11 +258,24 @@ public class Cancha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-             // TODO add your handling code here:
+        if (jButtonNuevo.getText().contains("Nuevo")) {
+            this.jTextFieldNombre.setEditable(true);
+            this.jCheckBoxSeOcupa.setEnabled(true);
+            this.jComboBoxTipo.setEnabled(true);
+            this.jButtonNuevo.setText("Agregar");
+        } else {
+            //Agregar Cancha
+            this.jTextFieldNombre.setEditable(false);
+            this.jCheckBoxSeOcupa.setEnabled(false);
+            this.jComboBoxTipo.setEnabled(false);
+            this.jButtonNuevo.setText("Nuevo");
+            this.jTextFieldNombre.setText("");
+            this.jCheckBoxSeOcupa.setFocusCycleRoot(false);
+        }
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-             // TODO add your handling code here:
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -260,7 +286,12 @@ public class Cancha extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
-     public void centrar (JInternalFrame unJInternalFrame){
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+        this.unJInternalFrame.setVisible(true);           // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    public void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
         unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);

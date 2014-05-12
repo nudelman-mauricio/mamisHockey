@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -16,16 +18,18 @@ import javax.swing.JDesktopPane;
 public class ConceptoIngresos extends javax.swing.JInternalFrame {
 
     private JDesktopPane unjDesktopPane1;
+
     /**
      * Creates new form ConceptoIngreso
      */
     public ConceptoIngresos(JDesktopPane unjDesktopPane1) {
         initComponents();
-        
+
         this.unjDesktopPane1 = unjDesktopPane1;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        centrar(this);
     }
 
     /**
@@ -200,7 +204,11 @@ public class ConceptoIngresos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+ public void centrar(JInternalFrame unJInternalFrame) {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
