@@ -1,18 +1,24 @@
 package main;
 
+import Interfaces.MenuPrincipalInterface;
+import com.l2fprod.gui.plaf.skin.Skin;
+import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import logicaNegocios.Indumentaria;
+
 
 /**
  *
  * @author Mauricio
  */
 public class Main {
-
     public static void main(String[] args) {
         EntityManagerFactory emf = null;
         EntityManager em = null;
@@ -32,25 +38,20 @@ public class Main {
         Indumentaria unaIndumentaria = new Indumentaria(em, "rojo", "amarillo", "verde");
         
         
+        try {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
+            SkinLookAndFeel.setSkin(theSkinToUse);
+            UIManager.setLookAndFeel(new SkinLookAndFeel());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
-//        unaControladoraGlobal.crearCategoria(4, "Menores");
-//        Date ;
-//        unaControladoraGlobal.crearTorneo(null, null, null);
+        MenuPrincipalInterface unaVentana = new MenuPrincipalInterface();
+        SwingUtilities.updateComponentTreeUI(unaVentana);
+        unaVentana.setLocationRelativeTo(null);
+        unaVentana.setVisible(true);
 
-//        System.out.println(unaControladoraGlobal.getUnaControladoraDeportiva().buscarCategoriaBD(new Long("1")));
-
-//        Long aux = new Long("251");
-//        unaControladoraGlobal.eliminarCategoria(unaControladoraGlobal.buscarCategoria(aux));
-//        
-//        System.out.println(unaControladoraGlobal.buscarCategoria(aux));
-
-        //----------------------------------------- FIN CODIGO DE PRUEBAS -----------------------------------------
-        if (em != null) {
-            em.close();
-        }
-        if (emf != null) {
-            emf.close();
-        }
     }
-
 }

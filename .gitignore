@@ -221,6 +221,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+<<<<<<< HEAD
 
 #java specific
 *.class
@@ -234,3 +235,5 @@ nbproject/private/
 *.DS_Store
 *.swp
 *.out
+=======
+>>>>>>> origin/Interfaces
