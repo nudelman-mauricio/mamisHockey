@@ -22,20 +22,13 @@ public class Arbitro extends javax.swing.JInternalFrame {
 
     public Arbitro() {
         initComponents();
-    }
-
-    public Arbitro(JDesktopPane unjDesktopPanel) {
-        initComponents();
-        this.unjDesktopPanel = unjDesktopPanel;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
-        centrar(this);
-    }
+    }    
 
     public Arbitro(JInternalFrame unJInternalFrame) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
-        centrar(this);
+        MenuPrincipalInterface.centrar(this);
     }
 
     /**
@@ -73,6 +66,23 @@ public class Arbitro extends javax.swing.JInternalFrame {
         jButtonExaminarFotocopia = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -284,11 +294,11 @@ public class Arbitro extends javax.swing.JInternalFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    public void centrar(JInternalFrame unJInternalFrame) {
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-    }
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        unJInternalFrame.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
+
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;

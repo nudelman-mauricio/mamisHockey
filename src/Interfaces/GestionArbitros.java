@@ -6,30 +6,18 @@
 
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-
 /**
  *
- * @author Lucas
+ * @author Leanwit
  */
-public class GestionSocias extends javax.swing.JInternalFrame {
+public class GestionArbitros extends javax.swing.JInternalFrame {
 
-    private JDesktopPane unjDesktopPane1;
     /**
-     * Creates new form GestionSocias
+     * Creates new form GestionArbitros
      */
-    public GestionSocias(JDesktopPane unjDesktopPane1) {
+    public GestionArbitros() {
         initComponents();
-        
-        this.unjDesktopPane1 = unjDesktopPane1;
-        
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/users.png")));
-        centrar(this);
+        MenuPrincipalInterface.centrar(this);
     }
 
     /**
@@ -55,15 +43,9 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         jButtonBuscar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableSocias = new javax.swing.JTable();
+        jTableArbitros = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jButtonPases = new javax.swing.JButton();
-        jButtonSancion = new javax.swing.JButton();
-        jButtonTarjetas = new javax.swing.JButton();
-        jButtonErgometria = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
-        jButtonEstado = new javax.swing.JButton();
-        jButtonContabilidad = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -105,7 +87,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,19 +197,18 @@ public class GestionSocias extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
+        jTableArbitros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"34.826.274", null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"
+                "DNI", "Apellido", "Nombre"
             }
         ));
-        jScrollPane1.setViewportView(jTableSocias);
+        jScrollPane1.setViewportView(jTableArbitros);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -237,50 +218,10 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonPases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Transferencia.png"))); // NOI18N
-        jButtonPases.setText("Pases");
-        jButtonPases.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPases.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPases.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPasesActionPerformed(evt);
-            }
-        });
-
-        jButtonSancion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
-        jButtonSancion.setText("Sanciones");
-        jButtonSancion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonSancion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonSancion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSancionActionPerformed(evt);
-            }
-        });
-
-        jButtonTarjetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png"))); // NOI18N
-        jButtonTarjetas.setText("Tarjetas");
-        jButtonTarjetas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonTarjetas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonTarjetas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTarjetasActionPerformed(evt);
-            }
-        });
-
-        jButtonErgometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/corazon.png"))); // NOI18N
-        jButtonErgometria.setText("Ergometrias");
-        jButtonErgometria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonErgometria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonErgometria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonErgometriaActionPerformed(evt);
-            }
-        });
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
@@ -292,58 +233,19 @@ public class GestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png"))); // NOI18N
-        jButtonEstado.setText("Estados");
-        jButtonEstado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEstado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEstadoActionPerformed(evt);
-            }
-        });
-
-        jButtonContabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); // NOI18N
-        jButtonContabilidad.setText("Contabilidad");
-        jButtonContabilidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonContabilidad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonContabilidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonContabilidadActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPases, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonErgometria, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonContabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonTarjetas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonErgometria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonContabilidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButtonDatos)
                 .addGap(3, 3, 3))
         );
 
@@ -366,8 +268,8 @@ public class GestionSocias extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
         );
@@ -375,106 +277,45 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonContabilidadActionPerformed
-
-    private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEstadoActionPerformed
-
-    private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSocia = new Socia(this);
-        unaSocia.pack();
-        unaSocia.setVisible(true);
-        centrar(unaSocia);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaSocia);
-    }//GEN-LAST:event_jButtonDatosActionPerformed
-
-    private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
-        Ergometria unaErgometria = new Ergometria(this);
-        unaErgometria.pack();
-        unaErgometria.setVisible(true);
-        centrar(unaErgometria);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaErgometria);
-
-    }//GEN-LAST:event_jButtonErgometriaActionPerformed
-
-    private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
-        Tarjeta unaTarjeta = new Tarjeta(this);
-        unaTarjeta.pack();
-        unaTarjeta.setVisible(true);
-        centrar(unaTarjeta);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaTarjeta);
-    }//GEN-LAST:event_jButtonTarjetasActionPerformed
-
-    private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-        Sancion unaSancion = new Sancion(this);
-        unaSancion.pack();
-        unaSancion.setVisible(true);
-        centrar(unaSancion);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaSancion);
-    }//GEN-LAST:event_jButtonSancionActionPerformed
-
-    private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
-        Pase unPase = new Pase(this);
-        unPase.pack();
-        unPase.setVisible(true);
-        this.setVisible(false);
-        centrar(unPase);
-        this.unjDesktopPane1.add(unPase);
-    }//GEN-LAST:event_jButtonPasesActionPerformed
-
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
-
-    private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
-
-    private void jRadioButtonApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonApellidoActionPerformed
-
-    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        Socia unaSocia = new Socia(this);
-        unaSocia.pack();
-        unaSocia.setVisible(true);
-        this.setVisible(false);
-        this.unjDesktopPane1.add(unaSocia);           // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
+    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
 
-    public void centrar (JInternalFrame unJInternalFrame){
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-    }
-    
+    private void jRadioButtonApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonApellidoActionPerformed
+
+    private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
+        Arbitro unArbitro = new Arbitro(this);
+        unArbitro.pack();
+        unArbitro.setVisible(true);      
+        this.setVisible(false);        
+        MenuPrincipalInterface.jDesktopPane1.add(unArbitro);
+    }//GEN-LAST:event_jButtonDatosActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonContabilidad;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonErgometria;
-    private javax.swing.JButton jButtonEstado;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonPases;
-    private javax.swing.JButton jButtonSancion;
-    private javax.swing.JButton jButtonTarjetas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -485,7 +326,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButtonDni;
     private javax.swing.JRadioButton jRadioButtonNombre;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableSocias;
+    private javax.swing.JTable jTableArbitros;
     private javax.swing.JTextField jTextFieldBusqueda;
     // End of variables declaration//GEN-END:variables
 }

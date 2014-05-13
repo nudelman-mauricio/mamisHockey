@@ -404,7 +404,10 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
 
     private void jMenuItemGestionarArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarArbitroActionPerformed
-        // TODO add your handling code here:
+        GestionArbitros unaGestionArbitro = new GestionArbitros();
+        unaGestionArbitro.pack();
+        unaGestionArbitro.setVisible(true);
+        this.jDesktopPane1.add(unaGestionArbitro);
     }//GEN-LAST:event_jMenuItemGestionarArbitroActionPerformed
 
     private void jMenuItemEstadisticaTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadisticaTorneoActionPerformed
@@ -455,7 +458,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItemNuevoArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoArbitroActionPerformed
-        Arbitro unArbitro = new Arbitro(jDesktopPane1);
+        Arbitro unArbitro = new Arbitro();
         unArbitro.pack();
         unArbitro.setVisible(true);    
         this.jDesktopPane1.add(unArbitro);   
@@ -477,10 +480,14 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane1.add(unaGestionEquipo);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmEquiposActionPerformed
 
-   
+   public static void  centrar (JInternalFrame unJInternalFrame){
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ventana = unJInternalFrame.getSize();
+        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -520,7 +527,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
