@@ -246,6 +246,9 @@
               <Image iconType="3" name="/Iconos Nuevos/PlantillasPredeterminadas.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Formularios"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[129, 32767]"/>
+            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[111, 19]"/>
             </Property>
@@ -312,7 +315,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Configuraci&#xf3;n"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[111, 32767]"/>
+              <Dimension value="[129, 32767]"/>
             </Property>
           </Properties>
           <SubComponents>

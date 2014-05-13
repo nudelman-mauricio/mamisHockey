@@ -289,6 +289,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PlantillasPredeterminadas.png"))); // NOI18N
         jMenu1.setText("Formularios");
+        jMenu1.setMaximumSize(new java.awt.Dimension(129, 32767));
         jMenu1.setPreferredSize(new java.awt.Dimension(111, 19));
 
         jMenuItem1.setText("Formulario de Pase");
@@ -332,7 +333,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Config.png"))); // NOI18N
         jMenu4.setText("Configuración");
-        jMenu4.setMaximumSize(new java.awt.Dimension(111, 32767));
+        jMenu4.setMaximumSize(new java.awt.Dimension(129, 32767));
 
         jMenuItem11.setText("Estados de una Socia");
         jMenu4.add(jMenuItem11);
