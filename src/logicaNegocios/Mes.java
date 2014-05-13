@@ -13,6 +13,10 @@ public class Mes implements Serializable, Comparable {
     @Id
     private String nombre;
 
+    public Mes() {
+
+    }
+
     public Mes(EntityManager entityManager, String nombre) {
         this.nombre = nombre;
         this.persistir(entityManager);
@@ -33,7 +37,7 @@ public class Mes implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Mes) {
             Mes unMes = (Mes) aux;
-            if (this.nombre.compareTo(nombre) > 1) {//Por poner algo nomas
+            if (this.nombre.compareTo(unMes.getNombre()) > 1) {//Por poner algo nomas
                 retorno = 1;
             } else {
             }
