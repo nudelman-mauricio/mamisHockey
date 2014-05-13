@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -9,9 +10,13 @@ import logicaNegocios.ConceptoIngreso;
 import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.Equipo;
+import logicaNegocios.Frecuencia;
 import logicaNegocios.IngresoOtro;
+import logicaNegocios.Mes;
 import logicaNegocios.PagoDeuda;
 import logicaNegocios.Socia;
+import logicaNegocios.TipoCancha;
+import logicaNegocios.TipoEstado;
 
 public class ControladoraContabilidad {
 
@@ -212,4 +217,22 @@ public class ControladoraContabilidad {
         unEgreso.persistir(this.entityManager);
     }
 //----------------------------- FIN EGRESOS ------------------------------------
+
+//------------------------------FRECUENCIA--------------------------------------
+    public void crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
+        Frecuencia unaFrecuencia = new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento, meses);
+    }
+
+    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
+        unaFrecuencia.setDiaGeneracion(diaGeneracion);
+        unaFrecuencia.setDiaVencimiento(diaVencimiento);
+        unaFrecuencia.setBorradoLogico(borradoLogico);
+        unaFrecuencia.persistir(this.entityManager);
+    }
+
+    public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
+        unaFrecuencia.setBorradoLogico(true);
+        unaFrecuencia.persistir(this.entityManager);
+    }
+//----------------------------FIN FRECUENCIA------------------------------------
 }

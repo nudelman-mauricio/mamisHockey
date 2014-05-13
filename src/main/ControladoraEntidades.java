@@ -12,13 +12,14 @@ import logicaNegocios.CuerpoTecnico;
 import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
+import logicaNegocios.Frecuencia;
 import logicaNegocios.Pase;
 import logicaNegocios.TipoEstado;
 
 public class ControladoraEntidades {
-    
+
     private final EntityManager entityManager;
-    
+
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -30,12 +31,12 @@ public class ControladoraEntidades {
         resultado = (CuerpoTecnico) traerCuerpoTecnico.getResultList();
         return resultado;
     }
-    
+
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
         CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
-        
+
     }
-    
+
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
         unCuerpoTecnico.setDni(dni);
         unCuerpoTecnico.setApellido(apellido);
@@ -52,7 +53,7 @@ public class ControladoraEntidades {
         unCuerpoTecnico.setActivo(activo);
         unCuerpoTecnico.persistir(this.entityManager);
     }
-    
+
     public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
         unCuerpoTecnico.setBorradoLogico(true);
         unCuerpoTecnico.persistir(this.entityManager);
@@ -66,11 +67,11 @@ public class ControladoraEntidades {
         resultado = (Arbitro) traerArbitro.getResultList();
         return resultado;
     }
-    
+
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
     }
-    
+
     public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
         unArbitro.setDni(dni);
         unArbitro.setApellido(apellido);
@@ -86,7 +87,7 @@ public class ControladoraEntidades {
         unArbitro.setFotocopiaDni(fotocopiaDni);
         unArbitro.persistir(this.entityManager);
     }
-    
+
     public void eliminarArbitro(Arbitro unArbitro) {
         unArbitro.setBorradoLogico(true);
         unArbitro.persistir(this.entityManager);
@@ -100,11 +101,11 @@ public class ControladoraEntidades {
         resultado = (Club) traerClub.getResultList();
         return resultado;
     }
-    
+
     public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
         Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
-    
+
     public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setIdClub(idClub);
         unClub.setNombre(nombre);
@@ -114,7 +115,7 @@ public class ControladoraEntidades {
         unClub.setBorradoLogico(borradoLogico);
         unClub.persistir(this.entityManager);
     }
-    
+
     public void eliminarClub(Club unClub) {
         unClub.setBorradoLogico(true);
         unClub.persistir(this.entityManager);
@@ -128,11 +129,11 @@ public class ControladoraEntidades {
         resultado = (Socia) traerSocia.getResultList();
         return resultado;
     }
-    
+
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
         Socia unaSocia = new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
     }
-    
+
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
         unaSocia.setDni(dni);
         unaSocia.setApellido(apellido);
@@ -150,7 +151,7 @@ public class ControladoraEntidades {
         unaSocia.setBorradoLogico(borradoLogico);
         unaSocia.persistir(this.entityManager);
     }
-    
+
     public void eliminarSocia(Socia unaSocia) {
         unaSocia.setBorradoLogico(true);
         unaSocia.persistir(this.entityManager);
@@ -164,12 +165,12 @@ public class ControladoraEntidades {
         resultado = (Pase) traerPase.getResultList();
         return resultado;
     }
-    
+
     public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
         Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo);
         unaSocia.agregarPase(this.entityManager, unPase);
     }
-    
+
     public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
         unPase.setFecha(fecha);
         unPase.setMonto(monto);
@@ -177,12 +178,12 @@ public class ControladoraEntidades {
         unPase.setBorradoLogico(borradoLogico);
         unPase.persistir(this.entityManager);
     }
-    
+
     public void modificarPaseDeSocia(Pase unPase, Socia unaSociaActual, Socia unaSociaNueva) {
         unaSociaActual.quitarPase(this.entityManager, unPase);
         unaSociaNueva.agregarPase(this.entityManager, unPase);
     }
-    
+
     public void eliminarPase(Pase unPase) {
         unPase.setBorradoLogico(true);
         unPase.persistir(this.entityManager);
@@ -196,18 +197,18 @@ public class ControladoraEntidades {
         resultado = (Localidad) traerSocia.getResultList();
         return resultado;
     }
-    
+
     public void crearLocalidad(String nombre, String codPostal) {
         Localidad unaLocalidad = new Localidad(this.entityManager, nombre, codPostal);
     }
-    
+
     public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {
         unaLocalidad.setNombre(nombre);
         unaLocalidad.setCodPostal(codPostal);
         unaLocalidad.setBorradoLogico(borradoLogico);
         unaLocalidad.persistir(this.entityManager);
     }
-    
+
     public void eliminarLocalidad(Localidad unaLocalidad) {
         unaLocalidad.setBorradoLogico(true);
         unaLocalidad.persistir(this.entityManager);
@@ -221,12 +222,12 @@ public class ControladoraEntidades {
         resultado = (Ergometria) traerErgometria.getResultList();
         return resultado;
     }
-    
+
     public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         Ergometria unaErgometria = new Ergometria(this.entityManager, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
         unaSocia.agregarErgometria(this.entityManager, unaErgometria);
     }
-    
+
     public void modificarErgometria(Ergometria unaErgometria, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         unaErgometria.setAprobado(aprobado);
         unaErgometria.setComentarios(comentarios);
@@ -234,12 +235,12 @@ public class ControladoraEntidades {
         unaErgometria.setFechaRealizacion(fechaRealizacion);
         unaErgometria.persistir(this.entityManager);
     }
-    
+
     public void cambiarErgometriaDeSocia(Ergometria unaErgometria, Socia unaSociaActual, Socia unaSociaNueva) {
         unaSociaActual.quitarErgometria(this.entityManager, unaErgometria);
         unaSociaNueva.agregarErgometria(this.entityManager, unaErgometria);
     }
-    
+
     public void eliminarErgometria(Ergometria unaErgometria) {
         unaErgometria.setBorradoLogico(true);
         unaErgometria.persistir(this.entityManager);
@@ -253,27 +254,46 @@ public class ControladoraEntidades {
         resultado = (Estado) traerEstado.getResultList();
         return resultado;
     }
-    
+
     public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         Estado unEstado = new Estado(this.entityManager, fecha, unTipoEstado);
         unaSocia.agregarEstado(this.entityManager, unEstado);
     }
-    
+
     public void modificarEstado(Estado unEstado, Date fecha, TipoEstado unTipoEstado, boolean borradoLogico) {
         unEstado.setFecha(fecha);
         unEstado.setUnTipoEstado(unTipoEstado);
         unEstado.setBorradoLogico(borradoLogico);
         unEstado.persistir(this.entityManager);
     }
-    
+
     public void cambiarEstadoDeSocia(Estado unEstado, Socia unaSociaActual, Socia unaSociaNueva) {
         unaSociaActual.quitarEstado(this.entityManager, unEstado);
         unaSociaNueva.agregarEstado(this.entityManager, unEstado);
     }
-    
+
     public void eliminarEstado(Estado unEstado) {
         unEstado.setBorradoLogico(true);
         unEstado.persistir(this.entityManager);
     }
 //---------------------------------FIN ESTADOS----------------------------------
+
+//---------------------------------TIPO ESTADO----------------------------------
+    public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
+        TipoEstado unTipoEstado = new TipoEstado(this.entityManager, monto, unaFrecuencia, nombre);
+    }
+
+    public void modificarTipoEstado(TipoEstado unTipoEstado, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
+        unTipoEstado.setMonto(monto);
+        unTipoEstado.setUnaFrecuencia(unaFrecuencia);
+        unTipoEstado.setNombre(nombre);
+        unTipoEstado.setBorradoLogico(borradoLogico);
+        unTipoEstado.persistir(this.entityManager);
+    }
+
+    public void eliminarTipoEstado(TipoEstado unTipoEstado) {
+        unTipoEstado.setBorradoLogico(true);
+        unTipoEstado.persistir(this.entityManager);
+    }
+//-------------------------------FIN TIPO ESTADO--------------------------------
 }

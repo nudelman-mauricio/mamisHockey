@@ -10,6 +10,7 @@ import logicaNegocios.Club;
 import logicaNegocios.CuerpoTecnico;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
+import logicaNegocios.Frecuencia;
 import logicaNegocios.Gol;
 import logicaNegocios.Indumentaria;
 import logicaNegocios.Partido;
@@ -167,7 +168,26 @@ public class ControladoraDeportiva {
         unaCancha.setBorradoLogico(true);
         unaCancha.persistir(this.entityManager);
     }
-//-------------------------------- FIN CANCHAS ---------------------------------
+//--------------------------------FIN CANCHAS-----------------------------------
+
+//--------------------------------TIPO CANCHA-----------------------------------
+    public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
+        TipoCancha unTipoCancha = new TipoCancha(this.entityManager, monto, unaFrecuencia, nombre);
+    }
+
+    public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
+        unTipoCancha.setMonto(monto);
+        unTipoCancha.setUnaFrecuencia(unaFrecuencia);
+        unTipoCancha.setNombre(nombre);
+        unTipoCancha.setBorradoLogico(borradoLogico);
+        unTipoCancha.persistir(this.entityManager);
+    }
+
+    public void eliminarTipoCancha(TipoCancha unTipoCancha) {
+        unTipoCancha.setBorradoLogico(true);
+        unTipoCancha.persistir(this.entityManager);
+    }
+//-----------------------------FIN TIPO CANCHA----------------------------------
 
 //------------------------------CATEGORIAS--------------------------------------    
     public Categoria buscarCategoriaBD(Long id) {
