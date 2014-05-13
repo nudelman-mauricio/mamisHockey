@@ -96,6 +96,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -341,6 +342,14 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem12.setText("Localidades");
         jMenu4.add(jMenuItem12);
 
+        jMenuItem13.setText("Skin");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem13);
+
         jMenuBar1.add(jMenu4);
 
         jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
@@ -490,6 +499,12 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane1.add(unaGestionEquipo);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmEquiposActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        skin unaSkin = new skin(this);
+        jDesktopPane1.add(unaSkin);
+        unaSkin.setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
    public static void  centrar (JInternalFrame unJInternalFrame){
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -511,6 +526,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
