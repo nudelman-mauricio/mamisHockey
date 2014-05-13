@@ -6,17 +6,26 @@
 
 package Interfaces;
 
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author Lucas
  */
 public class Torneo extends javax.swing.JInternalFrame {
 
+    private JInternalFrame unJInternalFrame;
     /**
      * Creates new form Torneo
      */
-    public Torneo() {
+    public Torneo(JInternalFrame unJInternalFrame) {
         initComponents();
+        
+        this.unJInternalFrame = unJInternalFrame;
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
+        MenuPrincipalInterface.centrar(this);
     }
 
     /**
@@ -42,6 +51,25 @@ public class Torneo extends javax.swing.JInternalFrame {
         jLabelDomicilio = new javax.swing.JLabel();
         jTextFieldDNI = new javax.swing.JTextField();
         jTextFieldDomicilio = new javax.swing.JTextField();
+
+        setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -169,6 +197,15 @@ public class Torneo extends javax.swing.JInternalFrame {
     private void jTextFieldDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDNIActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        //SE cerro
+        if (unJInternalFrame!= null){
+            this.unJInternalFrame.setVisible(true);}
+        else{
+            MenuPrincipalInterface.jDesktopPane1.setVisible(true);
+        }
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

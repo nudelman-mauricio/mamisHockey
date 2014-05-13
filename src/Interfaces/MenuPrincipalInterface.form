@@ -113,12 +113,12 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAdmTorneo">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionTorneo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Administrar Torneo"/>
+                <Property name="text" type="java.lang.String" value="Gestionar Torneos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAdmTorneoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionTorneoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEstadisticaTorneo">

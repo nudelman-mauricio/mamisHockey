@@ -60,7 +60,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemNuevoCuerpoTecnico = new javax.swing.JMenuItem();
         jMenuItemGestionarCuerpoTecnico = new javax.swing.JMenuItem();
         jMenuTorneo = new javax.swing.JMenu();
-        jMenuItemAdmTorneo = new javax.swing.JMenuItem();
+        jMenuItemGestionTorneo = new javax.swing.JMenuItem();
         jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
         jMenuClub = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -184,13 +184,13 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jMenuTorneo.setText("Torneos");
         jMenuTorneo.setMaximumSize(new java.awt.Dimension(129, 32767));
 
-        jMenuItemAdmTorneo.setText("Administrar Torneo");
-        jMenuItemAdmTorneo.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemGestionTorneo.setText("Gestionar Torneos");
+        jMenuItemGestionTorneo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAdmTorneoActionPerformed(evt);
+                jMenuItemGestionTorneoActionPerformed(evt);
             }
         });
-        jMenuTorneo.add(jMenuItemAdmTorneo);
+        jMenuTorneo.add(jMenuItemGestionTorneo);
 
         jMenuItemEstadisticaTorneo.setText("Estadisticas");
         jMenuItemEstadisticaTorneo.addActionListener(new java.awt.event.ActionListener() {
@@ -414,9 +414,12 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemEstadisticaTorneoActionPerformed
 
-    private void jMenuItemAdmTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmTorneoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemAdmTorneoActionPerformed
+    private void jMenuItemGestionTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionTorneoActionPerformed
+        GestionTorneo unGestionTorneo = new GestionTorneo();
+        unGestionTorneo.pack();
+        unGestionTorneo.setVisible(true);
+        this.jDesktopPane1.add(unGestionTorneo);
+    }//GEN-LAST:event_jMenuItemGestionTorneoActionPerformed
 
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
         GestionEgresos unGestionEgresos = new GestionEgresos(jDesktopPane1);
@@ -512,12 +515,12 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAdmClubes;
     private javax.swing.JMenuItem jMenuItemAdmEquipos;
     private javax.swing.JMenuItem jMenuItemAdmSocias;
-    private javax.swing.JMenuItem jMenuItemAdmTorneo;
     private javax.swing.JMenuItem jMenuItemAdministrarSocias;
     private javax.swing.JMenuItem jMenuItemBalanceMensual;
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
     private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
+    private javax.swing.JMenuItem jMenuItemGestionTorneo;
     private javax.swing.JMenuItem jMenuItemGestionarArbitro;
     private javax.swing.JMenuItem jMenuItemGestionarCuerpoTecnico;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;

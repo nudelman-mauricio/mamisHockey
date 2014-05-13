@@ -6,6 +6,8 @@
 
 package Interfaces;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Lucas
@@ -17,6 +19,9 @@ public class GestionTorneo extends javax.swing.JInternalFrame {
      */
     public GestionTorneo() {
         initComponents();
+        MenuPrincipalInterface.centrar(this);
+        
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
     }
 
     /**
@@ -47,6 +52,8 @@ public class GestionTorneo extends javax.swing.JInternalFrame {
         jButtonPases = new javax.swing.JButton();
         jButtonFechas = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
+
+        setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -327,7 +334,11 @@ public class GestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        
+        Torneo unTorneo = new Torneo(this);
+        unTorneo.pack();
+        unTorneo.setVisible(true);
+        this.setVisible(false);
+        MenuPrincipalInterface.jDesktopPane1.add(unTorneo);        
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
 
