@@ -13,10 +13,12 @@ public class Mes implements Serializable, Comparable {
     @Id
     private String nombre;
 
-    public Mes() {
-
+    public Mes(EntityManager entityManager, String nombre) {
+        this.nombre = nombre;
+        this.persistir(entityManager);
     }
 
+//------------------------------ GETERS Y SETERS -------------------------------
     public String getNombre() {
         return this.nombre;
     }

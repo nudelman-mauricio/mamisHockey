@@ -34,11 +34,12 @@ public class TipoCancha implements Serializable, Comparable {
 
     }
 
-    public TipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
+    public TipoCancha(EntityManager entityManager, double monto, Frecuencia unaFrecuencia, String nombre) {
         this.monto = monto;
         this.unaFrecuencia = unaFrecuencia;
         this.nombre = nombre;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------

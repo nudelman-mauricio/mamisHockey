@@ -34,11 +34,12 @@ public class TipoEstado implements Serializable, Comparable {
 
     }
 
-    public TipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
+    public TipoEstado(EntityManager entityManager, double monto, Frecuencia unaFrecuencia, String nombre) {
         this.monto = monto;
         this.unaFrecuencia = unaFrecuencia;
         this.nombre = nombre;
         this.borradoLogico = false;
+        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
