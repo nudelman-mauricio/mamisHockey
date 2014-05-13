@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -8,57 +9,69 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Gol implements Serializable, Comparable {
+public class TipoEstado implements Serializable, Comparable {
 
     @Basic
-    private String tiempo;
-
-    @Basic
-    private boolean autoGol;
+    private double monto;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idGol;
+    private Long idTipoEstado;
+
+    @OneToOne(optional = false, targetEntity = Frecuencia.class)
+    private Frecuencia unaFrecuencia;
+
+    @Basic
+    private String nombre;
 
     @Basic
     private boolean borradoLogico;
 
-    public Gol() {
+    public TipoEstado() {
 
     }
 
-    public Gol(EntityManager entityManager, String tiempo, boolean autoGol) {
-        this.tiempo = tiempo;
-        this.autoGol = autoGol;
+    public TipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
+        this.monto = monto;
+        this.unaFrecuencia = unaFrecuencia;
+        this.nombre = nombre;
         this.borradoLogico = false;
-        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
-    public String getTiempo() {
-        return this.tiempo;
+    public double getMonto() {
+        return this.monto;
     }
 
-    public void setTiempo(String tiempo) {
-        this.tiempo = tiempo;
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
 
-    public boolean isAutoGol() {
-        return this.autoGol;
+    public Long getIdTipoEstado() {
+        return this.idTipoEstado;
     }
 
-    public void setAutoGol(boolean autoGol) {
-        this.autoGol = autoGol;
+    public void setIdTipoEstado(Long idTipoEstado) {
+        this.idTipoEstado = idTipoEstado;
     }
 
-    public Long getIdGol() {
-        return this.idGol;
+    public Frecuencia getUnaFrecuencia() {
+        return this.unaFrecuencia;
     }
 
-    public void setIdGol(Long idGol) {
-        this.idGol = idGol;
+    public void setUnaFrecuencia(Frecuencia unaFrecuencia) {
+        this.unaFrecuencia = unaFrecuencia;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public boolean isBorradoLogico() {
@@ -73,9 +86,9 @@ public class Gol implements Serializable, Comparable {
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
-        if (aux instanceof Gol) {
-            Gol gol = (Gol) aux;
-            if (this.idGol > gol.idGol) {
+        if (aux instanceof TipoEstado) {
+            TipoEstado unTipoEstado = (TipoEstado) aux;
+            if (this.idTipoEstado > unTipoEstado.idTipoEstado) {
                 retorno = 1;
             }
         }
@@ -91,7 +104,7 @@ public class Gol implements Serializable, Comparable {
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Gol" + e.getMessage());
+            System.out.println("Error de Persistir TipoEstado" + e.getMessage());
             tx.rollback();
         }
     }

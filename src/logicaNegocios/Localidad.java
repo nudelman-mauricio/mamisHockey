@@ -26,6 +26,7 @@ public class Localidad implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Localidad() {
+
     }
 
     public Localidad(EntityManager entityManager, String nombre, String codPostal) {

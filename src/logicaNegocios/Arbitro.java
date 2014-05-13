@@ -13,6 +13,7 @@ public class Arbitro extends Persona implements Serializable {
     private String fotocopiaDni;
 
     public Arbitro() {
+
     }
 
     public Arbitro(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {

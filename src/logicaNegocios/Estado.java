@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,18 +24,19 @@ public class Estado implements Serializable, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEstado;
 
-    @Basic
-    private String tipo;
+    @OneToOne(optional = false, targetEntity = TipoEstado.class)
+    private TipoEstado unTipoEstado;
 
     @Basic
     private boolean borradoLogico;
 
     public Estado() {
+
     }
 
-    public Estado(EntityManager entityManager, Date fecha, String tipo) {
+    public Estado(EntityManager entityManager, Date fecha, TipoEstado unTipoEstado) {
         this.fecha = fecha;
-        this.tipo = tipo;
+        this.unTipoEstado = unTipoEstado;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -56,12 +58,12 @@ public class Estado implements Serializable, Comparable {
         this.idEstado = idEstado;
     }
 
-    public String getTipo() {
-        return this.tipo;
+    public TipoEstado getUnTipoEstado() {
+        return this.unTipoEstado;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setUnTipoEstado(TipoEstado unTipoEstado) {
+        this.unTipoEstado = unTipoEstado;
     }
 
     public boolean isBorradoLogico() {

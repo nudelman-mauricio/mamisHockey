@@ -59,6 +59,7 @@ public abstract class Persona implements Serializable, Comparable {
     private Localidad unaLocalidad;
 
     public Persona() {
+
     }
 
     public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {

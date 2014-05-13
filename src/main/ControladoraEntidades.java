@@ -13,6 +13,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
 import logicaNegocios.Pase;
+import logicaNegocios.TipoEstado;
 
 public class ControladoraEntidades {
     
@@ -253,14 +254,14 @@ public class ControladoraEntidades {
         return resultado;
     }
     
-    public void crearEstado(Socia unaSocia, String tipo, Date fecha) {
-        Estado unEstado = new Estado(this.entityManager, fecha, tipo);
+    public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
+        Estado unEstado = new Estado(this.entityManager, fecha, unTipoEstado);
         unaSocia.agregarEstado(this.entityManager, unEstado);
     }
     
-    public void modificarEstado(Estado unEstado, String tipo, Date fecha, boolean borradoLogico) {
-        unEstado.setTipo(tipo);
+    public void modificarEstado(Estado unEstado, Date fecha, TipoEstado unTipoEstado, boolean borradoLogico) {
         unEstado.setFecha(fecha);
+        unEstado.setUnTipoEstado(unTipoEstado);
         unEstado.setBorradoLogico(borradoLogico);
         unEstado.persistir(this.entityManager);
     }

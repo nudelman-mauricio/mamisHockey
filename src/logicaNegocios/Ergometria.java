@@ -37,6 +37,7 @@ public class Ergometria implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Ergometria() {
+
     }
 
     public Ergometria(EntityManager entityManager, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {

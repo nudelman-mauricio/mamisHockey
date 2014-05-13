@@ -15,26 +15,23 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private double monto;
 
+    @Basic
+    private String concepto;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idConceptoDeportivo;
 
     @Basic
-    private String nombre;
-
-    @Basic
-    private String detalle;
-
-    @Basic
     private boolean borradoLogico;
 
     public ConceptoDeportivo() {
+
     }
 
-    public ConceptoDeportivo(EntityManager entityManager, double monto, String nombre, String detalle) {
+    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto) {
         this.monto = monto;
-        this.nombre = nombre;
-        this.detalle = detalle;
+        this.concepto = concepto;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -48,28 +45,20 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.monto = monto;
     }
 
+    public String getConcepto() {
+        return this.concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+
     public Long getIdConceptoDeportivo() {
         return this.idConceptoDeportivo;
     }
 
     public void setIdConceptoDeportivo(Long idConceptoDeportivo) {
         this.idConceptoDeportivo = idConceptoDeportivo;
-    }
-
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDetalle() {
-        return this.detalle;
-    }
-
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
     }
 
     public boolean isBorradoLogico() {

@@ -52,7 +52,11 @@ public class SancionTribunal implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    public SancionTribunal(EntityManager entityManager , Date fecha, String motivo, String detalles) {
+    public SancionTribunal() {
+
+    }
+
+    public SancionTribunal(EntityManager entityManager, Date fecha, String motivo, String detalles) {
         this.fecha = fecha;
         this.motivo = motivo;
         this.detalles = detalles;

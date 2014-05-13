@@ -39,6 +39,7 @@ public class Torneo implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Torneo() {
+
     }
 
     public Torneo(EntityManager entityManager, Date diaInicio, Categoria unaCategoria, String nombre) {
@@ -137,10 +138,4 @@ public class Torneo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 //------------------------------FIN FECHAS TORNEO-------------------------------
-
-//----------------------------------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
-    @Override
-    public String toString() {
-        return "Torneo{" + "diaInicio=" + fechaInicio + ", fechasTorneo=" + fechasTorneo + ", unaCategoria=" + unaCategoria + ", nombre=" + nombre + ", idTorneo=" + idTorneo + ", borradoLogico=" + borradoLogico + '}';
-    }
 }

@@ -29,6 +29,7 @@ public class Indumentaria implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Indumentaria() {
+
     }
 
     public Indumentaria(EntityManager entityManager, String camiseta, String media, String pollera) {

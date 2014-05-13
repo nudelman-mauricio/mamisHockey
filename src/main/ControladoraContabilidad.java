@@ -29,14 +29,13 @@ public class ControladoraContabilidad {
         return resultado;
     }
 
-    public void crearConceptoDeportivo(double monto, String nombre, String detalle) {
-        ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(this.entityManager, monto, nombre, detalle);
+    public void crearConceptoDeportivo(double monto, String concepto) {
+        ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(this.entityManager, monto, concepto);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String nombre, String detalle, boolean borradoLogico) {
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {
         unConceptoDeportivo.setMonto(monto);
-        unConceptoDeportivo.setNombre(nombre);
-        unConceptoDeportivo.setDetalle(detalle);
+        unConceptoDeportivo.setConcepto(concepto);
         unConceptoDeportivo.setBorradoLogico(borradoLogico);
         unConceptoDeportivo.persistir(this.entityManager);
     }
@@ -48,21 +47,21 @@ public class ControladoraContabilidad {
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    public void crearDeudaEquipo(Equipo unEquipo, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, Date fechaVencimiento, double monto, String observacion) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, fechaVencimiento, monto, observacion);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void crearDeudaSocia(Socia unaSocia, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fecha, monto, saldado, unConceptoDeportivo, observacion);
+    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, Date fechaVencimiento, double monto, String observacion) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, fechaVencimiento, monto, observacion);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void modificarDeuda(Deuda unaDeuda, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion, boolean borradoLogico) {
-        unaDeuda.setFecha(fecha);
+    public void modificarDeuda(Deuda unaDeuda, Date fechaGeneracion, Date fechaVencimiento, double monto, boolean saldado, String observacion, boolean borradoLogico) {
+        unaDeuda.setFechaGeneracion(fechaGeneracion);
+        unaDeuda.setFechaVencimiento(fechaVencimiento);
         unaDeuda.setMonto(monto);
         unaDeuda.setSaldado(saldado);
-        unaDeuda.setUnConceptoDeportivo(unConceptoDeportivo);
         unaDeuda.setObservacion(observacion);
         unaDeuda.setBorradoLogico(borradoLogico);
         unaDeuda.persistir(this.entityManager);

@@ -39,6 +39,7 @@ public class Socia extends Persona implements Serializable {
     private Collection<Estado> estados;
 
     public Socia() {
+
     }
 
     public Socia(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {

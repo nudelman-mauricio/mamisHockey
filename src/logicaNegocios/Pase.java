@@ -34,6 +34,7 @@ public class Pase implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Pase() {
+
     }
 
     public Pase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo) {

@@ -60,6 +60,7 @@ public class Partido implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Partido() {
+
     }
 
     public Partido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {

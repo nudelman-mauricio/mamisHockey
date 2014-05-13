@@ -29,6 +29,7 @@ public class Tarjeta implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Tarjeta() {
+
     }
 
     public Tarjeta(EntityManager entityManager, String tipo, String motivo, String detalles) {

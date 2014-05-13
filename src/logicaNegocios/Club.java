@@ -41,6 +41,7 @@ public class Club implements Serializable, Comparable {
     private Localidad unaLocalidad;
 
     public Club() {
+
     }
 
     public Club(EntityManager entityManager, String nombre, String nombrePresidente, Localidad unaLocalidad) {

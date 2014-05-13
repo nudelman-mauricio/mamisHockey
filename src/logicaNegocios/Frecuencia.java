@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -12,54 +13,66 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class FechaTorneo implements Serializable, Comparable {
+public class Frecuencia implements Serializable, Comparable {
 
     @Basic
-    private int numeroFecha;
+    private String diaGeneracion;
+
+    @Basic
+    private String diaVencimiento;
+
+    @OneToMany(targetEntity = Mes.class)
+    private Collection<Mes> meses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idFecha;
-
-    @OneToMany(targetEntity = Partido.class)
-    private Collection<Partido> partidos;
+    private Long idFrecuencia;
 
     @Basic
     private boolean borradoLogico;
 
-    public FechaTorneo() {
+    public Frecuencia() {
 
     }
 
-    public FechaTorneo(EntityManager entityManager, int numeroFecha) {
-        this.numeroFecha = numeroFecha;
+    public Frecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
+        this.diaGeneracion = diaGeneracion;
+        this.diaVencimiento = diaVencimiento;
+        this.meses = meses;
         this.borradoLogico = false;
-        this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
-    public int getNumeroFecha() {
-        return this.numeroFecha;
+    public String getDiaGeneracion() {
+        return this.diaGeneracion;
     }
 
-    public void setNumeroFecha(int numeroFecha) {
-        this.numeroFecha = numeroFecha;
+    public void setDiaGeneracion(String diaGeneracion) {
+        this.diaGeneracion = diaGeneracion;
     }
 
-    public Long getIdFecha() {
-        return this.idFecha;
+    public String getDiaVencimiento() {
+        return this.diaVencimiento;
     }
 
-    public void setIdFecha(Long idFecha) {
-        this.idFecha = idFecha;
+    public void setDiaVencimiento(String diaVencimiento) {
+        this.diaVencimiento = diaVencimiento;
     }
 
-    public Collection<Partido> getPartidos() {
-        return this.partidos;
+    public Collection<Mes> getMeses() {
+        return this.meses;
     }
 
-    public void setPartidos(Collection<Partido> partidos) {
-        this.partidos = partidos;
+    public void setMeses(Collection<Mes> meses) {
+        this.meses = meses;
+    }
+
+    public Long getIdFrecuencia() {
+        return this.idFrecuencia;
+    }
+
+    public void setIdFrecuencia(Long idFrecuencia) {
+        this.idFrecuencia = idFrecuencia;
     }
 
     public boolean isBorradoLogico() {
@@ -74,9 +87,9 @@ public class FechaTorneo implements Serializable, Comparable {
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
-        if (aux instanceof FechaTorneo) {
-            FechaTorneo fechaTorneo = (FechaTorneo) aux;
-            if (this.idFecha > fechaTorneo.idFecha) {
+        if (aux instanceof Frecuencia) {
+            Frecuencia frecuencia = (Frecuencia) aux;
+            if (this.idFrecuencia > frecuencia.idFrecuencia) {
                 retorno = 1;
             }
         }
@@ -92,21 +105,21 @@ public class FechaTorneo implements Serializable, Comparable {
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir FechaTorneo" + e.getMessage());
+            System.out.println("Error de Persistir Frecuencia" + e.getMessage());
             tx.rollback();
         }
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-//-----------------------------------PARTIDOS-----------------------------------
-    public void agregarPartido(EntityManager entityManager, Partido unPartido) {
-        this.partidos.add(unPartido);
+//-----------------------------------MESES--------------------------------------
+    public void agregarMes(EntityManager entityManager, Mes unMes) {
+        this.meses.add(unMes);
         this.persistir(entityManager);
     }
 
-    public void quitarPartido(EntityManager entityManager, Partido unPartido) {
-        this.partidos.remove(unPartido);
+    public void quitarMes(EntityManager entityManager, Mes unMes) {
+        this.meses.remove(unMes);
         this.persistir(entityManager);
     }
-//---------------------------------FIN PARTIDOS---------------------------------
+//---------------------------------FIN MESES------------------------------------
 }

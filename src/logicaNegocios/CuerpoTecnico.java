@@ -16,6 +16,7 @@ public class CuerpoTecnico extends Persona implements Serializable {
     private boolean activo;
 
     public CuerpoTecnico() {
+
     }
 
     public CuerpoTecnico(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {

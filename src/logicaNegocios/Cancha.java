@@ -8,12 +8,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cancha implements Serializable, Comparable {
-
-    @Basic
-    private String tipo;
 
     @Basic
     private String nombre;
@@ -28,26 +26,22 @@ public class Cancha implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
+    @OneToOne(optional = false, targetEntity = TipoCancha.class)
+    private TipoCancha unTipoCancha;
+
     public Cancha() {
+
     }
 
-    public Cancha(EntityManager entityManager, String nombre, String tipo, boolean seOcupa) {
+    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
         this.nombre = nombre;
-        this.tipo = tipo;
         this.seOcupa = seOcupa;
+        this.unTipoCancha = unTipoCancha;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
 //---------------------------- GETERS Y SETERS ---------------------------------
-    public String getTipo() {
-        return this.tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getNombre() {
         return this.nombre;
     }
@@ -78,6 +72,14 @@ public class Cancha implements Serializable, Comparable {
 
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
+    }
+
+    public TipoCancha getUnTipoCancha() {
+        return this.unTipoCancha;
+    }
+
+    public void setUnTipoCancha(TipoCancha unTipoCancha) {
+        this.unTipoCancha = unTipoCancha;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 

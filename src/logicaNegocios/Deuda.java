@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,10 +19,6 @@ public class Deuda implements Serializable, Comparable {
 
     @OneToMany(targetEntity = PagoDeuda.class)
     private Collection<PagoDeuda> pagosDeuda;
-
-    @Temporal(TemporalType.DATE)
-    @Basic
-    private Date fecha;
 
     @Basic
     private double monto;
@@ -35,8 +30,16 @@ public class Deuda implements Serializable, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
 
-    @OneToOne(optional = false, targetEntity = ConceptoDeportivo.class)
-    private ConceptoDeportivo unConceptoDeportivo;
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fechaVencimiento;
+
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fechaGeneracion;
+
+    @Basic
+    private String concepto;
 
     @Basic
     private String observacion;
@@ -45,13 +48,14 @@ public class Deuda implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Deuda() {
+
     }
 
-    public Deuda(EntityManager entityManager, Date fecha, double monto, boolean saldado, ConceptoDeportivo unConceptoDeportivo, String observacion) {
-        this.fecha = fecha;
+    public Deuda(EntityManager entityManager, Date fechaGeneracion, Date fechaVencimiento, double monto, String observacion) {
+        this.fechaGeneracion = fechaGeneracion;
+        this.fechaVencimiento = fechaVencimiento;
         this.monto = monto;
-        this.saldado = saldado;
-        this.unConceptoDeportivo = unConceptoDeportivo;
+        this.saldado = false;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -64,14 +68,6 @@ public class Deuda implements Serializable, Comparable {
 
     public void setPagosDeuda(Collection<PagoDeuda> pagosDeuda) {
         this.pagosDeuda = pagosDeuda;
-    }
-
-    public Date getFecha() {
-        return this.fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public double getMonto() {
@@ -98,12 +94,28 @@ public class Deuda implements Serializable, Comparable {
         this.idDeuda = idDeuda;
     }
 
-    public ConceptoDeportivo getUnConceptoDeportivo() {
-        return this.unConceptoDeportivo;
+    public Date getFechaVencimiento() {
+        return this.fechaVencimiento;
     }
 
-    public void setUnConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
-        this.unConceptoDeportivo = unConceptoDeportivo;
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public Date getFechaGeneracion() {
+        return this.fechaGeneracion;
+    }
+
+    public void setFechaGeneracion(Date fechaGeneracion) {
+        this.fechaGeneracion = fechaGeneracion;
+    }
+
+    public String getConcepto() {
+        return this.concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
     public String getObservacion() {

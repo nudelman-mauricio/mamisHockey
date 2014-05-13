@@ -17,6 +17,7 @@ import logicaNegocios.Persona;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
+import logicaNegocios.TipoCancha;
 import logicaNegocios.Torneo;
 
 public class ControladoraDeportiva {
@@ -144,15 +145,15 @@ public class ControladoraDeportiva {
 //------------------------------FIN INDUMENTARIAS-------------------------------
 
 //-------------------------------- CANCHAS -------------------------------------
-    public void crearCancha(Club unClub, String nombre, String tipo, boolean seOcupa) {
-        Cancha unaCancha = new Cancha(this.entityManager, nombre, tipo, seOcupa);
+    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
+        Cancha unaCancha = new Cancha(this.entityManager, nombre, seOcupa, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, String tipo, boolean seOcupa, boolean borradoLogico) {
+    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
-        unaCancha.setTipo(tipo);
         unaCancha.setSeOcupa(seOcupa);
+        unaCancha.setUnTipoCancha(unTipoCancha);
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(this.entityManager);
     }

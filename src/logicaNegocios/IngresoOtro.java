@@ -37,6 +37,7 @@ public class IngresoOtro implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public IngresoOtro() {
+
     }
 
     public IngresoOtro(EntityManager entityManager, Date fecha, ConceptoIngreso unConceptoIngreso, double monto, String detalle) {

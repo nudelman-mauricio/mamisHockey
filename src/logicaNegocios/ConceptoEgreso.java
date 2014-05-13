@@ -26,6 +26,7 @@ public class ConceptoEgreso implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public ConceptoEgreso() {
+
     }
 
     public ConceptoEgreso(EntityManager entityManager, String nombre, String detalle) {

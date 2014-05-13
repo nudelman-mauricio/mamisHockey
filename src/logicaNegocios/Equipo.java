@@ -59,6 +59,7 @@ public class Equipo implements Serializable, Comparable {
     private CuerpoTecnico unDT;
 
     public Equipo() {
+
     }
 
     public Equipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {

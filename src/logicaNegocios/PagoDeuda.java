@@ -33,6 +33,7 @@ public class PagoDeuda implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public PagoDeuda() {
+
     }
 
     public PagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {

@@ -26,6 +26,7 @@ public class Categoria implements Serializable, Comparable {
     private boolean borradoLogico;
 
     public Categoria() {
+
     }
 
     public Categoria(EntityManager entityManager, int cantMenores, String nombre) {
@@ -94,11 +95,5 @@ public class Categoria implements Serializable, Comparable {
             }
         }
         return retorno;
-    }
-
-    //----------------------------------- TEMPORAL BORRAR PARA LA VERSION FINAL ---------------
-    @Override
-    public String toString() {
-        return "Categoria{" + "cantMenores=" + cantMenores + ", idCategoria=" + idCategoria + ", nombre=" + nombre + ", borradoLogico=" + borradoLogico + '}';
     }
 }
