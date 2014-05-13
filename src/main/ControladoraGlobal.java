@@ -2,6 +2,7 @@ package main;
 
 import java.util.Date;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import logicaNegocios.*;
 
 public class ControladoraGlobal {
@@ -73,19 +74,22 @@ public class ControladoraGlobal {
 
 //----------------------------------MESES---------------------------------------
     private void construirMeses(EntityManager entityManager) {
-        Mes unMes;
-        unMes = new Mes(entityManager, "Enero");
-        unMes = new Mes(entityManager, "Febrero");
-        unMes = new Mes(entityManager, "Marzo");
-        unMes = new Mes(entityManager, "Abril");
-        unMes = new Mes(entityManager, "Mayo");
-        unMes = new Mes(entityManager, "Junio");
-        unMes = new Mes(entityManager, "Julio");
-        unMes = new Mes(entityManager, "Agosto");
-        unMes = new Mes(entityManager, "Septiembre");
-        unMes = new Mes(entityManager, "Octubre");
-        unMes = new Mes(entityManager, "Nobiembre");
-        unMes = new Mes(entityManager, "Diciembre");
+        Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
+        if (tablaMesVacia.getResultList().isEmpty()) {
+            Mes unMes;
+            unMes = new Mes(entityManager, "Enero");
+            unMes = new Mes(entityManager, "Febrero");
+            unMes = new Mes(entityManager, "Marzo");
+            unMes = new Mes(entityManager, "Abril");
+            unMes = new Mes(entityManager, "Mayo");
+            unMes = new Mes(entityManager, "Junio");
+            unMes = new Mes(entityManager, "Julio");
+            unMes = new Mes(entityManager, "Agosto");
+            unMes = new Mes(entityManager, "Septiembre");
+            unMes = new Mes(entityManager, "Octubre");
+            unMes = new Mes(entityManager, "Nobiembre");
+            unMes = new Mes(entityManager, "Diciembre");
+        }
     }
 //--------------------------------FIN MESES-------------------------------------
 }
