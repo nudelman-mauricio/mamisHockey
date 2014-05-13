@@ -3,6 +3,7 @@ package main;
 import Interfaces.MenuPrincipalInterface;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
@@ -24,18 +25,17 @@ public class Main {
             Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
             SkinLookAndFeel.setSkin(theSkinToUse);
             UIManager.setLookAndFeel(new SkinLookAndFeel());
-            
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
         //Creacion de la ventana
-        MenuPrincipalInterface unaVentana = new MenuPrincipalInterface ();
-        SwingUtilities.updateComponentTreeUI ( unaVentana ) ; 
+        MenuPrincipalInterface unaVentana = new MenuPrincipalInterface();
+        SwingUtilities.updateComponentTreeUI(unaVentana);
         unaVentana.setLocationRelativeTo(null);
         unaVentana.setVisible(true);
-        //Inicia la aplicacion en pantalla completa
-        unaVentana.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
     }
 
 }

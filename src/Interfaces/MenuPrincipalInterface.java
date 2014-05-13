@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -35,6 +36,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         initComponents();
         //Icono de la ventana
         setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
+        
+        //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        this.setMaximizedBounds(env.getMaximumWindowBounds());
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
     }
 
