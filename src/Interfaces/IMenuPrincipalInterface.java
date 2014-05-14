@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -36,8 +37,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     //----------------------------METODOS A CONSULTAS SQL-----------------------
     
     //----------------------------------SOCIA-----------------------------------
-    public static List busquedaSocias(String campoSeleccionado, String txtBuscado) {                                                           
-       // Main.BusquedaSocias(campoSeleccionado,txtBuscado);
+    public static ArrayList busquedaSocias(String campoSeleccionado, String txtBuscado) {                                                           
+       
+
+
+        // Main.BusquedaSocias(campoSeleccionado,txtBuscado);
        return null;   
     }
     

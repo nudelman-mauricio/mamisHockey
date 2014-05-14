@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -499,7 +500,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                  aux="NOMBRE";
              }
         }        
-        IMenuPrincipalInterface.busquedaSocias(aux, jTextFieldBusqueda.getText());
+        ArrayList unaListaSocias = IMenuPrincipalInterface.busquedaSocias(aux, jTextFieldBusqueda.getText());
+   
+        
+        
+        
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
