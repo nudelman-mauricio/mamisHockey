@@ -338,7 +338,7 @@ public class GestionTorneo extends javax.swing.JInternalFrame {
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.setVisible(false);
-        MenuPrincipalInterface.jDesktopPane1.add(unTorneo);        
+        MenuPrincipalInterface.jDesktopPane.add(unTorneo);        
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
 

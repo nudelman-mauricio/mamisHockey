@@ -203,7 +203,7 @@ public class Torneo extends javax.swing.JInternalFrame {
         if (unJInternalFrame!= null){
             this.unJInternalFrame.setVisible(true);}
         else{
-            MenuPrincipalInterface.jDesktopPane1.setVisible(true);
+            MenuPrincipalInterface.jDesktopPane.setVisible(true);
         }
     }//GEN-LAST:event_formInternalFrameClosed
 

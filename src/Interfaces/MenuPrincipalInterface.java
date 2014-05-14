@@ -54,7 +54,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuSocias = new javax.swing.JMenu();
         jMenuItemAdmSocias = new javax.swing.JMenuItem();
@@ -108,11 +108,11 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+            .addComponent(jDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+            .addComponent(jDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
         );
 
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -384,46 +384,46 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
-        GestionSocias unaGestionSocias = new GestionSocias(jDesktopPane1);
+        GestionSocias unaGestionSocias = new GestionSocias(jDesktopPane);
         unaGestionSocias.pack();
         unaGestionSocias.setVisible(true);         
-        this.jDesktopPane1.add(unaGestionSocias);  
+        this.jDesktopPane.add(unaGestionSocias);  
     }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
-        Socia unaSocia = new Socia(jDesktopPane1);
+        Socia unaSocia = new Socia(jDesktopPane);
         unaSocia.pack();
         unaSocia.setVisible(true);        
-        this.jDesktopPane1.add(unaSocia);        
+        this.jDesktopPane.add(unaSocia);        
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
     private void jMenuItemAdmClubesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmClubesActionPerformed
-        GestionClub unaGestionClub = new GestionClub(jDesktopPane1);
+        GestionClub unaGestionClub = new GestionClub(jDesktopPane);
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);        
-        this.jDesktopPane1.add(unaGestionClub);
+        this.jDesktopPane.add(unaGestionClub);
 
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
     private void jMenuItemNuevoCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
-        CuerpoTecnico unaCuerpoTecnico = new CuerpoTecnico(jDesktopPane1);
+        CuerpoTecnico unaCuerpoTecnico = new CuerpoTecnico(jDesktopPane);
         unaCuerpoTecnico.pack();
         unaCuerpoTecnico.setVisible(true);        
-        this.jDesktopPane1.add(unaCuerpoTecnico);
+        this.jDesktopPane.add(unaCuerpoTecnico);
     }//GEN-LAST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
 
     private void jMenuItemGestionarCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
-        GestionCuerpoTecnico unGestionCuerpoTecnico = new GestionCuerpoTecnico(jDesktopPane1);
+        GestionCuerpoTecnico unGestionCuerpoTecnico = new GestionCuerpoTecnico(jDesktopPane);
         unGestionCuerpoTecnico.pack();
         unGestionCuerpoTecnico.setVisible(true);        
-        this.jDesktopPane1.add(unGestionCuerpoTecnico);
+        this.jDesktopPane.add(unGestionCuerpoTecnico);
     }//GEN-LAST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
 
     private void jMenuItemGestionarArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarArbitroActionPerformed
         GestionArbitros unaGestionArbitro = new GestionArbitros();
         unaGestionArbitro.pack();
         unaGestionArbitro.setVisible(true);
-        this.jDesktopPane1.add(unaGestionArbitro);
+        this.jDesktopPane.add(unaGestionArbitro);
     }//GEN-LAST:event_jMenuItemGestionarArbitroActionPerformed
 
     private void jMenuItemEstadisticaTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadisticaTorneoActionPerformed
@@ -434,14 +434,14 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         GestionTorneo unGestionTorneo = new GestionTorneo();
         unGestionTorneo.pack();
         unGestionTorneo.setVisible(true);
-        this.jDesktopPane1.add(unGestionTorneo);
+        this.jDesktopPane.add(unGestionTorneo);
     }//GEN-LAST:event_jMenuItemGestionTorneoActionPerformed
 
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
-        GestionEgresos unGestionEgresos = new GestionEgresos(jDesktopPane1);
+        GestionEgresos unGestionEgresos = new GestionEgresos(jDesktopPane);
         unGestionEgresos.pack();
         unGestionEgresos.setVisible(true);       
-        this.jDesktopPane1.add(unGestionEgresos);
+        this.jDesktopPane.add(unGestionEgresos);
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
     
     private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
@@ -450,17 +450,17 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
-        ConceptoIngresos unConceptoIngresos = new ConceptoIngresos(jDesktopPane1);
+        ConceptoIngresos unConceptoIngresos = new ConceptoIngresos(jDesktopPane);
         unConceptoIngresos.pack();
         unConceptoIngresos.setVisible(true);        
-        this.jDesktopPane1.add(unConceptoIngresos);
+        this.jDesktopPane.add(unConceptoIngresos);
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
-        ConceptoEgresos unConceptoEgresos = new ConceptoEgresos(jDesktopPane1);
+        ConceptoEgresos unConceptoEgresos = new ConceptoEgresos(jDesktopPane);
         unConceptoEgresos.pack();
         unConceptoEgresos.setVisible(true);        
-        this.jDesktopPane1.add(unConceptoEgresos);
+        this.jDesktopPane.add(unConceptoEgresos);
     }//GEN-LAST:event_jMenuItemConceptosEgresosActionPerformed
 
     private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
@@ -480,28 +480,28 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
         Arbitro unArbitro = new Arbitro();
         unArbitro.pack();
         unArbitro.setVisible(true);    
-        this.jDesktopPane1.add(unArbitro);   
+        this.jDesktopPane.add(unArbitro);   
         
 // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemNuevoArbitroActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        Equipo unEquipo = new Equipo(jDesktopPane1);
+        Equipo unEquipo = new Equipo(jDesktopPane);
         unEquipo.pack();
         unEquipo.setVisible(true);    
-        this.jDesktopPane1.add(unEquipo);   // TODO add your handling code here:
+        this.jDesktopPane.add(unEquipo);   // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItemAdmEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmEquiposActionPerformed
-        GestionEquipo unaGestionEquipo = new GestionEquipo(jDesktopPane1);
+        GestionEquipo unaGestionEquipo = new GestionEquipo(jDesktopPane);
         unaGestionEquipo.pack();
         unaGestionEquipo.setVisible(true);    
-        this.jDesktopPane1.add(unaGestionEquipo);// TODO add your handling code here:
+        this.jDesktopPane.add(unaGestionEquipo);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmEquiposActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         skin unaSkin = new skin(this);
-        jDesktopPane1.add(unaSkin);
+        jDesktopPane.add(unaSkin);
         unaSkin.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
@@ -512,7 +512,7 @@ public class MenuPrincipalInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

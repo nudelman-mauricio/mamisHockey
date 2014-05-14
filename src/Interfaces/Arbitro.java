@@ -5,23 +5,18 @@
  */
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-/**
- *
- * @author Lucas
- */
 public class Arbitro extends javax.swing.JInternalFrame {
 
-    JDesktopPane unjDesktopPanel;
+    
     JInternalFrame unJInternalFrame;
 
     public Arbitro() {
         initComponents();
+        MenuPrincipalInterface.centrar(this);
     }    
 
     public Arbitro(JInternalFrame unJInternalFrame) {
@@ -290,12 +285,16 @@ public class Arbitro extends javax.swing.JInternalFrame {
         if (unJInternalFrame != null) {
             this.unJInternalFrame.setVisible(true);
         } else {
-            this.unjDesktopPanel.setVisible(true);
+            MenuPrincipalInterface.jDesktopPane.setVisible(true);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        unJInternalFrame.setVisible(true);        // TODO add your handling code here:
+         if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        } else {
+            MenuPrincipalInterface.jDesktopPane.setVisible(true);
+        }    // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameClosed
 
    

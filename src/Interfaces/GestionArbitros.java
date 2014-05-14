@@ -306,7 +306,7 @@ public class GestionArbitros extends javax.swing.JInternalFrame {
         unArbitro.pack();
         unArbitro.setVisible(true);      
         this.setVisible(false);        
-        MenuPrincipalInterface.jDesktopPane1.add(unArbitro);
+        MenuPrincipalInterface.jDesktopPane.add(unArbitro);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
 
