@@ -102,14 +102,11 @@ public class skin extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-        //Creacion de la ventana
-        
+        //Creacion de la ventana        
         SwingUtilities.updateComponentTreeUI(unaVentana);
         unaVentana.setLocationRelativeTo(null);
         unaVentana.setVisible(true);
-//        SwingUtilities.updateComponentTreeUI(unaVentana);
-//        unaVentana.revalidate();
-//        unaVentana.repaint();// TODO add your handling code here:
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
