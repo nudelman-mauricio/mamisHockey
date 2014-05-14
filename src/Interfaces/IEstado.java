@@ -1,22 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Interfaces;
 
-/**
- *
- * @author Lucas
- */
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import logicaNegocios.Socia;
+
 public class IEstado extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Estado
-     */
-    public IEstado() {
+    private JInternalFrame unJInternalFrame;
+    private Socia unaSocia;
+    
+    public IEstado(JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaSocia = unaSocia;
+        
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
+        
+        IMenuPrincipalInterface.centrar(this);
     }
 
     /**

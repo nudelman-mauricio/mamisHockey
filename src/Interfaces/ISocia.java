@@ -5,8 +5,6 @@
  */
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -32,15 +30,19 @@ public class ISocia extends javax.swing.JInternalFrame {
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
-        centrar(this);
+       
+        IMenuPrincipalInterface.centrar(this);
     }
 
     public ISocia(JInternalFrame unJInternalFrame, Socia unaSocia) {//FALTA AGREGAR LA VARIABLE DEL DNI----------
         initComponents();
+        
         this.unJInternalFrame = unJInternalFrame;
+        
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
-        centrar(this);
+        
+        IMenuPrincipalInterface.centrar(this);
     }
 
     /**
@@ -345,11 +347,6 @@ public class ISocia extends javax.swing.JInternalFrame {
           
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    public void centrar(JInternalFrame unJInternalFrame) {
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;

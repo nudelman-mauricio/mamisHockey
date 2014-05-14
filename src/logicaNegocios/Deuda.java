@@ -17,33 +17,33 @@ import javax.persistence.TemporalType;
 @Entity
 public class Deuda implements Serializable, Comparable {
 
-    @OneToMany(targetEntity = PagoDeuda.class)
-    private Collection<PagoDeuda> pagosDeuda;
-
-    @Basic
-    private double monto;
-
-    @Basic
-    private boolean saldado;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
-
-    @Temporal(TemporalType.DATE)
-    @Basic
-    private Date fechaVencimiento;
-
+    
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaGeneracion;
-
+    
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fechaVencimiento;
+    
     @Basic
     private String concepto;
 
     @Basic
     private String observacion;
-
+    
+    @Basic
+    private double monto;
+    
+    @Basic
+    private boolean saldado;
+    
+    @OneToMany(targetEntity = PagoDeuda.class)
+    private Collection<PagoDeuda> pagosDeuda;
+    
     @Basic
     private boolean borradoLogico;
 
