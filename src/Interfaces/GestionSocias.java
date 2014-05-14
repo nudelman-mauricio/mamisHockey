@@ -28,7 +28,7 @@ public class GestionSocias extends javax.swing.JInternalFrame {
         this.unjDesktopPane1 = unjDesktopPane1;
         
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/users.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         centrar(this);
     }
 

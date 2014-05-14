@@ -41,7 +41,7 @@ public class Estado extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion = new javax.swing.JLabel();
         jLabelFechaCaducidad = new javax.swing.JLabel();
         jTextFieldFechaRealizacion = new javax.swing.JTextField();
-        jTextFieldFechaCaducidad1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -110,7 +110,7 @@ public class Estado extends javax.swing.JInternalFrame {
                 {null, null}
             },
             new String [] {
-                "Fecha", "Tipo"
+                "Fecha", "Estados"
             }
         ));
         jScrollPane1.setViewportView(jTablePase);
@@ -129,9 +129,9 @@ public class Estado extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel7.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Nombre del Estado");
+        jLabelFechaRealizacion.setText("Fecha");
 
-        jLabelFechaCaducidad.setText("Cuota Mensual ($)");
+        jLabelFechaCaducidad.setText("Estado");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -145,8 +145,8 @@ public class Estado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(jTextFieldFechaCaducidad1))
-                .addContainerGap(92, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,8 +158,8 @@ public class Estado extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaCaducidad)
-                    .addComponent(jTextFieldFechaCaducidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,6 +191,7 @@ public class Estado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabelFechaCaducidad;
     private javax.swing.JLabel jLabelFechaRealizacion;
     private javax.swing.JPanel jPanel5;
@@ -198,7 +199,6 @@ public class Estado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePase;
-    private javax.swing.JTextField jTextFieldFechaCaducidad1;
     private javax.swing.JTextField jTextFieldFechaRealizacion;
     // End of variables declaration//GEN-END:variables
 }
