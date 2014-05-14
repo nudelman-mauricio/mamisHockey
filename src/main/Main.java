@@ -40,7 +40,8 @@ public class Main {
         
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
+            //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
+            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/toxicthemepack.zip");
             SkinLookAndFeel.setSkin(theSkinToUse);
             UIManager.setLookAndFeel(new SkinLookAndFeel());
 
