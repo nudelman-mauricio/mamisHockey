@@ -1,6 +1,6 @@
 package main;
 
-import Interfaces.MenuPrincipalInterface;
+import Interfaces.IMenuPrincipalInterface;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.util.logging.Level;
@@ -49,7 +49,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
         
-        MenuPrincipalInterface unaVentana = new MenuPrincipalInterface();
+        IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface();
         SwingUtilities.updateComponentTreeUI(unaVentana);
         unaVentana.setLocationRelativeTo(null);
         unaVentana.setVisible(true);
