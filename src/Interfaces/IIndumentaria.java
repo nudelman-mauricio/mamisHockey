@@ -42,16 +42,9 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion1 = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
         jLabelDestino = new javax.swing.JLabel();
-        jComboBoxEquipODestino = new javax.swing.JComboBox();
-        jComboBoxEquipODestino1 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino2 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino3 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino4 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino5 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino6 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino7 = new javax.swing.JComboBox();
-        jComboBoxEquipODestino8 = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -158,35 +151,6 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
 
         jLabelDestino.setText("Medias");
 
-        jComboBoxEquipODestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino.setName(""); // NOI18N
-
-        jComboBoxEquipODestino1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino1.setName(""); // NOI18N
-
-        jComboBoxEquipODestino2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino2.setName(""); // NOI18N
-
-        jComboBoxEquipODestino3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino3.setName(""); // NOI18N
-
-        jComboBoxEquipODestino4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino4.setName(""); // NOI18N
-
-        jComboBoxEquipODestino5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino5.setName(""); // NOI18N
-
-        jComboBoxEquipODestino6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino6.setName(""); // NOI18N
-
-        jComboBoxEquipODestino7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino7.setName(""); // NOI18N
-
-        jComboBoxEquipODestino8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amarillo", "Azul", "Blanco", "Celeste", "Gris", "Lila", "Marrón", "Naranja", "Negro", "Rojo", "Rosa", "Verde" }));
-        jComboBoxEquipODestino8.setName(""); // NOI18N
-
-        jLabel1.setText("POR AHI SE PUEDE HACER CON ALGO ASI TAMBIEN: http://www.myjavazone.com/2011/03/tabla-con-jcombobox-en-columna.html");
-
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -197,59 +161,29 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
                     .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelDestino, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaRealizacion1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxEquipODestino, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEquipODestino1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEquipODestino2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxEquipODestino5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEquipODestino4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEquipODestino3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxEquipODestino8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEquipODestino7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEquipODestino6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jComboBoxEquipODestino6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxEquipODestino7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxEquipODestino8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jComboBoxEquipODestino3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxEquipODestino4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxEquipODestino5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelFechaRealizacion1)
-                            .addComponent(jComboBoxEquipODestino2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelOrigen)
-                            .addComponent(jComboBoxEquipODestino1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelDestino)
-                            .addComponent(jComboBoxEquipODestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                .addGap(14, 14, 14)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelFechaRealizacion1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelOrigen)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDestino)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,7 +192,7 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
@@ -289,16 +223,6 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JComboBox jComboBoxEquipODestino;
-    private javax.swing.JComboBox jComboBoxEquipODestino1;
-    private javax.swing.JComboBox jComboBoxEquipODestino2;
-    private javax.swing.JComboBox jComboBoxEquipODestino3;
-    private javax.swing.JComboBox jComboBoxEquipODestino4;
-    private javax.swing.JComboBox jComboBoxEquipODestino5;
-    private javax.swing.JComboBox jComboBoxEquipODestino6;
-    private javax.swing.JComboBox jComboBoxEquipODestino7;
-    private javax.swing.JComboBox jComboBoxEquipODestino8;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelFechaRealizacion1;
     private javax.swing.JLabel jLabelOrigen;
@@ -307,5 +231,8 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePases;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

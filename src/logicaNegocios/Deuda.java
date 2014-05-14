@@ -21,7 +21,7 @@ public class Deuda implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
-
+    
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaGeneracion;
@@ -34,7 +34,7 @@ public class Deuda implements Serializable, Comparable {
 
     @Basic
     private String observacion;
-
+    
     @Basic
     private boolean borradoLogico;
 
