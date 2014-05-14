@@ -14,7 +14,7 @@ public class ConceptoIngreso implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idConceptoIngreso;
+     Long idConceptoIngreso;
 
     @Basic
     private String nombre;

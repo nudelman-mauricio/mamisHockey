@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -13,18 +14,18 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class PagoDeuda implements Serializable, Comparable {
+public class PagoCuota implements Serializable, Comparable {
 
-    @Temporal(TemporalType.DATE)
-    @Basic
-    private Date fecha;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idPagoCuota;
 
     @Basic
     private double monto;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idPagoDeuda;
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fechaPago;
 
     @Basic
     private String observacion;
@@ -32,25 +33,24 @@ public class PagoDeuda implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    public PagoDeuda() {
+    public PagoCuota() {
 
     }
 
-    public PagoDeuda(EntityManager entityManager, Date fecha, double monto, String observacion) {
-        this.fecha = fecha;
+    public PagoCuota(EntityManager entityManager, double monto, Date fechaPago, String observacion) {
         this.monto = monto;
+        this.fechaPago = fechaPago;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
-    public Date getFecha() {
-        return this.fecha;
+    public Long getIdPagoCuota() {
+        return this.idPagoCuota;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setIdPagoCuota(Long idPagoCuota) {
+        this.idPagoCuota = idPagoCuota;
     }
 
     public double getMonto() {
@@ -61,12 +61,12 @@ public class PagoDeuda implements Serializable, Comparable {
         this.monto = monto;
     }
 
-    public Long getIdPagoDeuda() {
-        return this.idPagoDeuda;
+    public Date getFechaPago() {
+        return this.fechaPago;
     }
 
-    public void setIdPagoDeuda(Long idPagoDeuda) {
-        this.idPagoDeuda = idPagoDeuda;
+    public void setFechaPago(Date fechaPago) {
+        this.fechaPago = fechaPago;
     }
 
     public String getObservacion() {
@@ -89,9 +89,9 @@ public class PagoDeuda implements Serializable, Comparable {
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
-        if (aux instanceof PagoDeuda) {
-            PagoDeuda pagoDeuda = (PagoDeuda) aux;
-            if (this.idPagoDeuda > pagoDeuda.idPagoDeuda) {
+        if (aux instanceof PagoCuota) {
+            PagoCuota unPagoCuota = (PagoCuota) aux;
+            if (this.idPagoCuota > unPagoCuota.idPagoCuota) {
                 retorno = 1;
             }
         }
@@ -107,7 +107,7 @@ public class PagoDeuda implements Serializable, Comparable {
             tx.commit();
         } catch (Exception e) {
             //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir PagoDeuda" + e.getMessage());
+            System.out.println("Error de Persistir PagoCuota" + e.getMessage());
             tx.rollback();
         }
     }
