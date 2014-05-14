@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -17,22 +18,9 @@ import javax.persistence.TemporalType;
 @Entity
 public class Deuda implements Serializable, Comparable {
 
-    @OneToMany(targetEntity = PagoDeuda.class)
-    private Collection<PagoDeuda> pagosDeuda;
-
-    @Basic
-    private double monto;
-
-    @Basic
-    private boolean saldado;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
-
-    @Temporal(TemporalType.DATE)
-    @Basic
-    private Date fechaVencimiento;
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -40,6 +28,9 @@ public class Deuda implements Serializable, Comparable {
 
     @Basic
     private String concepto;
+
+    @OneToMany(targetEntity = Cuota.class)
+    private Collection<Cuota> cuotas;
 
     @Basic
     private String observacion;
@@ -51,39 +42,12 @@ public class Deuda implements Serializable, Comparable {
 
     }
 
-    public Deuda(EntityManager entityManager, Date fechaGeneracion, Date fechaVencimiento, double monto, String observacion) {
+    public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion) {
         this.fechaGeneracion = fechaGeneracion;
-        this.fechaVencimiento = fechaVencimiento;
-        this.monto = monto;
-        this.saldado = false;
+        this.concepto = concepto;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
-    }
-
-//---------------------------- GETERS Y SETERS ---------------------------------
-    public Collection<PagoDeuda> getPagosDeuda() {
-        return this.pagosDeuda;
-    }
-
-    public void setPagosDeuda(Collection<PagoDeuda> pagosDeuda) {
-        this.pagosDeuda = pagosDeuda;
-    }
-
-    public double getMonto() {
-        return this.monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
-    public boolean isSaldado() {
-        return this.saldado;
-    }
-
-    public void setSaldado(boolean saldado) {
-        this.saldado = saldado;
     }
 
     public Long getIdDeuda() {
@@ -92,14 +56,6 @@ public class Deuda implements Serializable, Comparable {
 
     public void setIdDeuda(Long idDeuda) {
         this.idDeuda = idDeuda;
-    }
-
-    public Date getFechaVencimiento() {
-        return this.fechaVencimiento;
-    }
-
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
     }
 
     public Date getFechaGeneracion() {
@@ -116,6 +72,14 @@ public class Deuda implements Serializable, Comparable {
 
     public void setConcepto(String concepto) {
         this.concepto = concepto;
+    }
+
+    public Collection<Cuota> getCuotas() {
+        return this.cuotas;
+    }
+
+    public void setCuotas(Collection<Cuota> cuotas) {
+        this.cuotas = cuotas;
     }
 
     public String getObservacion() {
@@ -139,8 +103,8 @@ public class Deuda implements Serializable, Comparable {
     public int compareTo(Object aux) {
         int retorno = -1;
         if (aux instanceof Deuda) {
-            Deuda deuda = (Deuda) aux;
-            if (this.idDeuda > deuda.idDeuda) {
+            Deuda unaDeuda = (Deuda) aux;
+            if (this.idDeuda > unaDeuda.idDeuda) {
                 retorno = 1;
             }
         }
@@ -162,15 +126,15 @@ public class Deuda implements Serializable, Comparable {
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-//--------------------------------PAGO DEUDA------------------------------------
-    public void agregarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
-        this.pagosDeuda.add(unPagoDeuda);
+//----------------------------------CUOTAS--------------------------------------    
+    public void agregarCuota(EntityManager entityManager, Cuota unaCuota) {
+        this.cuotas.add(unaCuota);
         this.persistir(entityManager);
     }
 
-    public void quitarPagoDeuda(EntityManager entityManager, PagoDeuda unPagoDeuda) {
-        this.pagosDeuda.remove(unPagoDeuda);
+    public void quitarCuota(EntityManager entityManager, Cuota unaCuota) {
+        this.cuotas.remove(unaCuota);
         this.persistir(entityManager);
     }
-//------------------------------FIN PAGO DEUDA----------------------------------
+//--------------------------------FIN CUOTAS------------------------------------
 }

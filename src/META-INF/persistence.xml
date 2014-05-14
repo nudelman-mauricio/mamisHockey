@@ -32,6 +32,8 @@
     <class>logicaNegocios.Mes</class>
     <class>logicaNegocios.Frecuencia</class>
     <class>logicaNegocios.TipoEstado</class>
+    <class>logicaNegocios.Cuota</class>
+    <class>logicaNegocios.PagoCuota</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mamishockeydb"/>

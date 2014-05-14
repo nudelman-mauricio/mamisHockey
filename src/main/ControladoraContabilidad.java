@@ -13,7 +13,6 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.Mes;
-import logicaNegocios.PagoDeuda;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoCancha;
 import logicaNegocios.TipoEstado;
