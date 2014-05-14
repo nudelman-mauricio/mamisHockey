@@ -25,8 +25,18 @@ public class ISocia extends javax.swing.JInternalFrame {
     public ISocia(JDesktopPane unjDesktopPane1) {
         initComponents();
 
-        this.unjDesktopPane1 = unjDesktopPane1;
-        this.unJInternalFrame = null;
+        this.unjDesktopPane1 = unjDesktopPane1;       
+
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
+       
+        IMenuPrincipalInterface.centrar(this);
+    }
+    
+    public ISocia(JInternalFrame unJInternalFrame) {
+        initComponents();
+
+        this.unJInternalFrame = unJInternalFrame;      
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
@@ -332,19 +342,11 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCheckBoxExJugadoraActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        //SE cerro
-        if (unJInternalFrame!= null){
-            this.unJInternalFrame.setVisible(true);}
-        else{
-            this.unjDesktopPane1.setVisible(true);}
+        if (unJInternalFrame!= null) this.unJInternalFrame.setVisible(true); 
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-       if (unJInternalFrame!= null){
-            this.unJInternalFrame.setVisible(true);}
-        else{
-            this.unjDesktopPane1.setVisible(true);}
-          
+       if (unJInternalFrame!= null) this.unJInternalFrame.setVisible(true);        
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,17 +6,29 @@
 
 package Interfaces;
 
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import logicaNegocios.Socia;
+
 /**
  *
  * @author Lucas
  */
 public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form IContabilidadSocia
-     */
-    public IContabilidadSocia() {
+    private JInternalFrame unJInternalFrame;
+    private Socia unaSocia;
+    
+    public IContabilidadSocia(JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaSocia = unaSocia;
+        
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        
+        IMenuPrincipalInterface.centrar(this);
     }
 
     /**
@@ -72,6 +84,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion10 = new javax.swing.JLabel();
         jTextFieldFechaRealizacion6 = new javax.swing.JTextField();
 
+        setClosable(true);
+
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
@@ -88,6 +102,11 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
@@ -436,6 +455,10 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
 import javax.swing.ImageIcon;
@@ -19,23 +18,25 @@ import logicaNegocios.Socia;
 public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private JDesktopPane unjDesktopPane1;
+
     /**
      * Creates new form GestionSocias
      */
     public IGestionSocias(JDesktopPane unjDesktopPane1) {
         initComponents();
-        
+
         this.unjDesktopPane1 = unjDesktopPane1;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
-        
+
         IMenuPrincipalInterface.centrar(this);
-        
+
         this.SeleccionarSocia(false);
-        
+        jRadioButtonDni.setSelected(true);
+
     }
-  
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -136,8 +137,18 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         });
 
         jRadioButtonDni.setText("DNI");
+        jRadioButtonDni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jRadioButtonDniFocusGained(evt);
+            }
+        });
 
         jRadioButtonApellido.setText("Apellido");
+        jRadioButtonApellido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jRadioButtonApellidoFocusGained(evt);
+            }
+        });
         jRadioButtonApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonApellidoActionPerformed(evt);
@@ -145,6 +156,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         });
 
         jRadioButtonNombre.setText("Nombre");
+        jRadioButtonNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jRadioButtonNombreFocusGained(evt);
+            }
+        });
         jRadioButtonNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonNombreActionPerformed(evt);
@@ -367,12 +383,15 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,21 +411,21 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
-        IEstado unIEstado = new IEstado(this, unaSociaSeleccionada);
-        
-        unIEstado.pack();
-        unIEstado.setVisible(true);
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
+        IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(this, unaSociaSeleccionada);
+
+        unaIContabilidadSocia.pack();
+        unaIContabilidadSocia.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIEstado);
+        IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadSocia);
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
         IEstado unIEstado = new IEstado(this, unaSociaSeleccionada);
-        
+
         unIEstado.pack();
         unIEstado.setVisible(true);
         this.setVisible(false);
@@ -414,23 +433,22 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
         ISocia unaISocia = new ISocia(this, unaSociaSeleccionada);
-        
+
         unaISocia.pack();
         unaISocia.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
-    
-    
+
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
         IErgometria unaIErgometria = new IErgometria(this, unaSociaSeleccionada);
-        
+
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
         this.setVisible(false);
@@ -438,10 +456,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
         ITarjeta unaITarjeta = new ITarjeta(this, unaSociaSeleccionada);
-        
+
         unaITarjeta.pack();
         unaITarjeta.setVisible(true);
         this.setVisible(false);
@@ -449,10 +467,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
         ISancion unaISancion = new ISancion(this, unaSociaSeleccionada);
-        
+
         unaISancion.pack();
         unaISancion.setVisible(true);
         this.setVisible(false);
@@ -460,18 +478,28 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
-        Socia unaSociaSeleccionada = (Socia)(jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-        
+        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
+
         IPase unIPase = new IPase(this, unaSociaSeleccionada);
-        
+
         unIPase.pack();
         unIPase.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIPase);        
+        IMenuPrincipalInterface.jDesktopPane.add(unIPase);
     }//GEN-LAST:event_jButtonPasesActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
+        String aux;
+        if (jRadioButtonDni.isSelected()){
+            aux="DNI";
+        }else{
+             if (jRadioButtonApellido.isSelected()){
+                 aux="APELLIDO";
+             }else{
+                 aux="NOMBRE";
+             }
+        }        
+        IMenuPrincipalInterface.busquedaSocias(aux, jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
@@ -491,7 +519,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        // TODO add your handling code here:
+        ISocia unaSocia = new ISocia(this);
+        unaSocia.pack();
+        unaSocia.setVisible(true);  
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaSocia);             // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained
@@ -499,18 +531,33 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableSociasFocusGained
 
     private void jTableSociasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusLost
-        
+
     }//GEN-LAST:event_jTableSociasFocusLost
 
     private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
-        
+
     }//GEN-LAST:event_jPanel3FocusGained
 
     private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
         this.SeleccionarSocia(false);
     }//GEN-LAST:event_jTextFieldBusquedaFocusGained
-    
-    private void SeleccionarSocia(boolean estado) {                                       
+
+    private void jRadioButtonDniFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRadioButtonDniFocusGained
+        jRadioButtonApellido.setSelected(false);
+        jRadioButtonNombre.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonDniFocusGained
+
+    private void jRadioButtonApellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRadioButtonApellidoFocusGained
+        jRadioButtonDni.setSelected(false);
+        jRadioButtonNombre.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonApellidoFocusGained
+
+    private void jRadioButtonNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRadioButtonNombreFocusGained
+        jRadioButtonApellido.setSelected(false);
+        jRadioButtonDni.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonNombreFocusGained
+
+    private void SeleccionarSocia(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonTarjetas.setEnabled(estado);
         jButtonPases.setEnabled(estado);
@@ -518,11 +565,13 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonErgometria.setEnabled(estado);
         jButtonEstado.setEnabled(estado);
         jButtonContabilidad.setEnabled(estado);
-        if (!estado) {
-           jTableSocias.clearSelection(); 
+        jButtonImprimir.setEnabled(estado);   
+        jButtonEliminar.setEnabled(estado);
+                if (!estado) {
+            jTableSocias.clearSelection();
         }
-    }  
-    
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonContabilidad;
