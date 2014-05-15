@@ -40,18 +40,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     public static ArrayList busquedaSocias(String campoSeleccionado, String txtBuscado) {
         
         
-        //-----------------ESTO LEA... YA SE QUE NO VA ACA, LA IDEA ERA PROBAR-----------------------
-        class SociaEquipo {
-            private Socia unaSocia;
-            private String nombreEquipo;
 
-            public SociaEquipo(Socia unaSocia, String nombreEquipo) {
-                this.unaSocia = unaSocia;
-                this.nombreEquipo = nombreEquipo;
-            }
-        }
-        ArrayList<SociaEquipo> sqlSociaEquipo;
-        //-----------------ESTO LEA... YA SE QUE NO VA ACA, LA IDEA ERA PROBAR-----------------------
 
         // Main.BusquedaSocias(campoSeleccionado,txtBuscado);
         return null;

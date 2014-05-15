@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.EntityManager;
@@ -33,7 +34,7 @@ public class ControladoraEntidades {
     }
 
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
-        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);        
+        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
     }
 
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
@@ -122,6 +123,30 @@ public class ControladoraEntidades {
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
+    //-------NO CREO QUE ANDE TODAVIA jeje--------------------------------------
+    public class SociaEquipo {
+
+        private Socia unaSocia;
+        private String nombreEquipo;
+
+        public SociaEquipo(Socia unaSocia, String nombreEquipo) {
+            this.unaSocia = unaSocia;
+            this.nombreEquipo = nombreEquipo;
+        }
+    }
+    
+    public SociaEquipo buscarSociaEquipoBD(Long dni) {
+        ArrayList<SociaEquipo> resultado = new ArrayList<SociaEquipo>();
+        
+        //ME FUI AL ASADO - HASTA ACÁ LLEGUE
+        
+        Query traerSociaEquipo = this.entityManager.createQuery("SELECT A FROM Club A WHERE A.dni = " + dni);
+        //resultado = (SociaEquipo) traerSocia.getResultList();
+        //return resultado;
+        return null;
+    }
+    //-------NO CREO QUE ANDE TODAVIA jeje--------------------------------------
+    
     public Socia buscarSociaBD(Long dni) {
         Socia resultado;
         Query traerSocia = this.entityManager.createQuery("SELECT A FROM Club A WHERE A.dni = " + dni);
