@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import logicaNegocios.Socia;
 
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
@@ -26,29 +27,37 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         initComponents();
         //Icono de la ventana
         setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
-        
+
         //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
     }
 
     //----------------------------METODOS A CONSULTAS SQL-----------------------
-    
     //----------------------------------SOCIA-----------------------------------
-    public static ArrayList busquedaSocias(String campoSeleccionado, String txtBuscado) {                                                           
-       
+    public static ArrayList busquedaSocias(String campoSeleccionado, String txtBuscado) {
+        
+        
+        //-----------------ESTO LEA... YA SE QUE NO VA ACA, LA IDEA ERA PROBAR-----------------------
+        class SociaEquipo {
+            private Socia unaSocia;
+            private String nombreEquipo;
 
+            public SociaEquipo(Socia unaSocia, String nombreEquipo) {
+                this.unaSocia = unaSocia;
+                this.nombreEquipo = nombreEquipo;
+            }
+        }
+        ArrayList<SociaEquipo> sqlSociaEquipo;
+        //-----------------ESTO LEA... YA SE QUE NO VA ACA, LA IDEA ERA PROBAR-----------------------
 
         // Main.BusquedaSocias(campoSeleccionado,txtBuscado);
-       return null;   
+        return null;
     }
-    
-    
-    
+
     //---------------------------------FIN SOCIA--------------------------------
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -386,21 +395,21 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
         IGestionSocias unaGestionSocias = new IGestionSocias(jDesktopPane);
         unaGestionSocias.pack();
-        unaGestionSocias.setVisible(true);         
-        this.jDesktopPane.add(unaGestionSocias);  
+        unaGestionSocias.setVisible(true);
+        this.jDesktopPane.add(unaGestionSocias);
     }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemAdmSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmSociasActionPerformed
         ISocia unaSocia = new ISocia(jDesktopPane);
         unaSocia.pack();
-        unaSocia.setVisible(true);        
-        this.jDesktopPane.add(unaSocia);        
+        unaSocia.setVisible(true);
+        this.jDesktopPane.add(unaSocia);
     }//GEN-LAST:event_jMenuItemAdmSociasActionPerformed
 
     private void jMenuItemAdmClubesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmClubesActionPerformed
         IGestionClub unaGestionClub = new IGestionClub(jDesktopPane);
         unaGestionClub.pack();
-        unaGestionClub.setVisible(true);        
+        unaGestionClub.setVisible(true);
         this.jDesktopPane.add(unaGestionClub);
 
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
@@ -408,14 +417,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemNuevoCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
         ICuerpoTecnico unaCuerpoTecnico = new ICuerpoTecnico(jDesktopPane);
         unaCuerpoTecnico.pack();
-        unaCuerpoTecnico.setVisible(true);        
+        unaCuerpoTecnico.setVisible(true);
         this.jDesktopPane.add(unaCuerpoTecnico);
     }//GEN-LAST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
 
     private void jMenuItemGestionarCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
         IGestionCuerpoTecnico unGestionCuerpoTecnico = new IGestionCuerpoTecnico(jDesktopPane);
         unGestionCuerpoTecnico.pack();
-        unGestionCuerpoTecnico.setVisible(true);        
+        unGestionCuerpoTecnico.setVisible(true);
         this.jDesktopPane.add(unGestionCuerpoTecnico);
     }//GEN-LAST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
 
@@ -440,26 +449,26 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
         IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane);
         unGestionEgresos.pack();
-        unGestionEgresos.setVisible(true);       
+        unGestionEgresos.setVisible(true);
         this.jDesktopPane.add(unGestionEgresos);
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
-    
+
     private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
-          
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
         IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane);
         unConceptoIngresos.pack();
-        unConceptoIngresos.setVisible(true);        
+        unConceptoIngresos.setVisible(true);
         this.jDesktopPane.add(unConceptoIngresos);
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
         IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(jDesktopPane);
         unConceptoEgresos.pack();
-        unConceptoEgresos.setVisible(true);        
+        unConceptoEgresos.setVisible(true);
         this.jDesktopPane.add(unConceptoEgresos);
     }//GEN-LAST:event_jMenuItemConceptosEgresosActionPerformed
 
@@ -479,23 +488,23 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItemNuevoArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoArbitroActionPerformed
         IArbitro unArbitro = new IArbitro();
         unArbitro.pack();
-        unArbitro.setVisible(true);    
-        this.jDesktopPane.add(unArbitro);   
-        
+        unArbitro.setVisible(true);
+        this.jDesktopPane.add(unArbitro);
+
 // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemNuevoArbitroActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         IEquipo unEquipo = new IEquipo(jDesktopPane);
         unEquipo.pack();
-        unEquipo.setVisible(true);    
+        unEquipo.setVisible(true);
         this.jDesktopPane.add(unEquipo);   // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItemAdmEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmEquiposActionPerformed
         IGestionEquipo unaGestionEquipo = new IGestionEquipo(jDesktopPane);
         unaGestionEquipo.pack();
-        unaGestionEquipo.setVisible(true);    
+        unaGestionEquipo.setVisible(true);
         this.jDesktopPane.add(unaGestionEquipo);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmEquiposActionPerformed
 
@@ -505,7 +514,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unaSkin.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
-   public static void  centrar (JInternalFrame unJInternalFrame){
+    public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
         unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);

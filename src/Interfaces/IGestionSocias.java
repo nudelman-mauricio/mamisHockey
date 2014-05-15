@@ -491,20 +491,18 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         String aux;
-        if (jRadioButtonDni.isSelected()){
-            aux="DNI";
-        }else{
-             if (jRadioButtonApellido.isSelected()){
-                 aux="APELLIDO";
-             }else{
-                 aux="NOMBRE";
-             }
-        }        
+        if (jRadioButtonDni.isSelected()) {
+            aux = "DNI";
+        } else {
+            if (jRadioButtonApellido.isSelected()) {
+                aux = "APELLIDO";
+            } else {
+                aux = "NOMBRE";
+            }
+        }
         ArrayList unaListaSocias = IMenuPrincipalInterface.busquedaSocias(aux, jTextFieldBusqueda.getText());
-   
-        
-        
-        
+
+
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
@@ -526,7 +524,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         ISocia unaSocia = new ISocia(this);
         unaSocia.pack();
-        unaSocia.setVisible(true);  
+        unaSocia.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaSocia);             // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -570,9 +568,9 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonErgometria.setEnabled(estado);
         jButtonEstado.setEnabled(estado);
         jButtonContabilidad.setEnabled(estado);
-        jButtonImprimir.setEnabled(estado);   
+        jButtonImprimir.setEnabled(estado);
         jButtonEliminar.setEnabled(estado);
-                if (!estado) {
+        if (!estado) {
             jTableSocias.clearSelection();
         }
     }
