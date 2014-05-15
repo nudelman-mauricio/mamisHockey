@@ -7,15 +7,15 @@ import javax.persistence.Query;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.ConceptoIngreso;
+import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.Equipo;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.Mes;
+import logicaNegocios.PagoCuota;
 import logicaNegocios.Socia;
-import logicaNegocios.TipoCancha;
-import logicaNegocios.TipoEstado;
 
 public class ControladoraContabilidad {
 
@@ -51,21 +51,19 @@ public class ControladoraContabilidad {
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, Date fechaVencimiento, double monto, String observacion) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, fechaVencimiento, monto, observacion);
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, Date fechaVencimiento, double monto, String observacion) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, fechaVencimiento, monto, observacion);
+    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void modificarDeuda(Deuda unaDeuda, Date fechaGeneracion, Date fechaVencimiento, double monto, boolean saldado, String observacion, boolean borradoLogico) {
+    public void modificarDeuda(Deuda unaDeuda, Date fechaGeneracion, String concepto, String observacion, boolean borradoLogico) {
         unaDeuda.setFechaGeneracion(fechaGeneracion);
-        unaDeuda.setFechaVencimiento(fechaVencimiento);
-        unaDeuda.setMonto(monto);
-        unaDeuda.setSaldado(saldado);
+        unaDeuda.setConcepto(concepto);
         unaDeuda.setObservacion(observacion);
         unaDeuda.setBorradoLogico(borradoLogico);
         unaDeuda.persistir(this.entityManager);
@@ -87,30 +85,51 @@ public class ControladoraContabilidad {
     }
 //---------------------------------FIN DEUDAS-----------------------------------
 
-//--------------------------------PAGO DEUDA------------------------------------
-    public void crearPagoDeuda(Deuda unaDeuda, Date fecha, double monto, String observacion) {
-        PagoDeuda unPagoDeuda = new PagoDeuda(this.entityManager, fecha, monto, observacion);
-        unaDeuda.agregarPagoDeuda(this.entityManager, unPagoDeuda);
+//-----------------------------------CUOTAS-------------------------------------
+    public void crearCuota(Deuda unaDeuda, double monto, Date fechaVencimiento) {
+        Cuota unaCuota = new Cuota(this.entityManager, monto, fechaVencimiento);
+        unaDeuda.agregarCuota(this.entityManager, unaCuota);
     }
 
-    public void modificarPagoDeuda(PagoDeuda unPagoDeuda, Date fecha, double monto, String observacion, boolean borradoLogico) {
-        unPagoDeuda.setFecha(fecha);
-        unPagoDeuda.setMonto(monto);
-        unPagoDeuda.setObservacion(observacion);
-        unPagoDeuda.setBorradoLogico(borradoLogico);
-        unPagoDeuda.persistir(this.entityManager);
+    public void modificarCuota(Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, boolean borradoLogico) {
+        unaCuota.setMonto(monto);
+        unaCuota.setFechaVencimiento(fechaVencimiento);
+        unaCuota.setUnPagoCuota(unPagoCuota);
+        unaCuota.setBorradoLogico(borradoLogico);
+        unaCuota.persistir(this.entityManager);
     }
 
-    public void cambiarPagoDeudaDeDeuda(PagoDeuda unPagoDeuda, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
-        unaDeudaActual.quitarPagoDeuda(this.entityManager, unPagoDeuda);
-        unaDeudaNueva.agregarPagoDeuda(this.entityManager, unPagoDeuda);
+    public void cambiarCuotaDeDeuda(Cuota unaCuota, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
+        unaDeudaActual.quitarCuota(this.entityManager, unaCuota);
+        unaDeudaNueva.agregarCuota(this.entityManager, unaCuota);
     }
 
-    public void eliminarPagoDeuda(PagoDeuda unPagoDeuda) {
-        unPagoDeuda.setBorradoLogico(true);
-        unPagoDeuda.persistir(this.entityManager);
+    public void eliminarCuota(Cuota unaCuota) {
+        unaCuota.setBorradoLogico(true);
+        unaCuota.persistir(this.entityManager);
     }
-//------------------------------FIN PAGO DEUDA----------------------------------
+//---------------------------------FIN CUOTAS-----------------------------------
+
+//--------------------------------PAGO CUOTA------------------------------------
+    public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {
+        PagoCuota unPagoCuota = new PagoCuota(this.entityManager, monto, fechaPago, observacion);
+        unaCuota.setUnPagoCuota(unPagoCuota);
+        unaCuota.persistir(this.entityManager);
+    }
+
+    public void modificarPagoCuota(PagoCuota unPagoCuota, double monto, Date fechaPago, String observacion, boolean borradoLogico) {
+        unPagoCuota.setMonto(monto);
+        unPagoCuota.setFechaPago(fechaPago);
+        unPagoCuota.setObservacion(observacion);
+        unPagoCuota.setBorradoLogico(borradoLogico);
+        unPagoCuota.persistir(this.entityManager);
+    }
+
+    public void eliminarPagoCuota(PagoCuota unPagoCuota) {
+        unPagoCuota.setBorradoLogico(true);
+        unPagoCuota.persistir(this.entityManager);
+    }
+//------------------------------FIN PAGO CUOTA----------------------------------
 
 //----------------------------- CONCEPTOINGRESO --------------------------------
     public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
