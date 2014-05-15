@@ -37,7 +37,6 @@ public class Main {
 
         Indumentaria unaIndumentaria = new Indumentaria(em, "rojo", "amarillo", "verde");
         
-        
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
             //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
@@ -49,10 +48,10 @@ public class Main {
             System.out.println(e.getMessage());
         }
         
-        IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface();
+        IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
         SwingUtilities.updateComponentTreeUI(unaVentana);
         unaVentana.setLocationRelativeTo(null);
         unaVentana.setVisible(true);
-
+        
     }
 }

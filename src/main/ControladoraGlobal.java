@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.*;
@@ -18,6 +19,15 @@ public class ControladoraGlobal {
         this.construirMeses(entityManager);
     }
 
+    //-----------------------METODOS de CONSULTAS-------------------------------
+    
+    //---------- IGestionSocias-------------------------------------------------
+    public List <Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
+        return this.unaControladoraEntidades.buscarSociaConEquipoBD(tipo, dato);
+    }
+
+    //----------FIN IGestionSocias----------------------------------------------
+    //----------------------FIN METODOS-----------------------------------------
 //------------------------------ARBITROS----------------------------------------
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);

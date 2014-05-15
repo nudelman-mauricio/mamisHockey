@@ -1,6 +1,6 @@
 package main;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.EntityManager;
@@ -123,27 +123,11 @@ public class ControladoraEntidades {
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
-    //-------NO CREO QUE ANDE TODAVIA jeje--------------------------------------
-    public class SociaEquipo {
-
-        private Socia unaSocia;
-        private String nombreEquipo;
-
-        public SociaEquipo(Socia unaSocia, String nombreEquipo) {
-            this.unaSocia = unaSocia;
-            this.nombreEquipo = nombreEquipo;
-        }
-    }
-    
-    public SociaEquipo buscarSociaEquipoBD(Long dni) {
-        ArrayList<SociaEquipo> resultado = new ArrayList<SociaEquipo>();
+    public List <Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
         
-        //ME FUI AL ASADO - HASTA ACÁ LLEGUE
-        
-        Query traerSociaEquipo = this.entityManager.createQuery("SELECT A FROM Club A WHERE A.dni = " + dni);
-        //resultado = (SociaEquipo) traerSocia.getResultList();
-        //return resultado;
-        return null;
+        String unaConsulta = "SELECT s, E.nombre FROM Socia s, Equipo e JOIN E.plantel p WHERE p.dni = S.dni and S." + tipo + " = " + dato;
+        List <Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
     }
     //-------NO CREO QUE ANDE TODAVIA jeje--------------------------------------
     
