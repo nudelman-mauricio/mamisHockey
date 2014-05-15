@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
@@ -22,6 +23,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane1;
+    
+    private DefaultTableModel modeloTablaSocia;
 
     /**
      * Creates new form GestionSocias
@@ -39,6 +42,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         this.SeleccionarSocia(false);
         jRadioButtonDni.setSelected(true);
+        
+        this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
 
     }
 
@@ -246,11 +251,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"34.826.274", null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"
@@ -494,31 +495,30 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPasesActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        String aux;
+        String aux, dato = "";
         if (jRadioButtonDni.isSelected()) {
             aux = "dni";
+            dato = jTextFieldBusqueda.getText();
         } else {
             if (jRadioButtonApellido.isSelected()) {
                 aux = "apellido";
+                dato = '"' + jTextFieldBusqueda.getText() + '"';
             } else {
                 aux = "nombre";
+                dato = '"' + jTextFieldBusqueda.getText() + '"';
             }
         }
-        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(aux, jTextFieldBusqueda.getText());
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(aux, dato);
         
-//        String[] nombreColumna = {"DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"};
-//        Object[][] contenido = {
-//            {"Mary", "Campione", "Esquiar", new Integer(5), new Boolean(false)},
-//            {"Lhucas", "Huml", "Patinar", new Integer(3), new Boolean(true)},
-//        };
-        
-        //ME VOY AL GYM
+        limpiarTablaSocia(modeloTablaSocia);
         
         for (Object[] o : unaListaResultado) {
-            System.out.println(o[0] + " " + o[1]);
             Socia unaSocia = (Socia) o[0];
-            System.out.println(unaSocia.getDni());
-            System.out.println(o[1]);
+            
+            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(),unaSocia.getApellido(),unaSocia.getNombre(),"FALTA","Falta",o[1]});
+            
+            //System.out.println(unaSocia.getDni());
+            //System.out.println(o[1]);
 
         }
  
@@ -526,6 +526,13 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
+    private void limpiarTablaSocia (DefaultTableModel modeloTablaSocia){
+        int filas = modeloTablaSocia.getRowCount();
+        for (int i = 0; i < filas; i++){
+            modeloTablaSocia.removeRow(i);
+        }   
+    }
+    
     private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonNombreActionPerformed
