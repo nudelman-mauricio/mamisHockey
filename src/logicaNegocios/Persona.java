@@ -183,6 +183,12 @@ public abstract class Persona implements Serializable, Comparable {
         return retorno;
     }
 
+    @Override
+    public String toString() {
+        return "Persona{" + "apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni + '}';
+    }
+
+    
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

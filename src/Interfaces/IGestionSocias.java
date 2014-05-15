@@ -6,11 +6,13 @@
 package Interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 
 /**
  *
@@ -18,14 +20,16 @@ import logicaNegocios.Socia;
  */
 public class IGestionSocias extends javax.swing.JInternalFrame {
 
+    private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane1;
 
     /**
      * Creates new form GestionSocias
      */
-    public IGestionSocias(JDesktopPane unjDesktopPane1) {
+    public IGestionSocias(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
 
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unjDesktopPane1 = unjDesktopPane1;
 
         //Icono de la ventana
@@ -492,15 +496,32 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         String aux;
         if (jRadioButtonDni.isSelected()) {
-            aux = "DNI";
+            aux = "dni";
         } else {
             if (jRadioButtonApellido.isSelected()) {
-                aux = "APELLIDO";
+                aux = "apellido";
             } else {
-                aux = "NOMBRE";
+                aux = "nombre";
             }
         }
-        ArrayList unaListaSocias = IMenuPrincipalInterface.busquedaSocias(aux, jTextFieldBusqueda.getText());
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(aux, jTextFieldBusqueda.getText());
+        
+//        String[] nombreColumna = {"DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"};
+//        Object[][] contenido = {
+//            {"Mary", "Campione", "Esquiar", new Integer(5), new Boolean(false)},
+//            {"Lhucas", "Huml", "Patinar", new Integer(3), new Boolean(true)},
+//        };
+        
+        //ME VOY AL GYM
+        
+        for (Object[] o : unaListaResultado) {
+            System.out.println(o[0] + " " + o[1]);
+            Socia unaSocia = (Socia) o[0];
+            System.out.println(unaSocia.getDni());
+            System.out.println(o[1]);
+
+        }
+ 
 
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed

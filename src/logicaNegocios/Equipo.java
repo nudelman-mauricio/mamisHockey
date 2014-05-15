@@ -183,8 +183,13 @@ public class Equipo implements Serializable, Comparable {
     public void setUnDT(CuerpoTecnico unDT) {
         this.unDT = unDT;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
 
+//----------------------------- FIN GETERS Y SETERS ----------------------------
+    @Override
+    public String toString() {
+        return "Equipo{" + "nombre=" + nombre + '}';
+    }
+   
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

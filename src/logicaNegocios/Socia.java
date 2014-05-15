@@ -123,6 +123,8 @@ public class Socia extends Persona implements Serializable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
+    
+    
 //-----------------------------------ERGOMETRIA---------------------------------
     public void agregarErgometria(EntityManager entityManager, Ergometria unaErgometria) {
         this.ergometrias.add(unaErgometria);

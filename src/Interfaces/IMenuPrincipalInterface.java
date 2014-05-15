@@ -20,11 +20,17 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
-    public IMenuPrincipalInterface() {
+    private ControladoraGlobal unaControladoraGlobal;
+
+    public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
         initComponents();
+        
+        this.unaControladoraGlobal = ControladoraGlobal;
+        
         //Icono de la ventana
         setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
 
@@ -35,18 +41,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     }
 
-    //----------------------------METODOS A CONSULTAS SQL-----------------------
-    //----------------------------------SOCIA-----------------------------------
-    public static ArrayList busquedaSocias(String campoSeleccionado, String txtBuscado) {
-        
-        
-
-
-        // Main.BusquedaSocias(campoSeleccionado,txtBuscado);
-        return null;
-    }
-
-    //---------------------------------FIN SOCIA--------------------------------
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -382,7 +376,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
-        IGestionSocias unaGestionSocias = new IGestionSocias(jDesktopPane);
+        IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal, jDesktopPane);
         unaGestionSocias.pack();
         unaGestionSocias.setVisible(true);
         this.jDesktopPane.add(unaGestionSocias);
