@@ -62,7 +62,7 @@ public abstract class Persona implements Serializable, Comparable {
 
     }
 
-    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
+    public Persona(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -71,6 +71,9 @@ public abstract class Persona implements Serializable, Comparable {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaIngreso = fechaIngreso;
         this.borradoLogico = false;
+        this.email = email;
+        this.telFijo = telFijo;
+        this.telCelular = telCelular;
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------

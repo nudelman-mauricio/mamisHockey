@@ -16,8 +16,8 @@ public class Arbitro extends Persona implements Serializable {
 
     }
 
-    public Arbitro(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
-        super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
+    public Arbitro(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular) {
+        super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso,  email,  telFijo,  telCelular);
         this.persistir(entityManager);
     }
 
