@@ -107,8 +107,8 @@ public class ControladoraGlobal {
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
-    public List<Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
-        return this.unaControladoraEntidades.buscarSociaConEquipoBD(tipo, dato);
+    public List<Object[]> buscarSociaConEquipoBD(String dato) {
+        return this.unaControladoraEntidades.buscarSociaConEquipoBD( dato);
     }
 
     public Socia buscarSociaBD(Long dni) {

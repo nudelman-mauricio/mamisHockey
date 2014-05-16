@@ -35,10 +35,8 @@ public class ISocia extends javax.swing.JInternalFrame {
     public ISocia(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
         this.unjDesktopPane1 = unjDesktopPane1;        
-        SeInicio(unaControladoraGlobal);        
-        cargarComboBoxLocalidades();
+        SeInicio(unaControladoraGlobal);
         
-        camposActivo(false);
         jButtonImprimir.setEnabled(false);
         jButtonEditar.setEnabled(false);
         camposLimpiar();        
@@ -49,9 +47,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;        
         SeInicio(unaControladoraGlobal);
-        cargarComboBoxLocalidades();
         
-        camposActivo(false);
         jButtonImprimir.setEnabled(false);
         jButtonEditar.setEnabled(false);
         camposLimpiar();
@@ -61,10 +57,13 @@ public class ISocia extends javax.swing.JInternalFrame {
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
+        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         SeInicio(unaControladoraGlobal);
         
         jButtonImprimir.setEnabled(true);
         jButtonEditar.setEnabled(true);
+        
+        camposCargar(unaSocia);
     }
     
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
@@ -73,12 +72,28 @@ public class ISocia extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         
+        cargarComboBoxLocalidades();
         IMenuPrincipalInterface.centrar(this);
+        
+        camposActivo(false);
     }
     
     public void cargarComboBoxLocalidades() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector)unaControladoraGlobal.getLocalidades());
         this.jComboBoxLocalidad.setModel(modelCombo);
+    }
+    
+    public void camposCargar(Socia unaSocia) {
+        jTextFieldDNI.setText(unaSocia.getDni().toString());
+        jTextFieldApellido.setText(unaSocia.getApellido());
+        jTextFieldNombres.setText(unaSocia.getNombre());
+        jComboBoxLocalidad.setSelectedItem(unaSocia.getUnaLocalidad());
+        jTextFieldDomicilio.setText(unaSocia.getDomicilio());
+        jTextFieldFechaNacimiento.setText(unaSocia.getFechaNacimiento().toString());
+        jTextFieldFechaIngreso.setText(unaSocia.getFechaIngreso().toString());
+        jTextFieldTelFijo.setText(unaSocia.getTelFijo());
+        jTextFieldTelCelular.setText(unaSocia.getTelCelular());
+        jCheckBoxExJugadora.setSelected(unaSocia.isExJugadora());
     }
     
     public void camposActivo(boolean Editable) {
@@ -485,7 +500,6 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BASURA;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExaminarImagen;

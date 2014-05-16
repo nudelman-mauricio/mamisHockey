@@ -41,10 +41,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
         this.SeleccionarSocia(false);
-        jRadioButtonDni.setSelected(true);
 
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
-
+        
+        filtrarSocias("");
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -55,13 +55,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jTextFieldBusqueda = new javax.swing.JTextField();
-        jRadioButtonDni = new javax.swing.JRadioButton();
-        jRadioButtonApellido = new javax.swing.JRadioButton();
-        jRadioButtonNombre = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButtonBuscar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableSocias = new javax.swing.JTable();
@@ -75,6 +70,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonContabilidad = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Gestión de Socias");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -157,107 +153,28 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButtonDni.setText("DNI");
-        jRadioButtonDni.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jRadioButtonDniFocusGained(evt);
-            }
-        });
-
-        jRadioButtonApellido.setText("Apellido");
-        jRadioButtonApellido.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jRadioButtonApellidoFocusGained(evt);
-            }
-        });
-        jRadioButtonApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonApellidoActionPerformed(evt);
-            }
-        });
-
-        jRadioButtonNombre.setText("Nombre");
-        jRadioButtonNombre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jRadioButtonNombreFocusGained(evt);
-            }
-        });
-        jRadioButtonNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonNombreActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonDni)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonApellido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonNombre))
-                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonNombre)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButtonDni)
-                        .addComponent(jRadioButtonApellido)))
-                .addGap(2, 2, 2)
-                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-
-        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/search.png"))); // NOI18N
-        jButtonBuscar.setText("Buscar");
-        jButtonBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonBuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
+        jLabel1.setText("Filtrar:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
@@ -429,9 +346,9 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -465,8 +382,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
-
+        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        
         ISocia unaISocia = new ISocia(unaControladoraGlobal, this, unaSociaSeleccionada);
 
         unaISocia.pack();
@@ -520,28 +437,16 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.jDesktopPane.add(unIPase);
     }//GEN-LAST:event_jButtonPasesActionPerformed
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
-
     private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
         try {
-        int filas = modeloTablaSocia.getRowCount();
-        for (int i = 0; i < filas; i++) {
-            modeloTablaSocia.removeRow(0);
-        }
+            int filas = modeloTablaSocia.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaSocia.removeRow(0);
+            }
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-
-    private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
-
-    private void jRadioButtonApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonApellidoActionPerformed
 
     private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
         // TODO add your handling code here:
@@ -575,23 +480,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.SeleccionarSocia(false);
     }//GEN-LAST:event_jTextFieldBusquedaFocusGained
 
-    private void jRadioButtonDniFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRadioButtonDniFocusGained
-        jRadioButtonApellido.setSelected(false);
-        jRadioButtonNombre.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonDniFocusGained
-
-    private void jRadioButtonApellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRadioButtonApellidoFocusGained
-        jRadioButtonDni.setSelected(false);
-        jRadioButtonNombre.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonApellidoFocusGained
-
-    private void jRadioButtonNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRadioButtonNombreFocusGained
-        jRadioButtonApellido.setSelected(false);
-        jRadioButtonDni.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonNombreFocusGained
-
     private void jTextFieldBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyPressed
- 
+
     }//GEN-LAST:event_jTextFieldBusquedaKeyPressed
 
     private void jTextFieldBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyTyped
@@ -599,29 +489,19 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyTyped
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        String aux, dato = "";
-        if (jRadioButtonDni.isSelected()) {
-            aux = "dni";
-            dato = jTextFieldBusqueda.getText();
-        } else {
-            if (jRadioButtonApellido.isSelected()) {
-                aux = "apellido";
-                dato = jTextFieldBusqueda.getText();
-            } else {
-                aux = "nombre";
-                dato = jTextFieldBusqueda.getText();
-            }
-        }
-        limpiarTablaSocia(modeloTablaSocia);
-        
-        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(aux, dato);
+        filtrarSocias(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
+    private void filtrarSocias(String dato) {
+        limpiarTablaSocia(modeloTablaSocia);
+        dato = jTextFieldBusqueda.getText();
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(dato);
         for (Object[] o : unaListaResultado) {
             Socia unaSocia = (Socia) o[0];
             this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), unaSocia.getEquipoActual(), "o[1]"});
         }
-    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
-
+    }
+    
     private void SeleccionarSocia(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonTarjetas.setEnabled(estado);
@@ -638,7 +518,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonContabilidad;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
@@ -649,15 +528,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonPases;
     private javax.swing.JButton jButtonSancion;
     private javax.swing.JButton jButtonTarjetas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButtonApellido;
-    private javax.swing.JRadioButton jRadioButtonDni;
-    private javax.swing.JRadioButton jRadioButtonNombre;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSocias;
     private javax.swing.JTextField jTextFieldBusqueda;

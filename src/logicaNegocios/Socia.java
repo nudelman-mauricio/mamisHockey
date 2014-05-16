@@ -125,72 +125,72 @@ public class Socia extends Persona implements Serializable {
 
 //-----------------------------------ERGOMETRIA---------------------------------
     public void agregarErgometria(EntityManager entityManager, Ergometria unaErgometria) {
-        this.ergometrias.add(unaErgometria);
+        this.getErgometrias().add(unaErgometria);
         this.persistir(entityManager);
     }
 
     public void quitarErgometria(EntityManager entityManager, Ergometria unaErgometria) {
-        this.ergometrias.remove(unaErgometria);
+        this.getErgometrias().remove(unaErgometria);
         this.persistir(entityManager);
     }
 //---------------------------------FIN ERGOMETRIAS---------------------------------
 
 //-----------------------------------TARJETAS-----------------------------------
     public void agregarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
-        this.tarjetas.add(unaTarjeta);
+        this.getTarjetas().add(unaTarjeta);
         this.persistir(entityManager);
     }
 
     public void quitarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
-        this.tarjetas.remove(unaTarjeta);
+        this.getTarjetas().remove(unaTarjeta);
         this.persistir(entityManager);
     }
 //---------------------------------FIN TARJETAS---------------------------------
 
 //-----------------------------------PASES-----------------------------------
     public void agregarPase(EntityManager entityManager, Pase unPase) {
-        this.pases.add(unPase);
+        this.getPases().add(unPase);
         this.persistir(entityManager);
     }
 
     public void quitarPase(EntityManager entityManager, Pase unPase) {
-        this.pases.remove(unPase);
+        this.getPases().remove(unPase);
         this.persistir(entityManager);
     }
 //---------------------------------FIN PASES---------------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
     public void agregarDeuda(EntityManager entityManager, Deuda unaDeuda) {
-        this.deudas.add(unaDeuda);
+        this.getDeudas().add(unaDeuda);
         this.persistir(entityManager);
     }
 
     public void quitarDeuda(EntityManager entityManager, Deuda unaDeuda) {
-        this.deudas.remove(unaDeuda);
+        this.getDeudas().remove(unaDeuda);
         this.persistir(entityManager);
     }
 //---------------------------------FIN DEUDAS-----------------------------------
 
 //-----------------------------------GOLES--------------------------------------
     public void agregarGol(EntityManager entityManager, Gol unGol) {
-        this.goles.add(unGol);
+        this.getGoles().add(unGol);
         this.persistir(entityManager);
     }
 
     public void quitarGol(EntityManager entityManager, Gol unGol) {
-        this.goles.remove(unGol);
+        this.getGoles().remove(unGol);
         this.persistir(entityManager);
     }
 //---------------------------------FIN GOLES------------------------------------
 
 //-----------------------------------ESTADOS-------------------------------------
     public void agregarEstado(EntityManager entityManager, Estado unEstado) {
-        this.estados.add(unEstado);
+        this.getEstados().add(unEstado);
         this.persistir(entityManager);
     }
 
     public void quitarEstado(EntityManager entityManager, Estado unEstado) {
-        this.estados.remove(unEstado);
+        this.getEstados().remove(unEstado);
         this.persistir(entityManager);
     }
 //---------------------------------FIN ESTADOS----------------------------------
@@ -198,7 +198,7 @@ public class Socia extends Persona implements Serializable {
 //--------------------------------METODOS---------------------------------------
     public String getUltimoEstado() {
         String resultado = "";
-        for (Estado aux : estados) {
+        for (Estado aux : getEstados()) {
             resultado = aux.getUnTipoEstado().getNombre();
         }
         return resultado;
@@ -206,7 +206,7 @@ public class Socia extends Persona implements Serializable {
     
     public String getEquipoActual() {
         String resultado = "";
-        for (Pase aux : pases) {
+        for (Pase aux : getPases()) {
             resultado = aux.getUnEquipo().getNombre();
         }
         return resultado;

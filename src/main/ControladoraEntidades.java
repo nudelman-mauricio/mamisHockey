@@ -124,21 +124,16 @@ public class ControladoraEntidades {
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
-    public List<Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
-
-        //String unaConsulta = "SELECT S, E.nombre FROM Socia S, Equipo E JOIN E.plantel p WHERE p.dni = S.dni and S." + tipo + " LIKE " + "'%" + dato + "%'" ;
+    public List<Object[]> buscarSociaConEquipoBD(String dato) {
         String unaConsulta = "SELECT S, S.nombre FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
-        //String unaConsulta = "SELECT S, E.nombre FROM Socia S, Equipo E JOIN E.plantel p WHERE S.dni = p.dni AND (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
-        //unaConsulta += " JOIN E.plantel p WHERE p.dni = S.dni";
         List<Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    //-------NO CREO QUE ANDE TODAVIA jeje--------------------------------------
 
     public Socia buscarSociaBD(Long dni) {
         Socia resultado;
-        Query traerSocia = this.entityManager.createQuery("SELECT A FROM Club A WHERE A.dni = " + dni);
-        resultado = (Socia) traerSocia.getResultList();
+        Query traerSocia = this.entityManager.createQuery("SELECT S FROM Socia S WHERE S.dni = " + dni);
+        resultado = (Socia) traerSocia.getSingleResult();
         return resultado;
     }
 
