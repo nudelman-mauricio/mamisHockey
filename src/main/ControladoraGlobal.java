@@ -151,7 +151,7 @@ public class ControladoraGlobal {
 //---------------------------------FIN PASES------------------------------------
 
 //------------------------------LOCALIDADES-------------------------------------   
-    public Vector<Localidad> getLocalidades() {
+    public List<Localidad> getLocalidades() {
         return unaControladoraEntidades.getLocalidades();
     }
 

@@ -6,6 +6,7 @@
 package Interfaces;
 
 import java.sql.Date;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -76,7 +77,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     }
     
     public void cargarComboBoxLocalidades() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel(unaControladoraGlobal.getLocalidades());
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector)unaControladoraGlobal.getLocalidades());
         this.jComboBoxLocalidad.setModel(modelCombo);
     }
     
@@ -469,7 +470,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()), jTextFieldApellido.getText(), jTextFieldNombres.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), jTextFieldDomicilio.getText(), Date.valueOf(jTextFieldFechaNacimiento.getText()), Date.valueOf(jTextFieldFechaIngreso.getText()), "FOTO CARNET", jCheckBoxExJugadora.isSelected());
+        unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()), jTextFieldApellido.getText(), jTextFieldNombres.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), jTextFieldDomicilio.getText(), Date.valueOf(jTextFieldFechaNacimiento.getText()), Date.valueOf(jTextFieldFechaIngreso.getText()), "FOTO CARNET", jCheckBoxExJugadora.isSelected(), jTextFieldEmail.getText(), jTextFieldTelFijo.getText(), jTextFieldTelCelular.getText());
         JOptionPane.showMessageDialog(this, "Socia Guardada");
         camposActivo(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed

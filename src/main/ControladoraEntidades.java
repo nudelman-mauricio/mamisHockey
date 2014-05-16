@@ -226,14 +226,11 @@ public class ControladoraEntidades {
         unaLocalidad.persistir(this.entityManager);
     }
 
-    public Vector<Localidad> getLocalidades() {
-        Vector<Localidad> vLocalidades = new Vector<Localidad>();
+    public List<Localidad> getLocalidades() {
+      
         Query traerLocalidades = this.entityManager.createQuery("SELECT A FROM Localidad A");
-        List<Localidad> unaListaResultado = traerLocalidades.getResultList();
-        for (Localidad unaLocalidad : unaListaResultado) {
-            vLocalidades.add(unaLocalidad);
-        }
-        return vLocalidades;
+        List<Localidad> unaListaResultado = traerLocalidades.getResultList();        
+        return unaListaResultado;
     }
 //------------------------------FIN LOCALIDADES---------------------------------
 
