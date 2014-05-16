@@ -1,5 +1,6 @@
 package Interfaces;
 
+import Clases.ImagenFondo;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.awt.BorderLayout;
@@ -28,7 +29,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
         initComponents();
-        
+       
         this.unaControladoraGlobal = ControladoraGlobal;
         
         //Icono de la ventana
@@ -38,7 +39,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+        
+        //FONDO jDesktopPane      - TODAVIA ME ESTA GANANDO - 
+        //jDesktopPane.setBorder(new ImagenFondo());
     }
 
     @SuppressWarnings("unchecked")

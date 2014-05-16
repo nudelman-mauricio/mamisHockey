@@ -5,10 +5,13 @@
  */
 package Interfaces;
 
+import java.sql.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 
 /**
  *
@@ -18,6 +21,8 @@ public class ISocia extends javax.swing.JInternalFrame {
 
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
+    
+    private ControladoraGlobal unaControladoraGlobal;
 
     /**
      * Creates new form SociaInterface
@@ -33,15 +38,21 @@ public class ISocia extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
     }
     
-    public ISocia(JInternalFrame unJInternalFrame) {
+    public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
 
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;      
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
        
         IMenuPrincipalInterface.centrar(this);
+        
+        //Cargar ComboLocalidades
+        
+        
+        
     }
 
     public ISocia(JInternalFrame unJInternalFrame, Socia unaSocia) {//FALTA AGREGAR LA VARIABLE DEL DNI----------
@@ -132,6 +143,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
@@ -348,6 +364,10 @@ public class ISocia extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
        if (unJInternalFrame!= null) this.unJInternalFrame.setVisible(true);        
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        unaControladoraGlobal.crearSocia(Long.getLong(jTextFieldDNI.getText()), jTextFieldApellido.getText(), jTextFieldNombres.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), jTextFieldDomicilio.getText(), Date.valueOf(jTextFieldFechaNacimiento.getText()), Date.valueOf(jTextFieldFechaIngreso.getText()), "FOTO CARNET", jCheckBoxExJugadora.isSelected());
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

@@ -18,7 +18,7 @@ import logicaNegocios.Indumentaria;
  *
  * @author Mauricio
  */
-public class Main {
+public class Main {   
     public static void main(String[] args) {
         EntityManagerFactory emf = null;
         EntityManager em = null;

@@ -521,7 +521,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPasesActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-
+        
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
@@ -552,7 +552,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        ISocia unaSocia = new ISocia(this);
+        ISocia unaSocia = new ISocia(unaControladoraGlobal, this);
         unaSocia.pack();
         unaSocia.setVisible(true);
         this.setVisible(false);

@@ -19,15 +19,26 @@ public class ControladoraGlobal {
         this.construirMeses(entityManager);
     }
 
-    //-----------------------METODOS de CONSULTAS-------------------------------
+//-----------------------METODOS de CONSULTAS-------------------------------
     
     //---------- IGestionSocias-------------------------------------------------
     public List <Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
         return this.unaControladoraEntidades.buscarSociaConEquipoBD(tipo, dato);
     }
-
+    public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
+        unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
+    }
     //----------FIN IGestionSocias----------------------------------------------
-    //----------------------FIN METODOS-----------------------------------------
+//----------------------FIN METODOS-----------------------------------------
+
+
+
+
+
+
+
+
+
 //------------------------------ARBITROS----------------------------------------
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso) {
         this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso);
