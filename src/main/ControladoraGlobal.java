@@ -28,6 +28,10 @@ public class ControladoraGlobal {
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora) {
         unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora);
     }
+    
+    public void crearLocalidad(String nombre, String codPostal){
+        
+    }
     //----------FIN IGestionSocias----------------------------------------------
 //----------------------FIN METODOS-----------------------------------------
 
