@@ -6,6 +6,8 @@
 package Interfaces;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -21,81 +23,83 @@ import main.ControladoraGlobal;
  * @author Leanwit
  */
 public class ISocia extends javax.swing.JInternalFrame {
-    
+
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
-    
+
     private ControladoraGlobal unaControladoraGlobal;
 
     /**
      * Creates new form SociaInterface
      */
-    
     //LLAMADO DESDE EL MENUPRINCIPAL
     public ISocia(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
-        this.unjDesktopPane1 = unjDesktopPane1;        
+        this.unjDesktopPane1 = unjDesktopPane1;
         SeInicio(unaControladoraGlobal);
-        
-        jButtonImprimir.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        camposLimpiar();        
-    }
-    
-    //LLAMADO DESDE UN INTERNAL FRAME
-    public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
-        initComponents();
-        this.unJInternalFrame = unJInternalFrame;        
-        SeInicio(unaControladoraGlobal);
-        
+
         jButtonImprimir.setEnabled(false);
         jButtonEditar.setEnabled(false);
         camposLimpiar();
     }
-    
+
+    //LLAMADO DESDE UN INTERNAL FRAME
+    public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        SeInicio(unaControladoraGlobal);
+
+        jButtonImprimir.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        camposLimpiar();
+    }
+
     //LLAMADO MOSTRANDO UNA SOCIA
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         SeInicio(unaControladoraGlobal);
-        
+
         jButtonImprimir.setEnabled(true);
         jButtonEditar.setEnabled(true);
-        
+
         camposCargar(unaSocia);
     }
-    
+
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
-        
+
         cargarComboBoxLocalidades();
         IMenuPrincipalInterface.centrar(this);
-        
+
         camposActivo(false);
     }
-    
+
     public void cargarComboBoxLocalidades() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector)unaControladoraGlobal.getLocalidades());
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidades());
         this.jComboBoxLocalidad.setModel(modelCombo);
     }
-    
+
     public void camposCargar(Socia unaSocia) {
         jTextFieldDNI.setText(unaSocia.getDni().toString());
         jTextFieldApellido.setText(unaSocia.getApellido());
         jTextFieldNombres.setText(unaSocia.getNombre());
         jComboBoxLocalidad.setSelectedItem(unaSocia.getUnaLocalidad());
         jTextFieldDomicilio.setText(unaSocia.getDomicilio());
-        jTextFieldFechaNacimiento.setText(unaSocia.getFechaNacimiento().toString());
-        jTextFieldFechaIngreso.setText(unaSocia.getFechaIngreso().toString());
+
+        DateFormat df = DateFormat.getDateInstance();
+        jTextFieldFechaNacimiento.setText(df.format(unaSocia.getFechaNacimiento()));
+        jTextFieldFechaIngreso.setText(df.format(unaSocia.getFechaIngreso()));
+
         jTextFieldTelFijo.setText(unaSocia.getTelFijo());
         jTextFieldTelCelular.setText(unaSocia.getTelCelular());
         jCheckBoxExJugadora.setSelected(unaSocia.isExJugadora());
     }
-    
+
     public void camposActivo(boolean Editable) {
         jTextFieldDNI.setEditable(Editable);
         jTextFieldApellido.setEditable(Editable);
@@ -108,12 +112,12 @@ public class ISocia extends javax.swing.JInternalFrame {
         jTextFieldTelFijo.setEditable(Editable);
         jTextFieldTelCelular.setEditable(Editable);
         jCheckBoxExJugadora.setEnabled(Editable);
-        
+
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonNuevo.setEnabled(!Editable);
     }
-    
+
     public void camposLimpiar() {
         jTextFieldDNI.setText("");
         jTextFieldApellido.setText("");
@@ -475,7 +479,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         if (unJInternalFrame != null) {
             this.unJInternalFrame.setVisible(true);
-        }        
+        }
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -485,9 +489,29 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()), jTextFieldApellido.getText(), jTextFieldNombres.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), jTextFieldDomicilio.getText(), Date.valueOf(jTextFieldFechaNacimiento.getText()), Date.valueOf(jTextFieldFechaIngreso.getText()), "FOTO CARNET", jCheckBoxExJugadora.isSelected(), jTextFieldEmail.getText(), jTextFieldTelFijo.getText(), jTextFieldTelCelular.getText());
+        DateFormat df = DateFormat.getDateInstance();
+        try {
+            Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
+            Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
+
+        unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()),
+                jTextFieldApellido.getText(),
+                jTextFieldNombres.getText(),
+                (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                jTextFieldDomicilio.getText(),
+                fechaNacimiento,
+                fechaIngreso,
+                "FOTO CARNET",
+                jCheckBoxExJugadora.isSelected(),
+                jTextFieldEmail.getText(),
+                jTextFieldTelFijo.getText(),
+                jTextFieldTelCelular.getText());
         JOptionPane.showMessageDialog(this, "Socia Guardada");
         camposActivo(false);
+        
+        } catch (ParseException e) {
+            System.out.println("ERROR EN LAS FECHAS SOCIA" + e.getMessage());
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
