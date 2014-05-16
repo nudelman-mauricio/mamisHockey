@@ -13,12 +13,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import logicaNegocios.Indumentaria;
 
-
 /**
  *
  * @author Mauricio
  */
-public class Main {   
+public class Main {
+
     public static void main(String[] args) {
         EntityManagerFactory emf = null;
         EntityManager em = null;
@@ -35,23 +35,20 @@ public class Main {
         //----------------------------------------- CODIGO DE PRUEBAS -----------------------------------------
         ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
 
-        Indumentaria unaIndumentaria = new Indumentaria(em, "rojo", "amarillo", "verde");
-        
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
             //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
             Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/toxicthemepack.zip");
             SkinLookAndFeel.setSkin(theSkinToUse);
             UIManager.setLookAndFeel(new SkinLookAndFeel());
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
         SwingUtilities.updateComponentTreeUI(unaVentana);
-        unaVentana.setLocationRelativeTo(null);
+        unaVentana.setLocationRelativeTo(null); //Mandar al centro
         unaVentana.setVisible(true);
-        
+
     }
 }

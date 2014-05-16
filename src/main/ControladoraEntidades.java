@@ -2,7 +2,6 @@ package main;
 
 import java.util.List;
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.Arbitro;
