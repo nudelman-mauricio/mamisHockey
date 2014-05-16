@@ -220,6 +220,7 @@
                                   <Component id="jLabelFechaNacimiento" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelFechaIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelExJugadora" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelDomicilio1" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
@@ -229,6 +230,7 @@
                                           <Component id="jTextFieldDomicilio" alignment="1" max="32767" attributes="0"/>
                                           <Component id="jComboBoxLocalidad" alignment="1" pref="160" max="32767" attributes="0"/>
                                           <Component id="jTextFieldNombres" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldEmail" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -284,6 +286,11 @@
                           <Component id="jLabelDomicilio" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldDomicilio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelDomicilio1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -307,22 +314,22 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabelDni">
               <Properties>
-                <Property name="text" type="java.lang.String" value="DNI"/>
+                <Property name="text" type="java.lang.String" value="DNI *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelApellido">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Apellido"/>
+                <Property name="text" type="java.lang.String" value="Apellido *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelNombres">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nombres"/>
+                <Property name="text" type="java.lang.String" value="Nombres *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelLocalidad">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Localidad"/>
+                <Property name="text" type="java.lang.String" value="Localidad *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBoxLocalidad">
@@ -371,6 +378,13 @@
             <Component class="javax.swing.JTextField" name="jTextFieldFechaNacimiento">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldFechaIngreso">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelDomicilio1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="E-mail"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldEmail">
             </Component>
           </SubComponents>
         </Container>

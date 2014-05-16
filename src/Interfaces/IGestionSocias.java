@@ -467,7 +467,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
         Socia unaSociaSeleccionada = (Socia) (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), jTableSocias.getSelectedColumn()));
 
-        ISocia unaISocia = new ISocia(this, unaSociaSeleccionada);
+        ISocia unaISocia = new ISocia(unaControladoraGlobal, this, unaSociaSeleccionada);
 
         unaISocia.pack();
         unaISocia.setVisible(true);
@@ -556,7 +556,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaSocia.pack();
         unaSocia.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaSocia);             // TODO add your handling code here:
+        IMenuPrincipalInterface.jDesktopPane.add(unaSocia);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained

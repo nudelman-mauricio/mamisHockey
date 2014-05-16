@@ -48,6 +48,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jTextFieldCodPostal = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
 
+        setClosable(true);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
@@ -217,7 +219,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldCodPostalActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        
+        unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
 

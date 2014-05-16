@@ -36,6 +36,11 @@ public class Localidad implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public Long getIdLocalidad() {
         return this.idLocalidad;
