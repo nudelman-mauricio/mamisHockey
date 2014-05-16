@@ -125,7 +125,10 @@ public class ControladoraEntidades {
 //------------------------------SOCIAS------------------------------------------   
     public List <Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
         
-        String unaConsulta = "SELECT s, E.nombre FROM Socia s, Equipo e JOIN E.plantel p WHERE p.dni = S.dni and S." + tipo + " = " + dato;
+        //String unaConsulta = "SELECT S, E.nombre FROM Socia S, Equipo E JOIN E.plantel p WHERE p.dni = S.dni and S." + tipo + " LIKE " + "'%" + dato + "%'" ;
+        String unaConsulta = "SELECT S, S.nombre FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
+        //String unaConsulta = "SELECT S, E.nombre FROM Socia S, Equipo E JOIN E.plantel p WHERE S.dni = p.dni AND (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
+        //unaConsulta += " JOIN E.plantel p WHERE p.dni = S.dni";
         List <Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }

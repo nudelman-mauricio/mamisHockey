@@ -23,7 +23,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane1;
-    
+
     private DefaultTableModel modeloTablaSocia;
 
     /**
@@ -42,7 +42,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         this.SeleccionarSocia(false);
         jRadioButtonDni.setSelected(true);
-        
+
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
 
     }
@@ -143,6 +143,17 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldBusquedaActionPerformed(evt);
+            }
+        });
+        jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaKeyTyped(evt);
             }
         });
 
@@ -256,7 +267,22 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             new String [] {
                 "DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableSocias.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTableSociasFocusGained(evt);
@@ -495,44 +521,20 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPasesActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        String aux, dato = "";
-        if (jRadioButtonDni.isSelected()) {
-            aux = "dni";
-            dato = jTextFieldBusqueda.getText();
-        } else {
-            if (jRadioButtonApellido.isSelected()) {
-                aux = "apellido";
-                dato = '"' + jTextFieldBusqueda.getText() + '"';
-            } else {
-                aux = "nombre";
-                dato = '"' + jTextFieldBusqueda.getText() + '"';
-            }
-        }
-        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(aux, dato);
-        
-        limpiarTablaSocia(modeloTablaSocia);
-        
-        for (Object[] o : unaListaResultado) {
-            Socia unaSocia = (Socia) o[0];
-            
-            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(),unaSocia.getApellido(),unaSocia.getNombre(),"FALTA","Falta",o[1]});
-            
-            //System.out.println(unaSocia.getDni());
-            //System.out.println(o[1]);
-
-        }
- 
-
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void limpiarTablaSocia (DefaultTableModel modeloTablaSocia){
+    private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
+        try {
         int filas = modeloTablaSocia.getRowCount();
-        for (int i = 0; i < filas; i++){
-            modeloTablaSocia.removeRow(i);
-        }   
+        for (int i = 0; i < filas; i++) {
+            modeloTablaSocia.removeRow(0);
+        }
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
     }
-    
+
     private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonNombreActionPerformed
@@ -587,6 +589,38 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jRadioButtonApellido.setSelected(false);
         jRadioButtonDni.setSelected(false);
     }//GEN-LAST:event_jRadioButtonNombreFocusGained
+
+    private void jTextFieldBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyPressed
+ 
+    }//GEN-LAST:event_jTextFieldBusquedaKeyPressed
+
+    private void jTextFieldBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyTyped
+
+    }//GEN-LAST:event_jTextFieldBusquedaKeyTyped
+
+    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
+        String aux, dato = "";
+        if (jRadioButtonDni.isSelected()) {
+            aux = "dni";
+            dato = jTextFieldBusqueda.getText();
+        } else {
+            if (jRadioButtonApellido.isSelected()) {
+                aux = "apellido";
+                dato = jTextFieldBusqueda.getText();
+            } else {
+                aux = "nombre";
+                dato = jTextFieldBusqueda.getText();
+            }
+        }
+        limpiarTablaSocia(modeloTablaSocia);
+        
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(aux, dato);
+
+        for (Object[] o : unaListaResultado) {
+            Socia unaSocia = (Socia) o[0];
+            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), unaSocia.getEquipoActual(), "o[1]"});
+        }
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void SeleccionarSocia(boolean estado) {
         jButtonDatos.setEnabled(estado);

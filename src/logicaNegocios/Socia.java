@@ -123,8 +123,6 @@ public class Socia extends Persona implements Serializable {
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 
-    
-    
 //-----------------------------------ERGOMETRIA---------------------------------
     public void agregarErgometria(EntityManager entityManager, Ergometria unaErgometria) {
         this.ergometrias.add(unaErgometria);
@@ -196,4 +194,22 @@ public class Socia extends Persona implements Serializable {
         this.persistir(entityManager);
     }
 //---------------------------------FIN ESTADOS----------------------------------
+
+//--------------------------------METODOS---------------------------------------
+    public String getUltimoEstado() {
+        String resultado = "";
+        for (Estado aux : estados) {
+            resultado = aux.getUnTipoEstado().getNombre();
+        }
+        return resultado;
+    }
+    
+    public String getEquipoActual() {
+        String resultado = "";
+        for (Pase aux : pases) {
+            resultado = aux.getUnEquipo().getNombre();
+        }
+        return resultado;
+    }
+//-------------------------------FIN METODOS------------------------------------
 }
