@@ -221,6 +221,8 @@
                                   <Component id="jLabelFechaIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelExJugadora" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelDomicilio1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaIngreso1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaIngreso2" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
@@ -238,6 +240,8 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jCheckBoxExJugadora" min="-2" max="-2" attributes="0"/>
                                           <Component id="jTextFieldFechaIngreso" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldFechaIngreso1" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldFechaIngreso2" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -255,6 +259,11 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -302,11 +311,22 @@
                           <Component id="jTextFieldFechaIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelFechaIngreso1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldFechaIngreso1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelFechaIngreso2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldFechaIngreso2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelExJugadora" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxExJugadora" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="63" max="32767" attributes="0"/>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -350,24 +370,24 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelDomicilio">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Domicilio"/>
+                <Property name="text" type="java.lang.String" value="Domicilio *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldDomicilio">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Fecha de Nacimiento"/>
+                <Property name="text" type="java.lang.String" value="Fecha de Nacimiento *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelFechaIngreso">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Fecha Ingreso"/>
+                <Property name="text" type="java.lang.String" value="Fecha Ingreso *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelExJugadora">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ExJugadora"/>
+                <Property name="text" type="java.lang.String" value="ExJugadora *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jCheckBoxExJugadora">
@@ -385,6 +405,25 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldEmail">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelFechaIngreso1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Telefono Fijo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldFechaIngreso1">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelFechaIngreso2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Telefono Celular"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldFechaIngreso2">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="* Campos Obligatorios"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

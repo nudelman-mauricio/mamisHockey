@@ -100,6 +100,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jTextFieldFechaIngreso = new javax.swing.JTextField();
         jLabelDomicilio1 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
+        jLabelFechaIngreso1 = new javax.swing.JLabel();
+        jTextFieldFechaIngreso1 = new javax.swing.JTextField();
+        jLabelFechaIngreso2 = new javax.swing.JLabel();
+        jTextFieldFechaIngreso2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -219,13 +224,13 @@ public class ISocia extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelDomicilio.setText("Domicilio");
+        jLabelDomicilio.setText("Domicilio *");
 
-        jLabelFechaNacimiento.setText("Fecha de Nacimiento");
+        jLabelFechaNacimiento.setText("Fecha de Nacimiento *");
 
-        jLabelFechaIngreso.setText("Fecha Ingreso");
+        jLabelFechaIngreso.setText("Fecha Ingreso *");
 
-        jLabelExJugadora.setText("ExJugadora");
+        jLabelExJugadora.setText("ExJugadora *");
 
         jCheckBoxExJugadora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,6 +239,12 @@ public class ISocia extends javax.swing.JInternalFrame {
         });
 
         jLabelDomicilio1.setText("E-mail");
+
+        jLabelFechaIngreso1.setText("Telefono Fijo");
+
+        jLabelFechaIngreso2.setText("Telefono Celular");
+
+        jLabel1.setText("* Campos Obligatorios");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -250,7 +261,9 @@ public class ISocia extends javax.swing.JInternalFrame {
                             .addComponent(jLabelFechaNacimiento, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelFechaIngreso, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelExJugadora, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelDomicilio1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabelDomicilio1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelFechaIngreso1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelFechaIngreso2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
@@ -264,7 +277,9 @@ public class ISocia extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCheckBoxExJugadora)
-                                    .addComponent(jTextFieldFechaIngreso)))))
+                                    .addComponent(jTextFieldFechaIngreso)
+                                    .addComponent(jTextFieldFechaIngreso1)
+                                    .addComponent(jTextFieldFechaIngreso2)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelDni)
@@ -274,6 +289,10 @@ public class ISocia extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                             .addComponent(jTextFieldDNI))))
                 .addGap(118, 118, 118))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,10 +330,19 @@ public class ISocia extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaIngreso)
                     .addComponent(jTextFieldFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelFechaIngreso1)
+                    .addComponent(jTextFieldFechaIngreso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelFechaIngreso2)
+                    .addComponent(jTextFieldFechaIngreso2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelExJugadora)
                     .addComponent(jCheckBoxExJugadora))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(jLabel1))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -385,12 +413,15 @@ public class ISocia extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JCheckBox jCheckBoxExJugadora;
     private javax.swing.JComboBox jComboBoxLocalidad;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelDomicilio;
     private javax.swing.JLabel jLabelDomicilio1;
     private javax.swing.JLabel jLabelExJugadora;
     private javax.swing.JLabel jLabelFechaIngreso;
+    private javax.swing.JLabel jLabelFechaIngreso1;
+    private javax.swing.JLabel jLabelFechaIngreso2;
     private javax.swing.JLabel jLabelFechaNacimiento;
     private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelLocalidad;
@@ -404,6 +435,8 @@ public class ISocia extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldDomicilio;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldFechaIngreso;
+    private javax.swing.JTextField jTextFieldFechaIngreso1;
+    private javax.swing.JTextField jTextFieldFechaIngreso2;
     private javax.swing.JTextField jTextFieldFechaNacimiento;
     private javax.swing.JTextField jTextFieldNombres;
     // End of variables declaration//GEN-END:variables
