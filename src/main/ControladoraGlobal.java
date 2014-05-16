@@ -2,6 +2,7 @@ package main;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.*;
@@ -30,7 +31,11 @@ public class ControladoraGlobal {
     }
     
     public void crearLocalidad(String nombre, String codPostal){
-        
+        unaControladoraEntidades.crearLocalidad(nombre, codPostal);
+    }
+    
+    public Vector<Localidad> localidadesTodas() {
+        return unaControladoraEntidades.localidadesTodas();
     }
     //----------FIN IGestionSocias----------------------------------------------
 //----------------------FIN METODOS-----------------------------------------

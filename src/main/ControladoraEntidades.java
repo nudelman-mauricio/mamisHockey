@@ -1,30 +1,32 @@
 package main;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.Arbitro;
 import logicaNegocios.Club;
-import logicaNegocios.Localidad;
-import logicaNegocios.Socia;
 import logicaNegocios.CuerpoTecnico;
 import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
 import logicaNegocios.Frecuencia;
+import logicaNegocios.Localidad;
 import logicaNegocios.Pase;
+import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 
-public class ControladoraEntidades{
+public class ControladoraEntidades {
 
     private final EntityManager entityManager;
 
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
+
 //------------------------------CUERPO TECNICO----------------------------------   
     public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
         CuerpoTecnico resultado;
@@ -36,7 +38,7 @@ public class ControladoraEntidades{
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo) {
         CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo);
     }
-    
+
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
         unCuerpoTecnico.setDni(dni);
         unCuerpoTecnico.setApellido(apellido);
@@ -123,17 +125,17 @@ public class ControladoraEntidades{
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
-    public List <Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
-        
+    public List<Object[]> buscarSociaConEquipoBD(String tipo, String dato) {
+
         //String unaConsulta = "SELECT S, E.nombre FROM Socia S, Equipo E JOIN E.plantel p WHERE p.dni = S.dni and S." + tipo + " LIKE " + "'%" + dato + "%'" ;
         String unaConsulta = "SELECT S, S.nombre FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
         //String unaConsulta = "SELECT S, E.nombre FROM Socia S, Equipo E JOIN E.plantel p WHERE S.dni = p.dni AND (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
         //unaConsulta += " JOIN E.plantel p WHERE p.dni = S.dni";
-        List <Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        List<Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
     //-------NO CREO QUE ANDE TODAVIA jeje--------------------------------------
-    
+
     public Socia buscarSociaBD(Long dni) {
         Socia resultado;
         Query traerSocia = this.entityManager.createQuery("SELECT A FROM Club A WHERE A.dni = " + dni);
@@ -204,8 +206,8 @@ public class ControladoraEntidades{
 //------------------------------LOCALIDADES-------------------------------------   
     public Localidad buscarLocalidBD(Long id) {
         Localidad resultado;
-        Query traerSocia = this.entityManager.createQuery("SELECT A FROM Localidad A WHERE A.idLocalidad = " + id);
-        resultado = (Localidad) traerSocia.getResultList();
+        Query traerLocalidad = this.entityManager.createQuery("SELECT A FROM Localidad A WHERE A.idLocalidad = " + id);
+        resultado = (Localidad) traerLocalidad.getResultList();
         return resultado;
     }
 
@@ -223,6 +225,19 @@ public class ControladoraEntidades{
     public void eliminarLocalidad(Localidad unaLocalidad) {
         unaLocalidad.setBorradoLogico(true);
         unaLocalidad.persistir(this.entityManager);
+    }
+
+    public Vector<Localidad> localidadesTodas() {
+        Vector<Localidad> vLocalidades = new Vector<Localidad>();
+        
+        Query traerLocalidades = this.entityManager.createQuery("SELECT A FROM Localidad A");
+        List<Localidad> unaListaResultado  = traerLocalidades.getResultList();
+                
+        for (Localidad unaLocalidad : unaListaResultado){
+            vLocalidades.add(unaLocalidad);
+        }
+        
+        return vLocalidades;
     }
 //------------------------------FIN LOCALIDADES---------------------------------
 
