@@ -4,14 +4,18 @@ import Clases.ImagenFondo;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -26,6 +30,8 @@ import main.ControladoraGlobal;
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
+    
+    private BufferedImage img;
 
     public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
         initComponents();
@@ -42,6 +48,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         
         //FONDO jDesktopPane      - TODAVIA ME ESTA GANANDO - 
         //jDesktopPane.setBorder(new ImagenFondo());
+        //https://www.youtube.com/watch?v=vrNc5bBbJ3g
     }
 
     @SuppressWarnings("unchecked")
@@ -335,6 +342,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenu4.add(jMenuItem11);
 
         jMenuItem12.setText("Localidades");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem12);
 
         jMenuItem13.setText("Skin");
@@ -499,6 +511,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jDesktopPane.add(unaSkin);
         unaSkin.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        ILocalidad unLocalidad = new ILocalidad(unaControladoraGlobal);
+        unLocalidad.pack();
+        unLocalidad.setVisible(true);
+        this.jDesktopPane.add(unLocalidad);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();

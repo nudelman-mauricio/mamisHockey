@@ -1,5 +1,5 @@
 
-package Main;
+package main;
 
 import java.awt.Component;
 import java.awt.Graphics;

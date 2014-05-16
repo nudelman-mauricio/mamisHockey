@@ -17,14 +17,14 @@ import logicaNegocios.Frecuencia;
 import logicaNegocios.Pase;
 import logicaNegocios.TipoEstado;
 
-public class ControladoraEntidades {
+public class ControladoraEntidades{
 
     private final EntityManager entityManager;
 
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
+    
 //------------------------------CUERPO TECNICO----------------------------------   
     public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
         CuerpoTecnico resultado;
