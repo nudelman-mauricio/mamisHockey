@@ -54,8 +54,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(true);
-        
-        
     }
 
     public void cargarComboBoxEquipos() {
@@ -465,7 +463,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jTablePases.setEnabled(false);
         camposActivo(true);
         camposLimpiar();
-        
         
         //PreCarga de Datos
         DateFormat df = DateFormat.getDateInstance();
