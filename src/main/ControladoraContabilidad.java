@@ -51,13 +51,13 @@ public class ControladoraContabilidad {
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion);
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion);
+    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
+        Deuda unaDeuda = new Deuda(entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
     }
 
@@ -84,31 +84,6 @@ public class ControladoraContabilidad {
         unaDeuda.persistir(this.entityManager);
     }
 //---------------------------------FIN DEUDAS-----------------------------------
-
-//-----------------------------------CUOTAS-------------------------------------
-    public void crearCuota(Deuda unaDeuda, double monto, Date fechaVencimiento) {
-        Cuota unaCuota = new Cuota(this.entityManager, monto, fechaVencimiento);
-        unaDeuda.agregarCuota(this.entityManager, unaCuota);
-    }
-
-    public void modificarCuota(Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, boolean borradoLogico) {
-        unaCuota.setMonto(monto);
-        unaCuota.setFechaVencimiento(fechaVencimiento);
-        unaCuota.setUnPagoCuota(unPagoCuota);
-        unaCuota.setBorradoLogico(borradoLogico);
-        unaCuota.persistir(this.entityManager);
-    }
-
-    public void cambiarCuotaDeDeuda(Cuota unaCuota, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
-        unaDeudaActual.quitarCuota(this.entityManager, unaCuota);
-        unaDeudaNueva.agregarCuota(this.entityManager, unaCuota);
-    }
-
-    public void eliminarCuota(Cuota unaCuota) {
-        unaCuota.setBorradoLogico(true);
-        unaCuota.persistir(this.entityManager);
-    }
-//---------------------------------FIN CUOTAS-----------------------------------
 
 //--------------------------------PAGO CUOTA------------------------------------
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {

@@ -37,18 +37,50 @@ public class Deuda implements Serializable, Comparable {
     
     @Basic
     private boolean borradoLogico;
-
+    
     public Deuda() {
 
     }
 
-    public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion) {
+    public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
         this.fechaGeneracion = fechaGeneracion;
         this.concepto = concepto;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
+        
+        for (int i = 0; i < cantCuotas; i++) {
+            this.crearCuota(entityManager, montoTotal/cantCuotas, fechaGeneracion);
+            fechaGeneracion.setMonth(fechaGeneracion.getMonth()+1);
+        }
     }
+    
+    //-----------------------------------CUOTAS-------------------------------------
+    public void crearCuota(EntityManager entityManager, double monto, Date fechaVencimiento) {
+        Cuota unaCuota = new Cuota(entityManager, monto, fechaVencimiento);
+        this.agregarCuota(entityManager, unaCuota);
+    }
+
+    public void modificarCuota(EntityManager entityManager,Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, boolean borradoLogico) {
+        unaCuota.setMonto(monto);
+        unaCuota.setFechaVencimiento(fechaVencimiento);
+        unaCuota.setUnPagoCuota(unPagoCuota);
+        unaCuota.setBorradoLogico(borradoLogico);
+        unaCuota.persistir(entityManager);
+    }
+
+    //REVEER SI ESTO QUEDA-------------------------PELA-------------------------
+    public void cambiarCuotaDeDeuda(EntityManager entityManager,Cuota unaCuota, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
+        unaDeudaActual.quitarCuota(entityManager, unaCuota);
+        unaDeudaNueva.agregarCuota(entityManager, unaCuota);
+    }
+    //FIN REVEER SI ESTO QUEDA-------------------------PELA---------------------
+    
+    public void eliminarCuota(EntityManager entityManager,Cuota unaCuota) {
+        unaCuota.setBorradoLogico(true);
+        unaCuota.persistir(entityManager);
+    }
+//---------------------------------FIN CUOTAS-----------------------------------
 
     public Long getIdDeuda() {
         return this.idDeuda;
@@ -126,7 +158,7 @@ public class Deuda implements Serializable, Comparable {
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-//----------------------------------CUOTAS--------------------------------------    
+//----------------------------------CUOTAS--------------------------------------
     public void agregarCuota(EntityManager entityManager, Cuota unaCuota) {
         this.cuotas.add(unaCuota);
         this.persistir(entityManager);

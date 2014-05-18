@@ -475,14 +475,19 @@ public class ControladoraGlobal {
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion) {
-        this.unaControladoraContabilidad.cambiarDeudaDeEquipo(null, unEquipo, unEquipo);
-    }
+    
 
-    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion) {
-        this.unaControladoraContabilidad.cambiarDeudaDeSocia(null, unaSocia, unaSocia);
+    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
+        this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
     }
-
+    
+    //FALTA VERIFICAR ESTO, CUANDO SE CREA UNA DEUDA, ESTA GERERA LAS CUOTAS
+    //por lo tanto hay que verificar que los cambios se realicen correctamente.
+    //Se miro unicamente la creacion. LA BAJA; ELIMINACION; etc no esta bien!!
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
+        this.unaControladoraContabilidad.crearDeudaEquipo(unEquipo, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
+    }
+    
     public void modificarDeuda(Deuda unaDeuda, Date fechaGeneracion, String concepto, String observacion, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarDeuda(unaDeuda, fechaGeneracion, concepto, observacion, borradoLogico);
     }
@@ -499,24 +504,6 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarDeuda(unaDeuda);
     }
 //---------------------------------FIN DEUDAS-----------------------------------
-
-//-----------------------------------CUOTAS-------------------------------------
-    public void crearCuota(Deuda unaDeuda, double monto, Date fechaVencimiento) {
-        this.unaControladoraContabilidad.crearCuota(unaDeuda, monto, fechaVencimiento);
-    }
-
-    public void modificarCuota(Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarCuota(unaCuota, monto, fechaVencimiento, unPagoCuota, borradoLogico);
-    }
-
-    public void cambiarCuotaDeDeuda(Cuota unaCuota, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
-        this.unaControladoraContabilidad.cambiarCuotaDeDeuda(unaCuota, unaDeudaActual, unaDeudaNueva);
-    }
-
-    public void eliminarCuota(Cuota unaCuota) {
-        this.unaControladoraContabilidad.eliminarCuota(unaCuota);
-    }
-//---------------------------------FIN CUOTAS-----------------------------------
 
 //--------------------------------PAGO CUOTA------------------------------------
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {

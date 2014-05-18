@@ -71,6 +71,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Gestión de Socias");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -124,21 +129,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel3.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jPanel3FocusGained(evt);
-            }
-        });
 
         jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldBusquedaFocusGained(evt);
-            }
-        });
-        jTextFieldBusqueda.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jTextFieldBusquedaComponentShown(evt);
             }
         });
         jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -147,14 +142,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             }
         });
         jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldBusquedaKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldBusquedaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldBusquedaKeyTyped(evt);
             }
         });
 
@@ -209,9 +198,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTableSociasFocusGained(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTableSociasFocusLost(evt);
-            }
         });
         jScrollPane1.setViewportView(jTableSocias);
 
@@ -232,11 +218,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonPases.setText("Pases");
         jButtonPases.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPases.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPases.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jButtonPasesFocusGained(evt);
-            }
-        });
         jButtonPases.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPasesActionPerformed(evt);
@@ -479,37 +460,17 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.SeleccionarSocia(true);
     }//GEN-LAST:event_jTableSociasFocusGained
 
-    private void jTableSociasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusLost
-
-    }//GEN-LAST:event_jTableSociasFocusLost
-
-    private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
-
-    }//GEN-LAST:event_jPanel3FocusGained
-
     private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
         this.SeleccionarSocia(false);
     }//GEN-LAST:event_jTextFieldBusquedaFocusGained
-
-    private void jTextFieldBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyPressed
-
-    }//GEN-LAST:event_jTextFieldBusquedaKeyPressed
-
-    private void jTextFieldBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyTyped
-
-    }//GEN-LAST:event_jTextFieldBusquedaKeyTyped
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
         filtrarSocias(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
-    private void jButtonPasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButtonPasesFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonPasesFocusGained
-
-    private void jTextFieldBusquedaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaComponentShown
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         filtrarSocias(jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jTextFieldBusquedaComponentShown
+    }//GEN-LAST:event_formComponentShown
 
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
