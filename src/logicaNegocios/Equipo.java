@@ -187,9 +187,9 @@ public class Equipo implements Serializable, Comparable {
 //----------------------------- FIN GETERS Y SETERS ----------------------------
     @Override
     public String toString() {
-        return "Equipo{" + "nombre=" + nombre + '}';
+        return nombre;
     }
-   
+
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

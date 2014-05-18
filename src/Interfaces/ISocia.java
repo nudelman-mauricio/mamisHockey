@@ -482,11 +482,14 @@ public class ISocia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        camposActivo(false);
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        camposActivo(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        camposActivo(true);
         camposLimpiar();
-        jButtonNuevo.setEnabled(true);
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         DateFormat df = DateFormat.getDateInstance();
@@ -494,7 +497,7 @@ public class ISocia extends javax.swing.JInternalFrame {
             Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
             Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
 
-        unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()),
+            unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()),
                 jTextFieldApellido.getText(),
                 jTextFieldNombres.getText(),
                 (Localidad) jComboBoxLocalidad.getSelectedItem(),
@@ -506,22 +509,19 @@ public class ISocia extends javax.swing.JInternalFrame {
                 jTextFieldEmail.getText(),
                 jTextFieldTelFijo.getText(),
                 jTextFieldTelCelular.getText());
-        JOptionPane.showMessageDialog(this, "Socia Guardada");
-        camposActivo(false);
-        
+            JOptionPane.showMessageDialog(this, "Socia Guardada");
+            camposActivo(false);
+
         } catch (ParseException e) {
             System.out.println("ERROR EN LAS FECHAS SOCIA" + e.getMessage());
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        camposActivo(true);
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        camposActivo(false);
         camposLimpiar();
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
-
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        camposActivo(true);
-    }//GEN-LAST:event_jButtonEditarActionPerformed
+        jButtonNuevo.setEnabled(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

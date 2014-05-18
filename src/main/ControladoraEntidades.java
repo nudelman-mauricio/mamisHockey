@@ -195,6 +195,11 @@ public class ControladoraEntidades {
         unPase.setBorradoLogico(true);
         unPase.persistir(this.entityManager);
     }
+    
+    public List<Pase> getPases(Socia unaSocia) {
+        List<Pase> unaListaResultado = unaSocia.getPases(this.entityManager);        
+        return unaListaResultado;
+    }
 //---------------------------------FIN PASES------------------------------------
 
 //------------------------------LOCALIDADES-------------------------------------   

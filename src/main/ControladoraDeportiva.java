@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.Arbitro;
@@ -89,6 +90,12 @@ public class ControladoraDeportiva {
         Query traerEquipo = this.entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idequipo = " + id);
         resultado = (Equipo) traerEquipo.getSingleResult();
         return resultado;
+    }
+    
+    public List<Equipo> getEquipos(){   
+        Query traerEquipos = this.entityManager.createQuery("SELECT E FROM Equipo E");
+        List<Equipo> unaListaResultado = traerEquipos.getResultList();        
+        return unaListaResultado;
     }
 
     public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {

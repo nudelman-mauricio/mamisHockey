@@ -1,24 +1,101 @@
 package Interfaces;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Equipo;
+import logicaNegocios.Localidad;
+import logicaNegocios.Pase;
 import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 
 public class IPase extends javax.swing.JInternalFrame {
 
     private JInternalFrame unJInternalFrame;
+    private ControladoraGlobal unaControladoraGlobal;
     private Socia unaSocia;
-  
-    public IPase(JInternalFrame unJInternalFrame, Socia unaSocia) {
+    
+    private DefaultTableModel modeloTablePases;
+
+
+    public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-        
+
         this.unJInternalFrame = unJInternalFrame;
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
         
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png")));
-        
+        //Centrar
         IMenuPrincipalInterface.centrar(this);
+        //Titulo Ventana
+        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
+
+        jButtonImprimir.setEnabled(true);
+        jButtonEditar.setEnabled(true);
+        
+        cargarComboBoxEquipos();
+
+        camposActivo(false);
+        
+        this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
+        cargarCamposTabla();
+    }
+
+    public void cargarComboBoxEquipos() {
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipos());
+        this.jComboBoxEquipoDestino.setModel(modelCombo);
+    }
+
+    //Cargar Tabla con los pases de la Socia
+    public void cargarCamposTabla() {
+        DateFormat df = DateFormat.getDateInstance();
+        
+        limpiarTabla(modeloTablePases);
+        List<Pase> unaListaResultado = this.unaControladoraGlobal.getPases(unaSocia);
+        int nPase = 0;
+        for (Object aux : unaListaResultado) {
+            Pase unPase = (Pase) aux;
+            this.modeloTablePases.addRow(new Object[]{nPase,df.format(unPase.getFecha()), "Pase Anterior", unPase.getUnEquipo(), unPase.getMonto()});
+            nPase ++;
+        }
+        
+        System.out.println("Se deberian Cargar los pases en este momento");
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        try {
+            int filas = modeloTabla.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTabla.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
+        
+    public void camposActivo(boolean Editable) {
+        jTextFieldFechaRealizacion.setEditable(Editable);
+        jComboBoxEquipoDestino.setEnabled(Editable);
+        jTextFieldMonto.setEditable(Editable);
+
+        jButtonGuardar.setEnabled(Editable);
+        jButtonCancelar.setEnabled(Editable);
+        jButtonNuevo.setEnabled(!Editable);
+    }
+
+    public void camposLimpiar() {
+        jTextFieldFechaRealizacion.setText("");
+        jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual());
+        jTextFieldMonto.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -31,7 +108,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonEditarCancelar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePases = new javax.swing.JTable();
@@ -42,7 +119,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelDestino = new javax.swing.JLabel();
         jTextFieldEquipoOrigen = new javax.swing.JTextField();
         jTextFieldMonto = new javax.swing.JTextField();
-        jComboBoxEquipODestino = new javax.swing.JComboBox();
+        jComboBoxEquipoDestino = new javax.swing.JComboBox();
         jButtonCalcularMonto = new javax.swing.JButton();
         jLabelPaseNumero = new javax.swing.JLabel();
         jLabelNumeroPase = new javax.swing.JLabel();
@@ -107,11 +184,21 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
-        jButtonEditarCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
-        jButtonEditarCancelar.setText("Cancelar");
-        jButtonEditarCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditarCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,7 +212,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditarCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -138,7 +225,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonEditarCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,13 +237,13 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jTablePases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "N° Pase", "Equipo Origen", "Equipo Destino", "Monto"
+                "N° Pase", "Fecha", "Equipo Origen", "Equipo Destino", "Monto"
             }
         ));
         jScrollPane1.setViewportView(jTablePases);
@@ -183,6 +270,7 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelDestino.setText("Equipo Destino");
 
+        jTextFieldEquipoOrigen.setEnabled(false);
         jTextFieldEquipoOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEquipoOrigenActionPerformed(evt);
@@ -226,7 +314,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldFechaRealizacion)
                     .addComponent(jTextFieldEquipoOrigen)
-                    .addComponent(jComboBoxEquipODestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxEquipoDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldMonto)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,9 +324,7 @@ public class IPase extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldFechaRealizacion4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCalcularMonto))
+                    .addComponent(jButtonCalcularMonto)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jLabelPaseNumero)
@@ -263,9 +349,9 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelOrigen)
                     .addComponent(jTextFieldEquipoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDestino)
-                    .addComponent(jComboBoxEquipODestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxEquipoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -290,8 +376,8 @@ public class IPase extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 549, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,20 +412,48 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-     
+        camposActivo(true);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        DateFormat df = DateFormat.getDateInstance();
+        try {
+            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
+
+            unaControladoraGlobal.crearPase(this.unaSocia,fechaRealizacion,Double.parseDouble(jTextFieldMonto.getText()),(Equipo)jComboBoxEquipoDestino.getSelectedItem());
+  
+            //FALTA GENERAR LA DEUDA EN: UNAcONTROLADORAgLOBAL.CREARdEUDA
+
+            JOptionPane.showMessageDialog(this, "Pase Guardado");
+            camposActivo(false);
+            
+            //LIMPIAR LOS CAMPOS
+            
+            cargarCamposTabla();
+
+        } catch (ParseException e) {
+            System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        camposActivo(false);
+        camposLimpiar();
+        jButtonNuevo.setEnabled(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonEditarCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBoxEquipODestino;
+    private javax.swing.JComboBox jComboBoxEquipoDestino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelFechaMonto;

@@ -3,10 +3,12 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 
 @Entity
 public class Socia extends Persona implements Serializable {
@@ -156,6 +158,12 @@ public class Socia extends Persona implements Serializable {
     public void quitarPase(EntityManager entityManager, Pase unPase) {
         this.getPases().remove(unPase);
         this.persistir(entityManager);
+    }
+    
+    public List<Pase> getPases(EntityManager entityManager) {
+        Query traerPases = entityManager.createQuery("SELECT P FROM Pase P, Socia S JOIN s.pases R where R.idPase = P.idPase AND S.dni = " + super.getDni());
+        List<Pase> unaListaResultado = traerPases.getResultList();        
+        return unaListaResultado;
     }
 //---------------------------------FIN PASES---------------------------------
 

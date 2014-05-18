@@ -148,6 +148,10 @@ public class ControladoraGlobal {
     public void eliminarPase(Pase unPase) {
         this.unaControladoraEntidades.eliminarPase(unPase);
     }
+    
+    public List<Pase> getPases(Socia unaSocia) {
+        return this.unaControladoraEntidades.getPases(unaSocia);
+    }
 //---------------------------------FIN PASES------------------------------------
 
 //------------------------------LOCALIDADES-------------------------------------   
@@ -273,6 +277,10 @@ public class ControladoraGlobal {
 //------------------------------EQUIPOS-----------------------------------------   
     public Equipo buscarEquipoBD(Long id) {
         return this.unaControladoraDeportiva.buscarEquipoBD(id);
+    }
+    
+    public List<Equipo> getEquipos() {
+        return unaControladoraDeportiva.getEquipos();
     }
 
     public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
