@@ -136,6 +136,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 jTextFieldBusquedaFocusGained(evt);
             }
         });
+        jTextFieldBusqueda.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTextFieldBusquedaComponentShown(evt);
+            }
+        });
         jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldBusquedaActionPerformed(evt);
@@ -501,6 +506,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonPasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButtonPasesFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPasesFocusGained
+
+    private void jTextFieldBusquedaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaComponentShown
+        filtrarSocias(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_jTextFieldBusquedaComponentShown
 
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);

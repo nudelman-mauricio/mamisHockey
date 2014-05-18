@@ -21,9 +21,8 @@ public class IPase extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private Socia unaSocia;
-    
-    private DefaultTableModel modeloTablePases;
 
+    private DefaultTableModel modeloTablePases;
 
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
@@ -31,7 +30,7 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png")));
         //Centrar
@@ -41,11 +40,11 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setEnabled(true);
         jButtonEditar.setEnabled(true);
-        
+
         cargarComboBoxEquipos();
 
         camposActivo(false);
-        
+
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
         cargarCamposTabla();
     }
@@ -58,16 +57,16 @@ public class IPase extends javax.swing.JInternalFrame {
     //Cargar Tabla con los pases de la Socia
     public void cargarCamposTabla() {
         DateFormat df = DateFormat.getDateInstance();
-        
+
         limpiarTabla(modeloTablePases);
         List<Pase> unaListaResultado = this.unaControladoraGlobal.getPases(unaSocia);
         int nPase = 0;
         for (Object aux : unaListaResultado) {
             Pase unPase = (Pase) aux;
-            this.modeloTablePases.addRow(new Object[]{nPase,df.format(unPase.getFecha()), "Pase Anterior", unPase.getUnEquipo(), unPase.getMonto()});
-            nPase ++;
+            this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), "Pase Anterior", unPase.getUnEquipo(), unPase.getMonto()});
+            nPase++;
         }
-        
+
         System.out.println("Se deberian Cargar los pases en este momento");
     }
 
@@ -81,7 +80,7 @@ public class IPase extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-        
+
     public void camposActivo(boolean Editable) {
         jTextFieldFechaRealizacion.setEditable(Editable);
         jComboBoxEquipoDestino.setEnabled(Editable);
@@ -124,9 +123,9 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelPaseNumero = new javax.swing.JLabel();
         jLabelNumeroPase = new javax.swing.JLabel();
         jTextFieldFechaRealizacion = new javax.swing.JTextField();
-        jTextFieldFechaRealizacion4 = new javax.swing.JTextField();
+        jTextFieldMontoCuotas = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        jComboBoxCuota = new javax.swing.JComboBox();
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -277,6 +276,12 @@ public class IPase extends javax.swing.JInternalFrame {
             }
         });
 
+        jTextFieldMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldMontoKeyReleased(evt);
+            }
+        });
+
         jButtonCalcularMonto.setText("Calcular Monto");
         jButtonCalcularMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,11 +295,18 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jTextFieldFechaRealizacion.setText("dd/mm/aaaa");
 
-        jTextFieldFechaRealizacion4.setEditable(false);
+        jTextFieldMontoCuotas.setEditable(false);
 
         jLabel1.setText("X ($)");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBoxCuota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBoxCuota.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                jComboBoxCuotaCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
 
         jLabelFechaRealizacion5.setText("Cuotas");
 
@@ -317,20 +329,21 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxEquipoDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldMonto)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFechaRealizacion4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
-                .addGap(3, 3, 3)
+                        .addComponent(jTextFieldMontoCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCalcularMonto)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelPaseNumero)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelNumeroPase)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelNumeroPase))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jButtonCalcularMonto)))
+                .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,9 +378,9 @@ public class IPase extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelFechaRealizacion5)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextFieldFechaRealizacion4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldMontoCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26))))
         );
 
@@ -376,7 +389,7 @@ public class IPase extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 549, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -421,15 +434,26 @@ public class IPase extends javax.swing.JInternalFrame {
         try {
             Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
 
-            unaControladoraGlobal.crearPase(this.unaSocia,fechaRealizacion,Double.parseDouble(jTextFieldMonto.getText()),(Equipo)jComboBoxEquipoDestino.getSelectedItem());
-  
-            //FALTA GENERAR LA DEUDA EN: UNAcONTROLADORAgLOBAL.CREARdEUDA
-
+            unaControladoraGlobal.crearPase(this.unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), (Equipo) jComboBoxEquipoDestino.getSelectedItem());
+            
+            //FALTA GENERAR LA DEUDA EN: UNAcONTROLADORAgLOBAL.CREARdEUDA-------
+            String observacion = "";
+            for (int i = 0; 1 < (Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())); i++) {
+                //INCREMENTAR FECHA REALIZACION EN EL MES EN +1
+                
+                if ((Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()) > 1)) {
+                    observacion = "Cuota " + i + "/" + jComboBoxCuota.getSelectedItem().toString();
+                }
+                //unaControladoraGlobal.crearDeudaSocia(unaSocia, fechaRealizacion, "SELECIONAR CONCEPTO DEPORTIVO PASE", observacion);
+                
+                //unaControladoraGlobal.crearCuota(null, i, fechaRealizacion);
+            }
+            //------------------------------------------------------------------
+            
             JOptionPane.showMessageDialog(this, "Pase Guardado");
             camposActivo(false);
-            
+
             //LIMPIAR LOS CAMPOS
-            
             cargarCamposTabla();
 
         } catch (ParseException e) {
@@ -443,6 +467,14 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jTextFieldMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMontoKeyReleased
+        jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
+    }//GEN-LAST:event_jTextFieldMontoKeyReleased
+
+    private void jComboBoxCuotaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBoxCuotaCaretPositionChanged
+
+    }//GEN-LAST:event_jComboBoxCuotaCaretPositionChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
@@ -452,7 +484,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBoxCuota;
     private javax.swing.JComboBox jComboBoxEquipoDestino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDestino;
@@ -469,7 +501,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTablePases;
     private javax.swing.JTextField jTextFieldEquipoOrigen;
     private javax.swing.JTextField jTextFieldFechaRealizacion;
-    private javax.swing.JTextField jTextFieldFechaRealizacion4;
     private javax.swing.JTextField jTextFieldMonto;
+    private javax.swing.JTextField jTextFieldMontoCuotas;
     // End of variables declaration//GEN-END:variables
 }
