@@ -40,7 +40,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         IMenuPrincipalInterface.centrar(this);
 
-        this.SeleccionarSocia(false);
+        this.SeleccionarObjetoTabla(false);
 
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
         
@@ -134,11 +134,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldBusquedaFocusGained(evt);
-            }
-        });
-        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBusquedaActionPerformed(evt);
             }
         });
         jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -440,10 +435,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         }
     }
 
-    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
-
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -457,11 +448,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained
-        this.SeleccionarSocia(true);
+        this.SeleccionarObjetoTabla(true);
     }//GEN-LAST:event_jTableSociasFocusGained
 
     private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
-        this.SeleccionarSocia(false);
+        this.SeleccionarObjetoTabla(false);
     }//GEN-LAST:event_jTextFieldBusquedaFocusGained
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -482,7 +473,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         }
     }
     
-    private void SeleccionarSocia(boolean estado) {
+    private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonTarjetas.setEnabled(estado);
         jButtonPases.setEnabled(estado);

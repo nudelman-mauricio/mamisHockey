@@ -39,15 +39,23 @@ public class IPase extends javax.swing.JInternalFrame {
         //Titulo Ventana
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
 
-        jButtonImprimir.setEnabled(true);
-        jButtonEditar.setEnabled(true);
-
         cargarComboBoxEquipos();
 
-        camposActivo(false);
-
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
-        cargarCamposTabla();
+        cargarCamposTabla();       
+        
+        jTablePases.clearSelection();
+        
+        camposLimpiar();
+        camposActivo(false);
+        
+        jButtonNuevo.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(true);
+        
+        
     }
 
     public void cargarComboBoxEquipos() {
@@ -68,7 +76,7 @@ public class IPase extends javax.swing.JInternalFrame {
             nPase++;
         }
     }
-
+    
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -85,27 +93,23 @@ public class IPase extends javax.swing.JInternalFrame {
         jComboBoxEquipoDestino.setEnabled(Editable);
         jTextFieldMonto.setEditable(Editable);
         jTextFieldFechaVencimiento.setEditable(Editable);
-
-        jButtonGuardar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonNuevo.setEnabled(!Editable);
+        jComboBoxCuota.setEnabled(Editable);
+        jTextFieldEquipoOrigen.setEditable(Editable);
+        jButtonCalcularMonto.setEnabled(Editable);
     }
 
     public void camposLimpiar() {
-        DateFormat df = DateFormat.getDateInstance();
-        Calendar FechaSO = Calendar.getInstance();
-        jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
-        jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
-        jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual());
+        jTextFieldFechaRealizacion.setText("");
+        jTextFieldFechaVencimiento.setText("");
+        jTextFieldEquipoOrigen.setText("");
         jTextFieldMonto.setText("");
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButtonEditar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
@@ -155,11 +159,6 @@ public class IPase extends javax.swing.JInternalFrame {
         });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
-        jButtonEditar.setText("Editar");
-        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
@@ -214,8 +213,6 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,7 +231,6 @@ public class IPase extends javax.swing.JInternalFrame {
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -252,6 +248,11 @@ public class IPase extends javax.swing.JInternalFrame {
                 "N° Pase", "Fecha", "Equipo Destino", "Monto"
             }
         ));
+        jTablePases.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTablePasesFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablePases);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -302,8 +303,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelPaseNumero.setText("Pase Numero:");
 
         jLabelNumeroPase.setText("nn");
-
-        jTextFieldFechaRealizacion.setText("dd/mm/aaaa");
 
         jTextFieldMontoCuotas.setEditable(false);
 
@@ -428,7 +427,7 @@ public class IPase extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -462,43 +461,75 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        jTablePases.clearSelection();
+        jTablePases.setEnabled(false);
         camposActivo(true);
         camposLimpiar();
         
+        
+        //PreCarga de Datos
+        DateFormat df = DateFormat.getDateInstance();
+        Calendar FechaSO = Calendar.getInstance();
+        jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
+        jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
+        jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual());
+        
+        //Comportamiento Botones
+        jButtonNuevo.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        //Guardado de Datos
         DateFormat df = DateFormat.getDateInstance();
         try {
             Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
             Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-            
             unaControladoraGlobal.crearPase(this.unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), (Equipo) jComboBoxEquipoDestino.getSelectedItem());
             
             String observacion = "";
             int cantCuotas = (Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()));
+            System.out.println(cantCuotas);
             if (cantCuotas > 1) {
                 observacion += ("Pase pagado en " + cantCuotas + " cuotas de $" + (Double.parseDouble(jTextFieldMonto.getText())/cantCuotas) + " cada una.");
             }
             
             //FALTA OBTENER EL CONEPTO--------------------------------------------------------
-            unaControladoraGlobal.crearDeudaSocia(unaSocia, fechaRealizacion, "FALTA OBTENER EL CONEPTO", "", Double.parseDouble(jTextFieldMonto.getText()), cantCuotas, fechaVencimiento);
+            unaControladoraGlobal.crearDeudaSocia(unaSocia, fechaRealizacion, "FALTA OBTENER EL CONEPTO", observacion, Double.parseDouble(jTextFieldMonto.getText()), cantCuotas, fechaVencimiento);
                 
-            JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
-            camposActivo(false);
-
-            //LIMPIAR LOS CAMPOS
-            cargarCamposTabla();
-
+            JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");            
         } catch (ParseException e) {
             System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
         }
+        
+        //Comportamientos Extras
+        
+        jButtonNuevo.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(true);
+        
+        camposLimpiar();
+        camposActivo(false);
+        jTablePases.setEnabled(true);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        camposActivo(false);
+        jTablePases.clearSelection();
+        
         camposLimpiar();
+        camposActivo(false);
+        jTablePases.setEnabled(true);
+
         jButtonNuevo.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMontoKeyReleased
@@ -517,11 +548,15 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
     }//GEN-LAST:event_jComboBoxCuotaItemStateChanged
 
+    private void jTablePasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePasesFocusGained
+        jButtonEliminar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+    }//GEN-LAST:event_jTablePasesFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
