@@ -66,7 +66,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
     }
     
     public void cargarComboBoxLocalidades() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidades());
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
     }
     /**

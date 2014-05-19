@@ -347,7 +347,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(this, unaSociaSeleccionada);
 
@@ -358,7 +358,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IEstado unIEstado = new IEstado(this, unaSociaSeleccionada);
 
@@ -369,7 +369,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         
         ISocia unaISocia = new ISocia(unaControladoraGlobal, this, unaSociaSeleccionada);
 
@@ -381,7 +381,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IErgometria unaIErgometria = new IErgometria(this, unaSociaSeleccionada);
 
@@ -392,7 +392,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         ITarjeta unaITarjeta = new ITarjeta(unaControladoraGlobal, this, unaSociaSeleccionada);
 
@@ -403,7 +403,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         ISancion unaISancion = new ISancion(this, unaSociaSeleccionada);
 
@@ -414,7 +414,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.buscarSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IPase unIPase = new IPase(unaControladoraGlobal, this, unaSociaSeleccionada);
 
@@ -466,9 +466,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
         dato = jTextFieldBusqueda.getText();
-        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociasBDFiltro(dato);
-        for (Object[] o : unaListaResultado) {
-            Socia unaSocia = (Socia) o[0];
+        List<Socia> unaListaResultado = this.unaControladoraGlobal.getSociasBDFiltro(dato);
+        for (Socia unaSocia : unaListaResultado) {
             this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(),unaSocia.getUltimoEstado() , unaSocia.getEquipoActual()});
         }
     }
