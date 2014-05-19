@@ -1,14 +1,13 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.Arbitro;
 import logicaNegocios.Club;
 import logicaNegocios.CuerpoTecnico;
+import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
@@ -35,7 +34,7 @@ public class ControladoraEntidades {
     }
 
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo, String email, String telFijo, String telCelular) {
-        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo,  email,  telFijo,  telCelular);
+        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo, email, telFijo, telCelular);
     }
 
     public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
@@ -68,7 +67,7 @@ public class ControladoraEntidades {
         resultado = (Arbitro) traerArbitro.getResultList();
         return resultado;
     }
-    
+
     public List<Object[]> getArbitrosBD(String dato) {
         String unaConsulta = "SELECT A, A.nombre FROM Arbitro A WHERE (A.nombre LIKE " + "'%" + dato + "%' OR A.apellido LIKE " + "'%" + dato + "%' OR A.dni LIKE " + "'%" + dato + "%')";
         List<Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
@@ -76,7 +75,7 @@ public class ControladoraEntidades {
     }
 
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular) {
-        Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso,  email,  telFijo,  telCelular);
+        Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
     }
 
     public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
@@ -179,8 +178,8 @@ public class ControladoraEntidades {
         return resultado;
     }
 
-    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
-        Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo);
+    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda) {
+        Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo, unaDeuda);
         unaSocia.agregarPase(this.entityManager, unPase);
     }
 
@@ -228,9 +227,9 @@ public class ControladoraEntidades {
     }
 
     public List<Localidad> getLocalidades() {
-      
+
         Query traerLocalidades = this.entityManager.createQuery("SELECT A FROM Localidad A");
-        List<Localidad> unaListaResultado = traerLocalidades.getResultList();        
+        List<Localidad> unaListaResultado = traerLocalidades.getResultList();
         return unaListaResultado;
     }
 //------------------------------FIN LOCALIDADES---------------------------------

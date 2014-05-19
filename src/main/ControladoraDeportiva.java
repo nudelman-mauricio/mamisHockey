@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -92,10 +91,10 @@ public class ControladoraDeportiva {
         resultado = (Equipo) traerEquipo.getSingleResult();
         return resultado;
     }
-    
-    public List<Equipo> getEquipos(){   
+
+    public List<Equipo> getEquipos() {
         Query traerEquipos = this.entityManager.createQuery("SELECT E FROM Equipo E");
-        List<Equipo> unaListaResultado = traerEquipos.getResultList();        
+        List<Equipo> unaListaResultado = traerEquipos.getResultList();
         return unaListaResultado;
     }
 
@@ -237,14 +236,14 @@ public class ControladoraDeportiva {
         unTorneo.setBorradoLogico(true);
         unTorneo.persistir(this.entityManager);
     }
-    
+
     public Torneo getTorneoBD(Long idTorneo) {
         Torneo resultado;
         Query traerTorneo = this.entityManager.createQuery("SELECT T FROM Torneo T WHERE T.idTorneo = " + idTorneo);
         resultado = (Torneo) traerTorneo.getResultList();
         return resultado;
     }
-    
+
     public List<Torneo> getTorneosBD() {
         String unaConsulta = ("SELECT T FROM Torneo T");
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();

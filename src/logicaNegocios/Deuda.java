@@ -140,15 +140,6 @@ public class Deuda implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-    public void modificarCuota(EntityManager entityManager, Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, String numero, boolean borradoLogico) {
-        unaCuota.setMonto(monto);
-        unaCuota.setFechaVencimiento(fechaVencimiento);
-        unaCuota.setUnPagoCuota(unPagoCuota);
-        unaCuota.setNumero(numero);
-        unaCuota.setBorradoLogico(borradoLogico);
-        unaCuota.persistir(entityManager);
-    }
-
     public void eliminarCuota(EntityManager entityManager, Cuota unaCuota) {
         unaCuota.setBorradoLogico(true);
         unaCuota.persistir(entityManager);

@@ -51,41 +51,29 @@ public class ControladoraContabilidad {
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-     //FALTA AGREGAR LA CREACION DE LA CUOTA 
-    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
-        Deuda unaDeuda = new Deuda(entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
+    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    //VERIFICAR + MODIFICAR CUOTA
-    public void modificarDeuda(Deuda unaDeuda, Date fechaGeneracion, String concepto, String observacion, boolean borradoLogico) {
-        unaDeuda.setFechaGeneracion(fechaGeneracion);
-        unaDeuda.setConcepto(concepto);
-        unaDeuda.setObservacion(observacion);
-        unaDeuda.setBorradoLogico(borradoLogico);
-        unaDeuda.persistir(this.entityManager);
-    }
-
-    //VERIFICAR
     public void cambiarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {
         unEquipoActual.quitarDeuda(this.entityManager, unaDeuda);
         unEquipoNuevo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    //VERIFICAR
     public void cambiarDeudaDeSocia(Deuda unaDeuda, Socia unaSociaActual, Socia unaSociaNueva) {
         unaSociaActual.quitarDeuda(this.entityManager, unaDeuda);
         unaSociaNueva.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    //VERIFICAR + ELIMINAR CUOTAS
     public void eliminarDeuda(Deuda unaDeuda) {
         unaDeuda.setBorradoLogico(true);
+        unaDeuda.eliminarTodasLasCuotas(entityManager);
         unaDeuda.persistir(this.entityManager);
     }
 //---------------------------------FIN DEUDAS-----------------------------------

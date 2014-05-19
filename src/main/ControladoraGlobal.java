@@ -3,7 +3,6 @@ package main;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.*;
@@ -13,10 +12,8 @@ public class ControladoraGlobal {
     private final ControladoraContabilidad unaControladoraContabilidad;
     private final ControladoraEntidades unaControladoraEntidades;
     private final ControladoraDeportiva unaControladoraDeportiva;
-    //private final EntityManager entityManager;
 
     public ControladoraGlobal(EntityManager entityManager) {
-        //this.entityManager = entityManager;
         this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
         this.unaControladoraEntidades = new ControladoraEntidades(entityManager);
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
@@ -70,8 +67,8 @@ public class ControladoraGlobal {
     public Arbitro getUnArbitroBD(Long dni) {
         return this.unaControladoraEntidades.getArbitroBD(dni);
     }
-    
-     public List<Object[]> getArbitrosBD(String dato) {
+
+    public List<Object[]> getArbitrosBD(String dato) {
         return this.unaControladoraEntidades.getArbitrosBD(dato);
     }
 
@@ -138,7 +135,9 @@ public class ControladoraGlobal {
     }
 
     public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
-        this.unaControladoraEntidades.crearPase(unaSocia, fecha, monto, unEquipo);
+        //FALTA GENERAR LA DEUDA ACÁ INVENTANDO EL ALGORITMO MAGICO QUE CALCULE ESO
+        Deuda unaDeuda = null; //despues reemplazar por AlgoritmoMagico(magia);
+        this.unaControladoraEntidades.crearPase(unaSocia, fecha, monto, unEquipo, unaDeuda);
     }
 
     public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
@@ -278,7 +277,7 @@ public class ControladoraGlobal {
     public Equipo buscarEquipoBD(Long id) {
         return this.unaControladoraDeportiva.buscarEquipoBD(id);
     }
-    
+
     public List<Equipo> getEquipos() {
         return unaControladoraDeportiva.getEquipos();
     }
@@ -380,11 +379,11 @@ public class ControladoraGlobal {
     public void eliminarTorneo(Torneo unTorneo) {
         this.unaControladoraDeportiva.eliminarTorneo(unTorneo);
     }
-    
+
     public Torneo getTorneoBD(Long idTorneo) {
         return this.unaControladoraDeportiva.getTorneoBD(idTorneo);
     }
-    
+
     public List<Torneo> getTorneosBD() {
         return this.unaControladoraDeportiva.getTorneosBD();
     }
@@ -483,21 +482,12 @@ public class ControladoraGlobal {
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
-    
+    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
+    }
 
-    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
-        this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
-    }
-    
-    //FALTA VERIFICAR ESTO, CUANDO SE CREA UNA DEUDA, ESTA GERERA LAS CUOTAS
-    //por lo tanto hay que verificar que los cambios se realicen correctamente.
-    //Se miro unicamente la creacion. LA BAJA; ELIMINACION; etc no esta bien!!
-    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
-        this.unaControladoraContabilidad.crearDeudaEquipo(unEquipo, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, Vencimiento);
-    }
-    
-    public void modificarDeuda(Deuda unaDeuda, Date fechaGeneracion, String concepto, String observacion, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarDeuda(unaDeuda, fechaGeneracion, concepto, observacion, borradoLogico);
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        this.unaControladoraContabilidad.crearDeudaEquipo(unEquipo, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
     }
 
     public void cambiarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {
