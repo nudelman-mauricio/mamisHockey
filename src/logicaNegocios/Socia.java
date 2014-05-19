@@ -205,7 +205,7 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
-    
+
     public String getEquipoActual() {
         String resultado = "";
         for (Pase aux : getPases()) {

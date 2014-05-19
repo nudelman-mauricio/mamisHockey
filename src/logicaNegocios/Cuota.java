@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -23,13 +22,16 @@ public class Cuota implements Serializable, Comparable {
     @OneToOne(optional = false, targetEntity = PagoCuota.class)
     private PagoCuota unPagoCuota;
 
-    @Temporal(TemporalType.DATE)
     @Basic
-    private Date fechaVencimiento;
+    private String numero;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCuota;
+
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fechaVencimiento;
 
     @Basic
     private boolean borradoLogico;
@@ -38,9 +40,10 @@ public class Cuota implements Serializable, Comparable {
 
     }
 
-    public Cuota(EntityManager entityManager, double monto, Date fechaVencimiento) {
+    public Cuota(EntityManager entityManager, double monto, Date fechaVencimiento, String numero) {
         this.monto = monto;
         this.fechaVencimiento = fechaVencimiento;
+        this.numero = numero;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -62,12 +65,12 @@ public class Cuota implements Serializable, Comparable {
         this.unPagoCuota = unPagoCuota;
     }
 
-    public Date getFechaVencimiento() {
-        return this.fechaVencimiento;
+    public String getNumero() {
+        return this.numero;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public Long getIdCuota() {
@@ -76,6 +79,14 @@ public class Cuota implements Serializable, Comparable {
 
     public void setIdCuota(Long idCuota) {
         this.idCuota = idCuota;
+    }
+
+    public Date getFechaVencimiento() {
+        return this.fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
     }
 
     public boolean isBorradoLogico() {

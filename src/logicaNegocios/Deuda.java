@@ -21,7 +21,7 @@ public class Deuda implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
-    
+
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaGeneracion;
@@ -34,56 +34,24 @@ public class Deuda implements Serializable, Comparable {
 
     @Basic
     private String observacion;
-    
+
     @Basic
     private boolean borradoLogico;
-    
+
     public Deuda() {
 
     }
 
-    public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion,double montoTotal, int cantCuotas, Date Vencimiento) {
+    public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.fechaGeneracion = fechaGeneracion;
         this.concepto = concepto;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
-        
-        for (int i = 0; i < cantCuotas; i++) {
-            this.crearCuota(entityManager, montoTotal/cantCuotas, Vencimiento);
-            Vencimiento.setMonth(Vencimiento.getMonth()+1);
-            //FALTA VERIFICAR QUE EL VENCIMIENTO NO CAIGA SABADO,DOMINGO,"¿FERIADO?"---------------------------------
-        }
-    }
-    
-    //-----------------------------------CUOTAS-------------------------------------
-    public void crearCuota(EntityManager entityManager, double monto, Date fechaVencimiento) {
-        Cuota unaCuota = new Cuota(entityManager, monto, fechaVencimiento);
-        this.agregarCuota(entityManager, unaCuota);
-    }
-    
-
-    //REVEER SI ESTO QUEDA-------------------------PELA-------------------------
-    public void modificarCuota(EntityManager entityManager,Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, boolean borradoLogico) {
-        unaCuota.setMonto(monto);
-        unaCuota.setFechaVencimiento(fechaVencimiento);
-        unaCuota.setUnPagoCuota(unPagoCuota);
-        unaCuota.setBorradoLogico(borradoLogico);
-        unaCuota.persistir(entityManager);
+        this.crearCuotas(entityManager, montoTotal, cantCuotas, primerVencimiento);
     }
 
-    public void cambiarCuotaDeDeuda(EntityManager entityManager,Cuota unaCuota, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
-        unaDeudaActual.quitarCuota(entityManager, unaCuota);
-        unaDeudaNueva.agregarCuota(entityManager, unaCuota);
-    }
-    //FIN REVEER SI ESTO QUEDA-------------------------PELA---------------------
-    
-    public void eliminarCuota(EntityManager entityManager,Cuota unaCuota) {
-        unaCuota.setBorradoLogico(true);
-        unaCuota.persistir(entityManager);
-    }
-//---------------------------------FIN CUOTAS-----------------------------------
-
+//---------------------------- GETERS Y SETERS ---------------------------------
     public Long getIdDeuda() {
         return this.idDeuda;
     }
@@ -160,15 +128,36 @@ public class Deuda implements Serializable, Comparable {
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-//----------------------------------CUOTAS--------------------------------------
-    public void agregarCuota(EntityManager entityManager, Cuota unaCuota) {
-        this.cuotas.add(unaCuota);
+//-----------------------------------CUOTAS-------------------------------------    
+    public void crearCuotas(EntityManager entityManager, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        Date vencimiento = primerVencimiento;
+        for (int i = 0; i < cantCuotas; i++) {
+            Cuota unaCuota = new Cuota(entityManager, (montoTotal / cantCuotas), vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
+            this.cuotas.add(unaCuota);
+            vencimiento.setMonth(vencimiento.getMonth() + 1);
+            //FALTA VERIFICAR QUE EL VENCIMIENTO NO CAIGA SABADO,DOMINGO,"¿FERIADO?"---------------------------------
+        }
         this.persistir(entityManager);
     }
 
-    public void quitarCuota(EntityManager entityManager, Cuota unaCuota) {
-        this.cuotas.remove(unaCuota);
-        this.persistir(entityManager);
+    public void modificarCuota(EntityManager entityManager, Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, String numero, boolean borradoLogico) {
+        unaCuota.setMonto(monto);
+        unaCuota.setFechaVencimiento(fechaVencimiento);
+        unaCuota.setUnPagoCuota(unPagoCuota);
+        unaCuota.setNumero(numero);
+        unaCuota.setBorradoLogico(borradoLogico);
+        unaCuota.persistir(entityManager);
     }
-//--------------------------------FIN CUOTAS------------------------------------
+
+    public void eliminarCuota(EntityManager entityManager, Cuota unaCuota) {
+        unaCuota.setBorradoLogico(true);
+        unaCuota.persistir(entityManager);
+    }
+
+    public void eliminarTodasLasCuotas(EntityManager entityManager) {
+        for (Cuota aux : this.cuotas) {
+            aux.setBorradoLogico(true);
+        }
+    }
+//---------------------------------FIN CUOTAS-----------------------------------    
 }

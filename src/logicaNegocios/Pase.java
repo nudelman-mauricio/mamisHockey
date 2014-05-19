@@ -23,6 +23,9 @@ public class Pase implements Serializable, Comparable {
     @Basic
     private double monto;
 
+    @OneToOne(optional = false, targetEntity = Deuda.class)
+    private Deuda unaDeuda;
+
     @OneToOne(optional = false, targetEntity = Equipo.class)
     private Equipo unEquipo;
 
@@ -37,10 +40,11 @@ public class Pase implements Serializable, Comparable {
 
     }
 
-    public Pase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo) {
+    public Pase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda) {
         this.fecha = fecha;
         this.monto = monto;
         this.unEquipo = unEquipo;
+        this.unaDeuda = unaDeuda;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -60,6 +64,14 @@ public class Pase implements Serializable, Comparable {
 
     public void setMonto(double monto) {
         this.monto = monto;
+    }
+
+    public Deuda getUnaDeuda() {
+        return this.unaDeuda;
+    }
+
+    public void setUnaDeuda(Deuda unaDeuda) {
+        this.unaDeuda = unaDeuda;
     }
 
     public Equipo getUnEquipo() {
