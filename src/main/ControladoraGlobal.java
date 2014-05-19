@@ -56,24 +56,24 @@ public class ControladoraGlobal {
 
     public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
         this.unaControladoraEntidades.eliminarCuerpoTecnico(unCuerpoTecnico);
-    }    
-    
+    }
+
+    //Devuelve unCuerpoTecnico por DNI inclusive si esta borrado
     public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
         return this.unaControladoraEntidades.getCuerpoTecnicoBD(dni);
     }
-    
-    //Traer Todos los CuerpoTecnico de la DB menos los borradoLogico=True
+
+    //Devuelve Todos los CuerpoTecnico de la DB
     public List<CuerpoTecnico> getCuerposTecnicosBD() {
         return this.unaControladoraEntidades.getCuerposTecnicosBD();
     }
-        
+
     //Devuelve una lista de CuerpoTecnico usando como filtro un DNI, Nombre o Apellido menos los borrados
     public List<CuerpoTecnico> getCuerposTecnicosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getCuerposTecnicosBDFiltro(dato);
     }
-    
 //------------------------------FIN CUERPO TECNICO------------------------------
-//
+
 //----------------------------------ARBITROS------------------------------------
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
@@ -89,24 +89,21 @@ public class ControladoraGlobal {
         if (unArbitro != null) {
             this.unaControladoraEntidades.eliminarArbitro(unArbitro);
         }
-    }    
-    
-    public Arbitro getUnArbitroBD(Long dni) {
+    }
+
+    public Arbitro getArbitroBD(Long dni) {
         return this.unaControladoraEntidades.getArbitroBD(dni);
     }
-    
-    /*
+
     public List<Arbitro> getArbitrosBD() {
         return this.unaControladoraEntidades.getArbitrosBD();
     }
-    */
-    
-    //public List<Arbitro> getArbitrosBDFiltro(String dato) {
-    public List<Object[]> getArbitrosBD(String dato) {
-        return this.unaControladoraEntidades.getArbitrosBD(dato);
-    }    
+
+    public List<Arbitro> getArbitrosBDFiltro(String dato) {
+        return this.unaControladoraEntidades.getArbitrosBDFiltro(dato);
+    }
 //-------------------------------FIN ARBITROS----------------------------------- 
-//
+
 //------------------------------CLUBES------------------------------------------   
     public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
         this.unaControladoraEntidades.crearClub(idClub, nombre, nombrePresidente, unaLocalidad);
@@ -118,26 +115,21 @@ public class ControladoraGlobal {
 
     public void eliminarClub(Club unClub) {
         this.unaControladoraEntidades.eliminarClub(unClub);
-    } 
-    
-    //public Club getClubBD(Long id) {
-    public Club buscarClubBD(Long id) {
-        return this.unaControladoraEntidades.buscarClubBD(id);
     }
-    
-    /*
+
+    public Club getClubBD(Long id) {
+        return this.unaControladoraEntidades.getClubBD(id);
+    }
+
     public List<Club> getClubesBD() {
         return this.unaControladoraEntidades.getClubesBD();
     }
-    */
-    
-    /*
+
     public List<Club> getClubesBDFiltro(String dato) {
         return this.unaControladoraEntidades.getClubesBDFiltro(dato);
     }
-    */
 //------------------------------FIN CLUBES--------------------------------------
-//
+
 //------------------------------SOCIAS------------------------------------------   
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
@@ -151,23 +143,19 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.eliminarSocia(unaSocia);
     }
 
-    //public Socia getSociaBD(Long dni) {
-    public Socia buscarSociaBD(Long dni) {
-        return this.unaControladoraEntidades.buscarSociaBD(dni);
+    public Socia getSociaBD(Long dni) {
+        return this.unaControladoraEntidades.getSociaBD(dni);
     }
 
-    /*
     public List<Socia> getSociasBD() {
         return this.unaControladoraEntidades.getSociasBD();
     }
-    */
-    
-    //public List<Object[]> getSociasBDFiltro(String dato) {
-    public List<Object[]> buscarSociasBDFiltro(String dato) {
-        return this.unaControladoraEntidades.buscarSociasBDFiltro(dato);
+
+    public List<Socia> getSociasBDFiltro(String dato) {
+        return this.unaControladoraEntidades.getSociasBDFiltro(dato);
     }
 //------------------------------FIN SOCIAS--------------------------------------
-//    
+
 //-----------------------------------PASES--------------------------------------
     public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
         //FALTA GENERAR LA DEUDA ACÁ INVENTANDO EL ALGORITMO MAGICO QUE CALCULE ESO
@@ -187,16 +175,16 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.eliminarPase(unPase);
     }
 
-    //public Pase getPaseBD(Long id) {
-    public Pase buscarPaseBD(Long id) {
-        return this.unaControladoraEntidades.buscarPaseBD(id);
+    public Pase getPaseBD(Long id) {
+        return this.unaControladoraEntidades.getPaseBD(id);
     }
-    
+
     //Se va ultilizar para la parte Contable
-    //public List<Pase> getPasesBD() {
-    
+    public List<Pase> getPasesBD() {
+        return this.unaControladoraEntidades.getPaseBD();
+    }
 //---------------------------------FIN PASES------------------------------------
-//    
+
 //------------------------------LOCALIDADES-------------------------------------   
     public void crearLocalidad(String nombre, String codPostal) {
         this.unaControladoraEntidades.crearLocalidad(nombre, codPostal);
@@ -209,18 +197,16 @@ public class ControladoraGlobal {
     public void eliminarLocalidad(Localidad unaLocalidad) {
         this.unaControladoraEntidades.eliminarLocalidad(unaLocalidad);
     }
-    
-    //public Localidad getLocalidadBD(Long id) {
-    public Localidad buscarLocalidBD(Long id) {
-        return this.unaControladoraEntidades.buscarLocalidBD(id);
+
+    public Localidad getLocalidadBD(Long id) {
+        return this.unaControladoraEntidades.getLocalidadBD(id);
     }
-    
-    //public List<Localidad> getLocalidadesBD() {
-    public List<Localidad> getLocalidades() {
-        return unaControladoraEntidades.getLocalidades();
+
+    public List<Localidad> getLocalidadesBD() {
+        return unaControladoraEntidades.getLocalidadesBD();
     }
 //------------------------------FIN LOCALIDADES---------------------------------
-//    
+
 //-----------------------------------ERGOMETRIA---------------------------------
     public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         this.unaControladoraEntidades.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
@@ -238,17 +224,12 @@ public class ControladoraGlobal {
     public void eliminarErgometria(Ergometria unaErgometria) {
         this.unaControladoraEntidades.eliminarErgometria(unaErgometria);
     }
-    
-    //public Ergometria getErgometriaBD(Long id) {
-    public Ergometria buscarErgometriaBD(Long id) {
-        return this.unaControladoraEntidades.buscarErgometriaBD(id);
+
+    public Ergometria getErgometriaBD(Long id) {
+        return this.unaControladoraEntidades.getErgometriaBD(id);
     }
-    
-    //Listado de todos los pases - Este me parece que no seria tan generico.
-    //Se podria utilizar para alguna Consulta. Onda, todos los pases del año.
-    //public List<pase> getPasesBD() {
 //---------------------------------FIN ERGOMETRIAS---------------------------------
-//
+
 //-----------------------------------ESTADOS-------------------------------------
     public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.crearEstado(unaSocia, fecha, unTipoEstado);
@@ -266,18 +247,21 @@ public class ControladoraGlobal {
     public void eliminarEstado(Estado unEstado) {
         this.unaControladoraEntidades.eliminarEstado(unEstado);
     }
-    
+
     //public Estado getEstadoBD(Long id) {
-    public Estado buscarEstadoBD(EntityManager entityManager, Long id) {
-        return this.unaControladoraEntidades.buscarEstadoBD(entityManager, id);
+    public Estado getEstadoBD(Long id) {
+        return this.unaControladoraEntidades.getEstadoBD(id);
     }
-    
+
     //Listado de todos los cambios de Estados - Este me parece que no seria tan generico.
     //Se podria utilizar para alguna Consulta. Onda, todas las socias que cambiaron de estado entre fechas
-    //public List<Estado> getpases() {
+    public List<Estado> getEstadosDB() {
+        return this.unaControladoraEntidades.getEstadosDB();
+    }
 //---------------------------------FIN ESTADOS----------------------------------
 //
 //---------------------------------TIPO ESTADO----------------------------------
+
     public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
         this.unaControladoraEntidades.crearTipoEstado(monto, unaFrecuencia, nombre);
     }
@@ -289,20 +273,16 @@ public class ControladoraGlobal {
     public void eliminarTipoEstado(TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.eliminarTipoEstado(unTipoEstado);
     }
-    
-    /*
+
     public TipoEstado getTipoEstadoBD(Long id) {
         return this.unaControladoraEntidades.getTipoEstadoBD(id);
     }
-    */
-    
-    /*
+
     public List<TipoEstado> getTiposEstadosBD() {
-        return unaControladoraEntidades.getTiposEstados();
+        return unaControladoraEntidades.getTiposEstadosBD();
     }
-    */
 //-------------------------------FIN TIPO ESTADO--------------------------------
-//
+
 //------------------------------------------------------------------------------
 //--------------------------FIN CONTROLADORA ENTIDADES--------------------------
 //------------------------------------------------------------------------------
@@ -326,25 +306,24 @@ public class ControladoraGlobal {
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
-        
+
     /*
-    public SancionTribunal getSancionTribunalBD(Long id) {
-        ...
-    }
-    */
-    
+     public SancionTribunal getSancionTribunalBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<SancionTribunal> getSancionesTribunalesBD() {
-        ...
-    }
-    */
+     public List<SancionTribunal> getSancionesTribunalesBD() {
+     ...
+     }
+     */
 //------------------------------FIN SANCIONES-----------------------------------
 //
 //--------------------------------TARJETAS--------------------------------------
     public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String detalles) {
         this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, detalles);
     }
-    
+
     public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String detalles) {
         this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, detalles);
     }
@@ -356,18 +335,17 @@ public class ControladoraGlobal {
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
-        
+
     /*
-    public Tarjeta getTarjetaBD(Long id) {
-        ...
-    }
-    */
-    
+     public Tarjeta getTarjetaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<Tarjeta> getTarjetasBD() {
-        ...
-    }
-    */
+     public List<Tarjeta> getTarjetasBD() {
+     ...
+     }
+     */
 //------------------------------FIN TARJETAS------------------------------------
 //
 // EL CLUB DEBE IR A CONTROLADORA DEPORTIVA O EQUIPO A CONTROLADORA ENTIDAD
@@ -386,8 +364,8 @@ public class ControladoraGlobal {
 
     public void eliminarEquipo(EntityManager entityManager, Equipo unEquipo) {
         this.unaControladoraDeportiva.eliminarEquipo(entityManager, unEquipo);
-    }    
-    
+    }
+
     //public Equipo getEquipoBD(Long id) {
     public Equipo buscarEquipoBD(Long id) {
         return this.unaControladoraDeportiva.buscarEquipoBD(id);
@@ -416,18 +394,17 @@ public class ControladoraGlobal {
     public void eliminarIndumentaria(Indumentaria unaIndumentaria) {
         this.unaControladoraDeportiva.eliminarIndumentaria(unaIndumentaria);
     }
-    
+
     /*
-    public Indumentaria getIndumentariaBD(Long id) {
-        ...
-    }
-    */
-    
+     public Indumentaria getIndumentariaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<Indumentaria> getIndumentariasBD() {
-        ...
-    }
-    */   
+     public List<Indumentaria> getIndumentariasBD() {
+     ...
+     }
+     */
 //------------------------------FIN INDUMENTARIAS-------------------------------
 //
 //-------------------------------- CANCHAS -------------------------------------
@@ -447,18 +424,17 @@ public class ControladoraGlobal {
     public void eliminarCancha(Cancha unaCancha) {
         this.unaControladoraDeportiva.eliminarCancha(unaCancha);
     }
-    
+
     /*
-    public Cancha getCanchaBD(Long id) {
-        ...
-    }
-    */
-    
+     public Cancha getCanchaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<Cancha> getCanchasBD() {
-        ...
-    }
-    */  
+     public List<Cancha> getCanchasBD() {
+     ...
+     }
+     */
 //--------------------------------FIN CANCHAS-----------------------------------
 //
 //--------------------------------TIPO CANCHA-----------------------------------
@@ -473,18 +449,17 @@ public class ControladoraGlobal {
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.eliminarTipoCancha(unTipoCancha);
     }
-    
+
     /*
-    public TipoCancha getTipoCanchaBD(Long id) {
-        ...
-    }
-    */
-    
+     public TipoCancha getTipoCanchaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<TipoCancha> getTiposCanchasBD() {
-        ...
-    }
-    */   
+     public List<TipoCancha> getTiposCanchasBD() {
+     ...
+     }
+     */
 //-----------------------------FIN TIPO CANCHA----------------------------------
 //
 //------------------------------CATEGORIAS--------------------------------------    
@@ -498,18 +473,18 @@ public class ControladoraGlobal {
 
     public void eliminarCategoria(Categoria unaCategoria) {
         this.unaControladoraDeportiva.eliminarCategoria(unaCategoria);
-    }    
-    
+    }
+
     //public Categoria getCategoriaBD(Long id) {
     public Categoria buscarCategoriaBD(Long id) {
         return this.unaControladoraDeportiva.buscarCategoriaBD(id);
     }
 
     /*
-    public List<Categoria> getCategoriasBD() {
-        ...
-    }
-    */ 
+     public List<Categoria> getCategoriasBD() {
+     ...
+     }
+     */
 //------------------------------FIN CATEGORIAS----------------------------------
 //
 //------------------------------TORNEOS-----------------------------------------        
@@ -535,6 +510,7 @@ public class ControladoraGlobal {
 //------------------------------FIN TORNEOS-------------------------------------
 //
 //---------------------------------FECHAS TORNEO--------------------------------
+
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);
     }
@@ -550,18 +526,18 @@ public class ControladoraGlobal {
 
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
         this.unaControladoraDeportiva.eliminarFechaTorneo(unaFechaTorneo);
-    }    
-    
+    }
+
     //public FechaTorneo getFechaTorneoBD(Long id) {
     public FechaTorneo buscarFechaTorneoBd(EntityManager entityManager, Long id) {
         return this.unaControladoraDeportiva.buscarFechaTorneoBd(entityManager, id);
     }
-    
+
     /*
-    public List<FechaTorneo> getFechasTorneosBD() {
-        ...
-    }
-    */
+     public List<FechaTorneo> getFechasTorneosBD() {
+     ...
+     }
+     */
 //------------------------------FIN FECHAS TORNEO-------------------------------
 //
 //-----------------------------------PARTIDOS-----------------------------------
@@ -580,18 +556,18 @@ public class ControladoraGlobal {
 
     public void eliminarPartido(Partido unPartido) {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
-    }    
-    
+    }
+
     //public FechaTorneo getPartidoBD(Long id) {
     public Partido buscarPartidoBD(EntityManager entityManager, Long id) {
         return this.unaControladoraDeportiva.buscarPartidoBD(entityManager, id);
     }
-    
+
     /*
-    public List<Partido> getPartidosBD() {
-        ...
-    }
-    */
+     public List<Partido> getPartidosBD() {
+     ...
+     }
+     */
 //---------------------------------FIN PARTIDOS---------------------------------
 //
 //---------------------------------GOLES----------------------------------------
@@ -614,18 +590,17 @@ public class ControladoraGlobal {
     public void eliminarGol(Gol unGol) {
         this.unaControladoraDeportiva.eliminarGol(unGol);
     }
-    
+
     /*
-    public Gol getGolBD(Long id) {
-        ...
-    }
-    */
-    
+     public Gol getGolBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<Gol> getGolBD() {
-        ...
-    }
-    */ 
+     public List<Gol> getGolBD() {
+     ...
+     }
+     */
 //-------------------------------FIN GOLES--------------------------------------
 //
 //------------------------------------------------------------------------------
@@ -649,18 +624,18 @@ public class ControladoraGlobal {
 
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         this.unaControladoraContabilidad.eliminarConceptoDeportivo(unConceptoDeportivo);
-    }    
-    
+    }
+
     //public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
     public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
         return this.unaControladoraContabilidad.buscarConceptoDeportivoBD(id);
     }
-    
+
     /*
-    public List<ConceptoDeportivo> getConceptosDeportivosBD() {
-        ...
-    }
-    */
+     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
+     ...
+     }
+     */
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 //
 //-----------------------------------DEUDAS-------------------------------------
@@ -683,22 +658,21 @@ public class ControladoraGlobal {
     public void cambiarDeudaDeSocia(Deuda unaDeuda, Socia unaSociaActual, Socia unaSociaNueva) {
         this.unaControladoraContabilidad.cambiarDeudaDeSocia(unaDeuda, unaSociaActual, unaSociaNueva);
     }
-    
+
     public void eliminarDeuda(Deuda unaDeuda) {
         this.unaControladoraContabilidad.eliminarDeuda(unaDeuda);
     }
-    
+
     /*
-    public Deuda getDeudaBD(Long id) {
-        ...
-    }
-    */
-    
+     public Deuda getDeudaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<Deuda> getDeudasBD() {
-        ...
-    }
-    */
+     public List<Deuda> getDeudasBD() {
+     ...
+     }
+     */
 //---------------------------------FIN DEUDAS-----------------------------------
 //
 //--------------------------------PAGO CUOTA------------------------------------
@@ -713,18 +687,17 @@ public class ControladoraGlobal {
     public void eliminarPagoCuota(PagoCuota unPagoCuota) {
         this.unaControladoraContabilidad.eliminarPagoCuota(unPagoCuota);
     }
-    
+
     /*
-    public PagoCuota getPagoCuotaBD(Long id) {
-        ...
-    }
-    */
-    
+     public PagoCuota getPagoCuotaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<PagoCuota> getPagosCuotasBD() {
-        ...
-    }
-    */
+     public List<PagoCuota> getPagosCuotasBD() {
+     ...
+     }
+     */
 //------------------------------FIN PAGO CUOTA----------------------------------
 //
 //----------------------------- CONCEPTOINGRESO --------------------------------
@@ -739,17 +712,17 @@ public class ControladoraGlobal {
     public void eliminarConceptoIngreso(ConceptoIngreso unConceptoIngreso) {
         this.unaControladoraContabilidad.eliminarConceptoIngreso(unConceptoIngreso);
     }
-    
+
     //public ConceptoIngreso getConceptoIngresoBD(Long id) {
     public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
         return this.unaControladoraContabilidad.buscarConceptoIngresoBD(id);
     }
 
     /*
-    public List<ConceptoIngreso> getConceptosIngresosBD() {
-        ...
-    }
-    */
+     public List<ConceptoIngreso> getConceptosIngresosBD() {
+     ...
+     }
+     */
 //----------------------------- FIN CONCEPTOINGRESO ----------------------------
 //
 //----------------------------- CONCEPTO EGRESO --------------------------------
@@ -764,17 +737,17 @@ public class ControladoraGlobal {
     public void eliminarConceptoEgreso(ConceptoEgreso unConceptoEgreso) {
         this.unaControladoraContabilidad.eliminarConceptoEgreso(unConceptoEgreso);
     }
-    
+
     //public ConceptoEgreso getConceptoEgresoBD(Long id) {
     public ConceptoEgreso buscarConceptoEgresoBD(Long id) {
         return this.unaControladoraContabilidad.buscarConceptoEgresoBD(id);
     }
 
     /*
-    public List<ConceptoEgreso> getConceptosEgresosBD() {
-        ...
-    }
-    */
+     public List<ConceptoEgreso> getConceptosEgresosBD() {
+     ...
+     }
+     */
 //----------------------------- FIN CONCEPTO EGRESO ----------------------------
 //
 //----------------------------- INGRESOSOTRO -----------------------------------
@@ -789,19 +762,18 @@ public class ControladoraGlobal {
     public void eliminarIngresoOtro(IngresoOtro unIngresoOtro) {
         this.unaControladoraContabilidad.eliminarIngresoOtro(unIngresoOtro);
     }
-    
+
     //public IngresoOtro buscarIngresosOtroBD(Long id) {
     public IngresoOtro buscarIngresosOtroBD(Long id) {
         return this.unaControladoraContabilidad.buscarIngresosOtroBD(id);
     }
 
     /*
-    public List<IngresoOtro> getIngresosOtrosBD() {
-        ...
-    }
-    */
+     public List<IngresoOtro> getIngresosOtrosBD() {
+     ...
+     }
+     */
 //----------------------------- FIN INGRESOSOTRO -------------------------------
-
 //----------------------------- EGRESOS ----------------------------------------
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
         this.unaControladoraContabilidad.crearEgreso(fecha, monto, unConceptoEgreso, observacion);
@@ -814,19 +786,18 @@ public class ControladoraGlobal {
     public void eliminarEgreso(Egreso unEgreso) {
         this.unaControladoraContabilidad.eliminarEgreso(unEgreso);
     }
-    
+
     //public Egreso getEgresoBD(Long id) {
     public Egreso buscarEgresoBD(Long id) {
         return this.unaControladoraContabilidad.buscarEgresoBD(id);
     }
-    
-    /*
-    public List<Egreso> getEgresosBD() {
-        ...
-    }
-    */
-//----------------------------- FIN EGRESOS ------------------------------------
 
+    /*
+     public List<Egreso> getEgresosBD() {
+     ...
+     }
+     */
+//----------------------------- FIN EGRESOS ------------------------------------
 //------------------------------FRECUENCIA--------------------------------------
     public void crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
         this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, null);
@@ -839,18 +810,17 @@ public class ControladoraGlobal {
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
         this.unaControladoraContabilidad.eliminarFrecuencia(unaFrecuencia);
     }
-    
+
     /*
-    public Egreso getFrecuenciaBD(Long id) {
-        ...
-    }
-    */
-    
+     public Egreso getFrecuenciaBD(Long id) {
+     ...
+     }
+     */
     /*
-    public List<Frecuencia> getFrecuenciasBD() {
-        ...
-    }
-    */
+     public List<Frecuencia> getFrecuenciasBD() {
+     ...
+     }
+     */
 //----------------------------FIN FRECUENCIA------------------------------------
 //
 //------------------------------------------------------------------------------
