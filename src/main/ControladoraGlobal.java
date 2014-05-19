@@ -67,12 +67,12 @@ public class ControladoraGlobal {
 //------------------------------FIN CUERPO TECNICO------------------------------
 
 //----------------------------------ARBITROS------------------------------------
-    public Arbitro buscarUnArbitroBD(Long dni) {
-        return this.unaControladoraEntidades.buscarArbitroBD(dni);
+    public Arbitro getUnArbitroBD(Long dni) {
+        return this.unaControladoraEntidades.getArbitroBD(dni);
     }
     
-     public List<Object[]> buscarArbitrosBD(String dato) {
-        return this.unaControladoraEntidades.buscarArbitrosBD(dato);
+     public List<Object[]> getArbitrosBD(String dato) {
+        return this.unaControladoraEntidades.getArbitrosBD(dato);
     }
 
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, String email, String telFijo, String telCelular) {
@@ -379,6 +379,14 @@ public class ControladoraGlobal {
 
     public void eliminarTorneo(Torneo unTorneo) {
         this.unaControladoraDeportiva.eliminarTorneo(unTorneo);
+    }
+    
+    public Torneo getTorneoBD(Long idTorneo) {
+        return this.unaControladoraDeportiva.getTorneoBD(idTorneo);
+    }
+    
+    public List<Torneo> getTorneosBD() {
+        return this.unaControladoraDeportiva.getTorneosBD();
     }
 //------------------------------FIN TORNEOS-------------------------------------
 

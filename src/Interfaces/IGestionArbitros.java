@@ -287,7 +287,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     private void filtrarArbitros(String dato) {
         limpiarTablaSocia(modeloTablaArbitro);
         dato = jTextFieldBusqueda.getText();
-        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarArbitrosBD(dato);
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.getArbitrosBD(dato);
         for (Object[] aux : unaListaResultado) {
             Arbitro unArbitro = (Arbitro) aux[0];
             this.modeloTablaArbitro.addRow(new Object[]{unArbitro.getDni(), unArbitro.getApellido(), unArbitro.getNombre()});

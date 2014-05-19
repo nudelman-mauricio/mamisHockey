@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -235,6 +236,19 @@ public class ControladoraDeportiva {
     public void eliminarTorneo(Torneo unTorneo) {
         unTorneo.setBorradoLogico(true);
         unTorneo.persistir(this.entityManager);
+    }
+    
+    public Torneo getTorneoBD(Long idTorneo) {
+        Torneo resultado;
+        Query traerTorneo = this.entityManager.createQuery("SELECT T FROM Torneo T WHERE T.idTorneo = " + idTorneo);
+        resultado = (Torneo) traerTorneo.getResultList();
+        return resultado;
+    }
+    
+    public List<Torneo> getTorneosBD() {
+        String unaConsulta = ("SELECT T FROM Torneo T");
+        List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
     }
 //------------------------------FIN TORNEOS-------------------------------------
 
