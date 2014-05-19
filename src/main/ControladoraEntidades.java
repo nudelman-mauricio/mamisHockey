@@ -171,9 +171,9 @@ public class ControladoraEntidades {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public Pase buscarPaseBD(EntityManager entityManager, Long id) {
+    public Pase buscarPaseBD(Long id) {
         Pase resultado;
-        Query traerPase = entityManager.createQuery("SELECT auxP FROM Pase auxP WHERE auxP.id = " + id);
+        Query traerPase = this.entityManager.createQuery("SELECT auxP FROM Pase auxP WHERE auxP.id = " + id);
         resultado = (Pase) traerPase.getResultList();
         return resultado;
     }

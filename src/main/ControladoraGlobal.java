@@ -42,14 +42,10 @@ public class ControladoraGlobal {
 //--------------------------------FIN MESES-------------------------------------
 //
 //------------------------------------------------------------------------------
-//-----------------------CONTROLADORA ENTIDADES---------------------------------
+//--------------------------CONTROLADORA ENTIDADES------------------------------
 //------------------------------------------------------------------------------
 
 //------------------------------CUERPO TECNICO----------------------------------
-    public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
-        return this.unaControladoraEntidades.buscarCuerpoTecnicoBD(dni);
-    }
-
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearCuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo, email, telFijo, telCelular);
     }
@@ -60,18 +56,27 @@ public class ControladoraGlobal {
 
     public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
         this.unaControladoraEntidades.eliminarCuerpoTecnico(unCuerpoTecnico);
+    }    
+    
+    //public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
+    public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
+        return this.unaControladoraEntidades.buscarCuerpoTecnicoBD(dni);
     }
+    
+    /*
+    public List<CuerpoTecnico> getCuerposTecnicosBD() {
+        return this.unaControladoraEntidades.buscarCuerpoTecnicoBDFiltro();
+    }
+    */
+    
+    /*
+    public List<CuerpoTecnico> getCuerposTecnicosBDFiltro(String dato) {
+        return this.unaControladoraEntidades.getCuerposTecnicosBDFiltro(dato);
+    }
+    */
 //------------------------------FIN CUERPO TECNICO------------------------------
-
+//
 //----------------------------------ARBITROS------------------------------------
-    public Arbitro getUnArbitroBD(Long dni) {
-        return this.unaControladoraEntidades.getArbitroBD(dni);
-    }
-
-    public List<Object[]> getArbitrosBD(String dato) {
-        return this.unaControladoraEntidades.getArbitrosBD(dato);
-    }
-
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
     }
@@ -86,14 +91,25 @@ public class ControladoraGlobal {
         if (unArbitro != null) {
             this.unaControladoraEntidades.eliminarArbitro(unArbitro);
         }
+    }    
+    
+    public Arbitro getUnArbitroBD(Long dni) {
+        return this.unaControladoraEntidades.getArbitroBD(dni);
     }
+    
+    /*
+    public List<Arbitro> getArbitrosBD() {
+        return this.unaControladoraEntidades.getArbitrosBD();
+    }
+    */
+    
+    //public List<Arbitro> getArbitrosBDFiltro(String dato) {
+    public List<Object[]> getArbitrosBD(String dato) {
+        return this.unaControladoraEntidades.getArbitrosBD(dato);
+    }    
 //-------------------------------FIN ARBITROS----------------------------------- 
-
+//
 //------------------------------CLUBES------------------------------------------   
-    public Club buscarClubBD(Long id) {
-        return this.unaControladoraEntidades.buscarClubBD(id);
-    }
-
     public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
         this.unaControladoraEntidades.crearClub(idClub, nombre, nombrePresidente, unaLocalidad);
     }
@@ -104,18 +120,27 @@ public class ControladoraGlobal {
 
     public void eliminarClub(Club unClub) {
         this.unaControladoraEntidades.eliminarClub(unClub);
+    } 
+    
+    //public Club getClubBD(Long id) {
+    public Club buscarClubBD(Long id) {
+        return this.unaControladoraEntidades.buscarClubBD(id);
     }
+    
+    /*
+    public List<Club> getClubesBD() {
+        return this.unaControladoraEntidades.getClubesBD();
+    }
+    */
+    
+    /*
+    public List<Club> getClubesBDFiltro(String dato) {
+        return this.unaControladoraEntidades.getClubesBDFiltro(dato);
+    }
+    */
 //------------------------------FIN CLUBES--------------------------------------
-
+//
 //------------------------------SOCIAS------------------------------------------   
-    public List<Object[]> buscarSociasBDFiltro(String dato) {
-        return this.unaControladoraEntidades.buscarSociasBDFiltro(dato);
-    }
-
-    public Socia buscarSociaBD(Long dni) {
-        return this.unaControladoraEntidades.buscarSociaBD(dni);
-    }
-
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
     }
@@ -127,13 +152,25 @@ public class ControladoraGlobal {
     public void eliminarSocia(Socia unaSocia) {
         this.unaControladoraEntidades.eliminarSocia(unaSocia);
     }
-//------------------------------FIN SOCIAS--------------------------------------
 
-//-----------------------------------PASES--------------------------------------
-    public Pase buscarPaseBD(EntityManager entityManager, Long id) {
-        return this.unaControladoraEntidades.buscarPaseBD(entityManager, id);
+    //public Socia getSociaBD(Long dni) {
+    public Socia buscarSociaBD(Long dni) {
+        return this.unaControladoraEntidades.buscarSociaBD(dni);
     }
 
+    /*
+    public List<Socia> getSociasBD() {
+        return this.unaControladoraEntidades.getSociasBD();
+    }
+    */
+    
+    //public List<Object[]> getSociasBDFiltro(String dato) {
+    public List<Object[]> buscarSociasBDFiltro(String dato) {
+        return this.unaControladoraEntidades.buscarSociasBDFiltro(dato);
+    }
+//------------------------------FIN SOCIAS--------------------------------------
+//    
+//-----------------------------------PASES--------------------------------------
     public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
         //FALTA GENERAR LA DEUDA ACÁ INVENTANDO EL ALGORITMO MAGICO QUE CALCULE ESO
         Deuda unaDeuda = null; //despues reemplazar por AlgoritmoMagico(magia);
@@ -151,17 +188,18 @@ public class ControladoraGlobal {
     public void eliminarPase(Pase unPase) {
         this.unaControladoraEntidades.eliminarPase(unPase);
     }
+
+    //public Pase getPaseBD(Long id) {
+    public Pase buscarPaseBD(Long id) {
+        return this.unaControladoraEntidades.buscarPaseBD(id);
+    }
+    
+    //Se va ultilizar para la parte Contable
+    //public List<Pase> getPases() {
+    
 //---------------------------------FIN PASES------------------------------------
-
+//    
 //------------------------------LOCALIDADES-------------------------------------   
-    public List<Localidad> getLocalidades() {
-        return unaControladoraEntidades.getLocalidades();
-    }
-
-    public Localidad buscarLocalidBD(Long id) {
-        return this.unaControladoraEntidades.buscarLocalidBD(id);
-    }
-
     public void crearLocalidad(String nombre, String codPostal) {
         this.unaControladoraEntidades.crearLocalidad(nombre, codPostal);
     }
@@ -173,13 +211,18 @@ public class ControladoraGlobal {
     public void eliminarLocalidad(Localidad unaLocalidad) {
         this.unaControladoraEntidades.eliminarLocalidad(unaLocalidad);
     }
-//------------------------------FIN LOCALIDADES---------------------------------
-
-//-----------------------------------ERGOMETRIA---------------------------------
-    public Ergometria buscarErgometriaBD(Long id) {
-        return this.unaControladoraEntidades.buscarErgometriaBD(id);
+    
+    //public Localidad getLocalidadBD(Long id) {
+    public Localidad buscarLocalidBD(Long id) {
+        return this.unaControladoraEntidades.buscarLocalidBD(id);
     }
-
+    
+    public List<Localidad> getLocalidades() {
+        return unaControladoraEntidades.getLocalidades();
+    }
+//------------------------------FIN LOCALIDADES---------------------------------
+//    
+//-----------------------------------ERGOMETRIA---------------------------------
     public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         this.unaControladoraEntidades.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
     }
@@ -188,6 +231,7 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
     }
 
+    //Me Parese que esta no tiene NINGUN sentido
     public void cambiarErgometriaDeSocia(Ergometria unaErgometria, Socia unaSociaActual, Socia unaSociaNueva) {
         this.unaControladoraEntidades.cambiarErgometriaDeSocia(unaErgometria, unaSociaActual, unaSociaNueva);
     }
@@ -195,13 +239,17 @@ public class ControladoraGlobal {
     public void eliminarErgometria(Ergometria unaErgometria) {
         this.unaControladoraEntidades.eliminarErgometria(unaErgometria);
     }
-//---------------------------------FIN ERGOMETRIAS---------------------------------
-
-//-----------------------------------ESTADOS-------------------------------------
-    public Estado buscarEstadoBD(EntityManager entityManager, Long id) {
-        return this.unaControladoraEntidades.buscarEstadoBD(entityManager, id);
+    
+    //public Ergometria getErgometriaBD(Long id) {
+    public Ergometria buscarErgometriaBD(Long id) {
+        return this.unaControladoraEntidades.buscarErgometriaBD(id);
     }
-
+    
+    //No se Ocupa, siempre -> (unaSocia.getPases())
+    //public List<pase> getpases() {
+//---------------------------------FIN ERGOMETRIAS---------------------------------
+//
+//-----------------------------------ESTADOS-------------------------------------
     public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.crearEstado(unaSocia, fecha, unTipoEstado);
     }
@@ -210,6 +258,7 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.modificarEstado(unEstado, fecha, unTipoEstado, borradoLogico);
     }
 
+    //Me Parese que esta no tiene NINGUN sentido
     public void cambiarEstadoDeSocia(Estado unEstado, Socia unaSociaActual, Socia unaSociaNueva) {
         this.unaControladoraEntidades.cambiarEstadoDeSocia(unEstado, unaSociaActual, unaSociaNueva);
     }
@@ -217,6 +266,14 @@ public class ControladoraGlobal {
     public void eliminarEstado(Estado unEstado) {
         this.unaControladoraEntidades.eliminarEstado(unEstado);
     }
+    
+    //public Estado getEstadoBD(Long id) {
+    public Estado buscarEstadoBD(EntityManager entityManager, Long id) {
+        return this.unaControladoraEntidades.buscarEstadoBD(entityManager, id);
+    }
+    
+    //No se Ocupa, siempre -> (unaSocia.getEstados())
+    //public List<Estado> getpases() {
 //---------------------------------FIN ESTADOS----------------------------------
 
 //---------------------------------TIPO ESTADO----------------------------------
@@ -231,6 +288,18 @@ public class ControladoraGlobal {
     public void eliminarTipoEstado(TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.eliminarTipoEstado(unTipoEstado);
     }
+    
+    /*
+    public TipoEstado getTipoEstadoBD(Long id) {
+        return this.unaControladoraEntidades.getTipoEstadoBD(id);
+    }
+    */
+    
+    /*
+    public List<TipoEstado> getTiposEstados() {
+        return unaControladoraEntidades.getTiposEstados();
+    }
+    */
 //-------------------------------FIN TIPO ESTADO--------------------------------
 //
 //------------------------------------------------------------------------------
