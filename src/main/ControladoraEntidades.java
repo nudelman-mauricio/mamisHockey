@@ -68,6 +68,12 @@ public class ControladoraEntidades {
         resultado = (Arbitro) traerArbitro.getResultList();
         return resultado;
     }
+    
+    public List<Object[]> buscarArbitrosBD(String dato) {
+        String unaConsulta = "SELECT A, A.nombre FROM Arbitro A WHERE (A.nombre LIKE " + "'%" + dato + "%' OR A.apellido LIKE " + "'%" + dato + "%' OR A.dni LIKE " + "'%" + dato + "%')";
+        List<Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
 
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular) {
         Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso,  email,  telFijo,  telCelular);

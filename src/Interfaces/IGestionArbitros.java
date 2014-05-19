@@ -3,8 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
+
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Arbitro;
+import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 
 /**
  *
@@ -12,12 +19,21 @@ package Interfaces;
  */
 public class IGestionArbitros extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form GestionArbitros
-     */
-    public IGestionArbitros() {
+    ControladoraGlobal unaControladoraGlobal;
+    private DefaultTableModel modeloTablaArbitro;
+
+    
+
+    public IGestionArbitros(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
+        this.SeleccionarObjetoTabla(false);
         IMenuPrincipalInterface.centrar(this);
+
+        this.modeloTablaArbitro = (DefaultTableModel) jTableArbitros.getModel();
+        filtrarArbitros("");
     }
 
     /**
@@ -48,6 +64,11 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
         jButtonDatos = new javax.swing.JButton();
 
         setClosable(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -103,9 +124,19 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldBusquedaFocusGained(evt);
+            }
+        });
         jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldBusquedaActionPerformed(evt);
+            }
+        });
+        jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaKeyReleased(evt);
             }
         });
 
@@ -278,7 +309,11 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        // TODO add your handling code here:
+        IArbitro unArbitro = new IArbitro(unaControladoraGlobal, this);
+        unArbitro.pack();
+        unArbitro.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unArbitro);        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -302,14 +337,54 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        IArbitro unArbitro = new IArbitro(this);
-        unArbitro.pack();
-        unArbitro.setVisible(true);      
-        this.setVisible(false);        
-        IMenuPrincipalInterface.jDesktopPane.add(unArbitro);
+//        IArbitro unArbitro = new IArbitro(this);
+//        unArbitro.pack();
+//        unArbitro.setVisible(true);
+//        this.setVisible(false);
+//        IMenuPrincipalInterface.jDesktopPane.add(unArbitro);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
+    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
+         filtrarArbitros(jTextFieldBusqueda.getText());       
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        filtrarArbitros(jTextFieldBusqueda.getText());         
+    }//GEN-LAST:event_formComponentShown
+
+    private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
+        this.SeleccionarObjetoTabla(false);
+    }//GEN-LAST:event_jTextFieldBusquedaFocusGained
+
+    private void SeleccionarObjetoTabla(boolean estado) {
+        jButtonDatos.setEnabled(estado);
+        jButtonImprimir.setEnabled(estado);
+        jButtonEliminar.setEnabled(estado);
+        if (!estado) {
+            jTableArbitros.clearSelection();
+        }
+    }
+    
+    private void filtrarArbitros(String dato) {
+        limpiarTablaSocia(modeloTablaArbitro);
+        dato = jTextFieldBusqueda.getText();
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarArbitrosBD(dato);
+        for (Object[] aux : unaListaResultado) {
+            Arbitro unArbitro = (Arbitro) aux[0];
+            this.modeloTablaArbitro.addRow(new Object[]{unArbitro.getDni(), unArbitro.getApellido(), unArbitro.getNombre()});
+        }        
+    }
+    
+    private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
+        try {
+            int filas = modeloTablaSocia.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaSocia.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonDatos;

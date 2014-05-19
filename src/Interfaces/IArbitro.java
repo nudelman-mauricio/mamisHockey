@@ -21,16 +21,8 @@ public class IArbitro extends javax.swing.JInternalFrame {
 
     
     JInternalFrame unJInternalFrame;
-    ControladoraGlobal unaControladoraGlobal;
+    ControladoraGlobal unaControladoraGlobal;       
 
-       
-
-    public IArbitro(JInternalFrame unJInternalFrame) {
-        initComponents();
-        this.unJInternalFrame = unJInternalFrame;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
-        IMenuPrincipalInterface.centrar(this);
-    }
     
     public IArbitro(ControladoraGlobal  unaControladoraGlobal) {
         initComponents();
@@ -38,6 +30,27 @@ public class IArbitro extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         IMenuPrincipalInterface.centrar(this);
         SeInicio(unaControladoraGlobal);
+        
+        jButtonImprimir.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        
+        camposLimpiar();
+        
+    }
+    
+    public IArbitro(ControladoraGlobal  unaControladoraGlobal, JInternalFrame unJInternalFrame) {
+        initComponents();
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unJInternalFrame = unJInternalFrame;
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
+        IMenuPrincipalInterface.centrar(this);
+        SeInicio(unaControladoraGlobal);
+        
+        jButtonImprimir.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        
+        camposLimpiar();
+        
     }
 
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {

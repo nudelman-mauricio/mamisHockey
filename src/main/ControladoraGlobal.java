@@ -67,8 +67,12 @@ public class ControladoraGlobal {
 //------------------------------FIN CUERPO TECNICO------------------------------
 
 //----------------------------------ARBITROS------------------------------------
-    public Arbitro buscarArbitroBD(Long dni) {
+    public Arbitro buscarUnArbitroBD(Long dni) {
         return this.unaControladoraEntidades.buscarArbitroBD(dni);
+    }
+    
+     public List<Object[]> buscarArbitrosBD(String dato) {
+        return this.unaControladoraEntidades.buscarArbitrosBD(dato);
     }
 
     public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, String email, String telFijo, String telCelular) {

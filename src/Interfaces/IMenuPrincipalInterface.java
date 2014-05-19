@@ -411,7 +411,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
 
     private void jMenuItemGestionarArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarArbitroActionPerformed
-        IGestionArbitros unaGestionArbitro = new IGestionArbitros();
+        IGestionArbitros unaGestionArbitro = new IGestionArbitros(unaControladoraGlobal);
         unaGestionArbitro.pack();
         unaGestionArbitro.setVisible(true);
         this.jDesktopPane.add(unaGestionArbitro);
