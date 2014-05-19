@@ -51,7 +51,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
         jButtonImprimir = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jTextFieldBusqueda4 = new javax.swing.JTextField();
+        jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -119,18 +119,8 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextFieldBusqueda4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldBusqueda4.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldBusquedaFocusGained(evt);
-            }
-        });
-        jTextFieldBusqueda4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBusquedaActionPerformed(evt);
-            }
-        });
-        jTextFieldBusqueda4.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldBusquedaKeyReleased(evt);
             }
@@ -147,7 +137,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
                 .addGap(5, 5, 5)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldBusqueda4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -158,7 +148,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextFieldBusqueda4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -282,16 +272,8 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        // TODO add your handling code here:
+        filtrarArbitros(jTextFieldBusqueda.getText());   
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
-
-    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
-
-    private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaFocusGained
 
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
@@ -347,6 +329,6 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldBusqueda1;
     private javax.swing.JTextField jTextFieldBusqueda2;
     private javax.swing.JTextField jTextFieldBusqueda3;
-    private javax.swing.JTextField jTextFieldBusqueda4;
+    private javax.swing.JTextField jTextFieldBusqueda6;
     // End of variables declaration//GEN-END:variables
 }
