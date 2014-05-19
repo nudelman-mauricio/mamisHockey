@@ -58,22 +58,20 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.eliminarCuerpoTecnico(unCuerpoTecnico);
     }    
     
-    //public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
-    public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
-        return this.unaControladoraEntidades.buscarCuerpoTecnicoBD(dni);
+    public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
+        return this.unaControladoraEntidades.getCuerpoTecnicoBD(dni);
     }
     
-    /*
+    //Traer Todos los CuerpoTecnico de la DB menos los borradoLogico=True
     public List<CuerpoTecnico> getCuerposTecnicosBD() {
-        return this.unaControladoraEntidades.buscarCuerpoTecnicoBDFiltro();
+        return this.unaControladoraEntidades.getCuerposTecnicosBD();
     }
-    */
-    
-    /*
+        
+    //Devuelve una lista de CuerpoTecnico usando como filtro un DNI, Nombre o Apellido menos los borrados
     public List<CuerpoTecnico> getCuerposTecnicosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getCuerposTecnicosBDFiltro(dato);
     }
-    */
+    
 //------------------------------FIN CUERPO TECNICO------------------------------
 //
 //----------------------------------ARBITROS------------------------------------

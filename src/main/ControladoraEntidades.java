@@ -25,14 +25,7 @@ public class ControladoraEntidades {
         this.entityManager = entityManager;
     }
 
-//------------------------------CUERPO TECNICO----------------------------------   
-    public CuerpoTecnico buscarCuerpoTecnicoBD(Long dni) {
-        CuerpoTecnico resultado;
-        Query traerCuerpoTecnico = this.entityManager.createQuery("SELECT A FROM CuerpoTecnico A WHERE A.dni = " + dni);
-        resultado = (CuerpoTecnico) traerCuerpoTecnico.getResultList();
-        return resultado;
-    }
-
+//------------------------------CUERPO TECNICO----------------------------------    
     public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo, String email, String telFijo, String telCelular) {
         CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo, email, telFijo, telCelular);
     }
@@ -57,6 +50,27 @@ public class ControladoraEntidades {
     public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
         unCuerpoTecnico.setBorradoLogico(true);
         unCuerpoTecnico.persistir(this.entityManager);
+    }
+
+    //Devuelve un CuerpTecnico buscando por DNI borrados inclusive
+    public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
+        CuerpoTecnico resultado;
+        Query traerCuerpoTecnico = this.entityManager.createQuery("SELECT A FROM CuerpoTecnico A WHERE A.dni = " + dni);
+        resultado = (CuerpoTecnico) traerCuerpoTecnico.getResultList();
+        return resultado;
+    }
+
+    //Devuelve Todos los CuerpoTecnico menos los borrados
+    public List<CuerpoTecnico> getCuerposTecnicosBD() {
+        List<CuerpoTecnico> unaListaResultado = this.entityManager.createQuery("SELECT CT FROM CuerpoTecnico CT WHERE CT.borradoLogico = false").getResultList();
+        return unaListaResultado;
+    }
+
+    //Devuelve una lista de CuerpoTecnico usando como filtro un DNI, Nombre o Apellido menos los borrados
+    public List<CuerpoTecnico> getCuerposTecnicosBDFiltro(String dato) {
+        String unaConsulta = "SELECT CT FROM CuerpoTecnico CT WHERE (CT.nombre LIKE " + "'%" + dato + "%' OR CT.apellido LIKE " + "'%" + dato + "%' OR CT.dni LIKE " + "'%" + dato + "%')";
+        List<CuerpoTecnico> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
     }
 //------------------------------FIN CUERPO TECNICO------------------------------
 

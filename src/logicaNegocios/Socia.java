@@ -3,12 +3,10 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.OneToMany;
-import javax.persistence.Query;
 
 @Entity
 public class Socia extends Persona implements Serializable {
@@ -197,7 +195,7 @@ public class Socia extends Persona implements Serializable {
     }
 //---------------------------------FIN ESTADOS----------------------------------
 
-//--------------------------------METODOS---------------------------------------
+//---Devuelve el ultimo estado de la Socia    FALTA EVITAR LOS QUE TIENEN BORRADO LOGICO
     public String getUltimoEstado() {
         String resultado = "";
         for (Estado aux : getEstados()) {
@@ -206,6 +204,7 @@ public class Socia extends Persona implements Serializable {
         return resultado;
     }
 
+//---Devuelve el equipo Actual de la Socia  -->FALTA EVITAR LOS QUE TIENEN BORRADO LOGICO
     public String getEquipoActual() {
         String resultado = "";
         for (Pase aux : getPases()) {
@@ -213,5 +212,4 @@ public class Socia extends Persona implements Serializable {
         }
         return resultado;
     }
-//-------------------------------FIN METODOS------------------------------------
 }
