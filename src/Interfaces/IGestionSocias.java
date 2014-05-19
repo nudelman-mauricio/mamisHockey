@@ -466,7 +466,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
         dato = jTextFieldBusqueda.getText();
-        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociaConEquipoBD(dato);
+        List<Object[]> unaListaResultado = this.unaControladoraGlobal.buscarSociasBDFiltro(dato);
         for (Object[] o : unaListaResultado) {
             Socia unaSocia = (Socia) o[0];
             this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(),unaSocia.getUltimoEstado() , unaSocia.getEquipoActual()});

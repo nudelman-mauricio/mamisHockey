@@ -130,7 +130,7 @@ public class ControladoraEntidades {
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
-    public List<Object[]> buscarSociaConEquipoBD(String dato) {
+    public List<Object[]> buscarSociasBDFiltro(String dato) {
         String unaConsulta = "SELECT S, S.nombre FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')";
         List<Object[]> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
@@ -200,11 +200,6 @@ public class ControladoraEntidades {
     public void eliminarPase(Pase unPase) {
         unPase.setBorradoLogico(true);
         unPase.persistir(this.entityManager);
-    }
-    
-    public List<Pase> getPases(Socia unaSocia) {
-        List<Pase> unaListaResultado = unaSocia.getPases(this.entityManager);        
-        return unaListaResultado;
     }
 //---------------------------------FIN PASES------------------------------------
 

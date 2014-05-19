@@ -111,8 +111,8 @@ public class ControladoraGlobal {
 //------------------------------FIN CLUBES--------------------------------------
 
 //------------------------------SOCIAS------------------------------------------   
-    public List<Object[]> buscarSociaConEquipoBD(String dato) {
-        return this.unaControladoraEntidades.buscarSociaConEquipoBD( dato);
+    public List<Object[]> buscarSociasBDFiltro(String dato) {
+        return this.unaControladoraEntidades.buscarSociasBDFiltro(dato);
     }
 
     public Socia buscarSociaBD(Long dni) {
@@ -151,10 +151,6 @@ public class ControladoraGlobal {
 
     public void eliminarPase(Pase unPase) {
         this.unaControladoraEntidades.eliminarPase(unPase);
-    }
-    
-    public List<Pase> getPases(Socia unaSocia) {
-        return this.unaControladoraEntidades.getPases(unaSocia);
     }
 //---------------------------------FIN PASES------------------------------------
 

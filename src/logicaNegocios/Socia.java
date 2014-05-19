@@ -159,12 +159,6 @@ public class Socia extends Persona implements Serializable {
         this.getPases().remove(unPase);
         this.persistir(entityManager);
     }
-    
-    public List<Pase> getPases(EntityManager entityManager) {
-        Query traerPases = entityManager.createQuery("SELECT P FROM Pase P, Socia S JOIN s.pases R where R.idPase = P.idPase AND S.dni = " + super.getDni());
-        List<Pase> unaListaResultado = traerPases.getResultList();        
-        return unaListaResultado;
-    }
 //---------------------------------FIN PASES---------------------------------
 
 //-----------------------------------DEUDAS-------------------------------------

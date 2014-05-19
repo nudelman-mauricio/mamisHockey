@@ -64,11 +64,9 @@ public class IPase extends javax.swing.JInternalFrame {
     //Cargar Tabla con los pases de la Socia
     public void cargarCamposTabla() {
         DateFormat df = DateFormat.getDateInstance();
-
-        limpiarTabla(modeloTablePases);
-        List<Pase> unaListaResultado = this.unaControladoraGlobal.getPases(unaSocia);
         int nPase = 0;
-        for (Object aux : unaListaResultado) {
+        limpiarTabla(modeloTablePases);
+        for (Object aux : unaSocia.getPases()) {
             Pase unPase = (Pase) aux;
             this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), unPase.getMonto()});
             nPase++;
