@@ -195,7 +195,7 @@ public class ControladoraGlobal {
     }
     
     //Se va ultilizar para la parte Contable
-    //public List<Pase> getPases() {
+    //public List<Pase> getPasesBD() {
     
 //---------------------------------FIN PASES------------------------------------
 //    
@@ -217,6 +217,7 @@ public class ControladoraGlobal {
         return this.unaControladoraEntidades.buscarLocalidBD(id);
     }
     
+    //public List<Localidad> getLocalidadesBD() {
     public List<Localidad> getLocalidades() {
         return unaControladoraEntidades.getLocalidades();
     }
@@ -245,8 +246,9 @@ public class ControladoraGlobal {
         return this.unaControladoraEntidades.buscarErgometriaBD(id);
     }
     
-    //No se Ocupa, siempre -> (unaSocia.getPases())
-    //public List<pase> getpases() {
+    //Listado de todos los pases - Este me parece que no seria tan generico.
+    //Se podria utilizar para alguna Consulta. Onda, todos los pases del año.
+    //public List<pase> getPasesBD() {
 //---------------------------------FIN ERGOMETRIAS---------------------------------
 //
 //-----------------------------------ESTADOS-------------------------------------
@@ -272,10 +274,11 @@ public class ControladoraGlobal {
         return this.unaControladoraEntidades.buscarEstadoBD(entityManager, id);
     }
     
-    //No se Ocupa, siempre -> (unaSocia.getEstados())
+    //Listado de todos los cambios de Estados - Este me parece que no seria tan generico.
+    //Se podria utilizar para alguna Consulta. Onda, todas las socias que cambiaron de estado entre fechas
     //public List<Estado> getpases() {
 //---------------------------------FIN ESTADOS----------------------------------
-
+//
 //---------------------------------TIPO ESTADO----------------------------------
     public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
         this.unaControladoraEntidades.crearTipoEstado(monto, unaFrecuencia, nombre);
@@ -296,7 +299,7 @@ public class ControladoraGlobal {
     */
     
     /*
-    public List<TipoEstado> getTiposEstados() {
+    public List<TipoEstado> getTiposEstadosBD() {
         return unaControladoraEntidades.getTiposEstados();
     }
     */
@@ -306,10 +309,13 @@ public class ControladoraGlobal {
 //--------------------------FIN CONTROLADORA ENTIDADES--------------------------
 //------------------------------------------------------------------------------
 //
+//    
+//    
+//    
 //------------------------------------------------------------------------------
 //---------------------------CONTROLADORA DEPORTIVA-----------------------------
 //------------------------------------------------------------------------------
-
+//
 //--------------------------------SANCIONES-------------------------------------
     public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
         this.unaControladoraDeportiva.crearSancionTribunal(unEquipo, unaPersona, fecha, motivo, detalles);
@@ -322,15 +328,27 @@ public class ControladoraGlobal {
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
-//------------------------------FIN SANCIONES-----------------------------------
-
-//--------------------------------TARJETAS--------------------------------------
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String detalles) {
-        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, detalles);
+        
+    /*
+    public SancionTribunal getSancionTribunalBD(Long id) {
+        ...
     }
-
+    */
+    
+    /*
+    public List<SancionTribunal> getSancionesTribunalesBD() {
+        ...
+    }
+    */
+//------------------------------FIN SANCIONES-----------------------------------
+//
+//--------------------------------TARJETAS--------------------------------------
     public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String detalles) {
         this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, detalles);
+    }
+    
+    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String detalles) {
+        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, detalles);
     }
 
     public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String detalles, boolean borradoLogico) {
@@ -340,17 +358,22 @@ public class ControladoraGlobal {
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
+        
+    /*
+    public Tarjeta getTarjetaBD(Long id) {
+        ...
+    }
+    */
+    
+    /*
+    public List<Tarjeta> getTarjetasBD() {
+        ...
+    }
+    */
 //------------------------------FIN TARJETAS------------------------------------
-
+//
+// EL CLUB DEBE IR A CONTROLADORA DEPORTIVA O EQUIPO A CONTROLADORA ENTIDAD
 //------------------------------EQUIPOS-----------------------------------------   
-    public Equipo buscarEquipoBD(Long id) {
-        return this.unaControladoraDeportiva.buscarEquipoBD(id);
-    }
-
-    public List<Equipo> getEquipos() {
-        return unaControladoraDeportiva.getEquipos();
-    }
-
     public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unaCapitana, unaDelegada, unDT);
     }
@@ -365,9 +388,20 @@ public class ControladoraGlobal {
 
     public void eliminarEquipo(EntityManager entityManager, Equipo unEquipo) {
         this.unaControladoraDeportiva.eliminarEquipo(entityManager, unEquipo);
+    }    
+    
+    //public Equipo getEquipoBD(Long id) {
+    public Equipo buscarEquipoBD(Long id) {
+        return this.unaControladoraDeportiva.buscarEquipoBD(id);
     }
-//------------------------------FIN EQUIPOS-------------------------------------
 
+    //public List<Equipo> getEquiposBD() {
+    public List<Equipo> getEquipos() {
+        return unaControladoraDeportiva.getEquipos();
+    }
+
+//------------------------------FIN EQUIPOS-------------------------------------
+//
 //--------------------------------INDUMENTARIAS---------------------------------
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         this.unaControladoraDeportiva.crearIndumentaria(unEquipo, camiseta, media, pollera);
@@ -384,8 +418,20 @@ public class ControladoraGlobal {
     public void eliminarIndumentaria(Indumentaria unaIndumentaria) {
         this.unaControladoraDeportiva.eliminarIndumentaria(unaIndumentaria);
     }
+    
+    /*
+    public Indumentaria getIndumentariaBD(Long id) {
+        ...
+    }
+    */
+    
+    /*
+    public List<Indumentaria> getIndumentariasBD() {
+        ...
+    }
+    */   
 //------------------------------FIN INDUMENTARIAS-------------------------------
-
+//
 //-------------------------------- CANCHAS -------------------------------------
     public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.crearCancha(unClub, nombre, seOcupa, unTipoCancha);
@@ -395,6 +441,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, seOcupa, unTipoCancha, borradoLogico);
     }
 
+    //Esta Interesante, la pregunta seria si se va utilizar... ¿Va ser factible desde la parte grafica?
     public void cambiarCanchaDeClub(Cancha unaCancha, Club unClubActual, Club unClubNuevo) {
         this.unaControladoraDeportiva.cambiarCanchaDeClub(unaCancha, unClubActual, unClubNuevo);
     }
@@ -402,8 +449,20 @@ public class ControladoraGlobal {
     public void eliminarCancha(Cancha unaCancha) {
         this.unaControladoraDeportiva.eliminarCancha(unaCancha);
     }
+    
+    /*
+    public Cancha getCanchaBD(Long id) {
+        ...
+    }
+    */
+    
+    /*
+    public List<Cancha> getCanchasBD() {
+        ...
+    }
+    */  
 //--------------------------------FIN CANCHAS-----------------------------------
-
+//
 //--------------------------------TIPO CANCHA-----------------------------------
     public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
         this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);
@@ -416,13 +475,21 @@ public class ControladoraGlobal {
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.eliminarTipoCancha(unTipoCancha);
     }
-//-----------------------------FIN TIPO CANCHA----------------------------------
-
-//------------------------------CATEGORIAS--------------------------------------    
-    public Categoria buscarCategoriaBD(Long id) {
-        return this.unaControladoraDeportiva.buscarCategoriaBD(id);
+    
+    /*
+    public TipoCancha getTipoCanchaBD(Long id) {
+        ...
     }
-
+    */
+    
+    /*
+    public List<TipoCancha> getTiposCanchasBD() {
+        ...
+    }
+    */   
+//-----------------------------FIN TIPO CANCHA----------------------------------
+//
+//------------------------------CATEGORIAS--------------------------------------    
     public void crearCategoria(int cantMenores, String nombre) {
         this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
     }
@@ -433,9 +500,20 @@ public class ControladoraGlobal {
 
     public void eliminarCategoria(Categoria unaCategoria) {
         this.unaControladoraDeportiva.eliminarCategoria(unaCategoria);
+    }    
+    
+    //public Categoria getCategoriaBD(Long id) {
+    public Categoria buscarCategoriaBD(Long id) {
+        return this.unaControladoraDeportiva.buscarCategoriaBD(id);
     }
-//------------------------------FIN CATEGORIAS----------------------------------
 
+    /*
+    public List<Categoria> getCategoriasBD() {
+        ...
+    }
+    */ 
+//------------------------------FIN CATEGORIAS----------------------------------
+//
 //------------------------------TORNEOS-----------------------------------------        
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         this.unaControladoraDeportiva.crearTorneo(diaInicio, unaCategoria, nombre);
@@ -457,12 +535,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTorneosBD();
     }
 //------------------------------FIN TORNEOS-------------------------------------
-
+//
 //---------------------------------FECHAS TORNEO--------------------------------
-    public FechaTorneo buscarFechaTorneoBd(EntityManager entityManager, Long id) {
-        return this.unaControladoraDeportiva.buscarFechaTorneoBd(entityManager, id);
-    }
-
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);
     }
@@ -471,20 +545,28 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarFechaTorneo(unaFechaTorneo, numeroFecha, borradoLogico);
     }
 
+    //ME PARECE QUE NO TIENE NINGUN SENTIDO - NI SIQUIERA VIABLE DE LA PARTE GRAFICA
     public void cambiarFechaTorneoDeTorneo(FechaTorneo unaFechaTorneo, Torneo unTorneoActual, Torneo unTorneoNuevo) {
         this.unaControladoraDeportiva.cambiarFechaTorneoDeTorneo(unaFechaTorneo, unTorneoActual, unTorneoNuevo);
     }
 
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
         this.unaControladoraDeportiva.eliminarFechaTorneo(unaFechaTorneo);
+    }    
+    
+    //public FechaTorneo getFechaTorneoBD(Long id) {
+    public FechaTorneo buscarFechaTorneoBd(EntityManager entityManager, Long id) {
+        return this.unaControladoraDeportiva.buscarFechaTorneoBd(entityManager, id);
     }
+    
+    /*
+    public List<FechaTorneo> getFechasTorneosBD() {
+        ...
+    }
+    */
 //------------------------------FIN FECHAS TORNEO-------------------------------
-
+//
 //-----------------------------------PARTIDOS-----------------------------------
-    public Partido buscarPartidoBD(EntityManager entityManager, Long id) {
-        return this.unaControladoraDeportiva.buscarPartidoBD(entityManager, id);
-    }
-
     public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unaCancha, observaciones, unEquipoLocal);
     }
@@ -493,15 +575,27 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarTorneo(null, fecha, null, observaciones);
     }
 
+    //ME PARECE QUE NO TIENE NINGUN SENTIDO - NI SIQUIERA VIABLE DE LA PARTE GRAFICA
     public void cambiarPartidoDeFechaTorneo(Partido unPartido, FechaTorneo unaFechaTorneoActual, FechaTorneo unaFechaTorneoNueva) {
         this.unaControladoraDeportiva.cambiarPartidoDeFechaTorneo(unPartido, unaFechaTorneoActual, unaFechaTorneoNueva);
     }
 
     public void eliminarPartido(Partido unPartido) {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
+    }    
+    
+    //public FechaTorneo getPartidoBD(Long id) {
+    public Partido buscarPartidoBD(EntityManager entityManager, Long id) {
+        return this.unaControladoraDeportiva.buscarPartidoBD(entityManager, id);
     }
+    
+    /*
+    public List<Partido> getPartidosBD() {
+        ...
+    }
+    */
 //---------------------------------FIN PARTIDOS---------------------------------
-
+//
 //---------------------------------GOLES----------------------------------------
     public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, boolean autoGol) {
         this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, tiempo, autoGol);
@@ -522,11 +616,25 @@ public class ControladoraGlobal {
     public void eliminarGol(Gol unGol) {
         this.unaControladoraDeportiva.eliminarGol(unGol);
     }
+    
+    /*
+    public Gol getGolBD(Long id) {
+        ...
+    }
+    */
+    
+    /*
+    public List<Gol> getGolBD() {
+        ...
+    }
+    */ 
 //-------------------------------FIN GOLES--------------------------------------
 //
 //------------------------------------------------------------------------------
 //------------------------FIN CONTROLADORA DEPORTIVA----------------------------
 //------------------------------------------------------------------------------
+//
+//    
 //
 //------------------------------------------------------------------------------
 //------------------------CONTROLADORA CONTABILIDAD-----------------------------
