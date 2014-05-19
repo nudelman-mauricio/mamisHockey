@@ -50,8 +50,9 @@ public class Deuda implements Serializable, Comparable {
         this.persistir(entityManager);
         
         for (int i = 0; i < cantCuotas; i++) {
-            this.crearCuota(entityManager, montoTotal/cantCuotas, fechaGeneracion);
-            fechaGeneracion.setMonth(fechaGeneracion.getMonth()+1);
+            this.crearCuota(entityManager, montoTotal/cantCuotas, Vencimiento);
+            Vencimiento.setMonth(Vencimiento.getMonth()+1);
+            //FALTA VERIFICAR QUE EL VENCIMIENTO NO CAIGA SABADO,DOMINGO,"¿FERIADO?"---------------------------------
         }
     }
     
@@ -60,7 +61,9 @@ public class Deuda implements Serializable, Comparable {
         Cuota unaCuota = new Cuota(entityManager, monto, fechaVencimiento);
         this.agregarCuota(entityManager, unaCuota);
     }
+    
 
+    //REVEER SI ESTO QUEDA-------------------------PELA-------------------------
     public void modificarCuota(EntityManager entityManager,Cuota unaCuota, double monto, Date fechaVencimiento, PagoCuota unPagoCuota, boolean borradoLogico) {
         unaCuota.setMonto(monto);
         unaCuota.setFechaVencimiento(fechaVencimiento);
@@ -69,7 +72,6 @@ public class Deuda implements Serializable, Comparable {
         unaCuota.persistir(entityManager);
     }
 
-    //REVEER SI ESTO QUEDA-------------------------PELA-------------------------
     public void cambiarCuotaDeDeuda(EntityManager entityManager,Cuota unaCuota, Deuda unaDeudaActual, Deuda unaDeudaNueva) {
         unaDeudaActual.quitarCuota(entityManager, unaCuota);
         unaDeudaNueva.agregarCuota(entityManager, unaCuota);
