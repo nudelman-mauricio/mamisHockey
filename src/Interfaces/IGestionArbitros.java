@@ -293,20 +293,20 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+               
         Object[] options = {"OK" , "Cancelar"};
-        int n = JOptionPane.showOptionDialog(this,
-                "Desea eliminar al arbitro: " +  unArbitroSeleccionado.getApellido()+" "+unArbitroSeleccionado.getNombre(),
-                "Title",
-                JOptionPane.PLAIN_MESSAGE,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options);
-            
-        if(n==0){
-            unaControladoraGlobal.eliminarArbitro(unArbitroSeleccionado);
-            filtrarArbitros("");
-        }
+          if (0 == JOptionPane.showOptionDialog(
+                  this,
+                  "Desea eliminar al arbitro: "+  unArbitroSeleccionado.getApellido()+" "+unArbitroSeleccionado.getNombre(), 
+                  "Eliminar",
+                  JOptionPane.PLAIN_MESSAGE, 
+                  JOptionPane.QUESTION_MESSAGE,
+                  null,
+                  options,
+                  options)) {
+              unaControladoraGlobal.eliminarArbitro(unArbitroSeleccionado);
+              filtrarArbitros("");
+          }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void SeleccionarObjetoTabla(boolean estado) {
