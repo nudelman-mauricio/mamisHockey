@@ -144,65 +144,6 @@ public class ControladoraEntidades {
     }
 //------------------------------FIN ARBITROS------------------------------------
 
-//------------------------------CLUBES------------------------------------------
-    public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
-        Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
-    }
-
-    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
-        unClub.setIdClub(idClub);
-        unClub.setNombre(nombre);
-        unClub.setLogo(logo);
-        unClub.setNombrePresidente(nombrePresidente);
-        unClub.setUnaLocalidad(unaLocalidad);
-        unClub.setBorradoLogico(borradoLogico);
-        unClub.persistir(this.entityManager);
-    }
-
-    public void eliminarClub(Club unClub) {
-        unClub.setBorradoLogico(true);
-        unClub.persistir(this.entityManager);
-    }
-
-    /**
-     * Devuelve unClub filtrado por ID incluido los borrados
-     *
-     *
-     * @param id
-     * @return
-     */
-    public Club getClubBD(Long id) {
-        Club resultado;
-        String unaConsulta = "SELECT A FROM Club A WHERE A.idClub = " + id;
-        Query traerClub = this.entityManager.createQuery(unaConsulta);
-        resultado = (Club) traerClub.getSingleResult();
-        return resultado;
-    }
-
-    /**
-     * Devuelve todos los Clubes
-     *
-     * @return
-     */
-    public List<Club> getClubesBD() {
-        String unaConsulta = "SELECT C FROM Club C WHERE C.borradoLogico = FALSE";
-        List<Club> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        return unaListaResultado;
-    }
-
-    /**
-     * Devuelve los Clubes filtrado por Nombre
-     *
-     * @param dato
-     * @return
-     */
-    public List<Club> getClubesBDFiltro(String dato) {
-        String unaConsulta = "SELECT C FROM Club C WHERE (C.nombre LIKE " + "'%" + dato + "%')and(C.borradoLogico = FALSE)";
-        List<Club> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        return unaListaResultado;
-    }
-//------------------------------FIN CLUBES--------------------------------------
-
 //------------------------------SOCIAS------------------------------------------
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         Socia unaSocia = new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);

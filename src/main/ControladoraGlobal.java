@@ -104,32 +104,6 @@ public class ControladoraGlobal {
     }
 //-------------------------------FIN ARBITROS----------------------------------- 
 
-//------------------------------CLUBES------------------------------------------   
-    public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
-        this.unaControladoraEntidades.crearClub(idClub, nombre, nombrePresidente, unaLocalidad);
-    }
-
-    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarClub(unClub, idClub, nombre, logo, nombrePresidente, unaLocalidad, borradoLogico);
-    }
-
-    public void eliminarClub(Club unClub) {
-        this.unaControladoraEntidades.eliminarClub(unClub);
-    }
-
-    public Club getClubBD(Long id) {
-        return this.unaControladoraEntidades.getClubBD(id);
-    }
-
-    public List<Club> getClubesBD() {
-        return this.unaControladoraEntidades.getClubesBD();
-    }
-
-    public List<Club> getClubesBDFiltro(String dato) {
-        return this.unaControladoraEntidades.getClubesBDFiltro(dato);
-    }
-//------------------------------FIN CLUBES--------------------------------------
-
 //------------------------------SOCIAS------------------------------------------   
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
@@ -334,19 +308,15 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
 
-    /*
-     public Tarjeta getTarjetaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<Tarjeta> getTarjetasBD() {
-     ...
-     }
-     */
+    public Tarjeta getTarjetaBD(Long id) {
+        return this.unaControladoraDeportiva.getTarjetaBD(id);
+    }
+
+    public List<Tarjeta> getTarjetasBD() {
+        return this.unaControladoraDeportiva.getTarjetasBD();
+    }
 //------------------------------FIN TARJETAS------------------------------------
-//
-// EL CLUB DEBE IR A CONTROLADORA DEPORTIVA O EQUIPO A CONTROLADORA ENTIDAD
+
 //------------------------------EQUIPOS-----------------------------------------   
     public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
         this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unaCapitana, unaDelegada, unDT);
@@ -364,18 +334,41 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarEquipo(entityManager, unEquipo);
     }
 
-    //public Equipo getEquipoBD(Long id) {
-    public Equipo buscarEquipoBD(Long id) {
-        return this.unaControladoraDeportiva.buscarEquipoBD(id);
+    public Equipo getEquipoBD(Long id) {
+        return this.unaControladoraDeportiva.getEquipoBD(id);
     }
 
-    //public List<Equipo> getEquiposBD() {
-    public List<Equipo> getEquipos() {
-        return unaControladoraDeportiva.getEquipos();
+    public List<Equipo> getEquiposBD() {
+        return unaControladoraDeportiva.getEquiposBD();
     }
-
 //------------------------------FIN EQUIPOS-------------------------------------
-//
+
+//------------------------------CLUBES------------------------------------------   
+    public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
+        this.unaControladoraDeportiva.crearClub(idClub, nombre, nombrePresidente, unaLocalidad);
+    }
+
+    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarClub(unClub, idClub, nombre, logo, nombrePresidente, unaLocalidad, borradoLogico);
+    }
+
+    public void eliminarClub(Club unClub) {
+        this.unaControladoraDeportiva.eliminarClub(unClub);
+    }
+
+    public Club getClubBD(Long id) {
+        return this.unaControladoraDeportiva.getClubBD(id);
+    }
+
+    public List<Club> getClubesBD() {
+        return this.unaControladoraDeportiva.getClubesBD();
+    }
+
+    public List<Club> getClubesBDFiltro(String dato) {
+        return this.unaControladoraDeportiva.getClubesBDFiltro(dato);
+    }
+//------------------------------FIN CLUBES--------------------------------------
+
 //--------------------------------INDUMENTARIAS---------------------------------
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         this.unaControladoraDeportiva.crearIndumentaria(unEquipo, camiseta, media, pollera);
@@ -393,18 +386,15 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarIndumentaria(unaIndumentaria);
     }
 
-    /*
-     public Indumentaria getIndumentariaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<Indumentaria> getIndumentariasBD() {
-     ...
-     }
-     */
+    public Indumentaria getIndumentariaBD(Long id) {
+        return this.unaControladoraDeportiva.getIndumentariaBD(id);
+    }
+
+    public List<Indumentaria> getIndumentariasBD() {
+        return this.unaControladoraDeportiva.getIndumentariasBD();
+    }
 //------------------------------FIN INDUMENTARIAS-------------------------------
-//
+
 //-------------------------------- CANCHAS -------------------------------------
     public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.crearCancha(unClub, nombre, seOcupa, unTipoCancha);
@@ -423,18 +413,15 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarCancha(unaCancha);
     }
 
-    /*
-     public Cancha getCanchaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<Cancha> getCanchasBD() {
-     ...
-     }
-     */
+    public Cancha getCanchaBD(Long id) {
+        return this.unaControladoraDeportiva.getCanchaBD(id);
+    }
+
+    public List<Cancha> getCanchasBD() {
+        return this.unaControladoraDeportiva.getCanchasBD();
+    }
 //--------------------------------FIN CANCHAS-----------------------------------
-//
+
 //--------------------------------TIPO CANCHA-----------------------------------
     public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
         this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);
@@ -448,19 +435,16 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarTipoCancha(unTipoCancha);
     }
 
-    /*
-     public TipoCancha getTipoCanchaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<TipoCancha> getTiposCanchasBD() {
-     ...
-     }
-     */
+    public TipoCancha getTipoCanchaBD(Long id) {
+        return this.unaControladoraDeportiva.getTipoCanchaBD(id);
+    }
+
+    public List<TipoCancha> getTiposCanchasBD() {
+        return this.unaControladoraDeportiva.getTiposCanchasBD();
+    }
 //-----------------------------FIN TIPO CANCHA----------------------------------
-//
-//------------------------------CATEGORIAS--------------------------------------    
+
+//------------------------------CATEGORIAS--------------------------------------
     public void crearCategoria(int cantMenores, String nombre) {
         this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
     }
@@ -473,19 +457,16 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarCategoria(unaCategoria);
     }
 
-    //public Categoria getCategoriaBD(Long id) {
     public Categoria buscarCategoriaBD(Long id) {
-        return this.unaControladoraDeportiva.buscarCategoriaBD(id);
+        return this.unaControladoraDeportiva.getCategoriaBD(id);
     }
 
-    /*
-     public List<Categoria> getCategoriasBD() {
-     ...
-     }
-     */
+    public List<Categoria> getCategoriasBD() {
+        return this.unaControladoraDeportiva.getCategoriasBD();
+    }
 //------------------------------FIN CATEGORIAS----------------------------------
-//
-//------------------------------TORNEOS-----------------------------------------        
+
+//------------------------------TORNEOS-----------------------------------------
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         this.unaControladoraDeportiva.crearTorneo(diaInicio, unaCategoria, nombre);
     }
@@ -506,9 +487,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTorneosBD();
     }
 //------------------------------FIN TORNEOS-------------------------------------
-//
-//---------------------------------FECHAS TORNEO--------------------------------
 
+//---------------------------------FECHAS TORNEO--------------------------------
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);
     }
@@ -527,17 +507,15 @@ public class ControladoraGlobal {
     }
 
     //public FechaTorneo getFechaTorneoBD(Long id) {
-    public FechaTorneo buscarFechaTorneoBd(EntityManager entityManager, Long id) {
-        return this.unaControladoraDeportiva.buscarFechaTorneoBd(entityManager, id);
+    public FechaTorneo getFechaTorneoBD(EntityManager entityManager, Long id) {
+        return this.unaControladoraDeportiva.getFechaTorneoBD(id);
     }
 
-    /*
-     public List<FechaTorneo> getFechasTorneosBD() {
-     ...
-     }
-     */
+    public List<FechaTorneo> getFechasTorneosBD() {
+        return this.unaControladoraDeportiva.getFechasTorneosBD();
+    }
 //------------------------------FIN FECHAS TORNEO-------------------------------
-//
+
 //-----------------------------------PARTIDOS-----------------------------------
     public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unaCancha, observaciones, unEquipoLocal);
@@ -556,18 +534,15 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
     }
 
-    //public FechaTorneo getPartidoBD(Long id) {
-    public Partido buscarPartidoBD(EntityManager entityManager, Long id) {
-        return this.unaControladoraDeportiva.buscarPartidoBD(entityManager, id);
+    public Partido getPartidoBD(EntityManager entityManager, Long id) {
+        return this.unaControladoraDeportiva.getPartidoBD(id);
     }
 
-    /*
-     public List<Partido> getPartidosBD() {
-     ...
-     }
-     */
+    public List<Partido> getPartidosBD() {
+        return this.unaControladoraDeportiva.getPartidosBD();
+    }
 //---------------------------------FIN PARTIDOS---------------------------------
-//
+
 //---------------------------------GOLES----------------------------------------
     public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, boolean autoGol) {
         this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, tiempo, autoGol);
@@ -589,16 +564,13 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarGol(unGol);
     }
 
-    /*
-     public Gol getGolBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<Gol> getGolBD() {
-     ...
-     }
-     */
+    public Gol getGolBD(Long id) {
+        return this.unaControladoraDeportiva.getGolBD(id);
+    }
+
+    public List<Gol> getGolesBD() {
+        return this.unaControladoraDeportiva.getGolesBD();
+    }
 //-------------------------------FIN GOLES--------------------------------------
 //
 //------------------------------------------------------------------------------
@@ -612,6 +584,7 @@ public class ControladoraGlobal {
 //------------------------------------------------------------------------------
 //
 //------------------------------CONCEPTO DEPORTIVOS-----------------------------
+
     public void crearConceptoDeportivo(double monto, String concepto) {
         this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
     }
