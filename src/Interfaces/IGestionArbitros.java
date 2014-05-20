@@ -22,8 +22,6 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaArbitro;
 
-    
-
     public IGestionArbitros(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
@@ -72,6 +70,11 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -265,14 +268,9 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-//        IArbitro unArbitro = new IArbitro(this);
-//        unArbitro.pack();
-//        unArbitro.setVisible(true);
-//        this.setVisible(false);
-//        IMenuPrincipalInterface.jDesktopPane.add(unArbitro);
-        
-        Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long)jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
-        
+
+        Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+
         IArbitro unIArbitro = new IArbitro(unaControladoraGlobal, this, unArbitroSeleccionado);
 
         unIArbitro.pack();
@@ -282,16 +280,34 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        filtrarArbitros(jTextFieldBusqueda.getText());         
+        filtrarArbitros(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarArbitros(jTextFieldBusqueda.getText());   
+        filtrarArbitros(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jTableArbitrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableArbitrosFocusGained
         this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jTableArbitrosFocusGained
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+        Object[] options = {"OK" , "Cancelar"};
+        int n = JOptionPane.showOptionDialog(this,
+                "Desea eliminar al arbitro: " +  unArbitroSeleccionado.getApellido()+" "+unArbitroSeleccionado.getNombre(),
+                "Title",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options);
+            
+        if(n==0){
+            unaControladoraGlobal.eliminarArbitro(unArbitroSeleccionado);
+            filtrarArbitros("");
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
@@ -301,16 +317,16 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
             jTableArbitros.clearSelection();
         }
     }
-    
+
     private void filtrarArbitros(String dato) {
         limpiarTablaSocia(modeloTablaArbitro);
         dato = jTextFieldBusqueda.getText();
         List<Arbitro> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
         for (Arbitro unArbitro : unaListaResultado) {
             this.modeloTablaArbitro.addRow(new Object[]{unArbitro.getDni(), unArbitro.getApellido(), unArbitro.getNombre()});
-        }        
+        }
     }
-    
+
     private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
         try {
             int filas = modeloTablaSocia.getRowCount();

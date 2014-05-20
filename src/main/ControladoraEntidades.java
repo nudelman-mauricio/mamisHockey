@@ -114,7 +114,7 @@ public class ControladoraEntidades {
      */
     public Arbitro getArbitroBD(Long dni) {
         Arbitro resultado;
-        String unaConsulta = "SELECT A FROM Arbitro A WHERE A.dni = " + dni;
+        String unaConsulta = "SELECT A FROM Arbitro A WHERE A.dni = " + dni + " AND A.borradoLogico = FALSE";
         Query traerArbitro = this.entityManager.createQuery(unaConsulta);
         resultado = (Arbitro) traerArbitro.getSingleResult();
         return resultado;

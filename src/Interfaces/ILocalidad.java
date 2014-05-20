@@ -153,10 +153,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
         jTableLocalidad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nombre", "Cod. Postal"
