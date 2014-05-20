@@ -11,10 +11,12 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import logicaNegocios.Arbitro;
 import logicaNegocios.Localidad;
+
 import main.ControladoraGlobal;
 
 public class IArbitro extends javax.swing.JInternalFrame {
@@ -52,17 +54,47 @@ public class IArbitro extends javax.swing.JInternalFrame {
         camposLimpiar();
         
     }
+    
+     public IArbitro(ControladoraGlobal  unaControladoraGlobal, JInternalFrame unJInternalFrame, Arbitro unArbitro) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        this.setTitle("Arbitro: " + unArbitro.getApellido() + " " + unArbitro.getNombre());
+        SeInicio(unaControladoraGlobal);
+
+        jButtonImprimir.setEnabled(true);
+        jButtonEditar.setEnabled(true);
+
+        camposCargar(unArbitro);
+        
+    }
 
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
 
         cargarComboBoxLocalidades();
         IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
+    }
+    
+    public void camposCargar(Arbitro unArbitro) {
+        jTextFieldDNI.setText(unArbitro.getDni().toString());
+        jTextFieldApellido.setText(unArbitro.getApellido());
+        jTextFieldNombres.setText(unArbitro.getNombre());
+        jComboBoxLocalidad.setSelectedItem(unArbitro.getUnaLocalidad());
+        jTextFieldDomicilio.setText(unArbitro.getDomicilio());
+        jTextFieldEmail.setText(unArbitro.getEmail());        
+        
+        DateFormat df = DateFormat.getDateInstance();
+        jTextFieldFechaNacimiento.setText(df.format(unArbitro.getFechaNacimiento()));
+        jTextFieldFechaIngreso.setText(df.format(unArbitro.getFechaIngreso()));
+
+        jTextFieldTelFijo.setText(unArbitro.getTelFijo());
+        jTextFieldTelCelular.setText(unArbitro.getTelCelular());
+        
     }
     
     public void cargarComboBoxLocalidades() {

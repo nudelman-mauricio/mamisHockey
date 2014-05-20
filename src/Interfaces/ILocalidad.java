@@ -6,6 +6,11 @@
 
 package Interfaces;
 
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Localidad;
+import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 /**
@@ -15,13 +20,35 @@ import main.ControladoraGlobal;
 public class ILocalidad extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
+    private DefaultTableModel modeloTablaLocalidad;
     /**
      * Creates new form ILocalidad
      */
     public ILocalidad(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
+        this.modeloTablaLocalidad = (DefaultTableModel) jTableLocalidad.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
+        cargarTabla();
+        SeInicio(unaControladoraGlobal);
+    }
+    
+    public void SeInicio(ControladoraGlobal unaControladoraGlobal) {      
+
+        //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
+        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
+        IMenuPrincipalInterface.centrar(this);
+        camposActivo(false);
+    }
+    
+    public void camposActivo(boolean Editable) {
+        jTextFieldCodPostal.setEditable(Editable);
+        jTextFieldNombre.setEnabled(Editable);
+        jTextFieldCodPostal.setEnabled(Editable);
+        jButtonGuardar.setEnabled(Editable);
+        jButtonEditar.setEnabled(Editable);
+        jButtonCancelar.setEnabled(Editable);
+        jButtonEliminar.setEnabled(Editable);
     }
 
     /**
@@ -38,10 +65,10 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonEditarCancelar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablePases = new javax.swing.JTable();
+        jTableLocalidad = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
         jLabelFechaRealizacion1 = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
@@ -82,10 +109,15 @@ public class ILocalidad extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEditarCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
-        jButtonEditarCancelar.setText("Cancelar");
-        jButtonEditarCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditarCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,7 +131,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditarCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(239, 239, 239))
@@ -110,7 +142,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonEditarCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -119,7 +151,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jTablePases.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLocalidad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -130,7 +162,12 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 "Nombre", "Cod. Postal"
             }
         ));
-        jScrollPane1.setViewportView(jTablePases);
+        jTableLocalidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableLocalidadFocusGained(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableLocalidad);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -189,7 +226,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -211,21 +248,57 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-
+        camposActivoNuevo(true);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
+     public void camposActivoNuevo(boolean Editable) {
+        jTextFieldNombre.setEnabled(Editable);
+        jTextFieldCodPostal.setEnabled(Editable);
+        jButtonCancelar.setEnabled(Editable);
+        jButtonGuardar.setEnabled(Editable);
+        jButtonNuevo.setEnabled(!Editable);
+        jButtonEditar.setEnabled(!Editable);
+        jButtonEliminar.setEnabled(!Editable);
+        jTableLocalidad.setEnabled(!Editable);
+    }
     private void jTextFieldCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodPostalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCodPostalActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
+        camposActivo(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    private void jTableLocalidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableLocalidadFocusGained
+        this.SeleccionarObjetoTabla(true); // TODO add your handling code here:
+    }//GEN-LAST:event_jTableLocalidadFocusGained
 
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        camposActivoNuevo(false); // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void cargarTabla() {        
+        
+        List<Localidad> unaListaResultado = this.unaControladoraGlobal.getLocalidadesBD();
+        for (Localidad unaLocalidad : unaListaResultado) {
+            this.modeloTablaLocalidad.addRow(new Object[]{
+                                                            unaLocalidad.getNombre(), 
+                                                            unaLocalidad.getCodPostal()
+                                                         });
+        }
+    }
+    
+     private void SeleccionarObjetoTabla(boolean estado) {        
+        jButtonCancelar.setEnabled(estado);
+        jButtonEditar.setEnabled(estado);
+        jButtonEliminar.setEnabled(estado);
+        if (!estado) {
+            jTableLocalidad.clearSelection();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonEditarCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
@@ -235,7 +308,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTablePases;
+    private javax.swing.JTable jTableLocalidad;
     private javax.swing.JTextField jTextFieldCodPostal;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables

@@ -178,6 +178,11 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
                 "DNI", "Apellido", "Nombre"
             }
         ));
+        jTableArbitros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableArbitrosFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableArbitros);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -265,6 +270,15 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
 //        unArbitro.setVisible(true);
 //        this.setVisible(false);
 //        IMenuPrincipalInterface.jDesktopPane.add(unArbitro);
+        
+        Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long)jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+        
+        IArbitro unIArbitro = new IArbitro(unaControladoraGlobal, this, unArbitroSeleccionado);
+
+        unIArbitro.pack();
+        unIArbitro.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIArbitro);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -274,6 +288,10 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
         filtrarArbitros(jTextFieldBusqueda.getText());   
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
+
+    private void jTableArbitrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableArbitrosFocusGained
+        this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableArbitrosFocusGained
 
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
@@ -308,26 +326,14 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableArbitros;
     private javax.swing.JTextField jTextFieldBusqueda;
-    private javax.swing.JTextField jTextFieldBusqueda1;
-    private javax.swing.JTextField jTextFieldBusqueda2;
-    private javax.swing.JTextField jTextFieldBusqueda3;
-    private javax.swing.JTextField jTextFieldBusqueda6;
     // End of variables declaration//GEN-END:variables
 }
