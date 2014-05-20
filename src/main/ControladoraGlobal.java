@@ -307,16 +307,14 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
 
-    /*
-     public SancionTribunal getSancionTribunalBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<SancionTribunal> getSancionesTribunalesBD() {
-     ...
-     }
-     */
+    public SancionTribunal getSancionTribunalBD(Long id) {
+        return this.unaControladoraDeportiva.getSancionTribunalBD(id);
+    }
+
+    public List<SancionTribunal> getSancionesTribunalesBD() {
+        return this.unaControladoraDeportiva.getSancionesTribunalesBD();
+    }
+
 //------------------------------FIN SANCIONES-----------------------------------
 //
 //--------------------------------TARJETAS--------------------------------------

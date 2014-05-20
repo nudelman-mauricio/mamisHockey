@@ -53,6 +53,26 @@ public class ControladoraDeportiva {
         unaSancionTribunal.setBorradoLogico(true);
         unaSancionTribunal.persistir(this.entityManager);
     }
+    
+    /**
+     * Devuelve una SancionTribunal buscando por ID borrados inclusive
+     */
+    public SancionTribunal getSancionTribunalBD(Long id) {
+        SancionTribunal resultado;
+        String unaConsulta = "SELECT A FROM SancionTribunal A WHERE A.idSancionTribunal = " + id;
+        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
+        resultado = (SancionTribunal) traerSancionTribunal.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve Todos las SancionTribunal
+     */
+    public List<SancionTribunal> getSancionesTribunalesBD() {
+        String unaConsulta = "SELECT aux FROM SancionTribunal aux WHERE aux.borradoLogico = FALSE";
+        List<SancionTribunal> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
 //------------------------------FIN SANCIONES-----------------------------------
 
 //--------------------------------TARJETAS--------------------------------------
