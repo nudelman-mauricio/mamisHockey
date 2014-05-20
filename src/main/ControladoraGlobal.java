@@ -577,14 +577,13 @@ public class ControladoraGlobal {
 //------------------------FIN CONTROLADORA DEPORTIVA----------------------------
 //------------------------------------------------------------------------------
 //
-//    
+//
 //
 //------------------------------------------------------------------------------
 //------------------------CONTROLADORA CONTABILIDAD-----------------------------
 //------------------------------------------------------------------------------
-//
-//------------------------------CONCEPTO DEPORTIVOS-----------------------------
 
+//------------------------------CONCEPTO DEPORTIVOS-----------------------------
     public void crearConceptoDeportivo(double monto, String concepto) {
         this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
     }
@@ -597,18 +596,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarConceptoDeportivo(unConceptoDeportivo);
     }
 
-    //public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
-    public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
-        return this.unaControladoraContabilidad.buscarConceptoDeportivoBD(id);
+    public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
+        return this.unaControladoraContabilidad.getConceptoDeportivoBD(id);
     }
 
-    /*
-     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
-     ...
-     }
-     */
+    public List<ConceptoDeportivo> getConceptosDeportivosBD() {
+        return this.unaControladoraContabilidad.getConceptosDeportivosBD();
+    }
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
-//
+
 //-----------------------------------DEUDAS-------------------------------------
     public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
@@ -634,18 +630,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarDeuda(unaDeuda);
     }
 
-    /*
-     public Deuda getDeudaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<Deuda> getDeudasBD() {
-     ...
-     }
-     */
+    public Deuda getDeudaBD(Long id) {
+        return this.unaControladoraContabilidad.getDeudaBD(id);
+    }
+
+    public List<Deuda> getDeudasBD() {
+        return this.unaControladoraContabilidad.getDeudaBD();
+    }
 //---------------------------------FIN DEUDAS-----------------------------------
-//
+
 //--------------------------------PAGO CUOTA------------------------------------
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {
         this.unaControladoraContabilidad.crearPagoCuota(unaCuota, monto, fechaPago, observacion);
@@ -659,18 +652,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarPagoCuota(unPagoCuota);
     }
 
-    /*
-     public PagoCuota getPagoCuotaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<PagoCuota> getPagosCuotasBD() {
-     ...
-     }
-     */
+    public PagoCuota getPagoCuotaBD(Long id) {
+        return this.unaControladoraContabilidad.getPagoCuotaBD(id);
+    }
+
+    public List<PagoCuota> getPagosCuotasBD() {
+        return this.unaControladoraContabilidad.getPagosCuotasBD();
+    }
 //------------------------------FIN PAGO CUOTA----------------------------------
-//
+
 //----------------------------- CONCEPTOINGRESO --------------------------------
     public void crearConceptoIngreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoIngreso(nombre, detalle);
@@ -684,18 +674,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarConceptoIngreso(unConceptoIngreso);
     }
 
-    //public ConceptoIngreso getConceptoIngresoBD(Long id) {
-    public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
-        return this.unaControladoraContabilidad.buscarConceptoIngresoBD(id);
+    public ConceptoIngreso getConceptoIngresoBD(Long id) {
+        return this.unaControladoraContabilidad.getConceptoIngresoBD(id);
     }
 
-    /*
-     public List<ConceptoIngreso> getConceptosIngresosBD() {
-     ...
-     }
-     */
+    public List<ConceptoIngreso> getConceptosIngresosBD() {
+        return this.unaControladoraContabilidad.getConceptosIngresosBD();
+    }
 //----------------------------- FIN CONCEPTOINGRESO ----------------------------
-//
+
 //----------------------------- CONCEPTO EGRESO --------------------------------
     public void crearConceptoEgreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoEgreso(nombre, detalle);
@@ -709,18 +696,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarConceptoEgreso(unConceptoEgreso);
     }
 
-    //public ConceptoEgreso getConceptoEgresoBD(Long id) {
-    public ConceptoEgreso buscarConceptoEgresoBD(Long id) {
-        return this.unaControladoraContabilidad.buscarConceptoEgresoBD(id);
+    public ConceptoEgreso getConceptoEgresoBD(Long id) {
+        return this.unaControladoraContabilidad.getConceptoEgresoBD(id);
     }
 
-    /*
-     public List<ConceptoEgreso> getConceptosEgresosBD() {
-     ...
-     }
-     */
+    public List<ConceptoEgreso> getConceptosEgresosBD() {
+        www
+    }
 //----------------------------- FIN CONCEPTO EGRESO ----------------------------
-//
+
 //----------------------------- INGRESOSOTRO -----------------------------------
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
         this.unaControladoraContabilidad.crearIngresoOtro(fecha, monto, unConceptoIngreso, detalle);

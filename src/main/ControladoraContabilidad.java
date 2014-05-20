@@ -2,6 +2,7 @@ package main;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.ConceptoDeportivo;
@@ -25,14 +26,7 @@ public class ControladoraContabilidad {
         this.entityManager = em;
     }
 
-//------------------------------CONCEPTO DEPORTIVOS-----------------------------  
-    public ConceptoDeportivo buscarConceptoDeportivoBD(Long id) {
-        ConceptoDeportivo resultado;
-        Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM ConceptoDeportivo auxCD WHERE auxCD.id = " + id);
-        resultado = (ConceptoDeportivo) traerConceptoDeportivo.getResultList();
-        return resultado;
-    }
-
+//------------------------------CONCEPTO DEPORTIVOS-----------------------------
     public void crearConceptoDeportivo(double monto, String concepto) {
         ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(this.entityManager, monto, concepto);
     }
@@ -47,6 +41,25 @@ public class ControladoraContabilidad {
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         unConceptoDeportivo.setBorradoLogico(true);
         unConceptoDeportivo.persistir(this.entityManager);
+    }
+
+    /**
+     * Devuelve unConceptoDeportivo por ID incluido los borrados
+     */
+    public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
+        ConceptoDeportivo resultado;
+        Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM ConceptoDeportivo auxCD WHERE auxCD.idConceptoDeportivo = " + id);
+        resultado = (ConceptoDeportivo) traerConceptoDeportivo.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve todos los ConceptosDeportivos menos los borrados
+     */
+    public List<ConceptoDeportivo> getConceptosDeportivosBD() {
+        String unaConsulta = "SELECT A FROM ConceptoDeportivo A WHERE A.borradoLogico = FALSE";
+        List<ConceptoDeportivo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
     }
 //----------------------------- FIN CONCEPTODEPORTIVO --------------------------
 
@@ -76,6 +89,25 @@ public class ControladoraContabilidad {
         unaDeuda.eliminarTodasLasCuotas(entityManager);
         unaDeuda.persistir(this.entityManager);
     }
+
+    /**
+     * Devuelve unaDeuda por ID incluido los borrados
+     */
+    public Deuda getDeudaBD(Long id) {
+        Deuda resultado;
+        Query traerDeuda = this.entityManager.createQuery("SELECT auxCD FROM Deuda auxCD WHERE auxCD.idDeuda = " + id);
+        resultado = (Deuda) traerDeuda.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve todos las Deudas menos las borradas
+     */
+    public List<Deuda> getDeudaBD() {
+        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE";
+        List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
 //---------------------------------FIN DEUDAS-----------------------------------
 
 //--------------------------------PAGO CUOTA------------------------------------
@@ -97,16 +129,28 @@ public class ControladoraContabilidad {
         unPagoCuota.setBorradoLogico(true);
         unPagoCuota.persistir(this.entityManager);
     }
-//------------------------------FIN PAGO CUOTA----------------------------------
 
-//----------------------------- CONCEPTOINGRESO --------------------------------
-    public ConceptoIngreso buscarConceptoIngresoBD(Long id) {
-        ConceptoIngreso resultado;
-        Query traerConceptoIngreso = this.entityManager.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI WHERE auxCI.id = " + id);
-        resultado = (ConceptoIngreso) traerConceptoIngreso.getResultList();
+    /**
+     * Devuelve unaPagoCuota por ID incluido los borrados
+     */
+    public PagoCuota getPagoCuotaBD(Long id) {
+        PagoCuota resultado;
+        Query traerPagoCuota = this.entityManager.createQuery("SELECT auxCD FROM PagoCuota auxCD WHERE auxCD.idPagoCuota = " + id);
+        resultado = (PagoCuota) traerPagoCuota.getSingleResult();
         return resultado;
     }
 
+    /**
+     * Devuelve todos los PagoCuota menos las borradas
+     */
+    public List<PagoCuota> getPagosCuotasBD() {
+        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE";
+        List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+//------------------------------FIN PAGO CUOTA----------------------------------
+
+//----------------------------- CONCEPTOINGRESO --------------------------------
     public void crearConceptoIngreso(String nombre, String detalle) {
         ConceptoIngreso unConceptoIngreso = new ConceptoIngreso(this.entityManager, nombre, detalle);
     }
@@ -122,16 +166,28 @@ public class ControladoraContabilidad {
         unConceptoIngreso.setBorradoLogico(true);
         unConceptoIngreso.persistir(this.entityManager);
     }
-//----------------------------- FIN CONCEPTOINGRESO ----------------------------
 
-//----------------------------- CONCEPTO EGRESO --------------------------------
-    public ConceptoEgreso buscarConceptoEgresoBD(Long id) {
-        ConceptoEgreso resultado;
-        Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE WHERE auxCE.id = " + id);
-        resultado = (ConceptoEgreso) traerConceptoEgreso.getResultList();
+    /**
+     * Devuelve un ConceptoIngreso por ID incluido los borrados
+     */
+    public ConceptoIngreso getConceptoIngresoBD(Long id) {
+        ConceptoIngreso resultado;
+        Query traerConceptoIngreso = this.entityManager.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI WHERE auxCI.idConceptoIngreso = " + id);
+        resultado = (ConceptoIngreso) traerConceptoIngreso.getSingleResult();
         return resultado;
     }
 
+    /**
+     * Devuelve todos los ConceptoIngreso menos los borrados
+     */
+    public List<ConceptoIngreso> getConceptosIngresosBD() {
+        String unaConsulta = "SELECT A FROM ConceptoIngreso A WHERE A.borradoLogico = FALSE";
+        List<ConceptoIngreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+//----------------------------- FIN CONCEPTOINGRESO ----------------------------
+
+//----------------------------- CONCEPTO EGRESO --------------------------------
     public void crearConceptoEgreso(String nombre, String detalle) {
         ConceptoEgreso unConceptoEgreso = new ConceptoEgreso(this.entityManager, nombre, detalle);
     }
@@ -146,6 +202,17 @@ public class ControladoraContabilidad {
     public void eliminarConceptoEgreso(ConceptoEgreso unConceptoEgreso) {
         unConceptoEgreso.setBorradoLogico(true);
         unConceptoEgreso.persistir(this.entityManager);
+    }
+
+    /**
+     * Devuelve un ConceptoEgreso por ID incluido los Borrados
+     */
+    public ConceptoEgreso getConceptoEgresoBD(Long id) {
+        ConceptoEgreso resultado;
+        Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE WHERE auxCE.idConceptoEgreso = " + id);
+        resultado = (ConceptoEgreso) traerConceptoEgreso.getSingleResult();
+        return resultado;
+        9999999
     }
 //----------------------------- FIN CONCEPTO EGRESO ----------------------------
 
