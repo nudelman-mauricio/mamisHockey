@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -57,7 +56,7 @@ public class IPase extends javax.swing.JInternalFrame {
     }
 
     public void cargarComboBoxEquipos() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipos());
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposBD());
         this.jComboBoxEquipoDestino.setModel(modelCombo);
     }
 

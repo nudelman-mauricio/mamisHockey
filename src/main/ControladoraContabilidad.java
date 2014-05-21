@@ -212,18 +212,19 @@ public class ControladoraContabilidad {
         Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE WHERE auxCE.idConceptoEgreso = " + id);
         resultado = (ConceptoEgreso) traerConceptoEgreso.getSingleResult();
         return resultado;
-        9999999
+    }
+
+    /**
+     * Devuelve todos los ConceptoEgreso menos los borrados
+     */
+    public List<ConceptoEgreso> getConceptosEgresosBD() {
+        String unaConsulta = "SELECT A FROM ConceptoEgreso A WHERE A.borradoLogico = FALSE";
+        List<ConceptoEgreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
     }
 //----------------------------- FIN CONCEPTO EGRESO ----------------------------
 
 //----------------------------- INGRESOSOTRO -----------------------------------
-    public IngresoOtro buscarIngresosOtroBD(Long id) {
-        IngresoOtro resultado;
-        Query traerIngresoOtro = this.entityManager.createQuery("SELECT auxIO FROM IngresoOtro auxIO WHERE auxIO.id = " + id);
-        resultado = (IngresoOtro) traerIngresoOtro.getResultList();
-        return resultado;
-    }
-
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
         IngresoOtro unIngresoOtro = new IngresoOtro(this.entityManager, fecha, unConceptoIngreso, monto, detalle);
     }
@@ -241,16 +242,28 @@ public class ControladoraContabilidad {
         unIngresoOtro.setBorradoLogico(true);
         unIngresoOtro.persistir(entityManager);
     }
-//----------------------------- FIN INGRESOSOTRO -------------------------------
 
-//----------------------------- EGRESOS ----------------------------------------
-    public Egreso buscarEgresoBD(Long id) {
-        Egreso resultado;
-        Query traerEgreso = this.entityManager.createQuery("SELECT auxE FROM Egreso auxE WHERE auxE.id = " + id);
-        resultado = (Egreso) traerEgreso.getResultList();
+    /**
+     * Devuelve un IngresoOtro por ID incluido los borrados
+     */
+    public IngresoOtro getIngresoOtroBD(Long id) {
+        IngresoOtro resultado;
+        Query traerIngresoOtro = this.entityManager.createQuery("SELECT auxIO FROM IngresoOtro auxIO WHERE auxIO.idIngresoOtro = " + id);
+        resultado = (IngresoOtro) traerIngresoOtro.getSingleResult();
         return resultado;
     }
 
+    /**
+     * Devuelve todos los IngresoOtro menos los borrados
+     */
+    public List<IngresoOtro> getIngresosOtrosBD() {
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE";
+        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+//----------------------------- FIN INGRESOSOTRO -------------------------------
+
+//----------------------------- EGRESOS ----------------------------------------
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
         Egreso unEgreso = new Egreso(this.entityManager, fecha, monto, unConceptoEgreso, observacion);
     }
@@ -269,6 +282,25 @@ public class ControladoraContabilidad {
         unEgreso.setBorradoLogico(true);
         unEgreso.persistir(this.entityManager);
     }
+
+    /**
+     * Devuelve unEgreso por ID incluido los borrados
+     */
+    public Egreso getEgresoBD(Long id) {
+        Egreso resultado;
+        Query traerEgreso = this.entityManager.createQuery("SELECT auxE FROM Egreso auxE WHERE auxE.idEgreso = " + id);
+        resultado = (Egreso) traerEgreso.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve todos los Egresos menos los borrados
+     */
+    public List<Egreso> getEgresosBD() {
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE";
+        List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
 //----------------------------- FIN EGRESOS ------------------------------------
 
 //------------------------------FRECUENCIA--------------------------------------
@@ -286,6 +318,25 @@ public class ControladoraContabilidad {
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
         unaFrecuencia.setBorradoLogico(true);
         unaFrecuencia.persistir(this.entityManager);
+    }
+
+    /**
+     * Devuelve unaFrecuencia por ID incluido los borrados
+     */
+    public Frecuencia getFrecuenciaBD(Long id) {
+        Frecuencia resultado;
+        Query traerFrecuencia = this.entityManager.createQuery("SELECT auxE FROM Frecuencia auxE WHERE auxE.idFrecuencia = " + id);
+        resultado = (Frecuencia) traerFrecuencia.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve todos las Frecuencias menos los borrados
+     */
+    public List<Frecuencia> getFrecuenciasBD() {
+        String unaConsulta = "SELECT A FROM Frecuencia A WHERE A.borradoLogico = FALSE";
+        List<Frecuencia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
     }
 //----------------------------FIN FRECUENCIA------------------------------------
 }

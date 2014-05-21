@@ -701,7 +701,7 @@ public class ControladoraGlobal {
     }
 
     public List<ConceptoEgreso> getConceptosEgresosBD() {
-        www
+        return this.unaControladoraContabilidad.getConceptosEgresosBD();
     }
 //----------------------------- FIN CONCEPTO EGRESO ----------------------------
 
@@ -718,17 +718,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarIngresoOtro(unIngresoOtro);
     }
 
-    //public IngresoOtro buscarIngresosOtroBD(Long id) {
-    public IngresoOtro buscarIngresosOtroBD(Long id) {
-        return this.unaControladoraContabilidad.buscarIngresosOtroBD(id);
+    public IngresoOtro getIngresoOtroBD(Long id) {
+        return this.unaControladoraContabilidad.getIngresoOtroBD(id);
     }
 
-    /*
-     public List<IngresoOtro> getIngresosOtrosBD() {
-     ...
-     }
-     */
+    public List<IngresoOtro> getIngresosOtrosBD() {
+        return this.unaControladoraContabilidad.getIngresosOtrosBD();
+    }
 //----------------------------- FIN INGRESOSOTRO -------------------------------
+
 //----------------------------- EGRESOS ----------------------------------------
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
         this.unaControladoraContabilidad.crearEgreso(fecha, monto, unConceptoEgreso, observacion);
@@ -742,17 +740,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarEgreso(unEgreso);
     }
 
-    //public Egreso getEgresoBD(Long id) {
-    public Egreso buscarEgresoBD(Long id) {
-        return this.unaControladoraContabilidad.buscarEgresoBD(id);
+    public Egreso getEgresoBD(Long id) {
+        return this.unaControladoraContabilidad.getEgresoBD(id);
     }
 
-    /*
-     public List<Egreso> getEgresosBD() {
-     ...
-     }
-     */
+    public List<Egreso> getEgresosBD() {
+        return this.unaControladoraContabilidad.getEgresosBD();
+    }
 //----------------------------- FIN EGRESOS ------------------------------------
+
 //------------------------------FRECUENCIA--------------------------------------
     public void crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
         this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, null);
@@ -766,18 +762,15 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarFrecuencia(unaFrecuencia);
     }
 
-    /*
-     public Egreso getFrecuenciaBD(Long id) {
-     ...
-     }
-     */
-    /*
-     public List<Frecuencia> getFrecuenciasBD() {
-     ...
-     }
-     */
+    public Frecuencia getFrecuenciaBD(Long id) {
+        return this.unaControladoraContabilidad.getFrecuenciaBD(id);
+    }
+
+    public List<Frecuencia> getFrecuenciasBD() {
+        return this.unaControladoraContabilidad.getFrecuenciasBD();
+    }
 //----------------------------FIN FRECUENCIA------------------------------------
-//
+
 //------------------------------------------------------------------------------
 //----------------------FIN CONTROLADORA CONTABILIDAD---------------------------
 //------------------------------------------------------------------------------
