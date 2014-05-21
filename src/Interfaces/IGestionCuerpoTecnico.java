@@ -8,9 +8,15 @@ package Interfaces;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Arbitro;
+import logicaNegocios.CuerpoTecnico;
+import main.ControladoraGlobal;
 
 /**
  *
@@ -18,18 +24,19 @@ import javax.swing.JInternalFrame;
  */
 public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
     
-    private JDesktopPane unjDesktopPane1;
-    /**
-     * Creates new form GestionCuerpoTecnico
-     */
-    public IGestionCuerpoTecnico(JDesktopPane unjDesktopPane1) {
+   ControladoraGlobal unaControladoraGlobal;
+   private DefaultTableModel modeloTablaCuerpoTecnico;
+     
+    public IGestionCuerpoTecnico(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
-        this.unjDesktopPane1 = unjDesktopPane1;
-        
-        //Icono de la ventana
+
+        this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/CuerpoTecnico.png")));
-        centrar(this);
+        this.SeleccionarObjetoTabla(false);
+        IMenuPrincipalInterface.centrar(this);
+
+        this.modeloTablaCuerpoTecnico = (DefaultTableModel) jTableCuerpoTecnico.getModel();
+        filtrar("");
     }
 
     /**
@@ -44,22 +51,23 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jTextFieldBusqueda = new javax.swing.JTextField();
-        jRadioButtonDni = new javax.swing.JRadioButton();
-        jRadioButtonApellido = new javax.swing.JRadioButton();
-        jRadioButtonPuesto = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButtonBuscar = new javax.swing.JButton();
+        jButtonImprimir = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCuerpoTecnico = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jButtonDatos = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jTextFieldBusqueda = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -67,6 +75,11 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -78,13 +91,13 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButton1.setText("Imprimir");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonImprimirActionPerformed(evt);
             }
         });
 
@@ -98,8 +111,8 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,106 +120,9 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBusquedaActionPerformed(evt);
-            }
-        });
-
-        jRadioButtonDni.setText("DNI");
-
-        jRadioButtonApellido.setText("Apellido");
-        jRadioButtonApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonApellidoActionPerformed(evt);
-            }
-        });
-
-        jRadioButtonPuesto.setText("Puesto");
-        jRadioButtonPuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonPuestoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonDni)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonApellido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonPuesto))
-                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonPuesto)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButtonDni)
-                        .addComponent(jRadioButtonApellido)))
-                .addGap(2, 2, 2)
-                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-
-        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/search.png"))); // NOI18N
-        jButtonBuscar.setText("Buscar");
-        jButtonBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonBuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jTableCuerpoTecnico.setModel(new javax.swing.table.DefaultTableModel(
@@ -220,6 +136,11 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                 "DNI", "Apellido", "Nombre", "Trabajando", "Equipo", "Puesto"
             }
         ));
+        jTableCuerpoTecnico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableCuerpoTecnicoFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCuerpoTecnico);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -261,6 +182,56 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
+        jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
+        jLabel5.setText("Filtrar:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,16 +240,17 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -289,59 +261,97 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
-
-    private void jRadioButtonApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonApellidoActionPerformed
-
-    private void jRadioButtonPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPuestoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonPuestoActionPerformed
-
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        ICuerpoTecnico unCuerpoTecnico = new ICuerpoTecnico(this);
-        unCuerpoTecnico.pack();
-        unCuerpoTecnico.setVisible(true);
-        //centrar(unCuerpoTecnico);----------------------------------------------------------
+        CuerpoTecnico unCuerpoTecnicoSeleccionado = unaControladoraGlobal.getCuerpoTecnicoBD((Long) jTableCuerpoTecnico.getValueAt(jTableCuerpoTecnico.getSelectedRow(), 0));
+
+        ICuerpoTecnico unICuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal, this, unCuerpoTecnicoSeleccionado);
+
+        unICuerpoTecnico.pack();
+        unICuerpoTecnico.setVisible(true);
         this.setVisible(false);
-        this.unjDesktopPane1.add(unCuerpoTecnico);
+        IMenuPrincipalInterface.jDesktopPane.add(unICuerpoTecnico);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-                // TODO add your handling code here:
+        ICuerpoTecnico unCuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal, this);
+        unCuerpoTecnico.pack();
+        unCuerpoTecnico.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unCuerpoTecnico);                  // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-public void centrar (JInternalFrame unJInternalFrame){
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+         filtrar(jTextFieldBusqueda.getText());        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentShown
+
+    private void jTableCuerpoTecnicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCuerpoTecnicoFocusGained
+         this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCuerpoTecnicoFocusGained
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        CuerpoTecnico unCuerpoTecnico = unaControladoraGlobal.getCuerpoTecnicoBD((Long) jTableCuerpoTecnico.getValueAt(jTableCuerpoTecnico.getSelectedRow(), 0));
+               
+        Object[] options = {"OK" , "Cancelar"};
+          if (0 == JOptionPane.showOptionDialog(
+                  this,
+                  "Desea eliminar al cuerpo Tecnico: "+  unCuerpoTecnico.getApellido()+" "+unCuerpoTecnico.getNombre(), 
+                  "Eliminar",
+                  JOptionPane.PLAIN_MESSAGE, 
+                  JOptionPane.WARNING_MESSAGE,
+                  null,
+                  options,
+                  options)) {
+              unaControladoraGlobal.eliminarCuerpoTecnico(unCuerpoTecnico);
+              filtrar("");
+          }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
+        filtrar(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
+
+    private void SeleccionarObjetoTabla(boolean estado) {
+        jButtonDatos.setEnabled(estado);
+        jButtonImprimir.setEnabled(estado);
+        jButtonEliminar.setEnabled(estado);
+        if (!estado) {
+            jTableCuerpoTecnico.clearSelection();
+        }
+    }
+
+    private void filtrar(String dato) {
+        limpiarTabla(modeloTablaCuerpoTecnico);        
+        List<CuerpoTecnico> unaListaResultado = this.unaControladoraGlobal.getCuerposTecnicosBDFiltro(dato);
+        for (CuerpoTecnico unCuerpoTecnico : unaListaResultado) {
+            this.modeloTablaCuerpoTecnico.addRow(new Object[]{unCuerpoTecnico.getDni(), unCuerpoTecnico.getApellido(), unCuerpoTecnico.getNombre()});
+        }
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTablaSocia) {
+        try {
+            int filas = modeloTablaCuerpoTecnico.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaCuerpoTecnico.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla Cuerpo Tecnico.");
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButtonApellido;
-    private javax.swing.JRadioButton jRadioButtonDni;
-    private javax.swing.JRadioButton jRadioButtonPuesto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCuerpoTecnico;
     private javax.swing.JTextField jTextFieldBusqueda;

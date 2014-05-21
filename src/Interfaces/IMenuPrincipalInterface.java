@@ -396,14 +396,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
     private void jMenuItemNuevoCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
-        ICuerpoTecnico unaCuerpoTecnico = new ICuerpoTecnico(jDesktopPane);
+        ICuerpoTecnico unaCuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal);
         unaCuerpoTecnico.pack();
         unaCuerpoTecnico.setVisible(true);
         this.jDesktopPane.add(unaCuerpoTecnico);
     }//GEN-LAST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
 
     private void jMenuItemGestionarCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarCuerpoTecnicoActionPerformed
-        IGestionCuerpoTecnico unGestionCuerpoTecnico = new IGestionCuerpoTecnico(jDesktopPane);
+        IGestionCuerpoTecnico unGestionCuerpoTecnico = new IGestionCuerpoTecnico(unaControladoraGlobal);
         unGestionCuerpoTecnico.pack();
         unGestionCuerpoTecnico.setVisible(true);
         this.jDesktopPane.add(unGestionCuerpoTecnico);

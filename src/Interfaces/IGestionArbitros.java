@@ -300,7 +300,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
                   "Desea eliminar al arbitro: "+  unArbitroSeleccionado.getApellido()+" "+unArbitroSeleccionado.getNombre(), 
                   "Eliminar",
                   JOptionPane.PLAIN_MESSAGE, 
-                  JOptionPane.QUESTION_MESSAGE,
+                  JOptionPane.WARNING_MESSAGE,
                   null,
                   options,
                   options)) {
@@ -319,8 +319,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }
 
     private void filtrarArbitros(String dato) {
-        limpiarTabla(modeloTablaArbitro);
-        dato = jTextFieldBusqueda.getText();
+        limpiarTabla(modeloTablaArbitro);        
         List<Arbitro> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
         for (Arbitro unArbitro : unaListaResultado) {
             this.modeloTablaArbitro.addRow(new Object[]{unArbitro.getDni(), unArbitro.getApellido(), unArbitro.getNombre()});
