@@ -81,10 +81,15 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         jButtonEquipos = new javax.swing.JButton();
         jButtonCanchas = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jTextFieldBusqueda2 = new javax.swing.JTextField();
+        jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -157,6 +162,11 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableClub.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableClubFocusGained(evt);
             }
         });
         jScrollPane1.setViewportView(jTableClub);
@@ -235,15 +245,20 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextFieldBusqueda2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldBusqueda2.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldBusqueda2FocusGained(evt);
+                jTextFieldBusquedaFocusGained(evt);
             }
         });
-        jTextFieldBusqueda2.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBusquedaActionPerformed(evt);
+            }
+        });
+        jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldBusqueda2KeyReleased(evt);
+                jTextFieldBusquedaKeyReleased(evt);
             }
         });
 
@@ -258,7 +273,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldBusqueda2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -267,7 +282,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldBusqueda2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -321,13 +336,13 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         this.jDesktopPane1.add(unaCancha);         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCanchasActionPerformed
 
-    private void jTextFieldBusqueda2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusqueda2FocusGained
+    private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
         this.SeleccionarObjetoTabla(false);
-    }//GEN-LAST:event_jTextFieldBusqueda2FocusGained
+    }//GEN-LAST:event_jTextFieldBusquedaFocusGained
 
-    private void jTextFieldBusqueda2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusqueda2KeyReleased
+    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
         filtrarClub(jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jTextFieldBusqueda2KeyReleased
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
@@ -348,6 +363,18 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         System.out.println("FALTA");
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
+    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        filtrarClub(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_formComponentShown
+
+    private void jTableClubFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableClubFocusGained
+        this.SeleccionarObjetoTabla(true);
+    }//GEN-LAST:event_jTableClubFocusGained
+
     public void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -361,19 +388,13 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEquipos;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableClub;
     private javax.swing.JTextField jTextFieldBusqueda;
-    private javax.swing.JTextField jTextFieldBusqueda1;
-    private javax.swing.JTextField jTextFieldBusqueda2;
     // End of variables declaration//GEN-END:variables
 }
