@@ -389,11 +389,10 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemNuevaSociasActionPerformed
 
     private void jMenuItemAdmClubesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmClubesActionPerformed
-        IGestionClub unaGestionClub = new IGestionClub(jDesktopPane);
+        IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal, this.jDesktopPane);
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);
         this.jDesktopPane.add(unaGestionClub);
-
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
     private void jMenuItemNuevoCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCuerpoTecnicoActionPerformed
