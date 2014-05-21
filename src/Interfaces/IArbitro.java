@@ -21,51 +21,51 @@ import main.ControladoraGlobal;
 
 public class IArbitro extends javax.swing.JInternalFrame {
 
-    
     JInternalFrame unJInternalFrame;
-    ControladoraGlobal unaControladoraGlobal;       
+    ControladoraGlobal unaControladoraGlobal;
+    Arbitro unArbitro = null;
 
-    
-    public IArbitro(ControladoraGlobal  unaControladoraGlobal) {
+    public IArbitro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         IMenuPrincipalInterface.centrar(this);
         SeInicio(unaControladoraGlobal);
-        
+
         jButtonImprimir.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        
+
         camposLimpiar();
-        
+
     }
-    
-    public IArbitro(ControladoraGlobal  unaControladoraGlobal, JInternalFrame unJInternalFrame) {
+
+    public IArbitro(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         IMenuPrincipalInterface.centrar(this);
         SeInicio(unaControladoraGlobal);
-        
+
         jButtonImprimir.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        
+
         camposLimpiar();
-        
+
     }
-    
-     public IArbitro(ControladoraGlobal  unaControladoraGlobal, JInternalFrame unJInternalFrame, Arbitro unArbitro) {
+
+    public IArbitro(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Arbitro unArbitro) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.setTitle("Arbitro: " + unArbitro.getApellido() + " " + unArbitro.getNombre());
         SeInicio(unaControladoraGlobal);
 
+        this.unArbitro = unArbitro;
         jButtonImprimir.setEnabled(true);
         jButtonEditar.setEnabled(true);
 
         camposCargar(unArbitro);
-        
+
     }
 
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
@@ -79,28 +79,29 @@ public class IArbitro extends javax.swing.JInternalFrame {
 
         camposActivo(false);
     }
-    
+
     public void camposCargar(Arbitro unArbitro) {
         jTextFieldDNI.setText(unArbitro.getDni().toString());
         jTextFieldApellido.setText(unArbitro.getApellido());
         jTextFieldNombres.setText(unArbitro.getNombre());
         jComboBoxLocalidad.setSelectedItem(unArbitro.getUnaLocalidad());
         jTextFieldDomicilio.setText(unArbitro.getDomicilio());
-        jTextFieldEmail.setText(unArbitro.getEmail());        
-        
+        jTextFieldEmail.setText(unArbitro.getEmail());
+
         DateFormat df = DateFormat.getDateInstance();
         jTextFieldFechaNacimiento.setText(df.format(unArbitro.getFechaNacimiento()));
         jTextFieldFechaIngreso.setText(df.format(unArbitro.getFechaIngreso()));
 
         jTextFieldTelFijo.setText(unArbitro.getTelFijo());
         jTextFieldTelCelular.setText(unArbitro.getTelCelular());
-        
+
     }
-    
+
     public void cargarComboBoxLocalidades() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -442,7 +443,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldDNIActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-         if (unJInternalFrame != null) {
+        if (unJInternalFrame != null) {
             this.unJInternalFrame.setVisible(true);
         } else {
             IMenuPrincipalInterface.jDesktopPane.setVisible(true);
@@ -462,7 +463,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-       public void camposActivo(boolean Editable) {
+    public void camposActivo(boolean Editable) {
         jTextFieldDNI.setEditable(Editable);
         jTextFieldApellido.setEditable(Editable);
         jTextFieldNombres.setEditable(Editable);
@@ -492,7 +493,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
         jTextFieldTelCelular.setText("");
         jTextFieldFotocopiaDni.setText("");
     }
-    
+
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         DateFormat df = DateFormat.getDateInstance();
         try {
@@ -500,18 +501,19 @@ public class IArbitro extends javax.swing.JInternalFrame {
             Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
 
             unaControladoraGlobal.crearArbitro(Long.parseLong(jTextFieldDNI.getText()),
-                jTextFieldApellido.getText(),
-                jTextFieldNombres.getText(),
-                (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                jTextFieldDomicilio.getText(),
-                fechaNacimiento,
-                fechaIngreso,
-                "FOTO CARNET",                
-                jTextFieldEmail.getText(),
-                jTextFieldTelFijo.getText(),
-                jTextFieldTelCelular.getText());
+                    jTextFieldApellido.getText(),
+                    jTextFieldNombres.getText(),
+                    (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                    jTextFieldDomicilio.getText(),
+                    fechaNacimiento,
+                    fechaIngreso,
+                    "FOTO CARNET",
+                    jTextFieldEmail.getText(),
+                    jTextFieldTelFijo.getText(),
+                    jTextFieldTelCelular.getText());
             JOptionPane.showMessageDialog(this, "Arbitro Generado");
             camposActivo(false);
+            camposLimpiar();
 
         } catch (ParseException e) {
             System.out.println("ERROR EN LAS FECHAS SOCIA" + e.getMessage());
@@ -519,8 +521,12 @@ public class IArbitro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        if (this.unArbitro == null) {
+            camposLimpiar();
+        } else {
+            camposCargar(unArbitro);
+        }
         camposActivo(false);
-        camposLimpiar();
         jButtonNuevo.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -528,7 +534,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
