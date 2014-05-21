@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Interfaces;
 
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
@@ -21,29 +21,28 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaLocalidad;
-
     /**
      * Creates new form ILocalidad
      */
     public ILocalidad(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
+        
         this.modeloTablaLocalidad = (DefaultTableModel) jTableLocalidad.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
         cargarTabla();
         SeInicio(unaControladoraGlobal);
     }
-
-    public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
+    
+    public void SeInicio(ControladoraGlobal unaControladoraGlobal) {      
 
         //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
     }
-
+    
     public void camposActivo(boolean Editable) {
-        jTextFieldCodPostal.setEnabled(Editable);
+        jTextFieldCodPostal.setEditable(Editable);
         jTextFieldNombre.setEnabled(Editable);
         jTextFieldCodPostal.setEnabled(Editable);
         jButtonGuardar.setEnabled(Editable);
@@ -61,9 +60,6 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("mamishockeydb?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
-        localidadQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT l FROM Localidad l");
-        localidadList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : localidadQuery.getResultList();
         jPanel1 = new javax.swing.JPanel();
         jButtonEditar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
@@ -92,11 +88,6 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarActionPerformed(evt);
-            }
-        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -165,35 +156,15 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Nombre", "Cod. Postal"
+                "Nombre", "Cod. Postal"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jTableLocalidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTableLocalidadFocusGained(evt);
             }
         });
         jScrollPane1.setViewportView(jTableLocalidad);
-        if (jTableLocalidad.getColumnModel().getColumnCount() > 0) {
-            jTableLocalidad.getColumnModel().getColumn(0).setMinWidth(0);
-            jTableLocalidad.getColumnModel().getColumn(0).setPreferredWidth(0);
-            jTableLocalidad.getColumnModel().getColumn(0).setMaxWidth(0);
-        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -277,7 +248,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         camposActivoNuevo(true);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    public void camposActivoNuevo(boolean Editable) {
+     public void camposActivoNuevo(boolean Editable) {
         jTextFieldNombre.setEnabled(Editable);
         jTextFieldCodPostal.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
@@ -287,17 +258,12 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(!Editable);
         jTableLocalidad.setEnabled(!Editable);
     }
-    
-
     private void jTextFieldCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodPostalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCodPostalActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
-        JOptionPane.showMessageDialog(this, "Localidad Guardada");
-        cargarTabla();        
-        camposActivoNuevo(false);
+        camposActivo(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jTableLocalidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableLocalidadFocusGained
@@ -308,49 +274,18 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         camposActivoNuevo(false); // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Localidad unaLocalidadSeleccionada = unaControladoraGlobal.getLocalidadBD((Long) jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0));
-
-        Object[] options = {"OK", "Cancelar"};
-        if (0 == JOptionPane.showOptionDialog(
-                this,
-                "Desea eliminar a la localidad: " + unaLocalidadSeleccionada.getNombre() + " " + unaLocalidadSeleccionada.getCodPostal(),
-                "Eliminar",
-                JOptionPane.PLAIN_MESSAGE,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options)) {
-            unaControladoraGlobal.eliminarLocalidad(unaLocalidadSeleccionada);
-            cargarTabla();
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void cargarTabla() {
-        limpiarTabla();
+    private void cargarTabla() {        
+        
         List<Localidad> unaListaResultado = this.unaControladoraGlobal.getLocalidadesBD();
         for (Localidad unaLocalidad : unaListaResultado) {
             this.modeloTablaLocalidad.addRow(new Object[]{
-                unaLocalidad.getIdLocalidad(),
-                unaLocalidad.getNombre(),
-                unaLocalidad.getCodPostal()
-            });
+                                                            unaLocalidad.getNombre(), 
+                                                            unaLocalidad.getCodPostal()
+                                                         });
         }
     }
-
-    private void limpiarTabla() {
-        try {
-            int filas = this.modeloTablaLocalidad.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaLocalidad.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla Localidad.");
-        }
-
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
+    
+     private void SeleccionarObjetoTabla(boolean estado) {        
         jButtonCancelar.setEnabled(estado);
         jButtonEditar.setEnabled(estado);
         jButtonEliminar.setEnabled(estado);
@@ -359,7 +294,6 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.persistence.EntityManager entityManager;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
@@ -374,7 +308,5 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableLocalidad;
     private javax.swing.JTextField jTextFieldCodPostal;
     private javax.swing.JTextField jTextFieldNombre;
-    private java.util.List<Interfaces.Localidad> localidadList;
-    private javax.persistence.Query localidadQuery;
     // End of variables declaration//GEN-END:variables
 }
