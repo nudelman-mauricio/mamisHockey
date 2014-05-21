@@ -319,7 +319,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }
 
     private void filtrarArbitros(String dato) {
-        limpiarTablaSocia(modeloTablaArbitro);
+        limpiarTabla(modeloTablaArbitro);
         dato = jTextFieldBusqueda.getText();
         List<Arbitro> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
         for (Arbitro unArbitro : unaListaResultado) {
@@ -327,7 +327,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
         }
     }
 
-    private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
+    private void limpiarTabla(DefaultTableModel modeloTablaSocia) {
         try {
             int filas = modeloTablaSocia.getRowCount();
             for (int i = 0; i < filas; i++) {
