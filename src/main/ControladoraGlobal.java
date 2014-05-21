@@ -344,8 +344,8 @@ public class ControladoraGlobal {
 //------------------------------FIN EQUIPOS-------------------------------------
 
 //------------------------------CLUBES------------------------------------------   
-    public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
-        this.unaControladoraDeportiva.crearClub(idClub, nombre, nombrePresidente, unaLocalidad);
+    public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
+        this.unaControladoraDeportiva.crearClub(nombre, nombrePresidente, unaLocalidad);
     }
 
     public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {

@@ -177,7 +177,7 @@ public class ControladoraDeportiva {
 //------------------------------FIN EQUIPOS-------------------------------------
 
 //------------------------------CLUBES------------------------------------------
-    public void crearClub(Long idClub, String nombre, String nombrePresidente, Localidad unaLocalidad) {
+    public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
         Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
 
