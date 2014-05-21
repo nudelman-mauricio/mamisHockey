@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.util.ArrayList;
@@ -15,10 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas Leandro Nudelman
- */
 public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
@@ -26,9 +17,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTablaSocia;
 
-    /**
-     * Creates new form GestionSocias
-     */
     public IGestionSocias(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
 
@@ -39,10 +27,9 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
 
         IMenuPrincipalInterface.centrar(this);
-
-        this.SeleccionarObjetoTabla(false);
-
+        
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
+        this.SeleccionarObjetoTabla(false);     
         
         filtrarSocias("");
     }
@@ -83,6 +70,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -463,9 +455,12 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         filtrarSocias(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_formComponentShown
 
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
-        dato = jTextFieldBusqueda.getText();
         List<Socia> unaListaResultado = this.unaControladoraGlobal.getSociasBDFiltro(dato);
         for (Socia unaSocia : unaListaResultado) {
             this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(),unaSocia.getUltimoEstado() , unaSocia.getEquipoActual()});

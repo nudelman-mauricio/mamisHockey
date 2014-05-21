@@ -18,16 +18,15 @@ import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Leanwit
- */
+
 public class ISocia extends javax.swing.JInternalFrame {
 
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
 
     private ControladoraGlobal unaControladoraGlobal;
+    
+    private Socia unaSocia = null;
 
     /**
      * Creates new form SociaInterface
@@ -58,6 +57,8 @@ public class ISocia extends javax.swing.JInternalFrame {
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
+        this.unaSocia = unaSocia;
+        
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         SeInicio(unaControladoraGlobal);
 
@@ -216,6 +217,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -518,10 +524,19 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        if (this.unaSocia == null){
+            camposLimpiar();
+            
+        }else{
+            camposCargar(unaSocia);
+        }
         camposActivo(false);
-        camposLimpiar();
         jButtonNuevo.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
