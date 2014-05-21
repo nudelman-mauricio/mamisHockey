@@ -284,8 +284,8 @@ public class ControladoraEntidades {
      * @return
      */
     public Localidad getLocalidadBD(Long id) {
-        Localidad resultado;
-        String unaConsulta = "SELECT A FROM Localidad A WHERE A.idLocalidad = " + id;
+        Localidad resultado;   
+        String unaConsulta = "SELECT L FROM Localidad L WHERE L.idLocalidad = " + id;
         Query traerLocalidad = this.entityManager.createQuery(unaConsulta);
         resultado = (Localidad) traerLocalidad.getSingleResult();
         return resultado;
@@ -297,7 +297,7 @@ public class ControladoraEntidades {
      * @return
      */
     public List<Localidad> getLocalidadesBD() {
-        String unaConsulta = "SELECT A FROM Localidad A WHERE A.borradoLogico= FALSE";
+        String unaConsulta = "SELECT L FROM Localidad L WHERE L.borradoLogico= FALSE";
         Query traerLocalidades = this.entityManager.createQuery(unaConsulta);
         List<Localidad> unaListaResultado = traerLocalidades.getResultList();
         return unaListaResultado;
