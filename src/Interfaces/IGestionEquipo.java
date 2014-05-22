@@ -355,7 +355,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonIndumentariaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        IEquipo unEquipo = new IEquipo(this);
+        IEquipo unEquipo = new IEquipo(unaControladoraGlobal, this);
         unEquipo.pack();
         unEquipo.setVisible(true);
         this.setVisible(false);
@@ -371,7 +371,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarClub(jTextFieldBusqueda.getText());
+        filtrarEquipo(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
 
