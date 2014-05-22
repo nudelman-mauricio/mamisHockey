@@ -484,7 +484,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                         jCheckBoxEsArbitro.isSelected(),
                         jCheckBoxEsCuerpoTecnico.isSelected(),
                         false);
-                JOptionPane.showMessageDialog(this, "Arbitro Generado");                
+                JOptionPane.showMessageDialog(this, "Persona Auxiliar Generada");                
                 camposActivo(false);
                 camposLimpiar();              
 

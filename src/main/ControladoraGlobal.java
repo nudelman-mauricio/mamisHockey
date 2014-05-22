@@ -58,6 +58,7 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.eliminarPersonaAuxiliar(unaPersonaAuxiliar);
     }
     
+       
     public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {        
         return this.unaControladoraEntidades.getCuerpoTecnicoBD(dni);
     }
@@ -88,6 +89,10 @@ public class ControladoraGlobal {
     
     public List<PersonaAuxiliar> getArbitrosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getArbitrosBDFiltro(dato);
+    }
+    
+    public List <PersonaAuxiliar> getPersonaAuxiliarBDFiltro(String dato){
+        return this.unaControladoraEntidades.getPersonasAuxiliarBDFiltro(dato);
     }
 //--------------------------FIN PERSONAS AUXILIARES-----------------------------
 

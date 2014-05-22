@@ -51,6 +51,13 @@ public class ControladoraEntidades {
         unaPersonaAuxiliar.setBorradoLogico(true);
         unaPersonaAuxiliar.persistir(this.entityManager);
     }
+    
+    public List<PersonaAuxiliar> getPersonasAuxiliarBDFiltro(String dato){
+         String unaConsulta = "SELECT PA FROM PersonaAuxiliar PA WHERE (PA.nombre LIKE " + "'%" + dato + "%' OR PA.apellido LIKE " + "'%" + dato + "%' OR PA.dni LIKE " + "'%" + dato + "%')and(PA.borradoLogico = FALSE)";
+         
+         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
 
     /**
      * Devuelve un CuerpTecnico buscando por DNI borrados inclusive
