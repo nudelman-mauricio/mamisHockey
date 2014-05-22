@@ -28,7 +28,7 @@ public class ControladoraEntidades {
         PersonaAuxiliar unCuerpoTecnico = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, arbitro, cuerpoTecnico, email, telFijo, telCelular);
     }
 
-    public void modificarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean cuerpoTecnico, boolean dtActivo) {
+    public void modificarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
         unCuerpoTecnico.setDni(dni);
         unCuerpoTecnico.setApellido(apellido);
         unCuerpoTecnico.setNombre(nombre);
@@ -42,7 +42,7 @@ public class ControladoraEntidades {
         unCuerpoTecnico.setBorradoLogico(borradoLogico);
         unCuerpoTecnico.setFotocopiaDni(fotocopiaDni);
         unCuerpoTecnico.setCuerpoTecnico(cuerpoTecnico);
-        unCuerpoTecnico.setDtActivo(dtActivo);
+        unCuerpoTecnico.setCuerpoTecnicoActivo(cuerpoTecnicoActivo);
         unCuerpoTecnico.persistir(this.entityManager);
     }
 
@@ -200,25 +200,21 @@ public class ControladoraEntidades {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
-        Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
+    public void crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
+        Pase unPase = new Pase(this.entityManager, fechaGeneracion, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
+        unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
+        unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
     }
 
-    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
+    public void modificarPase(Pase unPase, Date fecha, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
         unPase.setFecha(fecha);
-        unPase.setMonto(monto);
         unPase.setUnEquipo(unEquipo);
         unPase.setLibreDeudaClub(libreDeudaClub);
         unPase.setSolicitudPase(solicitudPase);
         unPase.setObservacion(observacion);
         unPase.setBorradoLogico(borradoLogico);
         unPase.persistir(this.entityManager);
-    }
-
-    public void modificarPaseDeSocia(Pase unPase, Socia unaSociaActual, Socia unaSociaNueva) {
-        unaSociaActual.quitarPase(this.entityManager, unPase);
-        unaSociaNueva.agregarPase(this.entityManager, unPase);
     }
 
     public void eliminarPase(Pase unPase) {

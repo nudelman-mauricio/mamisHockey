@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Equipo implements Serializable, Comparable {
@@ -62,10 +63,8 @@ public class Equipo implements Serializable, Comparable {
 
     }
 
-    public Equipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, PersonaAuxiliar unDT) {
+    public Equipo(EntityManager entityManager, String nombre, PersonaAuxiliar unDT) {
         this.nombre = nombre;
-        this.unaCapitana = unaCapitana;
-        this.unaDelegada = unaDelegada;
         this.unDT = unDT;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -248,13 +247,35 @@ public class Equipo implements Serializable, Comparable {
     }
 
     public void quitarPlantel(EntityManager entityManager, Socia unaSocia) {
+        if (unaSocia == this.unaCapitana) {
+            this.setUnaCapitana(null); //NO SE SI ESTO VA A GENERAR ERROR POR NO SER CAMPO OPCIONAL EN LA BD
+            this.cartelAdvertencia("Capitana");
+        }
+        if (unaSocia == this.unaCapitanaSuplente) {
+            this.setUnaCapitanaSuplente(null);
+            this.cartelAdvertencia("Capitana Suplente");
+        }
+        if (unaSocia == this.unaDelegada) {
+            this.setUnaDelegada(null);
+            this.cartelAdvertencia("Delegada");
+        }
+        if (unaSocia == this.unaDelegadaSuplente) {
+            this.setUnaDelegadaSuplente(null);
+            this.cartelAdvertencia("Delegada Suplente");
+        }
         this.plantel.remove(unaSocia);
         this.persistir(entityManager);
+    }
+
+    private void cartelAdvertencia(String auxiliar) {
+        //CARTEL ADVERTENCIA DE ELIMINAR A UNA SOCIA QUE ES CAPITANA O DELEGADA
+        JOptionPane.showMessageDialog(null, "La operación que realizó dejó sin " + auxiliar + " al Equipo " + this.getNombre(), "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
 //----------------------------------FIN PLANTEL---------------------------------
 
     @Override
-    public int compareTo(Object aux) {
+    public int compareTo(Object aux
+    ) {
         int retorno = -1;
         if (aux instanceof Equipo) {
             Equipo equipo = (Equipo) aux;

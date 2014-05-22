@@ -15,9 +15,6 @@ public class Gol implements Serializable, Comparable {
     @Basic
     private String minuto;
 
-    @Basic
-    private boolean autoGol;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idGol;
@@ -29,9 +26,8 @@ public class Gol implements Serializable, Comparable {
 
     }
 
-    public Gol(EntityManager entityManager, String minuto, boolean autoGol) {
+    public Gol(EntityManager entityManager, String minuto) {
         this.minuto = minuto;
-        this.autoGol = autoGol;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -43,14 +39,6 @@ public class Gol implements Serializable, Comparable {
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
-    }
-
-    public boolean isAutoGol() {
-        return this.autoGol;
-    }
-
-    public void setAutoGol(boolean autoGol) {
-        this.autoGol = autoGol;
     }
 
     public Long getIdGol() {

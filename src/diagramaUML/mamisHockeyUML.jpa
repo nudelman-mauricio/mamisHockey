@@ -146,7 +146,7 @@
             <jpa:basic name="fotocopiaDni" optional="true" attribute-type="String" id="_139786599654088">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="dtActivo" attribute-type="boolean" id="_139786628141891">
+            <jpa:basic name="cuerpoTecnicoActivo" attribute-type="boolean" id="_139786628141891">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="arbitro" attribute-type="boolean" id="_140070226420584">
@@ -164,9 +164,6 @@
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
             <jpa:basic name="minuto" attribute-type="String" id="_1397867809475160">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-            </jpa:basic>
-            <jpa:basic name="autoGol" attribute-type="boolean" id="_1397867851388161">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817532147479">
@@ -269,9 +266,6 @@
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1397867955969165">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-            </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868327853183">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
@@ -292,7 +286,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Deuda" minimized="true" id="_1397868049586">
+    <jpa:entity class="Deuda" minimized="false" id="_1397868049586">
         <jpa:attributes>
             <jpa:id name="idDeuda" attribute-type="Long" id="_1397868146347172">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -746,7 +740,7 @@
                 <Bounds x="1055.0" y="-461.0" width="192.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397866303816" id="_1397866303816_gui">
-                <Bounds x="923.0" y="-144.0" width="130.0" height="24.0"/>
+                <Bounds x="923.0" y="-144.0" width="132.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
                 <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
@@ -761,7 +755,7 @@
                 <Bounds x="-193.0" y="-348.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868049586" id="_1397868049586_gui">
-                <Bounds x="-439.0" y="117.0" width="132.0" height="24.0"/>
+                <Bounds x="-439.0" y="117.0" width="144.0" height="189.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
                 <Bounds x="19.0" y="383.0" width="204.0" height="24.0"/>
@@ -788,7 +782,7 @@
                 <Bounds x="360.0" y="45.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="628.0" y="-591.0" width="137.0" height="24.0"/>
+                <Bounds x="628.0" y="-591.0" width="222.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
                 <Bounds x="1140.0" y="256.0" width="136.0" height="24.0"/>

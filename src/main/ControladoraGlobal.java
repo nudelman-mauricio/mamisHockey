@@ -131,18 +131,13 @@ public class ControladoraGlobal {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
-        //FALTA GENERAR LA DEUDA ACÁ INVENTANDO EL ALGORITMO MAGICO QUE CALCULE ESO
-        Deuda unaDeuda = null; //despues reemplazar por AlgoritmoMagico(magia);
-        this.unaControladoraEntidades.crearPase(unaSocia, fecha, monto, unEquipo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
+    public void crearPase(Socia unaSocia, Date fechaGeneracion, String concepto, String observacionDeuda, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoActual, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
+        Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, concepto, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
+        this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unEquipoActual, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
-    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarPase(unPase, fecha, monto, unEquipo, libreDeudaClub, solicitudPase, observacion, borradoLogico);
-    }
-
-    public void modificarPaseDeSocia(Pase unPase, Socia unaSociaActual, Socia unaSociaNueva) {
-        this.unaControladoraEntidades.modificarPaseDeSocia(unPase, unaSociaActual, unaSociaNueva);
+    public void modificarPase(Pase unPase, Date fecha, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
+        this.unaControladoraEntidades.modificarPase(unPase, fecha, unEquipo, libreDeudaClub, solicitudPase, observacion, borradoLogico);
     }
 
     public void eliminarPase(Pase unPase) {
@@ -318,8 +313,8 @@ public class ControladoraGlobal {
 //------------------------------FIN TARJETAS------------------------------------
 
 //------------------------------EQUIPOS-----------------------------------------   
-    public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, PersonaAuxiliar unDT) {
-        this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unaCapitana, unaDelegada, unDT);
+    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
+        return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT);
     }
 
     public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
@@ -548,8 +543,8 @@ public class ControladoraGlobal {
 //---------------------------------FIN PARTIDOS---------------------------------
 
 //---------------------------------GOLES----------------------------------------
-    public void crearGol(Socia unaSocia, Partido unPartido, String minuto, boolean autoGol) {
-        this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, minuto, autoGol);
+    public void crearGol(Socia unaSocia, Partido unPartido, String minuto) {
+        this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, minuto);
     }
 
     public void modificarGol(Gol unGol, String minuto, boolean borradoLogico) {

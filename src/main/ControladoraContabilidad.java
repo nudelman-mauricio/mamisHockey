@@ -69,9 +69,10 @@ public class ControladoraContabilidad {
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+    public Deuda crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
+        return unaDeuda;
     }
 
     public void cambiarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {

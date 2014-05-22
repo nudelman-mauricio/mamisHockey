@@ -128,9 +128,10 @@ public class ControladoraDeportiva {
 //------------------------------FIN TARJETAS------------------------------------
 
 //------------------------------EQUIPOS-----------------------------------------   
-    public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, PersonaAuxiliar unDT) {
-        Equipo unEquipo = new Equipo(this.entityManager, nombre, unaCapitana, unaDelegada, unDT);
+    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
+        Equipo unEquipo = new Equipo(this.entityManager, nombre, unDT);
         unClub.agregarEquipo(this.entityManager, unEquipo);
+        return unEquipo;
     }
 
     public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
@@ -532,8 +533,8 @@ public class ControladoraDeportiva {
 //---------------------------------FIN PARTIDOS---------------------------------
 
 //---------------------------------GOLES----------------------------------------
-    public void crearGol(Socia unaSocia, Partido unPartido, String minuto, boolean autoGol) {
-        Gol unGol = new Gol(this.entityManager, minuto, autoGol);
+    public void crearGol(Socia unaSocia, Partido unPartido, String minuto) {
+        Gol unGol = new Gol(this.entityManager, minuto);
         unaSocia.agregarGol(this.entityManager, unGol);
         unPartido.agregarGol(this.entityManager, unGol);
     }

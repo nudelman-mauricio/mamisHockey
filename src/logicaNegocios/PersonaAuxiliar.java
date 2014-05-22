@@ -19,7 +19,7 @@ public class PersonaAuxiliar extends Persona implements Serializable {
     private String fotocopiaDni;
 
     @Basic
-    private boolean dtActivo;
+    private boolean cuerpoTecnicoActivo;
 
     public PersonaAuxiliar() {
 
@@ -57,12 +57,12 @@ public class PersonaAuxiliar extends Persona implements Serializable {
         this.fotocopiaDni = fotocopiaDni;
     }
 
-    public boolean isDtActivo() {
-        return this.dtActivo;
+    public boolean isCuerpoTecnicoActivo() {
+        return this.cuerpoTecnicoActivo;
     }
 
-    public void setDtActivo(boolean dtActivo) {
-        this.dtActivo = dtActivo;
+    public void setCuerpoTecnicoActivo(boolean cuerpoTecnicoActivo) {
+        this.cuerpoTecnicoActivo = cuerpoTecnicoActivo;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 }
