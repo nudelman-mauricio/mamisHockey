@@ -402,7 +402,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         if (this.unEquipo == null) {
             unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getName(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
 
-            unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, (PersonaAuxiliar) jComboBoxPF.getSelectedItem(), (PersonaAuxiliar) jComboBoxAC.getSelectedItem(), false);
+            //unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, (PersonaAuxiliar) jComboBoxPF.getSelectedItem(), (PersonaAuxiliar) jComboBoxAC.getSelectedItem(), false);
 
             JOptionPane.showMessageDialog(this, "Equipo creado con exito");
         } else {
