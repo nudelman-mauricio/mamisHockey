@@ -13,7 +13,7 @@ import javax.persistence.Id;
 public class Gol implements Serializable, Comparable {
 
     @Basic
-    private String tiempo;
+    private String minuto;
 
     @Basic
     private boolean autoGol;
@@ -29,20 +29,20 @@ public class Gol implements Serializable, Comparable {
 
     }
 
-    public Gol(EntityManager entityManager, String tiempo, boolean autoGol) {
-        this.tiempo = tiempo;
+    public Gol(EntityManager entityManager, String minuto, boolean autoGol) {
+        this.minuto = minuto;
         this.autoGol = autoGol;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
-    public String getTiempo() {
-        return this.tiempo;
+    public String getMinuto() {
+        return this.minuto;
     }
 
-    public void setTiempo(String tiempo) {
-        this.tiempo = tiempo;
+    public void setMinuto(String minuto) {
+        this.minuto = minuto;
     }
 
     public boolean isAutoGol() {

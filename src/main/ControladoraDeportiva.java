@@ -181,8 +181,7 @@ public class ControladoraDeportiva {
         Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
 
-    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
-        unClub.setIdClub(idClub);
+    public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setNombre(nombre);
         unClub.setLogo(logo);
         unClub.setNombrePresidente(nombrePresidente);

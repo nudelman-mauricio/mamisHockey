@@ -37,11 +37,11 @@ public class Equipo implements Serializable, Comparable {
     @Basic
     private String nombre;
 
-    @OneToOne(optional = false, targetEntity = CuerpoTecnico.class)
-    private CuerpoTecnico unAyudanteCampo;
+    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    private PersonaAuxiliar unAyudanteCampo;
 
-    @OneToOne(optional = false, targetEntity = CuerpoTecnico.class)
-    private CuerpoTecnico unPreparadorFisico;
+    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    private PersonaAuxiliar unPreparadorFisico;
 
     @OneToOne(optional = false, targetEntity = Socia.class)
     private Socia unaCapitana;
@@ -55,14 +55,14 @@ public class Equipo implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(optional = false, targetEntity = CuerpoTecnico.class)
-    private CuerpoTecnico unDT;
+    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    private PersonaAuxiliar unDT;
 
     public Equipo() {
 
     }
 
-    public Equipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
+    public Equipo(EntityManager entityManager, String nombre, Socia unaCapitana, Socia unaDelegada, PersonaAuxiliar unDT) {
         this.nombre = nombre;
         this.unaCapitana = unaCapitana;
         this.unaDelegada = unaDelegada;
@@ -128,19 +128,19 @@ public class Equipo implements Serializable, Comparable {
         this.nombre = nombre;
     }
 
-    public CuerpoTecnico getUnAyudanteCampo() {
+    public PersonaAuxiliar getUnAyudanteCampo() {
         return this.unAyudanteCampo;
     }
 
-    public void setUnAyudanteCampo(CuerpoTecnico unAyudanteCampo) {
+    public void setUnAyudanteCampo(PersonaAuxiliar unAyudanteCampo) {
         this.unAyudanteCampo = unAyudanteCampo;
     }
 
-    public CuerpoTecnico getUnPreparadorFisico() {
+    public PersonaAuxiliar getUnPreparadorFisico() {
         return this.unPreparadorFisico;
     }
 
-    public void setUnPreparadorFisico(CuerpoTecnico unPreparadorFisico) {
+    public void setUnPreparadorFisico(PersonaAuxiliar unPreparadorFisico) {
         this.unPreparadorFisico = unPreparadorFisico;
     }
 
@@ -176,11 +176,11 @@ public class Equipo implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 
-    public CuerpoTecnico getUnDT() {
+    public PersonaAuxiliar getUnDT() {
         return this.unDT;
     }
 
-    public void setUnDT(CuerpoTecnico unDT) {
+    public void setUnDT(PersonaAuxiliar unDT) {
         this.unDT = unDT;
     }
 

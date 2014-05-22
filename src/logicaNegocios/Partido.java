@@ -18,6 +18,9 @@ import javax.persistence.TemporalType;
 @Entity
 public class Partido implements Serializable, Comparable {
 
+    @Basic
+    private String nombreVeedor;
+
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
 
@@ -34,14 +37,17 @@ public class Partido implements Serializable, Comparable {
     @Basic
     private String nombreAyudanteMesaLocal;
 
-    @OneToOne(optional = false, targetEntity = Arbitro.class)
-    private Arbitro unArbitro1;
+    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    private PersonaAuxiliar unArbitro1;
 
-    @OneToOne(optional = false, targetEntity = Arbitro.class)
-    private Arbitro unArbitro2;
+    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    private PersonaAuxiliar unArbitro2;
 
     @OneToOne(optional = false, targetEntity = Cancha.class)
     private Cancha unaCancha;
+
+    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    private PersonaAuxiliar unArbitro3;
 
     @Basic
     private String observaciones;
@@ -63,11 +69,12 @@ public class Partido implements Serializable, Comparable {
 
     }
 
-    public Partido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+    public Partido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         this.unEquipoVisitante = unEquipoVisitante;
         this.fecha = fecha;
         this.unArbitro1 = unArbitro1;
         this.unArbitro2 = unArbitro2;
+        this.unArbitro3 = unArbitro3;
         this.unaCancha = unaCancha;
         this.observaciones = observaciones;
         this.unEquipoLocal = unEquipoLocal;
@@ -76,6 +83,14 @@ public class Partido implements Serializable, Comparable {
     }
 
 //------------------------------ GETERS Y SETERS -------------------------------
+    public String getNombreVeedor() {
+        return this.nombreVeedor;
+    }
+
+    public void setNombreVeedor(String nombreVeedor) {
+        this.nombreVeedor = nombreVeedor;
+    }
+
     public Collection<Gol> getGoles() {
         return this.goles;
     }
@@ -116,19 +131,19 @@ public class Partido implements Serializable, Comparable {
         this.nombreAyudanteMesaLocal = nombreAyudanteMesaLocal;
     }
 
-    public Arbitro getUnArbitro1() {
+    public PersonaAuxiliar getUnArbitro1() {
         return this.unArbitro1;
     }
 
-    public void setUnArbitro1(Arbitro unArbitro1) {
+    public void setUnArbitro1(PersonaAuxiliar unArbitro1) {
         this.unArbitro1 = unArbitro1;
     }
 
-    public Arbitro getUnArbitro2() {
+    public PersonaAuxiliar getUnArbitro2() {
         return this.unArbitro2;
     }
 
-    public void setUnArbitro2(Arbitro unArbitro2) {
+    public void setUnArbitro2(PersonaAuxiliar unArbitro2) {
         this.unArbitro2 = unArbitro2;
     }
 
@@ -138,6 +153,14 @@ public class Partido implements Serializable, Comparable {
 
     public void setUnaCancha(Cancha unaCancha) {
         this.unaCancha = unaCancha;
+    }
+
+    public PersonaAuxiliar getUnArbitro3() {
+        return this.unArbitro3;
+    }
+
+    public void setUnArbitro3(PersonaAuxiliar unArbitro3) {
+        this.unArbitro3 = unArbitro3;
     }
 
     public String getObservaciones() {

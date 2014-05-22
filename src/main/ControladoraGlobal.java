@@ -348,8 +348,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.crearClub(nombre, nombrePresidente, unaLocalidad);
     }
 
-    public void modificarClub(Club unClub, Long idClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarClub(unClub, idClub, nombre, logo, nombrePresidente, unaLocalidad, borradoLogico);
+    public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarClub(unClub, nombre, logo, nombrePresidente, unaLocalidad, borradoLogico);
     }
 
     public void eliminarClub(Club unClub) {
