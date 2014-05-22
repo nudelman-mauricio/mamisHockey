@@ -55,7 +55,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemAdmClubes = new javax.swing.JMenuItem();
         jMenuEquipo = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItemNuevoEquipo = new javax.swing.JMenuItem();
         jMenuItemAdmEquipos = new javax.swing.JMenuItem();
         jMenuContabilidad = new javax.swing.JMenu();
         jMenuItemGestionarIngresos = new javax.swing.JMenuItem();
@@ -191,13 +191,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuEquipo.setText("Equipos");
         jMenuEquipo.setMaximumSize(new java.awt.Dimension(129, 32767));
 
-        jMenuItem6.setText("Nuevo Equipo");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemNuevoEquipo.setText("Nuevo Equipo");
+        jMenuItemNuevoEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItemNuevoEquipoActionPerformed(evt);
             }
         });
-        jMenuEquipo.add(jMenuItem6);
+        jMenuEquipo.add(jMenuItemNuevoEquipo);
 
         jMenuItemAdmEquipos.setText("Gestionar Equipos");
         jMenuItemAdmEquipos.addActionListener(new java.awt.event.ActionListener() {
@@ -436,12 +436,12 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemNuevoArbitroActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        IEquipo unEquipo = new IEquipo(jDesktopPane);
+    private void jMenuItemNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEquipoActionPerformed
+        IEquipo unEquipo = new IEquipo(unaControladoraGlobal, jDesktopPane);
         unEquipo.pack();
         unEquipo.setVisible(true);
-        this.jDesktopPane.add(unEquipo);   // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+        this.jDesktopPane.add(unEquipo); 
+    }//GEN-LAST:event_jMenuItemNuevoEquipoActionPerformed
 
     private void jMenuItemAdmEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmEquiposActionPerformed
         IGestionEquipo unaGestionEquipo = new IGestionEquipo(jDesktopPane);
@@ -488,7 +488,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
@@ -505,6 +504,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemNuevaSocias;
     private javax.swing.JMenuItem jMenuItemNuevoArbitro;
+    private javax.swing.JMenuItem jMenuItemNuevoEquipo;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
