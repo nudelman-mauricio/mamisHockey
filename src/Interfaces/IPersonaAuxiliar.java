@@ -71,6 +71,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
 
         cargarComboBoxLocalidades();
+        jComboBoxLocalidad.setSelectedIndex(-1);
         IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
@@ -480,7 +481,9 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                         jTextFieldEmail.getText(),
                         jTextFieldTelFijo.getText(),
                         jTextFieldTelCelular.getText(),
-                        jCheckBoxEsArbitro.isSelected(),jCheckBoxEsCuerpoTecnico.isSelected());
+                        jCheckBoxEsArbitro.isSelected(),
+                        jCheckBoxEsCuerpoTecnico.isSelected(),
+                        false);
                 JOptionPane.showMessageDialog(this, "Arbitro Generado");                
                 camposActivo(false);
                 camposLimpiar();              
@@ -493,7 +496,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
             try {
                 Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
                 Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
-                unaControladoraGlobal.modificarArbitro(unaPersonaAuxiliar,
+                unaControladoraGlobal.modificarPersonaAuxiliar(unaPersonaAuxiliar,
                         Long.parseLong(jTextFieldDNI.getText()),
                         jTextFieldApellido.getText(),
                         jTextFieldNombre.getText(),
@@ -502,12 +505,14 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                         fechaNacimiento,
                         jTextFieldTelFijo.getText(),
                         jTextFieldTelCelular.getText(),
-                        jCheckBoxEsArbitro.isSelected(),
-                        jCheckBoxEsCuerpoTecnico.isSelected(),
                         jTextFieldEmail.getText(),
                         fechaIngreso,
+                        "Fotocopia", 
+                        jCheckBoxEsArbitro.isSelected(),
+                        jCheckBoxEsCuerpoTecnico.isSelected(),                       
                         false,
-                        "Fotocopia" );             
+                        false
+                        );             
                
             }  catch (ParseException e) {
                 System.out.println("ERROR EN LAS FECHAS PERSONA AUXILIAR" + e.getMessage());

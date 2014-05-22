@@ -268,7 +268,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
 
-        PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+        PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
 
         IPersonaAuxiliar unaIPersonaAuxiliar = new IPersonaAuxiliar(unaControladoraGlobal, this, unPersonaAuxSeleccionado);
 
@@ -303,7 +303,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarArbitro(unPersonaAuxSeleccionado);
+            unaControladoraGlobal.eliminarPersonaAuxiliar(unPersonaAuxSeleccionado);
             jTextFieldBusqueda.setText("");
             filtrarPersonaAuxiliar("");
             this.SeleccionarObjetoTabla(false);
