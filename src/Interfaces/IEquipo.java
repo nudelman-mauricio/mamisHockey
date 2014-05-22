@@ -413,12 +413,9 @@ public class IEquipo extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
            if (this.unEquipo == null){
             unEquipo = unaControladoraGlobal.crearEquipo((Club)jComboBoxClub.getSelectedItem(), jTextFieldNombre.getName(), (PersonaAuxiliar)jComboBoxDT.getSelectedItem());
-               if (jComboBoxPF.getSelectedIndex() == -1) {
-                   unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, (PersonaAuxiliar)jComboBoxPF.getSelectedItem(), null, false);
-               }
-               if (jComboBoxPF.getSelectedIndex() == -1) {
-                   unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, null,(PersonaAuxiliar)jComboBoxAC.getSelectedItem(), false);
-               }
+            
+            unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, (PersonaAuxiliar)jComboBoxPF.getSelectedItem(), (PersonaAuxiliar)jComboBoxAC.getSelectedItem(), false);
+
             JOptionPane.showMessageDialog(this, "Equipo creado con exito");            
         }else{
             unaControladoraGlobal.modificarEquipo(unEquipo, 
