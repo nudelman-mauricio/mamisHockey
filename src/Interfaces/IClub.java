@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Interfaces;
 
 
@@ -19,19 +13,13 @@ import logicaNegocios.Club;
 import logicaNegocios.Localidad;
 import main.ControladoraGlobal;
 
-    
-
 public class IClub extends javax.swing.JInternalFrame {
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
 
     private ControladoraGlobal unaControladoraGlobal;
     private Club unClub = null;
-    
-    /**
-     * Creates new form NuevoClub
-     */
-    
+        
     //LLAMADO DESDE EL MENUPRINCIPAL
     public IClub(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
@@ -69,10 +57,6 @@ public class IClub extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(true);
 
         camposCargar(unClub);
-    }
-
-    public IClub(ControladoraGlobal unaControladoraGlobal, IGestionClub aThis, Club unClubSeleccionado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
@@ -356,18 +340,25 @@ public class IClub extends javax.swing.JInternalFrame {
             camposCargar(unClub);
         }
         camposActivo(false);
-        jButtonNuevo.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        if (this.unClub == null){
             unaControladoraGlobal.crearClub(jTextFieldNombre.getText(),
                     jTextFieldPresidente.getText(),
                     (Localidad) jComboBoxLocalidad.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "Club Creado");
-            camposActivo(false);
+            JOptionPane.showMessageDialog(this, "Club Creado");            
+        }else{
+            unaControladoraGlobal.modificarClub(unClub, jTextFieldNombre.getText(),"FALTA LO DEL LOGO" ,jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), false);
+            JOptionPane.showMessageDialog(this, "Club editado con exito");  
+        }
+        camposActivo(false);
+        jButtonEditar.setEnabled(true);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        this.unClub = null;
+        
         camposActivo(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed

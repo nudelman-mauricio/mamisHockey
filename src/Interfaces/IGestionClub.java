@@ -15,7 +15,7 @@ import main.ControladoraGlobal;
 public class IGestionClub extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    JDesktopPane jDesktopPane1;
+    private JDesktopPane jDesktopPane1;
     private DefaultTableModel modeloTablaClub;
 
     public IGestionClub(ControladoraGlobal unaControladoraGlobal, JDesktopPane jDesktopPane1) {
