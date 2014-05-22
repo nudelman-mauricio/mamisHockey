@@ -46,60 +46,60 @@ public class ControladoraGlobal {
 //------------------------------------------------------------------------------
 
 //------------------------------CUERPO TECNICO----------------------------------
-    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo, String email, String telFijo, String telCelular) {
-        this.unaControladoraEntidades.crearCuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo, email, telFijo, telCelular);
+    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean arbitro, boolean cuerpoTecnico, String email, String telFijo, String telCelular) {
+        this.unaControladoraEntidades.crearCuerpoTecnico(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, arbitro, cuerpoTecnico, email, telFijo, telCelular);
     }
 
-    public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
-        this.unaControladoraEntidades.modificarCuerpoTecnico(unCuerpoTecnico, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni, activo);
+    public void modificarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean cuerpoTecnico, boolean dtActivo) {
+        this.unaControladoraEntidades.modificarCuerpoTecnico(unCuerpoTecnico, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni, cuerpoTecnico, dtActivo);
     }
 
-    public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
+    public void eliminarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico) {
         this.unaControladoraEntidades.eliminarCuerpoTecnico(unCuerpoTecnico);
     }
 
     //Devuelve unCuerpoTecnico por DNI inclusive si esta borrado
-    public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
+    public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
         return this.unaControladoraEntidades.getCuerpoTecnicoBD(dni);
     }
 
     //Devuelve Todos los CuerpoTecnico de la DB
-    public List<CuerpoTecnico> getCuerposTecnicosBD() {
+    public List<PersonaAuxiliar> getCuerposTecnicosBD() {
         return this.unaControladoraEntidades.getCuerposTecnicosBD();
     }
 
     //Devuelve una lista de CuerpoTecnico usando como filtro un DNI, Nombre o Apellido menos los borrados
-    public List<CuerpoTecnico> getCuerposTecnicosBDFiltro(String dato) {
+    public List<PersonaAuxiliar> getCuerposTecnicosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getCuerposTecnicosBDFiltro(dato);
     }
 //------------------------------FIN CUERPO TECNICO------------------------------
 
 //----------------------------------ARBITROS------------------------------------
-    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, String email, String telFijo, String telCelular) {
-        this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
+    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
+        this.unaControladoraEntidades.crearArbitro(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico);
     }
 
-    public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
+    public void modificarArbitro(PersonaAuxiliar unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
         if (unArbitro != null) {
-            this.unaControladoraEntidades.modificarArbitro(unArbitro, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotocopiaDni);
+            this.unaControladoraEntidades.modificarArbitro(unArbitro, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, arbitro, cuerpoTecnico, email, fechaIngreso, borradoLogico, fotocopiaDni);
         }
     }
 
-    public void eliminarArbitro(Arbitro unArbitro) {
+    public void eliminarArbitro(PersonaAuxiliar unArbitro) {
         if (unArbitro != null) {
             this.unaControladoraEntidades.eliminarArbitro(unArbitro);
         }
     }
 
-    public Arbitro getArbitroBD(Long dni) {
+    public PersonaAuxiliar getArbitroBD(Long dni) {
         return this.unaControladoraEntidades.getArbitroBD(dni);
     }
 
-    public List<Arbitro> getArbitrosBD() {
+    public List<PersonaAuxiliar> getArbitrosBD() {
         return this.unaControladoraEntidades.getArbitrosBD();
     }
 
-    public List<Arbitro> getArbitrosBDFiltro(String dato) {
+    public List<PersonaAuxiliar> getArbitrosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getArbitrosBDFiltro(dato);
     }
 //-------------------------------FIN ARBITROS----------------------------------- 
@@ -131,14 +131,14 @@ public class ControladoraGlobal {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo) {
+    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         //FALTA GENERAR LA DEUDA ACÁ INVENTANDO EL ALGORITMO MAGICO QUE CALCULE ESO
         Deuda unaDeuda = null; //despues reemplazar por AlgoritmoMagico(magia);
-        this.unaControladoraEntidades.crearPase(unaSocia, fecha, monto, unEquipo, unaDeuda);
+        this.unaControladoraEntidades.crearPase(unaSocia, fecha, monto, unEquipo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
     }
 
-    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarPase(unPase, fecha, monto, unEquipo, borradoLogico);
+    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
+        this.unaControladoraEntidades.modificarPase(unPase, fecha, monto, unEquipo, libreDeudaClub, solicitudPase, observacion, borradoLogico);
     }
 
     public void modificarPaseDeSocia(Pase unPase, Socia unaSociaActual, Socia unaSociaNueva) {
@@ -292,16 +292,16 @@ public class ControladoraGlobal {
 //------------------------------FIN SANCIONES-----------------------------------
 //
 //--------------------------------TARJETAS--------------------------------------
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String detalles) {
-        this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, detalles);
+    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String minuto, String detalles) {
+        this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, minuto, detalles);
     }
 
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String detalles) {
-        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, detalles);
+    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String minuto, String detalles) {
+        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, minuto, detalles);
     }
 
-    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String detalles, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, tipo, motivo, detalles, borradoLogico);
+    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String minuto, String detalles, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, tipo, motivo, minuto, detalles, borradoLogico);
     }
 
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
@@ -318,11 +318,11 @@ public class ControladoraGlobal {
 //------------------------------FIN TARJETAS------------------------------------
 
 //------------------------------EQUIPOS-----------------------------------------   
-    public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
+    public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, PersonaAuxiliar unDT) {
         this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unaCapitana, unaDelegada, unDT);
     }
 
-    public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+    public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarEquipo(unEquipo, nombre, unaCapitana, unaCapitanaSuplente, unaDelegada, unaDelegadaSuplente, unDT, unPreparadorFisico, unAyudanteCampo, borradoLogico);
     }
 
@@ -340,6 +340,10 @@ public class ControladoraGlobal {
 
     public List<Equipo> getEquiposBD() {
         return unaControladoraDeportiva.getEquiposBD();
+    }
+
+    public List<Equipo> getEquiposBDFiltro(String dato) {
+        return this.unaControladoraDeportiva.getEquiposBDFiltro(dato);
     }
 //------------------------------FIN EQUIPOS-------------------------------------
 
@@ -517,12 +521,12 @@ public class ControladoraGlobal {
 //------------------------------FIN FECHAS TORNEO-------------------------------
 
 //-----------------------------------PARTIDOS-----------------------------------
-    public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
-        this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unaCancha, observaciones, unEquipoLocal);
+    public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+        this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
     }
 
-    public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarTorneo(null, fecha, null, observaciones);
+    public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarPartido(unPartido, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, unaCancha, observaciones, unEquipoLocal, borradoLogico);
     }
 
     //ME PARECE QUE NO TIENE NINGUN SENTIDO - NI SIQUIERA VIABLE DE LA PARTE GRAFICA
@@ -544,12 +548,12 @@ public class ControladoraGlobal {
 //---------------------------------FIN PARTIDOS---------------------------------
 
 //---------------------------------GOLES----------------------------------------
-    public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, boolean autoGol) {
-        this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, tiempo, autoGol);
+    public void crearGol(Socia unaSocia, Partido unPartido, String minuto, boolean autoGol) {
+        this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, minuto, autoGol);
     }
 
-    public void modificarGol(Gol unGol, String tiempo, boolean autoGol, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarGol(unGol, tiempo, autoGol, borradoLogico);
+    public void modificarGol(Gol unGol, String minuto, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarGol(unGol, minuto, borradoLogico);
     }
 
     public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {

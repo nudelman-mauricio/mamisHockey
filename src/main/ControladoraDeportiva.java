@@ -4,11 +4,10 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import logicaNegocios.Arbitro;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Cancha;
 import logicaNegocios.Categoria;
 import logicaNegocios.Club;
-import logicaNegocios.CuerpoTecnico;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Frecuencia;
@@ -77,8 +76,8 @@ public class ControladoraDeportiva {
 //------------------------------FIN SANCIONES-----------------------------------
 
 //--------------------------------TARJETAS--------------------------------------
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String detalles) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, tipo, motivo, detalles);
+    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String minuto, String detalles) {
+        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, tipo, motivo, minuto, detalles);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
         unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
     }
@@ -86,17 +85,18 @@ public class ControladoraDeportiva {
     /**
      * Al mismo tiempo se crea una sancion tribunal por la Roja
      */
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String detalles) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, "Roja", motivo, detalles);
+    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String minuto, String detalles) {
+        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, "Roja", motivo, minuto, detalles);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
         unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
         unaSancionTribunal.setUnaTarjeta(unaTarjeta);
         unaSancionTribunal.persistir(this.entityManager);
     }
 
-    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String detalles, boolean borradoLogico) {
+    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String minuto, String detalles, boolean borradoLogico) {
         unaTarjeta.setTipo(tipo);
         unaTarjeta.setMotivo(motivo);
+        unaTarjeta.setMinuto(minuto);
         unaTarjeta.setDetalles(detalles);
         unaTarjeta.setBorradoLogico(borradoLogico);
         unaTarjeta.persistir(this.entityManager);
@@ -128,12 +128,12 @@ public class ControladoraDeportiva {
 //------------------------------FIN TARJETAS------------------------------------
 
 //------------------------------EQUIPOS-----------------------------------------   
-    public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, CuerpoTecnico unDT) {
+    public void crearEquipo(Club unClub, String nombre, Socia unaCapitana, Socia unaDelegada, PersonaAuxiliar unDT) {
         Equipo unEquipo = new Equipo(this.entityManager, nombre, unaCapitana, unaDelegada, unDT);
         unClub.agregarEquipo(this.entityManager, unEquipo);
     }
 
-    public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, CuerpoTecnico unDT, CuerpoTecnico unPreparadorFisico, CuerpoTecnico unAyudanteCampo, boolean borradoLogico) {
+    public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
         unEquipo.setNombre(nombre);
         unEquipo.setUnaCapitana(unaCapitana);
         unEquipo.setUnaCapitanaSuplente(unaCapitanaSuplente);
@@ -174,6 +174,16 @@ public class ControladoraDeportiva {
         List<Equipo> unaListaResultado = traerEquipos.getResultList();
         return unaListaResultado;
     }
+
+    /**
+     * Devuelve equipos filtrando por nombre de Club o Equipo excluye a los
+     * borrados
+     */
+    public List<Equipo> getEquiposBDFiltro(String dato) {
+        String unaConsulta = "SELECT C FROM Equipo C WHERE (C.nombre LIKE " + "'%" + dato + "%')and(C.borradoLogico = FALSE)";
+        List<Equipo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }//FALTA HACER INNER JOIN CON CLUB PARA PODER FILTRAR POR NOMBRE DE CLUB Y RTAER TODOS SUS EQUIPOS
 //------------------------------FIN EQUIPOS-------------------------------------
 
 //------------------------------CLUBES------------------------------------------
@@ -470,17 +480,21 @@ public class ControladoraDeportiva {
 //------------------------------FIN FECHAS TORNEO-------------------------------
 
 //-----------------------------------PARTIDOS-----------------------------------
-    public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
-        Partido unPartido = new Partido(this.entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unaCancha, observaciones, unEquipoLocal);
+    public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
+        Partido unPartido = new Partido(this.entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
         unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
     }
 
-    public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, Arbitro unArbitro1, Arbitro unArbitro2, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
+    public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.setFecha(fecha);
         unPartido.setObservaciones(observaciones);
         unPartido.setUnArbitro1(unArbitro1);
         unPartido.setUnArbitro2(unArbitro2);
+        unPartido.setUnArbitro3(unArbitro3);
+        unPartido.setNombreVeedor(nombreVeedor);
+        unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
+        unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
         unPartido.setUnEquipoLocal(unEquipoLocal);
         unPartido.setUnEquipoVisitante(unEquipoVisitante);
         unPartido.setUnaCancha(unaCancha);
@@ -506,7 +520,7 @@ public class ControladoraDeportiva {
         resultado = (Partido) traerPartido.getSingleResult();
         return resultado;
     }
-    
+
     /**
      * Devuelve todos los Partidos menos los borrados
      */
@@ -518,15 +532,14 @@ public class ControladoraDeportiva {
 //---------------------------------FIN PARTIDOS---------------------------------
 
 //---------------------------------GOLES----------------------------------------
-    public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, boolean autoGol) {
-        Gol unGol = new Gol(this.entityManager, tiempo, autoGol);
+    public void crearGol(Socia unaSocia, Partido unPartido, String minuto, boolean autoGol) {
+        Gol unGol = new Gol(this.entityManager, minuto, autoGol);
         unaSocia.agregarGol(this.entityManager, unGol);
         unPartido.agregarGol(this.entityManager, unGol);
     }
 
-    public void modificarGol(Gol unGol, String tiempo, boolean autoGol, boolean borradoLogico) {
-        unGol.setTiempo(tiempo);
-        unGol.setAutoGol(autoGol);
+    public void modificarGol(Gol unGol, String minuto, boolean borradoLogico) {
+        unGol.setMinuto(minuto);
         unGol.setBorradoLogico(borradoLogico);
         unGol.persistir(this.entityManager);
     }
@@ -545,7 +558,7 @@ public class ControladoraDeportiva {
         unGol.setBorradoLogico(true);
         unGol.persistir(this.entityManager);
     }
-    
+
     /**
      * Devuelve unGol por ID incluido los Borrados
      */
@@ -555,7 +568,7 @@ public class ControladoraDeportiva {
         resultado = (Gol) traerGol.getSingleResult();
         return resultado;
     }
-    
+
     /**
      * Devuelve todos los Goles menos los borrados
      */

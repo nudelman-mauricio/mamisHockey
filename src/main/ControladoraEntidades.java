@@ -4,9 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import logicaNegocios.Arbitro;
-import logicaNegocios.Club;
-import logicaNegocios.CuerpoTecnico;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
@@ -26,11 +24,11 @@ public class ControladoraEntidades {
     }
 
 //------------------------------CUERPO TECNICO----------------------------------    
-    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean activo, String email, String telFijo, String telCelular) {
-        CuerpoTecnico unCuerpoTecnico = new CuerpoTecnico(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, activo, email, telFijo, telCelular);
+    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean arbitro, boolean cuerpoTecnico, String email, String telFijo, String telCelular) {
+        PersonaAuxiliar unCuerpoTecnico = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, arbitro, cuerpoTecnico, email, telFijo, telCelular);
     }
 
-    public void modificarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean activo) {
+    public void modificarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean cuerpoTecnico, boolean dtActivo) {
         unCuerpoTecnico.setDni(dni);
         unCuerpoTecnico.setApellido(apellido);
         unCuerpoTecnico.setNombre(nombre);
@@ -43,11 +41,12 @@ public class ControladoraEntidades {
         unCuerpoTecnico.setFechaIngreso(fechaIngreso);
         unCuerpoTecnico.setBorradoLogico(borradoLogico);
         unCuerpoTecnico.setFotocopiaDni(fotocopiaDni);
-        unCuerpoTecnico.setActivo(activo);
+        unCuerpoTecnico.setCuerpoTecnico(cuerpoTecnico);
+        unCuerpoTecnico.setDtActivo(dtActivo);
         unCuerpoTecnico.persistir(this.entityManager);
     }
 
-    public void eliminarCuerpoTecnico(CuerpoTecnico unCuerpoTecnico) {
+    public void eliminarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico) {
         unCuerpoTecnico.setBorradoLogico(true);
         unCuerpoTecnico.persistir(this.entityManager);
     }
@@ -55,20 +54,20 @@ public class ControladoraEntidades {
     /**
      * Devuelve un CuerpTecnico buscando por DNI borrados inclusive
      */
-    public CuerpoTecnico getCuerpoTecnicoBD(Long dni) {
-        CuerpoTecnico resultado;
-        String unaConsulta = "SELECT A FROM CuerpoTecnico A WHERE A.dni = " + dni;
+    public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
+        PersonaAuxiliar resultado;
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni;
         Query traerCuerpoTecnico = this.entityManager.createQuery(unaConsulta);
-        resultado = (CuerpoTecnico) traerCuerpoTecnico.getSingleResult();
+        resultado = (PersonaAuxiliar) traerCuerpoTecnico.getSingleResult();
         return resultado;
     }
 
     /**
      * Devuelve Todos los CuerpoTecnico
      */
-    public List<CuerpoTecnico> getCuerposTecnicosBD() {
-        String unaConsulta = "SELECT CT FROM CuerpoTecnico CT WHERE CT.borradoLogico = FALSE";
-        List<CuerpoTecnico> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+    public List<PersonaAuxiliar> getCuerposTecnicosBD() {
+        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE CT.borradoLogico = FALSE";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
 
@@ -76,19 +75,19 @@ public class ControladoraEntidades {
      * Devuelve una lista de CuerpoTecnico usando como filtro un DNI, Nombre o
      * Apellido menos los borrados
      */
-    public List<CuerpoTecnico> getCuerposTecnicosBDFiltro(String dato) {
-        String unaConsulta = "SELECT CT FROM CuerpoTecnico CT WHERE (CT.nombre LIKE " + "'%" + dato + "%' OR CT.apellido LIKE " + "'%" + dato + "%' OR CT.dni LIKE " + "'%" + dato + "%')and(CT.borradoLogico = FALSE)";
-        List<CuerpoTecnico> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+    public List<PersonaAuxiliar> getCuerposTecnicosBDFiltro(String dato) {
+        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE (CT.nombre LIKE " + "'%" + dato + "%' OR CT.apellido LIKE " + "'%" + dato + "%' OR CT.dni LIKE " + "'%" + dato + "%')and(CT.borradoLogico = FALSE)";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
 //------------------------------FIN CUERPO TECNICO------------------------------
 
 //------------------------------ARBITROS----------------------------------------
-    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular) {
-        Arbitro unArbitro = new Arbitro(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
+    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
+        PersonaAuxiliar unArbitro = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, arbitro, cuerpoTecnico, email, telFijo, telCelular);
     }
 
-    public void modificarArbitro(Arbitro unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
+    public void modificarArbitro(PersonaAuxiliar unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
         unArbitro.setDni(dni);
         unArbitro.setApellido(apellido);
         unArbitro.setNombre(nombre);
@@ -97,14 +96,16 @@ public class ControladoraEntidades {
         unArbitro.setFechaNacimiento(fechaNacimiento);
         unArbitro.setTelFijo(telFijo);
         unArbitro.setTelCelular(telCelular);
-        unArbitro.setEmail(email);        
+        unArbitro.setEmail(email);
         unArbitro.setFechaIngreso(fechaIngreso);
+        unArbitro.setArbitro(arbitro);
+        unArbitro.setCuerpoTecnico(cuerpoTecnico);
         unArbitro.setBorradoLogico(borradoLogico);
         unArbitro.setFotocopiaDni(fotocopiaDni);
         unArbitro.persistir(this.entityManager);
     }
 
-    public void eliminarArbitro(Arbitro unArbitro) {
+    public void eliminarArbitro(PersonaAuxiliar unArbitro) {
         unArbitro.setBorradoLogico(true);
         unArbitro.persistir(this.entityManager);
     }
@@ -112,34 +113,30 @@ public class ControladoraEntidades {
     /**
      * Devuelve unArbitro filtrado por DNI incluido los borrados
      */
-    public Arbitro getArbitroBD(Long dni) {
-        Arbitro resultado;
-        String unaConsulta = "SELECT A FROM Arbitro A WHERE A.dni = " + dni + " AND A.borradoLogico = FALSE";
+    public PersonaAuxiliar getArbitroBD(Long dni) {
+        PersonaAuxiliar resultado;
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.borradoLogico = FALSE";
         Query traerArbitro = this.entityManager.createQuery(unaConsulta);
-        resultado = (Arbitro) traerArbitro.getSingleResult();
+        resultado = (PersonaAuxiliar) traerArbitro.getSingleResult();
         return resultado;
     }
 
     /**
-     * Devuelve todos los arbitros
-     *
-     * @return
+     * Devuelve todos los arbitros menos los borrados
      */
-    public List<Arbitro> getArbitrosBD() {
-        String unaConsulta = "SELECT A FROM Arbitro A WHERE A.borradoLogico = FALSE";
-        List<Arbitro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+    public List<PersonaAuxiliar> getArbitrosBD() {
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.borradoLogico = FALSE";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
 
     /**
-     * Devuelve una lista de Arbitros fitlro DNI o Nombre o Apellido
-     *
-     * @param dato
-     * @return
+     * Devuelve una lista de Arbitros fitlro DNI o Nombre o Apellido menos los
+     * borrados
      */
-    public List<Arbitro> getArbitrosBDFiltro(String dato) {
-        String unaConsulta = "SELECT A FROM Arbitro A WHERE (A.nombre LIKE " + "'%" + dato + "%' OR A.apellido LIKE " + "'%" + dato + "%' OR A.dni LIKE " + "'%" + dato + "%')and(A.borradoLogico = FALSE)";
-        List<Arbitro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+    public List<PersonaAuxiliar> getArbitrosBDFiltro(String dato) {
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE (A.nombre LIKE " + "'%" + dato + "%' OR A.apellido LIKE " + "'%" + dato + "%' OR A.dni LIKE " + "'%" + dato + "%')and(A.borradoLogico = FALSE)";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
 //------------------------------FIN ARBITROS------------------------------------
@@ -174,9 +171,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve una Socia filtrado por DNI incluidas las borradas
-     *
-     * @param dni
-     * @return
      */
     public Socia getSociaBD(Long dni) {
         Socia resultado;
@@ -188,8 +182,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve todas las Socias
-     *
-     * @return
      */
     public List<Socia> getSociasBD() {
         String unaConsulta = "SELECT S FROM Socia S WHERE S.borradoLogico = FALSE";
@@ -199,9 +191,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve todas las Socias filtradas por Dato
-     *
-     * @param dato
-     * @return
      */
     public List<Socia> getSociasBDFiltro(String dato) {
         String unaConsulta = "SELECT S FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')and(S.borradoLogico = FALSE)";
@@ -211,15 +200,18 @@ public class ControladoraEntidades {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda) {
-        Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo, unaDeuda);
+    public void crearPase(Socia unaSocia, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
+        Pase unPase = new Pase(this.entityManager, fecha, monto, unEquipo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
     }
 
-    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean borradoLogico) {
+    public void modificarPase(Pase unPase, Date fecha, double monto, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
         unPase.setFecha(fecha);
         unPase.setMonto(monto);
         unPase.setUnEquipo(unEquipo);
+        unPase.setLibreDeudaClub(libreDeudaClub);
+        unPase.setSolicitudPase(solicitudPase);
+        unPase.setObservacion(observacion);
         unPase.setBorradoLogico(borradoLogico);
         unPase.persistir(this.entityManager);
     }
@@ -236,9 +228,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve un Pase filtrado por ID incluido los Eliminados
-     *
-     * @param id
-     * @return
      */
     public Pase getPaseBD(Long id) {
         Pase resultado;
@@ -249,9 +238,7 @@ public class ControladoraEntidades {
     }
 
     /**
-     * Devuelve todos los Pases
-     *
-     * @return
+     * Devuelve todos los Pases Menos los borrados
      */
     public List<Pase> getPaseBD() {
         String unaConsulta = "SELECT P FROM Pase P WHERE P.borradoLogico = FALSE";
@@ -279,9 +266,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve una Localidad filtrada por ID incluido si esta borrada
-     *
-     * @param id
-     * @return
      */
     public Localidad getLocalidadBD(Long id) {
         Localidad resultado;
@@ -292,9 +276,7 @@ public class ControladoraEntidades {
     }
 
     /**
-     * Devuelve todas las Localidades
-     *
-     * @return
+     * Devuelve todas las Localidades menos las borradas
      */
     public List<Localidad> getLocalidadesBD() {
         String unaConsulta = "SELECT A FROM Localidad A WHERE A.borradoLogico= FALSE";
@@ -330,9 +312,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve unaErgometria filtrado por ID inlcuido si está borrada
-     *
-     * @param id
-     * @return
      */
     public Ergometria getErgometriaBD(Long id) {
         Ergometria resultado;
@@ -368,9 +347,6 @@ public class ControladoraEntidades {
 
     /**
      * Devuelve unEstado filtrado por ID incluido los borrados
-     *
-     * @param id
-     * @return
      */
     public Estado getEstadoBD(Long id) {
         Estado resultado;
