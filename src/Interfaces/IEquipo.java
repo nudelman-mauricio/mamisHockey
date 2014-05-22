@@ -5,8 +5,6 @@
  */
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -16,7 +14,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
-import logicaNegocios.Localidad;
 import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
@@ -88,9 +85,11 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
     public void cargarCombosBox() {
         cargarComboBox(this.jComboBoxClub, (Vector) unaControladoraGlobal.getClubesBD());
-        cargarComboBox(this.jComboBoxDT, (Vector) unaControladoraGlobal.getPersonaAuxiliar);
-        cargarComboBox(this.jComboBoxPF, (Vector) unaControladoraGlobal.getPersonaAuxiliar);
-        cargarComboBox(this.jComboBoxAC, (Vector) unaControladoraGlobal.getPersonaAuxiliar);
+        
+        cargarComboBox(this.jComboBoxDT, (Vector) unaControladoraGlobal.getCuerposTecnicosBD());
+        cargarComboBox(this.jComboBoxPF, (Vector) unaControladoraGlobal.getCuerposTecnicosBD());
+        cargarComboBox(this.jComboBoxAC, (Vector) unaControladoraGlobal.getCuerposTecnicosBD());
+        
         cargarComboBox(this.jComboBoxDelegada, (Vector) unEquipo.getPlantel());
         cargarComboBox(this.jComboBoxDelegadaSup, (Vector) unEquipo.getPlantel());        
         cargarComboBox(this.jComboBoxCapitana, (Vector) unEquipo.getPlantel());
