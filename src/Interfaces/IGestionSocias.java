@@ -27,10 +27,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
 
         IMenuPrincipalInterface.centrar(this);
-        
+
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
-        this.SeleccionarObjetoTabla(false);     
-        
+        this.SeleccionarObjetoTabla(false);
+
         filtrarSocias("");
     }
 
@@ -126,6 +126,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldBusquedaFocusGained(evt);
+            }
+        });
+        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBusquedaActionPerformed(evt);
             }
         });
         jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -339,7 +344,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(this, unaSociaSeleccionada);
 
@@ -350,7 +355,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IEstado unIEstado = new IEstado(this, unaSociaSeleccionada);
 
@@ -361,8 +366,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-        
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+
         ISocia unaISocia = new ISocia(unaControladoraGlobal, this, unaSociaSeleccionada);
 
         unaISocia.pack();
@@ -373,7 +378,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IErgometria unaIErgometria = new IErgometria(this, unaSociaSeleccionada);
 
@@ -384,7 +389,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         ITarjeta unaITarjeta = new ITarjeta(unaControladoraGlobal, this, unaSociaSeleccionada);
 
@@ -395,7 +400,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         ISancion unaISancion = new ISancion(this, unaSociaSeleccionada);
 
@@ -406,7 +411,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long)jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
         IPase unIPase = new IPase(unaControladoraGlobal, this, unaSociaSeleccionada);
 
@@ -456,17 +461,40 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar al arbitro: " + unaSociaSeleccionada.getApellido() + " " + unaSociaSeleccionada.getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarSocia(unaSociaSeleccionada);
+            
+            jTextFieldBusqueda.setText("");
+            filtrarSocias("");
+            this.SeleccionarObjetoTabla(false);
+        }
+        
+        
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
 
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
         List<Socia> unaListaResultado = this.unaControladoraGlobal.getSociasBDFiltro(dato);
         for (Socia unaSocia : unaListaResultado) {
-            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(),unaSocia.getUltimoEstado() , unaSocia.getEquipoActual()});
+            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), unaSocia.getUltimoEstado(), unaSocia.getEquipoActual()});
         }
     }
-    
+
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonTarjetas.setEnabled(estado);
