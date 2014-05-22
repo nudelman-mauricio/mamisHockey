@@ -130,6 +130,11 @@ public class Club implements Serializable, Comparable {
         return retorno;
     }
 
+    @Override
+    public String toString() {
+        return nombre + ", de " + unaLocalidad ;
+    }
+
 //----------------------------------PERSISTENCIA--------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

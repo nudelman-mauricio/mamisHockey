@@ -188,7 +188,7 @@ public abstract class Persona implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return "Persona{" + "apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni + '}';
+        return apellido + ", " + nombre ;
     }
 
 //----------------------------------PERSISTENCIA--------------------------------
