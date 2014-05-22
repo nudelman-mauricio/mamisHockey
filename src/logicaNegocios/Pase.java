@@ -26,6 +26,12 @@ public class Pase implements Serializable, Comparable {
     @OneToOne(optional = false, targetEntity = Deuda.class)
     private Deuda unaDeuda;
 
+    @Basic
+    private boolean libreDeudaClub;
+
+    @Basic
+    private boolean solicitudPase;
+
     @OneToOne(optional = false, targetEntity = Equipo.class)
     private Equipo unEquipo;
 
@@ -34,17 +40,23 @@ public class Pase implements Serializable, Comparable {
     private Long idPase;
 
     @Basic
+    private String observacion;
+
+    @Basic
     private boolean borradoLogico;
 
     public Pase() {
 
     }
 
-    public Pase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda) {
+    public Pase(EntityManager entityManager, Date fecha, double monto, Equipo unEquipo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         this.fecha = fecha;
         this.monto = monto;
         this.unEquipo = unEquipo;
         this.unaDeuda = unaDeuda;
+        this.libreDeudaClub = libreDeudaClub;
+        this.solicitudPase = solicitudPase;
+        this.observacion = observacion;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -74,6 +86,22 @@ public class Pase implements Serializable, Comparable {
         this.unaDeuda = unaDeuda;
     }
 
+    public boolean isLibreDeudaClub() {
+        return this.libreDeudaClub;
+    }
+
+    public void setLibreDeudaClub(boolean libreDeudaClub) {
+        this.libreDeudaClub = libreDeudaClub;
+    }
+
+    public boolean isSolicitudPase() {
+        return this.solicitudPase;
+    }
+
+    public void setSolicitudPase(boolean solicitudPase) {
+        this.solicitudPase = solicitudPase;
+    }
+
     public Equipo getUnEquipo() {
         return this.unEquipo;
     }
@@ -88,6 +116,14 @@ public class Pase implements Serializable, Comparable {
 
     public void setIdPase(Long idPase) {
         this.idPase = idPase;
+    }
+
+    public String getObservacion() {
+        return this.observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
     public boolean isBorradoLogico() {

@@ -23,6 +23,9 @@ public class Tarjeta implements Serializable, Comparable {
     private String motivo;
 
     @Basic
+    private String minuto;
+
+    @Basic
     private String detalles;
 
     @Basic
@@ -32,9 +35,10 @@ public class Tarjeta implements Serializable, Comparable {
 
     }
 
-    public Tarjeta(EntityManager entityManager, String tipo, String motivo, String detalles) {
+    public Tarjeta(EntityManager entityManager, String tipo, String motivo, String minuto, String detalles) {
         this.tipo = tipo;
         this.motivo = motivo;
+        this.minuto = minuto;
         this.detalles = detalles;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -63,6 +67,14 @@ public class Tarjeta implements Serializable, Comparable {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public String getMinuto() {
+        return this.minuto;
+    }
+
+    public void setMinuto(String minuto) {
+        this.minuto = minuto;
     }
 
     public String getDetalles() {
