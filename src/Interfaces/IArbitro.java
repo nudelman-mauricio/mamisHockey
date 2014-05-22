@@ -11,19 +11,17 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import logicaNegocios.Arbitro;
 import logicaNegocios.Localidad;
-
+import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
 public class IArbitro extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
     ControladoraGlobal unaControladoraGlobal;
-    Arbitro unArbitro = null;
+    PersonaAuxiliar unArbitro = null;
 
     public IArbitro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -52,7 +50,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
 
     }
 
-    public IArbitro(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Arbitro unArbitro) {
+    public IArbitro(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, PersonaAuxiliar unArbitro) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.setTitle("Arbitro: " + unArbitro.getApellido() + " " + unArbitro.getNombre());
@@ -78,7 +76,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void camposCargar(Arbitro unArbitro) {
+    public void camposCargar(PersonaAuxiliar unArbitro) {
         jTextFieldDNI.setText(unArbitro.getDni().toString());
         jTextFieldApellido.setText(unArbitro.getApellido());
         jTextFieldNombre.setText(unArbitro.getNombre());
