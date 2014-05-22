@@ -437,14 +437,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemNuevoArbitroActionPerformed
 
     private void jMenuItemNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEquipoActionPerformed
-        IEquipo unEquipo = new IEquipo(unaControladoraGlobal, jDesktopPane);
+        IEquipo unEquipo = new IEquipo(this.unaControladoraGlobal, jDesktopPane);
         unEquipo.pack();
         unEquipo.setVisible(true);
         this.jDesktopPane.add(unEquipo); 
     }//GEN-LAST:event_jMenuItemNuevoEquipoActionPerformed
 
     private void jMenuItemAdmEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmEquiposActionPerformed
-        IGestionEquipo unaGestionEquipo = new IGestionEquipo(jDesktopPane);
+        IGestionEquipo unaGestionEquipo = new IGestionEquipo(this.unaControladoraGlobal, jDesktopPane);
         unaGestionEquipo.pack();
         unaGestionEquipo.setVisible(true);
         this.jDesktopPane.add(unaGestionEquipo);// TODO add your handling code here:

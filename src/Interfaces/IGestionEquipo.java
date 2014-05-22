@@ -22,11 +22,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     private JDesktopPane jDesktopPane1;
     private DefaultTableModel modeloTablaEquipo;
 
-    public IGestionEquipo(JDesktopPane unjDesktopPanel) {
+    public IGestionEquipo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
         initComponents();
 
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.jDesktopPane1 = jDesktopPane1;
+        this.jDesktopPane1 = unjDesktopPanel;
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
