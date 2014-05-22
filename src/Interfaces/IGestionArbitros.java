@@ -293,20 +293,23 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
-               
-        Object[] options = {"OK" , "Cancelar"};
-          if (0 == JOptionPane.showOptionDialog(
-                  this,
-                  "Desea eliminar al arbitro: "+  unArbitroSeleccionado.getApellido()+" "+unArbitroSeleccionado.getNombre(), 
-                  "Eliminar",
-                  JOptionPane.PLAIN_MESSAGE, 
-                  JOptionPane.WARNING_MESSAGE,
-                  null,
-                  options,
-                  options)) {
-              unaControladoraGlobal.eliminarArbitro(unArbitroSeleccionado);
-              filtrarArbitros("");
-          }
+
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar al arbitro: " + unArbitroSeleccionado.getApellido() + " " + unArbitroSeleccionado.getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarArbitro(unArbitroSeleccionado);
+            jTextFieldBusqueda.setText("");
+            filtrarArbitros("");
+            this.SeleccionarObjetoTabla(false);
+        }
+
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void SeleccionarObjetoTabla(boolean estado) {
@@ -319,7 +322,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }
 
     private void filtrarArbitros(String dato) {
-        limpiarTabla(modeloTablaArbitro);        
+        limpiarTabla(modeloTablaArbitro);
         List<Arbitro> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
         for (Arbitro unArbitro : unaListaResultado) {
             this.modeloTablaArbitro.addRow(new Object[]{unArbitro.getDni(), unArbitro.getApellido(), unArbitro.getNombre()});

@@ -97,7 +97,7 @@ public class ControladoraEntidades {
         unArbitro.setFechaNacimiento(fechaNacimiento);
         unArbitro.setTelFijo(telFijo);
         unArbitro.setTelCelular(telCelular);
-        unArbitro.setEmail(email);
+        unArbitro.setEmail(email);        
         unArbitro.setFechaIngreso(fechaIngreso);
         unArbitro.setBorradoLogico(borradoLogico);
         unArbitro.setFotocopiaDni(fotocopiaDni);

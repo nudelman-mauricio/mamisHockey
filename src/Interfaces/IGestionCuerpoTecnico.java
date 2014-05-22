@@ -269,7 +269,6 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
         CuerpoTecnico unCuerpoTecnicoSeleccionado = unaControladoraGlobal.getCuerpoTecnicoBD((Long) jTableCuerpoTecnico.getValueAt(jTableCuerpoTecnico.getSelectedRow(), 0));
 
         ICuerpoTecnico unICuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal, this, unCuerpoTecnicoSeleccionado);
-
         unICuerpoTecnico.pack();
         unICuerpoTecnico.setVisible(true);
         this.setVisible(false);
@@ -277,6 +276,7 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        
         ICuerpoTecnico unCuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal, this);
         unCuerpoTecnico.pack();
         unCuerpoTecnico.setVisible(true);
