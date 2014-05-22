@@ -3,40 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Arbitro;
-import logicaNegocios.CuerpoTecnico;
+import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
 /**
  *
- * @author Lucas
+ * @author Leanwit
  */
-public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
-    
-   ControladoraGlobal unaControladoraGlobal;
-   private DefaultTableModel modeloTablaCuerpoTecnico;
-     
-    public IGestionCuerpoTecnico(ControladoraGlobal unaControladoraGlobal) {
+public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
+
+    ControladoraGlobal unaControladoraGlobal;
+    private DefaultTableModel modeloTablaPersonaAuxiliar;
+
+    public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
         this.unaControladoraGlobal = unaControladoraGlobal;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/CuerpoTecnico.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         this.SeleccionarObjetoTabla(false);
         IMenuPrincipalInterface.centrar(this);
 
-        this.modeloTablaCuerpoTecnico = (DefaultTableModel) jTableCuerpoTecnico.getModel();
-        filtrar("");
+        this.modeloTablaPersonaAuxiliar = (DefaultTableModel) jTableArbitros.getModel();
+        filtrarPersonaAuxiliar("");
     }
 
     /**
@@ -52,15 +46,15 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCuerpoTecnico = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
-        jButtonDatos = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableArbitros = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jButtonDatos = new javax.swing.JButton();
 
         setClosable(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -112,7 +106,7 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,63 +116,6 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                     .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(3, 3, 3))
-        );
-
-        jTableCuerpoTecnico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "DNI", "Apellido", "Nombre", "Trabajando", "Equipo", "Puesto"
-            }
-        ));
-        jTableCuerpoTecnico.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableCuerpoTecnicoFocusGained(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTableCuerpoTecnico);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-        );
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
-        jButtonDatos.setText("Datos");
-        jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDatosActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonDatos)
                 .addGap(3, 3, 3))
         );
 
@@ -232,6 +169,63 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        jTableArbitros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "DNI", "Apellido", "Nombre"
+            }
+        ));
+        jTableArbitros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableArbitrosFocusGained(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableArbitros);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+        );
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
+        jButtonDatos.setText("Datos");
+        jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDatosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jButtonDatos)
+                .addGap(3, 3, 3))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,15 +234,14 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,84 +254,89 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        IPersonaAuxiliar unaPersonaAuxiliar = new IPersonaAuxiliar(unaControladoraGlobal, this);
+        unaPersonaAuxiliar.pack();
+        unaPersonaAuxiliar.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaPersonaAuxiliar);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
+
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        CuerpoTecnico unCuerpoTecnicoSeleccionado = unaControladoraGlobal.getCuerpoTecnicoBD((Long) jTableCuerpoTecnico.getValueAt(jTableCuerpoTecnico.getSelectedRow(), 0));
 
-        ICuerpoTecnico unICuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal, this, unCuerpoTecnicoSeleccionado);
-        unICuerpoTecnico.pack();
-        unICuerpoTecnico.setVisible(true);
+        PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+
+        IPersonaAuxiliar unaIPersonaAuxiliar = new IPersonaAuxiliar(unaControladoraGlobal, this, unPersonaAuxSeleccionado);
+
+        unaIPersonaAuxiliar.pack();
+        unaIPersonaAuxiliar.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unICuerpoTecnico);
+        IMenuPrincipalInterface.jDesktopPane.add(unaIPersonaAuxiliar);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        
-        ICuerpoTecnico unCuerpoTecnico = new ICuerpoTecnico(unaControladoraGlobal, this);
-        unCuerpoTecnico.pack();
-        unCuerpoTecnico.setVisible(true);
-        this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unCuerpoTecnico);                  // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-         filtrar(jTextFieldBusqueda.getText());        // TODO add your handling code here:
+        filtrarPersonaAuxiliar(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_formComponentShown
 
-    private void jTableCuerpoTecnicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCuerpoTecnicoFocusGained
-         this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableCuerpoTecnicoFocusGained
+    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
+        filtrarPersonaAuxiliar(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
+
+    private void jTableArbitrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableArbitrosFocusGained
+        this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableArbitrosFocusGained
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        CuerpoTecnico unCuerpoTecnico = unaControladoraGlobal.getCuerpoTecnicoBD((Long) jTableCuerpoTecnico.getValueAt(jTableCuerpoTecnico.getSelectedRow(), 0));
-               
-        Object[] options = {"OK" , "Cancelar"};
-          if (0 == JOptionPane.showOptionDialog(
-                  this,
-                  "Desea eliminar al cuerpo Tecnico: "+  unCuerpoTecnico.getApellido()+" "+unCuerpoTecnico.getNombre(), 
-                  "Eliminar",
-                  JOptionPane.PLAIN_MESSAGE, 
-                  JOptionPane.WARNING_MESSAGE,
-                  null,
-                  options,
-                  options)) {
-              unaControladoraGlobal.eliminarCuerpoTecnico(unCuerpoTecnico);
-              filtrar("");
-          }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
+        PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
 
-    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrar(jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar la persona auxiliar: " + unPersonaAuxSeleccionado.getApellido() + " " + unPersonaAuxSeleccionado.getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarArbitro(unPersonaAuxSeleccionado);
+            jTextFieldBusqueda.setText("");
+            filtrarPersonaAuxiliar("");
+            this.SeleccionarObjetoTabla(false);
+        }
+
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonImprimir.setEnabled(estado);
         jButtonEliminar.setEnabled(estado);
         if (!estado) {
-            jTableCuerpoTecnico.clearSelection();
+            jTableArbitros.clearSelection();
         }
     }
 
-    private void filtrar(String dato) {
-        limpiarTabla(modeloTablaCuerpoTecnico);        
-        List<CuerpoTecnico> unaListaResultado = this.unaControladoraGlobal.getCuerposTecnicosBDFiltro(dato);
-        for (CuerpoTecnico unCuerpoTecnico : unaListaResultado) {
-            this.modeloTablaCuerpoTecnico.addRow(new Object[]{unCuerpoTecnico.getDni(), unCuerpoTecnico.getApellido(), unCuerpoTecnico.getNombre()});
+    private void filtrarPersonaAuxiliar(String dato) {
+        limpiarTabla(modeloTablaPersonaAuxiliar);
+        List<PersonaAuxiliar> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
+        for (PersonaAuxiliar unaPersonaAux : unaListaResultado) {
+            this.modeloTablaPersonaAuxiliar.addRow(new Object[]
+            {unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
         }
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTablaSocia) {
+    private void limpiarTabla(DefaultTableModel modeloTablaPersonaAuxiliar) {
         try {
-            int filas = modeloTablaCuerpoTecnico.getRowCount();
+            int filas = modeloTablaPersonaAuxiliar.getRowCount();
             for (int i = 0; i < filas; i++) {
-                modeloTablaCuerpoTecnico.removeRow(0);
+                modeloTablaPersonaAuxiliar.removeRow(0);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla Cuerpo Tecnico.");
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,7 +351,7 @@ public class IGestionCuerpoTecnico extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableCuerpoTecnico;
+    private javax.swing.JTable jTableArbitros;
     private javax.swing.JTextField jTextFieldBusqueda;
     // End of variables declaration//GEN-END:variables
 }

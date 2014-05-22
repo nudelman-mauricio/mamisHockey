@@ -17,13 +17,13 @@ import logicaNegocios.Localidad;
 import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
-public class IArbitro extends javax.swing.JInternalFrame {
+public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
     ControladoraGlobal unaControladoraGlobal;
-    PersonaAuxiliar unArbitro = null;
+    PersonaAuxiliar unaPersonaAuxiliar = null;
 
-    public IArbitro(ControladoraGlobal unaControladoraGlobal) {
+    public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
@@ -36,7 +36,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
 
     }
 
-    public IArbitro(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
+    public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
@@ -50,17 +50,17 @@ public class IArbitro extends javax.swing.JInternalFrame {
 
     }
 
-    public IArbitro(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, PersonaAuxiliar unArbitro) {
+    public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, PersonaAuxiliar unaPersonaAuxiliar) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
-        this.setTitle("Arbitro: " + unArbitro.getApellido() + " " + unArbitro.getNombre());
+        this.setTitle("Arbitro: " + unaPersonaAuxiliar.getApellido() + " " + unaPersonaAuxiliar.getNombre());
         SeInicio(unaControladoraGlobal);
 
-        this.unArbitro = unArbitro;
+        this.unaPersonaAuxiliar = unaPersonaAuxiliar;
 
         jButtonEditar.setEnabled(true);
 
-        camposCargar(unArbitro);
+        camposCargar(unaPersonaAuxiliar);
 
     }
 
@@ -76,20 +76,20 @@ public class IArbitro extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void camposCargar(PersonaAuxiliar unArbitro) {
-        jTextFieldDNI.setText(unArbitro.getDni().toString());
-        jTextFieldApellido.setText(unArbitro.getApellido());
-        jTextFieldNombre.setText(unArbitro.getNombre());
-        jComboBoxLocalidad.setSelectedItem(unArbitro.getUnaLocalidad());
-        jTextFieldDomicilio.setText(unArbitro.getDomicilio());
-        jTextFieldEmail.setText(unArbitro.getEmail());
+    public void camposCargar(PersonaAuxiliar unaPersonaAuxiliar) {
+        jTextFieldDNI.setText(unaPersonaAuxiliar.getDni().toString());
+        jTextFieldApellido.setText(unaPersonaAuxiliar.getApellido());
+        jTextFieldNombre.setText(unaPersonaAuxiliar.getNombre());
+        jComboBoxLocalidad.setSelectedItem(unaPersonaAuxiliar.getUnaLocalidad());
+        jTextFieldDomicilio.setText(unaPersonaAuxiliar.getDomicilio());
+        jTextFieldEmail.setText(unaPersonaAuxiliar.getEmail());
 
         DateFormat df = DateFormat.getDateInstance();
-        jTextFieldFechaNacimiento.setText(df.format(unArbitro.getFechaNacimiento()));
-        jTextFieldFechaIngreso.setText(df.format(unArbitro.getFechaIngreso()));
+        jTextFieldFechaNacimiento.setText(df.format(unaPersonaAuxiliar.getFechaNacimiento()));
+        jTextFieldFechaIngreso.setText(df.format(unaPersonaAuxiliar.getFechaIngreso()));
 
-        jTextFieldTelFijo.setText(unArbitro.getTelFijo());
-        jTextFieldTelCelular.setText(unArbitro.getTelCelular());
+        jTextFieldTelFijo.setText(unaPersonaAuxiliar.getTelFijo());
+        jTextFieldTelCelular.setText(unaPersonaAuxiliar.getTelCelular());
 
     }
 
@@ -136,6 +136,11 @@ public class IArbitro extends javax.swing.JInternalFrame {
         jLabelTelCelular = new javax.swing.JLabel();
         jTextFieldTelCelular = new javax.swing.JTextField();
         jLabelFechaNacimiento8 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jCheckBoxEsArbitro = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        jCheckBoxEsCuerpoTecnico = new javax.swing.JCheckBox();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -268,40 +273,69 @@ public class IArbitro extends javax.swing.JInternalFrame {
 
         jLabelFechaNacimiento8.setText("Fecha de Nacimiento");
 
+        jLabel2.setText("¿Es Arbitro?");
+
+        jCheckBoxEsArbitro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxEsArbitroActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("¿Es Cuerpo Tecnico?");
+
+        jCheckBoxEsCuerpoTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxEsCuerpoTecnicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelTelCelular)
-                    .addComponent(jLabelDni10)
-                    .addComponent(jLabelApellido10)
-                    .addComponent(jLabelNombre)
-                    .addComponent(jLabelLocalidad10)
-                    .addComponent(jLabelDomicilio16)
-                    .addComponent(jLabelEmail)
-                    .addComponent(jLabelFechaIngreso24)
-                    .addComponent(jLabelFechaNacimiento8)
-                    .addComponent(jLabelTelFijo)
-                    .addComponent(jLabelFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel13Layout.createSequentialGroup()
+                            .addGap(64, 64, 64)
+                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel13Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(51, 51, 51))
+                                .addComponent(jLabelTelCelular)
+                                .addComponent(jLabelDni10)
+                                .addComponent(jLabelApellido10)
+                                .addComponent(jLabelNombre)
+                                .addComponent(jLabelLocalidad10)
+                                .addComponent(jLabelDomicilio16)
+                                .addComponent(jLabelEmail)
+                                .addComponent(jLabelFechaIngreso24)
+                                .addComponent(jLabelFechaNacimiento8)
+                                .addComponent(jLabelTelFijo)
+                                .addComponent(jLabelFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel2))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jTextFieldFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonExaminarFotocopia, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldEmail)
-                    .addComponent(jTextFieldApellido)
-                    .addComponent(jTextFieldDNI)
-                    .addComponent(jTextFieldNombre)
-                    .addComponent(jComboBoxLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldDomicilio)
-                    .addComponent(jTextFieldFechaNacimiento)
-                    .addComponent(jTextFieldFechaIngreso)
-                    .addComponent(jTextFieldTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel13Layout.createSequentialGroup()
+                            .addComponent(jTextFieldFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonExaminarFotocopia, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTelFijo)
+                        .addComponent(jTextFieldEmail)
+                        .addComponent(jTextFieldApellido)
+                        .addComponent(jTextFieldDNI)
+                        .addComponent(jTextFieldNombre)
+                        .addComponent(jComboBoxLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldDomicilio)
+                        .addComponent(jTextFieldFechaNacimiento)
+                        .addComponent(jTextFieldFechaIngreso)
+                        .addComponent(jTextFieldTelCelular))
+                    .addComponent(jCheckBoxEsArbitro)
+                    .addComponent(jCheckBoxEsCuerpoTecnico))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -352,7 +386,17 @@ public class IArbitro extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonExaminarFotocopia)
                     .addComponent(jLabelFotocopiaDni))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxEsArbitro)
+                    .addComponent(jLabel2))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jCheckBoxEsCuerpoTecnico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -420,26 +464,26 @@ public class IArbitro extends javax.swing.JInternalFrame {
     }
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (unArbitro == null) {
+        if (unaPersonaAuxiliar == null) {
             DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
                 Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
 
-                unaControladoraGlobal.crearArbitro(Long.parseLong(jTextFieldDNI.getText()),
+                unaControladoraGlobal.crearPersonaAuxiliar(Long.parseLong(jTextFieldDNI.getText()),
                         jTextFieldApellido.getText(),
                         jTextFieldNombre.getText(),
                         (Localidad) jComboBoxLocalidad.getSelectedItem(),
                         jTextFieldDomicilio.getText(),
                         fechaNacimiento,
-                        fechaIngreso,
-                        "FOTO CARNET",
+                        fechaIngreso,                        
                         jTextFieldEmail.getText(),
                         jTextFieldTelFijo.getText(),
-                        jTextFieldTelCelular.getText());
-                JOptionPane.showMessageDialog(this, "Arbitro Generado");
+                        jTextFieldTelCelular.getText(),
+                        jCheckBoxEsArbitro.isSelected(),jCheckBoxEsCuerpoTecnico.isSelected());
+                JOptionPane.showMessageDialog(this, "Arbitro Generado");                
                 camposActivo(false);
-                camposLimpiar();
+                camposLimpiar();              
 
             } catch (ParseException e) {
                 System.out.println("ERROR EN LAS FECHAS SOCIA" + e.getMessage());
@@ -449,7 +493,7 @@ public class IArbitro extends javax.swing.JInternalFrame {
             try {
                 Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
                 Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
-                unaControladoraGlobal.modificarArbitro(unArbitro,
+                unaControladoraGlobal.modificarArbitro(unaPersonaAuxiliar,
                         Long.parseLong(jTextFieldDNI.getText()),
                         jTextFieldApellido.getText(),
                         jTextFieldNombre.getText(),
@@ -458,12 +502,15 @@ public class IArbitro extends javax.swing.JInternalFrame {
                         fechaNacimiento,
                         jTextFieldTelFijo.getText(),
                         jTextFieldTelCelular.getText(),
+                        jCheckBoxEsArbitro.isSelected(),
+                        jCheckBoxEsCuerpoTecnico.isSelected(),
                         jTextFieldEmail.getText(),
                         fechaIngreso,
                         false,
-                        "Fotocopia");
+                        "Fotocopia" );             
+               
             }  catch (ParseException e) {
-                System.out.println("ERROR EN LAS FECHAS ARBITRO" + e.getMessage());
+                System.out.println("ERROR EN LAS FECHAS PERSONA AUXILIAR" + e.getMessage());
             }
         }
 
@@ -471,10 +518,10 @@ public class IArbitro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (this.unArbitro == null) {
+        if (this.unaPersonaAuxiliar == null) {
             camposLimpiar();
         } else {
-            camposCargar(unArbitro);
+            camposCargar(unaPersonaAuxiliar);
         }
         camposActivo(false);
         jButtonNuevo.setEnabled(true);
@@ -496,6 +543,14 @@ public class IArbitro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDNIActionPerformed
 
+    private void jCheckBoxEsArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxEsArbitroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxEsArbitroActionPerformed
+
+    private void jCheckBoxEsCuerpoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxEsCuerpoTecnicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxEsCuerpoTecnicoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -503,7 +558,12 @@ public class IArbitro extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonExaminarFotocopia;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JCheckBox jCheckBoxEsArbitro;
+    private javax.swing.JCheckBox jCheckBoxEsCuerpoTecnico;
     private javax.swing.JComboBox jComboBoxLocalidad;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelApellido10;
     private javax.swing.JLabel jLabelDni10;
     private javax.swing.JLabel jLabelDomicilio16;
