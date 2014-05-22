@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
 import logicaNegocios.Localidad;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
