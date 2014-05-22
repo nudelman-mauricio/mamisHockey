@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Arbitro;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
@@ -269,7 +269,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
 
-        Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+        PersonaAuxiliar unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
 
         IArbitro unIArbitro = new IArbitro(unaControladoraGlobal, this, unArbitroSeleccionado);
 
@@ -292,7 +292,7 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableArbitrosFocusGained
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Arbitro unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
+        PersonaAuxiliar unArbitroSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTableArbitros.getValueAt(jTableArbitros.getSelectedRow(), 0));
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -323,8 +323,8 @@ public class IGestionArbitros extends javax.swing.JInternalFrame {
 
     private void filtrarArbitros(String dato) {
         limpiarTabla(modeloTablaArbitro);
-        List<Arbitro> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
-        for (Arbitro unArbitro : unaListaResultado) {
+        List<PersonaAuxiliar> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
+        for (PersonaAuxiliar unArbitro : unaListaResultado) {
             this.modeloTablaArbitro.addRow(new Object[]{unArbitro.getDni(), unArbitro.getApellido(), unArbitro.getNombre()});
         }
     }

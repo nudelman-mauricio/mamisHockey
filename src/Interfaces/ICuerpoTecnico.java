@@ -14,7 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import logicaNegocios.CuerpoTecnico;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Localidad;
 import main.ControladoraGlobal;
 
@@ -26,7 +26,7 @@ public class ICuerpoTecnico extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
     ControladoraGlobal unaControladoraGlobal;
-    CuerpoTecnico unCuerpoTecnico = null;
+    PersonaAuxiliar unCuerpoTecnico = null;
     
     public ICuerpoTecnico(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -83,7 +83,7 @@ public class ICuerpoTecnico extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void camposCargar(CuerpoTecnico unCuerpoTecnico) {
+    public void camposCargar(PersonaAuxiliar unCuerpoTecnico) {
         jTextFieldDNI.setText(unCuerpoTecnico.getDni().toString());
         jTextFieldApellido.setText(unCuerpoTecnico.getApellido());
         jTextFieldNombres.setText(unCuerpoTecnico.getNombre());
