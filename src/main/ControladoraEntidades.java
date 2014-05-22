@@ -23,32 +23,33 @@ public class ControladoraEntidades {
         this.entityManager = entityManager;
     }
 
-//------------------------------CUERPO TECNICO----------------------------------    
-    public void crearCuerpoTecnico(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean arbitro, boolean cuerpoTecnico, String email, String telFijo, String telCelular) {
-        PersonaAuxiliar unCuerpoTecnico = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, arbitro, cuerpoTecnico, email, telFijo, telCelular);
+//----------------------------PERSONA AUXILIAR----------------------------------    
+    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
+        PersonaAuxiliar unaPersonaAuxiliar = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, cuerpoTecnicoActivo);
     }
 
-    public void modificarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
-        unCuerpoTecnico.setDni(dni);
-        unCuerpoTecnico.setApellido(apellido);
-        unCuerpoTecnico.setNombre(nombre);
-        unCuerpoTecnico.setUnaLocalidad(unaLocalidad);
-        unCuerpoTecnico.setDomicilio(domicilio);
-        unCuerpoTecnico.setFechaNacimiento(fechaNacimiento);
-        unCuerpoTecnico.setTelFijo(telFijo);
-        unCuerpoTecnico.setTelCelular(telCelular);
-        unCuerpoTecnico.setEmail(email);
-        unCuerpoTecnico.setFechaIngreso(fechaIngreso);
-        unCuerpoTecnico.setBorradoLogico(borradoLogico);
-        unCuerpoTecnico.setFotocopiaDni(fotocopiaDni);
-        unCuerpoTecnico.setCuerpoTecnico(cuerpoTecnico);
-        unCuerpoTecnico.setCuerpoTecnicoActivo(cuerpoTecnicoActivo);
-        unCuerpoTecnico.persistir(this.entityManager);
+    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo, boolean borradoLogico) {
+        unaPersonaAuxiliar.setDni(dni);
+        unaPersonaAuxiliar.setApellido(apellido);
+        unaPersonaAuxiliar.setNombre(nombre);
+        unaPersonaAuxiliar.setUnaLocalidad(unaLocalidad);
+        unaPersonaAuxiliar.setDomicilio(domicilio);
+        unaPersonaAuxiliar.setFechaNacimiento(fechaNacimiento);
+        unaPersonaAuxiliar.setTelFijo(telFijo);
+        unaPersonaAuxiliar.setTelCelular(telCelular);
+        unaPersonaAuxiliar.setEmail(email);
+        unaPersonaAuxiliar.setFechaIngreso(fechaIngreso);
+        unaPersonaAuxiliar.setFotocopiaDni(fotocopiaDni);
+        unaPersonaAuxiliar.setArbitro(arbitro);
+        unaPersonaAuxiliar.setCuerpoTecnico(cuerpoTecnico);
+        unaPersonaAuxiliar.setCuerpoTecnicoActivo(cuerpoTecnicoActivo);
+        unaPersonaAuxiliar.setBorradoLogico(borradoLogico);
+        unaPersonaAuxiliar.persistir(this.entityManager);
     }
 
-    public void eliminarCuerpoTecnico(PersonaAuxiliar unCuerpoTecnico) {
-        unCuerpoTecnico.setBorradoLogico(true);
-        unCuerpoTecnico.persistir(this.entityManager);
+    public void eliminarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar) {
+        unaPersonaAuxiliar.setBorradoLogico(true);
+        unaPersonaAuxiliar.persistir(this.entityManager);
     }
 
     /**
@@ -56,17 +57,46 @@ public class ControladoraEntidades {
      */
     public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
         PersonaAuxiliar resultado;
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni;
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.cuerpoTecnico = TRUE";
         Query traerCuerpoTecnico = this.entityManager.createQuery(unaConsulta);
         resultado = (PersonaAuxiliar) traerCuerpoTecnico.getSingleResult();
         return resultado;
     }
 
     /**
-     * Devuelve Todos los CuerpoTecnico
+     * Devuelve unArbitro filtrado por DNI incluido los borrados
+     */
+    public PersonaAuxiliar getArbitroBD(Long dni) {
+        PersonaAuxiliar resultado;
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.arbitro = TRUE";
+        Query traerArbitro = this.entityManager.createQuery(unaConsulta);
+        resultado = (PersonaAuxiliar) traerArbitro.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve Todos los CuerpoTecnico menos los borrados
      */
     public List<PersonaAuxiliar> getCuerposTecnicosBD() {
-        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE CT.borradoLogico = FALSE";
+        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE CT.borradoLogico = FALSE AND CT.cuerpoTecnico = TRUE";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+
+    /**
+     * Devuelve Todos los CuerpoTecnico DESOCUPADOS menos los borrados
+     */
+    public List<PersonaAuxiliar> getCuerposTecnicosDesocupadosBD() {
+        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE CT.borradoLogico = FALSE AND CT.cuerpoTecnico = TRUE AND CT.cuerpoTecnicoActivo = FALSE";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+
+    /**
+     * Devuelve todos los arbitros menos los borrados
+     */
+    public List<PersonaAuxiliar> getArbitrosBD() {
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.borradoLogico = FALSE AND A.arbitro = TRUE";
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
@@ -76,56 +106,17 @@ public class ControladoraEntidades {
      * Apellido menos los borrados
      */
     public List<PersonaAuxiliar> getCuerposTecnicosBDFiltro(String dato) {
-        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE (CT.nombre LIKE " + "'%" + dato + "%' OR CT.apellido LIKE " + "'%" + dato + "%' OR CT.dni LIKE " + "'%" + dato + "%')and(CT.borradoLogico = FALSE)";
+        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE (CT.nombre LIKE " + "'%" + dato + "%' OR CT.apellido LIKE " + "'%" + dato + "%' OR CT.dni LIKE " + "'%" + dato + "%')AND(CT.borradoLogico = FALSE)AND(CT.cuerpoTecnico = TRUE)";
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN CUERPO TECNICO------------------------------
-
-//------------------------------ARBITROS----------------------------------------
-    public void crearArbitro(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
-        PersonaAuxiliar unArbitro = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, arbitro, cuerpoTecnico, email, telFijo, telCelular);
-    }
-
-    public void modificarArbitro(PersonaAuxiliar unArbitro, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, String email, Date fechaIngreso, boolean borradoLogico, String fotocopiaDni) {
-        unArbitro.setDni(dni);
-        unArbitro.setApellido(apellido);
-        unArbitro.setNombre(nombre);
-        unArbitro.setUnaLocalidad(unaLocalidad);
-        unArbitro.setDomicilio(domicilio);
-        unArbitro.setFechaNacimiento(fechaNacimiento);
-        unArbitro.setTelFijo(telFijo);
-        unArbitro.setTelCelular(telCelular);
-        unArbitro.setEmail(email);
-        unArbitro.setFechaIngreso(fechaIngreso);
-        unArbitro.setArbitro(arbitro);
-        unArbitro.setCuerpoTecnico(cuerpoTecnico);
-        unArbitro.setBorradoLogico(borradoLogico);
-        unArbitro.setFotocopiaDni(fotocopiaDni);
-        unArbitro.persistir(this.entityManager);
-    }
-
-    public void eliminarArbitro(PersonaAuxiliar unArbitro) {
-        unArbitro.setBorradoLogico(true);
-        unArbitro.persistir(this.entityManager);
-    }
 
     /**
-     * Devuelve unArbitro filtrado por DNI incluido los borrados
+     * Devuelve una lista de CuerpoTecnico DESOCUAPDOS usando como filtro un
+     * DNI, Nombre o Apellido menos los borrados
      */
-    public PersonaAuxiliar getArbitroBD(Long dni) {
-        PersonaAuxiliar resultado;
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.borradoLogico = FALSE";
-        Query traerArbitro = this.entityManager.createQuery(unaConsulta);
-        resultado = (PersonaAuxiliar) traerArbitro.getSingleResult();
-        return resultado;
-    }
-
-    /**
-     * Devuelve todos los arbitros menos los borrados
-     */
-    public List<PersonaAuxiliar> getArbitrosBD() {
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.borradoLogico = FALSE";
+    public List<PersonaAuxiliar> getCuerposTecnicosDesocupadosBDFiltro(String dato) {
+        String unaConsulta = "SELECT CT FROM PersonaAuxiliar CT WHERE (CT.nombre LIKE " + "'%" + dato + "%' OR CT.apellido LIKE " + "'%" + dato + "%' OR CT.dni LIKE " + "'%" + dato + "%')AND(CT.borradoLogico = FALSE)AND(CT.cuerpoTecnico = TRUE)AND(CT.cuerpoTecnicoActivo = FALSE)";
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
@@ -135,11 +126,11 @@ public class ControladoraEntidades {
      * borrados
      */
     public List<PersonaAuxiliar> getArbitrosBDFiltro(String dato) {
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE (A.nombre LIKE " + "'%" + dato + "%' OR A.apellido LIKE " + "'%" + dato + "%' OR A.dni LIKE " + "'%" + dato + "%')and(A.borradoLogico = FALSE)";
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE (A.nombre LIKE " + "'%" + dato + "%' OR A.apellido LIKE " + "'%" + dato + "%' OR A.dni LIKE " + "'%" + dato + "%')AND(A.borradoLogico = FALSE)AND(A.arbitro = TRUE)";
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN ARBITROS------------------------------------
+//--------------------------FIN PERSONAS AUXILIARES-----------------------------
 
 //------------------------------SOCIAS------------------------------------------
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
