@@ -402,7 +402,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
-        ISancion unaISancion = new ISancion(this, unaSociaSeleccionada);
+        ISancion unaISancion = new ISancion(this, unaSociaSeleccionada, unaControladoraGlobal);
 
         unaISancion.pack();
         unaISancion.setVisible(true);
@@ -457,6 +457,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        SeleccionarObjetoTabla(false);
         filtrarSocias(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_formComponentShown
 

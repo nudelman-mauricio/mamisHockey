@@ -3,21 +3,26 @@ package Interfaces;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 
 public class ISancion extends javax.swing.JInternalFrame {
 
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
+    private ControladoraGlobal unaControladoraGlobal;
     
-    public ISancion(JInternalFrame unJInternalFrame, Socia unaSocia) {
+    public ISancion(JInternalFrame unJInternalFrame, Socia unaSocia, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
+        this.unaControladoraGlobal = unaControladoraGlobal;
         
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
         
+        this.SeleccionarObjetoTabla(false);
+        activarCampos(false);
         IMenuPrincipalInterface.centrar(this);
     }
 
@@ -85,6 +90,11 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
@@ -100,6 +110,11 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -182,6 +197,8 @@ public class ISancion extends javax.swing.JInternalFrame {
         jTextFieldFecha.setText("dd/mm/aaaa");
 
         jLabel1NumResolucion.setText("N° de Resolución");
+
+        jTextFieldNumResolucion.setEditable(false);
 
         jLabelCantFechasACumplir.setText("Cantidad de Fechas a Cumplir");
 
@@ -276,7 +293,38 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        activarCampos(true); 
+        this.jButtonNuevo.setEnabled(false);
+        this.jButtonGuardar.setEnabled(true);
+        this.jButtonCancelar.setEnabled(true);        
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        activarCampos(false); 
+        this.jButtonNuevo.setEnabled(true);
+        this.jButtonGuardar.setEnabled(false);
+        this.jButtonCancelar.setEnabled(false);             // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void activarCampos(Boolean editable){
+        this.jTextAreaDetalle.setEditable(editable);
+        this.jTextFieldCantFechasACumplir.setEditable(editable);
+        this.jTextFieldFecha.setEditable(editable);
+        this.jTextFieldHastaUnaFecha.setEditable(editable);
+        this.jTextFieldMotivo.setEditable(editable);
+        this.jTextFieldNumResolucion.setEditable(editable);
+    }
+    private void SeleccionarObjetoTabla(boolean estado) {
+        jButtonCancelar.setEnabled(estado);
+        jButtonEditar.setEnabled(estado);
+        jButtonGuardar.setEnabled(estado);        
+        jButtonImprimir.setEnabled(estado);
+        jButtonEliminar.setEnabled(estado);
+        if (!estado) {
+            jTableSancion.clearSelection();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
