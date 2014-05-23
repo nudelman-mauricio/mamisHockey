@@ -1,10 +1,14 @@
 package Interfaces;
 
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
+import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
@@ -12,6 +16,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
+    private DefaultTableModel modeloTablaTarjetas;
 
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
@@ -25,12 +30,15 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         
         IMenuPrincipalInterface.centrar(this);
         
+        this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
+        
         Vector VTorneo = new Vector();
         VTorneo.add("Todos los Torneos");
-        VTorneo.addAll(unaControladoraGlobal.getTorneosBD());
-        
+        VTorneo.addAll(unaControladoraGlobal.getTorneosBD());        
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel(VTorneo);
         this.jComboBoxTorneos.setModel(modelCombo);
+        
+        SeInicio(unaControladoraGlobal);
     }
     
     @SuppressWarnings("unchecked")
@@ -124,15 +132,20 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jTableTarjeta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Fecha", "Tipo de Tarjeta", "Torneo", "Partido"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableTarjeta);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -151,18 +164,28 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jLabelFecha.setText("Fecha");
 
+        jTextFieldFecha.setEditable(false);
         jTextFieldFecha.setText("dd/mm/aaaa");
 
         jLabelTipoTarjeta.setText("Tipo de Tarjeta");
 
+        jTextFieldTipoTarjeta.setEditable(false);
+
         jLabelTorneo.setText("Torneo");
+
+        jTextFieldTorneo.setEditable(false);
 
         jLabelPartido.setText("Partido");
 
+        jTextFieldPartido.setEditable(false);
+
         jLabelMotivo.setText("Motivo");
+
+        jTextFieldMotivo.setEditable(false);
 
         jLabelDetalle.setText("Detalle");
 
+        jTextAreaDetalle.setEditable(false);
         jTextAreaDetalle.setColumns(20);
         jTextAreaDetalle.setRows(5);
         jScrollPane2.setViewportView(jTextAreaDetalle);
@@ -230,11 +253,17 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sanción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        jTextFieldCantFechasSuspendidas.setEditable(false);
+
         jLabelCantFechasSuspendida.setText("Cantidad de Fechas Suspendida");
+
+        jTextFieldCantFechasCumplidas.setEditable(false);
 
         jLabelCantFechasCumplidas.setText("Cantidad de Fechas Cumplidas");
 
         jLabelSuspendidaHastaLaFecha.setText("Suspendida hasta la Fecha");
+
+        jTextFieldSuspendidaHastaLaFecha.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -427,7 +456,35 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private void jCheckBoxAmarillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAmarillasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxAmarillasActionPerformed
+    
+    public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
+        this.unaControladoraGlobal = unaControladoraGlobal;
 
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        IMenuPrincipalInterface.centrar(this);       
+        cargarTablaTodosLosTorneos();
+    }
+    
+    public void cargarTablaTodosLosTorneos() {
+        limpiarTabla(modeloTablaTarjetas);
+        List<Tarjeta> unaListaResultado = (List<Tarjeta>) this.unaSocia.getTarjetas();
+        for (Tarjeta unaTarjeta : unaListaResultado) {
+            this.modeloTablaTarjetas.addRow(new Object[]
+            {"Fecha", "Tipo Tarjeta" , "Torneo" , "Partido"});
+        }
+    }
+    
+    private void limpiarTabla(DefaultTableModel modeloTablaTarjetas) {
+        try {
+            int filas = modeloTablaTarjetas.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaTarjetas.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
