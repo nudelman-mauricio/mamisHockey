@@ -195,20 +195,28 @@ public class Socia extends Persona implements Serializable {
     }
 //---------------------------------FIN ESTADOS----------------------------------
 
-//---Devuelve el ultimo estado de la Socia    FALTA EVITAR LOS QUE TIENEN BORRADO LOGICO
-    public String getUltimoEstado() {
-        String resultado = "";
+    /**
+     * Devuelve el Estado Actual de la Socia
+     */
+    public TipoEstado getUltimoEstado() {
+        TipoEstado resultado = null;
         for (Estado aux : getEstados()) {
-            resultado = aux.getUnTipoEstado().getNombre();
+            if (!aux.isBorradoLogico()) {
+                resultado = aux.getUnTipoEstado();
+            }
         }
         return resultado;
     }
 
-//---Devuelve el equipo Actual de la Socia  -->FALTA EVITAR LOS QUE TIENEN BORRADO LOGICO
-    public String getEquipoActual() {
-        String resultado = "";
+    /**
+     * Devuelve el Equipo Actual de la Socia
+     */
+    public Equipo getEquipoActual() {
+        Equipo resultado = null;
         for (Pase aux : getPases()) {
-            resultado = aux.getUnEquipo().getNombre();
+            if (!aux.isBorradoLogico()) {
+                resultado = aux.getUnEquipo();
+            }
         }
         return resultado;
     }
