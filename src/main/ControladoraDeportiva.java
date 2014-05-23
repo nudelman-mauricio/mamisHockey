@@ -152,9 +152,9 @@ public class ControladoraDeportiva {
         unClubNuevo.agregarEquipo(this.entityManager, unEquipo);
     }
 
-    public void eliminarEquipo(EntityManager entityManager, Equipo unEquipo) {
+    public void eliminarEquipo( Equipo unEquipo) {
         unEquipo.setBorradoLogico(true);
-        unEquipo.persistir(entityManager);
+        unEquipo.persistir(this.entityManager);
     }
 
     /**

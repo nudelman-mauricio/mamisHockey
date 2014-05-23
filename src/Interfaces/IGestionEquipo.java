@@ -43,7 +43,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablaEquipo);
         List<Equipo> unaListaResultado = this.unaControladoraGlobal.getEquiposBDFiltro(dato);
         for (Equipo unEquipo : unaListaResultado) {
-            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), "Falta Consulta", "F. Club p' esto", unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente()});
+            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), "Falta Consulta", "F. Club p' esto", unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
     
@@ -92,6 +92,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -99,6 +104,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -152,14 +162,24 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "IdEquipo", "Club", "Localidad", "Delegada", "Delegada Sup.", "Director Tecnico"
+                "IdEquipo", "Nombre", "Club", "Localidad", "Delegada", "Delegada Sup.", "Director Tecnico"
             }
         ));
+        jTableEquipo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableEquipoFocusGained(evt);
+            }
+        });
+        jTableEquipo.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTableEquipoComponentShown(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableEquipo);
         if (jTableEquipo.getColumnModel().getColumnCount() > 0) {
-            jTableEquipo.getColumnModel().getColumn(1).setMinWidth(0);
-            jTableEquipo.getColumnModel().getColumn(1).setPreferredWidth(0);
-            jTableEquipo.getColumnModel().getColumn(1).setMaxWidth(0);
+            jTableEquipo.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableEquipo.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableEquipo.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -305,8 +325,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -373,6 +392,39 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
         filtrarEquipo(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
+
+    private void jTableEquipoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTableEquipoComponentShown
+        filtrarEquipo("");
+    }//GEN-LAST:event_jTableEquipoComponentShown
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+    Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar al equipo: " + unEquipoSeleccionado.getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarEquipo(unEquipoSeleccionado);
+            
+            jTextFieldBusqueda.setText("");
+            filtrarEquipo("");
+            this.SeleccionarObjetoTabla(false);
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jTableEquipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquipoFocusGained
+        this.SeleccionarObjetoTabla(true);
+    }//GEN-LAST:event_jTableEquipoFocusGained
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        filtrarEquipo(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

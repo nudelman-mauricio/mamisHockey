@@ -316,8 +316,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.cambiarEquipoDeClub(unEquipo, unClubActual, unClubNuevo);
     }
 
-    public void eliminarEquipo(EntityManager entityManager, Equipo unEquipo) {
-        this.unaControladoraDeportiva.eliminarEquipo(entityManager, unEquipo);
+    public void eliminarEquipo(Equipo unEquipo) {
+        this.unaControladoraDeportiva.eliminarEquipo( unEquipo);
     }
 
     public Equipo getEquipoBD(Long id) {

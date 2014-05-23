@@ -176,6 +176,23 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jComboBoxCapitanaSup = new javax.swing.JComboBox();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -400,14 +417,14 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (this.unEquipo == null) {
-            unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getName(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
+            unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getText(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
 
             //unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, (PersonaAuxiliar) jComboBoxPF.getSelectedItem(), (PersonaAuxiliar) jComboBoxAC.getSelectedItem(), false);
 
             JOptionPane.showMessageDialog(this, "Equipo creado con exito");
         } else {
             unaControladoraGlobal.modificarEquipo(unEquipo,
-                    jTextFieldNombre.getName(),
+                    jTextFieldNombre.getText(),
                     (Socia) jComboBoxCapitana.getSelectedItem(),
                     (Socia) jComboBoxCapitanaSup.getSelectedItem(),
                     (Socia) jComboBoxDelegada.getSelectedItem(),
@@ -421,6 +438,12 @@ public class IEquipo extends javax.swing.JInternalFrame {
         camposActivo(false);
         jButtonEditar.setEnabled(true);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_formInternalFrameClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

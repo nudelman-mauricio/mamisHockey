@@ -11,7 +11,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
-import logicaNegocios.Localidad;
 import logicaNegocios.Pase;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
@@ -67,7 +66,7 @@ public class IPase extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablePases);
         for (Object aux : unaSocia.getPases()) {
             Pase unPase = (Pase) aux;
-            this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), unPase.getMonto()});
+            this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())});
             nPase++;
         }
     }
@@ -85,19 +84,28 @@ public class IPase extends javax.swing.JInternalFrame {
 
     public void camposActivo(boolean Editable) {
         jTextFieldFechaRealizacion.setEditable(Editable);
+        jTextFieldEquipoOrigen.setEditable(Editable);
         jComboBoxEquipoDestino.setEnabled(Editable);
         jTextFieldMonto.setEditable(Editable);
-        jTextFieldFechaVencimiento.setEditable(Editable);
         jComboBoxCuota.setEnabled(Editable);
-        jTextFieldEquipoOrigen.setEditable(Editable);
+        jTextFieldFechaVencimiento.setEditable(Editable);
+        jTextAreaObservacion.setEnabled(Editable);
+        jCheckBoxLibreDeudaClub.setEnabled(Editable);
+        jCheckBoxSolicitudPase.setEnabled(Editable);
+        
         jButtonCalcularMonto.setEnabled(Editable);
     }
 
     public void camposLimpiar() {
         jTextFieldFechaRealizacion.setText("");
-        jTextFieldFechaVencimiento.setText("");
         jTextFieldEquipoOrigen.setText("");
+        jComboBoxEquipoDestino.setSelectedIndex(-1);
         jTextFieldMonto.setText("");
+        jComboBoxCuota.setSelectedIndex(-1);
+        jTextFieldFechaVencimiento.setText("");
+        jTextAreaObservacion.setText("");
+        jCheckBoxLibreDeudaClub.setSelected(false);
+        jCheckBoxSolicitudPase.setSelected(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -139,6 +147,9 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelDestino1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaObservacion = new javax.swing.JTextArea();
+        jLabelDestino2 = new javax.swing.JLabel();
+        jCheckBoxLibreDeudaClub = new javax.swing.JCheckBox();
+        jCheckBoxSolicitudPase = new javax.swing.JCheckBox();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -430,15 +441,28 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextAreaObservacion.setRows(5);
         jScrollPane2.setViewportView(jTextAreaObservacion);
 
+        jLabelDestino2.setText("Entrego:");
+
+        jCheckBoxLibreDeudaClub.setText("Libre deuda del Club");
+
+        jCheckBoxSolicitudPase.setText("Solicitud de Pase");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(jLabelDestino1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelDestino2)
+                    .addComponent(jLabelDestino1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxLibreDeudaClub)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxSolicitudPase)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -450,6 +474,11 @@ public class IPase extends javax.swing.JInternalFrame {
                         .addComponent(jLabelDestino1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDestino2)
+                    .addComponent(jCheckBoxLibreDeudaClub)
+                    .addComponent(jCheckBoxSolicitudPase))
                 .addContainerGap())
         );
 
@@ -489,7 +518,7 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jLabel3))
         );
 
@@ -543,7 +572,7 @@ public class IPase extends javax.swing.JInternalFrame {
         Calendar FechaSO = Calendar.getInstance();
         jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
         jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
-        jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual());
+        jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());
         
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
@@ -559,9 +588,8 @@ public class IPase extends javax.swing.JInternalFrame {
         try {
             Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
             Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-            unaControladoraGlobal.crearPase(this.unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), (Equipo) jComboBoxEquipoDestino.getSelectedItem());
             
-            unaControla
+            unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextAreaObservacion.getText());
                     
             JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");            
         } catch (ParseException e) {
@@ -624,6 +652,8 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JCheckBox jCheckBoxLibreDeudaClub;
+    private javax.swing.JCheckBox jCheckBoxSolicitudPase;
     private javax.swing.JComboBox jComboBoxCuota;
     private javax.swing.JComboBox jComboBoxEquipoDestino;
     private javax.swing.JLabel jLabel1;
@@ -631,6 +661,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelDestino1;
+    private javax.swing.JLabel jLabelDestino2;
     private javax.swing.JLabel jLabelFechaMonto;
     private javax.swing.JLabel jLabelFechaMonto1;
     private javax.swing.JLabel jLabelFechaRealizacion1;

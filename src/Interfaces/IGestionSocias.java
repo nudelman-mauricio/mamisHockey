@@ -467,7 +467,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar al arbitro: " + unaSociaSeleccionada.getApellido() + " " + unaSociaSeleccionada.getNombre(),
+                "Desea eliminar a la Socia: " + unaSociaSeleccionada.getApellido() + " " + unaSociaSeleccionada.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
