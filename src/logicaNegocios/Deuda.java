@@ -150,4 +150,29 @@ public class Deuda implements Serializable, Comparable {
         }
     }
 //---------------------------------FIN CUOTAS-----------------------------------
+
+    /**
+     * Devueve un float con el Monto de una Deuda sumando todas las cuotas
+     */
+    public double obtenerMontoTotal() {
+        double monto = 0;
+        for (Cuota aux : this.cuotas) {
+            monto += aux.getMonto();
+        }
+        return monto;
+    }
+
+    /**
+     * Devueve un float con el Monto de una Deuda sumando todas las cuotas no
+     * pagas
+     */
+    public double obtenerMontoTotalAdeudado() {
+        double monto = 0;
+        for (Cuota aux : this.cuotas) {
+            if (!aux.isBorradoLogico()) {
+                monto += aux.getMonto();
+            }
+        }
+        return monto;
+    }
 }

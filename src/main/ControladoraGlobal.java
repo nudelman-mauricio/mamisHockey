@@ -620,14 +620,6 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarDeuda(unaDeuda);
     }
 
-    public double obtenerMontoTotal(Deuda unaDeuda) {
-        return this.unaControladoraContabilidad.obtenerMontoTotal(unaDeuda);
-    }
-
-    public double obtenerMontoTotalAdeudado(Deuda unaDeuda) {
-        return this.unaControladoraContabilidad.obtenerMontoTotalAdeudado(unaDeuda);
-    }
-
     public Deuda getDeudaBD(Long id) {
         return this.unaControladoraContabilidad.getDeudaBD(id);
     }
