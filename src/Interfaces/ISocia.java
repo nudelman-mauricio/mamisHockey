@@ -83,6 +83,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     public void cargarComboBoxLocalidades() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
+        jComboBoxLocalidad.setSelectedIndex(-1);
     }
 
     public void camposCargar(Socia unaSocia) {
@@ -130,6 +131,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         jTextFieldTelFijo.setText("");
         jTextFieldTelCelular.setText("");
         jCheckBoxExJugadora.setText("");
+        jComboBoxLocalidad.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")

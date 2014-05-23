@@ -445,6 +445,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldTelFijo.setEditable(Editable);
         jTextFieldTelCelular.setEditable(Editable);
         jTextFieldFotocopiaDni.setEditable(Editable);
+        jCheckBoxEsArbitro.setEnabled(Editable);
+        jCheckBoxEsCuerpoTecnico.setEnabled(Editable);
 
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
@@ -462,6 +464,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldTelFijo.setText("");
         jTextFieldTelCelular.setText("");
         jTextFieldFotocopiaDni.setText("");
+        jCheckBoxEsArbitro.setSelected(false);
+        jCheckBoxEsCuerpoTecnico.setSelected(false);
     }
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
