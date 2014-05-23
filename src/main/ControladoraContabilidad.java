@@ -90,6 +90,20 @@ public class ControladoraContabilidad {
         unaDeuda.eliminarTodasLasCuotas(entityManager);
         unaDeuda.persistir(this.entityManager);
     }
+    
+    /**
+     * Devueve un float con el Monto de una Deuda sumando todas las cuotas
+     */ 
+    public double obtenerMontoTotal(Deuda unaDeuda){
+        
+    }
+    
+    /**
+     * Devueve un float con el Monto de una Deuda sumando todas las cuotas no pagas
+     */
+    public double obtenerMontoTotalAdeudado(unaDeuda){
+        
+    }
 
     /**
      * Devuelve unaDeuda por ID incluido los borrados
@@ -108,7 +122,7 @@ public class ControladoraContabilidad {
         String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE";
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
-    }
+    }    
 //---------------------------------FIN DEUDAS-----------------------------------
 
 //--------------------------------PAGO CUOTA------------------------------------

@@ -135,7 +135,6 @@ public class Deuda implements Serializable, Comparable {
             Cuota unaCuota = new Cuota(entityManager, (montoTotal / cantCuotas), vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
             this.cuotas.add(unaCuota);
             vencimiento.setMonth(vencimiento.getMonth() + 1);
-            //FALTA VERIFICAR QUE EL VENCIMIENTO NO CAIGA SABADO,DOMINGO,"¿FERIADO?"---------------------------------
         }
         this.persistir(entityManager);
     }
@@ -150,5 +149,5 @@ public class Deuda implements Serializable, Comparable {
             aux.setBorradoLogico(true);
         }
     }
-//---------------------------------FIN CUOTAS-----------------------------------    
+//---------------------------------FIN CUOTAS-----------------------------------
 }
