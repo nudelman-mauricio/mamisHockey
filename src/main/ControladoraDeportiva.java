@@ -181,10 +181,10 @@ public class ControladoraDeportiva {
      * borrados
      */
     public List<Equipo> getEquiposBDFiltro(String dato) {
-        String unaConsulta = "SELECT C FROM Equipo C WHERE (C.nombre LIKE " + "'%" + dato + "%')and(C.borradoLogico = FALSE)";
+        String unaConsulta = "SELECT E FROM Equipo E, Club C JOIN C.equipos R WHERE (R.idEquipo = E.idEquipo) AND ((E.nombre LIKE " + "'%" + dato + "%') OR (C.nombre LIKE " + "'%" + dato + "%')) AND (E.borradoLogico = FALSE) AND (C.borradoLogico = FALSE)";
         List<Equipo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
-    }//FALTA HACER INNER JOIN CON CLUB PARA PODER FILTRAR POR NOMBRE DE CLUB Y RTAER TODOS SUS EQUIPOS
+    }
 //------------------------------FIN EQUIPOS-------------------------------------
 
 //------------------------------CLUBES------------------------------------------
