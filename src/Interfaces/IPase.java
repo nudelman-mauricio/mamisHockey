@@ -66,7 +66,7 @@ public class IPase extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablePases);
         for (Object aux : unaSocia.getPases()) {
             Pase unPase = (Pase) aux;
-            this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())});
+            this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())"});
             nPase++;
         }
     }
