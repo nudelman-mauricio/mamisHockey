@@ -382,7 +382,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEstadisticaTorneoActionPerformed
 
     private void jMenuItemGestionTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionTorneoActionPerformed
-        IGestionTorneo unGestionTorneo = new IGestionTorneo();
+        IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal, jDesktopPane);
         unGestionTorneo.pack();
         unGestionTorneo.setVisible(true);
         this.jDesktopPane.add(unGestionTorneo);
