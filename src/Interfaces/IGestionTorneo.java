@@ -116,6 +116,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
@@ -390,6 +395,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unTorneo);        
     }//GEN-LAST:event_jButtonTorneoActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        ITorneo unTorneo = new ITorneo(unaControladoraGlobal, this);
+        unTorneo.pack();
+        unTorneo.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unTorneo);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
