@@ -444,7 +444,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
     }
 
-    public void modificarCategoria(Categoria unaCategoria, int cantMenores, String nombre) {
+    public void modificarCategoria(Categoria unaCategoria, int cantMenores, String nombre, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarCategoria(unaCategoria, cantMenores, nombre);
     }
 

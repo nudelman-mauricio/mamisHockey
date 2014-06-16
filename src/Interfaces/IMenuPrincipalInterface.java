@@ -78,9 +78,10 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItemEstadosSocia = new javax.swing.JMenuItem();
+        jMenuItemLocalidades = new javax.swing.JMenuItem();
+        jMenuItemCategoria = new javax.swing.JMenuItem();
+        jMenuItemSkin = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -306,24 +307,32 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenu4.setText("Configuración");
         jMenu4.setMaximumSize(new java.awt.Dimension(129, 32767));
 
-        jMenuItem11.setText("Estados de una Socia");
-        jMenu4.add(jMenuItem11);
+        jMenuItemEstadosSocia.setText("Estados de una Socia");
+        jMenu4.add(jMenuItemEstadosSocia);
 
-        jMenuItem12.setText("Localidades");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemLocalidades.setText("Localidades");
+        jMenuItemLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                jMenuItemLocalidadesActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem12);
+        jMenu4.add(jMenuItemLocalidades);
 
-        jMenuItem13.setText("Skin");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCategoria.setText("Categorias");
+        jMenuItemCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
+                jMenuItemCategoriaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem13);
+        jMenu4.add(jMenuItemCategoria);
+
+        jMenuItemSkin.setText("Skin");
+        jMenuItemSkin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSkinActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemSkin);
 
         jMenuBar1.add(jMenu4);
 
@@ -459,18 +468,18 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unaGestionEquipo);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAdmEquiposActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+    private void jMenuItemSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSkinActionPerformed
         skin unaSkin = new skin(this);
         jDesktopPane.add(unaSkin);
         unaSkin.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
+    }//GEN-LAST:event_jMenuItemSkinActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void jMenuItemLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocalidadesActionPerformed
         ILocalidad unLocalidad = new ILocalidad(unaControladoraGlobal);
         unLocalidad.pack();
         unLocalidad.setVisible(true);
         this.jDesktopPane.add(unLocalidad);
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    }//GEN-LAST:event_jMenuItemLocalidadesActionPerformed
 
     private void jMenuItemNuevoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoTorneoActionPerformed
         ITorneo unTorneo = new ITorneo(unaControladoraGlobal, jDesktopPane);
@@ -478,6 +487,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unTorneo.setVisible(true);
         this.jDesktopPane.add(unTorneo);                
     }//GEN-LAST:event_jMenuItemNuevoTorneoActionPerformed
+
+    private void jMenuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriaActionPerformed
+        ICategoria unaCategoria = new ICategoria(unaControladoraGlobal);
+        unaCategoria.pack();
+        unaCategoria.setVisible(true);
+        this.jDesktopPane.add(unaCategoria);        
+    }//GEN-LAST:event_jMenuItemCategoriaActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -497,9 +513,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -511,17 +524,21 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAdmEquipos;
     private javax.swing.JMenuItem jMenuItemAdministrarSocias;
     private javax.swing.JMenuItem jMenuItemBalanceMensual;
+    private javax.swing.JMenuItem jMenuItemCategoria;
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
     private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
+    private javax.swing.JMenuItem jMenuItemEstadosSocia;
     private javax.swing.JMenuItem jMenuItemGestionTorneo;
     private javax.swing.JMenuItem jMenuItemGestionarArbitro;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
+    private javax.swing.JMenuItem jMenuItemLocalidades;
     private javax.swing.JMenuItem jMenuItemNuevaSocias;
     private javax.swing.JMenuItem jMenuItemNuevoArbitro;
     private javax.swing.JMenuItem jMenuItemNuevoEquipo;
     private javax.swing.JMenuItem jMenuItemNuevoTorneo;
+    private javax.swing.JMenuItem jMenuItemSkin;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;

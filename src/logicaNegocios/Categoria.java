@@ -96,4 +96,9 @@ public class Categoria implements Serializable, Comparable {
         }
         return retorno;
     }
+    
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
