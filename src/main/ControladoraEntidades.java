@@ -201,7 +201,10 @@ public class ControladoraEntidades {
     public void crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         Pase unPase = new Pase(this.entityManager, fechaGeneracion, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
-        unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
+        if (unEquipoActual == null){
+            unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
+        }
+        
         unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
     }
 

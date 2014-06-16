@@ -91,7 +91,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextAreaObservacion.setEnabled(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
-        
+              
         jButtonCalcularMonto.setEnabled(Editable);
     }
 
@@ -571,7 +571,10 @@ public class IPase extends javax.swing.JInternalFrame {
         Calendar FechaSO = Calendar.getInstance();
         jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
         jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
-        jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());
+        if (unaSocia.getEquipoActual() != null){
+             jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());   
+        }
+        jComboBoxCuota.setSelectedIndex(0);
         
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
@@ -623,7 +626,9 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMontoKeyReleased
-        jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
+        if ((jTextFieldMonto.getText() != "") && (jComboBoxCuota.getSelectedIndex() != -1)){
+            jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
+        }
     }//GEN-LAST:event_jTextFieldMontoKeyReleased
 
     private void jComboBoxCuotaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBoxCuotaCaretPositionChanged
@@ -635,7 +640,9 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldFechaVencimientoKeyReleased
 
     private void jComboBoxCuotaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCuotaItemStateChanged
-        //------------------------------------------------------jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
+        if ((jTextFieldMonto.getText() != "") && (jComboBoxCuota.getSelectedIndex() != -1)){
+            jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
+        }
     }//GEN-LAST:event_jComboBoxCuotaItemStateChanged
 
     private void jTablePasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePasesFocusGained
