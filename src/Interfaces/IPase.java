@@ -23,20 +23,20 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTablePases;
 
+    //LLAMADO MOSTRANDO UNA SOCIA (unico)
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
 
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png")));
         //Centrar
         IMenuPrincipalInterface.centrar(this);
         //Titulo Ventana
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
-
+        
         cargarComboBoxEquipos();
 
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
@@ -44,7 +44,6 @@ public class IPase extends javax.swing.JInternalFrame {
         
         jTablePases.clearSelection();
         
-        camposLimpiar();
         camposActivo(false);
         
         jButtonNuevo.setEnabled(true);
@@ -636,7 +635,7 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldFechaVencimientoKeyReleased
 
     private void jComboBoxCuotaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCuotaItemStateChanged
-        jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
+        //------------------------------------------------------jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
     }//GEN-LAST:event_jComboBoxCuotaItemStateChanged
 
     private void jTablePasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePasesFocusGained

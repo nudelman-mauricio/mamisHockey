@@ -28,9 +28,6 @@ public class ISocia extends javax.swing.JInternalFrame {
     
     private Socia unaSocia = null;
 
-    /**
-     * Creates new form SociaInterface
-     */
     //LLAMADO DESDE EL MENUPRINCIPAL
     public ISocia(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
