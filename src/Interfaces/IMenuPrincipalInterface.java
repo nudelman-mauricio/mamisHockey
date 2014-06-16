@@ -49,6 +49,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemNuevoArbitro = new javax.swing.JMenuItem();
         jMenuItemGestionarArbitro = new javax.swing.JMenuItem();
         jMenuTorneo = new javax.swing.JMenu();
+        jMenuItemNuevoTorneo = new javax.swing.JMenuItem();
         jMenuItemGestionTorneo = new javax.swing.JMenuItem();
         jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
         jMenuClub = new javax.swing.JMenu();
@@ -151,6 +152,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuTorneo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png"))); // NOI18N
         jMenuTorneo.setText("Torneos");
         jMenuTorneo.setMaximumSize(new java.awt.Dimension(129, 32767));
+
+        jMenuItemNuevoTorneo.setText("Nuevo Torneo");
+        jMenuItemNuevoTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevoTorneoActionPerformed(evt);
+            }
+        });
+        jMenuTorneo.add(jMenuItemNuevoTorneo);
 
         jMenuItemGestionTorneo.setText("Gestionar Torneos");
         jMenuItemGestionTorneo.addActionListener(new java.awt.event.ActionListener() {
@@ -463,6 +472,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unLocalidad);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void jMenuItemNuevoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoTorneoActionPerformed
+        ITorneo unTorneo = new ITorneo(unaControladoraGlobal, jDesktopPane);
+        unTorneo.pack();
+        unTorneo.setVisible(true);
+        this.jDesktopPane.add(unTorneo);                
+    }//GEN-LAST:event_jMenuItemNuevoTorneoActionPerformed
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -505,6 +521,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNuevaSocias;
     private javax.swing.JMenuItem jMenuItemNuevoArbitro;
     private javax.swing.JMenuItem jMenuItemNuevoEquipo;
+    private javax.swing.JMenuItem jMenuItemNuevoTorneo;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;

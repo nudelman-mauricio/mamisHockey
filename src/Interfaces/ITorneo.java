@@ -6,6 +6,8 @@
 
 package Interfaces;
 
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -18,7 +20,7 @@ import main.ControladoraGlobal;
 public class ITorneo extends javax.swing.JInternalFrame {
 
     private JInternalFrame unJInternalFrame;
-    private ControladoraGlobal unaControladora;
+    private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unJDesktopPane;
     
     
@@ -30,11 +32,20 @@ public class ITorneo extends javax.swing.JInternalFrame {
         SeInicio();        
     }
     
-     public ITorneo(ControladoraGlobal unaControladora, JInternalFrame unJInternalFrame) {
+     public ITorneo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
         
-        this.unaControladora = unaControladora;
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
+        jButtonEditar.setEnabled(false);
+        SeInicio();        
+    }
+     
+      public ITorneo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unJDesktopPane) {
+        initComponents();
+        
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unJDesktopPane = unJDesktopPane;
         jButtonEditar.setEnabled(false);
         SeInicio();        
     }
@@ -43,6 +54,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
         IMenuPrincipalInterface.centrar(this);
+        cargarJComboBoxCategoria();
         camposActivo(false);
     }
 
@@ -62,7 +74,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jButtonEditar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabelApellido = new javax.swing.JLabel();
-        jComboBoxLocalidad = new javax.swing.JComboBox();
+        jComboBoxCategoria = new javax.swing.JComboBox();
         jLabelLocalidad = new javax.swing.JLabel();
         jLabelDni = new javax.swing.JLabel();
         jTextFieldApellido = new javax.swing.JTextField();
@@ -187,7 +199,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -205,7 +217,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLocalidad)
-                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDomicilio)
@@ -270,21 +282,27 @@ public void camposActivo(boolean Editable) {
         jTextFieldApellido.setEditable(Editable);
         jTextFieldDNI.setEditable(Editable);
         jTextFieldDomicilio.setEditable(Editable);
-        jComboBoxLocalidad.setEditable(Editable);
+        jComboBoxCategoria.setEnabled(Editable);
     }
 
     public void camposLimpiar() {
         jTextFieldApellido.setText("");
         jTextFieldDNI.setText("");
         jTextFieldDomicilio.setText("");
-        jComboBoxLocalidad.setSelectedIndex(-1);
+        jComboBoxCategoria.setSelectedIndex(-1);
+    }
+    
+    private void cargarJComboBoxCategoria() {
+       DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getCategoriasBD());
+       this.jComboBoxCategoria.setModel(modelCombo);
+       jComboBoxCategoria.setSelectedIndex(-1);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JComboBox jComboBoxLocalidad;
+    private javax.swing.JComboBox jComboBoxCategoria;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelDomicilio;
@@ -295,4 +313,6 @@ public void camposActivo(boolean Editable) {
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldDomicilio;
     // End of variables declaration//GEN-END:variables
+
+    
 }

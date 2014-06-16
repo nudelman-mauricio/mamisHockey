@@ -154,7 +154,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jTextFieldDNI" min="-2" pref="160" max="-2" attributes="0"/>
                       <Component id="jTextFieldApellido" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="jComboBoxLocalidad" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="jComboBoxCategoria" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                       <Component id="jTextFieldDomicilio" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -177,7 +177,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -195,7 +195,7 @@
             <Property name="text" type="java.lang.String" value="Fecha de Inicio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxLocalidad">
+        <Component class="javax.swing.JComboBox" name="jComboBoxCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
