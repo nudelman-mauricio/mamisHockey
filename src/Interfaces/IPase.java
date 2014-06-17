@@ -63,7 +63,7 @@ public class IPase extends javax.swing.JInternalFrame {
         DateFormat df = DateFormat.getDateInstance();
         int nPase = 0;
         limpiarTabla(modeloTablePases);
-        for (Object aux : unaSocia.getPases()) {
+        for (Object aux : unaSocia.getPasesValidos()) {
             Pase unPase = (Pase) aux;
             this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())"});
             nPase++;
