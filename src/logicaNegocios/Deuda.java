@@ -133,7 +133,7 @@ public class Deuda implements Serializable, Comparable {
         double montoCuotas = (int) (montoTotal / cantCuotas);
         double montoPrimeraCuota = montoCuotas + (montoTotal - (montoCuotas * cantCuotas));
         Date vencimiento = primerVencimiento;
-        
+
         //Se crea la primer cuota conteniendo el resto de la division
         this.cuotas.add(new Cuota(entityManager, montoPrimeraCuota, primerVencimiento, ("1/" + Integer.toString(cantCuotas))));
 
@@ -158,21 +158,9 @@ public class Deuda implements Serializable, Comparable {
 //---------------------------------FIN CUOTAS-----------------------------------
 
     /**
-     * Devueve un float con el Monto de una Deuda sumando todas las cuotas
+     * Devueve el Monto de una Deuda sumando todas las cuotas NO las BORRADAS
      */
     public double obtenerMontoTotal() {
-        double monto = 0;
-        for (Cuota aux : this.cuotas) {
-            monto += aux.getMonto();
-        }
-        return monto;
-    }
-
-    /**
-     * Devueve un float con el Monto de una Deuda sumando todas las cuotas no
-     * pagas
-     */
-    public double obtenerMontoTotalAdeudado() {
         double monto = 0;
         for (Cuota aux : this.cuotas) {
             if (!aux.isBorradoLogico()) {
@@ -180,5 +168,22 @@ public class Deuda implements Serializable, Comparable {
             }
         }
         return monto;
+    }
+
+    /**
+     * Devueve el Monto de una Deuda sumando todas las cuotas no pagas NO
+     * Borradas
+     */
+    public double obtenerMontoTotalAdeudado() {
+        double montoTotal = this.obtenerMontoTotal();
+        double montoAdeudado = 0;
+        for (Cuota aux : this.cuotas) {
+            if ((!aux.isBorradoLogico()) && (aux.getUnPagoCuota() != null)) {
+                if (!aux.getUnPagoCuota().isBorradoLogico()) {
+                    montoAdeudado += aux.getMonto();
+                }
+            }
+        }
+        return montoAdeudado;
     }
 }
