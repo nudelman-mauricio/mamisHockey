@@ -131,8 +131,12 @@ public class Deuda implements Serializable, Comparable {
 //-----------------------------------CUOTAS-------------------------------------    
     public void crearCuotas(EntityManager entityManager, double montoTotal, int cantCuotas, Date primerVencimiento) {
         Date vencimiento = primerVencimiento;
+        double auxMontoCuotas = (int) (montoTotal / cantCuotas);
         for (int i = 0; i < cantCuotas; i++) {
-            Cuota unaCuota = new Cuota(entityManager, (montoTotal / cantCuotas), vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
+            if (i==0){
+                
+            }            
+            Cuota unaCuota = new Cuota(entityManager, auxMontoCuotas, vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
             this.cuotas.add(unaCuota);
             vencimiento.setMonth(vencimiento.getMonth() + 1);
         }
