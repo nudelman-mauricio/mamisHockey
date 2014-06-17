@@ -201,26 +201,28 @@ public class ControladoraEntidades {
     public void crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         Pase unPase = new Pase(this.entityManager, fechaGeneracion, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
+        //Se controla que el primer pase cero a un equipo no elimine el equipo null
         if (unEquipoActual != null){
             unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
         }        
         unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
     }
-
-    public void modificarPase(Pase unPase, Date fecha, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
-        unPase.setFecha(fecha);
-        unPase.setUnEquipo(unEquipo);
-        unPase.setLibreDeudaClub(libreDeudaClub);
-        unPase.setSolicitudPase(solicitudPase);
-        unPase.setObservacion(observacion);
-        unPase.setBorradoLogico(borradoLogico);
-        unPase.persistir(this.entityManager);
-    }
-
+    
+    //aca hay que arreglar el metodo haciendo que deshaga todo lo de crear pase y crear pase cero
     public void eliminarPase(Pase unPase) {
         unPase.setBorradoLogico(true);
         unPase.persistir(this.entityManager);
     }
+
+//    public void modificarPase(Pase unPase, Date fecha, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
+//        unPase.setFecha(fecha);
+//        unPase.setUnEquipo(unEquipo);
+//        unPase.setLibreDeudaClub(libreDeudaClub);
+//        unPase.setSolicitudPase(solicitudPase);
+//        unPase.setObservacion(observacion);
+//        unPase.setBorradoLogico(borradoLogico);
+//        unPase.persistir(this.entityManager);
+//    }    
 
     /**
      * Devuelve un Pase filtrado por ID incluido los Eliminados
