@@ -90,8 +90,24 @@ public class Socia extends Persona implements Serializable {
         this.tarjetas = tarjetas;
     }
 
+    /**
+     * Devuelve todos los pases de la Jugadora INCLUYENDO borrados
+     */
     public Collection<Pase> getPases() {
         return this.pases;
+    }
+
+    /**
+     * Devuelve SOLAMENTE los pases NO borrados
+     */
+    public Collection<Pase> getPasesValidos() {
+        Collection<Pase> pasesValidos = null;
+        for (Pase aux : this.pases) {
+            if (!aux.isBorradoLogico()) {
+                pasesValidos.add(aux);
+            }
+        }
+        return pasesValidos;
     }
 
     public void setPases(Collection<Pase> pases) {
