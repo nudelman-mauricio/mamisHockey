@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -101,7 +102,7 @@ public class Socia extends Persona implements Serializable {
      * Devuelve SOLAMENTE los pases NO borrados
      */
     public Collection<Pase> getPasesValidos() {
-        Collection<Pase> pasesValidos = null;
+        Collection<Pase> pasesValidos = new ArrayList();
         for (Pase aux : this.pases) {
             if (!aux.isBorradoLogico()) {
                 pasesValidos.add(aux);
