@@ -131,8 +131,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonCalcularMonto = new javax.swing.JButton();
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
         jComboBoxCuota = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldMontoCuotas = new javax.swing.JTextField();
         jLabelFechaMonto1 = new javax.swing.JLabel();
         jTextFieldFechaVencimiento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -341,10 +339,6 @@ public class IPase extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("X ($)");
-
-        jTextFieldMontoCuotas.setEditable(false);
-
         jLabelFechaMonto1.setText("Fecha 1° Vto");
 
         jTextFieldFechaVencimiento.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -371,13 +365,8 @@ public class IPase extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldMonto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCalcularMonto))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBoxCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldMontoCuotas))
-                    .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                    .addComponent(jComboBoxCuota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(22, 22, 22))
@@ -394,9 +383,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaRealizacion5)
-                    .addComponent(jComboBoxCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldMontoCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -647,9 +634,7 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMontoKeyReleased
-        if ((!"".equals(jTextFieldMonto.getText())) && (jComboBoxCuota.getSelectedIndex() != -1)){
-            jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
-        }
+
     }//GEN-LAST:event_jTextFieldMontoKeyReleased
 
     private void jComboBoxCuotaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBoxCuotaCaretPositionChanged
@@ -661,9 +646,7 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldFechaVencimientoKeyReleased
 
     private void jComboBoxCuotaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCuotaItemStateChanged
-        if ((!"".equals(jTextFieldMonto.getText())) && (jComboBoxCuota.getSelectedIndex() != -1)){
-            jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
-        }
+
     }//GEN-LAST:event_jComboBoxCuotaItemStateChanged
 
     private void jTablePasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePasesFocusGained
@@ -704,7 +687,6 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxSolicitudPase;
     private javax.swing.JComboBox jComboBoxCuota;
     private javax.swing.JComboBox jComboBoxEquipoDestino;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelDestino;
@@ -731,6 +713,5 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldFechaRealizacion;
     private javax.swing.JTextField jTextFieldFechaVencimiento;
     private javax.swing.JTextField jTextFieldMonto;
-    private javax.swing.JTextField jTextFieldMontoCuotas;
     // End of variables declaration//GEN-END:variables
 }
