@@ -125,7 +125,7 @@ public class ControladoraGlobal {
     public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
         String observacionDeuda;
         if (unaSocia.getEquipoActual() == null){
-            observacionDeuda = "Primer pase al Equipo: " + unEquipoNuevo.getNombre();
+            observacionDeuda = "Primer pase al un Equipo: " + unEquipoNuevo.getNombre();
         } else{
             observacionDeuda = "De Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
         }

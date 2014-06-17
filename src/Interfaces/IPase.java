@@ -23,7 +23,7 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTablePases;
 
-    //LLAMADO MOSTRANDO UNA SOCIA (unico)
+    //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
 
@@ -65,9 +65,10 @@ public class IPase extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablePases);
         for (Object aux : unaSocia.getPases()) {
             Pase unPase = (Pase) aux;
-            this.modeloTablePases.addRow(new Object[]{nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())"});
+            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())"});
             nPase++;
         }
+        jLabelNumeroPase.setText(String.valueOf(nPase));
     }
     
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -175,6 +176,11 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -252,21 +258,34 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jTablePases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "N° Pase", "Fecha", "Equipo Destino", "Monto"
+                "idPase", "N° Pase", "Fecha", "Equipo Destino", "Monto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTablePases.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTablePasesFocusGained(evt);
             }
         });
         jScrollPane1.setViewportView(jTablePases);
+        if (jTablePases.getColumnModel().getColumnCount() > 0) {
+            jTablePases.getColumnModel().getColumn(0).setMinWidth(0);
+            jTablePases.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTablePases.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -517,7 +536,7 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jLabel3))
         );
 
@@ -552,7 +571,8 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldEquipoOrigenActionPerformed
 
     private void jButtonCalcularMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcularMontoActionPerformed
-        // TODO add your handling code here:
+        int nPase = Integer.parseInt(jLabelNumeroPase.getText());
+        jTextFieldMonto.setText(String.valueOf(nPase * 250 + nPase * 0.25));
     }//GEN-LAST:event_jButtonCalcularMontoActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -609,6 +629,7 @@ public class IPase extends javax.swing.JInternalFrame {
         camposLimpiar();
         camposActivo(false);
         jTablePases.setEnabled(true);
+        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -626,7 +647,7 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMontoKeyReleased
-        if ((jTextFieldMonto.getText() != "") && (jComboBoxCuota.getSelectedIndex() != -1)){
+        if ((!"".equals(jTextFieldMonto.getText())) && (jComboBoxCuota.getSelectedIndex() != -1)){
             jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
         }
     }//GEN-LAST:event_jTextFieldMontoKeyReleased
@@ -640,7 +661,7 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldFechaVencimientoKeyReleased
 
     private void jComboBoxCuotaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCuotaItemStateChanged
-        if ((jTextFieldMonto.getText() != "") && (jComboBoxCuota.getSelectedIndex() != -1)){
+        if ((!"".equals(jTextFieldMonto.getText())) && (jComboBoxCuota.getSelectedIndex() != -1)){
             jTextFieldMontoCuotas.setText(String.valueOf(Double.parseDouble(jTextFieldMonto.getText()) / Integer.valueOf(jComboBoxCuota.getSelectedItem().toString())));
         }
     }//GEN-LAST:event_jComboBoxCuotaItemStateChanged
@@ -649,6 +670,27 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
     }//GEN-LAST:event_jTablePasesFocusGained
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        Pase unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
+                
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar el pase al Equipo: " +  unPaseSeleccionado.getUnEquipo().getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarPase(unPaseSeleccionado);
+            
+            cargarCamposTabla();
+        }
+        
+        
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
