@@ -203,8 +203,7 @@ public class ControladoraEntidades {
         unaSocia.agregarPase(this.entityManager, unPase);
         if (unEquipoActual != null){
             unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
-        }
-        
+        }        
         unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
     }
 

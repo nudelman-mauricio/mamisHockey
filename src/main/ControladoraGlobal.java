@@ -122,14 +122,14 @@ public class ControladoraGlobal {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
-        String observacionDeuda;
-        if (unaSocia.getEquipoActual() == null){
-            observacionDeuda = "Primer pase al un Equipo: " + unEquipoNuevo.getNombre();
-        } else{
-            observacionDeuda = "De Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
+    public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {        
+        //Si es el primer pase a su primer equipo, no se genera la deuda ya que tiene monto CERO
+        Deuda unaDeuda = null;
+        if (unaSocia.getEquipoActual() != null) {
+            String observacionDeuda = "De Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
+            String conceptoDeuda = "Por Pase";
+            unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, conceptoDeuda, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
         }
-        Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, "Por Pase", observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
@@ -322,7 +322,7 @@ public class ControladoraGlobal {
     }
 
     public void eliminarEquipo(Equipo unEquipo) {
-        this.unaControladoraDeportiva.eliminarEquipo( unEquipo);
+        this.unaControladoraDeportiva.eliminarEquipo(unEquipo);
     }
 
     public Equipo getEquipoBD(Long id) {
