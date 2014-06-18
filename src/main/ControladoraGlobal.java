@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import logicaNegocios.*;
 
 public class ControladoraGlobal {
@@ -17,33 +16,17 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
         this.unaControladoraEntidades = new ControladoraEntidades(entityManager);
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
-        this.construirMeses(entityManager);
     }
 
-//----------------------------------MESES---------------------------------------
-    private void construirMeses(EntityManager entityManager) {
-        Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
-        if (tablaMesVacia.getResultList().isEmpty()) {
-            Mes unMes;
-            unMes = new Mes(entityManager, "Enero");
-            unMes = new Mes(entityManager, "Febrero");
-            unMes = new Mes(entityManager, "Marzo");
-            unMes = new Mes(entityManager, "Abril");
-            unMes = new Mes(entityManager, "Mayo");
-            unMes = new Mes(entityManager, "Junio");
-            unMes = new Mes(entityManager, "Julio");
-            unMes = new Mes(entityManager, "Agosto");
-            unMes = new Mes(entityManager, "Septiembre");
-            unMes = new Mes(entityManager, "Octubre");
-            unMes = new Mes(entityManager, "Nobiembre");
-            unMes = new Mes(entityManager, "Diciembre");
-        }
-    }
-//--------------------------------FIN MESES-------------------------------------
-//
 //------------------------------------------------------------------------------
 //--------------------------CONTROLADORA ENTIDADES------------------------------
 //------------------------------------------------------------------------------
+//
+//----------------------------------MESES---------------------------------------
+    public Mes getMesDB(int numeroMes) {
+        return this.unaControladoraEntidades.getMesDB(numeroMes);
+    }
+//--------------------------------FIN MESES-------------------------------------
 
 //----------------------------PERSONA AUXILIAR----------------------------------
     public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
@@ -133,7 +116,7 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
-    public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {        
+    public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
         if (ultimoPase.getUnaDeuda() != null) {//Se debe comprobar porque el pase CERO no posee deuda
             this.unaControladoraContabilidad.eliminarDeuda(ultimoPase.getUnaDeuda());
         }
@@ -480,13 +463,13 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBD() {
         return this.unaControladoraDeportiva.getTorneosBD();
     }
-    
+
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
 //------------------------------FIN TORNEOS-------------------------------------
 
-//---------------------------------FECHAS TORNEO--------------------------------
+//------------------------------FECHAS TORNEO-----------------------------------
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);
     }
@@ -512,9 +495,9 @@ public class ControladoraGlobal {
     public List<FechaTorneo> getFechasTorneosBD() {
         return this.unaControladoraDeportiva.getFechasTorneosBD();
     }
-//------------------------------FIN FECHAS TORNEO-------------------------------
+//----------------------------FIN FECHAS TORNEO---------------------------------
 
-//-----------------------------------PARTIDOS-----------------------------------
+//---------------------------------PARTIDOS-------------------------------------
     public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
     }
@@ -748,8 +731,8 @@ public class ControladoraGlobal {
 //----------------------------- FIN EGRESOS ------------------------------------
 
 //------------------------------FRECUENCIA--------------------------------------
-    public void crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
-        this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, null);
+    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
+        return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, null);
     }
 
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {

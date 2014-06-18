@@ -11,6 +11,7 @@ import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Localidad;
+import logicaNegocios.Mes;
 import logicaNegocios.Pase;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
@@ -21,7 +22,87 @@ public class ControladoraEntidades {
 
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.construirMeses(entityManager);
     }
+
+//----------------------------------MESES---------------------------------------
+    private void construirMeses(EntityManager entityManager) {
+        Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
+        if (tablaMesVacia.getResultList().isEmpty()) {
+            Mes unMes;
+            unMes = new Mes(entityManager, "Enero");
+            unMes = new Mes(entityManager, "Febrero");
+            unMes = new Mes(entityManager, "Marzo");
+            unMes = new Mes(entityManager, "Abril");
+            unMes = new Mes(entityManager, "Mayo");
+            unMes = new Mes(entityManager, "Junio");
+            unMes = new Mes(entityManager, "Julio");
+            unMes = new Mes(entityManager, "Agosto");
+            unMes = new Mes(entityManager, "Septiembre");
+            unMes = new Mes(entityManager, "Octubre");
+            unMes = new Mes(entityManager, "Nobiembre");
+            unMes = new Mes(entityManager, "Diciembre");
+        }
+    }
+
+    /**
+     * Devuelve una instancia mes de la BD de acurdo al numero de mes
+     *
+     * @param numeroMes
+     * @return Mes
+     */
+    public Mes getMesDB(int numeroMes) {
+        String nombreMes = "Diciembre";
+        if (numeroMes == 1) {
+            nombreMes = "Enero";
+        } else {
+            if (numeroMes == 2) {
+                nombreMes = "Febrero";
+            } else {
+                if (numeroMes == 3) {
+                    nombreMes = "Marzo";
+                } else {
+                    if (numeroMes == 4) {
+                        nombreMes = "Abril";
+                    } else {
+                        if (numeroMes == 5) {
+                            nombreMes = "Mayo";
+                        } else {
+                            if (numeroMes == 6) {
+                                nombreMes = "Junio";
+                            } else {
+                                if (numeroMes == 7) {
+                                    nombreMes = "Julio";
+                                } else {
+                                    if (numeroMes == 8) {
+                                        nombreMes = "Agosto";
+                                    } else {
+                                        if (numeroMes == 9) {
+                                            nombreMes = "Septiembre";
+                                        } else {
+                                            if (numeroMes == 10) {
+                                                nombreMes = "Octubre";
+                                            } else {
+                                                if (numeroMes == 11) {
+                                                    nombreMes = "Nobiembre";
+                                                } else {
+                                                    nombreMes = "Diciembre";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre = " + nombreMes;
+        Query traerMes = this.entityManager.createQuery(unaConsulta);
+        return ((Mes) traerMes.getSingleResult());
+    }
+//--------------------------------FIN MESES-------------------------------------
 
 //----------------------------PERSONA AUXILIAR----------------------------------    
     public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
@@ -210,7 +291,7 @@ public class ControladoraEntidades {
     //aca hay que arreglar el metodo haciendo que deshaga todo lo de crear pase y crear pase cero
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
         ultimoPase.getUnEquipo().quitarPlantel(this.entityManager, unaSocia);
-        obtenerAnteUltimoEquipo(unaSocia).agregarPlantel(this.entityManager, unaSocia);        
+        obtenerAnteUltimoEquipo(unaSocia).agregarPlantel(this.entityManager, unaSocia);
         ultimoPase.setBorradoLogico(true);
         ultimoPase.persistir(this.entityManager);
     }

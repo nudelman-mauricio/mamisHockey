@@ -310,8 +310,8 @@ public class ControladoraContabilidad {
 //----------------------------- FIN EGRESOS ------------------------------------
 
 //------------------------------FRECUENCIA--------------------------------------
-    public void crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
-        Frecuencia unaFrecuencia = new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento, meses);
+    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
+        return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento, meses);
     }
 
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
