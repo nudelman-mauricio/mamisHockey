@@ -96,20 +96,7 @@ public class Socia extends Persona implements Serializable {
      */
     public Collection<Pase> getPases() {
         return this.pases;
-    }
-
-    /**
-     * Devuelve SOLAMENTE los pases NO borrados
-     */
-    public Collection<Pase> getPasesValidos() {
-        Collection<Pase> pasesValidos = new ArrayList();
-        for (Pase aux : this.pases) {
-            if (!aux.isBorradoLogico()) {
-                pasesValidos.add(aux);
-            }
-        }
-        return pasesValidos;
-    }
+    }    
 
     public void setPases(Collection<Pase> pases) {
         this.pases = pases;
@@ -174,6 +161,19 @@ public class Socia extends Persona implements Serializable {
         this.getPases().remove(unPase);
         this.persistir(entityManager);
     }
+    
+    /**
+     * Devuelve SOLAMENTE los pases NO borrados
+     */
+    public Collection<Pase> getPasesValidos() {
+        Collection<Pase> pasesValidos = new ArrayList();
+        for (Pase aux : this.pases) {
+            if (!aux.isBorradoLogico()) {
+                pasesValidos.add(aux);
+            }
+        }
+        return pasesValidos;
+    }
 //---------------------------------FIN PASES---------------------------------
 
 //-----------------------------------DEUDAS-------------------------------------
@@ -209,6 +209,19 @@ public class Socia extends Persona implements Serializable {
     public void quitarEstado(EntityManager entityManager, Estado unEstado) {
         this.getEstados().remove(unEstado);
         this.persistir(entityManager);
+    }
+    
+    /**
+     * Devuelve solamente los estados no borrados
+     */
+    public Collection<Estado> getEstadosValidos(){
+        Collection<Estado> estadosValidos = new ArrayList();
+        for (Estado aux : this.estados) {
+            if (!aux.isBorradoLogico()) {
+                estadosValidos.add(aux);
+            }
+        }
+        return estadosValidos;
     }
 //---------------------------------FIN ESTADOS----------------------------------
 

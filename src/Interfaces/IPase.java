@@ -36,16 +36,16 @@ public class IPase extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
         //Titulo Ventana
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
-        
+
         cargarComboBoxEquipos();
 
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
-        cargarCamposTabla();       
-        
+        cargarCamposTabla();
+
         jTablePases.clearSelection();
-        
+
         camposActivo(false);
-        
+
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
@@ -70,7 +70,7 @@ public class IPase extends javax.swing.JInternalFrame {
         }
         jLabelNumeroPase.setText(String.valueOf(nPase));
     }
-    
+
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -92,7 +92,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextAreaObservacion.setEnabled(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
-              
+
         jButtonCalcularMonto.setEnabled(Editable);
     }
 
@@ -107,7 +107,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jCheckBoxLibreDeudaClub.setSelected(false);
         jCheckBoxSolicitudPase.setSelected(false);
     }
-       
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -572,17 +572,17 @@ public class IPase extends javax.swing.JInternalFrame {
         jTablePases.setEnabled(false);
         camposActivo(true);
         camposLimpiar();
-        
+
         //PreCarga de Datos
         DateFormat df = DateFormat.getDateInstance();
         Calendar FechaSO = Calendar.getInstance();
         jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
         jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
-        if (unaSocia.getEquipoActual() != null){
-             jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());   
+        if (unaSocia.getEquipoActual() != null) {
+            jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());
         }
         jComboBoxCuota.setSelectedIndex(0);
-        
+
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
@@ -597,22 +597,21 @@ public class IPase extends javax.swing.JInternalFrame {
         try {
             Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
             Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-            
+
             unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextAreaObservacion.getText());
-                    
-            JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");            
+
+            JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
         } catch (ParseException e) {
             System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
         }
-        
+
         //Comportamientos Extras
-        
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(true);
-        
+
         camposLimpiar();
         camposActivo(false);
         jTablePases.setEnabled(true);
@@ -621,7 +620,7 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jTablePases.clearSelection();
-        
+
         camposLimpiar();
         camposActivo(false);
         jTablePases.setEnabled(true);
@@ -656,24 +655,23 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Pase unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
-                
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el pase al Equipo: " +  unPaseSeleccionado.getUnEquipo().getNombre(),
+                "Desea eliminar el pase al Equipo: " + unPaseSeleccionado.getUnEquipo().getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarPase(unPaseSeleccionado);
-            
+            unaControladoraGlobal.eliminarUltimoPase(unPaseSeleccionado, this.unaSocia);
+
             cargarCamposTabla();
-        }    
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
