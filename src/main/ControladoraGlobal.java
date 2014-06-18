@@ -480,6 +480,10 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBD() {
         return this.unaControladoraDeportiva.getTorneosBD();
     }
+    
+    public List<Torneo> getTorneosBDFiltro(String dato) {
+        return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
+    }
 //------------------------------FIN TORNEOS-------------------------------------
 
 //---------------------------------FECHAS TORNEO--------------------------------
