@@ -81,8 +81,9 @@ public class PagoCuota implements Serializable, Comparable {
         return this.borradoLogico;
     }
 
-    public void setBorradoLogico(boolean borradoLogico) {
+    public double setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
+        return this.monto;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 

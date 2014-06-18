@@ -122,7 +122,7 @@ public class ControladoraGlobal {
 //------------------------------FIN SOCIAS--------------------------------------
 
 //-----------------------------------PASES--------------------------------------
-    public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {        
+    public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
         //Si es el primer pase a su primer equipo, no se genera la deuda ya que tiene monto CERO
         Deuda unaDeuda = null;
         if (unaSocia.getEquipoActual() != null) {
@@ -133,12 +133,11 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
-    public void modificarPase(Pase unPase, Date fecha, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarPase(unPase, fecha, unEquipo, libreDeudaClub, solicitudPase, observacion, borradoLogico);
-    }
-
-    public void eliminarPase(Pase unPase) {
-        this.unaControladoraEntidades.eliminarPase(unPase);
+    public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {        
+        if (ultimoPase.getUnaDeuda() != null) {//Se debe comprobar porque el pase CERO no posee deuda
+            this.unaControladoraContabilidad.eliminarDeuda(ultimoPase.getUnaDeuda());
+        }
+        this.unaControladoraEntidades.eliminarUltimoPase(ultimoPase, unaSocia);
     }
 
     public Pase getPaseBD(Long id) {

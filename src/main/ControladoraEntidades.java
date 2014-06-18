@@ -201,28 +201,28 @@ public class ControladoraEntidades {
     public void crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         Pase unPase = new Pase(this.entityManager, fechaGeneracion, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
-        //Se controla que el primer pase cero a un equipo no elimine el equipo null
-        if (unEquipoActual != null){
+        if (unEquipoActual != null) {//Se controla que el primer pase cero a un equipo no elimine el equipo null
             unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
-        }        
+        }
         unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
     }
-    
+
     //aca hay que arreglar el metodo haciendo que deshaga todo lo de crear pase y crear pase cero
-    public void eliminarPase(Pase unPase) {
-        unPase.setBorradoLogico(true);
-        unPase.persistir(this.entityManager);
+    public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
+        ultimoPase.getUnEquipo().quitarPlantel(this.entityManager, unaSocia);
+        obtenerAnteUltimoEquipo(unaSocia).agregarPlantel(this.entityManager, unaSocia);        
+        ultimoPase.setBorradoLogico(true);
+        ultimoPase.persistir(this.entityManager);
     }
 
-//    public void modificarPase(Pase unPase, Date fecha, Equipo unEquipo, boolean libreDeudaClub, boolean solicitudPase, String observacion, boolean borradoLogico) {
-//        unPase.setFecha(fecha);
-//        unPase.setUnEquipo(unEquipo);
-//        unPase.setLibreDeudaClub(libreDeudaClub);
-//        unPase.setSolicitudPase(solicitudPase);
-//        unPase.setObservacion(observacion);
-//        unPase.setBorradoLogico(borradoLogico);
-//        unPase.persistir(this.entityManager);
-//    }    
+    private Equipo obtenerAnteUltimoEquipo(Socia unaSocia) {
+        Pase anteUltimoPaseValido = null, ultimoPaseValido = null;
+        for (Pase aux : unaSocia.getPasesValidos()) {
+            anteUltimoPaseValido = ultimoPaseValido;
+            ultimoPaseValido = aux;
+        }
+        return anteUltimoPaseValido.getUnEquipo();
+    }
 
     /**
      * Devuelve un Pase filtrado por ID incluido los Eliminados

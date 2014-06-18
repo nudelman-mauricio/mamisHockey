@@ -93,8 +93,14 @@ public class Cuota implements Serializable, Comparable {
         return this.borradoLogico;
     }
 
-    public void setBorradoLogico(boolean borradoLogico) {
+    public double setBorradoLogico(boolean borradoLogico, EntityManager entityManager) {
         this.borradoLogico = borradoLogico;
+        double montoNotaCredito = 0;
+        if (borradoLogico && (this.unPagoCuota != null) && (!this.unPagoCuota.isBorradoLogico())) {
+            montoNotaCredito = this.unPagoCuota.setBorradoLogico(true);
+            this.unPagoCuota.persistir(entityManager);
+        }
+        return montoNotaCredito;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
 

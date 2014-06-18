@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.ConceptoIngreso;
@@ -87,8 +88,12 @@ public class ControladoraContabilidad {
 
     public void eliminarDeuda(Deuda unaDeuda) {
         unaDeuda.setBorradoLogico(true);
-        unaDeuda.eliminarTodasLasCuotas(entityManager);
+        double montoNotaCredito = unaDeuda.eliminarTodasLasCuotas(entityManager);
         unaDeuda.persistir(this.entityManager);
+
+        if (montoNotaCredito != 0) {//Cartel Informando del Monto de la Nota de Credito si Corresponde
+            JOptionPane.showMessageDialog(null, "La operación que realizó eliminó una Deuda que contenía cuotas pagadas. El monto total de las Cuotas Pagadas es: $" + montoNotaCredito, "Realizar Nota de Crédito", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**

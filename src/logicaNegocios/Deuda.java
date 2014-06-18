@@ -17,31 +17,31 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Deuda implements Serializable, Comparable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
-
+    
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaGeneracion;
-
+    
     @Basic
     private String concepto;
-
+    
     @OneToMany(targetEntity = Cuota.class)
     private Collection<Cuota> cuotas;
-
+    
     @Basic
     private String observacion;
-
+    
     @Basic
     private boolean borradoLogico;
-
+    
     public Deuda() {
-
+        
     }
-
+    
     public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.fechaGeneracion = fechaGeneracion;
         this.concepto = concepto;
@@ -55,47 +55,47 @@ public class Deuda implements Serializable, Comparable {
     public Long getIdDeuda() {
         return this.idDeuda;
     }
-
+    
     public void setIdDeuda(Long idDeuda) {
         this.idDeuda = idDeuda;
     }
-
+    
     public Date getFechaGeneracion() {
         return this.fechaGeneracion;
     }
-
+    
     public void setFechaGeneracion(Date fechaGeneracion) {
         this.fechaGeneracion = fechaGeneracion;
     }
-
+    
     public String getConcepto() {
         return this.concepto;
     }
-
+    
     public void setConcepto(String concepto) {
         this.concepto = concepto;
     }
-
+    
     public Collection<Cuota> getCuotas() {
         return this.cuotas;
     }
-
+    
     public void setCuotas(Collection<Cuota> cuotas) {
         this.cuotas = cuotas;
     }
-
+    
     public String getObservacion() {
         return this.observacion;
     }
-
+    
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-
+    
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
-
+    
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
@@ -136,7 +136,7 @@ public class Deuda implements Serializable, Comparable {
 
         //Se crea la primer cuota conteniendo el resto de la division
         this.cuotas.add(new Cuota(entityManager, montoPrimeraCuota, primerVencimiento, ("1/" + Integer.toString(cantCuotas))));
-
+        
         for (int i = 1; i < cantCuotas; i++) {
             Cuota unaCuota = new Cuota(entityManager, montoCuotas, vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
             this.cuotas.add(unaCuota);
@@ -145,15 +145,20 @@ public class Deuda implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-    public void eliminarCuota(EntityManager entityManager, Cuota unaCuota) {
-        unaCuota.setBorradoLogico(true);
-        unaCuota.persistir(entityManager);
-    }
-
-    public void eliminarTodasLasCuotas(EntityManager entityManager) {
+    /**
+     * Elimina todas las cuotas de una Deuda
+     *
+     * @param entityManager
+     * @return Devuelve el Monto que la asociacion tendria que devolver como
+     * nota de credito
+     */
+    public double eliminarTodasLasCuotas(EntityManager entityManager) {
+        double montoNotaCredito = 0;
         for (Cuota aux : this.cuotas) {
-            aux.setBorradoLogico(true);
+            montoNotaCredito += aux.setBorradoLogico(true, entityManager);
+            aux.persistir(entityManager);
         }
+        return montoNotaCredito;
     }
 //---------------------------------FIN CUOTAS-----------------------------------
 
