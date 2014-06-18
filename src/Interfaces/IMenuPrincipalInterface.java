@@ -308,6 +308,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenu4.setMaximumSize(new java.awt.Dimension(129, 32767));
 
         jMenuItemEstadosSocia.setText("Estados de una Socia");
+        jMenuItemEstadosSocia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEstadosSociaActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItemEstadosSocia);
 
         jMenuItemLocalidades.setText("Localidades");
@@ -450,8 +455,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unArbitro.pack();
         unArbitro.setVisible(true);
         this.jDesktopPane.add(unArbitro);
-
-// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemNuevoArbitroActionPerformed
 
     private void jMenuItemNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEquipoActionPerformed
@@ -494,6 +497,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unaCategoria.setVisible(true);
         this.jDesktopPane.add(unaCategoria);        
     }//GEN-LAST:event_jMenuItemCategoriaActionPerformed
+
+    private void jMenuItemEstadosSociaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosSociaActionPerformed
+        ITipoEstado unTipoEstado = new ITipoEstado(unaControladoraGlobal, jDesktopPane);
+        unTipoEstado.pack();
+        unTipoEstado.setVisible(true);
+        this.jDesktopPane.add(unTipoEstado);
+    }//GEN-LAST:event_jMenuItemEstadosSociaActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
