@@ -436,6 +436,15 @@ public class ControladoraDeportiva {
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+    /**
+     * Devuelve los Clubes filtrado por Nombre
+     */
+    public List<Torneo> getTorneosBDFiltro(String dato) {
+        String unaConsulta = "SELECT T FROM Torneo T WHERE (T.nombre LIKE " + "'%" + dato + "%')and(T.borradoLogico = FALSE)";
+        List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
 //------------------------------FIN TORNEOS-------------------------------------
 
 //---------------------------------FECHAS TORNEO--------------------------------

@@ -137,5 +137,19 @@ public class Torneo implements Serializable, Comparable {
         this.fechasTorneo.remove(unaFechaTorneo);
         this.persistir(entityManager);
     }
+    
+    /**
+     * Devuelve la cantidad de fechas de un torneo contando solo las NO borradas
+     * @return cantidadFechas
+     */
+    public int getCantidadFechas(){
+        int cantidadFechas =0;
+        for (FechaTorneo aux : this.fechasTorneo) {
+            if(!aux.isBorradoLogico()){
+                cantidadFechas++;
+            }
+        }
+        return cantidadFechas;
+    }
 //------------------------------FIN FECHAS TORNEO-------------------------------
 }
