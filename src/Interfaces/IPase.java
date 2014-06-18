@@ -65,7 +65,7 @@ public class IPase extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablePases);
         for (Object aux : unaSocia.getPasesValidos()) {
             Pase unPase = (Pase) aux;
-            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "unaControladoraGlobal.obtenerMontoTotal(unPase.getUnaDeuda())"});
+            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().obtenerMontoTotal()});
             nPase++;
         }
         jLabelNumeroPase.setText(String.valueOf(nPase));
@@ -107,7 +107,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jCheckBoxLibreDeudaClub.setSelected(false);
         jCheckBoxSolicitudPase.setSelected(false);
     }
-    
+       
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -670,11 +670,10 @@ public class IPase extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarPase(unPaseSeleccionado);
             
             cargarCamposTabla();
-        }
-        
-        
+        }    
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
