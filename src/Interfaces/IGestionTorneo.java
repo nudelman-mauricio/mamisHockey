@@ -80,11 +80,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }
     
     private void filtrarTorneo(String dato){
-        /*limpiarTabla(modeloTablaTorneo);
-        List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneoBDFiltro(dato);
+        limpiarTabla(modeloTablaTorneo);
+        List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBDFiltro(dato);
         for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{});
-        }*/
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getFechaInicio(),unTorneo.getNombre(),unTorneo.getUnaCategoria().getNombre(),unTorneo.getCantidadFechas()});
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -217,13 +217,13 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
         jTableTorneo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Fecha de Inicio", "Nombre", "Categoria", "Cantidad de Fechas", "Fechas Jugadas", "Cantidad de Equipos"
+                "Fecha de Inicio", "Nombre", "Categoria", "Cantidad de Fechas", "Cantidad de Equipos"
             }
         ));
         jScrollPane1.setViewportView(jTableTorneo);

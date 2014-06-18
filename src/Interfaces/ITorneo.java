@@ -6,11 +6,17 @@
 
 package Interfaces;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import logicaNegocios.Categoria;
+import logicaNegocios.Localidad;
 import main.ControladoraGlobal;
 
 /**
@@ -77,10 +83,8 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jComboBoxCategoria = new javax.swing.JComboBox();
         jLabelLocalidad = new javax.swing.JLabel();
         jLabelDni = new javax.swing.JLabel();
-        jTextFieldApellido = new javax.swing.JTextField();
-        jLabelDomicilio = new javax.swing.JLabel();
-        jTextFieldDNI = new javax.swing.JTextField();
-        jTextFieldDomicilio = new javax.swing.JTextField();
+        jTextFieldFechaInicio = new javax.swing.JTextField();
+        jTextFieldNombreTorneo = new javax.swing.JTextField();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -176,11 +180,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
         jLabelDni.setText("Nombre del Torneo");
 
-        jLabelDomicilio.setText("Cantidad de Fechas");
-
-        jTextFieldDNI.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNombreTorneo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDNIActionPerformed(evt);
+                jTextFieldNombreTorneoActionPerformed(evt);
             }
         });
 
@@ -189,18 +191,16 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
+                .addGap(78, 78, 78)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelApellido)
                     .addComponent(jLabelDni)
-                    .addComponent(jLabelLocalidad)
-                    .addComponent(jLabelDomicilio))
+                    .addComponent(jLabelLocalidad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -208,21 +208,17 @@ public class ITorneo extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelApellido)
-                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLocalidad)
                     .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDomicilio)
-                    .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,9 +240,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNIActionPerformed
+    private void jTextFieldNombreTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreTorneoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDNIActionPerformed
+    }//GEN-LAST:event_jTextFieldNombreTorneoActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         //SE cerro
@@ -263,7 +259,19 @@ public class ITorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
+        DateFormat df = DateFormat.getDateInstance();
+        try {
+            Date fechaInicio = new java.sql.Date(df.parse(jTextFieldFechaInicio.getText()).getTime());
+          
+
+            unaControladoraGlobal.crearTorneo(fechaInicio, (Categoria)jComboBoxCategoria.getSelectedItem(),jTextFieldNombreTorneo.getText());
+                
+            JOptionPane.showMessageDialog(this, "Torneo Guardado");
+            camposActivo(false);
+
+        } catch (ParseException e) {
+            System.out.println("ERROR EN TORNEO" + e.getMessage());
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -279,16 +287,14 @@ public void camposActivo(boolean Editable) {
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
         
-        jTextFieldApellido.setEditable(Editable);
-        jTextFieldDNI.setEditable(Editable);
-        jTextFieldDomicilio.setEditable(Editable);
+        jTextFieldFechaInicio.setEditable(Editable);
+        jTextFieldNombreTorneo.setEditable(Editable);
         jComboBoxCategoria.setEnabled(Editable);
     }
 
     public void camposLimpiar() {
-        jTextFieldApellido.setText("");
-        jTextFieldDNI.setText("");
-        jTextFieldDomicilio.setText("");
+        jTextFieldFechaInicio.setText("");
+        jTextFieldNombreTorneo.setText("");
         jComboBoxCategoria.setSelectedIndex(-1);
     }
     
@@ -305,13 +311,11 @@ public void camposActivo(boolean Editable) {
     private javax.swing.JComboBox jComboBoxCategoria;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelDni;
-    private javax.swing.JLabel jLabelDomicilio;
     private javax.swing.JLabel jLabelLocalidad;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextFieldApellido;
-    private javax.swing.JTextField jTextFieldDNI;
-    private javax.swing.JTextField jTextFieldDomicilio;
+    private javax.swing.JTextField jTextFieldFechaInicio;
+    private javax.swing.JTextField jTextFieldNombreTorneo;
     // End of variables declaration//GEN-END:variables
 
     

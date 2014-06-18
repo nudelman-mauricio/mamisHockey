@@ -441,7 +441,7 @@ public class ControladoraDeportiva {
      * Devuelve los Clubes filtrado por Nombre
      */
     public List<Torneo> getTorneosBDFiltro(String dato) {
-        String unaConsulta = "SELECT T FROM Torneo T WHERE (T.nombre LIKE '%" + dato + "%' OR T.unaCategoria.nombre LIKE '%" + dato + "%' OR T.) and(T.borradoLogico = FALSE)";
+        String unaConsulta = "SELECT T FROM Torneo T WHERE (T.nombre LIKE '%" + dato + "%' OR T.unaCategoria.nombre LIKE '%" + dato + "%') and(T.borradoLogico = FALSE)";
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
