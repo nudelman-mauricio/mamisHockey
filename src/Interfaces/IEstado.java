@@ -62,9 +62,7 @@ public class IEstado extends javax.swing.JInternalFrame {
     public void cargarCamposTabla() {
         limpiarTabla(modeloTableEstado);
         
-        //for (Object aux : unaSocia.getEstadosValidos()) {
-        System.out.println("Estados Validos");
-        for (Object aux : unaSocia.getEstados()) {
+        for (Object aux : unaSocia.getEstadosValidos()) {
             Estado unEstado = (Estado) aux;
             this.modeloTableEstado.addRow(new Object[]{unEstado.getIdEstado(), unEstado.getFecha(),unEstado.getUnTipoEstado().getNombre()});
         }
