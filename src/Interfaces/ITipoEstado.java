@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
 import java.text.DateFormat;
@@ -18,27 +17,25 @@ import logicaNegocios.Pase;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
-
 public class ITipoEstado extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane;
-    
+
     private DefaultTableModel modeloTablePases;
-    
+
     public ITipoEstado(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unjDesktopPane = unjDesktopPanel;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
         //Centrar
         IMenuPrincipalInterface.centrar(this);
         //Titulo Ventana
         this.setTitle("Estados posibles de una Socia");
-
 
         this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
         cargarCamposTabla();
@@ -52,16 +49,16 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        
+
     }
-    
+
     //Cargar Tabla con los pases de la Socia
     public void cargarCamposTabla() {
         DateFormat df = DateFormat.getDateInstance();
         limpiarTabla(modeloTablePases);
         for (Object aux : unaControladoraGlobal.getTiposEstadosBD()) {
             TipoEstado unTipoEstado = (TipoEstado) aux;
-            this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(),unTipoEstado.getNombre() ,unTipoEstado.getUnaFrecuencia().getDiaGeneracion(), unTipoEstado.getUnaFrecuencia().getDiaVencimiento(), unTipoEstado.getMonto()});
+            this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre(), unTipoEstado.getUnaFrecuencia().getDiaGeneracion(), unTipoEstado.getUnaFrecuencia().getDiaVencimiento(), unTipoEstado.getMonto()});
         }
     }
 
@@ -75,7 +72,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
+
     public void camposActivo(boolean Editable) {
         jTextFieldNombreEstado.setEditable(Editable);
         jTextFieldMontoMensual.setEditable(Editable);
@@ -94,9 +91,9 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jComboBoxDiaGeneracion.setEnabled(Editable);
         jComboBoxDiaVencimiento.setEnabled(Editable);
     }
-    
+
     public void camposLimpiar() {
-       jTextFieldNombreEstado.setText("");
+        jTextFieldNombreEstado.setText("");
         jTextFieldMontoMensual.setText("");
         jCheckBox1.setSelected(false);
         jCheckBox2.setSelected(false);
@@ -113,6 +110,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jComboBoxDiaGeneracion.setSelectedIndex(-1);
         jComboBoxDiaVencimiento.setSelectedIndex(-1);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -476,7 +474,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jTableTipoEstado.setEnabled(false);
         camposActivo(true);
         camposLimpiar();
-        
+
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
@@ -486,21 +484,45 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        Collection<Mes> meses;
-        if (jCheckBox1) {meses.add   }
-        if (jCheckBox2) {meses.add   }
-        if (jCheckBox3) {meses.add   }
-        if (jCheckBox4) {meses.add   }
-        if (jCheckBox5) {meses.add   }
-        if (jCheckBox6) {meses.add   }
-        if (jCheckBox7) {meses.add   }
-        if (jCheckBox8) {meses.add   }
-        if (jCheckBox9) {meses.add   }
-        if (jCheckBox10) {meses.add   }
-        if (jCheckBox11) {meses.add   }
-        if (jCheckBox12) {meses.add   }
-        
-        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses) ,jTextFieldNombreEstado.getText());
+        Collection<Mes> meses = null;
+        if (jCheckBox1.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(1));
+        }
+        if (jCheckBox2.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(2));
+        }
+        if (jCheckBox3.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(3));
+        }
+        if (jCheckBox4.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(4));
+        }
+        if (jCheckBox5.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(5));
+        }
+        if (jCheckBox6.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(6));
+        }
+        if (jCheckBox7.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(7));
+        }
+        if (jCheckBox8.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(8));
+        }
+        if (jCheckBox9.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(9));
+        }
+        if (jCheckBox10.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(10));
+        }
+        if (jCheckBox11.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(11));
+        }
+        if (jCheckBox12.isSelected()) {
+            meses.add(unaControladoraGlobal.getMesDB(12));
+        }
+
+        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()), unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses), jTextFieldNombreEstado.getText());
 
         //Comportamientos Extras
         jButtonNuevo.setEnabled(true);
@@ -508,7 +530,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        
+
         camposLimpiar();
         camposActivo(false);
         jTableTipoEstado.setEnabled(true);
