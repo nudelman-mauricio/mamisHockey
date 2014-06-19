@@ -7,11 +7,14 @@ package Interfaces;
 
 import java.text.DateFormat;
 import java.util.Collection;
+import java.util.List;
+import java.util.TreeSet;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Frecuencia;
 import logicaNegocios.Mes;
 import logicaNegocios.Pase;
 import logicaNegocios.TipoEstado;
@@ -111,6 +114,63 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jComboBoxDiaVencimiento.setSelectedIndex(-1);
     }
 
+    public void mostrarDetalle(TipoEstado unTipoEstado) {
+        camposLimpiar();
+        jTextFieldNombreEstado.setText(unTipoEstado.getNombre());
+        jTextFieldMontoMensual.setText(String.valueOf(unTipoEstado.getMonto()));
+        for (Mes aux : unTipoEstado.getUnaFrecuencia().getMeses()) {
+            if ("Enero".equals(aux.getNombre())) {
+                jCheckBox1.setSelected(true);
+            } else {
+                if ("Febrero".equals(aux.getNombre())) {
+                    jCheckBox2.setSelected(true);
+                } else {
+                    if ("Marzo".equals(aux.getNombre())) {
+                        jCheckBox3.setSelected(true);
+                    } else {
+                        if ("Abril".equals(aux.getNombre())) {
+                            jCheckBox4.setSelected(true);
+                        } else {
+                            if ("Mayo".equals(aux.getNombre())) {
+                                jCheckBox5.setSelected(true);
+                            } else {
+                                if ("Junio".equals(aux.getNombre())) {
+                                    jCheckBox6.setSelected(true);
+                                } else {
+                                    if ("Julio".equals(aux.getNombre())) {
+                                        jCheckBox7.setSelected(true);
+                                    } else {
+                                        if ("Agosto".equals(aux.getNombre())) {
+                                            jCheckBox8.setSelected(true);
+                                        } else {
+                                            if ("Septiembre".equals(aux.getNombre())) {
+                                                jCheckBox9.setSelected(true);
+                                            } else {
+                                                if ("Octubre".equals(aux.getNombre())) {
+                                                    jCheckBox10.setSelected(true);
+                                                } else {
+                                                    if ("Nobiembre".equals(aux.getNombre())) {
+                                                        jCheckBox11.setSelected(true);
+                                                    } else {
+                                                        if ("Diciembre".equals(aux.getNombre())) {
+                                                            jCheckBox12.setSelected(true);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        jComboBoxDiaGeneracion.setSelectedIndex(Integer.parseInt(unTipoEstado.getUnaFrecuencia().getDiaGeneracion()));
+        jComboBoxDiaVencimiento.setSelectedIndex(Integer.parseInt(unTipoEstado.getUnaFrecuencia().getDiaVencimiento()));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -148,6 +208,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jCheckBox7 = new javax.swing.JCheckBox();
         jComboBoxDiaGeneracion = new javax.swing.JComboBox();
         jComboBoxDiaVencimiento = new javax.swing.JComboBox();
+
+        setClosable(true);
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -250,6 +312,11 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableTipoEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableTipoEstadoFocusGained(evt);
             }
         });
         jScrollPane1.setViewportView(jTableTipoEstado);
@@ -484,7 +551,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        Collection<Mes> meses = null;
+        Collection<Mes> meses = new TreeSet();
         if (jCheckBox1.isSelected()) {
             meses.add(unaControladoraGlobal.getMesDB(1));
         }
@@ -522,7 +589,14 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             meses.add(unaControladoraGlobal.getMesDB(12));
         }
 
-        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()), unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses), jTextFieldNombreEstado.getText());
+        //Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses);
+        
+        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
+        
+        //unaFrecuencia.getMeses().add(unaControladoraGlobal.getMesDB(12));
+        
+        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaFrecuencia , jTextFieldNombreEstado.getText());
+        JOptionPane.showMessageDialog(this, "Nuevo Estado posible Guardado.");
 
         //Comportamientos Extras
         jButtonNuevo.setEnabled(true);
@@ -573,6 +647,14 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTableTipoEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableTipoEstadoFocusGained
+        TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
+
+        mostrarDetalle(unTipoEstadoSeleccionado);
+
+        jButtonEditar.setEnabled(true);
+    }//GEN-LAST:event_jTableTipoEstadoFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
