@@ -734,7 +734,7 @@ public class ControladoraGlobal {
 
 //------------------------------FRECUENCIA--------------------------------------
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
-        return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, null);
+        return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, meses);
     }
 
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {

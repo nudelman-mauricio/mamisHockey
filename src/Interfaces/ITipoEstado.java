@@ -589,7 +589,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             meses.add(unaControladoraGlobal.getMesDB(12));
         }
 
-        //Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses);
+        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses);
         
         //Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
         
