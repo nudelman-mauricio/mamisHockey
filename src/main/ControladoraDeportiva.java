@@ -424,7 +424,7 @@ public class ControladoraDeportiva {
     public Torneo getTorneoBD(Long idTorneo) {
         Torneo resultado;
         Query traerTorneo = this.entityManager.createQuery("SELECT T FROM Torneo T WHERE T.idTorneo = " + idTorneo);
-        resultado = (Torneo) traerTorneo.getSingleResult();
+        resultado = (Torneo) traerTorneo.getResultList();
         return resultado;
     }
 
