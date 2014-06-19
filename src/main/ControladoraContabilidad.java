@@ -71,8 +71,17 @@ public class ControladoraContabilidad {
     }
 
     public Deuda crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
-        unaSocia.agregarDeuda(this.entityManager, unaDeuda);
+        Deuda unaDeuda;
+        if (montoTotal == 0) {
+            unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, 1, fechaGeneracion);
+            for (Cuota unCuota : unaDeuda.getCuotas()) {
+                crearPagoCuota(unCuota, montoTotal, fechaGeneracion, "Pago deuda de monto 0");    
+            }
+            unaSocia.agregarDeuda(this.entityManager, unaDeuda);
+        }else{
+            unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
+            unaSocia.agregarDeuda(this.entityManager, unaDeuda);
+        }
         return unaDeuda;
     }
 
