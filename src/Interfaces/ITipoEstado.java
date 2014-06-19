@@ -591,11 +591,11 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
         //Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses);
         
-        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
+        //Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
         
         //unaFrecuencia.getMeses().add(unaControladoraGlobal.getMesDB(12));
         
-        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaFrecuencia , jTextFieldNombreEstado.getText());
+        //unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaFrecuencia , jTextFieldNombreEstado.getText());
         JOptionPane.showMessageDialog(this, "Nuevo Estado posible Guardado.");
 
         //Comportamientos Extras
