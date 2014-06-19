@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Socia;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
@@ -33,18 +32,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
         this.SeleccionarObjetoTabla(false);
 
-        filtrar();
-    }    
-    
-    
- 
-    private void filtrar() {
-        limpiarTabla(modeloTablaTorneo);
-        List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBD();
-        for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getFechaInicio(), unTorneo.getNombre(),unTorneo.getUnaCategoria(),unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
-        }
-    }
+        filtrar("");
+    }     
     
     private void limpiarTabla(DefaultTableModel modeloTablaToneo) {
         try {
@@ -69,11 +58,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         }
     }
     
-    private void filtrarTorneo(String dato){
+    private void filtrar(String dato){
         limpiarTabla(modeloTablaTorneo);
         List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBDFiltro(dato);
         for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getFechaInicio(),unTorneo.getNombre(),unTorneo.getUnaCategoria().getNombre(),unTorneo.getCantidadFechas()});
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(),unTorneo.getFechaInicio(),unTorneo.getNombre(),unTorneo.getUnaCategoria().getNombre(),unTorneo.getCantidadFechas()});
         }
     }
     
@@ -82,9 +71,9 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -100,11 +89,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
-        jButtonEliminar.setText("Eliminar");
-        jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -126,6 +110,16 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -133,20 +127,21 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
+                .addComponent(jButtonEliminar)
+                .addGap(6, 6, 6)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonEliminar)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -207,16 +202,26 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
         jTableTorneo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha de Inicio", "Nombre", "Categoria", "Cantidad de Fechas", "Cantidad de Equipos"
+                "", "Fecha de Inicio", "Nombre", "Categoria", "Cantidad de Fechas", "Cantidad de Equipos"
             }
         ));
+        jTableTorneo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableTorneoFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableTorneo);
+        if (jTableTorneo.getColumnModel().getColumnCount() > 0) {
+            jTableTorneo.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableTorneo.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableTorneo.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -226,7 +231,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -325,7 +330,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTorneoActionPerformed
-        ITorneo unTorneo = new ITorneo(this);
+        Torneo unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
+        ITorneo unTorneo = new ITorneo(unaControladoraGlobal, this, unTorneoSeleccionado);
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.setVisible(false);
@@ -349,8 +355,33 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarTorneo(jTextFieldBusqueda.getText());
+        filtrar(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
+
+    private void jTableTorneoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableTorneoFocusGained
+        this.SeleccionarObjetoTabla(true);
+    }//GEN-LAST:event_jTableTorneoFocusGained
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        Torneo unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
+
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar al Torneo: " + unTorneoSeleccionado.getNombre()+ " de la categoria " + unTorneoSeleccionado.getUnaCategoria().getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarTorneo(unTorneoSeleccionado);
+            
+            jTextFieldBusqueda.setText("");
+            filtrar("");
+            this.SeleccionarObjetoTabla(false);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
