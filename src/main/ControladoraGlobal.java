@@ -106,10 +106,15 @@ public class ControladoraGlobal {
 
 //-----------------------------------PASES--------------------------------------
     public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
-        Deuda unaDeuda = null;
-        String observacionDeuda = "De Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
+        String observacionDeuda;
+        if (unaSocia.getEquipoActual() == null) {
+            observacionDeuda = "Primer pase de la socia al Equipo: " + unEquipoNuevo.getNombre();
+        }
+        else {
+            observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
+        }
         String conceptoDeuda = "Por Pase";
-        unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, conceptoDeuda, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
+        Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, conceptoDeuda, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
