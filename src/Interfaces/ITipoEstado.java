@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Mes;
@@ -314,6 +316,15 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableTipoEstado.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
+
+                mostrarDetalle(unTipoEstadoSeleccionado);
+
+                jButtonEditar.setEnabled(true);
             }
         });
         jTableTipoEstado.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -645,11 +656,11 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTableTipoEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableTipoEstadoFocusGained
-        TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
-
-        mostrarDetalle(unTipoEstadoSeleccionado);
-
-        jButtonEditar.setEnabled(true);
+//        TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
+//
+//        mostrarDetalle(unTipoEstadoSeleccionado);
+//
+//        jButtonEditar.setEnabled(true);
     }//GEN-LAST:event_jTableTipoEstadoFocusGained
 
 

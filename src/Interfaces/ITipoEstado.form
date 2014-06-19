@@ -180,7 +180,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTableTipoEstado">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="jTableTipoEstado.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;        public void valueChanged(ListSelectionEvent event) {&#xa;                    TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));&#xa;&#xa;        mostrarDetalle(unTipoEstadoSeleccionado);&#xa;&#xa;        jButtonEditar.setEnabled(true);&#xa;        }&#xa;    });">
                   <Table columnCount="5" rowCount="4">
                     <Column editable="false" title="IdTipoEstado" type="java.lang.Object"/>
                     <Column editable="true" title="Nombre" type="java.lang.Object"/>
