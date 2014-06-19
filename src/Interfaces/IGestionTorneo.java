@@ -25,34 +25,24 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane1;
     
-    public IGestionTorneo() {
-        initComponents();
-        IMenuPrincipalInterface.centrar(this);
-        
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
-        this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
-        this.SeleccionarObjetoTabla(false);
-
-        filtrar();
-    }
-    
-    public IGestionTorneo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
+    public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         IMenuPrincipalInterface.centrar(this);
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unjDesktopPane1 = unjDesktopPane1;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
         this.SeleccionarObjetoTabla(false);
 
         filtrar();
-    }
+    }    
+    
+    
  
     private void filtrar() {
         limpiarTabla(modeloTablaTorneo);
         List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBD();
         for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getFechaInicio(), unTorneo.getNombre(),unTorneo.getUnaCategoria(),/*aca tiene que ir cantidad de fechas*/ /*Aca va cantidad de fechas jugadas*/});
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getFechaInicio(), unTorneo.getNombre(),unTorneo.getUnaCategoria(),unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
         }
     }
     
@@ -72,7 +62,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(estado);
         jButtonTorneo.setEnabled(estado);
         jButtonEquipos.setEnabled(estado);
-        jButtonFechas.setEnabled(estado);       
+        jButtonFechas.setEnabled(estado);      
        
         if (!estado) {
             jTableTorneo.clearSelection();

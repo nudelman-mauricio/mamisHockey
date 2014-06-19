@@ -17,6 +17,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Categoria;
 import logicaNegocios.Localidad;
+import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 /**
@@ -28,9 +29,10 @@ public class ITorneo extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unJDesktopPane;
+    private Torneo unTorneo;
     
     
-    public ITorneo(JInternalFrame unJInternalFrame) {
+   public ITorneo(JInternalFrame unJInternalFrame) {
         initComponents();
         
         this.unJInternalFrame = unJInternalFrame;
@@ -47,6 +49,23 @@ public class ITorneo extends javax.swing.JInternalFrame {
         SeInicio();        
     }
      
+      public ITorneo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unTorneo = unTorneo;
+        
+        this.setTitle("Torneo: " + unTorneo.getNombre());
+        SeInicio();
+
+        
+        jButtonEditar.setEnabled(true);
+        jButtonCancelar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+
+        camposCargar(unTorneo);
+    }
+           
       public ITorneo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unJDesktopPane) {
         initComponents();
         
@@ -63,7 +82,12 @@ public class ITorneo extends javax.swing.JInternalFrame {
         cargarJComboBoxCategoria();
         camposActivo(false);
     }
-
+      
+    public void camposCargar(Torneo unTorneo){
+        this.jTextFieldFechaInicio.setText(unTorneo.getFechaInicio().toString());
+        this.jTextFieldNombreTorneo.setText(unTorneo.getNombre());
+        this.jComboBoxCategoria.setSelectedItem(unTorneo.getUnaCategoria());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -282,7 +306,8 @@ public class ITorneo extends javax.swing.JInternalFrame {
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
-public void camposActivo(boolean Editable) {
+
+    public void camposActivo(boolean Editable) {
         jButtonNuevo.setEnabled(!Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
