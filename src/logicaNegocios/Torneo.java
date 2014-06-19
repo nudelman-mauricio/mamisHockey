@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -17,6 +18,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Torneo implements Serializable, Comparable {
+
+    @OneToMany(targetEntity = Equipo.class)
+    private Collection<Equipo> equiposInscriptos;
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -50,7 +54,15 @@ public class Torneo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+//-------------------------------GETERS Y SETERS--------------------------------
+    public Collection<Equipo> getEquiposInscriptos() {
+        return this.equiposInscriptos;
+    }
+
+    public void setEquiposInscriptos(Collection<Equipo> equiposInscriptos) {
+        this.equiposInscriptos = equiposInscriptos;
+    }
+
     public Date getFechaInicio() {
         return this.fechaInicio;
     }
@@ -112,7 +124,7 @@ public class Torneo implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+//--------------------------------PERSISTENCIA----------------------------------
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -127,7 +139,36 @@ public class Torneo implements Serializable, Comparable {
     }
 //------------------------------FIN PERSISTENCIA--------------------------------
 
-//---------------------------------FECHAS TORNEO--------------------------------    
+//-----------------------------EQUIPOS INSCRIPTOS-------------------------------
+    public int agregarEquipoInscripto(EntityManager entityManager, Equipo unEquipo) {
+        this.equiposInscriptos.add(unEquipo);
+        this.persistir(entityManager);
+        return this.getCantidadEquiposInscriptos();
+    }
+
+    public int quitarEquipoInscripto(EntityManager entityManager, Equipo unEquipo) {
+        this.equiposInscriptos.remove(unEquipo);
+        this.persistir(entityManager);
+        return this.getCantidadEquiposInscriptos();
+    }
+
+    /**
+     * Devuelve la cantidad de Equipos Inscriptos en un torneo
+     *
+     * @return cantidadEquiposInscriptos
+     */
+    public int getCantidadEquiposInscriptos() {
+        int cantidadEquiposInscriptos = 0;
+        for (Equipo aux : this.equiposInscriptos) {
+            if (!aux.isBorradoLogico()) {
+                cantidadEquiposInscriptos++;
+            }
+        }
+        return cantidadEquiposInscriptos;
+    }
+//---------------------------FIN EQUIPOS INSCRIPTOS-----------------------------
+
+//-------------------------------FECHAS TORNEO----------------------------------
     public void agregarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
         this.fechasTorneo.add(unaFechaTorneo);
         this.persistir(entityManager);
@@ -137,15 +178,16 @@ public class Torneo implements Serializable, Comparable {
         this.fechasTorneo.remove(unaFechaTorneo);
         this.persistir(entityManager);
     }
-    
+
     /**
      * Devuelve la cantidad de fechas de un torneo contando solo las NO borradas
+     *
      * @return cantidadFechas
      */
-    public int getCantidadFechas(){
-        int cantidadFechas =0;
+    public int getCantidadFechas() {
+        int cantidadFechas = 0;
         for (FechaTorneo aux : this.fechasTorneo) {
-            if(!aux.isBorradoLogico()){
+            if (!aux.isBorradoLogico()) {
                 cantidadFechas++;
             }
         }

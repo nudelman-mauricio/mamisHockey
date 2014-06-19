@@ -98,7 +98,7 @@ public class ControladoraEntidades {
                 }
             }
         }
-        String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre = " + nombreMes;
+        String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
         Query traerMes = this.entityManager.createQuery(unaConsulta);
         return ((Mes) traerMes.getSingleResult());
     }
@@ -288,7 +288,6 @@ public class ControladoraEntidades {
         unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
     }
 
-    //aca hay que arreglar el metodo haciendo que deshaga todo lo de crear pase y crear pase cero
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
         ultimoPase.getUnEquipo().quitarPlantel(this.entityManager, unaSocia);
         obtenerAnteUltimoEquipo(unaSocia).agregarPlantel(this.entityManager, unaSocia);

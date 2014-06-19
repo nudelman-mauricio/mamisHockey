@@ -600,6 +600,9 @@
             <jpa:one-to-many name="fechasTorneo" target-entity="FechaTorneo" collection-type="java.util.Collection" connected-entity-id="_1397869438638" id="_1397870869810283">
                 <jpa:join-table/>
             </jpa:one-to-many>
+            <jpa:one-to-many name="equiposInscriptos" target-entity="Equipo" collection-type="java.util.Collection" connected-entity-id="_1397866346227" id="_1403104797050163">
+                <jpa:join-table/>
+            </jpa:one-to-many>
             <jpa:one-to-one name="unaCategoria" target-entity="Categoria" primaryKey="false" connected-entity-id="_1397869355771" id="_1397870860243282">
                 <jpa:join-table/>
             </jpa:one-to-one>
@@ -737,16 +740,16 @@
                 <Bounds x="-412.0" y="-732.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865962543" id="_1397865962543_gui">
-                <Bounds x="1055.0" y="-461.0" width="192.0" height="26.0"/>
+                <Bounds x="1055.0" y="-461.0" width="190.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397866303816" id="_1397866303816_gui">
-                <Bounds x="923.0" y="-144.0" width="132.0" height="24.0"/>
+                <Bounds x="923.0" y="-144.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
                 <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866545595" id="_1397866545595_gui">
-                <Bounds x="78.0" y="45.0" width="171.0" height="24.0"/>
+                <Bounds x="-152.0" y="93.0" width="171.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866760557" id="_1397866760557_gui">
                 <Bounds x="489.0" y="-246.0" width="135.0" height="24.0"/>
@@ -782,7 +785,7 @@
                 <Bounds x="360.0" y="45.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="628.0" y="-591.0" width="222.0" height="24.0"/>
+                <Bounds x="628.0" y="-591.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
                 <Bounds x="1140.0" y="256.0" width="136.0" height="24.0"/>
@@ -791,7 +794,7 @@
                 <Bounds x="613.0" y="482.0" width="188.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870789243" id="_1397870789243_gui">
-                <Bounds x="136.0" y="141.0" width="136.0" height="24.0"/>
+                <Bounds x="136.0" y="141.0" width="158.0" height="24.0"/>
             </shape>
             <shape elementRef="_1398774975217" id="_1398774975217_gui">
                 <Bounds x="708.0" y="-168.0" width="159.0" height="24.0"/>
