@@ -35,6 +35,13 @@ public class Frecuencia implements Serializable, Comparable {
 
     }
 
+    public Frecuencia(EntityManager entityManager, String diaGeneracion, String diaVencimiento) {
+        this.diaGeneracion = diaGeneracion;
+        this.diaVencimiento = diaVencimiento;
+        this.borradoLogico = false;
+        this.persistir(entityManager);
+    }
+    
     public Frecuencia(EntityManager entityManager, String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
         this.diaGeneracion = diaGeneracion;
         this.diaVencimiento = diaVencimiento;

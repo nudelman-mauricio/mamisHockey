@@ -322,6 +322,10 @@ public class ControladoraContabilidad {
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
         return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento, meses);
     }
+    
+    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
+        return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento);
+    }
 
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
         unaFrecuencia.setDiaGeneracion(diaGeneracion);
@@ -352,6 +356,14 @@ public class ControladoraContabilidad {
         String unaConsulta = "SELECT A FROM Frecuencia A WHERE A.borradoLogico = FALSE";
         List<Frecuencia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
+    }
+    
+    public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
+        unaFrecuencia.agregarMes(this.entityManager, unMes);
+    }
+
+    public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
+        unaFrecuencia.quitarMes(this.entityManager, unMes);
     }
 //----------------------------FIN FRECUENCIA------------------------------------
 }

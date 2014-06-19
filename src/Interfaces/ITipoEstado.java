@@ -79,18 +79,20 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     public void camposActivo(boolean Editable) {
         jTextFieldNombreEstado.setEditable(Editable);
         jTextFieldMontoMensual.setEditable(Editable);
-        jCheckBox1.setEnabled(Editable);
-        jCheckBox2.setEnabled(Editable);
-        jCheckBox3.setEnabled(Editable);
-        jCheckBox4.setEnabled(Editable);
-        jCheckBox5.setEnabled(Editable);
-        jCheckBox6.setEnabled(Editable);
-        jCheckBox7.setEnabled(Editable);
-        jCheckBox8.setEnabled(Editable);
-        jCheckBox9.setEnabled(Editable);
-        jCheckBox10.setEnabled(Editable);
-        jCheckBox11.setEnabled(Editable);
-        jCheckBox12.setEnabled(Editable);
+        //FALTA VERIFICAR SI HAY UNA MEJOR PROPIEDAD, SETENABLE LO DEJA POCO LEIBLE--------------------------------------------------
+        jCheckBox1.setFocusable(Editable);
+        jCheckBox2.setFocusable(Editable);
+        jCheckBox3.setFocusable(Editable);
+        jCheckBox4.setFocusable(Editable);
+        jCheckBox5.setFocusable(Editable);
+        jCheckBox6.setFocusable(Editable);
+        jCheckBox7.setFocusable(Editable);
+        jCheckBox8.setFocusable(Editable);
+        jCheckBox9.setFocusable(Editable);
+        jCheckBox10.setFocusable(Editable);
+        jCheckBox11.setFocusable(Editable);
+        jCheckBox12.setFocusable(Editable);
+        //---------------------------------------------------------------------------------------------------------------------------
         jComboBoxDiaGeneracion.setEnabled(Editable);
         jComboBoxDiaVencimiento.setEnabled(Editable);
     }
@@ -551,51 +553,45 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        Collection<Mes> meses = new TreeSet();
+        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
         if (jCheckBox1.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(1));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(1));
         }
         if (jCheckBox2.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(2));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(2));
         }
         if (jCheckBox3.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(3));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(3));
         }
         if (jCheckBox4.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(4));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(4));
         }
         if (jCheckBox5.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(5));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(5));
         }
         if (jCheckBox6.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(6));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(6));
         }
         if (jCheckBox7.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(7));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(7));
         }
         if (jCheckBox8.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(8));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(8));
         }
         if (jCheckBox9.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(9));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(9));
         }
         if (jCheckBox10.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(10));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(10));
         }
         if (jCheckBox11.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(11));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(11));
         }
         if (jCheckBox12.isSelected()) {
-            meses.add(unaControladoraGlobal.getMesDB(12));
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(12));
         }
-
-        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), meses);
         
-        //Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
-        
-        //unaFrecuencia.getMeses().add(unaControladoraGlobal.getMesDB(12));
-        
-        //unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaFrecuencia , jTextFieldNombreEstado.getText());
+        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaFrecuencia , jTextFieldNombreEstado.getText());
         JOptionPane.showMessageDialog(this, "Nuevo Estado posible Guardado.");
 
         //Comportamientos Extras

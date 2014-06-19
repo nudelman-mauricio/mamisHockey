@@ -736,6 +736,10 @@ public class ControladoraGlobal {
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
         return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, meses);
     }
+    
+    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
+        return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
+    }
 
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarFrecuencia(unaFrecuencia, diaGeneracion, diaVencimiento, borradoLogico);
@@ -751,6 +755,15 @@ public class ControladoraGlobal {
 
     public List<Frecuencia> getFrecuenciasBD() {
         return this.unaControladoraContabilidad.getFrecuenciasBD();
+    }
+    
+    
+    public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
+        this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
+    }
+
+    public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
+        this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
     }
 //----------------------------FIN FRECUENCIA------------------------------------
 
