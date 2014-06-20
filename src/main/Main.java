@@ -3,51 +3,44 @@ package main;
 import Interfaces.IMenuPrincipalInterface;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-/**
- *
- * @author Mauricio
- */
 public class Main {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = null;
-        EntityManager em = null;
-
+        // <editor-fold defaultstate="collapsed" desc="Conexion con la Base de Datos">
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
         try {
-            emf = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
-            em = emf.createEntityManager();
-            System.out.println("EntityManager Created: " + emf);
-
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
+            entityManager = entityManagerFactory.createEntityManager();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "Eror en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        // </editor-fold>
 
-        //----------------------------------------- CODIGO DE PRUEBAS -----------------------------------------
-        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(em);
-
+        // <editor-fold defaultstate="collapsed" desc="Aplicar Skin">
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
             //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
             Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/toxicthemepack.zip");
             SkinLookAndFeel.setSkin(theSkinToUse);
             UIManager.setLookAndFeel(new SkinLookAndFeel());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "Eror al aplicar el Skin, se ejecutará el programa con apariencia por defecto.", "Problema al cargar el Skin", JOptionPane.WARNING_MESSAGE);
         }
-
+        // </editor-fold>
+        
+        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(entityManager);
         IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
         SwingUtilities.updateComponentTreeUI(unaVentana);
         unaVentana.setLocationRelativeTo(null); //Mandar al centro
         unaVentana.setVisible(true);
-
     }
 }

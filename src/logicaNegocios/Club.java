@@ -167,10 +167,5 @@ public class Club implements Serializable, Comparable {
         this.canchas.add(unaCancha);
         this.persistir(entityManager);
     }
-
-    public void quitarCancha(EntityManager entityManager, Cancha unaCancha) {
-        this.canchas.remove(unaCancha);
-        this.persistir(entityManager);
-    }
 //-------------------------------- FIN CANCHAS ---------------------------------
 }

@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,17 +17,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
     }
 
-//------------------------------------------------------------------------------
-//--------------------------CONTROLADORA ENTIDADES------------------------------
-//------------------------------------------------------------------------------
-//
-//----------------------------------MESES---------------------------------------
-    public Mes getMesDB(int numeroMes) {
-        return this.unaControladoraEntidades.getMesDB(numeroMes);
-    }
-//--------------------------------FIN MESES-------------------------------------
-
-//----------------------------PERSONA AUXILIAR----------------------------------
+// <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
+    // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
     public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
         this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, cuerpoTecnicoActivo);
     }
@@ -76,9 +66,9 @@ public class ControladoraGlobal {
     public List<PersonaAuxiliar> getPersonaAuxiliarBDFiltro(String dato) {
         return this.unaControladoraEntidades.getPersonasAuxiliarBDFiltro(dato);
     }
-//--------------------------FIN PERSONAS AUXILIARES-----------------------------
+    // </editor-fold>
 
-//------------------------------SOCIAS------------------------------------------   
+    // <editor-fold defaultstate="collapsed" desc="Socias">
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
     }
@@ -102,15 +92,15 @@ public class ControladoraGlobal {
     public List<Socia> getSociasBDFiltro(String dato) {
         return this.unaControladoraEntidades.getSociasBDFiltro(dato);
     }
-//------------------------------FIN SOCIAS--------------------------------------
+    // </editor-fold>
 
-//-----------------------------------PASES--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Pases">
     public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
         String observacionDeuda;
+        //no necesariamente es el primer pase. tambien pude una socia vieja pasar al vacio y luego a otro equipo
         if (unaSocia.getEquipoActual() == null) {
             observacionDeuda = "Primer pase de la socia al Equipo: " + unEquipoNuevo.getNombre();
-        }
-        else {
+        } else {
             observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
         }
         String conceptoDeuda = "Por Pase";
@@ -133,9 +123,9 @@ public class ControladoraGlobal {
     public List<Pase> getPasesBD() {
         return this.unaControladoraEntidades.getPaseBD();
     }
-//---------------------------------FIN PASES------------------------------------
+    // </editor-fold>
 
-//------------------------------LOCALIDADES-------------------------------------   
+    // <editor-fold defaultstate="collapsed" desc="Localidad">
     public void crearLocalidad(String nombre, String codPostal) {
         this.unaControladoraEntidades.crearLocalidad(nombre, codPostal);
     }
@@ -155,9 +145,9 @@ public class ControladoraGlobal {
     public List<Localidad> getLocalidadesBD() {
         return unaControladoraEntidades.getLocalidadesBD();
     }
-//------------------------------FIN LOCALIDADES---------------------------------
+    // </editor-fold>
 
-//-----------------------------------ERGOMETRIA---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Ergometria">
     public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         this.unaControladoraEntidades.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
     }
@@ -178,9 +168,9 @@ public class ControladoraGlobal {
     public Ergometria getErgometriaBD(Long id) {
         return this.unaControladoraEntidades.getErgometriaBD(id);
     }
-//---------------------------------FIN ERGOMETRIAS---------------------------------
+    // </editor-fold>
 
-//-----------------------------------ESTADOS-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Estados">
     public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.crearEstado(unaSocia, fecha, unTipoEstado);
     }
@@ -208,9 +198,9 @@ public class ControladoraGlobal {
     public List<Estado> getEstadosDB() {
         return this.unaControladoraEntidades.getEstadosDB();
     }
-//---------------------------------FIN ESTADOS----------------------------------
+    // </editor-fold>
 
-//---------------------------------TIPO ESTADO----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
     public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
         this.unaControladoraEntidades.crearTipoEstado(monto, unaFrecuencia, nombre);
     }
@@ -230,20 +220,11 @@ public class ControladoraGlobal {
     public List<TipoEstado> getTiposEstadosBD() {
         return unaControladoraEntidades.getTiposEstadosBD();
     }
-//-------------------------------FIN TIPO ESTADO--------------------------------
+    // </editor-fold>
+// </editor-fold>
 
-//------------------------------------------------------------------------------
-//--------------------------FIN CONTROLADORA ENTIDADES--------------------------
-//------------------------------------------------------------------------------
-//
-//    
-//    
-//    
-//------------------------------------------------------------------------------
-//---------------------------CONTROLADORA DEPORTIVA-----------------------------
-//------------------------------------------------------------------------------
-//
-//--------------------------------SANCIONES-------------------------------------
+// <editor-fold defaultstate="collapsed" desc="Controladora Deportiva">
+    // <editor-fold defaultstate="collapsed" desc="Sanciones">
     public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
         this.unaControladoraDeportiva.crearSancionTribunal(unEquipo, unaPersona, fecha, motivo, detalles);
     }
@@ -263,10 +244,9 @@ public class ControladoraGlobal {
     public List<SancionTribunal> getSancionesTribunalesBD() {
         return this.unaControladoraDeportiva.getSancionesTribunalesBD();
     }
+    // </editor-fold>
 
-//------------------------------FIN SANCIONES-----------------------------------
-//
-//--------------------------------TARJETAS--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tarjetas">
     public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String minuto, String detalles) {
         this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, minuto, detalles);
     }
@@ -290,9 +270,9 @@ public class ControladoraGlobal {
     public List<Tarjeta> getTarjetasBD() {
         return this.unaControladoraDeportiva.getTarjetasBD();
     }
-//------------------------------FIN TARJETAS------------------------------------
+    // </editor-fold>
 
-//------------------------------EQUIPOS-----------------------------------------   
+    // <editor-fold defaultstate="collapsed" desc="Equipos">
     public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
         return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT);
     }
@@ -320,9 +300,9 @@ public class ControladoraGlobal {
     public List<Equipo> getEquiposBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getEquiposBDFiltro(dato);
     }
-//------------------------------FIN EQUIPOS-------------------------------------
+    // </editor-fold>
 
-//------------------------------CLUBES------------------------------------------   
+    // <editor-fold defaultstate="collapsed" desc="Clubes">
     public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
         this.unaControladoraDeportiva.crearClub(nombre, nombrePresidente, unaLocalidad);
     }
@@ -346,9 +326,9 @@ public class ControladoraGlobal {
     public List<Club> getClubesBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getClubesBDFiltro(dato);
     }
-//------------------------------FIN CLUBES--------------------------------------
+    // </editor-fold>
 
-//--------------------------------INDUMENTARIAS---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Indumentarias">
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         this.unaControladoraDeportiva.crearIndumentaria(unEquipo, camiseta, media, pollera);
     }
@@ -372,20 +352,15 @@ public class ControladoraGlobal {
     public List<Indumentaria> getIndumentariasBD() {
         return this.unaControladoraDeportiva.getIndumentariasBD();
     }
-//------------------------------FIN INDUMENTARIAS-------------------------------
+    // </editor-fold>
 
-//-------------------------------- CANCHAS -------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Canchas">
     public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.crearCancha(unClub, nombre, seOcupa, unTipoCancha);
     }
 
     public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, seOcupa, unTipoCancha, borradoLogico);
-    }
-
-    //Esta Interesante, la pregunta seria si se va utilizar... ¿Va ser factible desde la parte grafica?
-    public void cambiarCanchaDeClub(Cancha unaCancha, Club unClubActual, Club unClubNuevo) {
-        this.unaControladoraDeportiva.cambiarCanchaDeClub(unaCancha, unClubActual, unClubNuevo);
     }
 
     public void eliminarCancha(Cancha unaCancha) {
@@ -399,9 +374,9 @@ public class ControladoraGlobal {
     public List<Cancha> getCanchasBD() {
         return this.unaControladoraDeportiva.getCanchasBD();
     }
-//--------------------------------FIN CANCHAS-----------------------------------
+    // </editor-fold>
 
-//--------------------------------TIPO CANCHA-----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
     public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
         this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);
     }
@@ -421,9 +396,9 @@ public class ControladoraGlobal {
     public List<TipoCancha> getTiposCanchasBD() {
         return this.unaControladoraDeportiva.getTiposCanchasBD();
     }
-//-----------------------------FIN TIPO CANCHA----------------------------------
+    // </editor-fold>
 
-//------------------------------CATEGORIAS--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Categorias">
     public void crearCategoria(int cantMenores, String nombre) {
         this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
     }
@@ -443,9 +418,9 @@ public class ControladoraGlobal {
     public List<Categoria> getCategoriasBD() {
         return this.unaControladoraDeportiva.getCategoriasBD();
     }
-//------------------------------FIN CATEGORIAS----------------------------------
+    // </editor-fold>
 
-//------------------------------TORNEOS-----------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Torneos">
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         this.unaControladoraDeportiva.crearTorneo(diaInicio, unaCategoria, nombre);
     }
@@ -469,9 +444,9 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
-//------------------------------FIN TORNEOS-------------------------------------
+    // </editor-fold>
 
-//------------------------------FECHAS TORNEO-----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);
     }
@@ -480,37 +455,26 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarFechaTorneo(unaFechaTorneo, numeroFecha, borradoLogico);
     }
 
-    //ME PARECE QUE NO TIENE NINGUN SENTIDO - NI SIQUIERA VIABLE DE LA PARTE GRAFICA
-    public void cambiarFechaTorneoDeTorneo(FechaTorneo unaFechaTorneo, Torneo unTorneoActual, Torneo unTorneoNuevo) {
-        this.unaControladoraDeportiva.cambiarFechaTorneoDeTorneo(unaFechaTorneo, unTorneoActual, unTorneoNuevo);
-    }
-
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
         this.unaControladoraDeportiva.eliminarFechaTorneo(unaFechaTorneo);
     }
 
-    //public FechaTorneo getFechaTorneoBD(Long id) {
-    public FechaTorneo getFechaTorneoBD(EntityManager entityManager, Long id) {
+    public FechaTorneo getFechaTorneoBD(Long id) {
         return this.unaControladoraDeportiva.getFechaTorneoBD(id);
     }
 
     public List<FechaTorneo> getFechasTorneosBD() {
         return this.unaControladoraDeportiva.getFechasTorneosBD();
     }
-//----------------------------FIN FECHAS TORNEO---------------------------------
+    // </editor-fold>
 
-//---------------------------------PARTIDOS-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Partidos">
     public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
     }
 
     public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarPartido(unPartido, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, unaCancha, observaciones, unEquipoLocal, borradoLogico);
-    }
-
-    //ME PARECE QUE NO TIENE NINGUN SENTIDO - NI SIQUIERA VIABLE DE LA PARTE GRAFICA
-    public void cambiarPartidoDeFechaTorneo(Partido unPartido, FechaTorneo unaFechaTorneoActual, FechaTorneo unaFechaTorneoNueva) {
-        this.unaControladoraDeportiva.cambiarPartidoDeFechaTorneo(unPartido, unaFechaTorneoActual, unaFechaTorneoNueva);
     }
 
     public void eliminarPartido(Partido unPartido) {
@@ -524,9 +488,9 @@ public class ControladoraGlobal {
     public List<Partido> getPartidosBD() {
         return this.unaControladoraDeportiva.getPartidosBD();
     }
-//---------------------------------FIN PARTIDOS---------------------------------
+    // </editor-fold>
 
-//---------------------------------GOLES----------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Gol">
     public void crearGol(Socia unaSocia, Partido unPartido, String minuto) {
         this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, minuto);
     }
@@ -554,19 +518,11 @@ public class ControladoraGlobal {
     public List<Gol> getGolesBD() {
         return this.unaControladoraDeportiva.getGolesBD();
     }
-//-------------------------------FIN GOLES--------------------------------------
+    // </editor-fold>
+// </editor-fold>
 
-//------------------------------------------------------------------------------
-//------------------------FIN CONTROLADORA DEPORTIVA----------------------------
-//------------------------------------------------------------------------------
-//
-//
-//
-//------------------------------------------------------------------------------
-//------------------------CONTROLADORA CONTABILIDAD-----------------------------
-//------------------------------------------------------------------------------
-//
-//------------------------------CONCEPTO DEPORTIVOS-----------------------------
+// <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
+    // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
     public void crearConceptoDeportivo(double monto, String concepto) {
         this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
     }
@@ -586,27 +542,15 @@ public class ControladoraGlobal {
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosBD();
     }
-//----------------------------- FIN CONCEPTODEPORTIVO --------------------------
+    // </editor-fold>
 
-//-----------------------------------DEUDAS-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Deudas">
     public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
     }
 
     public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.unaControladoraContabilidad.crearDeudaEquipo(unEquipo, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
-    }
-
-    //TIENE SENTIDO?
-    //public void modificarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {
-    public void cambiarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {
-        this.unaControladoraContabilidad.cambiarDeudaDeEquipo(unaDeuda, unEquipoActual, unEquipoNuevo);
-    }
-
-    //TIENE SENTIDO?
-    //public void modificarDeudaDeSocia(Deuda unaDeuda, Socia unaSociaActual, Socia unaSociaNueva) {
-    public void cambiarDeudaDeSocia(Deuda unaDeuda, Socia unaSociaActual, Socia unaSociaNueva) {
-        this.unaControladoraContabilidad.cambiarDeudaDeSocia(unaDeuda, unaSociaActual, unaSociaNueva);
     }
 
     public void eliminarDeuda(Deuda unaDeuda) {
@@ -620,9 +564,9 @@ public class ControladoraGlobal {
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
-//---------------------------------FIN DEUDAS-----------------------------------
+    // </editor-fold>
 
-//--------------------------------PAGO CUOTA------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Pago Cuotas">
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {
         this.unaControladoraContabilidad.crearPagoCuota(unaCuota, monto, fechaPago, observacion);
     }
@@ -642,9 +586,9 @@ public class ControladoraGlobal {
     public List<PagoCuota> getPagosCuotasBD() {
         return this.unaControladoraContabilidad.getPagosCuotasBD();
     }
-//------------------------------FIN PAGO CUOTA----------------------------------
+    // </editor-fold>
 
-//----------------------------- CONCEPTOINGRESO --------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Concepto Ingreso">
     public void crearConceptoIngreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoIngreso(nombre, detalle);
     }
@@ -664,9 +608,9 @@ public class ControladoraGlobal {
     public List<ConceptoIngreso> getConceptosIngresosBD() {
         return this.unaControladoraContabilidad.getConceptosIngresosBD();
     }
-//----------------------------- FIN CONCEPTOINGRESO ----------------------------
+    // </editor-fold>
 
-//----------------------------- CONCEPTO EGRESO --------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Concepto Egreso">
     public void crearConceptoEgreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoEgreso(nombre, detalle);
     }
@@ -686,9 +630,9 @@ public class ControladoraGlobal {
     public List<ConceptoEgreso> getConceptosEgresosBD() {
         return this.unaControladoraContabilidad.getConceptosEgresosBD();
     }
-//----------------------------- FIN CONCEPTO EGRESO ----------------------------
+    // </editor-fold>
 
-//----------------------------- INGRESOSOTRO -----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Ingreso Otro">
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
         this.unaControladoraContabilidad.crearIngresoOtro(fecha, monto, unConceptoIngreso, detalle);
     }
@@ -708,9 +652,9 @@ public class ControladoraGlobal {
     public List<IngresoOtro> getIngresosOtrosBD() {
         return this.unaControladoraContabilidad.getIngresosOtrosBD();
     }
-//----------------------------- FIN INGRESOSOTRO -------------------------------
+    // </editor-fold>
 
-//----------------------------- EGRESOS ----------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Egreso">
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
         this.unaControladoraContabilidad.crearEgreso(fecha, monto, unConceptoEgreso, observacion);
     }
@@ -730,13 +674,15 @@ public class ControladoraGlobal {
     public List<Egreso> getEgresosBD() {
         return this.unaControladoraContabilidad.getEgresosBD();
     }
-//----------------------------- FIN EGRESOS ------------------------------------
+    // </editor-fold>
 
-//------------------------------FRECUENCIA--------------------------------------
-    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
-        return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento, meses);
+    // <editor-fold defaultstate="collapsed" desc="Meses">
+    public Mes getMesDB(int numeroMes) {
+        return this.unaControladoraContabilidad.getMesDB(numeroMes);
     }
-    
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Frecuencia"> 
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
         return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
     }
@@ -749,15 +695,6 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.eliminarFrecuencia(unaFrecuencia);
     }
 
-    public Frecuencia getFrecuenciaBD(Long id) {
-        return this.unaControladoraContabilidad.getFrecuenciaBD(id);
-    }
-
-    public List<Frecuencia> getFrecuenciasBD() {
-        return this.unaControladoraContabilidad.getFrecuenciasBD();
-    }
-    
-    
     public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
         this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
     }
@@ -765,9 +702,14 @@ public class ControladoraGlobal {
     public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
         this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
     }
-//----------------------------FIN FRECUENCIA------------------------------------
 
-//------------------------------------------------------------------------------
-//----------------------FIN CONTROLADORA CONTABILIDAD---------------------------
-//------------------------------------------------------------------------------
+    public Frecuencia getFrecuenciaBD(Long id) {
+        return this.unaControladoraContabilidad.getFrecuenciaBD(id);
+    }
+
+    public List<Frecuencia> getFrecuenciasBD() {
+        return this.unaControladoraContabilidad.getFrecuenciasBD();
+    }
+    // </editor-fold>
+// </editor-fold>
 }

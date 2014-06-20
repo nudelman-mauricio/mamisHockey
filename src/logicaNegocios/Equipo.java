@@ -209,11 +209,6 @@ public class Equipo implements Serializable, Comparable {
         this.deudas.add(unaDeuda);
         this.persistir(entityManager);
     }
-
-    public void quitarDeuda(EntityManager entityManager, Deuda unaDeuda) {
-        this.deudas.remove(unaDeuda);
-        this.persistir(entityManager);
-    }
 //---------------------------------FIN DEUDAS-----------------------------------
 
 //--------------------------------INDUMENTARIAS---------------------------------

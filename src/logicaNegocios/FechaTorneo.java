@@ -103,10 +103,5 @@ public class FechaTorneo implements Serializable, Comparable {
         this.partidos.add(unPartido);
         this.persistir(entityManager);
     }
-
-    public void quitarPartido(EntityManager entityManager, Partido unPartido) {
-        this.partidos.remove(unPartido);
-        this.persistir(entityManager);
-    }
 //---------------------------------FIN PARTIDOS---------------------------------
 }

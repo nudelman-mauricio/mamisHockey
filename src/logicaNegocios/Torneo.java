@@ -174,11 +174,6 @@ public class Torneo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-    public void quitarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
-        this.fechasTorneo.remove(unaFechaTorneo);
-        this.persistir(entityManager);
-    }
-
     /**
      * Devuelve la cantidad de fechas de un torneo contando solo las NO borradas
      *

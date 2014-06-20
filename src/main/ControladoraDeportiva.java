@@ -30,9 +30,9 @@ public class ControladoraDeportiva {
         this.entityManager = entityManager;
     }
 
-//--------------------------------SANCIONES-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Sanciones">
     public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
-        SancionTribunal unaSancionTribunal = new SancionTribunal(this.entityManager, fecha, motivo, detalles);
+        new SancionTribunal(this.entityManager, fecha, motivo, detalles);
     }
 
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date vencimiento, int cantFechas, Date fecha, String motivo, String detalles, Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico) {
@@ -58,11 +58,9 @@ public class ControladoraDeportiva {
      * Devuelve una SancionTribunal buscando por ID borrados inclusive
      */
     public SancionTribunal getSancionTribunalBD(Long id) {
-        SancionTribunal resultado;
         String unaConsulta = "SELECT A FROM SancionTribunal A WHERE A.idSancionTribunal = " + id;
-        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
-        resultado = (SancionTribunal) traerSancionTribunal.getSingleResult();
-        return resultado;
+        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);        
+        return ((SancionTribunal) traerSancionTribunal.getSingleResult());
     }
 
     /**
@@ -73,9 +71,9 @@ public class ControladoraDeportiva {
         List<SancionTribunal> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN SANCIONES-----------------------------------
+    // </editor-fold>
 
-//--------------------------------TARJETAS--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tarjetas">
     public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String minuto, String detalles) {
         Tarjeta unaTarjeta = new Tarjeta(this.entityManager, tipo, motivo, minuto, detalles);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
@@ -125,9 +123,9 @@ public class ControladoraDeportiva {
         List<Tarjeta> unaListaResultado = traerTarjeta.getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN TARJETAS------------------------------------
+    // </editor-fold>
 
-//------------------------------EQUIPOS-----------------------------------------   
+    // <editor-fold defaultstate="collapsed" desc="Equipos">
     public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
         Equipo unEquipo = new Equipo(this.entityManager, nombre, unDT);
         unClub.agregarEquipo(this.entityManager, unEquipo);
@@ -185,9 +183,9 @@ public class ControladoraDeportiva {
         List<Equipo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN EQUIPOS-------------------------------------
+    // </editor-fold>
 
-//------------------------------CLUBES------------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Clubes">
     public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
         Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
@@ -234,9 +232,9 @@ public class ControladoraDeportiva {
         List<Club> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN CLUBES--------------------------------------
+    // </editor-fold>
 
-//--------------------------------INDUMENTARIAS---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Indumentarias">
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         Indumentaria unaIndumentaria = new Indumentaria(this.entityManager, camiseta, media, pollera);
         unEquipo.agregarIndumentaria(this.entityManager, unaIndumentaria);
@@ -279,9 +277,9 @@ public class ControladoraDeportiva {
         List<Indumentaria> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN INDUMENTARIAS-------------------------------
+    // </editor-fold>
 
-//-------------------------------- CANCHAS -------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Canchas">
     public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
         Cancha unaCancha = new Cancha(this.entityManager, nombre, seOcupa, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
@@ -293,11 +291,6 @@ public class ControladoraDeportiva {
         unaCancha.setUnTipoCancha(unTipoCancha);
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(this.entityManager);
-    }
-
-    public void cambiarCanchaDeClub(Cancha unaCancha, Club unClubActual, Club unClubNuevo) {
-        unClubActual.quitarCancha(this.entityManager, unaCancha);
-        unClubNuevo.agregarCancha(this.entityManager, unaCancha);
     }
 
     public void eliminarCancha(Cancha unaCancha) {
@@ -324,11 +317,11 @@ public class ControladoraDeportiva {
         List<Cancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//--------------------------------FIN CANCHAS-----------------------------------
+    // </editor-fold>
 
-//--------------------------------TIPO CANCHA-----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
     public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
-        TipoCancha unTipoCancha = new TipoCancha(this.entityManager, monto, unaFrecuencia, nombre);
+        new TipoCancha(this.entityManager, monto, unaFrecuencia, nombre);
     }
 
     public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
@@ -363,11 +356,11 @@ public class ControladoraDeportiva {
         List<TipoCancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//-----------------------------FIN TIPO CANCHA----------------------------------
+    // </editor-fold>
 
-//------------------------------CATEGORIAS--------------------------------------    
+    // <editor-fold defaultstate="collapsed" desc="Categorias">
     public void crearCategoria(int cantMenores, String nombre) {
-        Categoria unaCategoria = new Categoria(this.entityManager, cantMenores, nombre);
+        new Categoria(this.entityManager, cantMenores, nombre);
     }
 
     public void modificarCategoria(Categoria unaCategoria, int cantMenores, String nombre) {
@@ -399,11 +392,11 @@ public class ControladoraDeportiva {
         List<Categoria> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN CATEGORIAS----------------------------------
+    // </editor-fold>
 
-//------------------------------TORNEOS-----------------------------------------        
+    // <editor-fold defaultstate="collapsed" desc="Torneos">
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
-        Torneo unTorneo = new Torneo(this.entityManager, diaInicio, unaCategoria, nombre);
+        new Torneo(this.entityManager, diaInicio, unaCategoria, nombre);
     }
 
     public void modificarTorneo(Torneo unTorneo, Date fechaInicio, Categoria unaCategoria, String nombre) {
@@ -445,9 +438,9 @@ public class ControladoraDeportiva {
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN TORNEOS-------------------------------------
+    // </editor-fold>
 
-//---------------------------------FECHAS TORNEO--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         FechaTorneo unaFechaTorneo = new FechaTorneo(this.entityManager, numeroFecha);
         unTorneo.agregarFechaTorneo(this.entityManager, unaFechaTorneo);
@@ -457,11 +450,6 @@ public class ControladoraDeportiva {
         unaFechaTorneo.setNumeroFecha(numeroFecha);
         unaFechaTorneo.setBorradoLogico(borradoLogico);
         unaFechaTorneo.persistir(this.entityManager);
-    }
-
-    public void cambiarFechaTorneoDeTorneo(FechaTorneo unaFechaTorneo, Torneo unTorneoActual, Torneo unTorneoNuevo) {
-        unTorneoActual.quitarFechaTorneo(this.entityManager, unaFechaTorneo);
-        unTorneoNuevo.agregarFechaTorneo(this.entityManager, unaFechaTorneo);
     }
 
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
@@ -487,9 +475,9 @@ public class ControladoraDeportiva {
         List<FechaTorneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN FECHAS TORNEO-------------------------------
+    // </editor-fold>
 
-//-----------------------------------PARTIDOS-----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Partidos">
     public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
         Partido unPartido = new Partido(this.entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
         unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
@@ -509,11 +497,6 @@ public class ControladoraDeportiva {
         unPartido.setUnEquipoVisitante(unEquipoVisitante);
         unPartido.setUnaCancha(unaCancha);
         unPartido.persistir(this.entityManager);
-    }
-
-    public void cambiarPartidoDeFechaTorneo(Partido unPartido, FechaTorneo unaFechaTorneoActual, FechaTorneo unaFechaTorneoNueva) {
-        unaFechaTorneoActual.quitarPartido(this.entityManager, unPartido);
-        unaFechaTorneoNueva.agregarPartido(this.entityManager, unPartido);
     }
 
     public void eliminarPartido(Partido unPartido) {
@@ -539,9 +522,9 @@ public class ControladoraDeportiva {
         List<Partido> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//---------------------------------FIN PARTIDOS---------------------------------
+    // </editor-fold>
 
-//---------------------------------GOLES----------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Gol">
     public void crearGol(Socia unaSocia, Partido unPartido, String minuto) {
         Gol unGol = new Gol(this.entityManager, minuto);
         unaSocia.agregarGol(this.entityManager, unGol);
@@ -587,5 +570,5 @@ public class ControladoraDeportiva {
         List<Gol> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//-------------------------------FIN GOLES--------------------------------------
+    // </editor-fold>
 }

@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -25,11 +24,12 @@ public class ControladoraContabilidad {
 
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
+        this.construirMeses(entityManager);
     }
 
-//------------------------------CONCEPTO DEPORTIVOS-----------------------------
+    // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
     public void crearConceptoDeportivo(double monto, String concepto) {
-        ConceptoDeportivo unConceptoDeportivo = new ConceptoDeportivo(this.entityManager, monto, concepto);
+        new ConceptoDeportivo(this.entityManager, monto, concepto);
     }
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {
@@ -48,58 +48,37 @@ public class ControladoraContabilidad {
      * Devuelve unConceptoDeportivo por ID incluido los borrados
      */
     public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
-        ConceptoDeportivo resultado;
         Query traerConceptoDeportivo = this.entityManager.createQuery("SELECT auxCD FROM ConceptoDeportivo auxCD WHERE auxCD.idConceptoDeportivo = " + id);
-        resultado = (ConceptoDeportivo) traerConceptoDeportivo.getSingleResult();
-        return resultado;
+        return ((ConceptoDeportivo) traerConceptoDeportivo.getSingleResult());
     }
 
     /**
      * Devuelve todos los ConceptosDeportivos menos los borrados
+     * @return List(ConceptoDeportivo)
      */
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
         String unaConsulta = "SELECT A FROM ConceptoDeportivo A WHERE A.borradoLogico = FALSE";
         List<ConceptoDeportivo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//----------------------------- FIN CONCEPTODEPORTIVO --------------------------
+    // </editor-fold>
 
-//-----------------------------------DEUDAS-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Deudas">
     public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
     public Deuda crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
-        Deuda unaDeuda;
-        if (montoTotal == 0) {
-            unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, 1, fechaGeneracion);
-            for (Cuota unCuota : unaDeuda.getCuotas()) {
-                crearPagoCuota(unCuota, montoTotal, fechaGeneracion, "Pago deuda de monto 0");    
-            }
-            unaSocia.agregarDeuda(this.entityManager, unaDeuda);
-        }else{
-            unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
-            unaSocia.agregarDeuda(this.entityManager, unaDeuda);
-        }
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
+        unaSocia.agregarDeuda(this.entityManager, unaDeuda);
         return unaDeuda;
-    }
-
-    public void cambiarDeudaDeEquipo(Deuda unaDeuda, Equipo unEquipoActual, Equipo unEquipoNuevo) {
-        unEquipoActual.quitarDeuda(this.entityManager, unaDeuda);
-        unEquipoNuevo.agregarDeuda(this.entityManager, unaDeuda);
-    }
-
-    public void cambiarDeudaDeSocia(Deuda unaDeuda, Socia unaSociaActual, Socia unaSociaNueva) {
-        unaSociaActual.quitarDeuda(this.entityManager, unaDeuda);
-        unaSociaNueva.agregarDeuda(this.entityManager, unaDeuda);
     }
 
     public void eliminarDeuda(Deuda unaDeuda) {
         unaDeuda.setBorradoLogico(true);
         double montoNotaCredito = unaDeuda.eliminarTodasLasCuotas(entityManager);
         unaDeuda.persistir(this.entityManager);
-
         if (montoNotaCredito != 0) {//Cartel Informando del Monto de la Nota de Credito si Corresponde
             JOptionPane.showMessageDialog(null, "La operación que realizó eliminó una Deuda que contenía cuotas pagadas. El monto total de las Cuotas Pagadas es: $" + montoNotaCredito, "Realizar Nota de Crédito", JOptionPane.WARNING_MESSAGE);
         }
@@ -123,9 +102,9 @@ public class ControladoraContabilidad {
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//---------------------------------FIN DEUDAS-----------------------------------
+    // </editor-fold>
 
-//--------------------------------PAGO CUOTA------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Pago Cuotas">
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {
         PagoCuota unPagoCuota = new PagoCuota(this.entityManager, monto, fechaPago, observacion);
         unaCuota.setUnPagoCuota(unPagoCuota);
@@ -163,11 +142,11 @@ public class ControladoraContabilidad {
         List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN PAGO CUOTA----------------------------------
+    // </editor-fold>
 
-//----------------------------- CONCEPTOINGRESO --------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Concepto Ingreso">
     public void crearConceptoIngreso(String nombre, String detalle) {
-        ConceptoIngreso unConceptoIngreso = new ConceptoIngreso(this.entityManager, nombre, detalle);
+        new ConceptoIngreso(this.entityManager, nombre, detalle);
     }
 
     public void modificarConceptoIngreso(ConceptoIngreso unConceptoIngreso, String nombre, String detalle, boolean borradoLogico) {
@@ -186,10 +165,8 @@ public class ControladoraContabilidad {
      * Devuelve un ConceptoIngreso por ID incluido los borrados
      */
     public ConceptoIngreso getConceptoIngresoBD(Long id) {
-        ConceptoIngreso resultado;
         Query traerConceptoIngreso = this.entityManager.createQuery("SELECT auxCI FROM ConceptoIngreso auxCI WHERE auxCI.idConceptoIngreso = " + id);
-        resultado = (ConceptoIngreso) traerConceptoIngreso.getSingleResult();
-        return resultado;
+        return ((ConceptoIngreso) traerConceptoIngreso.getSingleResult());
     }
 
     /**
@@ -200,11 +177,11 @@ public class ControladoraContabilidad {
         List<ConceptoIngreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//----------------------------- FIN CONCEPTOINGRESO ----------------------------
+    // </editor-fold>
 
-//----------------------------- CONCEPTO EGRESO --------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Concepto Egreso">
     public void crearConceptoEgreso(String nombre, String detalle) {
-        ConceptoEgreso unConceptoEgreso = new ConceptoEgreso(this.entityManager, nombre, detalle);
+        new ConceptoEgreso(this.entityManager, nombre, detalle);
     }
 
     public void modificarConceptoEgreso(ConceptoEgreso unConceptoEgreso, String nombre, String detalle, boolean borradoLogico) {
@@ -223,10 +200,8 @@ public class ControladoraContabilidad {
      * Devuelve un ConceptoEgreso por ID incluido los Borrados
      */
     public ConceptoEgreso getConceptoEgresoBD(Long id) {
-        ConceptoEgreso resultado;
         Query traerConceptoEgreso = this.entityManager.createQuery("SELECT auxCE FROM ConceptoEgreso auxCE WHERE auxCE.idConceptoEgreso = " + id);
-        resultado = (ConceptoEgreso) traerConceptoEgreso.getSingleResult();
-        return resultado;
+        return ((ConceptoEgreso) traerConceptoEgreso.getSingleResult());
     }
 
     /**
@@ -237,11 +212,11 @@ public class ControladoraContabilidad {
         List<ConceptoEgreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//----------------------------- FIN CONCEPTO EGRESO ----------------------------
+    // </editor-fold>
 
-//----------------------------- INGRESOSOTRO -----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Ingreso Otro">
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
-        IngresoOtro unIngresoOtro = new IngresoOtro(this.entityManager, fecha, unConceptoIngreso, monto, detalle);
+        new IngresoOtro(this.entityManager, fecha, unConceptoIngreso, monto, detalle);
     }
 
     public void modificarIngresoOtro(IngresoOtro unIngresoOtro, Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle, boolean borradoLogico) {
@@ -262,10 +237,8 @@ public class ControladoraContabilidad {
      * Devuelve un IngresoOtro por ID incluido los borrados
      */
     public IngresoOtro getIngresoOtroBD(Long id) {
-        IngresoOtro resultado;
         Query traerIngresoOtro = this.entityManager.createQuery("SELECT auxIO FROM IngresoOtro auxIO WHERE auxIO.idIngresoOtro = " + id);
-        resultado = (IngresoOtro) traerIngresoOtro.getSingleResult();
-        return resultado;
+        return ((IngresoOtro) traerIngresoOtro.getSingleResult());
     }
 
     /**
@@ -276,11 +249,11 @@ public class ControladoraContabilidad {
         List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//----------------------------- FIN INGRESOSOTRO -------------------------------
+    // </editor-fold>
 
-//----------------------------- EGRESOS ----------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Egreso">
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
-        Egreso unEgreso = new Egreso(this.entityManager, fecha, monto, unConceptoEgreso, observacion);
+        new Egreso(this.entityManager, fecha, monto, unConceptoEgreso, observacion);
     }
 
     public void modificarEgreso(Egreso unEgreso, Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion, boolean borradoLogico) {
@@ -302,10 +275,8 @@ public class ControladoraContabilidad {
      * Devuelve unEgreso por ID incluido los borrados
      */
     public Egreso getEgresoBD(Long id) {
-        Egreso resultado;
         Query traerEgreso = this.entityManager.createQuery("SELECT auxE FROM Egreso auxE WHERE auxE.idEgreso = " + id);
-        resultado = (Egreso) traerEgreso.getSingleResult();
-        return resultado;
+        return ((Egreso) traerEgreso.getSingleResult());
     }
 
     /**
@@ -316,13 +287,88 @@ public class ControladoraContabilidad {
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//----------------------------- FIN EGRESOS ------------------------------------
+    // </editor-fold>
 
-//------------------------------FRECUENCIA--------------------------------------
-    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, Collection<Mes> meses) {
-        return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento, meses);
+    // <editor-fold defaultstate="collapsed" desc="Meses">
+    private void construirMeses(EntityManager entityManager) {
+        Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
+        if (tablaMesVacia.getResultList().isEmpty()) {
+            Mes unMes;
+            unMes = new Mes(entityManager, "Enero");
+            unMes = new Mes(entityManager, "Febrero");
+            unMes = new Mes(entityManager, "Marzo");
+            unMes = new Mes(entityManager, "Abril");
+            unMes = new Mes(entityManager, "Mayo");
+            unMes = new Mes(entityManager, "Junio");
+            unMes = new Mes(entityManager, "Julio");
+            unMes = new Mes(entityManager, "Agosto");
+            unMes = new Mes(entityManager, "Septiembre");
+            unMes = new Mes(entityManager, "Octubre");
+            unMes = new Mes(entityManager, "Nobiembre");
+            unMes = new Mes(entityManager, "Diciembre");
+        }
     }
-    
+
+    /**
+     * Devuelve una instancia mes de la BD de acurdo al numero de mes
+     *
+     * @param numeroMes
+     * @return Mes
+     */
+    public Mes getMesDB(int numeroMes) {
+        String nombreMes = "Diciembre";
+        if (numeroMes == 1) {
+            nombreMes = "Enero";
+        } else {
+            if (numeroMes == 2) {
+                nombreMes = "Febrero";
+            } else {
+                if (numeroMes == 3) {
+                    nombreMes = "Marzo";
+                } else {
+                    if (numeroMes == 4) {
+                        nombreMes = "Abril";
+                    } else {
+                        if (numeroMes == 5) {
+                            nombreMes = "Mayo";
+                        } else {
+                            if (numeroMes == 6) {
+                                nombreMes = "Junio";
+                            } else {
+                                if (numeroMes == 7) {
+                                    nombreMes = "Julio";
+                                } else {
+                                    if (numeroMes == 8) {
+                                        nombreMes = "Agosto";
+                                    } else {
+                                        if (numeroMes == 9) {
+                                            nombreMes = "Septiembre";
+                                        } else {
+                                            if (numeroMes == 10) {
+                                                nombreMes = "Octubre";
+                                            } else {
+                                                if (numeroMes == 11) {
+                                                    nombreMes = "Nobiembre";
+                                                } else {
+                                                    nombreMes = "Diciembre";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
+        Query traerMes = this.entityManager.createQuery(unaConsulta);
+        return ((Mes) traerMes.getSingleResult());
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Frecuencia"> 
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
         return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento);
     }
@@ -337,6 +383,14 @@ public class ControladoraContabilidad {
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
         unaFrecuencia.setBorradoLogico(true);
         unaFrecuencia.persistir(this.entityManager);
+    }
+
+    public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
+        unaFrecuencia.agregarMes(this.entityManager, unMes);
+    }
+
+    public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
+        unaFrecuencia.quitarMes(this.entityManager, unMes);
     }
 
     /**
@@ -357,13 +411,5 @@ public class ControladoraContabilidad {
         List<Frecuencia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
-    public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
-        unaFrecuencia.agregarMes(this.entityManager, unMes);
-    }
-
-    public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
-        unaFrecuencia.quitarMes(this.entityManager, unMes);
-    }
-//----------------------------FIN FRECUENCIA------------------------------------
+    // </editor-fold>
 }

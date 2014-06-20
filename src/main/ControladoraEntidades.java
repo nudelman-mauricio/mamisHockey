@@ -11,7 +11,6 @@ import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Localidad;
-import logicaNegocios.Mes;
 import logicaNegocios.Pase;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
@@ -22,91 +21,11 @@ public class ControladoraEntidades {
 
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.construirMeses(entityManager);
     }
 
-//----------------------------------MESES---------------------------------------
-    private void construirMeses(EntityManager entityManager) {
-        Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
-        if (tablaMesVacia.getResultList().isEmpty()) {
-            Mes unMes;
-            unMes = new Mes(entityManager, "Enero");
-            unMes = new Mes(entityManager, "Febrero");
-            unMes = new Mes(entityManager, "Marzo");
-            unMes = new Mes(entityManager, "Abril");
-            unMes = new Mes(entityManager, "Mayo");
-            unMes = new Mes(entityManager, "Junio");
-            unMes = new Mes(entityManager, "Julio");
-            unMes = new Mes(entityManager, "Agosto");
-            unMes = new Mes(entityManager, "Septiembre");
-            unMes = new Mes(entityManager, "Octubre");
-            unMes = new Mes(entityManager, "Nobiembre");
-            unMes = new Mes(entityManager, "Diciembre");
-        }
-    }
-
-    /**
-     * Devuelve una instancia mes de la BD de acurdo al numero de mes
-     *
-     * @param numeroMes
-     * @return Mes
-     */
-    public Mes getMesDB(int numeroMes) {
-        String nombreMes = "Diciembre";
-        if (numeroMes == 1) {
-            nombreMes = "Enero";
-        } else {
-            if (numeroMes == 2) {
-                nombreMes = "Febrero";
-            } else {
-                if (numeroMes == 3) {
-                    nombreMes = "Marzo";
-                } else {
-                    if (numeroMes == 4) {
-                        nombreMes = "Abril";
-                    } else {
-                        if (numeroMes == 5) {
-                            nombreMes = "Mayo";
-                        } else {
-                            if (numeroMes == 6) {
-                                nombreMes = "Junio";
-                            } else {
-                                if (numeroMes == 7) {
-                                    nombreMes = "Julio";
-                                } else {
-                                    if (numeroMes == 8) {
-                                        nombreMes = "Agosto";
-                                    } else {
-                                        if (numeroMes == 9) {
-                                            nombreMes = "Septiembre";
-                                        } else {
-                                            if (numeroMes == 10) {
-                                                nombreMes = "Octubre";
-                                            } else {
-                                                if (numeroMes == 11) {
-                                                    nombreMes = "Nobiembre";
-                                                } else {
-                                                    nombreMes = "Diciembre";
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
-        Query traerMes = this.entityManager.createQuery(unaConsulta);
-        return ((Mes) traerMes.getSingleResult());
-    }
-//--------------------------------FIN MESES-------------------------------------
-
-//----------------------------PERSONA AUXILIAR----------------------------------    
+    // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
     public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
-        PersonaAuxiliar unaPersonaAuxiliar = new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, cuerpoTecnicoActivo);
+        new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, cuerpoTecnicoActivo);
     }
 
     public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo, boolean borradoLogico) {
@@ -218,11 +137,11 @@ public class ControladoraEntidades {
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//--------------------------FIN PERSONAS AUXILIARES-----------------------------
+    // </editor-fold>
 
-//------------------------------SOCIAS------------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Socias">
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
-        Socia unaSocia = new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
+        new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
     }
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
@@ -276,9 +195,9 @@ public class ControladoraEntidades {
         List<Socia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN SOCIAS--------------------------------------
+    // </editor-fold>
 
-//-----------------------------------PASES--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Pases">
     public void crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         Pase unPase = new Pase(this.entityManager, fechaGeneracion, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
@@ -323,11 +242,11 @@ public class ControladoraEntidades {
         List<Pase> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-//---------------------------------FIN PASES------------------------------------
+    // </editor-fold>
 
-//------------------------------LOCALIDADES-------------------------------------   
+    // <editor-fold defaultstate="collapsed" desc="Localidad">
     public void crearLocalidad(String nombre, String codPostal) {
-        Localidad unaLocalidad = new Localidad(this.entityManager, nombre, codPostal);
+        new Localidad(this.entityManager, nombre, codPostal);
     }
 
     public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {
@@ -362,9 +281,9 @@ public class ControladoraEntidades {
         List<Localidad> unaListaResultado = traerLocalidades.getResultList();
         return unaListaResultado;
     }
-//------------------------------FIN LOCALIDADES---------------------------------
+    // </editor-fold>
 
-//-----------------------------------ERGOMETRIA---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Ergometria">
     public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         Ergometria unaErgometria = new Ergometria(this.entityManager, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
         unaSocia.agregarErgometria(this.entityManager, unaErgometria);
@@ -398,9 +317,9 @@ public class ControladoraEntidades {
         resultado = (Ergometria) traerErgometria.getSingleResult();
         return resultado;
     }
-//---------------------------------FIN ERGOMETRIAS------------------------------
+    // </editor-fold>
 
-//-----------------------------------ESTADOS------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Estados">
     public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         Estado unEstado = new Estado(this.entityManager, fecha, unTipoEstado);
         unaSocia.agregarEstado(this.entityManager, unEstado);
@@ -443,11 +362,11 @@ public class ControladoraEntidades {
         List<Estado> unaListaResultado = consulta.getResultList();
         return unaListaResultado;
     }
-//---------------------------------FIN ESTADOS----------------------------------
+    // </editor-fold>
 
-//---------------------------------TIPO ESTADO----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
     public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
-        TipoEstado unTipoEstado = new TipoEstado(this.entityManager, monto, unaFrecuencia, nombre);
+        new TipoEstado(this.entityManager, monto, unaFrecuencia, nombre);
     }
 
     public void modificarTipoEstado(TipoEstado unTipoEstado, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
@@ -483,5 +402,5 @@ public class ControladoraEntidades {
         List<TipoEstado> unaListaResultado = consulta.getResultList();
         return unaListaResultado;
     }
-//-------------------------------FIN TIPO ESTADO--------------------------------
+    // </editor-fold>
 }

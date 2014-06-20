@@ -181,11 +181,6 @@ public class Socia extends Persona implements Serializable {
         this.getDeudas().add(unaDeuda);
         this.persistir(entityManager);
     }
-
-    public void quitarDeuda(EntityManager entityManager, Deuda unaDeuda) {
-        this.getDeudas().remove(unaDeuda);
-        this.persistir(entityManager);
-    }
 //---------------------------------FIN DEUDAS-----------------------------------
 
 //-----------------------------------GOLES--------------------------------------
