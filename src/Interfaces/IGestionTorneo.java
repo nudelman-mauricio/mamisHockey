@@ -6,6 +6,7 @@
 
 package Interfaces;
 
+import java.text.DateFormat;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -60,10 +61,13 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     
     private void filtrar(String dato){
         limpiarTabla(modeloTablaTorneo);
+        DateFormat df = DateFormat.getDateInstance();
         List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBDFiltro(dato);
         for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(),unTorneo.getFechaInicio(),unTorneo.getNombre(),unTorneo.getUnaCategoria().getNombre(),unTorneo.getCantidadFechas()});
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(),df.format(unTorneo.getFechaInicio()),unTorneo.getNombre(),unTorneo.getUnaCategoria().getNombre(),unTorneo.getCantidadFechas()});
         }
+        
+      
     }
     
     @SuppressWarnings("unchecked")
@@ -87,6 +91,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonTorneo = new javax.swing.JButton();
 
         setClosable(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -382,6 +391,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             this.SeleccionarObjetoTabla(false);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        SeleccionarObjetoTabla(false);
+        filtrar(jTextFieldBusqueda.getText());
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -23,7 +23,7 @@ public class ISocia extends javax.swing.JInternalFrame {
 
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
-
+    private boolean modificar = false;
     private ControladoraGlobal unaControladoraGlobal;
     
     private Socia unaSocia = null;
@@ -93,7 +93,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         DateFormat df = DateFormat.getDateInstance();
         jTextFieldFechaNacimiento.setText(df.format(unaSocia.getFechaNacimiento()));
         jTextFieldFechaIngreso.setText(df.format(unaSocia.getFechaIngreso()));
-
+        jTextFieldEmail.setText(unaSocia.getEmail());
         jTextFieldTelFijo.setText(unaSocia.getTelFijo());
         jTextFieldTelCelular.setText(unaSocia.getTelCelular());
         jCheckBoxExJugadora.setSelected(unaSocia.isExJugadora());
@@ -488,10 +488,12 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        modificar = true;
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        modificar=false;
         camposActivo(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -501,7 +503,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         try {
             Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
             Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
-
+            if(!modificar){
             unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()),
                 jTextFieldApellido.getText(),
                 jTextFieldNombres.getText(),
@@ -514,7 +516,26 @@ public class ISocia extends javax.swing.JInternalFrame {
                 jTextFieldEmail.getText(),
                 jTextFieldTelFijo.getText(),
                 jTextFieldTelCelular.getText());
-            JOptionPane.showMessageDialog(this, "Socia Guardada");
+            JOptionPane.showMessageDialog(this, "Socia Guardada");}
+            else { 
+            unaControladoraGlobal.modificarSocia(
+                unaSocia,
+                Long.parseLong(jTextFieldDNI.getText()),
+                jTextFieldApellido.getText(),
+                jTextFieldNombres.getText(),
+                (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                jTextFieldDomicilio.getText(),
+                fechaNacimiento,
+                jTextFieldTelFijo.getText(),
+                jTextFieldTelCelular.getText(),
+                jTextFieldEmail.getText(),
+                fechaIngreso,
+                false,
+                "FOTO CARNET",
+                jCheckBoxExJugadora.isSelected()                                
+                );
+            JOptionPane.showMessageDialog(this, "Socia Modificada");
+            }            
             camposActivo(false);
 
         } catch (ParseException e) {
@@ -523,6 +544,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        modificar = false;
         if (this.unaSocia == null){
             camposLimpiar();
             

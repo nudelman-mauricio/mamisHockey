@@ -30,6 +30,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unJDesktopPane;
     private Torneo unTorneo;
+    private boolean modificar=false;
     
     
    public ITorneo(JInternalFrame unJInternalFrame) {
@@ -53,8 +54,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unTorneo = unTorneo;
-        
+        this.unTorneo = unTorneo;       
         this.setTitle("Torneo: " + unTorneo.getNombre());
         SeInicio();
 
@@ -84,7 +84,8 @@ public class ITorneo extends javax.swing.JInternalFrame {
     }
       
     public void camposCargar(Torneo unTorneo){
-        this.jTextFieldFechaInicio.setText(unTorneo.getFechaInicio().toString());
+        DateFormat df = DateFormat.getDateInstance();
+        jTextFieldFechaInicio.setText(df.format(unTorneo.getFechaInicio()));
         this.jTextFieldNombreTorneo.setText(unTorneo.getNombre());
         this.jComboBoxCategoria.setSelectedItem(unTorneo.getUnaCategoria());
     }
@@ -204,6 +205,8 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
         jLabelDni.setText("Nombre del Torneo");
 
+        jTextFieldFechaInicio.setText("dd/mm/aaaa");
+
         jTextFieldNombreTorneo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreTorneoActionPerformed(evt);
@@ -278,6 +281,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+         this.modificar = false;
         camposActivo(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -285,13 +289,15 @@ public class ITorneo extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         DateFormat df = DateFormat.getDateInstance();
         try {
-            Date fechaInicio = new java.sql.Date(df.parse(jTextFieldFechaInicio.getText()).getTime());
-          
-
-            unaControladoraGlobal.crearTorneo(fechaInicio, (Categoria)jComboBoxCategoria.getSelectedItem(),jTextFieldNombreTorneo.getText());
-                
-            JOptionPane.showMessageDialog(this, "Torneo Guardado");
-            camposActivo(false);
+            Date fechaInicio = new java.sql.Date(df.parse(jTextFieldFechaInicio.getText()).getTime());          
+            if(!modificar){
+                unaControladoraGlobal.crearTorneo(fechaInicio, (Categoria)jComboBoxCategoria.getSelectedItem(),jTextFieldNombreTorneo.getText());
+                JOptionPane.showMessageDialog(this, "Torneo Guardado");
+            } else {            
+                unaControladoraGlobal.modificarTorneo(unTorneo, fechaInicio, (Categoria)jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
+                JOptionPane.showMessageDialog(this, "Torneo Modificado");
+            }
+            camposActivo(false);       
 
         } catch (ParseException e) {
             System.out.println("ERROR EN TORNEO" + e.getMessage());
@@ -304,6 +310,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         camposActivo(true);
+        this.modificar = true;
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
@@ -311,10 +318,12 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(!Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
+        jButtonEditar.setEnabled(!Editable);
         
         jTextFieldFechaInicio.setEditable(Editable);
         jTextFieldNombreTorneo.setEditable(Editable);
         jComboBoxCategoria.setEnabled(Editable);
+        
     }
 
     public void camposLimpiar() {
