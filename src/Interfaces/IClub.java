@@ -16,7 +16,7 @@ import main.ControladoraGlobal;
 public class IClub extends javax.swing.JInternalFrame {
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
-
+    private boolean modificar = false;
     private ControladoraGlobal unaControladoraGlobal;
     private Club unClub = null;
         
@@ -344,10 +344,22 @@ public class IClub extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (this.unClub == null){
-            unaControladoraGlobal.crearClub(jTextFieldNombre.getText(),
+            if(!modificar){            
+                unaControladoraGlobal.crearClub(jTextFieldNombre.getText(),
                     jTextFieldPresidente.getText(),
                     (Localidad) jComboBoxLocalidad.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "Club Creado");            
+            JOptionPane.showMessageDialog(this, "Club Creado");  }              
+            else {                
+               unaControladoraGlobal.modificarClub(
+                    unClub, 
+                    jTextFieldNombre.getText(),
+                    //"aca va el logo",
+                    "",
+                    jTextFieldPresidente.getText(),
+                    (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                    false);
+                JOptionPane.showMessageDialog(this, "Club Modificado");
+            }
         }else{
             unaControladoraGlobal.modificarClub(unClub, jTextFieldNombre.getText(),"FALTA LO DEL LOGO" ,jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), false);
             JOptionPane.showMessageDialog(this, "Club editado con exito");  
@@ -358,12 +370,13 @@ public class IClub extends javax.swing.JInternalFrame {
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         this.unClub = null;
-        
+        modificar = false;
         camposActivo(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        modificar = true;
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
