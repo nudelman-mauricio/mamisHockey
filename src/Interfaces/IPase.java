@@ -68,6 +68,7 @@ public class IPase extends javax.swing.JInternalFrame {
             this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().obtenerMontoTotal()});
             nPase++;
         }
+        nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto
         jLabelNumeroPase.setText(String.valueOf(nPase));
     }
 
@@ -655,7 +656,9 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Pase unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
-
+        jTablePases.
+        jTablePases.getComponentCount();
+        jTablePases.isRowSelected(WIDTH);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
