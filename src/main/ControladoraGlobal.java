@@ -432,6 +432,10 @@ public class ControladoraGlobal {
     public void eliminarTorneo(Torneo unTorneo) {
         this.unaControladoraDeportiva.eliminarTorneo(unTorneo);
     }
+    
+    public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
+        return this.unaControladoraDeportiva.agregarEquipoInscripto(unTorneo, unEquipo);
+    }
 
     public Torneo getTorneoBD(Long idTorneo) {
         return this.unaControladoraDeportiva.getTorneoBD(idTorneo);

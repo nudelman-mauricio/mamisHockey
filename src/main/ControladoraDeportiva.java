@@ -410,6 +410,10 @@ public class ControladoraDeportiva {
         unTorneo.setBorradoLogico(true);
         unTorneo.persistir(this.entityManager);
     }
+    
+    public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
+        return unTorneo.agregarEquipoInscripto(this.entityManager, unEquipo);
+    }
 
     /**
      * Devuelve unTorneo por ID incluido los borrados
