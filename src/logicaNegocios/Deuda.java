@@ -1,9 +1,9 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Date;
+import java.util.TreeSet;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -47,6 +47,7 @@ public class Deuda implements Serializable, Comparable {
         this.concepto = concepto;
         this.observacion = observacion;
         this.borradoLogico = false;
+        this.cuotas = new TreeSet();
         this.crearCuotas(entityManager, montoTotal, cantCuotas, primerVencimiento);
         this.persistir(entityManager);
     }

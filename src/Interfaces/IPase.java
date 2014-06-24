@@ -30,7 +30,7 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png")));
         //Centrar
@@ -63,7 +63,7 @@ public class IPase extends javax.swing.JInternalFrame {
     public void cargarCamposTabla() {
         DateFormat df = DateFormat.getDateInstance();
         int nPase = 0;
-        limpiarTabla(modeloTablePases);        
+        limpiarTabla(modeloTablePases);
         for (Pase unPase : unaSocia.getPasesValidos()) {
             this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().obtenerMontoTotal()});
             nPase++;
@@ -655,26 +655,23 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablePasesFocusGained
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Pase unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
-        jTablePases.
-        jTablePases.getComponentCount();
-        jTablePases.isRowSelected(WIDTH);
-        Object[] options = {"OK", "Cancelar"};
-        if (0 == JOptionPane.showOptionDialog(
-                this,
-                "Desea eliminar el pase al Equipo: " + unPaseSeleccionado.getUnEquipo().getNombre(),
-                "Eliminar",
-                JOptionPane.PLAIN_MESSAGE,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options)) {
-            unaControladoraGlobal.eliminarUltimoPase(unPaseSeleccionado, this.unaSocia);
-
-            cargarCamposTabla();
+        //Comprueba que la fila a eliminar sea la última si o si. Porque solo se permite eliminar el último pase realizado
+        //Comprueba ademas que no se elimine el pase cero
+        if ((jTablePases.isRowSelected(jTablePases.getRowCount() - 1)) && (jTablePases.getRowCount() > 1)) {
+            eliminarUltimoPase(unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0)));
+        } else {
+            JOptionPane.showMessageDialog(null, "Únicamente se permite eliminar el último pase. Por favor seleccione el último pase.", "Seleccion Incorrecta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void eliminarUltimoPase(Pase ultimoPase) {
+        Object[] options = {"OK", "Cancelar"};
+        int respuesta = JOptionPane.showOptionDialog(this, "Desea eliminar el pase al Equipo: " + ultimoPase.getUnEquipo().getNombre(), "Eliminar", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options);
+        if (respuesta == 0) {
+            unaControladoraGlobal.eliminarUltimoPase(ultimoPase, this.unaSocia);
+            cargarCamposTabla();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
