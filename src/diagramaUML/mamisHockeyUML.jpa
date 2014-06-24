@@ -442,11 +442,17 @@
             <jpa:basic name="nombre" attribute-type="String" id="_1397869372870234">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="cantMenores" attribute-type="int" id="_1397869373666235">
+            <jpa:basic name="edadParametro" attribute-type="int" id="_1397869373666235">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817495710871">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="cantidadMaxima" attribute-type="int" id="_1403636463653165">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="cantidadMinima" attribute-type="int" id="_1403636466788166">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
@@ -731,7 +737,7 @@
                 <Bounds x="767.0" y="-732.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865613179" id="_1397865613179_gui">
-                <Bounds x="409.0" y="-407.0" width="149.0" height="26.0"/>
+                <Bounds x="409.0" y="-407.0" width="131.0" height="26.0"/>
             </shape>
             <shape elementRef="_1397865626096" id="_1397865626096_gui">
                 <Bounds x="326.0" y="-721.0" width="139.0" height="24.0"/>
@@ -758,7 +764,7 @@
                 <Bounds x="-193.0" y="-348.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868049586" id="_1397868049586_gui">
-                <Bounds x="-439.0" y="117.0" width="146.0" height="24.0"/>
+                <Bounds x="-439.0" y="117.0" width="132.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
                 <Bounds x="102.0" y="442.0" width="204.0" height="24.0"/>

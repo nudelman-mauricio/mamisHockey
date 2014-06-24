@@ -292,6 +292,10 @@ public class ControladoraGlobal {
     public Equipo getEquipoBD(Long id) {
         return this.unaControladoraDeportiva.getEquipoBD(id);
     }
+    
+    public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
+        return this.unaControladoraDeportiva.getEquiposDBPorCategoria(unaCategoria);
+    }
 
     public List<Equipo> getEquiposBD() {
         return unaControladoraDeportiva.getEquiposBD();
@@ -399,12 +403,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Categorias">
-    public void crearCategoria(int cantMenores, String nombre) {
-        this.unaControladoraDeportiva.crearCategoria(cantMenores, nombre);
+    public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
+        this.unaControladoraDeportiva.crearCategoria(nombre, edadParametro, cantidadMinima, cantidadMaxima);
     }
 
-    public void modificarCategoria(Categoria unaCategoria, int cantMenores, String nombre, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarCategoria(unaCategoria, cantMenores, nombre);
+    public void modificarCategoria(Categoria unaCategoria, String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarCategoria(unaCategoria, nombre, edadParametro, cantidadMinima, cantidadMaxima, borradoLogico);
     }
 
     public void eliminarCategoria(Categoria unaCategoria) {
@@ -432,7 +436,7 @@ public class ControladoraGlobal {
     public void eliminarTorneo(Torneo unTorneo) {
         this.unaControladoraDeportiva.eliminarTorneo(unTorneo);
     }
-    
+
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return this.unaControladoraDeportiva.agregarEquipoInscripto(unTorneo, unEquipo);
     }

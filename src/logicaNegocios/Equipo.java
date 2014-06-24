@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 @Entity
 public class Equipo implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEquipo;
@@ -58,6 +59,7 @@ public class Equipo implements Serializable, Comparable {
 
     @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unDT;
+    // </editor-fold>
 
     public Equipo() {
 
@@ -70,7 +72,7 @@ public class Equipo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Long getIdEquipo() {
         return this.idEquipo;
     }
@@ -182,14 +184,22 @@ public class Equipo implements Serializable, Comparable {
     public void setUnDT(PersonaAuxiliar unDT) {
         this.unDT = unDT;
     }
+    // </editor-fold>
 
-//----------------------------- FIN GETERS Y SETERS ----------------------------
     @Override
-    public String toString() {
-        return nombre;
+    public int compareTo(Object aux
+    ) {
+        int retorno = -1;
+        if (aux instanceof Equipo) {
+            Equipo equipo = (Equipo) aux;
+            if (this.idEquipo > equipo.idEquipo) {
+                retorno = 1;
+            }
+        }
+        return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -202,16 +212,16 @@ public class Equipo implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//-----------------------------------DEUDAS-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Deudas">
     public void agregarDeuda(EntityManager entityManager, Deuda unaDeuda) {
         this.deudas.add(unaDeuda);
         this.persistir(entityManager);
     }
-//---------------------------------FIN DEUDAS-----------------------------------
+    // </editor-fold>
 
-//--------------------------------INDUMENTARIAS---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Indumentaria">
     public void agregarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
         this.indumentarias.add(unaIndumentaria);
         this.persistir(entityManager);
@@ -221,9 +231,9 @@ public class Equipo implements Serializable, Comparable {
         this.indumentarias.remove(unaIndumentaria);
         this.persistir(entityManager);
     }
-//------------------------------FIN INDUMENTARIAS-------------------------------
+    // </editor-fold>
 
-//----------------------------- SANCIONES TRIBUNAL -----------------------------
+    // <editor-fold defaultstate="collapsed" desc="Sanciones Tribunal">
     public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
         this.sancionesTribunal.add(unaSancionTribunal);
         this.persistir(entityManager);
@@ -233,9 +243,9 @@ public class Equipo implements Serializable, Comparable {
         this.sancionesTribunal.remove(unaSancionTribunal);
         this.persistir(entityManager);
     }
-//--------------------------- FIN SANCIONES TRIBUNAL ---------------------------
+    // </editor-fold>
 
-//------------------------------------PLANTEL-----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Plantel">
     public void agregarPlantel(EntityManager entityManager, Socia unaSocia) {
         this.plantel.add(unaSocia);
         this.persistir(entityManager);
@@ -266,18 +276,26 @@ public class Equipo implements Serializable, Comparable {
         //CARTEL ADVERTENCIA DE ELIMINAR A UNA SOCIA QUE ES CAPITANA O DELEGADA
         JOptionPane.showMessageDialog(null, "La operación que realizó dejó sin " + auxiliar + " al Equipo " + this.getNombre(), "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
-//----------------------------------FIN PLANTEL---------------------------------
+    // </editor-fold>
 
-    @Override
-    public int compareTo(Object aux
-    ) {
-        int retorno = -1;
-        if (aux instanceof Equipo) {
-            Equipo equipo = (Equipo) aux;
-            if (this.idEquipo > equipo.idEquipo) {
-                retorno = 1;
-            }
+    // <editor-fold defaultstate="collapsed" desc="Categoria">
+    public boolean isCategoria(Categoria unaCategoria) {
+        boolean resultado = false;
+        int cantidadMenores = contarMenores(unaCategoria.getEdadParametro());
+        if ((unaCategoria.getCantidadMinima() <= cantidadMenores) && (cantidadMenores <= unaCategoria.getCantidadMaxima())) {
+            resultado = true;
         }
-        return retorno;
+        return resultado;
     }
+
+    private int contarMenores(int edadParametro) {
+        int cantidadMenores = 0;
+        for (Socia aux : this.plantel) {
+            if (aux.getEdadCalendario() < edadParametro){
+                cantidadMenores++;
+            }
+        }        
+        return cantidadMenores;
+    }
+    // </editor-fold>
 }

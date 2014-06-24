@@ -12,8 +12,15 @@ import javax.persistence.Id;
 @Entity
 public class Categoria implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
-    private int cantMenores;
+    private int cantidadMinima;
+
+    @Basic
+    private int edadParametro;
+
+    @Basic
+    private int cantidadMaxima;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,25 +31,44 @@ public class Categoria implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Categoria() {
 
     }
 
-    public Categoria(EntityManager entityManager, int cantMenores, String nombre) {
-        this.cantMenores = cantMenores;
+    public Categoria(EntityManager entityManager, String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         this.nombre = nombre;
+        this.edadParametro = edadParametro;
+        this.cantidadMinima = cantidadMinima;
+        this.cantidadMaxima = cantidadMaxima;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
-    public int getCantMenores() {
-        return this.cantMenores;
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
+    public int getCantidadMinima() {
+        return this.cantidadMinima;
     }
 
-    public void setCantMenores(int cantMenores) {
-        this.cantMenores = cantMenores;
+    public void setCantidadMinima(int cantidadMinima) {
+        this.cantidadMinima = cantidadMinima;
+    }
+
+    public int getEdadParametro() {
+        return this.edadParametro;
+    }
+
+    public void setEdadParametro(int edadParametro) {
+        this.edadParametro = edadParametro;
+    }
+
+    public int getCantidadMaxima() {
+        return this.cantidadMaxima;
+    }
+
+    public void setCantidadMaxima(int cantidadMaxima) {
+        this.cantidadMaxima = cantidadMaxima;
     }
 
     public Long getIdCategoria() {
@@ -68,22 +94,7 @@ public class Categoria implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
-
-//----------------------------------PERSISTENCIA--------------------------------
-    public void persistir(EntityManager entityManager) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        try {
-            entityManager.persist(this);
-            tx.commit();
-        } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Categoria" + e.getMessage());
-            tx.rollback();
-        }
-    }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -96,9 +107,19 @@ public class Categoria implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-    @Override
-    public String toString() {
-        return nombre;
+
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
+    public void persistir(EntityManager entityManager) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        try {
+            entityManager.persist(this);
+            tx.commit();
+        } catch (Exception e) {
+            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
+            System.out.println("Error de Persistir Categoria" + e.getMessage());
+            tx.rollback();
+        }
     }
+    // </editor-fold>
 }

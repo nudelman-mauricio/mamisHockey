@@ -37,6 +37,7 @@ public class Deuda implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Deuda() {
 
@@ -52,7 +53,7 @@ public class Deuda implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Long getIdDeuda() {
         return this.idDeuda;
     }
@@ -100,7 +101,7 @@ public class Deuda implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -114,7 +115,7 @@ public class Deuda implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -127,9 +128,9 @@ public class Deuda implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//-----------------------------------CUOTAS-------------------------------------    
+    // <editor-fold defaultstate="collapsed" desc="Cuotas">
     private void crearCuotas(EntityManager entityManager, double montoTotal, int cantCuotas, Date vencimiento) {
         if (montoTotal == 0) {
             Cuota unaCuota = new Cuota(entityManager, montoTotal, vencimiento, ("1/1"));            
@@ -164,8 +165,9 @@ public class Deuda implements Serializable, Comparable {
         }
         return montoNotaCredito;
     }
-//---------------------------------FIN CUOTAS-----------------------------------
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Montos">
     /**
      * Devueve el Monto de una Deuda sumando todas las cuotas NO las BORRADAS
      */
@@ -194,4 +196,5 @@ public class Deuda implements Serializable, Comparable {
         }
         return montoAdeudado;
     }
+    // </editor-fold>
 }

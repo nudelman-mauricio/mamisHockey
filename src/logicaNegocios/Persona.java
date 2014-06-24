@@ -1,6 +1,8 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -17,6 +19,7 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public abstract class Persona implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaIngreso;
@@ -57,6 +60,7 @@ public abstract class Persona implements Serializable, Comparable {
 
     @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
+    // </editor-fold>
 
     public Persona() {
 
@@ -76,7 +80,7 @@ public abstract class Persona implements Serializable, Comparable {
         this.telCelular = telCelular;
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Date getFechaIngreso() {
         return this.fechaIngreso;
     }
@@ -172,7 +176,7 @@ public abstract class Persona implements Serializable, Comparable {
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -186,12 +190,7 @@ public abstract class Persona implements Serializable, Comparable {
         return retorno;
     }
 
-    @Override
-    public String toString() {
-        return apellido + ", " + nombre ;
-    }
-
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -204,9 +203,9 @@ public abstract class Persona implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//------------------------------SANCION TRIBUNAL--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Sancion Tribunal">
     public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
         this.sancionesTribunal.add(unaSancionTribunal);
         this.persistir(entityManager);
@@ -216,5 +215,13 @@ public abstract class Persona implements Serializable, Comparable {
         this.sancionesTribunal.remove(unaSancionTribunal);
         this.persistir(entityManager);
     }
-//------------------------------FIN SANCION TRIBUNAL----------------------------
+    // </editor-fold>
+
+    public int getEdadCalendario() {        
+        Calendar fechaSO = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");        
+        int anioNacimiento= Integer.parseInt(dateFormat.format(this.fechaNacimiento));        
+        int anoActual = fechaSO.get(fechaSO.YEAR);        
+        return (anoActual-anioNacimiento);
+    }
 }

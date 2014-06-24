@@ -59,7 +59,7 @@ public class ControladoraDeportiva {
      */
     public SancionTribunal getSancionTribunalBD(Long id) {
         String unaConsulta = "SELECT A FROM SancionTribunal A WHERE A.idSancionTribunal = " + id;
-        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);        
+        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
         return ((SancionTribunal) traerSancionTribunal.getSingleResult());
     }
 
@@ -150,7 +150,7 @@ public class ControladoraDeportiva {
         unClubNuevo.agregarEquipo(this.entityManager, unEquipo);
     }
 
-    public void eliminarEquipo( Equipo unEquipo) {
+    public void eliminarEquipo(Equipo unEquipo) {
         unEquipo.setBorradoLogico(true);
         unEquipo.persistir(this.entityManager);
     }
@@ -163,6 +163,19 @@ public class ControladoraDeportiva {
         Query traerEquipo = this.entityManager.createQuery("SELECT A FROM Equipo A WHERE A.idEquipo = " + id);
         resultado = (Equipo) traerEquipo.getSingleResult();
         return resultado;
+    }
+
+    /**
+     * Devuelve los equipos que sean de una categoria. menos los borrados
+     */
+    public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
+        List<Equipo> unaListaResultado = getEquiposBD();
+        for (Equipo aux : unaListaResultado) {
+            if (!aux.isCategoria(unaCategoria)) {
+                unaListaResultado.remove(aux);
+            }
+        }
+        return unaListaResultado;
     }
 
     /**
@@ -359,13 +372,16 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Categorias">
-    public void crearCategoria(int cantMenores, String nombre) {
-        new Categoria(this.entityManager, cantMenores, nombre);
+    public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
+        new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
     }
 
-    public void modificarCategoria(Categoria unaCategoria, int cantMenores, String nombre) {
-        unaCategoria.setCantMenores(cantMenores);
+    public void modificarCategoria(Categoria unaCategoria, String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima, boolean borradoLogico) {
         unaCategoria.setNombre(nombre);
+        unaCategoria.setEdadParametro(edadParametro);
+        unaCategoria.setCantidadMinima(cantidadMinima);
+        unaCategoria.setCantidadMaxima(cantidadMaxima);
+        unaCategoria.setBorradoLogico(borradoLogico);
         unaCategoria.persistir(this.entityManager);
     }
 
@@ -376,16 +392,19 @@ public class ControladoraDeportiva {
 
     /**
      * Devuelve una Categoria por ID, incluido las borradas
+     *
+     * @param id
+     * @return Categoria
      */
     public Categoria getCategoriaBD(Long id) {
-        Categoria resultado = null;
         Query traerCategoria = this.entityManager.createQuery("SELECT a FROM Categoria a WHERE a.idCategoria = " + id);
-        resultado = (Categoria) traerCategoria.getSingleResult();
-        return resultado;
+        return ((Categoria) traerCategoria.getSingleResult());
     }
 
     /**
      * Devuelve todas las Categorias menos los Borradas
+     *
+     * @return List(Categoria)
      */
     public List<Categoria> getCategoriasBD() {
         String unaConsulta = "SELECT C FROM Categoria C WHERE C.borradoLogico = FALSE";
@@ -410,7 +429,7 @@ public class ControladoraDeportiva {
         unTorneo.setBorradoLogico(true);
         unTorneo.persistir(this.entityManager);
     }
-    
+
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return unTorneo.agregarEquipoInscripto(this.entityManager, unEquipo);
     }
@@ -433,7 +452,7 @@ public class ControladoraDeportiva {
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
+
     /**
      * Devuelve los Clubes filtrado por Nombre
      */

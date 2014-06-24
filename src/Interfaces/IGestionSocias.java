@@ -1,10 +1,8 @@
 package Interfaces;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
@@ -479,9 +477,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             jTextFieldBusqueda.setText("");
             filtrarSocias("");
             this.SeleccionarObjetoTabla(false);
-        }
-        
-        
+        }       
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed

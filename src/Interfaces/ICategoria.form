@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
   </Properties>
@@ -185,15 +185,21 @@
             <Component class="javax.swing.JTable" name="jTableCategoria">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="0">
+                  <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="id" type="java.lang.Object"/>
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="false" title="Cantidad Menores" type="java.lang.Object"/>
+                    <Column editable="false" title="Cant. M&#xed;nima Menores" type="java.lang.Object"/>
+                    <Column editable="false" title="Cant. M&#xe1;xima Menores" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -237,18 +243,22 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelOrigen" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabelOrigen1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelFechaRealizacion1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelOrigen" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelOrigen2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextFieldNombre" alignment="0" pref="160" max="32767" attributes="0"/>
-                      <Component id="jTextFieldCantMenores" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jTextFieldMinimoMenores" max="32767" attributes="0"/>
+                      <Component id="jTextFieldNombre" alignment="0" pref="181" max="32767" attributes="0"/>
+                      <Component id="jTextFieldEdadParametro" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextFieldMaximoMenores" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="83" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -263,7 +273,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldCantMenores" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldEdadParametro" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelOrigen1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldMinimoMenores" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelOrigen2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldMaximoMenores" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -278,15 +298,35 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelOrigen">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cant. Menores"/>
+            <Property name="text" type="java.lang.String" value="Edad Par&#xe1;metro"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldCantMenores">
+        <Component class="javax.swing.JTextField" name="jTextFieldEdadParametro">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldCantMenoresActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldEdadParametroActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelOrigen1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="M&#xed;nimo Permitido de Menores"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldMinimoMenores">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMinimoMenoresActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldMaximoMenores">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMaximoMenoresActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelOrigen2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="M&#xe1;ximo Permitido de Menores"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
