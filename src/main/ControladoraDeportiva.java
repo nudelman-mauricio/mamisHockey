@@ -1,10 +1,10 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Cancha;
 import logicaNegocios.Categoria;
 import logicaNegocios.Club;
@@ -16,6 +16,7 @@ import logicaNegocios.Indumentaria;
 import logicaNegocios.Localidad;
 import logicaNegocios.Partido;
 import logicaNegocios.Persona;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
@@ -169,8 +170,8 @@ public class ControladoraDeportiva {
      * Devuelve los equipos que sean de una categoria. menos los borrados
      */
     public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
-        List<Equipo> unaListaResultado = getEquiposBD();
-        for (Equipo aux : unaListaResultado) {
+        List<Equipo> unaListaResultado = new ArrayList<>(getEquiposBD());
+        for (Equipo aux : getEquiposBD()) {
             if (!aux.isCategoria(unaCategoria)) {
                 unaListaResultado.remove(aux);
             }
