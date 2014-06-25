@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Interfaces;
 
 
@@ -14,10 +8,6 @@ import javax.swing.JInternalFrame;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Leanwit
- */
 public class IAgregarEquipo extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
@@ -32,15 +22,11 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unTorneo = unTorneo;       
         this.setTitle("Torneo: " + unTorneo.getNombre());
-        SeInicio();
-
-        
+        SeInicio();       
        
         jButtonCancelar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
 
-        camposCargar(unTorneo);
-    
+        camposCargar(unTorneo);    
     }
 
     public void SeInicio() {
