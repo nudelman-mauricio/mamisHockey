@@ -43,7 +43,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablaEquipo);
         List<Equipo> unaListaResultado = this.unaControladoraGlobal.getEquiposBDFiltro(dato);
         for (Equipo unEquipo : unaListaResultado) {
-            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(),"aca va club" ,"aca va localidad" , unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
+            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(),unaControladoraGlobal.getClubBD(unEquipo) , unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
     
@@ -156,13 +156,13 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jTableEquipo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "IdEquipo", "Nombre", "Club", "Localidad", "Delegada", "Delegada Sup.", "Director Tecnico"
+                "IdEquipo", "Nombre", "Club", "Delegada", "Delegada Sup.", "Director Tecnico"
             }
         ));
         jTableEquipo.addFocusListener(new java.awt.event.FocusAdapter() {
