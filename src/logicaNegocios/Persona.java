@@ -190,6 +190,11 @@ public abstract class Persona implements Serializable, Comparable {
         return retorno;
     }
 
+    @Override
+    public String toString() {
+        return apellido + ", " + nombre;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

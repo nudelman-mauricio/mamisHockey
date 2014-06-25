@@ -108,6 +108,11 @@ public class Categoria implements Serializable, Comparable {
         return retorno;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

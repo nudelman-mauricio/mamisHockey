@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Club implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private String nombrePresidente;
 
@@ -39,6 +40,7 @@ public class Club implements Serializable, Comparable {
 
     @OneToOne(optional = false, targetEntity = Localidad.class)
     private Localidad unaLocalidad;
+    // </editor-fold>
 
     public Club() {
 
@@ -52,7 +54,7 @@ public class Club implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getNombrePresidente() {
         return this.nombrePresidente;
     }
@@ -116,7 +118,7 @@ public class Club implements Serializable, Comparable {
     public void setUnaLocalidad(Localidad unaLocalidad) {
         this.unaLocalidad = unaLocalidad;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -135,7 +137,7 @@ public class Club implements Serializable, Comparable {
         return nombre + ", de " + unaLocalidad ;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -148,9 +150,9 @@ public class Club implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//------------------------------EQUIPOS-----------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Equipos">
     public void agregarEquipo(EntityManager entityManager, Equipo unEquipo) {
         this.equipos.add(unEquipo);
         this.persistir(entityManager);
@@ -160,12 +162,12 @@ public class Club implements Serializable, Comparable {
         this.equipos.remove(unEquipo);
         this.persistir(entityManager);
     }
-//------------------------------FIN EQUIPOS-------------------------------------
+    // </editor-fold>
 
-//-------------------------------- CANCHAS -------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Canchas">
     public void agregarCancha(EntityManager entityManager, Cancha unaCancha) {
         this.canchas.add(unaCancha);
         this.persistir(entityManager);
     }
-//-------------------------------- FIN CANCHAS ---------------------------------
+    // </editor-fold>
 }

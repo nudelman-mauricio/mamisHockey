@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -201,7 +200,7 @@ public class ControladoraDeportiva {
 
     // <editor-fold defaultstate="collapsed" desc="Clubes">
     public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
-        Club unClub = new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
+        new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
 
     public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
@@ -226,6 +225,20 @@ public class ControladoraDeportiva {
         String unaConsulta = "SELECT A FROM Club A WHERE A.idClub = " + id;
         Query traerClub = this.entityManager.createQuery(unaConsulta);
         resultado = (Club) traerClub.getSingleResult();
+        return resultado;
+    }
+
+    /**
+     * Devuelve unClub dueño de unEquipo pasado por parametro
+     */
+    public Club getClubBD(Equipo unEquipo) {
+        Club resultado = null;
+        for (Club aux : getClubesBD()) {
+            if (aux.getEquipos().contains(unEquipo)) {
+                resultado = aux;
+                break;
+            }            
+        }
         return resultado;
     }
 
