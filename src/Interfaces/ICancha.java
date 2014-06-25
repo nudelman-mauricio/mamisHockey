@@ -20,6 +20,9 @@ public class ICancha extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Club: " + unClub.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
+        
+        this.jTextFieldNombre.setEnabled(false);
+        this.jComboBoxTipo.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -238,7 +241,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-
+        
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed

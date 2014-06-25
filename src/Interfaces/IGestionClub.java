@@ -330,11 +330,12 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonCanchasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCanchasActionPerformed
-        ICancha unaCancha = new ICancha(this, jDesktopPane1);
-        unaCancha.pack();
-        unaCancha.setVisible(true);
+        Club unClubSeleccionado = unaControladoraGlobal.getClubBD((Long)jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
+        ICancha unaICancha = new ICancha(this, jDesktopPane1, unClubSeleccionado);
+        unaICancha.pack();
+        unaICancha.setVisible(true);
         this.setVisible(false);
-        this.jDesktopPane1.add(unaCancha);         // TODO add your handling code here:
+        this.jDesktopPane1.add(unaICancha);
     }//GEN-LAST:event_jButtonCanchasActionPerformed
 
     private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
