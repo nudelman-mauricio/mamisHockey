@@ -332,7 +332,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     private void jButtonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEquiposActionPerformed
         Torneo unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
-        IAgregarEquipo unAgregarEquipo = new IAgregarEquipo(unaControladoraGlobal, this, unTorneoSeleccionado);
+        IAgregarEquipoTorneo unAgregarEquipo = new IAgregarEquipoTorneo(unaControladoraGlobal, this, unTorneoSeleccionado);
         unAgregarEquipo.pack();
         unAgregarEquipo.setVisible(true);
         this.setVisible(false);
