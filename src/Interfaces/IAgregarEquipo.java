@@ -5,6 +5,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Equipo;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
@@ -38,7 +39,7 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }
     
     private void cargarJComboBoxEquipo() {
-       DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getCategoriasBD());
+       DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEqu());
        this.jComboBoxEquipos.setModel(modelCombo);
        jComboBoxEquipos.setSelectedIndex(-1);
     }
@@ -70,6 +71,8 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxEquipos = new javax.swing.JComboBox();
         jButtonAgregar = new javax.swing.JButton();
+
+        setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -253,13 +256,12 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        
         camposActivo(true);
         this.jComboBoxEquipos.setSelectedIndex(-1);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        
+       
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -271,7 +273,7 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableEquiposFocusGained
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        unTorneo.agregarEquipoInscripto(null, null);        // TODO add your handling code here:
+         unaControladoraGlobal.agregarEquipoInscripto(unTorneo, (Equipo)jComboBoxEquipos.getSelectedItem());
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
 
