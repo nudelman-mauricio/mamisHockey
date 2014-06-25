@@ -39,7 +39,7 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }
     
     private void cargarJComboBoxEquipo() {
-       DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEqu());
+       DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
        this.jComboBoxEquipos.setModel(modelCombo);
        jComboBoxEquipos.setSelectedIndex(-1);
     }
