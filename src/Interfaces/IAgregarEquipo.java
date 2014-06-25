@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
@@ -258,6 +259,7 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableEquiposFocusGained
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
+       limpiarTabla();
        unaControladoraGlobal.agregarEquipoInscripto(unTorneo, (Equipo) jComboBoxEquipos.getSelectedItem());
        cargarTabla();        
     }//GEN-LAST:event_jButtonAgregarActionPerformed
@@ -279,4 +281,15 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEquipos;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarTabla() {
+         try {
+            int filas = modeloTablaEquipo.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaEquipo.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
 }
