@@ -43,7 +43,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablaEquipo);
         List<Equipo> unaListaResultado = this.unaControladoraGlobal.getEquiposBDFiltro(dato);
         for (Equipo unEquipo : unaListaResultado) {
-            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), "Falta Consulta", "F. Club p' esto", unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
+            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(),"aca va club" ,"aca va localidad" , unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
     

@@ -360,7 +360,14 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEquiposActionPerformed
-        System.out.println("FALTA");
+        Club unClubSeleccionado = unaControladoraGlobal.getClubBD((Long)jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
+        
+        IAgregarEquipo unIAgregarEquipo = new IAgregarEquipo(unaControladoraGlobal, this, unClubSeleccionado);
+
+        unIAgregarEquipo.pack();
+        unIAgregarEquipo.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIAgregarEquipo);
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed

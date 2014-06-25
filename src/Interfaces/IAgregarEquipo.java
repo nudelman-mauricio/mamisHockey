@@ -1,10 +1,14 @@
 package Interfaces;
 
-
+import java.text.DateFormat;
+import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Club;
 import logicaNegocios.Equipo;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
@@ -13,49 +17,86 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
     ControladoraGlobal unaControladoraGlobal;
-    Torneo unTorneo;  
+    Torneo unTorneo;
     DefaultComboBoxModel modelCombo;
-    
-        
-    public IAgregarEquipo(ControladoraGlobal unaControladoraGlobal,JInternalFrame unJInternalFrame, Torneo unTorneo){
+    DefaultTableModel modeloTablaEquipo;
+    Club unClub;
+
+    public IAgregarEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unTorneo = unTorneo;       
-        this.setTitle("Torneo: " + unTorneo.getNombre());
-        SeInicio();       
-       
-        jButtonCancelar.setEnabled(false);
+        this.unTorneo = unTorneo;
 
-        camposCargar(unTorneo);    
+        this.setTitle("Torneo: " + unTorneo.getNombre());
+        SeInicio();
+
+        jButtonCancelar.setEnabled(false);
+        cargarTabla();
+    }
+
+    public IAgregarEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unClub = unClub;
+        this.setTitle("Club: " + unClub.getNombre());
+        SeInicio();
+
+        jButtonCancelar.setEnabled(false);
+        cargarTabla();
     }
 
     public void SeInicio() {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipo.png")));
         IMenuPrincipalInterface.centrar(this);
-        cargarJComboBoxEquipo();
+        if (unClub == null) {
+            cargarJComboBoxTorneoEquipo();
+        } else {
+            cargarJComboBoxClubEquipo();
+        }
+
         camposActivo(false);
     }
-    
-    private void cargarJComboBoxEquipo() {
-       DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
-       this.jComboBoxEquipos.setModel(modelCombo);
-       jComboBoxEquipos.setSelectedIndex(-1);
+
+    private void cargarJComboBoxTorneoEquipo() {
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
+        this.jComboBoxEquipos.setModel(modelCombo);
+        jComboBoxEquipos.setSelectedIndex(-1);
     }
-    
+
+    private void cargarJComboBoxClubEquipo() {
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unClub.getEquipos());
+        this.jComboBoxEquipos.setModel(modelCombo);
+        jComboBoxEquipos.setSelectedIndex(-1);
+    }
+
     public void camposActivo(boolean Editable) {
         jButtonNuevo.setEnabled(!Editable);
         jButtonGuardar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);        
-        
+        jButtonCancelar.setEnabled(Editable);
+
         jComboBoxEquipos.setEnabled(Editable);
         jButtonAgregar.setEnabled(Editable);
-        
-    }    
-   
-     public void camposCargar(Torneo unTorneo){         
+
     }
+
+    public void cargarTabla() {
+        this.modeloTablaEquipo = (DefaultTableModel) jTableEquipos.getModel();
+        if (unClub == null) {  
+            Collection<Equipo> unaListaResultado =  unTorneo.getEquiposInscriptos();
+            for (Equipo unEquipo : unaListaResultado) {
+                this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(),unEquipo.getNombre()});
+            }
+        } else {           
+            Collection<Equipo> unaListaResultado = unClub.getEquipos();
+            for (Equipo unEquipo : unaListaResultado) {
+                this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(),unEquipo.getNombre()});
+            }
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -87,7 +128,7 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
         });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
-        jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.setText("Agregar");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +192,10 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
 
         jTableEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "id_equipo", "Nombre ", "Club"
+                "id_equipo", "Nombre "
             }
         ));
         jTableEquipos.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -252,7 +290,7 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -261,19 +299,24 @@ public class IAgregarEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-       
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTableEquiposFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquiposFocusGained
-        
+
     }//GEN-LAST:event_jTableEquiposFocusGained
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-         unaControladoraGlobal.agregarEquipoInscripto(unTorneo, (Equipo)jComboBoxEquipos.getSelectedItem());
+        if (unClub == null) {
+            unaControladoraGlobal.agregarEquipoInscripto(unTorneo, (Equipo) jComboBoxEquipos.getSelectedItem());
+            cargarTabla();
+        } else {
+            
+        }
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
 
