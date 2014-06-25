@@ -170,7 +170,7 @@ public class ControladoraDeportiva {
      * Devuelve los equipos que sean de una categoria. menos los borrados
      */
     public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
-        List<Equipo> unaListaResultado = new ArrayList<>(getEquiposBD());
+        List<Equipo> unaListaResultado = getEquiposBD();
         for (Equipo aux : getEquiposBD()) {
             if (!aux.isCategoria(unaCategoria)) {
                 unaListaResultado.remove(aux);
