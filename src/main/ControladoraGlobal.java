@@ -293,6 +293,10 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getEquipoBD(id);
     }
     
+    public Club getClubBD(Equipo unEquipo) {
+        return this.unaControladoraDeportiva.getClubBD(unEquipo);
+    }
+    
     public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
         return this.unaControladoraDeportiva.getEquiposDBPorCategoria(unaCategoria);
     }
