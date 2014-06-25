@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Torneo implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @OneToMany(targetEntity = Equipo.class)
     private Collection<Equipo> equiposInscriptos;
 
@@ -41,6 +42,7 @@ public class Torneo implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Torneo() {
 
@@ -54,7 +56,7 @@ public class Torneo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//-------------------------------GETERS Y SETERS--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Collection<Equipo> getEquiposInscriptos() {
         return this.equiposInscriptos;
     }
@@ -110,7 +112,7 @@ public class Torneo implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -124,7 +126,7 @@ public class Torneo implements Serializable, Comparable {
         return retorno;
     }
 
-//--------------------------------PERSISTENCIA----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -137,9 +139,9 @@ public class Torneo implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//-----------------------------EQUIPOS INSCRIPTOS-------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Equipos Inscriptos">
     public int agregarEquipoInscripto(EntityManager entityManager, Equipo unEquipo) {
         this.equiposInscriptos.add(unEquipo);
         this.persistir(entityManager);
@@ -166,9 +168,9 @@ public class Torneo implements Serializable, Comparable {
         }
         return cantidadEquiposInscriptos;
     }
-//---------------------------FIN EQUIPOS INSCRIPTOS-----------------------------
+    // </editor-fold>
 
-//-------------------------------FECHAS TORNEO----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Fechas Torneos">
     public void agregarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
         this.fechasTorneo.add(unaFechaTorneo);
         this.persistir(entityManager);
@@ -188,5 +190,5 @@ public class Torneo implements Serializable, Comparable {
         }
         return cantidadFechas;
     }
-//------------------------------FIN FECHAS TORNEO-------------------------------
+    // </editor-fold>
 }

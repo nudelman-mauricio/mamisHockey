@@ -447,6 +447,10 @@ public class ControladoraDeportiva {
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return unTorneo.agregarEquipoInscripto(this.entityManager, unEquipo);
     }
+    
+    public int quitarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
+        return unTorneo.quitarEquipoInscripto(this.entityManager, unEquipo);
+    }
 
     /**
      * Devuelve unTorneo por ID incluido los borrados
