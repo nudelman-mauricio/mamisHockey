@@ -1,22 +1,25 @@
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Club;
 
 public class ICancha extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
     JDesktopPane unJDesktopPanel;
+    Club unClub;
 
-    public ICancha(JInternalFrame unJInternalFrame, JDesktopPane unJDesktopPanel) {
+    public ICancha(JInternalFrame unJInternalFrame, JDesktopPane unJDesktopPanel, Club unClub) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unJDesktopPanel = unJDesktopPanel;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png")));
-        centrar(this);
+        this.unClub = unClub;
+        
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
+        this.setTitle("Club: " + unClub.getNombre()); //Titulo Ventana
+        IMenuPrincipalInterface.centrar(this); //Centrar
     }
 
     @SuppressWarnings("unchecked")
@@ -254,12 +257,6 @@ public class ICancha extends javax.swing.JInternalFrame {
         this.setVisible(false);
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    public void centrar(JInternalFrame unJInternalFrame) {
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

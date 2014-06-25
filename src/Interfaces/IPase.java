@@ -30,13 +30,10 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png")));
-        //Centrar
-        IMenuPrincipalInterface.centrar(this);
-        //Titulo Ventana
-        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
+        
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana        
+        IMenuPrincipalInterface.centrar(this); //Centrar
+        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre()); //Titulo Ventana
 
         cargarComboBoxEquipos();
 
