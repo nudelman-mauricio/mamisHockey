@@ -48,7 +48,17 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
     }
 
     private void cargarJComboBoxEquipo() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
+        List EquiposCombo = this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria());
+              
+        for(Equipo combo: unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria())){
+            for(Equipo tabla: unTorneo.getEquiposInscriptos()){
+                if(combo == tabla){
+                    EquiposCombo.remove(combo);
+                }
+            }
+        }
+        
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector)EquiposCombo);
         this.jComboBoxEquipos.setModel(modelCombo);
         jComboBoxEquipos.setSelectedIndex(-1);
     }
@@ -57,7 +67,8 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
     public void camposActivo(boolean Editable) {
         jButtonNuevo.setEnabled(!Editable); 
         jComboBoxEquipos.setEnabled(Editable);
-        jButtonAgregar.setEnabled(Editable);        
+        jButtonAgregar.setEnabled(Editable); 
+        jButtonCancelar.setEnabled(Editable);
     }
 
     public void cargarTabla() {
@@ -74,6 +85,7 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEquipos = new javax.swing.JTable();
@@ -123,6 +135,16 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,7 +154,9 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +167,9 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
                         .addComponent(jButtonNuevo)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonEliminar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -222,7 +248,7 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jComboBoxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAgregar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,6 +287,7 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         camposActivo(true);
         this.jComboBoxEquipos.setSelectedIndex(-1);
+        this.jTableEquipos.clearSelection();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jTableEquiposFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquiposFocusGained
@@ -270,6 +297,7 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
        limpiarTabla();
        unaControladoraGlobal.agregarEquipoInscripto(unTorneo, (Equipo) jComboBoxEquipos.getSelectedItem());
+       camposActivo(false);
        cargarTabla();        
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
@@ -281,9 +309,15 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
         this.jButtonEliminar.setEnabled(false);
     }//GEN-LAST:event_jTableEquiposFocusLost
 
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        camposActivo(false);
+        jTableEquipos.clearSelection();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JComboBox jComboBoxEquipos;
