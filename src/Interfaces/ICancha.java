@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Club;
+import logicaNegocios.TipoCancha;
 import main.ControladoraGlobal;
 
 public class ICancha extends javax.swing.JInternalFrame {
@@ -15,19 +16,20 @@ public class ICancha extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Club unClub;
-    private DefaultTableModel modeloTablePases;
+    private Cancha unaCanchaSeleccionada;
+    private DefaultTableModel modeloTable;
 
     public ICancha(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unClub = unClub;
-        this.modeloTablePases = (DefaultTableModel) jTableCancha.getModel();
+        this.modeloTable = (DefaultTableModel) jTableCancha.getModel();
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Club: " + unClub.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
-        
+
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());
         this.jComboBoxTipo.setModel(modelCombo);
     }
@@ -45,9 +47,9 @@ public class ICancha extends javax.swing.JInternalFrame {
 
     //Cargar Tabla con las Canchas del Club
     public void cargarTabla() {
-        limpiarTabla(modeloTablePases);
+        limpiarTabla(modeloTable);
         for (Cancha unaCancha : unClub.getCanchas()) {
-            this.modeloTablePases.addRow(new Object[]{unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
+            this.modeloTable.addRow(new Object[]{unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
         }
     }
 
@@ -106,9 +108,16 @@ public class ICancha extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTableCancha.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -156,6 +165,11 @@ public class ICancha extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -216,11 +230,6 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTextFieldNombre.setEditable(false);
         jTextFieldNombre.setEnabled(false);
-        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreActionPerformed(evt);
-            }
-        });
 
         jLabelTipo.setText("Tipo");
 
@@ -258,9 +267,9 @@ public class ICancha extends javax.swing.JInternalFrame {
                     .addComponent(jLabelTipo)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxSeOcupa)
-                    .addComponent(jLabelTipo1))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTipo1)
+                    .addComponent(jCheckBoxSeOcupa))
                 .addContainerGap())
         );
 
@@ -289,7 +298,17 @@ public class ICancha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        jButtonCancelar.setEnabled(true);
+        jButtonGuardar.setEnabled(true);
+        jButtonNuevo.setEnabled(false);
+        jTableCancha.setEnabled(false);
 
+        jTextFieldNombre.setEnabled(true);
+        jComboBoxTipo.setEnabled(true);
+        jCheckBoxSeOcupa.setEnabled(true);
+
+        jTextFieldNombre.setText("");
+        jCheckBoxSeOcupa.setSelected(false);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -301,20 +320,52 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.setVisible(false);
-        this.unJInternalFrame.setVisible(true);
+        jButtonCancelar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonNuevo.setEnabled(true);
+        jTableCancha.setEnabled(true);
+
+        jTextFieldNombre.setEnabled(false);
+        jComboBoxTipo.setEnabled(false);
+        jCheckBoxSeOcupa.setEnabled(false);
+
+        jTextFieldNombre.setText("");
+        jCheckBoxSeOcupa.setSelected(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTableCanchaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCanchaFocusGained
-        Cancha unaCancha = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
-        jTextFieldNombre.setText(unaCancha.getNombre());
-        jCheckBoxSeOcupa.setSelected(unaCancha.isSeOcupa());
-        jComboBoxTipo.setSelectedItem(unaCancha.getUnTipoCancha());
+        System.out.println(jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
+        if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
+            unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
+            jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
+            jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
+            jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
+        }
     }//GEN-LAST:event_jTableCanchaFocusGained
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        if (unaCanchaSeleccionada == null) {
+            unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
+            JOptionPane.showMessageDialog(this, "Categoria Guardada");
 
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+        } else {
+            unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), false);
+            unaCanchaSeleccionada = null;
+        }
+        cargarTabla();
+
+        jButtonCancelar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonNuevo.setEnabled(true);
+        jTableCancha.setEnabled(true);
+
+        jTextFieldNombre.setEnabled(false);
+        jComboBoxTipo.setEnabled(false);
+        jCheckBoxSeOcupa.setEnabled(false);
+
+        jTextFieldNombre.setText("");
+        jCheckBoxSeOcupa.setSelected(false);
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
