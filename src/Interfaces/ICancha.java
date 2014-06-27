@@ -1,34 +1,37 @@
 package Interfaces;
 
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Cancha;
 import logicaNegocios.Club;
+import main.ControladoraGlobal;
 
 public class ICancha extends javax.swing.JInternalFrame {
 
+    private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
-    private JDesktopPane unJDesktopPanel;
     private Club unClub;
     private DefaultTableModel modeloTablePases;
 
-    public ICancha(JInternalFrame unJInternalFrame, JDesktopPane unJDesktopPanel, Club unClub) {
+    public ICancha(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         initComponents();
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
-        this.unJDesktopPanel = unJDesktopPanel;
         this.unClub = unClub;
         this.modeloTablePases = (DefaultTableModel) jTableCancha.getModel();
-        
+
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Club: " + unClub.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         
-        this.jTextFieldNombre.setEnabled(false);
-        this.jComboBoxTipo.setEnabled(false);        
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());
+        this.jComboBoxTipo.setModel(modelCombo);
     }
-    
+
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -39,18 +42,13 @@ public class ICancha extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
-    //Cargar Tabla con los pases de la Socia
-    public void cargarCamposTabla() {
-        DateFormat df = DateFormat.getDateInstance();
-        int nPase = 0;
+
+    //Cargar Tabla con las Canchas del Club
+    public void cargarTabla() {
         limpiarTabla(modeloTablePases);
-        for (Pase unPase : unaSocia.getPasesValidos()) {
-            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().obtenerMontoTotal()});
-            nPase++;
+        for (Cancha unaCancha : unClub.getCanchas()) {
+            this.modeloTablePases.addRow(new Object[]{unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
         }
-        nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto
-        jLabelNumeroPase.setText(String.valueOf(nPase));
     }
 
     @SuppressWarnings("unchecked")
@@ -71,6 +69,8 @@ public class ICancha extends javax.swing.JInternalFrame {
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelTipo = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
+        jCheckBoxSeOcupa = new javax.swing.JCheckBox();
+        jLabelTipo1 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Canchas - Nombre Club");
@@ -111,6 +111,11 @@ public class ICancha extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
+        jTableCancha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableCanchaFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCancha);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -132,6 +137,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -147,11 +153,13 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +170,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +215,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         jLabelNombre.setText("Nombre");
 
         jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setEnabled(false);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -216,17 +226,23 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jComboBoxTipo.setEnabled(false);
 
+        jCheckBoxSeOcupa.setEnabled(false);
+
+        jLabelTipo1.setText("Se Ocupa");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(111, 111, 111)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNombre)
-                    .addComponent(jLabelTipo))
+                    .addComponent(jLabelTipo)
+                    .addComponent(jLabelTipo1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCheckBoxSeOcupa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldNombre)
                     .addComponent(jComboBoxTipo, 0, 160, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -241,7 +257,11 @@ public class ICancha extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipo)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxSeOcupa)
+                    .addComponent(jLabelTipo1))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -269,7 +289,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        
+
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -280,14 +300,21 @@ public class ICancha extends javax.swing.JInternalFrame {
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
-
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
-
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jTableCanchaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCanchaFocusGained
+        Cancha unaCancha = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
+        jTextFieldNombre.setText(unaCancha.getNombre());
+        jCheckBoxSeOcupa.setSelected(unaCancha.isSeOcupa());
+        jComboBoxTipo.setSelectedItem(unaCancha.getUnTipoCancha());
+    }//GEN-LAST:event_jTableCanchaFocusGained
+
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -295,9 +322,11 @@ public class ICancha extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JCheckBox jCheckBoxSeOcupa;
     private javax.swing.JComboBox jComboBoxTipo;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JLabel jLabelTipo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

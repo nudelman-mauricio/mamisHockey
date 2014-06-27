@@ -331,7 +331,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
     private void jButtonCanchasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCanchasActionPerformed
         Club unClubSeleccionado = unaControladoraGlobal.getClubBD((Long)jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
-        ICancha unaICancha = new ICancha(this, jDesktopPane1, unClubSeleccionado);
+        ICancha unaICancha = new ICancha(unaControladoraGlobal, this, unClubSeleccionado);
         unaICancha.pack();
         unaICancha.setVisible(true);
         this.setVisible(false);

@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class TipoCancha implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private double monto;
 
@@ -29,6 +30,7 @@ public class TipoCancha implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public TipoCancha() {
 
@@ -42,7 +44,7 @@ public class TipoCancha implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public double getMonto() {
         return this.monto;
     }
@@ -82,7 +84,7 @@ public class TipoCancha implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -94,9 +96,14 @@ public class TipoCancha implements Serializable, Comparable {
             }
         }
         return retorno;
-    }
+    }    
 
-//----------------------------------PERSISTENCIA--------------------------------
+    @Override
+    public String toString() {
+        return nombre;
+    }    
+
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -109,5 +116,5 @@ public class TipoCancha implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 }
