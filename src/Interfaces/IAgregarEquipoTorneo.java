@@ -47,23 +47,17 @@ public class IAgregarEquipoTorneo extends javax.swing.JInternalFrame {
         
     }
 
-<<<<<<< HEAD
-    private void cargarJComboBoxEquipo() {        
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
-=======
+
     private void cargarJComboBoxEquipo() {
-        List EquiposCombo = this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria());
-              
+        List EquiposCombo = this.unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria());              
         for(Equipo combo: unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria())){
             for(Equipo tabla: unTorneo.getEquiposInscriptos()){
                 if(combo == tabla){
                     EquiposCombo.remove(combo);
                 }
             }
-        }
-        
+        }        
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector)EquiposCombo);
->>>>>>> origin/master
         this.jComboBoxEquipos.setModel(modelCombo);
         jComboBoxEquipos.setSelectedIndex(-1);
     }
