@@ -30,6 +30,10 @@ public class ControladoraGlobal {
     public void eliminarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar) {
         this.unaControladoraEntidades.eliminarPersonaAuxiliar(unaPersonaAuxiliar);
     }
+    
+    public PersonaAuxiliar getPersonaAuxiliarBD(Long dni) {
+        return this.unaControladoraEntidades.getPersonaAuxiliarBD(dni);
+    }
 
     public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
         return this.unaControladoraEntidades.getCuerpoTecnicoBD(dni);

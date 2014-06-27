@@ -58,15 +58,26 @@ public class ControladoraEntidades {
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+    /**
+     * Devuelve una PersonaAuxiliar buscando por DNI
+     */
+    public PersonaAuxiliar getPersonaAuxiliarBD(Long dni) {
+        PersonaAuxiliar resultado;
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.cuerpoTecnico = TRUE";
+        Query traerCuerpoTecnico = this.entityManager.createQuery(unaConsulta);
+        resultado = (PersonaAuxiliar) traerCuerpoTecnico.getSingleResult();
+        return resultado;
+    }
 
     /**
      * Devuelve un CuerpTecnico buscando por DNI borrados inclusive
      */
     public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
         PersonaAuxiliar resultado;
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.cuerpoTecnico = TRUE";
-        Query traerCuerpoTecnico = this.entityManager.createQuery(unaConsulta);
-        resultado = (PersonaAuxiliar) traerCuerpoTecnico.getSingleResult();
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.borradoLogico = FALSE";
+        Query traerPersonaAuxiliar = this.entityManager.createQuery(unaConsulta);
+        resultado = (PersonaAuxiliar) traerPersonaAuxiliar.getSingleResult();
         return resultado;
     }
 

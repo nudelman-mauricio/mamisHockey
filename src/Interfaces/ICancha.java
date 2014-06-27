@@ -3,26 +3,54 @@ package Interfaces;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
 
 public class ICancha extends javax.swing.JInternalFrame {
 
-    JInternalFrame unJInternalFrame;
-    JDesktopPane unJDesktopPanel;
-    Club unClub;
+    private JInternalFrame unJInternalFrame;
+    private JDesktopPane unJDesktopPanel;
+    private Club unClub;
+    private DefaultTableModel modeloTablePases;
 
     public ICancha(JInternalFrame unJInternalFrame, JDesktopPane unJDesktopPanel, Club unClub) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unJDesktopPanel = unJDesktopPanel;
         this.unClub = unClub;
+        this.modeloTablePases = (DefaultTableModel) jTableCancha.getModel();
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Club: " + unClub.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         
         this.jTextFieldNombre.setEnabled(false);
-        this.jComboBoxTipo.setEditable(false);
+        this.jComboBoxTipo.setEnabled(false);        
+    }
+    
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        try {
+            int filas = modeloTabla.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTabla.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
+    
+    //Cargar Tabla con los pases de la Socia
+    public void cargarCamposTabla() {
+        DateFormat df = DateFormat.getDateInstance();
+        int nPase = 0;
+        limpiarTabla(modeloTablePases);
+        for (Pase unPase : unaSocia.getPasesValidos()) {
+            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().obtenerMontoTotal()});
+            nPase++;
+        }
+        nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto
+        jLabelNumeroPase.setText(String.valueOf(nPase));
     }
 
     @SuppressWarnings("unchecked")
