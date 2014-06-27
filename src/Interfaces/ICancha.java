@@ -229,7 +229,6 @@ public class ICancha extends javax.swing.JInternalFrame {
         jLabelNombre.setText("Nombre");
 
         jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setEnabled(false);
 
         jLabelTipo.setText("Tipo");
 
@@ -303,7 +302,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(false);
         jTableCancha.setEnabled(false);
 
-        jTextFieldNombre.setEnabled(true);
+        jTextFieldNombre.setEditable(true);
         jComboBoxTipo.setEnabled(true);
         jCheckBoxSeOcupa.setEnabled(true);
 
@@ -325,7 +324,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(true);
         jTableCancha.setEnabled(true);
 
-        jTextFieldNombre.setEnabled(false);
+        jTextFieldNombre.setEditable(false);
         jComboBoxTipo.setEnabled(false);
         jCheckBoxSeOcupa.setEnabled(false);
 
@@ -359,7 +358,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(true);
         jTableCancha.setEnabled(true);
 
-        jTextFieldNombre.setEnabled(false);
+        jTextFieldNombre.setEditable(false);
         jComboBoxTipo.setEnabled(false);
         jCheckBoxSeOcupa.setEnabled(false);
 
