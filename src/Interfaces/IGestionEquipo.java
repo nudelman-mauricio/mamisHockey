@@ -358,7 +358,12 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+        IEquipo unEquipo = new IEquipo(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unEquipo.pack();
+        unEquipo.setVisible(true);
+        this.setVisible(false);
+        this.jDesktopPane1.add(unEquipo);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
@@ -370,7 +375,12 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPlantelActionPerformed
 
     private void jButtonIndumentariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIndumentariaActionPerformed
-        // TODO add your handling code here:
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+        IIndumentaria unaIIndumentaria = new IIndumentaria(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unaIIndumentaria.pack();
+        unaIIndumentaria.setVisible(true);
+        this.setVisible(false);
+        this.jDesktopPane1.add(unaIIndumentaria);         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonIndumentariaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
