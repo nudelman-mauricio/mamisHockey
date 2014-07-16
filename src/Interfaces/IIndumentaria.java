@@ -38,10 +38,10 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
 
     private void filtrarIndumentaria() {
         limpiarTabla(modeloTablaIndumentaria);
-        List<Indumentaria> unaListaResultado = this.unaControladoraGlobal.getIndumentariasBD();
+        List<Indumentaria> unaListaResultado = (List) unEquipo.getIndumentarias();
         int contador=1;
         for (Indumentaria unaIndumentaria : unaListaResultado) {
-            this.modeloTablaIndumentaria.addRow(new Object[]{contador, unaIndumentaria.getCamiseta(),unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
+            this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(),contador, unaIndumentaria.getCamiseta(),unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
             contador++;
         }
     }    
@@ -73,12 +73,21 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(Editable);
         jButtonNuevo.setEnabled(!Editable);
         jButtonImprimir.setEnabled(!Editable);
+        
+        jTextFieldCamiseta.setEditable(Editable);
+        jTextFieldMedias.setEditable(Editable);
+        jTextFieldPollera.setEditable(Editable);
     }
    
    public void camposLimpiar() {
         jTextFieldCamiseta.setText("");
         jTextFieldPollera.setText("");
         jTextFieldMedias.setText("");      
+    }
+   
+  private void SeleccionarObjetoTabla(boolean estado) {
+        jButtonEditar.setEnabled(estado);
+        jButtonEliminar.setEnabled(estado);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -102,6 +111,23 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jTextFieldMedias = new javax.swing.JTextField();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -109,6 +135,11 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jButtonEditar.setText("Editar");
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
@@ -149,6 +180,11 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,16 +223,23 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
 
         jTableIndumentaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Indumentaria n°", "Camiseta", "Pollera", "Medias"
+                "id", "Indumentaria n°", "Camiseta", "Pollera", "Medias"
             }
         ));
+        jTableIndumentaria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableIndumentariaFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableIndumentaria);
+        if (jTableIndumentaria.getColumnModel().getColumnCount() > 0) {
+            jTableIndumentaria.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableIndumentaria.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableIndumentaria.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -283,7 +326,8 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-       camposActivo(true); // TODO add your handling code here:
+       camposActivo(true);
+       jButtonEliminar.setEnabled(false);// TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -300,6 +344,31 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(true);
         filtrarIndumentaria();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
+
+    private void jTableIndumentariaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableIndumentariaFocusGained
+        this.SeleccionarObjetoTabla(true);        
+    }//GEN-LAST:event_jTableIndumentariaFocusGained
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.camposActivo(false);
+        this.camposLimpiar();// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        Indumentaria unaIndumentaria = unaControladoraGlobal.getIndumentariaBD((Long) jTableIndumentaria.getValueAt(jTableIndumentaria.getSelectedRow(), 0));
+        camposActivo(true);
+        jButtonEditar.setEnabled(false);
+        jTextFieldCamiseta.setText(unaIndumentaria.getCamiseta());
+        jTextFieldMedias.setText(unaIndumentaria.getMedia());
+        jTextFieldPollera.setText(unaIndumentaria.getPollera());
+                
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

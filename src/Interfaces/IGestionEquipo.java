@@ -156,10 +156,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jTableEquipo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "IdEquipo", "Nombre", "Club", "Delegada", "Delegada Sup.", "Director Tecnico"
