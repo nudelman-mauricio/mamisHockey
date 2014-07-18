@@ -63,7 +63,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
 
-        cargarComboBoxPuesto();
+     
         IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
@@ -76,9 +76,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         
     }
      
-     public void cargarComboBoxPuesto(){
-         
-     }
+   
      
       public void camposActivo(boolean Editable) {
         jTextFieldNroCamiseta.setEditable(Editable);           
@@ -88,7 +86,8 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonEditar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(!Editable);
+        jButtonEliminar.setEnabled(Editable);
+        jButtonImprimir.setEnabled(!Editable);
     }
       
         private void SeleccionarObjetoTabla(boolean estado) {
@@ -96,6 +95,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(estado);
         jButtonEditar.setEnabled(estado);
         jButtonEliminar.setEnabled(estado);
+        jButtonImprimir.setEnabled(!estado);
         if (!estado) {
             jTablePlantel.clearSelection();
         }
@@ -134,12 +134,14 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jLabelDestino.setText("Nombre");
 
+        jTextFieldApellido.setEditable(false);
         jTextFieldApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldApellidoActionPerformed(evt);
             }
         });
 
+        jTextFieldNombre.setEditable(false);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -278,6 +280,11 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -362,11 +369,16 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         unaControladoraGlobal.modificarNumeroCamiseta(unaSocia,jTextFieldNroCamiseta.getText());
-        
-        camposActivo(false);        
-        jButtonEditar.setEnabled(true);
+        JOptionPane.showMessageDialog(this, "Numero de camiseta modificado exitosamente");
+        camposActivo(false);       
+        camposLimpiar();
         obtenerPlantel();        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+       this.camposActivo(false);
+       this.camposLimpiar();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

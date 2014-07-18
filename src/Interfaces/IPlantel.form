@@ -147,6 +147,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldApellido">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldApellidoActionPerformed"/>
           </Events>
@@ -154,6 +157,9 @@
         <Component class="javax.swing.JTextField" name="jTextFieldNroCamiseta">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNombreActionPerformed"/>
           </Events>
@@ -364,6 +370,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
