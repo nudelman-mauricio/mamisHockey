@@ -42,6 +42,11 @@ public class TipoEstado implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 //------------------------------ GETERS Y SETERS -------------------------------
     public double getMonto() {
         return this.monto;

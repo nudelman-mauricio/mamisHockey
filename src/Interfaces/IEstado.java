@@ -24,7 +24,7 @@ public class IEstado extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTableEstado;
     
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
-    public IEstado(JInternalFrame unJInternalFrame, Socia unaSocia) {
+    public IEstado(ControladoraGlobal unaControladoraGlobal,JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         
         this.unJInternalFrame = unJInternalFrame;
@@ -107,6 +107,8 @@ public class IEstado extends javax.swing.JInternalFrame {
         jLabelFechaCaducidad = new javax.swing.JLabel();
         jTextFieldFechaRealizacion = new javax.swing.JTextField();
         jComboBoxTipoEstado = new javax.swing.JComboBox();
+
+        setClosable(true);
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -313,9 +315,9 @@ public class IEstado extends javax.swing.JInternalFrame {
             
             unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxTipoEstado.getSelectedItem());
                     
-            JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");            
+            JOptionPane.showMessageDialog(this, "Cambio de Estado Generado");            
         } catch (ParseException e) {
-            System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
+            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
         }
         
         jButtonNuevo.setEnabled(true);

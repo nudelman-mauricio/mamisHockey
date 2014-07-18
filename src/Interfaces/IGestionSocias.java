@@ -355,7 +355,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
-        IEstado unIEstado = new IEstado(this, unaSociaSeleccionada);
+        IEstado unIEstado = new IEstado(unaControladoraGlobal,this, unaSociaSeleccionada);
 
         unIEstado.pack();
         unIEstado.setVisible(true);
