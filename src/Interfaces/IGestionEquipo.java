@@ -58,6 +58,8 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         }
     }
     
+    
+    
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonPlantel.setEnabled(estado);
@@ -368,7 +370,12 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlantelActionPerformed
-        // TODO add your handling code here:
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+        IPlantel unIPlantel = new IPlantel(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unIPlantel.pack();
+        unIPlantel.setVisible(true);
+        this.setVisible(false);
+        this.jDesktopPane1.add(unIPlantel);          // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPlantelActionPerformed
 
     private void jButtonIndumentariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIndumentariaActionPerformed
