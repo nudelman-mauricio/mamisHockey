@@ -59,6 +59,7 @@ public class Socia extends Persona implements Serializable {
 
     public void setNumeroCamiseta(String numeroCamiseta) {
         this.numeroCamiseta = numeroCamiseta;
+        
     }
 
     public String getFotoCarnet() {

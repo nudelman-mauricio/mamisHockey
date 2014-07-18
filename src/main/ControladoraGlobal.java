@@ -26,6 +26,10 @@ public class ControladoraGlobal {
     public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, cuerpoTecnicoActivo, borradoLogico);
     }
+    
+    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta){
+        this.unaControladoraEntidades.modificarNumeroCamiseta(unaSocia, numeroCamiseta);
+    }
 
     public void eliminarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar) {
         this.unaControladoraEntidades.eliminarPersonaAuxiliar(unaPersonaAuxiliar);

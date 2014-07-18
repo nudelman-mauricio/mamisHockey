@@ -12,7 +12,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
-import logicaNegocios.Persona;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
@@ -26,6 +25,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     Equipo unEquipo;
     ControladoraGlobal unaControladoraGlobal;
     DefaultTableModel modeloTablaPlantel;
+    Socia unaSocia;
     
       public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -73,7 +73,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jTextFieldNroCamiseta.setText("");
         jTextFieldApellido.setText("");
         jTextFieldNombre.setText("");
-        jComboBoxPuesto.setSelectedIndex(-1);
+        
     }
      
      public void cargarComboBoxPuesto(){
@@ -81,10 +81,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
      }
      
       public void camposActivo(boolean Editable) {
-        jTextFieldNroCamiseta.setEditable(Editable);
-        jTextFieldApellido.setEditable(Editable);
-        jTextFieldNombre.setEditable(Editable);
-        jComboBoxPuesto.setEnabled(Editable);
+        jTextFieldNroCamiseta.setEditable(Editable);           
         jButton1.setEnabled(Editable);
        
 
@@ -112,9 +109,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jLabelOrigen = new javax.swing.JLabel();
         jLabelDestino = new javax.swing.JLabel();
         jTextFieldApellido = new javax.swing.JTextField();
-        jComboBoxPuesto = new javax.swing.JComboBox();
         jTextFieldNroCamiseta = new javax.swing.JTextField();
-        jLabelDestino1 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -145,11 +140,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBoxPuesto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delegada", "Sub-Delegada", "Capitana", "Sub-Capitana" }));
-        jComboBoxPuesto.setToolTipText("");
-
-        jLabelDestino1.setText("Puesto");
-
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -176,10 +166,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabelFechaMonto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelDestino1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(221, 221, 221))))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,11 +201,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDestino)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDestino1)
-                    .addComponent(jComboBoxPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(jLabelFechaMonto)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -285,6 +268,11 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -360,7 +348,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        Socia unaSocia = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
+        this.unaSocia = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
         camposActivo(true);
         jButtonEditar.setEnabled(false);
         jTextFieldNroCamiseta.setText(unaSocia.getNumeroCamiseta());
@@ -372,6 +360,14 @@ public class IPlantel extends javax.swing.JInternalFrame {
        this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jTablePlantelFocusGained
 
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        unaControladoraGlobal.modificarNumeroCamiseta(unaSocia,jTextFieldNroCamiseta.getText());
+        
+        camposActivo(false);        
+        jButtonEditar.setEnabled(true);
+        obtenerPlantel();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -380,10 +376,8 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
-    private javax.swing.JComboBox jComboBoxPuesto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDestino;
-    private javax.swing.JLabel jLabelDestino1;
     private javax.swing.JLabel jLabelFechaMonto;
     private javax.swing.JLabel jLabelFechaRealizacion1;
     private javax.swing.JLabel jLabelOrigen;

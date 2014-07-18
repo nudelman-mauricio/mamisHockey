@@ -198,6 +198,10 @@ public class ControladoraEntidades {
         return unaListaResultado;
     }
 
+    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamistea){
+        unaSocia.setNumeroCamiseta(numeroCamistea);
+        unaSocia.persistir(entityManager);
+    }
     /**
      * Devuelve todas las Socias filtradas por Dato
      */
