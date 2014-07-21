@@ -96,10 +96,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Tipo", "Nombre", "Se ocupa"
@@ -311,7 +308,15 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jButtonCancelar.setEnabled(true);
+        jButtonGuardar.setEnabled(true);
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jTableCancha.setEnabled(false);
 
+        jTextFieldNombre.setEditable(true);
+        jComboBoxTipo.setEnabled(true);
+        jCheckBoxSeOcupa.setEnabled(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -321,6 +326,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jButtonCancelar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
         jButtonNuevo.setEnabled(true);
         jTableCancha.setEnabled(true);
 
@@ -333,19 +339,21 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTableCanchaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCanchaFocusGained
-        System.out.println(jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
-        if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
-            unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
-            jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
-            jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
-            jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
+        if (jTableCancha.getSelectedRow() > -1) {
+            if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
+                unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
+                jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
+                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
+                jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());                
+                jButtonEditar.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_jTableCanchaFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (unaCanchaSeleccionada == null) {
             unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "Categoria Guardada");
+            JOptionPane.showMessageDialog(this, "Cancha Guardada");
 
         } else {
             unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), false);
@@ -356,6 +364,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
         jTableCancha.setEnabled(true);
 
         jTextFieldNombre.setEditable(false);
