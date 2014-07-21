@@ -394,7 +394,7 @@ public class ControladoraGlobal {
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
     public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
-        this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);
+        this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);        
     }
 
     public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
@@ -711,19 +711,11 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
     }
 
-    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarFrecuencia(unaFrecuencia, diaGeneracion, diaVencimiento, borradoLogico);
-    }
-
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
         this.unaControladoraContabilidad.eliminarFrecuencia(unaFrecuencia);
     }
 
     public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
-        this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
-    }
-
-    public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
         this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
     }
 

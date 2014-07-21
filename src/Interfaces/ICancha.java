@@ -32,7 +32,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());
         this.jComboBoxTipo.setModel(modelCombo);
-    }
+    }   
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
@@ -146,6 +146,11 @@ public class ICancha extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -344,7 +349,7 @@ public class ICancha extends javax.swing.JInternalFrame {
                 unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
                 jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
                 jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
-                jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());                
+                jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
                 jButtonEditar.setEnabled(true);
             }
         }
@@ -374,6 +379,10 @@ public class ICancha extends javax.swing.JInternalFrame {
         jTextFieldNombre.setText("");
         jCheckBoxSeOcupa.setSelected(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

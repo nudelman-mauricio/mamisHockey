@@ -1,37 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.text.DateFormat;
-import java.util.Collection;
-import java.util.List;
-import java.util.TreeSet;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Mes;
-import logicaNegocios.Pase;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class ITipoEstado extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane;
-
+    
     private DefaultTableModel modeloTablePases;
-
+    
     public ITipoEstado(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
         initComponents();
-
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unjDesktopPane = unjDesktopPanel;
 
@@ -41,20 +31,20 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
         //Titulo Ventana
         this.setTitle("Estados posibles de una Socia");
-
+        
         this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
         cargarCamposTabla();
-
+        
         jTableTipoEstado.clearSelection();
-
+        
         camposActivo(false);
-
+        
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonEditar.setEnabled(false);
-
+        
     }
 
     //Cargar Tabla con los pases de la Socia
@@ -66,7 +56,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre(), unTipoEstado.getUnaFrecuencia().getDiaGeneracion(), unTipoEstado.getUnaFrecuencia().getDiaVencimiento(), unTipoEstado.getMonto()});
         }
     }
-
+    
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -77,7 +67,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-
+    
     public void camposActivo(boolean Editable) {
         jTextFieldNombreEstado.setEditable(Editable);
         jTextFieldMontoMensual.setEditable(Editable);
@@ -98,7 +88,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jComboBoxDiaGeneracion.setEnabled(Editable);
         jComboBoxDiaVencimiento.setEnabled(Editable);
     }
-
+    
     public void camposLimpiar() {
         jTextFieldNombreEstado.setText("");
         jTextFieldMontoMensual.setText("");
@@ -117,64 +107,97 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jComboBoxDiaGeneracion.setSelectedIndex(-1);
         jComboBoxDiaVencimiento.setSelectedIndex(-1);
     }
-
+    
     public void mostrarDetalle(TipoEstado unTipoEstado) {
         camposLimpiar();
         jTextFieldNombreEstado.setText(unTipoEstado.getNombre());
         jTextFieldMontoMensual.setText(String.valueOf(unTipoEstado.getMonto()));
         for (Mes aux : unTipoEstado.getUnaFrecuencia().getMeses()) {
-            if ("Enero".equals(aux.getNombre())) {
-                jCheckBox1.setSelected(true);
-            } else {
-                if ("Febrero".equals(aux.getNombre())) {
+            switch (aux.getNombre()) {
+                case "Enero":
+                    jCheckBox1.setSelected(true);
+                    break;
+                case "Febrero":
                     jCheckBox2.setSelected(true);
-                } else {
-                    if ("Marzo".equals(aux.getNombre())) {
-                        jCheckBox3.setSelected(true);
-                    } else {
-                        if ("Abril".equals(aux.getNombre())) {
-                            jCheckBox4.setSelected(true);
-                        } else {
-                            if ("Mayo".equals(aux.getNombre())) {
-                                jCheckBox5.setSelected(true);
-                            } else {
-                                if ("Junio".equals(aux.getNombre())) {
-                                    jCheckBox6.setSelected(true);
-                                } else {
-                                    if ("Julio".equals(aux.getNombre())) {
-                                        jCheckBox7.setSelected(true);
-                                    } else {
-                                        if ("Agosto".equals(aux.getNombre())) {
-                                            jCheckBox8.setSelected(true);
-                                        } else {
-                                            if ("Septiembre".equals(aux.getNombre())) {
-                                                jCheckBox9.setSelected(true);
-                                            } else {
-                                                if ("Octubre".equals(aux.getNombre())) {
-                                                    jCheckBox10.setSelected(true);
-                                                } else {
-                                                    if ("Nobiembre".equals(aux.getNombre())) {
-                                                        jCheckBox11.setSelected(true);
-                                                    } else {
-                                                        if ("Diciembre".equals(aux.getNombre())) {
-                                                            jCheckBox12.setSelected(true);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                    break;
+                case "Marzo":
+                    jCheckBox3.setSelected(true);
+                    break;
+                case "Abril":
+                    jCheckBox4.setSelected(true);
+                    break;
+                case "Mayo":
+                    jCheckBox5.setSelected(true);
+                    break;
+                case "Junio":
+                    jCheckBox6.setSelected(true);
+                    break;
+                case "Julio":
+                    jCheckBox7.setSelected(true);
+                    break;
+                case "Agosto":
+                    jCheckBox8.setSelected(true);
+                    break;
+                case "Septiembre":
+                    jCheckBox9.setSelected(true);
+                    break;
+                case "Octubre":
+                    jCheckBox10.setSelected(true);
+                    break;
+                case "Nobiembre":
+                    jCheckBox11.setSelected(true);
+                    break;
+                case "Diciembre":
+                    jCheckBox12.setSelected(true);
+                    break;
             }
         }
         jComboBoxDiaGeneracion.setSelectedIndex(Integer.parseInt(unTipoEstado.getUnaFrecuencia().getDiaGeneracion()));
         jComboBoxDiaVencimiento.setSelectedIndex(Integer.parseInt(unTipoEstado.getUnaFrecuencia().getDiaVencimiento()));
     }
 
+    //Crear Frecuencia para el Tipo de Estado
+    private Frecuencia crearFrecuencia() {
+        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
+        if (jCheckBox1.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(1));
+        }
+        if (jCheckBox2.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(2));
+        }
+        if (jCheckBox3.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(3));
+        }
+        if (jCheckBox4.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(4));
+        }
+        if (jCheckBox5.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(5));
+        }
+        if (jCheckBox6.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(6));
+        }
+        if (jCheckBox7.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(7));
+        }
+        if (jCheckBox8.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(8));
+        }
+        if (jCheckBox9.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(9));
+        }
+        if (jCheckBox10.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(10));
+        }
+        if (jCheckBox11.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(11));
+        }
+        if (jCheckBox12.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(12));
+        }
+        return unaFrecuencia;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -564,45 +587,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
-        if (jCheckBox1.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(1));
-        }
-        if (jCheckBox2.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(2));
-        }
-        if (jCheckBox3.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(3));
-        }
-        if (jCheckBox4.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(4));
-        }
-        if (jCheckBox5.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(5));
-        }
-        if (jCheckBox6.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(6));
-        }
-        if (jCheckBox7.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(7));
-        }
-        if (jCheckBox8.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(8));
-        }
-        if (jCheckBox9.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(9));
-        }
-        if (jCheckBox10.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(10));
-        }
-        if (jCheckBox11.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(11));
-        }
-        if (jCheckBox12.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(12));
-        }
-        
-        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()),unaFrecuencia , jTextFieldNombreEstado.getText());
+        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()), crearFrecuencia(), jTextFieldNombreEstado.getText());
         JOptionPane.showMessageDialog(this, "Nuevo Estado posible Guardado.");
 
         //Comportamientos Extras
@@ -611,7 +596,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         camposLimpiar();
         camposActivo(false);
         jTableTipoEstado.setEnabled(true);
@@ -620,11 +605,11 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jTableTipoEstado.clearSelection();
-
+        
         camposLimpiar();
         camposActivo(false);
         jTableTipoEstado.setEnabled(true);
-
+        
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
@@ -634,7 +619,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         TipoEstado unTipoEstado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
-
+        
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -645,8 +630,9 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
                 null,
                 options,
                 options)) {
+            unaControladoraGlobal.eliminarFrecuencia(unTipoEstado.getUnaFrecuencia());
             unaControladoraGlobal.eliminarTipoEstado(unTipoEstado);
-
+            
             cargarCamposTabla();
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
