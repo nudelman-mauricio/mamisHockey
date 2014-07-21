@@ -21,6 +21,7 @@ public class IEstado extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private Socia unaSocia;
     
+    private boolean modificar = false;    
     private DefaultTableModel modeloTableEstado;
     
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
@@ -64,7 +65,8 @@ public class IEstado extends javax.swing.JInternalFrame {
         
         for (Object aux : unaSocia.getEstadosValidos()) {
             Estado unEstado = (Estado) aux;
-            this.modeloTableEstado.addRow(new Object[]{unEstado.getIdEstado(), unEstado.getFecha(),unEstado.getUnTipoEstado().getNombre()});
+            DateFormat df = DateFormat.getDateInstance();
+            this.modeloTableEstado.addRow(new Object[]{unEstado.getIdEstado(), df.format(unEstado.getFecha()),unEstado.getUnTipoEstado().getNombre()});
         }
     }
     
@@ -109,6 +111,23 @@ public class IEstado extends javax.swing.JInternalFrame {
         jComboBoxTipoEstado = new javax.swing.JComboBox();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -295,6 +314,8 @@ public class IEstado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        modificar=false;
+        
         jTableEstado.clearSelection();
         jTableEstado.setEnabled(false);
         camposActivo(true);
@@ -312,10 +333,14 @@ public class IEstado extends javax.swing.JInternalFrame {
         DateFormat df = DateFormat.getDateInstance();
         try {
             Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-            
+            if(!modificar){
             unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxTipoEstado.getSelectedItem());
-                    
-            JOptionPane.showMessageDialog(this, "Cambio de Estado Generado");            
+            JOptionPane.showMessageDialog(this, "Nuevo Estado Guardado");}
+            else { 
+            Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
+            unaControladoraGlobal.modificarEstado(unEstado,  fechaRealizacion, (TipoEstado) jComboBoxTipoEstado.getSelectedItem(), false); 
+            JOptionPane.showMessageDialog(this, "Estado Modificado");
+            }
         } catch (ParseException e) {
             System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
         }
@@ -333,6 +358,8 @@ public class IEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        modificar = false;
+        
         jTableEstado.clearSelection();
         
         camposLimpiar();
@@ -341,9 +368,9 @@ public class IEstado extends javax.swing.JInternalFrame {
 
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -366,14 +393,33 @@ public class IEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        modificar = true;        
+        jTableEstado.setEnabled(false);
         camposActivo(true);
+        
+        Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
+        DateFormat df = DateFormat.getDateInstance();
+        jTextFieldFechaRealizacion.setText(df.format(unEstado.getFecha()));
+        jComboBoxTipoEstado.setSelectedItem(unEstado.getUnTipoEstado());
+        
+        jButtonNuevo.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTableEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEstadoFocusGained
         jButtonEliminar.setEnabled(true);
         jButtonEditar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
+        
     }//GEN-LAST:event_jTableEstadoFocusGained
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
