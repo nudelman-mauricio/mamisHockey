@@ -3,8 +3,8 @@ package Interfaces;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.ImageIcon;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Mes;
@@ -15,14 +15,12 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private TipoCancha unTipoCanchaSeleccionado;
-    private JInternalFrame unJInternalFrame;
     private DefaultTableModel modeloTable;
 
-    public ITipoCancha(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
+    public ITipoCancha(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
-        this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unJInternalFrame = unJInternalFrame;
+        this.unaControladoraGlobal = unaControladoraGlobal;        
         this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();
         habilitadorContenedores(jPanel3, false);
         cargarTabla();
@@ -56,6 +54,9 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         Component[] components = c.getComponents();
         for (int i = 0; i < components.length; i++) {
             components[i].setEnabled(bandera);
+            if (components[i] instanceof JTextField) {
+                ((JTextField) components[i]).setEditable(bandera);
+            }
             if (components[i] instanceof Container) {
                 habilitadorContenedores((Container) components[i], bandera);
             }
@@ -80,8 +81,8 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jCheckBox11.setSelected(false);
         jCheckBox12.setSelected(false);
 
-        jComboBox1.setSelectedIndex(2);
-        jComboBox2.setSelectedIndex(2);
+        jComboBox1.setSelectedIndex(0);
+        jComboBox2.setSelectedIndex(0);
     }
 
     //cargar Check de Meses Frecuencia
@@ -207,6 +208,8 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jCheckBox7 = new javax.swing.JCheckBox();
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
+
+        setClosable(true);
 
         jTableTipoCancha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -521,7 +524,8 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
                     .addComponent(jLabelNombre3)
                     .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -539,7 +543,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.getAccessibleContext().setAccessibleDescription("");
@@ -587,17 +591,6 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-
-        jTableTipoCancha.setEnabled(true);
-
-        habilitadorContenedores(jPanel3, false);
-        blanquearComponentes();
-
         if (unTipoCanchaSeleccionado == null) {
             unaControladoraGlobal.crearTipoCancha(Double.valueOf(jTextFieldMonto.getText()), crearFrecuencia(), jTextFieldNombre.getText());
             JOptionPane.showMessageDialog(this, "Tipo Cancha Creada");
@@ -608,6 +601,17 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             unTipoCanchaSeleccionado = null;
         }
         cargarTabla();
+        
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableTipoCancha.setEnabled(true);
+
+        habilitadorContenedores(jPanel3, false);
+        blanquearComponentes();        
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed

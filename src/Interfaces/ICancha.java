@@ -48,7 +48,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     //Cargar Tabla con las Canchas del Club
     public void cargarTabla() {
         limpiarTabla(modeloTable);
-        for (Cancha unaCancha : unClub.getCanchas()) {
+        for (Cancha unaCancha : unClub.getCanchas()) {            
             this.modeloTable.addRow(new Object[]{unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
         }
     }
@@ -362,6 +362,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         } else {
             unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), false);
+            JOptionPane.showMessageDialog(this, "Cancha Modificada");
             unaCanchaSeleccionada = null;
         }
         cargarTabla();

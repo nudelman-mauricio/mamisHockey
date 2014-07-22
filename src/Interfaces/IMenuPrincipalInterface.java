@@ -1,6 +1,5 @@
 package Interfaces;
 
-
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
@@ -14,14 +13,14 @@ import main.ControladoraGlobal;
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    
+
     private BufferedImage img;
 
     public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
         initComponents();
-       
+
         this.unaControladoraGlobal = ControladoraGlobal;
-        
+
         //Icono de la ventana
         setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
 
@@ -29,7 +28,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         //FONDO jDesktopPane      - TODAVIA ME ESTA GANANDO - 
         //jDesktopPane.setBorder(new ImagenFondo());
         //https://www.youtube.com/watch?v=vrNc5bBbJ3g
@@ -81,6 +80,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemEstadosSocia = new javax.swing.JMenuItem();
         jMenuItemLocalidades = new javax.swing.JMenuItem();
         jMenuItemCategoria = new javax.swing.JMenuItem();
+        jMenuItemTipoCancha = new javax.swing.JMenuItem();
         jMenuItemSkin = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -331,6 +331,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItemCategoria);
 
+        jMenuItemTipoCancha.setText("Tipos de Canchas");
+        jMenuItemTipoCancha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTipoCanchaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItemTipoCancha);
+
         jMenuItemSkin.setText("Skin");
         jMenuItemSkin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,7 +469,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         IEquipo unEquipo = new IEquipo(this.unaControladoraGlobal, jDesktopPane);
         unEquipo.pack();
         unEquipo.setVisible(true);
-        this.jDesktopPane.add(unEquipo); 
+        this.jDesktopPane.add(unEquipo);
     }//GEN-LAST:event_jMenuItemNuevoEquipoActionPerformed
 
     private void jMenuItemAdmEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmEquiposActionPerformed
@@ -488,14 +496,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         ITorneo unTorneo = new ITorneo(unaControladoraGlobal, jDesktopPane);
         unTorneo.pack();
         unTorneo.setVisible(true);
-        this.jDesktopPane.add(unTorneo);                
+        this.jDesktopPane.add(unTorneo);
     }//GEN-LAST:event_jMenuItemNuevoTorneoActionPerformed
 
     private void jMenuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriaActionPerformed
         ICategoria unaCategoria = new ICategoria(unaControladoraGlobal);
         unaCategoria.pack();
         unaCategoria.setVisible(true);
-        this.jDesktopPane.add(unaCategoria);        
+        this.jDesktopPane.add(unaCategoria);
     }//GEN-LAST:event_jMenuItemCategoriaActionPerformed
 
     private void jMenuItemEstadosSociaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosSociaActionPerformed
@@ -504,6 +512,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unTipoEstado.setVisible(true);
         this.jDesktopPane.add(unTipoEstado);
     }//GEN-LAST:event_jMenuItemEstadosSociaActionPerformed
+
+    private void jMenuItemTipoCanchaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipoCanchaActionPerformed
+        ITipoCancha unaVentanaTipoCancha = new ITipoCancha(unaControladoraGlobal);
+        unaVentanaTipoCancha.pack();
+        unaVentanaTipoCancha.setVisible(true);
+        this.jDesktopPane.add(unaVentanaTipoCancha);
+    }//GEN-LAST:event_jMenuItemTipoCanchaActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -549,6 +564,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNuevoEquipo;
     private javax.swing.JMenuItem jMenuItemNuevoTorneo;
     private javax.swing.JMenuItem jMenuItemSkin;
+    private javax.swing.JMenuItem jMenuItemTipoCancha;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
