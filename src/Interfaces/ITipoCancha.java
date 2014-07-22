@@ -20,7 +20,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     public ITipoCancha(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
-        this.unaControladoraGlobal = unaControladoraGlobal;        
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();
         habilitadorContenedores(jPanel3, false);
         cargarTabla();
@@ -45,7 +45,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     public void cargarTabla() {
         limpiarTabla(modeloTable);
         for (TipoCancha unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
-            this.modeloTable.addRow(new Object[]{unTipoCancha.getNombre(), unTipoCancha.getMonto()});
+            this.modeloTable.addRow(new Object[]{unTipoCancha.getIdTipoCancha(), unTipoCancha.getNombre(), unTipoCancha.getMonto()});
         }
     }
 
@@ -216,12 +216,19 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo de Cancha", "Monto Mensual ($)"
+                "id", "Tipo de Cancha", "Monto Mensual ($)"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -233,6 +240,11 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableTipoCancha);
+        if (jTableTipoCancha.getColumnModel().getColumnCount() > 0) {
+            jTableTipoCancha.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableTipoCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableTipoCancha.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -524,7 +536,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
                     .addComponent(jLabelNombre3)
                     .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -601,7 +613,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             unTipoCanchaSeleccionado = null;
         }
         cargarTabla();
-        
+
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
@@ -611,7 +623,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jTableTipoCancha.setEnabled(true);
 
         habilitadorContenedores(jPanel3, false);
-        blanquearComponentes();        
+        blanquearComponentes();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed

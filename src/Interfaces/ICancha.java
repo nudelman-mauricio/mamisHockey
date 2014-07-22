@@ -32,7 +32,9 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());
         this.jComboBoxTipo.setModel(modelCombo);
-    }   
+        
+        cargarTabla();
+    }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
@@ -48,8 +50,8 @@ public class ICancha extends javax.swing.JInternalFrame {
     //Cargar Tabla con las Canchas del Club
     public void cargarTabla() {
         limpiarTabla(modeloTable);
-        for (Cancha unaCancha : unClub.getCanchas()) {            
-            this.modeloTable.addRow(new Object[]{unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
+        for (Cancha unaCancha : unClub.getCanchas()) {
+            this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
         }
     }
 
@@ -99,14 +101,14 @@ public class ICancha extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo", "Nombre", "Se ocupa"
+                "id", "Tipo", "Nombre", "Se ocupa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -123,6 +125,11 @@ public class ICancha extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableCancha);
+        if (jTableCancha.getColumnModel().getColumnCount() > 0) {
+            jTableCancha.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableCancha.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -344,11 +351,13 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTableCanchaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCanchaFocusGained
+        System.out.println(jTableCancha.getSelectedRow());
+        System.out.println(jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
         if (jTableCancha.getSelectedRow() > -1) {
             if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
-                unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
+                unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));                
                 jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
-                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
+                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());                
                 jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
                 jButtonEditar.setEnabled(true);
             }
