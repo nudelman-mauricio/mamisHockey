@@ -304,11 +304,12 @@ public class ControladoraEntidades {
         unaSocia.agregarErgometria(this.entityManager, unaErgometria);
     }
 
-    public void modificarErgometria(Ergometria unaErgometria, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
+    public void modificarErgometria(Ergometria unaErgometria, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios, boolean borradoLogico) {
         unaErgometria.setAprobado(aprobado);
         unaErgometria.setComentarios(comentarios);
         unaErgometria.setFechaCaducidad(fechaCaducidad);
         unaErgometria.setFechaRealizacion(fechaRealizacion);
+        unaErgometria.setBorradoLogico(borradoLogico);
         unaErgometria.persistir(this.entityManager);
     }
 

@@ -5,6 +5,8 @@ import java.awt.Container;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Mes;
@@ -170,6 +172,26 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         }
         return unaFrecuencia;
     }
+    
+    //actualizar campos al seleccionar un tipo cancha en la tabla
+    void actualizarCampos(){
+        if (jTableTipoCancha.getSelectedRow() > -1) {
+            if (jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0) != null) {
+                unTipoCanchaSeleccionado = unaControladoraGlobal.getTipoCanchaBD((Long) jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0));
+
+                jTextFieldNombre.setText(unTipoCanchaSeleccionado.getNombre());
+                jTextFieldMonto.setText(String.valueOf(unTipoCanchaSeleccionado.getMonto()));
+
+                Frecuencia unaFrecuencia = unTipoCanchaSeleccionado.getUnaFrecuencia();
+                setMeses(unaFrecuencia);
+                jComboBox1.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaGeneracion()));
+                jComboBox2.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaVencimiento()));
+
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -234,17 +256,17 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableTipoCancha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableTipoCanchaFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableTipoCancha);
         if (jTableTipoCancha.getColumnModel().getColumnCount() > 0) {
             jTableTipoCancha.getColumnModel().getColumn(0).setMinWidth(0);
             jTableTipoCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableTipoCancha.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableTipoCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                actualizarCampos();
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -536,7 +558,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
                     .addComponent(jLabelNombre3)
                     .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 187, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -655,25 +677,6 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void jTableTipoCanchaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableTipoCanchaFocusGained
-        if (jTableTipoCancha.getSelectedRow() > -1) {
-            if (jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0) != null) {
-                unTipoCanchaSeleccionado = unaControladoraGlobal.getTipoCanchaBD((Long) jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0));
-
-                jTextFieldNombre.setText(unTipoCanchaSeleccionado.getNombre());
-                jTextFieldMonto.setText(String.valueOf(unTipoCanchaSeleccionado.getMonto()));
-
-                Frecuencia unaFrecuencia = unTipoCanchaSeleccionado.getUnaFrecuencia();
-                setMeses(unaFrecuencia);
-                jComboBox1.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaGeneracion()));
-                jComboBox2.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaVencimiento()));
-
-                jButtonEditar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_jTableTipoCanchaFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

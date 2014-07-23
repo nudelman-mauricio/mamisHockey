@@ -5,6 +5,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Club;
@@ -32,7 +34,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());
         this.jComboBoxTipo.setModel(modelCombo);
-        
+
         cargarTabla();
     }
 
@@ -52,6 +54,19 @@ public class ICancha extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTable);
         for (Cancha unaCancha : unClub.getCanchas()) {
             this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
+        }
+    }
+
+    //actualizar los campos al seleccionar una cancha en la tabla
+    void actualizarCampos() {
+        if (jTableCancha.getSelectedRow() > -1) {
+            if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
+                unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
+                jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
+                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
+                jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
+                jButtonEditar.setEnabled(true);
+            }
         }
     }
 
@@ -119,17 +134,17 @@ public class ICancha extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableCancha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableCanchaFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableCancha);
         if (jTableCancha.getColumnModel().getColumnCount() > 0) {
             jTableCancha.getColumnModel().getColumn(0).setMinWidth(0);
             jTableCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableCancha.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                actualizarCampos();
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -349,20 +364,6 @@ public class ICancha extends javax.swing.JInternalFrame {
         jTextFieldNombre.setText("");
         jCheckBoxSeOcupa.setSelected(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jTableCanchaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCanchaFocusGained
-        System.out.println(jTableCancha.getSelectedRow());
-        System.out.println(jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
-        if (jTableCancha.getSelectedRow() > -1) {
-            if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
-                unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));                
-                jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
-                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());                
-                jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
-                jButtonEditar.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_jTableCanchaFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (unaCanchaSeleccionada == null) {
