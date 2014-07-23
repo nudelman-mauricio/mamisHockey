@@ -3,8 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Club;
+import logicaNegocios.Equipo;
+import logicaNegocios.Torneo;
+import main.ControladoraGlobal;
 
 /**
  *
@@ -15,8 +27,84 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     /**
      * Creates new form EquiposTorneos
      */
-    public IEquiposTorneos() {
+    JInternalFrame unJInternalFrame;
+    ControladoraGlobal unaControladoraGlobal;
+    Torneo unTorneo;
+    DefaultComboBoxModel modelCombo;
+    DefaultTableModel modeloTablaEquipoInscripto;
+    DefaultTableModel modeloTablaEquipoDisponible;
+    Club unClub;
+
+    public IEquiposTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unTorneo = unTorneo;
+        this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
+        this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposInscriptos.getModel();
+        this.setTitle("Torneo: " + unTorneo.getNombre());
+        SeInicio();
+        cargarTabla();
+    }
+
+    public void SeInicio() {
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
+
+        camposActivo(false);
+
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTablaEquipoInscripto, DefaultTableModel modeloTablaEquipoDisponible) {
+        try {
+            int filas = modeloTablaEquipoInscripto.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaEquipoInscripto.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+        
+        try {
+            int filas = modeloTablaEquipoDisponible.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTablaEquipoDisponible.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+        
+        
+    }
+
+    public void camposActivo(boolean Editable) {
+
+        jButtonCancelar.setEnabled(Editable);
+    }
+
+    public void cargarTabla() {
+        this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
+        Collection<Equipo> listaInscriptos = unTorneo.getEquiposInscriptos();
+        for (Equipo unEquipo : listaInscriptos) {
+            this.modeloTablaEquipoInscripto.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+        }
+
+        this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
+        Collection<Equipo> unaListaResultado = unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria());
+        boolean bandera = true;
+        for (Equipo unEquipo : unaListaResultado) {
+
+            for (Equipo aux : listaInscriptos) {
+                if (aux.equals(unEquipo)) {
+                    bandera = false;
+                }
+            }
+            if (bandera) {
+                this.modeloTablaEquipoDisponible.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+            }
+            bandera = true;
+        }
+
     }
 
     /**
@@ -37,13 +125,15 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         jButtonAgregar = new javax.swing.JButton();
         jButtonQuitar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableEquiposInscriptos = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableEquiposDisponibles = new javax.swing.JTable();
         jTextFieldBuscar = new javax.swing.JTextField();
         jRadioButtonDni3 = new javax.swing.JRadioButton();
         jRadioButtonApellido3 = new javax.swing.JRadioButton();
         jRadioButtonDni4 = new javax.swing.JRadioButton();
+
+        setClosable(true);
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -107,28 +197,66 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/next.png"))); // NOI18N
+        jButtonAgregar.setEnabled(false);
+        jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarActionPerformed(evt);
+            }
+        });
 
         jButtonQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/back.png"))); // NOI18N
+        jButtonQuitar.setEnabled(false);
+        jButtonQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonQuitarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEquiposInscriptos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Club", "Categoria"
+                "Nombre", "Club", "Categoria", "id"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jTableEquiposInscriptos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableEquiposInscriptosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTableEquiposInscriptosFocusLost(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableEquiposInscriptos);
+        if (jTableEquiposInscriptos.getColumnModel().getColumnCount() > 0) {
+            jTableEquiposInscriptos.getColumnModel().getColumn(3).setMinWidth(0);
+            jTableEquiposInscriptos.getColumnModel().getColumn(3).setPreferredWidth(0);
+            jTableEquiposInscriptos.getColumnModel().getColumn(3).setMaxWidth(0);
+        }
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEquiposDisponibles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Club", "Categoria"
+                "id", "Nombre", "Club", "Categoria"
             }
         ));
-        jScrollPane4.setViewportView(jTable2);
+        jTableEquiposDisponibles.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableEquiposDisponiblesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTableEquiposDisponiblesFocusLost(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTableEquiposDisponibles);
+        if (jTableEquiposDisponibles.getColumnModel().getColumnCount() > 0) {
+            jTableEquiposDisponibles.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableEquiposDisponibles.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableEquiposDisponibles.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jRadioButtonDni3.setText("Categoria");
 
@@ -220,6 +348,42 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonApellido3ActionPerformed
 
+    private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
+        unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipoSeleccionado);
+        limpiarTabla(modeloTablaEquipoInscripto, modeloTablaEquipoDisponible);
+        cargarTabla();
+    }//GEN-LAST:event_jButtonAgregarActionPerformed
+
+    private void jTableEquiposDisponiblesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquiposDisponiblesFocusLost
+        this.jTableEquiposDisponibles.clearSelection();
+        jButtonAgregar.setEnabled(false);
+
+    }//GEN-LAST:event_jTableEquiposDisponiblesFocusLost
+
+    private void jTableEquiposInscriptosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquiposInscriptosFocusLost
+        this.jTableEquiposInscriptos.clearSelection();
+        jButtonQuitar.setEnabled(false);// TODO add your handling code here:
+    }//GEN-LAST:event_jTableEquiposInscriptosFocusLost
+
+    private void jTableEquiposDisponiblesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquiposDisponiblesFocusGained
+        jButtonAgregar.setEnabled(true);
+        jButtonQuitar.setEnabled(false);// TODO add your handling code here:
+    }//GEN-LAST:event_jTableEquiposDisponiblesFocusGained
+
+    private void jTableEquiposInscriptosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquiposInscriptosFocusGained
+        jButtonAgregar.setEnabled(false);
+        jButtonQuitar.setEnabled(true);// TODO add your handling code here:
+    }//GEN-LAST:event_jTableEquiposInscriptosFocusGained
+
+    private void jButtonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarActionPerformed
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
+        unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);
+        limpiarTabla(modeloTablaEquipoInscripto, modeloTablaEquipoDisponible);
+        cargarTabla();
+     // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonQuitarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgregar;
@@ -235,8 +399,8 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButtonDni4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableEquiposDisponibles;
+    private javax.swing.JTable jTableEquiposInscriptos;
     private javax.swing.JTextField jTextFieldBuscar;
     // End of variables declaration//GEN-END:variables
 }
