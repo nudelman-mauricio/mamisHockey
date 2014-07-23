@@ -87,7 +87,7 @@
                     <Column editable="false" title="Se ocupa" type="java.lang.Boolean"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        actualizarCampos();&#xa;    }&#xa;});">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        camposCargar();&#xa;    }&#xa;});">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                       <Title/>

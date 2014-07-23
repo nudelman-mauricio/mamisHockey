@@ -1,10 +1,13 @@
 package Interfaces;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -53,12 +56,16 @@ public class ICancha extends javax.swing.JInternalFrame {
     public void cargarTabla() {
         limpiarTabla(modeloTable);
         for (Cancha unaCancha : unClub.getCanchas()) {
-            this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
+            if (!unaCancha.isBorradoLogico()) {
+                this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
+            }
         }
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
     }
 
     //actualizar los campos al seleccionar una cancha en la tabla
-    void actualizarCampos() {
+    void camposCargar() {
         if (jTableCancha.getSelectedRow() > -1) {
             if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
                 unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
@@ -66,8 +73,29 @@ public class ICancha extends javax.swing.JInternalFrame {
                 jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
                 jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
                 jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
             }
         }
+    }
+
+    //deshabilitar todo lo de un contenedor
+    void camposActivo(Container c, boolean bandera) {
+        Component[] components = c.getComponents();
+        for (int i = 0; i < components.length; i++) {
+            components[i].setEnabled(bandera);
+            if (components[i] instanceof JTextField) {
+                ((JTextField) components[i]).setEditable(bandera);
+            }
+            if (components[i] instanceof Container) {
+                camposActivo((Container) components[i], bandera);
+            }
+        }
+    }
+
+    //blanqueda componentes editables
+    void camposLimpiar() {
+        jTextFieldNombre.setText("");
+        jCheckBoxSeOcupa.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -142,7 +170,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         }
         jTableCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                actualizarCampos();
+                camposCargar();
             }
         });
 
@@ -321,29 +349,29 @@ public class ICancha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        jButtonCancelar.setEnabled(true);
-        jButtonGuardar.setEnabled(true);
         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
         jTableCancha.setEnabled(false);
 
-        jTextFieldNombre.setEditable(true);
-        jComboBoxTipo.setEnabled(true);
-        jCheckBoxSeOcupa.setEnabled(true);
-
-        jTextFieldNombre.setText("");
-        jCheckBoxSeOcupa.setSelected(false);
+        camposActivo(jPanel3, true);
+        camposLimpiar();
+        unaCanchaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        jButtonCancelar.setEnabled(true);
-        jButtonGuardar.setEnabled(true);
         jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
         jTableCancha.setEnabled(false);
 
-        jTextFieldNombre.setEditable(true);
-        jComboBoxTipo.setEnabled(true);
-        jCheckBoxSeOcupa.setEnabled(true);
+        camposActivo(jPanel3, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -351,25 +379,22 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jButtonCancelar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
         jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
         jTableCancha.setEnabled(true);
 
-        jTextFieldNombre.setEditable(false);
-        jComboBoxTipo.setEnabled(false);
-        jCheckBoxSeOcupa.setEnabled(false);
-
-        jTextFieldNombre.setText("");
-        jCheckBoxSeOcupa.setSelected(false);
+        camposActivo(jPanel3, false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (unaCanchaSeleccionada == null) {
             unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Cancha Guardada");
-
         } else {
             unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), false);
             JOptionPane.showMessageDialog(this, "Cancha Modificada");
@@ -377,22 +402,45 @@ public class ICancha extends javax.swing.JInternalFrame {
         }
         cargarTabla();
 
-        jButtonCancelar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
         jTableCancha.setEnabled(true);
 
-        jTextFieldNombre.setEditable(false);
-        jComboBoxTipo.setEnabled(false);
-        jCheckBoxSeOcupa.setEnabled(false);
-
-        jTextFieldNombre.setText("");
-        jCheckBoxSeOcupa.setSelected(false);
+        camposActivo(jPanel3, false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableCancha.setEnabled(true);
+
+        camposActivo(jPanel3, false);
+
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar la Cancha: " + unaCanchaSeleccionada.getNombre(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarCancha(unaCanchaSeleccionada);
+            unaCanchaSeleccionada = null;
+            cargarTabla();
+        }
+        jTableCancha.clearSelection();
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
