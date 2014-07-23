@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
   </Properties>
@@ -236,17 +236,33 @@
                     <Component class="javax.swing.JTable" name="jTablePase">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="4">
-                            <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                            <Column editable="true" title="Concepto" type="java.lang.Object"/>
-                            <Column editable="true" title="Cuota" type="java.lang.Object"/>
-                            <Column editable="true" title="Vencimiento" type="java.lang.Object"/>
-                            <Column editable="true" title="Monto" type="java.lang.Object"/>
-                            <Column editable="true" title="Deuda Saldada" type="java.lang.Boolean"/>
+                          <Table columnCount="7" rowCount="4">
+                            <Column editable="false" title="id" type="java.lang.Long"/>
+                            <Column editable="false" title="Fecha" type="java.lang.Object"/>
+                            <Column editable="false" title="Concepto" type="java.lang.Object"/>
+                            <Column editable="false" title="Cant. Cuotas" type="java.lang.Object"/>
+                            <Column editable="false" title="Vencimiento" type="java.lang.Object"/>
+                            <Column editable="false" title="Monto" type="java.lang.Object"/>
+                            <Column editable="false" title="Deuda Saldada" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -263,17 +279,7 @@
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title value="Vencimiento"/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title value="Deuda Saldada"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
@@ -305,11 +311,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabelFechaRealizacion2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion5" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaRealizacion2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -335,16 +341,16 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="44" max="32767" attributes="0"/>
+                          <EmptySpace pref="43" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jTextFieldFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -372,10 +378,11 @@
                                       <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane3" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -397,7 +404,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Fecha Vencimiento"/>
+                    <Property name="text" type="java.lang.String" value="Primer Vencimiento"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -476,8 +483,8 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Pagos Realizados">
-                <Property name="tabTitle" type="java.lang.String" value="Pagos Realizados"/>
+              <JTabbedPaneConstraints tabName="Cuotas">
+                <Property name="tabTitle" type="java.lang.String" value="Cuotas"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -513,7 +520,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" pref="567" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -533,14 +540,32 @@
                     <Component class="javax.swing.JTable" name="jTablePase1">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="3" rowCount="4">
-                            <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                            <Column editable="true" title="Concepto" type="java.lang.Object"/>
-                            <Column editable="true" title="Monto" type="java.lang.Object"/>
+                          <Table columnCount="6" rowCount="4">
+                            <Column editable="false" title="id" type="java.lang.Long"/>
+                            <Column editable="false" title="N&#xfa;mero" type="java.lang.Object"/>
+                            <Column editable="false" title="Vencimiento" type="java.lang.Object"/>
+                            <Column editable="false" title="Monto" type="java.lang.Object"/>
+                            <Column editable="false" title="Fecha de Pago" type="java.lang.Object"/>
+                            <Column editable="false" title="Monto Abonado" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -571,66 +596,70 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Detalle">
+                    <TitledBorder title="Detalle del Pago">
                       <Font PropertyName="font" name="Tahoma" size="12" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Detalle del Pago"/>
+              </AccessibilityProperties>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabelFechaRealizacion7" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion6" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion10" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaRealizacion6" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaRealizacion10" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextFieldFechaRealizacion1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jComboBox3" alignment="0" pref="160" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jLabelFechaRealizacion9" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jTextFieldFechaRealizacion6" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFechaRealizacion1" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFechaRealizacion6" min="-2" pref="160" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaRealizacion8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" min="-2" pref="184" max="-2" attributes="0"/>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jScrollPane4" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabelFechaRealizacion8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="125" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelFechaRealizacion6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaRealizacion9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jScrollPane5" pref="128" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelFechaRealizacion7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelFechaRealizacion10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldFechaRealizacion6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="39" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabelFechaRealizacion6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextFieldFechaRealizacion6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaRealizacion10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -638,36 +667,26 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion6">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Fecha"/>
+                    <Property name="text" type="java.lang.String" value="Fecha de Pago"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion1">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion7">
+                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion10">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Concepto"/>
+                    <Property name="text" type="java.lang.String" value="Monto Abonado ($)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
-                    </Property>
-                  </Properties>
+                <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion6">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion9">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Observaci&#xf3;n"/>
-                  </Properties>
-                </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                <Container class="javax.swing.JScrollPane" name="jScrollPane5">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea2">
+                    <Component class="javax.swing.JTextArea" name="jTextArea3">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
@@ -675,12 +694,10 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion10">
+                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion8">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Monto ($)"/>
+                    <Property name="text" type="java.lang.String" value="Observaci&#xf3;n"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion6">
                 </Component>
               </SubComponents>
             </Container>
