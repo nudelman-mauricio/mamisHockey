@@ -21,11 +21,11 @@ import main.ControladoraGlobal;
 
 public class ISocia extends javax.swing.JInternalFrame {
 
+    private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
-    private boolean modificar = false;
-    private ControladoraGlobal unaControladoraGlobal;
     
+    private boolean modificar = false;
     private Socia unaSocia = null;
 
     //LLAMADO DESDE EL MENUPRINCIPAL
@@ -127,7 +127,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         jTextFieldFechaIngreso.setText("");
         jTextFieldTelFijo.setText("");
         jTextFieldTelCelular.setText("");
-        jCheckBoxExJugadora.setText("");
+        jCheckBoxExJugadora.setSelected(false);
         jComboBoxLocalidad.setSelectedIndex(-1);
     }
 

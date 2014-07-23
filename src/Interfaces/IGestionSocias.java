@@ -378,7 +378,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
-        IErgometria unaIErgometria = new IErgometria(this, unaSociaSeleccionada);
+        IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal,this, unaSociaSeleccionada);
 
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
