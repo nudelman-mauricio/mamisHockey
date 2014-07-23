@@ -398,7 +398,7 @@ public class ControladoraGlobal {
     }
 
     public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarCancha(null, nombre, borradoLogico, unTipoCancha, borradoLogico);
+        this.unaControladoraDeportiva.modificarTipoCancha(unTipoCancha, monto, unaFrecuencia, nombre, borradoLogico);
     }
 
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {

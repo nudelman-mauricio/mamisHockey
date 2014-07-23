@@ -49,6 +49,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         for (TipoCancha unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
             this.modeloTable.addRow(new Object[]{unTipoCancha.getIdTipoCancha(), unTipoCancha.getNombre(), unTipoCancha.getMonto()});
         }
+        jButtonEditar.setEnabled(false);
     }
 
     //deshabilitar todo lo de un contenedor
@@ -178,14 +179,15 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         if (jTableTipoCancha.getSelectedRow() > -1) {
             if (jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0) != null) {
                 unTipoCanchaSeleccionado = unaControladoraGlobal.getTipoCanchaBD((Long) jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0));
+                Frecuencia unaFrecuencia = unTipoCanchaSeleccionado.getUnaFrecuencia();
+                
+                blanquearComponentes();
 
                 jTextFieldNombre.setText(unTipoCanchaSeleccionado.getNombre());
-                jTextFieldMonto.setText(String.valueOf(unTipoCanchaSeleccionado.getMonto()));
-
-                Frecuencia unaFrecuencia = unTipoCanchaSeleccionado.getUnaFrecuencia();
+                jTextFieldMonto.setText(String.valueOf(unTipoCanchaSeleccionado.getMonto()));                
                 setMeses(unaFrecuencia);
-                jComboBox1.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaGeneracion()));
-                jComboBox2.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaVencimiento()));
+                jComboBox1.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaGeneracion())-1);
+                jComboBox2.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaVencimiento())-1);
 
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
@@ -657,8 +659,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
 
         jTableTipoCancha.setEnabled(true);
 
-        habilitadorContenedores(jPanel3, false);
-        blanquearComponentes();
+        habilitadorContenedores(jPanel3, false);        
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -675,7 +676,8 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             unTipoCanchaSeleccionado = null;
             cargarTabla();
         }
-
+        jTableTipoCancha.clearSelection();
+        blanquearComponentes();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
