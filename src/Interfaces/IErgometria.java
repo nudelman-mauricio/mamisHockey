@@ -455,7 +455,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
             } else {
                 Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
+                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText(), false);
                 JOptionPane.showMessageDialog(this, "Ergometria Modificada");
             }
         } catch (ParseException e) {
