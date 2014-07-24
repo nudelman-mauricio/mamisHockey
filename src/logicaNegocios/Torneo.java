@@ -190,5 +190,18 @@ public class Torneo implements Serializable, Comparable {
         }
         return cantidadFechas;
     }
+    
+    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual){
+        boolean bandera = false;
+        for(FechaTorneo aux: this.fechasTorneo){
+            if(bandera){
+                return aux;
+            }
+            if(aux.getNumeroFecha() == fechaActual.getNumeroFecha()){
+                bandera=true;
+            }
+        }
+        return null;
+    }
     // </editor-fold>
 }

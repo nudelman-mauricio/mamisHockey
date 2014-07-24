@@ -497,6 +497,10 @@ public class ControladoraDeportiva {
         unaFechaTorneo.setBorradoLogico(true);
         unaFechaTorneo.persistir(this.entityManager);
     }
+    
+    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual, Torneo unTorneo){
+        return unTorneo.getSiguienteFecha(fechaActual);
+    }
 
     /**
      * Devuelve unaFechaTorneo por ID incluidas las borradas

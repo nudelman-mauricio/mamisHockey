@@ -468,6 +468,8 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
+    
+    
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
@@ -489,6 +491,10 @@ public class ControladoraGlobal {
 
     public List<FechaTorneo> getFechasTorneosBD() {
         return this.unaControladoraDeportiva.getFechasTorneosBD();
+    }
+    
+    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual,Torneo unTorneo){
+        return this.unaControladoraDeportiva.getSiguienteFecha(fechaActual,unTorneo);
     }
     // </editor-fold>
 
