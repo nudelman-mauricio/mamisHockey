@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
 import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import logicaNegocios.FechaTorneo;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
@@ -22,40 +22,41 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     JInternalFrame unJInternalFrame;
     Torneo unTorneo;
     Collection FechasTorneo;
-    
+
     IFechasTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneoSeleccionado) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unTorneo = unTorneoSeleccionado;
         FechasTorneo = unTorneo.getFechasTorneo();
-        if(unTorneo.getCantidadFechas()>0){
-         this.jLabelFecha.setText("1");
-         this.jTextFieldNroFecha.setText("1");
+        if (unTorneo.getCantidadFechas() > 0) {
+            this.jLabelFecha.setText("1");
+            this.jTextFieldNroFecha.setText("1");
         } else {
             this.jTextFieldNroFecha.setText("0");
         }
-        
+
         this.setTitle("Torneo: " + unTorneo.getNombre());
-        SeInicio();      
+        SeInicio();
         cargarTabla();
     }
-    
+
     public void SeInicio() {
         //Icono de la ventana
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
         jButtonEliminar.setEnabled(false);
-        IMenuPrincipalInterface.centrar(this);    
-        
-        
-        
-    }
-    
-    private void cargarTabla(){
-        
+        IMenuPrincipalInterface.centrar(this);
+
     }
 
+    private void cargarTabla() {
+
+    }
     
+    private void cargarTabla(FechaTorneo fecha) {
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,11 +71,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButtonInicio = new javax.swing.JButton();
         jTextFieldNroFecha = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonSiguiente = new javax.swing.JButton();
+        jButtonAnterior = new javax.swing.JButton();
+        jButtonFinal = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jButtonPases = new javax.swing.JButton();
         jButtonFechas = new javax.swing.JButton();
@@ -154,7 +155,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jLabelFecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelFecha.setText("0");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backFin.png"))); // NOI18N
+        jButtonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backFin.png"))); // NOI18N
 
         jTextFieldNroFecha.setEditable(false);
         jTextFieldNroFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -165,21 +166,21 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextNavegacion.png"))); // NOI18N
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextNavegacion.png"))); // NOI18N
+        jButtonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
+                jButtonSiguienteMouseClicked(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonSiguienteActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backNevagacion.png"))); // NOI18N
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backNevagacion.png"))); // NOI18N
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextFin.png"))); // NOI18N
+        jButtonFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextFin.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,15 +188,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -203,10 +204,10 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldNroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -320,37 +321,47 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
-    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4MouseClicked
+    private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
+        Collection<FechaTorneo> fechas = this.unTorneo.getFechasTorneo();
+        FechaTorneo fechaSiguiente;
+        for (FechaTorneo aux : fechas) {
+            if(aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())){
+                fechaSiguiente=this.unaControladoraGlobal.getSiguienteFecha(aux,unTorneo);
+                if(fechaSiguiente != null){
+                   jTextFieldNroFecha.setText(String.valueOf(fechaSiguiente.getNumeroFecha()));
+                   cargarTabla(fechaSiguiente);
+                }                    
+            }                
+        }       
+    }//GEN-LAST:event_jButtonSiguienteMouseClicked
 
     private void jTextFieldNroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNroFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNroFechaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-         this.unaControladoraGlobal.crearFechaTorneo(unTorneo, 1); 
-         if(jLabelFecha.getText() == "0"){
-             jLabelFecha.setText("1");
-             jTextFieldNroFecha.setText("1");
-         }
+        this.unaControladoraGlobal.crearFechaTorneo(unTorneo, unTorneo.getCantidadFechas()+1);
+        if (jLabelFecha.getText() == "0") {
+            jLabelFecha.setText("1");
+            jTextFieldNroFecha.setText("1");
+        }
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-                
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonFechas;
+    private javax.swing.JButton jButtonFinal;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JButton jButtonInicio;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonPases;
+    private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JPanel jPanel1;
