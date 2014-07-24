@@ -133,7 +133,7 @@ public class Deuda implements Serializable, Comparable {
     // <editor-fold defaultstate="collapsed" desc="Cuotas">
     private void crearCuotas(EntityManager entityManager, double montoTotal, int cantCuotas, Date vencimiento) {
         if (montoTotal == 0) {
-            Cuota unaCuota = new Cuota(entityManager, montoTotal, vencimiento, ("1/1"));            
+            Cuota unaCuota = new Cuota(entityManager, montoTotal, vencimiento, ("1/1"));
             unaCuota.setUnPagoCuota(new PagoCuota(entityManager, montoTotal, vencimiento, "Pago deuda de monto 0"));
             this.cuotas.add(unaCuota);
         } else {
@@ -165,13 +165,42 @@ public class Deuda implements Serializable, Comparable {
         }
         return montoNotaCredito;
     }
+
+    /**
+     * Devuelve la cantidad de cuotas no borradas de la deuda
+     *
+     * @return cantidad de cuotas
+     */
+    public int getCantidadCuotas() {
+        int cantidadCuotas = 0;
+        for (Cuota aux : this.cuotas) {
+            if (!aux.isBorradoLogico()) {
+                cantidadCuotas++;
+            }
+        }
+        return cantidadCuotas;
+    }
+    
+    /**
+     * Devuelve el vencimiento de la primera cuota
+     * @return Date
+     */
+    public Date getPrimerVencimiento(){
+        Date primerVencimiento = null;
+        for (Cuota aux : this.cuotas) {
+            if ((!aux.isBorradoLogico()) && (primerVencimiento.after(aux.getFechaVencimiento()))) {
+                primerVencimiento = aux.getFechaVencimiento();
+            }
+        }
+        return primerVencimiento;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Montos">
     /**
      * Devueve el Monto de una Deuda sumando todas las cuotas NO las BORRADAS
      */
-    public double obtenerMontoTotal() {
+    public double getMontoTotal() {
         double monto = 0;
         for (Cuota aux : this.cuotas) {
             if (!aux.isBorradoLogico()) {
@@ -185,7 +214,7 @@ public class Deuda implements Serializable, Comparable {
      * Devueve el Monto de una Deuda sumando todas las cuotas no pagas NO
      * Borradas
      */
-    public double obtenerMontoTotalAdeudado() {
+    public double getMontoTotalAdeudado() {
         double montoAdeudado = 0;
         for (Cuota aux : this.cuotas) {
             if ((!aux.isBorradoLogico()) && (aux.getUnPagoCuota() != null)) {
@@ -195,6 +224,17 @@ public class Deuda implements Serializable, Comparable {
             }
         }
         return montoAdeudado;
+    }
+    /**
+     * Devuelve True solo si la Deuda esta totalmente pagada
+     * @return True si está pagada
+     */
+    public boolean isSaldado(){
+        boolean saldado = false;
+        if (getMontoTotalAdeudado() == 0){
+            saldado = true;
+        }
+        return saldado;
     }
     // </editor-fold>
 }

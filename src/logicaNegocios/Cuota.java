@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Cuota implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private double monto;
 
@@ -35,6 +36,7 @@ public class Cuota implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Cuota() {
 
@@ -48,7 +50,7 @@ public class Cuota implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Setters">
     public double getMonto() {
         return this.monto;
     }
@@ -102,7 +104,7 @@ public class Cuota implements Serializable, Comparable {
         }
         return montoNotaCredito;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -116,7 +118,7 @@ public class Cuota implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -129,5 +131,31 @@ public class Cuota implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="PagosCuotas">    
+    /**
+     * Fecha del Pago o Null
+     * @return NULL o FechaPago
+     */
+    public Date getFechaPago(){
+        Date fechaPago = null;
+        if (this.unPagoCuota != null){
+            fechaPago= this.unPagoCuota.getFechaPago();
+        }
+        return fechaPago;
+    }
+    
+    /**
+     * Monto pagado o 0.0
+     * @return MontoPago o 0.0
+     */
+    public Double getMontoPago(){
+        Double montoPago = 0.0;
+        if (this.unPagoCuota != null){
+            montoPago= this.unPagoCuota.getMonto();
+        }
+        return montoPago;
+    }
+    // </editor-fold>    
 }

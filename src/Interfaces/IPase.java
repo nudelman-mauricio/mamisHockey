@@ -62,7 +62,7 @@ public class IPase extends javax.swing.JInternalFrame {
         int nPase = 0;
         limpiarTabla(modeloTablePases);
         for (Pase unPase : unaSocia.getPasesValidos()) {
-            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().obtenerMontoTotal()});
+            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().getMontoTotal()});
             nPase++;
         }
         nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto

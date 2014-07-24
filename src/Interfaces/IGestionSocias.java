@@ -344,7 +344,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
-        IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(this, unaSociaSeleccionada);
+        IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(unaControladoraGlobal, this, unaSociaSeleccionada);
 
         unaIContabilidadSocia.pack();
         unaIContabilidadSocia.setVisible(true);
@@ -355,7 +355,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
-        IEstado unIEstado = new IEstado(unaControladoraGlobal,this, unaSociaSeleccionada);
+        IEstado unIEstado = new IEstado(unaControladoraGlobal, this, unaSociaSeleccionada);
 
         unIEstado.pack();
         unIEstado.setVisible(true);
@@ -378,7 +378,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
 
-        IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal,this, unaSociaSeleccionada);
+        IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal, this, unaSociaSeleccionada);
 
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
@@ -473,11 +473,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarSocia(unaSociaSeleccionada);
-            
+
             jTextFieldBusqueda.setText("");
             filtrarSocias("");
             this.SeleccionarObjetoTabla(false);
-        }       
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
