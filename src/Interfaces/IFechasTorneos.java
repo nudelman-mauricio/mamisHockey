@@ -12,6 +12,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Torneo;
@@ -27,6 +28,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     JInternalFrame unJInternalFrame;
     Torneo unTorneo;
     Collection FechasTorneo;
+    DefaultComboBoxModel modelComboLocal, modelComboVisitante;
 
     IFechasTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneoSeleccionado) {
         initComponents();
@@ -78,10 +80,10 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     
     private void cargarCombos(){
       
-        DefaultComboBoxModel modelComboLocal = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
+        this.modelComboLocal = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
         this.jComboBoxEquipoLocal.setModel(modelComboLocal);       
         
-        DefaultComboBoxModel modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
+        this.modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
         this.jComboBoxEquipoVisitante.setModel(modelComboVisitante);        
         
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
@@ -390,6 +392,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 jComboBoxEquipoLocalItemStateChanged(evt);
             }
         });
+        jComboBoxEquipoLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEquipoLocalActionPerformed(evt);
+            }
+        });
 
         jComboBoxEquipoVisitante.setEnabled(false);
 
@@ -547,11 +554,16 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jComboBoxEquipoLocalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEquipoLocalItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED ) {   
-        jComboBoxEquipoVisitante.removeItem(jComboBoxEquipoLocal.getSelectedItem());
-        //jComboBoxEquipoVisitante.setSelectedIndex(-1);
-        }
+       if ( evt.getStateChange() == ItemEvent.SELECTED ) 
+                {
+                   jComboBoxEquipoVisitante.removeItem(this.jComboBoxEquipoLocal.getSelectedItem());
+                   jComboBoxEquipoLocal.setSelectedItem(jComboBoxEquipoLocal.getSelectedItem());
+                }
     }//GEN-LAST:event_jComboBoxEquipoLocalItemStateChanged
+
+    private void jComboBoxEquipoLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEquipoLocalActionPerformed
+                  // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxEquipoLocalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
