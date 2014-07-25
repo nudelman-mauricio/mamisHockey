@@ -1,7 +1,13 @@
 package Interfaces;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
@@ -10,20 +16,96 @@ public class ISancion extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
-    
+
+    private boolean modificar = false;
+    private DefaultTableModel modeloTableSancion;
+
+    //LLAMADO MOSTRANDO UNA SOCIA
     public ISancion(JInternalFrame unJInternalFrame, Socia unaSocia, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
+
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unaControladoraGlobal = unaControladoraGlobal;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
-        
-        this.SeleccionarObjetoTabla(false);
-        activarCampos(false);
+        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
+
+        activarCampos(false);
+
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+
+        this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
+        cargarCamposTabla();
+    }
+
+    private void activarCampos(Boolean editable) {
+        this.jTextAreaDetalle.setEditable(editable);
+        this.jTextFieldCantFechasACumplir.setEditable(editable);
+        this.jTextFieldFecha.setEditable(editable);
+        this.jTextFieldHastaUnaFecha.setEditable(editable);
+        this.jTextFieldMotivo.setEditable(editable);
+        this.jTextFieldNumResolucion.setEditable(editable);
+    }
+
+    public void camposLimpiar() {
+        this.jTextFieldFecha.setText("");
+        this.jTextFieldNumResolucion.setText("");
+        this.jTextFieldCantFechasACumplir.setText("");
+        this.jTextFieldHastaUnaFecha.setText("");
+        this.jTextFieldMotivo.setText("");
+        this.jTextAreaDetalle.setText("");
+    }
+
+    public void camposCargar(SancionTribunal unaSancion) {
+        DateFormat df = DateFormat.getDateInstance();
+        this.jTextFieldFecha.setText(df.format(unaSancion.getFecha()));
+        this.jTextFieldNumResolucion.setText(unaSancion.getNumeroResolucion());
+        this.jTextFieldCantFechasACumplir.setText(String.valueOf(unaSancion.getCantFechas()));
+        this.jTextFieldHastaUnaFecha.setText(df.format(unaSancion.getVencimiento()));
+        this.jTextFieldMotivo.setText(unaSancion.getMotivo());
+        this.jTextAreaDetalle.setText(unaSancion.getDetalles());
+
+        jButtonEliminar.setEnabled(true);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(true);
+    }
+
+    public void cargarCamposTabla() {
+        limpiarTabla(modeloTableSancion);
+
+        for (SancionTribunal aux : this.unaSocia.getSancionesTribunal()) {
+            SancionTribunal unaSancion = (SancionTribunal) aux;
+            DateFormat df = DateFormat.getDateInstance();
+            if (!unaSancion.isBorradoLogico()) {
+                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), 
+                    df.format(unaSancion.getFecha()),
+                    unaSancion.getMotivo(),
+                    unaSancion.getNumeroResolucion(),
+                    unaSancion.getCantFechas(),
+                    unaSancion.getCantFechasCumplidas(),
+                    unaSancion.getVencimiento(),
+                    unaSancion.getUnPartido()});
+            }
+        }
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        try {
+            int filas = modeloTabla.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTabla.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -80,6 +162,11 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonEditar.setText("Editar");
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
@@ -138,7 +225,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,16 +245,26 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Motivo", "N° de Resolución", "Cantidad de Fecha", "Fechas Cumplidas", "Fecha Vencimiento", "Partido"
+                "id Sancion", "Fecha", "Motivo", "N° de Resolución", "Cantidad de Fecha", "Fechas Cumplidas", "Fecha Vencimiento", "Partido"
             }
         ));
+        jTableSancion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableSancionFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableSancion);
+        if (jTableSancion.getColumnModel().getColumnCount() > 0) {
+            jTableSancion.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableSancion.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableSancion.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -194,11 +291,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jTextAreaDetalle.setRows(5);
         jScrollPane2.setViewportView(jTextAreaDetalle);
 
-        jTextFieldFecha.setText("dd/mm/aaaa");
-
         jLabel1NumResolucion.setText("N° de Resolución");
-
-        jTextFieldNumResolucion.setEditable(false);
 
         jLabelCantFechasACumplir.setText("Cantidad de Fechas a Cumplir");
 
@@ -211,7 +304,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
+                .addGap(125, 125, 125)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelDetalle)
                     .addComponent(jLabelMotivo)
@@ -228,7 +321,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldNumResolucion)
                         .addComponent(jTextFieldMotivo))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,41 +383,89 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        this.unJInternalFrame.setVisible(true);
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        activarCampos(true); 
-        this.jButtonNuevo.setEnabled(false);
-        this.jButtonGuardar.setEnabled(true);
-        this.jButtonCancelar.setEnabled(true);        
+        modificar = false;
+
+        jTableSancion.clearSelection();
+        jTableSancion.setEnabled(false);
+        activarCampos(true);
+        camposLimpiar();
+
+        //Comportamiento Botones
+        jButtonNuevo.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        activarCampos(false); 
-        this.jButtonNuevo.setEnabled(true);
-        this.jButtonGuardar.setEnabled(false);
-        this.jButtonCancelar.setEnabled(false);             // TODO add your handling code here:
+//        DateFormat df = DateFormat.getDateInstance();
+//        try {
+//            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
+//            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
+//            if (!modificar) {
+//                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fechaCaducidad, title, title);
+//                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
+//                JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
+//            } else {
+//                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+//                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText(), false);
+//                JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+//            }
+//        } catch (ParseException e) {
+//            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+//        }
+//
+//        jButtonNuevo.setEnabled(true);
+//        jButtonGuardar.setEnabled(false);
+//        jButtonCancelar.setEnabled(false);
+//        jButtonEliminar.setEnabled(false);
+//        jButtonEditar.setEnabled(true);
+//        jButtonImprimir.setEnabled(false);
+//
+//        camposLimpiar();
+//        activarCampos(false);
+//        jTableSancion.setEnabled(true);
+//        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void activarCampos(Boolean editable){
-        this.jTextAreaDetalle.setEditable(editable);
-        this.jTextFieldCantFechasACumplir.setEditable(editable);
-        this.jTextFieldFecha.setEditable(editable);
-        this.jTextFieldHastaUnaFecha.setEditable(editable);
-        this.jTextFieldMotivo.setEditable(editable);
-        this.jTextFieldNumResolucion.setEditable(editable);
-    }
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonCancelar.setEnabled(estado);
-        jButtonEditar.setEnabled(estado);
-        jButtonGuardar.setEnabled(estado);        
-        jButtonImprimir.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableSancion.clearSelection();
-        }
-    }
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        modificar = true;
+        jTableSancion.setEnabled(false);
+        activarCampos(true);
+
+        SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+
+        DateFormat df = DateFormat.getDateInstance();
+        this.jTextFieldFecha.setText(df.format(unaSancion.getFecha()));
+        this.jTextFieldNumResolucion.setText(unaSancion.getNumeroResolucion());
+        this.jTextFieldCantFechasACumplir.setText(String.valueOf(unaSancion.getCantFechas()));
+        this.jTextFieldHastaUnaFecha.setText(df.format(unaSancion.getVencimiento()));
+        this.jTextFieldMotivo.setText(unaSancion.getMotivo());
+        this.jTextAreaDetalle.setText(unaSancion.getDetalles());
+
+        jButtonNuevo.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTableSancionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSancionFocusGained
+            SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));  
+            
+            camposCargar(unaSancion);
+    }//GEN-LAST:event_jTableSancionFocusGained
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
