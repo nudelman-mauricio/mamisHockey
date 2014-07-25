@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Deuda implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
@@ -193,6 +194,20 @@ public class Deuda implements Serializable, Comparable {
             }
         }
         return primerVencimiento;
+    }
+    
+    /**
+     * Devuelve el monto de la primera cuota no borrada
+     * @return Monto
+     */
+    public Double getPrimerMonto(){
+        Double primerMonto = 0.0;
+        for (Cuota aux : this.cuotas) {
+            if ((!aux.isBorradoLogico()) && (primerMonto > aux.getMonto())) {
+                primerMonto = aux.getMonto();
+            }
+        }
+        return primerMonto;
     }
     // </editor-fold>
 

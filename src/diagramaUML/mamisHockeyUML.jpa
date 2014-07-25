@@ -308,6 +308,9 @@
             <jpa:one-to-many name="cuotas" target-entity="Cuota" collection-type="java.util.Collection" connected-entity-id="_1397868481186" id="_1397868560427195">
                 <jpa:join-table/>
             </jpa:one-to-many>
+            <jpa:one-to-one name="unConceptoDeportivo" target-entity="ConceptoDeportivo" optional="true" primaryKey="false" connected-entity-id="_1397868263876" id="_140629131293183">
+                <jpa:join-table/>
+            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity class="ConceptoDeportivo" minimized="true" id="_1397868263876">
@@ -764,25 +767,25 @@
                 <Bounds x="-193.0" y="-348.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868049586" id="_1397868049586_gui">
-                <Bounds x="-439.0" y="117.0" width="146.0" height="24.0"/>
+                <Bounds x="-439.0" y="117.0" width="178.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
                 <Bounds x="102.0" y="442.0" width="206.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868481186" id="_1397868481186_gui">
-                <Bounds x="-543.0" y="-120.0" width="150.0" height="24.0"/>
+                <Bounds x="-543.0" y="-120.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868806733" id="_1397868806733_gui">
                 <Bounds x="-470.0" y="466.0" width="190.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868814587" id="_1397868814587_gui">
-                <Bounds x="-224.0" y="442.0" width="195.0" height="24.0"/>
+                <Bounds x="-224.0" y="442.0" width="193.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868975724" id="_1397868975724_gui">
                 <Bounds x="-210.0" y="285.0" width="164.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869170762" id="_1397869170762_gui">
-                <Bounds x="-443.0" y="311.0" width="166.0" height="24.0"/>
+                <Bounds x="-443.0" y="311.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869355771" id="_1397869355771_gui">
                 <Bounds x="128.0" y="309.0" width="151.0" height="24.0"/>
@@ -818,7 +821,7 @@
                 <Bounds x="501.0" y="-70.0" width="159.0" height="24.0"/>
             </shape>
             <shape elementRef="_1400096950412" id="_1400096950412_gui">
-                <Bounds x="-852.0" y="21.0" width="160.0" height="24.0"/>
+                <Bounds x="-852.0" y="21.0" width="158.0" height="24.0"/>
             </shape>
         </plane>
     </jpa:diagram>
