@@ -439,10 +439,6 @@ public class IErgometria extends javax.swing.JInternalFrame {
             Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));  
             
             camposCargar(unaErgometria);
-
-//        jButtonEliminar.setEnabled(true);
-//        jButtonEditar.setEnabled(true);
-//        jButtonImprimir.setEnabled(true);
     }//GEN-LAST:event_jTableErgometriasFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed

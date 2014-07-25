@@ -1,7 +1,15 @@
 package Interfaces;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
@@ -10,20 +18,96 @@ public class ISancion extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
-    
+
+    private boolean modificar = false;
+    private DefaultTableModel modeloTableSancion;
+
+    //LLAMADO MOSTRANDO UNA SOCIA
     public ISancion(JInternalFrame unJInternalFrame, Socia unaSocia, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
+
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unaControladoraGlobal = unaControladoraGlobal;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
-        
-        this.SeleccionarObjetoTabla(false);
-        activarCampos(false);
+        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
+
+        activarCampos(false);
+
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+
+        this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
+        cargarCamposTabla();
+    }
+
+    private void activarCampos(Boolean editable) {
+        this.jTextAreaDetalle.setEditable(editable);
+        this.jTextFieldCantFechasACumplir.setEditable(editable);
+        this.jTextFieldFecha.setEditable(editable);
+        this.jTextFieldHastaUnaFecha.setEditable(editable);
+        this.jTextFieldMotivo.setEditable(editable);
+        this.jTextFieldNumResolucion.setEditable(editable);
+    }
+
+    public void camposLimpiar() {
+        this.jTextFieldFecha.setText("");
+        this.jTextFieldNumResolucion.setText("");
+        this.jTextFieldCantFechasACumplir.setText("");
+        this.jTextFieldHastaUnaFecha.setText("");
+        this.jTextFieldMotivo.setText("");
+        this.jTextAreaDetalle.setText("");
+    }
+
+    public void camposCargar(SancionTribunal unaSancion) {
+        DateFormat df = DateFormat.getDateInstance();
+        this.jTextFieldFecha.setText(df.format(unaSancion.getFecha()));
+        this.jTextFieldNumResolucion.setText(unaSancion.getNumeroResolucion());
+        this.jTextFieldCantFechasACumplir.setText(String.valueOf(unaSancion.getCantFechas()));
+        this.jTextFieldHastaUnaFecha.setText(df.format(unaSancion.getVencimiento()));
+        this.jTextFieldMotivo.setText(unaSancion.getMotivo());
+        this.jTextAreaDetalle.setText(unaSancion.getDetalles());
+
+        jButtonEliminar.setEnabled(true);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(true);
+    }
+
+    public void cargarCamposTabla() {
+        limpiarTabla(modeloTableSancion);
+
+        for (SancionTribunal aux : this.unaSocia.getSancionesTribunal()) {
+            SancionTribunal unaSancion = (SancionTribunal) aux;
+            DateFormat df = DateFormat.getDateInstance();
+            if (!unaSancion.isBorradoLogico()) {
+                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), 
+                    df.format(unaSancion.getFecha()),
+                    unaSancion.getMotivo(),
+                    unaSancion.getNumeroResolucion(),
+                    unaSancion.getCantFechas(),
+                    unaSancion.getCantFechasCumplidas(),
+                    unaSancion.getVencimiento(),
+                    unaSancion.getUnPartido()});
+            }
+        }
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        try {
+            int filas = modeloTabla.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTabla.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -80,11 +164,21 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonEditar.setText("Editar");
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -120,6 +214,11 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,7 +237,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,131 +257,146 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Motivo", "N° de Resolución", "Cantidad de Fecha", "Fechas Cumplidas", "Fecha Vencimiento", "Partido"
+                "id Sancion", "Fecha", "Motivo", "N° de Resolución", "Cantidad de Fecha", "Fechas Cumplidas", "Fecha Vencimiento", "Partido"
             }
         ));
-        jScrollPane1.setViewportView(jTableSancion);
+        jTableSancion.getSelectionModel () .addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1)
-                .addGap(3, 3, 3))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-        );
+                camposCargar(unaSancion);
+            }
+        }
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        jPanel7.setName(""); // NOI18N
+    );
+    jTableSancion.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusGained(java.awt.event.FocusEvent evt) {
+            jTableSancionFocusGained(evt);
+        }
+    });
+    jScrollPane1.setViewportView(jTableSancion);
+    if (jTableSancion.getColumnModel().getColumnCount() > 0) {
+        jTableSancion.getColumnModel().getColumn(0).setMinWidth(0);
+        jTableSancion.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTableSancion.getColumnModel().getColumn(0).setMaxWidth(0);
+    }
 
-        jLabelFecha.setText("Fecha");
+    javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+    jPanel5.setLayout(jPanel5Layout);
+    jPanel5Layout.setHorizontalGroup(
+        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGap(0, 0, 0)
+            .addComponent(jScrollPane1)
+            .addGap(3, 3, 3))
+    );
+    jPanel5Layout.setVerticalGroup(
+        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+    );
 
-        jLabelDetalle.setText("Detalle");
+    jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+    jPanel7.setName(""); // NOI18N
 
-        jTextAreaDetalle.setColumns(20);
-        jTextAreaDetalle.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaDetalle);
+    jLabelFecha.setText("Fecha");
 
-        jTextFieldFecha.setText("dd/mm/aaaa");
+    jLabelDetalle.setText("Detalle");
 
-        jLabel1NumResolucion.setText("N° de Resolución");
+    jTextAreaDetalle.setColumns(20);
+    jTextAreaDetalle.setRows(5);
+    jScrollPane2.setViewportView(jTextAreaDetalle);
 
-        jTextFieldNumResolucion.setEditable(false);
+    jLabel1NumResolucion.setText("N° de Resolución");
 
-        jLabelCantFechasACumplir.setText("Cantidad de Fechas a Cumplir");
+    jLabelCantFechasACumplir.setText("Cantidad de Fechas a Cumplir");
 
-        jLabelHastaUnaFecha.setText("Hasta una fecha");
+    jLabelHastaUnaFecha.setText("Hasta una fecha");
 
-        jLabelMotivo.setText("Motivo");
+    jLabelMotivo.setText("Motivo");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelDetalle)
-                    .addComponent(jLabelMotivo)
-                    .addComponent(jLabel1NumResolucion)
-                    .addComponent(jLabelFecha)
-                    .addComponent(jLabelCantFechasACumplir)
-                    .addComponent(jLabelHastaUnaFecha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldCantFechasACumplir)
-                        .addComponent(jTextFieldHastaUnaFecha)
-                        .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                        .addComponent(jTextFieldNumResolucion)
-                        .addComponent(jTextFieldMotivo))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFecha)
-                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1NumResolucion)
-                    .addComponent(jTextFieldNumResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCantFechasACumplir)
-                    .addComponent(jTextFieldCantFechasACumplir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelHastaUnaFecha)
-                    .addComponent(jTextFieldHastaUnaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelMotivo)
-                    .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDetalle)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
-        );
+    javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+    jPanel7.setLayout(jPanel7Layout);
+    jPanel7Layout.setHorizontalGroup(
+        jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGap(125, 125, 125)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabelDetalle)
+                .addComponent(jLabelMotivo)
+                .addComponent(jLabel1NumResolucion)
+                .addComponent(jLabelFecha)
+                .addComponent(jLabelCantFechasACumplir)
+                .addComponent(jLabelHastaUnaFecha))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldCantFechasACumplir)
+                    .addComponent(jTextFieldHastaUnaFecha)
+                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNumResolucion)
+                    .addComponent(jTextFieldMotivo))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(263, Short.MAX_VALUE))
+    );
+    jPanel7Layout.setVerticalGroup(
+        jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabelFecha)
+                .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel1NumResolucion)
+                .addComponent(jTextFieldNumResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabelCantFechasACumplir)
+                .addComponent(jTextFieldCantFechasACumplir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabelHastaUnaFecha)
+                .addComponent(jTextFieldHastaUnaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabelMotivo)
+                .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabelDetalle)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(10, 10, 10))
+    );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(layout.createSequentialGroup()
+            .addGap(3, 3, 3)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGap(1, 1, 1)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3))
-        );
+            .addGap(3, 3, 3))
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -290,41 +404,143 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        this.unJInternalFrame.setVisible(true);
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        activarCampos(true); 
-        this.jButtonNuevo.setEnabled(false);
-        this.jButtonGuardar.setEnabled(true);
-        this.jButtonCancelar.setEnabled(true);        
+        modificar = false;
+
+        jTableSancion.clearSelection();
+        jTableSancion.setEnabled(false);
+        activarCampos(true);
+        camposLimpiar();
+
+        //Comportamiento Botones
+        jButtonNuevo.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        activarCampos(false); 
-        this.jButtonNuevo.setEnabled(true);
-        this.jButtonGuardar.setEnabled(false);
-        this.jButtonCancelar.setEnabled(false);             // TODO add your handling code here:
+        DateFormat df = DateFormat.getDateInstance();
+        try {
+            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldHastaUnaFecha.getText()).getTime());
+            if (!modificar) {
+                
+
+
+
+
+                //unaControladoraGlobal.crearSancionTribunal();
+                //unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
+                
+                
+                
+                JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
+            } else {
+                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+                
+
+
+                //public void modificarSancionTribunal(unaSancion, fechaCaducidad,jTextFieldCantFechasACumplir.getText(), fechaRealizacion, jTextFieldMotivo.getText(), jTextAreaDetalle.getText(), Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico)
+                //unaControladoraGlobal.modificarSancionTribunal(unaSancion, fechaCaducidad, jTextFieldCantFechasACumplir.getText(), fechaRealizacion, jTextFieldMotivo.getText(), jTextAreaDetalle.getText(), false);
+                
+                
+                
+                
+                
+                
+                JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+            }
+        } catch (ParseException e) {
+            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+        }
+
+        jButtonNuevo.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(false);
+
+        camposLimpiar();
+        activarCampos(false);
+        jTableSancion.setEnabled(true);
+        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void activarCampos(Boolean editable){
-        this.jTextAreaDetalle.setEditable(editable);
-        this.jTextFieldCantFechasACumplir.setEditable(editable);
-        this.jTextFieldFecha.setEditable(editable);
-        this.jTextFieldHastaUnaFecha.setEditable(editable);
-        this.jTextFieldMotivo.setEditable(editable);
-        this.jTextFieldNumResolucion.setEditable(editable);
-    }
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonCancelar.setEnabled(estado);
-        jButtonEditar.setEnabled(estado);
-        jButtonGuardar.setEnabled(estado);        
-        jButtonImprimir.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableSancion.clearSelection();
-        }
-    }
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        modificar = true;
+        jTableSancion.setEnabled(false);
+        activarCampos(true);
+
+        SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+
+        DateFormat df = DateFormat.getDateInstance();
+        this.jTextFieldFecha.setText(df.format(unaSancion.getFecha()));
+        this.jTextFieldNumResolucion.setText(unaSancion.getNumeroResolucion());
+        this.jTextFieldCantFechasACumplir.setText(String.valueOf(unaSancion.getCantFechas()));
+        this.jTextFieldHastaUnaFecha.setText(df.format(unaSancion.getVencimiento()));
+        this.jTextFieldMotivo.setText(unaSancion.getMotivo());
+        this.jTextAreaDetalle.setText(unaSancion.getDetalles());
+
+        jButtonNuevo.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTableSancionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSancionFocusGained
+            SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));  
+            
+            camposCargar(unaSancion);
+    }//GEN-LAST:event_jTableSancionFocusGained
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jTableSancion.clearSelection();
+        
+        modificar = false;
+
+        camposLimpiar();
+        activarCampos(false);
+        jTableSancion.setEnabled(true);
+
+        jButtonNuevo.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+                
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar la Sancion de Socia",
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarSancionTribunal(unaSancion);
+            
+            cargarCamposTabla();
+        }   
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
