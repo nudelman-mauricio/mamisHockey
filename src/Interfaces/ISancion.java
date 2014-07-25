@@ -42,7 +42,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
 
-        this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
+        this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
         cargarCamposTabla();
     }
 
@@ -406,34 +406,34 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        DateFormat df = DateFormat.getDateInstance();
-        try {
-            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
-            if (!modificar) {
-                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fechaCaducidad, title, title);
-                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
-                JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
-            } else {
-                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
-                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText(), false);
-                JOptionPane.showMessageDialog(this, "Ergometria Modificada");
-            }
-        } catch (ParseException e) {
-            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
-        }
-
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(true);
-        jButtonImprimir.setEnabled(false);
-
-        camposLimpiar();
-        activarCampos(false);
-        jTableSancion.setEnabled(true);
-        cargarCamposTabla();
+//        DateFormat df = DateFormat.getDateInstance();
+//        try {
+//            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
+//            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
+//            if (!modificar) {
+//                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fechaCaducidad, title, title);
+//                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
+//                JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
+//            } else {
+//                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+//                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText(), false);
+//                JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+//            }
+//        } catch (ParseException e) {
+//            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+//        }
+//
+//        jButtonNuevo.setEnabled(true);
+//        jButtonGuardar.setEnabled(false);
+//        jButtonCancelar.setEnabled(false);
+//        jButtonEliminar.setEnabled(false);
+//        jButtonEditar.setEnabled(true);
+//        jButtonImprimir.setEnabled(false);
+//
+//        camposLimpiar();
+//        activarCampos(false);
+//        jTableSancion.setEnabled(true);
+//        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
