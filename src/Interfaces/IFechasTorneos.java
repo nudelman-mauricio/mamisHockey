@@ -6,6 +6,8 @@
 package Interfaces;
 
 import java.util.Collection;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import logicaNegocios.FechaTorneo;
@@ -48,9 +50,48 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
     }
+    
+    private void habilitarCampos(boolean estado){
+        this.jComboBoxArbitro1.setEnabled(estado);
+        this.jComboBoxArbitro2.setEnabled(estado);
+        this.jComboBoxArbitro3.setEnabled(estado);
+        this.jComboBoxCancha.setEnabled(estado);
+        this.jComboBoxEquipoLocal.setEnabled(estado);
+        this.jComboBoxEquipoVisitante.setEnabled(estado);
+    }
+    
+     private void limpiarCampos(){
+        this.jComboBoxArbitro1.setSelectedIndex(-1);
+        this.jComboBoxArbitro2.setSelectedIndex(-1);
+        this.jComboBoxArbitro3.setSelectedIndex(-1);
+        this.jComboBoxCancha.setSelectedIndex(-1);
+        this.jComboBoxEquipoLocal.setSelectedIndex(-1);
+        this.jComboBoxEquipoVisitante.setSelectedIndex(-1);
+    }
 
     private void cargarTabla() {
 
+    }
+    
+    private void cargarCombos(){
+        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
+        this.jComboBoxEquipoLocal.setModel(modelCombo);       
+        
+        modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria()));
+        this.jComboBoxEquipoVisitante.setModel(modelCombo);        
+        
+        modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
+        this.jComboBoxCancha.setModel(modelCombo);        
+        
+        modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        this.jComboBoxArbitro1.setModel(modelCombo);        
+        
+        modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        this.jComboBoxArbitro2.setModel(modelCombo);       
+        
+        modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        this.jComboBoxArbitro3.setModel(modelCombo);
+       
     }
     
     private void cargarTabla(FechaTorneo fecha) {
@@ -66,7 +107,9 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
         jButtonFechas = new javax.swing.JButton();
-        jButtonPases = new javax.swing.JButton();
+        jButtonCancelar1 = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableSocias = new javax.swing.JTable();
@@ -79,23 +122,37 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonAnterior = new javax.swing.JButton();
         jButtonFinal = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jComboBoxLocalidad4 = new javax.swing.JComboBox();
-        jComboBoxLocalidad6 = new javax.swing.JComboBox();
-        jComboBoxLocalidad = new javax.swing.JComboBox();
-        jComboBoxLocalidad1 = new javax.swing.JComboBox();
-        jComboBoxLocalidad2 = new javax.swing.JComboBox();
+        jComboBoxEquipoLocal = new javax.swing.JComboBox();
+        jComboBoxEquipoVisitante = new javax.swing.JComboBox();
+        jComboBoxCancha = new javax.swing.JComboBox();
+        jComboBoxArbitro1 = new javax.swing.JComboBox();
+        jComboBoxArbitro2 = new javax.swing.JComboBox();
         jLabelApellido = new javax.swing.JLabel();
         jLabelNombre1 = new javax.swing.JLabel();
         jLabelLocalidad = new javax.swing.JLabel();
         jLabelDomicilio = new javax.swing.JLabel();
         jLabelFechaNacimiento = new javax.swing.JLabel();
         jLabelFechaNacimiento1 = new javax.swing.JLabel();
-        jComboBoxLocalidad3 = new javax.swing.JComboBox();
-        jButtonArgregar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
-        jButtonEliminarPartido = new javax.swing.JButton();
+        jComboBoxArbitro3 = new javax.swing.JComboBox();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -134,13 +191,33 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonPases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Partido.png"))); // NOI18N
-        jButtonPases.setText("Partido");
-        jButtonPases.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPases.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPases.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar1.setText("Cancelar");
+        jButtonCancelar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPasesActionPerformed(evt);
+                jButtonCancelar1ActionPerformed(evt);
+            }
+        });
+
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
             }
         });
 
@@ -152,26 +229,32 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPases, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
         );
 
@@ -267,7 +350,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 281, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(281, 281, 281))
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -277,7 +360,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelFecha)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(632, 650, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
@@ -297,6 +380,16 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jComboBoxEquipoLocal.setEnabled(false);
+
+        jComboBoxEquipoVisitante.setEnabled(false);
+
+        jComboBoxCancha.setEnabled(false);
+
+        jComboBoxArbitro1.setEnabled(false);
+
+        jComboBoxArbitro2.setEnabled(false);
+
         jLabelApellido.setText("Equipo Local");
 
         jLabelNombre1.setText("Equipo Visitante");
@@ -309,28 +402,14 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
         jLabelFechaNacimiento1.setText("Arbitro 3");
 
-        jButtonArgregar.setText("Agregar");
-
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
-
-        jButtonEliminarPartido.setText("Eliminar");
-        jButtonEliminarPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarPartidoActionPerformed(evt);
-            }
-        });
+        jComboBoxArbitro3.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(82, 82, 82)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelLocalidad)
                     .addComponent(jLabelApellido)
@@ -339,29 +418,24 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxLocalidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxLocalidad6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxEquipoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxEquipoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(58, 58, 58)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabelFechaNacimiento)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxLocalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jComboBoxArbitro2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabelDomicilio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxLocalidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jComboBoxArbitro1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabelFechaNacimiento1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxLocalidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonArgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEliminarPartido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
+                                .addComponent(jComboBoxArbitro3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jComboBoxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,25 +443,22 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelApellido)
-                    .addComponent(jComboBoxLocalidad4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEquipoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDomicilio)
-                    .addComponent(jComboBoxLocalidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonArgregar))
+                    .addComponent(jComboBoxArbitro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre1)
-                    .addComponent(jComboBoxLocalidad6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEquipoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelFechaNacimiento)
-                    .addComponent(jComboBoxLocalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCancelar))
+                    .addComponent(jComboBoxArbitro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaNacimiento1)
-                    .addComponent(jComboBoxLocalidad3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelLocalidad)
-                    .addComponent(jButtonEliminarPartido))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxArbitro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelLocalidad))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -417,10 +488,6 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
-
-    }//GEN-LAST:event_jButtonPasesActionPerformed
-
     private void jButtonFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFechasActionPerformed
 
     }//GEN-LAST:event_jButtonFechasActionPerformed
@@ -444,45 +511,51 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldNroFechaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        this.unaControladoraGlobal.crearFechaTorneo(unTorneo, unTorneo.getCantidadFechas()+1);
-        if (jLabelFecha.getText() == "0") {
-            jLabelFecha.setText("1");
-            jTextFieldNroFecha.setText("1");
-        }
+        habilitarCampos(true);        
+        cargarCombos();
+        limpiarCampos();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
         
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+    private void jButtonCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelar1ActionPerformed
+        habilitarCampos(false);  
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonCancelar1ActionPerformed
 
-    private void jButtonEliminarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPartidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEliminarPartidoActionPerformed
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        habilitarCampos(true);        
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
-    private javax.swing.JButton jButtonArgregar;
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCancelar1;
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonEliminarPartido;
     private javax.swing.JButton jButtonFechas;
     private javax.swing.JButton jButtonFinal;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInicio;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonPases;
     private javax.swing.JButton jButtonSiguiente;
-    private javax.swing.JComboBox jComboBoxLocalidad;
-    private javax.swing.JComboBox jComboBoxLocalidad1;
-    private javax.swing.JComboBox jComboBoxLocalidad2;
-    private javax.swing.JComboBox jComboBoxLocalidad3;
-    private javax.swing.JComboBox jComboBoxLocalidad4;
-    private javax.swing.JComboBox jComboBoxLocalidad6;
+    private javax.swing.JComboBox jComboBoxArbitro1;
+    private javax.swing.JComboBox jComboBoxArbitro2;
+    private javax.swing.JComboBox jComboBoxArbitro3;
+    private javax.swing.JComboBox jComboBoxCancha;
+    private javax.swing.JComboBox jComboBoxEquipoLocal;
+    private javax.swing.JComboBox jComboBoxEquipoVisitante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelDomicilio;
