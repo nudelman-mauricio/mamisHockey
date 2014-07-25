@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,12 +24,12 @@ public class Deuda implements Serializable, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
 
+    @OneToOne(targetEntity = ConceptoDeportivo.class)
+    private ConceptoDeportivo unConceptoDeportivo;
+
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaGeneracion;
-
-    @Basic
-    private String concepto;
 
     @OneToMany(targetEntity = Cuota.class)
     private Collection<Cuota> cuotas;
@@ -38,15 +39,15 @@ public class Deuda implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Deuda() {
 
     }
 
-    public Deuda(EntityManager entityManager, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+    public Deuda(EntityManager entityManager, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.fechaGeneracion = fechaGeneracion;
-        this.concepto = concepto;
+        this.unConceptoDeportivo = unConceptoDeportivo;
         this.observacion = observacion;
         this.borradoLogico = false;
         this.cuotas = new TreeSet();
@@ -63,20 +64,20 @@ public class Deuda implements Serializable, Comparable {
         this.idDeuda = idDeuda;
     }
 
+    public ConceptoDeportivo getUnConceptoDeportivo() {
+        return this.unConceptoDeportivo;
+    }
+
+    public void setUnConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
+        this.unConceptoDeportivo = unConceptoDeportivo;
+    }
+
     public Date getFechaGeneracion() {
         return this.fechaGeneracion;
     }
 
     public void setFechaGeneracion(Date fechaGeneracion) {
         this.fechaGeneracion = fechaGeneracion;
-    }
-
-    public String getConcepto() {
-        return this.concepto;
-    }
-
-    public void setConcepto(String concepto) {
-        this.concepto = concepto;
     }
 
     public Collection<Cuota> getCuotas() {
@@ -242,7 +243,7 @@ public class Deuda implements Serializable, Comparable {
     }
     /**
      * Devuelve True solo si la Deuda esta totalmente pagada
-     * @return True si está pagada
+     * @return True si estÃƒÂ¡ pagada
      */
     public boolean isSaldado(){
         boolean saldado = false;
