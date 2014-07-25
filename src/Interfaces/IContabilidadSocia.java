@@ -44,7 +44,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTableDeudas);
         for (Deuda unaDeuda : unaSocia.getDeudas()) {
             if (!unaDeuda.isBorradoLogico()) {                
-                this.modeloTableDeudas.addRow(new Object[]{unaDeuda.getIdDeuda(), df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getConcepto(), unaDeuda.getCantidadCuotas(), df.format(unaDeuda.getPrimerVencimiento()), unaDeuda.getMontoTotal(), unaDeuda.isSaldado()});
+                this.modeloTableDeudas.addRow(new Object[]{unaDeuda.getIdDeuda(), df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getUnConceptoDeportivo().getConcepto(), unaDeuda.getCantidadCuotas(), df.format(unaDeuda.getPrimerVencimiento()), unaDeuda.getMontoTotal(), unaDeuda.isSaldado()});
             }
         }
         jButtonEditar.setEnabled(false);
@@ -79,7 +79,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 
                 DateFormat df = DateFormat.getDateInstance();
                 jTextFieldFechaRealizacion.setText(df.format(unaDeudaSeleccionada.getFechaGeneracion()));
-                jComboBoxConcepto.setSelectedItem();
+                jComboBoxConcepto.setSelectedItem(unaDeudaSeleccionada);
                 jTextFieldFechaVencimiento.setText(df.format(unaDeudaSeleccionada.getPrimerVencimiento()));
                 jTextFieldMontoTotalDeuda.setText(Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 jComboBoxCantidadCuotas.setSelectedIndex(unaDeudaSeleccionada.getCantidadCuotas()-1);

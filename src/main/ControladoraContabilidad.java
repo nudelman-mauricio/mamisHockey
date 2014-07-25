@@ -24,12 +24,29 @@ public class ControladoraContabilidad {
 
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
-        this.construirMeses(entityManager);
+        this.construirMeses();
+        this.crearConceptoPase();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
     public void crearConceptoDeportivo(double monto, String concepto) {
         new ConceptoDeportivo(this.entityManager, monto, concepto);
+    }
+
+    /**
+     * Crea el concepto deportivo PORPASE si es que no existe ya en la base de
+     * datos
+     */
+    public void crearConceptoPase() {
+        boolean bandera = true;
+        for (ConceptoDeportivo aux : this.getConceptosDeportivosBD()) {
+            if ((!aux.isBorradoLogico()) && (aux.getConcepto().compareToIgnoreCase("Por Pase") == 0)) {
+                bandera = false;
+            }
+        }
+        if (bandera) {
+            this.crearConceptoDeportivo(0.0, "Por Pase");
+        }
     }
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {
@@ -54,6 +71,7 @@ public class ControladoraContabilidad {
 
     /**
      * Devuelve todos los ConceptosDeportivos menos los borrados
+     *
      * @return List(ConceptoDeportivo)
      */
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
@@ -64,13 +82,13 @@ public class ControladoraContabilidad {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Deudas">
-    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
+    public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
 
-    public Deuda crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, String concepto, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
-        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, concepto, observacion, montoTotal, cantCuotas, primerVencimiento);
+    public Deuda crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
+        Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
         return unaDeuda;
     }
@@ -290,7 +308,7 @@ public class ControladoraContabilidad {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Meses">
-    private void construirMeses(EntityManager entityManager) {
+    private void construirMeses() {
         Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
         if (tablaMesVacia.getResultList().isEmpty()) {
             Mes unMes;

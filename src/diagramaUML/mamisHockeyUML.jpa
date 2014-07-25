@@ -302,9 +302,6 @@
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="concepto" attribute-type="String" id="_139993372192572">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
-            </jpa:basic>
             <jpa:one-to-many name="cuotas" target-entity="Cuota" collection-type="java.util.Collection" connected-entity-id="_1397868481186" id="_1397868560427195">
                 <jpa:join-table/>
             </jpa:one-to-many>
@@ -770,7 +767,7 @@
                 <Bounds x="-439.0" y="117.0" width="178.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
-                <Bounds x="102.0" y="442.0" width="206.0" height="24.0"/>
+                <Bounds x="102.0" y="442.0" width="204.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868481186" id="_1397868481186_gui">
                 <Bounds x="-543.0" y="-120.0" width="130.0" height="24.0"/>
@@ -797,10 +794,10 @@
                 <Bounds x="628.0" y="-591.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
-                <Bounds x="1140.0" y="256.0" width="136.0" height="24.0"/>
+                <Bounds x="1140.0" y="256.0" width="138.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870308298" id="_1397870308298_gui">
-                <Bounds x="613.0" y="482.0" width="188.0" height="24.0"/>
+                <Bounds x="613.0" y="482.0" width="190.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870789243" id="_1397870789243_gui">
                 <Bounds x="136.0" y="141.0" width="136.0" height="24.0"/>
