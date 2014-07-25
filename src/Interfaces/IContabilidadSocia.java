@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +30,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
 
+        DefaultComboBoxModel modelComboConcepto = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getConceptosDeportivosBD());
+        this.jComboBoxConcepto.setModel(modelComboConcepto);
+        
         cargarTablaDeudas();
     }
 
@@ -69,10 +74,11 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             if (jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0) != null) {
                 unaDeudaSeleccionada = unaControladoraGlobal.getDeudaBD((Long) jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0));
                 
-                jTextFieldFechaRealizacion
-                jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
-                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
-                jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
+//                jTextFieldFechaRealizacion
+//                jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
+//                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
+                
+                jComboBoxConcepto.setSelectedItem(unaDeudaSeleccionada.getConcepto());
                 
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
