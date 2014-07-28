@@ -319,11 +319,6 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 jButtonSiguienteMouseClicked(evt);
             }
         });
-        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSiguienteActionPerformed(evt);
-            }
-        });
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backNevagacion.png"))); // NOI18N
 
@@ -512,7 +507,14 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
-        
+       jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText())+1));
+       FechaTorneo unaFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
+       if(unaFecha != null){
+          unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText())+1);
+          
+       } else {
+           cargarTabla(unaFecha);
+       }
     }//GEN-LAST:event_jButtonSiguienteMouseClicked
 
     private void jTextFieldNroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNroFechaActionPerformed
@@ -524,10 +526,6 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         cargarCombos();
         limpiarCampos();        
     }//GEN-LAST:event_jButtonNuevoActionPerformed
-
-    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        
-    }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
     private void jButtonCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelar1ActionPerformed
         habilitarCampos(false);  

@@ -251,8 +251,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     public void camposActivoNuevo(boolean Editable) {
-        jTextFieldNombre.setEnabled(Editable);
-        jTextFieldCodPostal.setEnabled(Editable);
+        jTextFieldNombre.setEditable(Editable);
+        jTextFieldCodPostal.setEditable(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonNuevo.setEnabled(!Editable);
@@ -262,6 +262,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     }
     
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+     if(!(jTextFieldNombre.getText().isEmpty()) && !(jTextFieldCodPostal.getText().isEmpty())){
         if (unaLocalidad == null) {
             unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
             JOptionPane.showMessageDialog(this, "Localidad Guardada");
@@ -274,6 +275,9 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         this.jTextFieldCodPostal.setText("");
         this.jTextFieldNombre.setText("");
         cargarTabla();
+     } else {
+         JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
+     }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jTableLocalidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableLocalidadFocusGained
