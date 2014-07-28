@@ -288,6 +288,14 @@ public class ControladoraGlobal {
     public List<Tarjeta> getTarjetasBD() {
         return this.unaControladoraDeportiva.getTarjetasBD();
     }
+    
+    public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
+        return unaControladoraDeportiva.getTorneoTarjeta(unaTarjeta);
+    }
+    
+    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
+        return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Equipos">

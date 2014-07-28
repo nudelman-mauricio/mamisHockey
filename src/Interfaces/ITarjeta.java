@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import logicaNegocios.Torneo;
@@ -40,6 +41,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
 
+        //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"
         Vector VTorneo = new Vector();
         VTorneo.add("Todos los Torneos");
         VTorneo.addAll(unaControladoraGlobal.getTorneosBD());
@@ -73,13 +75,14 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
     public void camposCargar(Tarjeta unaTarjeta) {
         DateFormat df = DateFormat.getDateInstance();
-
-        jTextFieldFecha.setText(df.format(""));
+        Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
+        jTextFieldFecha.setText(df.format(unPartido.getFecha()));
         jTextFieldTipoTarjeta.setText(unaTarjeta.getTipo());
-        jTextFieldTorneo.setText("asd");
-        jTextFieldPartido.setText("asd");
-        jTextFieldMotivo.setText("as");
-        jTextAreaDetalle.setText("asd");
+        jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta).getNombre());
+        jTextFieldPartido.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
+        jTextFieldMotivo.setText(unaTarjeta.getMotivo());
+        jTextAreaDetalle.setText(unaTarjeta.getDetalles());
+        
         jTextFieldCantFechasSuspendidas.setText("asd");
         jTextFieldCantFechasCumplidas.setText("asd");
         jTextFieldSuspendidaHastaLaFecha.setText("asd");
@@ -90,8 +93,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     public void cargarCamposTabla(Torneo unTorneo) {
         limpiarTabla(modeloTablaTarjetas);
 
-        for (Tarjeta aux : unaSocia.getTarjetas()) {
-            Tarjeta unaTarjeta = (Tarjeta) aux;
+        for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
             if (unaTarjeta.getTipo().equals(roja) || unaTarjeta.getTipo().equals(amarilla) || unaTarjeta.getTipo().equals(verde)) {
                 this.modeloTablaTarjetas.addRow(new Object[]{"Fecha", unaTarjeta.getTipo(), "Torneo", "Partido"});
             }
