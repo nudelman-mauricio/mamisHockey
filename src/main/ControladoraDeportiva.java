@@ -499,6 +499,16 @@ public class ControladoraDeportiva {
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+    /**
+     * Devuelve el Torneo de un Partido
+     */
+    public Torneo getTorneoPartido(Partido unaPartido) {
+        String unaConsulta = "SELECT T FROM Torneo T WHERE T.fechasTorneo.partidos.tarjetas.idPartido = " + unaPartido.getIdPartido();
+        Query traerTorneo = this.entityManager.createQuery(unaConsulta);
+        Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
+        return unTorneo;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">

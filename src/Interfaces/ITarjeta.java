@@ -82,7 +82,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldPartido.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         jTextFieldMotivo.setText(unaTarjeta.getMotivo());
         jTextAreaDetalle.setText(unaTarjeta.getDetalles());
-        
+
         jTextFieldCantFechasSuspendidas.setText("asd");
         jTextFieldCantFechasCumplidas.setText("asd");
         jTextFieldSuspendidaHastaLaFecha.setText("asd");
@@ -92,13 +92,23 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
     public void cargarCamposTabla(Torneo unTorneo) {
         limpiarTabla(modeloTablaTarjetas);
+        DateFormat df = DateFormat.getDateInstance();
 
-        for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-            if (unaTarjeta.getTipo().equals(roja) || unaTarjeta.getTipo().equals(amarilla) || unaTarjeta.getTipo().equals(verde)) {
-                this.modeloTablaTarjetas.addRow(new Object[]{"Fecha", unaTarjeta.getTipo(), "Torneo", "Partido"});
+        if (unTorneo == null) {
+            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+                Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
+                if (unaTarjeta.getTipo().equals(roja) || unaTarjeta.getTipo().equals(amarilla) || unaTarjeta.getTipo().equals(verde)) {
+                    this.modeloTablaTarjetas.addRow(new Object[]{
+                        df.format(unPartido.getFecha()),
+                        unaTarjeta.getTipo(),
+                        unaControladoraGlobal.getTorneoPartido(unPartido).getNombre(),
+                        unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre()});
+                }
             }
+        } else {
 
         }
+
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {

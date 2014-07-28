@@ -487,7 +487,9 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
     
-    
+    public Torneo getTorneoPartido(Partido unaPartido) {
+        return this.unaControladoraDeportiva.getTorneoPartido(unaPartido);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
