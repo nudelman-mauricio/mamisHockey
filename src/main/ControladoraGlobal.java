@@ -506,6 +506,10 @@ public class ControladoraGlobal {
     public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual,Torneo unTorneo){
         return this.unaControladoraDeportiva.getSiguienteFecha(fechaActual,unTorneo);
     }
+    
+    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo){
+        return this.unaControladoraDeportiva.getUnaFecha(numeroFecha,unTorneo);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Partidos">

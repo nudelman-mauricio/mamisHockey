@@ -203,5 +203,14 @@ public class Torneo implements Serializable, Comparable {
         }
         return null;
     }
+    
+    public FechaTorneo getUnaFecha(int numeroFecha){
+        for(FechaTorneo aux: this.fechasTorneo){
+            if(aux.getNumeroFecha() == numeroFecha){
+                return aux;
+            }
+        }
+        return null;
+    }
     // </editor-fold>
 }

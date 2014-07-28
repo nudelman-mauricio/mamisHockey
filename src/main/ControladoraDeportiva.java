@@ -520,6 +520,10 @@ public class ControladoraDeportiva {
         List<FechaTorneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo){
+        return unTorneo.getUnaFecha(numeroFecha);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Partidos">
