@@ -372,12 +372,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        System.out.println(jTableEquiposDisponibles.getSelectedRow());
-        System.out.println(jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
-        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
-        unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipoSeleccionado);
-        limpiarTabla(modeloTablaEquipoInscripto, modeloTablaEquipoDisponible);
-        cargarTabla();
+     
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAgregarMouseClicked

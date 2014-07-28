@@ -493,8 +493,11 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                 camposLimpiar();              
 
             } catch (ParseException e) {
-                System.out.println("ERROR EN LAS FECHAS SOCIA" + e.getMessage());
+                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
             }
+            
         } else {
             DateFormat df = DateFormat.getDateInstance();
             try {

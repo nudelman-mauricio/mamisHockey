@@ -25,10 +25,9 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void camposActivo(boolean Editable) {
-        jTextFieldCodPostal.setEnabled(Editable);
-        jTextFieldNombre.setEnabled(Editable);
-        jTextFieldCodPostal.setEnabled(Editable);
+    public void camposActivo(boolean Editable) {        
+        jTextFieldNombre.setEditable(Editable);
+        jTextFieldCodPostal.setEditable(Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonEditar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);

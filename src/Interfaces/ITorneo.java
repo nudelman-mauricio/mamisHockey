@@ -287,6 +287,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+      if((jComboBoxCategoria.getSelectedIndex() != -1) && !(jTextFieldNombreTorneo.getText().isEmpty()) && !(jTextFieldFechaInicio.getText().isEmpty())){  
         DateFormat df = DateFormat.getDateInstance();
         try {
             Date fechaInicio = new java.sql.Date(df.parse(jTextFieldFechaInicio.getText()).getTime());          
@@ -300,8 +301,11 @@ public class ITorneo extends javax.swing.JInternalFrame {
             camposActivo(false);       
 
         } catch (ParseException e) {
-            System.out.println("ERROR EN TORNEO" + e.getMessage());
-        }        // TODO add your handling code here:
+           JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+        }  
+      } else { 
+        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
+      }// TODO add your handling code here:
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
