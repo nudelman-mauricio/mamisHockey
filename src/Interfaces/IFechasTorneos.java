@@ -5,15 +5,11 @@
  */
 package Interfaces;
 
-import java.awt.event.ItemEvent;
 import java.util.Collection;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.MutableComboBoxModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
@@ -58,8 +54,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
     }
-    
-    private void habilitarCampos(boolean estado){
+
+    private void habilitarCampos(boolean estado) {
         this.jComboBoxArbitro1.setEnabled(estado);
         this.jComboBoxArbitro2.setEnabled(estado);
         this.jComboBoxArbitro3.setEnabled(estado);
@@ -67,8 +63,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.jComboBoxEquipoLocal.setEnabled(estado);
         this.jComboBoxEquipoVisitante.setEnabled(estado);
     }
-    
-     private void limpiarCampos(){
+
+    private void limpiarCampos() {
         this.jComboBoxArbitro1.setSelectedIndex(-1);
         this.jComboBoxArbitro2.setSelectedIndex(-1);
         this.jComboBoxArbitro3.setSelectedIndex(-1);
@@ -80,29 +76,29 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     private void cargarTabla() {
 
     }
-    
-    private void cargarCombos(){
-      
+
+    private void cargarCombos() {
+
         this.modelComboLocal = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
-        this.jComboBoxEquipoLocal.setModel(modelComboLocal);       
-        
+        this.jComboBoxEquipoLocal.setModel(modelComboLocal);
+
         this.modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
-        this.jComboBoxEquipoVisitante.setModel(modelComboVisitante); 
-        
+        this.jComboBoxEquipoVisitante.setModel(modelComboVisitante);
+
         DefaultComboBoxModel modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
-        this.jComboBoxCancha.setModel(modelComboCancha);        
-        
+        this.jComboBoxCancha.setModel(modelComboCancha);
+
         DefaultComboBoxModel modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
-        this.jComboBoxArbitro1.setModel(modelComboArbitro);        
-        
+        this.jComboBoxArbitro1.setModel(modelComboArbitro);
+
         modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
-        this.jComboBoxArbitro2.setModel(modelComboArbitro);       
-        
+        this.jComboBoxArbitro2.setModel(modelComboArbitro);
+
         modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
         this.jComboBoxArbitro3.setModel(modelComboArbitro);
-       
+
     }
-    
+
     private void cargarTabla(FechaTorneo fecha) {
 
     }
@@ -507,14 +503,14 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
-       jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText())+1));
-       FechaTorneo unaFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
-       if(unaFecha != null){
-          unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText())+1);
-          
-       } else {
-           cargarTabla(unaFecha);
-       }
+        jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) + 1));
+        FechaTorneo unaFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
+        if (unaFecha != null) {
+            unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText()) + 1);
+
+        } else {
+            cargarTabla(unaFecha);
+        }
     }//GEN-LAST:event_jButtonSiguienteMouseClicked
 
     private void jTextFieldNroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNroFechaActionPerformed
@@ -522,39 +518,39 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldNroFechaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        habilitarCampos(true);        
+        habilitarCampos(true);
         cargarCombos();
-        limpiarCampos();        
+        limpiarCampos();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelar1ActionPerformed
-        habilitarCampos(false);  
+        habilitarCampos(false);
         limpiarCampos();
     }//GEN-LAST:event_jButtonCancelar1ActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        habilitarCampos(true);        
+        habilitarCampos(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-      if(jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null){
-        if(jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()){
-            JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
-        } else {
-            if((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem()==jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())){
-                JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
-            } else{
-                for(FechaTorneo aux : unTorneo.getFechasTorneo()){
-                    if(aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())){
-                         unaControladoraGlobal.crearPartido(aux, (Equipo)jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar)jComboBoxArbitro1.getSelectedItem(),  (PersonaAuxiliar)jComboBoxArbitro2.getSelectedItem(),  (PersonaAuxiliar)jComboBoxArbitro3.getSelectedItem(), (Cancha)jComboBoxCancha.getSelectedItem(), title, (Equipo)jComboBoxEquipoLocal.getSelectedItem());
+        if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
+            if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
+                JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
+            } else {
+                if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
+                } else {
+                    for (FechaTorneo aux : unTorneo.getFechasTorneo()) {
+                        if (aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())) {
+                            unaControladoraGlobal.crearPartido(aux, (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
+                        }
                     }
+
                 }
-               
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Hay campos sin completar");
         }
-      } else {
-          JOptionPane.showMessageDialog(null, "Hay campos sin completar");
-      }      
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -562,11 +558,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jComboBoxEquipoVisitanteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEquipoVisitanteItemStateChanged
-        
+
     }//GEN-LAST:event_jComboBoxEquipoVisitanteItemStateChanged
 
     private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained
-                // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTableSociasFocusGained
 
 
