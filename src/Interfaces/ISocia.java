@@ -538,8 +538,8 @@ public class ISocia extends javax.swing.JInternalFrame {
             }            
             camposActivo(false);
 
-        } catch (ParseException e) {
-            System.out.println("ERROR EN LAS FECHAS SOCIA" + e.getMessage());
+        } catch (ParseException e) {            
+            JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
