@@ -490,12 +490,11 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                         false);
                 JOptionPane.showMessageDialog(this, "Persona Auxiliar Generada");                
                 camposActivo(false);
-                camposLimpiar();              
-
+                camposLimpiar(); 
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");              
             }
             
         } else {

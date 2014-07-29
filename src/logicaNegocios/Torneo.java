@@ -197,7 +197,7 @@ public class Torneo implements Serializable, Comparable {
             if(bandera){
                 return aux;
             }
-            if(aux.getNumeroFecha() == fechaActual.getNumeroFecha()){
+            if(aux.getNumeroFecha() == fechaActual.getNumeroFecha() && !aux.isBorradoLogico()){
                 bandera=true;
             }
         }
@@ -206,7 +206,7 @@ public class Torneo implements Serializable, Comparable {
     
     public FechaTorneo getUnaFecha(int numeroFecha){
         for(FechaTorneo aux: this.fechasTorneo){
-            if(aux.getNumeroFecha() == numeroFecha){
+            if(aux.getNumeroFecha() == numeroFecha && !aux.isBorradoLogico() ){
                 return aux;
             }
         }

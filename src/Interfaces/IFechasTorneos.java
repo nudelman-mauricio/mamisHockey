@@ -5,15 +5,11 @@
  */
 package Interfaces;
 
-import java.awt.event.ItemEvent;
 import java.util.Collection;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.MutableComboBoxModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
@@ -58,8 +54,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
     }
-    
-    private void habilitarCampos(boolean estado){
+
+    private void habilitarCampos(boolean estado) {
         this.jComboBoxArbitro1.setEnabled(estado);
         this.jComboBoxArbitro2.setEnabled(estado);
         this.jComboBoxArbitro3.setEnabled(estado);
@@ -67,8 +63,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.jComboBoxEquipoLocal.setEnabled(estado);
         this.jComboBoxEquipoVisitante.setEnabled(estado);
     }
-    
-     private void limpiarCampos(){
+
+    private void limpiarCampos() {
         this.jComboBoxArbitro1.setSelectedIndex(-1);
         this.jComboBoxArbitro2.setSelectedIndex(-1);
         this.jComboBoxArbitro3.setSelectedIndex(-1);
@@ -80,29 +76,29 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     private void cargarTabla() {
 
     }
-    
-    private void cargarCombos(){
-      
+
+    private void cargarCombos() {
+
         this.modelComboLocal = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
-        this.jComboBoxEquipoLocal.setModel(modelComboLocal);       
-        
+        this.jComboBoxEquipoLocal.setModel(modelComboLocal);
+
         this.modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
-        this.jComboBoxEquipoVisitante.setModel(modelComboVisitante); 
-        
+        this.jComboBoxEquipoVisitante.setModel(modelComboVisitante);
+
         DefaultComboBoxModel modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
-        this.jComboBoxCancha.setModel(modelComboCancha);        
-        
+        this.jComboBoxCancha.setModel(modelComboCancha);
+
         DefaultComboBoxModel modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
-        this.jComboBoxArbitro1.setModel(modelComboArbitro);        
-        
+        this.jComboBoxArbitro1.setModel(modelComboArbitro);
+
         modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
-        this.jComboBoxArbitro2.setModel(modelComboArbitro);       
-        
+        this.jComboBoxArbitro2.setModel(modelComboArbitro);
+
         modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
         this.jComboBoxArbitro3.setModel(modelComboArbitro);
-       
+
     }
-    
+
     private void cargarTabla(FechaTorneo fecha) {
 
     }
@@ -124,12 +120,6 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jTableSocias = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButtonInicio = new javax.swing.JButton();
-        jTextFieldNroFecha = new javax.swing.JTextField();
-        jButtonSiguiente = new javax.swing.JButton();
-        jButtonAnterior = new javax.swing.JButton();
-        jButtonFinal = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jComboBoxEquipoLocal = new javax.swing.JComboBox();
         jComboBoxEquipoVisitante = new javax.swing.JComboBox();
@@ -143,6 +133,13 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jLabelFechaNacimiento = new javax.swing.JLabel();
         jLabelFechaNacimiento1 = new javax.swing.JLabel();
         jComboBoxArbitro3 = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonInicio = new javax.swing.JButton();
+        jTextFieldNroFecha = new javax.swing.JTextField();
+        jButtonSiguiente = new javax.swing.JButton();
+        jButtonAnterior = new javax.swing.JButton();
+        jButtonFinal = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -302,91 +299,6 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jLabelFecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelFecha.setText("0");
 
-        jButtonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backFin.png"))); // NOI18N
-
-        jTextFieldNroFecha.setEditable(false);
-        jTextFieldNroFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextFieldNroFecha.setText("88");
-        jTextFieldNroFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNroFechaActionPerformed(evt);
-            }
-        });
-
-        jButtonSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextNavegacion.png"))); // NOI18N
-        jButtonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonSiguienteMouseClicked(evt);
-            }
-        });
-
-        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backNevagacion.png"))); // NOI18N
-
-        jButtonFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextFin.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelFecha)
-                        .addGap(632, 650, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelFecha))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jComboBoxEquipoLocal.setEnabled(false);
@@ -449,7 +361,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxArbitro3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jComboBoxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +384,109 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxArbitro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelLocalidad))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButtonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backFin.png"))); // NOI18N
+
+        jTextFieldNroFecha.setEditable(false);
+        jTextFieldNroFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldNroFecha.setText("88");
+        jTextFieldNroFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNroFechaActionPerformed(evt);
+            }
+        });
+
+        jButtonSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextNavegacion.png"))); // NOI18N
+        jButtonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSiguienteMouseClicked(evt);
+            }
+        });
+
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backNevagacion.png"))); // NOI18N
+        jButtonAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAnteriorMouseClicked(evt);
+            }
+        });
+
+        jButtonFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextFin.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jButton1.setText("+");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(252, 252, 252)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelFecha)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -481,7 +495,6 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,10 +502,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -507,14 +518,20 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
-       jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText())+1));
-       FechaTorneo unaFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
-       if(unaFecha != null){
-          unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText())+1);
-          
-       } else {
-           cargarTabla(unaFecha);
-       }
+        FechaTorneo actualFecha, proximaFecha;
+        actualFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
+        if (actualFecha != null) {
+            jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) + 1));
+            proximaFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
+            if (proximaFecha != null) {
+                unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText()) + 1);
+            } else {
+                cargarTabla(proximaFecha);
+            }
+        } else {
+            unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText()));
+             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) + 1));
+        }
     }//GEN-LAST:event_jButtonSiguienteMouseClicked
 
     private void jTextFieldNroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNroFechaActionPerformed
@@ -522,39 +539,39 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldNroFechaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        habilitarCampos(true);        
+        habilitarCampos(true);
         cargarCombos();
-        limpiarCampos();        
+        limpiarCampos();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelar1ActionPerformed
-        habilitarCampos(false);  
+        habilitarCampos(false);
         limpiarCampos();
     }//GEN-LAST:event_jButtonCancelar1ActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        habilitarCampos(true);        
+        habilitarCampos(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-      if(jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null){
-        if(jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()){
-            JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
-        } else {
-            if((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem()==jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())){
-                JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
-            } else{
-                for(FechaTorneo aux : unTorneo.getFechasTorneo()){
-                    if(aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())){
-                         unaControladoraGlobal.crearPartido(aux, (Equipo)jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar)jComboBoxArbitro1.getSelectedItem(),  (PersonaAuxiliar)jComboBoxArbitro2.getSelectedItem(),  (PersonaAuxiliar)jComboBoxArbitro3.getSelectedItem(), (Cancha)jComboBoxCancha.getSelectedItem(), title, (Equipo)jComboBoxEquipoLocal.getSelectedItem());
+        if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
+            if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
+                JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
+            } else {
+                if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
+                } else {
+                    for (FechaTorneo aux : unTorneo.getFechasTorneo()) {
+                        if (aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())) {
+                            unaControladoraGlobal.crearPartido(aux, (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
+                        }
                     }
+
                 }
-               
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Hay campos sin completar");
         }
-      } else {
-          JOptionPane.showMessageDialog(null, "Hay campos sin completar");
-      }      
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -562,15 +579,31 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jComboBoxEquipoVisitanteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEquipoVisitanteItemStateChanged
-        
+
     }//GEN-LAST:event_jComboBoxEquipoVisitanteItemStateChanged
 
     private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained
-                // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTableSociasFocusGained
+
+    private void jButtonAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnteriorMouseClicked
+        FechaTorneo actualFecha, anteriorFecha;
+        actualFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
+        if (actualFecha.getPartidos() != null) {
+            if(Integer.parseInt(jTextFieldNroFecha.getText())>1){
+            jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) - 1));
+            anteriorFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);           
+            cargarTabla(anteriorFecha);}
+            
+        } else {
+             unaControladoraGlobal.eliminarFechaTorneo(actualFecha);
+             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) - 1));
+        }
+    }//GEN-LAST:event_jButtonAnteriorMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonCancelar1;
     private javax.swing.JButton jButtonEditar;
