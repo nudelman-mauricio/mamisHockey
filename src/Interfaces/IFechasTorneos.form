@@ -27,7 +27,6 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -36,10 +35,8 @@
               <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
               <Component id="jPanel1" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -192,25 +189,34 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="632" pref="650" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="252" max="-2" attributes="0"/>
+                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel3" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -221,11 +227,15 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="222" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -322,6 +332,170 @@
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
+        <Container class="javax.swing.JPanel" name="jPanel3">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelApellido" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNombre1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBoxEquipoLocal" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxEquipoVisitante" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabelFechaNacimiento" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jComboBoxArbitro2" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabelDomicilio" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jComboBoxArbitro1" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabelFechaNacimiento1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jComboBoxArbitro3" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="jComboBoxCancha" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="127" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelApellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxEquipoLocal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDomicilio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxArbitro1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelNombre1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxEquipoVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxArbitro2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelFechaNacimiento1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxArbitro3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxCancha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JComboBox" name="jComboBoxEquipoLocal">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxEquipoVisitante">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxEquipoVisitanteItemStateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxCancha">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxArbitro1">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxArbitro2">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelApellido">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Equipo Local"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelNombre1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Equipo Visitante"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelLocalidad">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancha"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelDomicilio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arbitro 1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arbitro 2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arbitro 3"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxArbitro3">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
 
           <Layout>
@@ -392,6 +566,9 @@
                   <Image iconType="3" name="/Iconos Nuevos/backNevagacion.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAnteriorMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonFinal">
               <Properties>
@@ -402,168 +579,9 @@
             </Component>
           </SubComponents>
         </Container>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="jPanel3">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-            <EtchetBorder/>
-          </Border>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelApellido" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelNombre1" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jComboBoxEquipoLocal" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                              <Component id="jComboBoxEquipoVisitante" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabelFechaNacimiento" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBoxArbitro2" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabelDomicilio" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBoxArbitro1" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabelFechaNacimiento1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBoxArbitro3" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Component id="jComboBoxCancha" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelApellido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxEquipoLocal" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDomicilio" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxArbitro1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelNombre1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxEquipoVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxArbitro2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaNacimiento1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxArbitro3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxCancha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JComboBox" name="jComboBoxEquipoLocal">
+        <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxEquipoVisitante">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxEquipoVisitanteItemStateChanged"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxCancha">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxArbitro1">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxArbitro2">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelApellido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Equipo Local"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelNombre1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Equipo Visitante"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelLocalidad">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Cancha"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelDomicilio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Arbitro 1"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Arbitro 2"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Arbitro 3"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxArbitro3">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
         </Component>
       </SubComponents>
