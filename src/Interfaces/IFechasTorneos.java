@@ -7,12 +7,15 @@ package Interfaces;
 
 import java.util.Collection;
 import java.util.Vector;
+import javafx.beans.property.IntegerProperty;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
+import logicaNegocios.Partido;
 import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
@@ -28,6 +31,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     Torneo unTorneo;
     Collection FechasTorneo;
     DefaultComboBoxModel modelComboLocal, modelComboVisitante;
+    DefaultTableModel modeloFechaTorneo;
 
     IFechasTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneoSeleccionado) {
         initComponents();
@@ -41,10 +45,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         } else {
             this.jTextFieldNroFecha.setText("0");
         }
-
+        modeloFechaTorneo = new DefaultTableModel();
         this.setTitle("Torneo: " + unTorneo.getNombre());
         SeInicio();
-        cargarTabla();
+        if(unTorneo.getCantidadFechas()>0){
+        cargarTabla(unaControladoraGlobal.getUnaFecha(1, unTorneo));}
     }
 
     public void SeInicio() {
@@ -52,6 +57,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
         jButtonEliminar.setEnabled(false);
         IMenuPrincipalInterface.centrar(this);
+        jLabelTotalFechas.setText(String.valueOf(unTorneo.getCantidadFechas()));
 
     }
 
@@ -73,9 +79,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.jComboBoxEquipoVisitante.setSelectedIndex(-1);
     }
 
-    private void cargarTabla() {
-
-    }
+    
 
     private void cargarCombos() {
 
@@ -99,8 +103,12 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
     }
 
-    private void cargarTabla(FechaTorneo fecha) {
-
+    private void cargarTabla(FechaTorneo unaFecha) {
+        this.modeloFechaTorneo = (DefaultTableModel) jTableFechasTorneo.getModel();        
+        Collection<Partido> listaPartidos = unaFecha.getPartidos();
+        for (Partido unPartido : listaPartidos) {
+            this.modeloFechaTorneo.addRow(new Object[]{unPartido.getUnEquipoLocal(),"","", unPartido.getUnEquipoVisitante(),unPartido.getUnaCancha(),unPartido.getUnArbitro1(),unPartido.getUnArbitro2(),unPartido.getUnArbitro3()});
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -117,7 +125,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonGuardar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableSocias = new javax.swing.JTable();
+        jTableFechasTorneo = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -140,6 +148,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonAnterior = new javax.swing.JButton();
         jButtonFinal = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabelFecha1 = new javax.swing.JLabel();
+        jLabelTotalFechas = new javax.swing.JLabel();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -264,7 +274,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
+        jTableFechasTorneo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -280,17 +290,17 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableSocias.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTableFechasTorneo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableSociasFocusGained(evt);
+                jTableFechasTorneoFocusGained(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableSocias);
-        if (jTableSocias.getColumnModel().getColumnCount() > 0) {
-            jTableSocias.getColumnModel().getColumn(1).setResizable(false);
-            jTableSocias.getColumnModel().getColumn(1).setPreferredWidth(5);
-            jTableSocias.getColumnModel().getColumn(2).setResizable(false);
-            jTableSocias.getColumnModel().getColumn(2).setPreferredWidth(5);
+        jScrollPane1.setViewportView(jTableFechasTorneo);
+        if (jTableFechasTorneo.getColumnModel().getColumnCount() > 0) {
+            jTableFechasTorneo.getColumnModel().getColumn(1).setResizable(false);
+            jTableFechasTorneo.getColumnModel().getColumn(1).setPreferredWidth(5);
+            jTableFechasTorneo.getColumnModel().getColumn(2).setResizable(false);
+            jTableFechasTorneo.getColumnModel().getColumn(2).setPreferredWidth(5);
         }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -388,15 +398,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         );
 
         jButtonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/backFin.png"))); // NOI18N
+        jButtonInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonInicioMouseClicked(evt);
+            }
+        });
 
         jTextFieldNroFecha.setEditable(false);
         jTextFieldNroFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldNroFecha.setText("88");
-        jTextFieldNroFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNroFechaActionPerformed(evt);
-            }
-        });
 
         jButtonSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextNavegacion.png"))); // NOI18N
         jButtonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -413,6 +423,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         });
 
         jButtonFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextFin.png"))); // NOI18N
+        jButtonFinal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonFinalMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -445,6 +460,17 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         );
 
         jButton1.setText("+");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabelFecha1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelFecha1.setText("de");
+
+        jLabelTotalFechas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTotalFechas.setText("0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -459,6 +485,10 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelFecha1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelTotalFechas)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1))
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -479,7 +509,9 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelFecha)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jLabelFecha1)
+                    .addComponent(jLabelTotalFechas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -518,25 +550,12 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
-        FechaTorneo actualFecha, proximaFecha;
-        actualFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
-        if (actualFecha != null) {
-            jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) + 1));
-            proximaFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
-            if (proximaFecha != null) {
-                unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText()) + 1);
-            } else {
-                cargarTabla(proximaFecha);
-            }
-        } else {
-            unaControladoraGlobal.crearFechaTorneo(unTorneo, Integer.parseInt(jTextFieldNroFecha.getText()));
-             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) + 1));
+        if(unTorneo.getCantidadFechas()> Integer.parseInt(jTextFieldNroFecha.getText())){
+        jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(this.jTextFieldNroFecha.getText())+1));
+        cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));
+        jLabelFecha.setText(jTextFieldNroFecha.getText());
         }
     }//GEN-LAST:event_jButtonSiguienteMouseClicked
-
-    private void jTextFieldNroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNroFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNroFechaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         habilitarCampos(true);
@@ -554,24 +573,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
-            if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
-                JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
-            } else {
-                if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
-                    JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
-                } else {
-                    for (FechaTorneo aux : unTorneo.getFechasTorneo()) {
-                        if (aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())) {
-                            unaControladoraGlobal.crearPartido(aux, (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
-                        }
-                    }
-
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos sin completar");
-        }
+       unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo), 
+               (Equipo)jComboBoxEquipoVisitante.getSelectedItem(), 
+               null, 
+               (PersonaAuxiliar)jComboBoxArbitro1.getSelectedItem(), 
+               (PersonaAuxiliar)jComboBoxArbitro2.getSelectedItem(), 
+               (PersonaAuxiliar)jComboBoxArbitro3.getSelectedItem(), 
+               (Cancha)jComboBoxCancha.getSelectedItem(), 
+               title, (Equipo)jComboBoxEquipoVisitante.getSelectedItem());
+        cargarTabla(unaControladoraGlobal.getUnaFecha(WIDTH, unTorneo));
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -582,24 +592,39 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jComboBoxEquipoVisitanteItemStateChanged
 
-    private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableSociasFocusGained
+    private void jTableFechasTorneoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableFechasTorneoFocusGained
+   
+    }//GEN-LAST:event_jTableFechasTorneoFocusGained
 
     private void jButtonAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnteriorMouseClicked
-        FechaTorneo actualFecha, anteriorFecha;
-        actualFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
-        if (actualFecha.getPartidos() != null) {
-            if(Integer.parseInt(jTextFieldNroFecha.getText())>1){
-            jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) - 1));
-            anteriorFecha = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);           
-            cargarTabla(anteriorFecha);}
-            
-        } else {
-             unaControladoraGlobal.eliminarFechaTorneo(actualFecha);
-             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(jTextFieldNroFecha.getText()) - 1));
-        }
+         if(Integer.parseInt(jTextFieldNroFecha.getText())>1){
+         jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(this.jTextFieldNroFecha.getText())-1));  
+         cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));
+         jLabelFecha.setText(jTextFieldNroFecha.getText());
+         }
     }//GEN-LAST:event_jButtonAnteriorMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        unaControladoraGlobal.crearFechaTorneo(unTorneo, unTorneo.getCantidadFechas()+1);
+        cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));
+        jLabelTotalFechas.setText(String.valueOf(unTorneo.getCantidadFechas()));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFinalMouseClicked
+        jTextFieldNroFecha.setText(String.valueOf(unTorneo.getCantidadFechas()));        
+        cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));
+        jLabelFecha.setText(jTextFieldNroFecha.getText());
+    }//GEN-LAST:event_jButtonFinalMouseClicked
+
+    private void jButtonInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonInicioMouseClicked
+       if(unTorneo.getCantidadFechas() > 0){
+       jTextFieldNroFecha.setText(String.valueOf(1));        
+       cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));}
+       else {
+            jTextFieldNroFecha.setText(String.valueOf(0));        
+       }
+       jLabelFecha.setText(jTextFieldNroFecha.getText());
+    }//GEN-LAST:event_jButtonInicioMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -625,16 +650,18 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelDomicilio;
     private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelFecha1;
     private javax.swing.JLabel jLabelFechaNacimiento;
     private javax.swing.JLabel jLabelFechaNacimiento1;
     private javax.swing.JLabel jLabelLocalidad;
     private javax.swing.JLabel jLabelNombre1;
+    private javax.swing.JLabel jLabelTotalFechas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableSocias;
+    private javax.swing.JTable jTableFechasTorneo;
     private javax.swing.JTextField jTextFieldNroFecha;
     // End of variables declaration//GEN-END:variables
 }
