@@ -535,7 +535,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
     }
 
-    public Partido getPartidoBD(EntityManager entityManager, Long id) {
+    public Partido getPartidoBD(Long id) {
         return this.unaControladoraDeportiva.getPartidoBD(id);
     }
 
