@@ -108,7 +108,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         } else {
 
         }
-
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -414,6 +413,12 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
         jLabel1.setText("Filtrar");
 
+        jComboBoxTorneos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTorneosItemStateChanged(evt);
+            }
+        });
+
         jCheckBoxRojas.setText("Rojas");
         jCheckBoxRojas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,6 +542,20 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private void jCheckBoxAmarillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAmarillasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxAmarillasActionPerformed
+
+    private void jComboBoxTorneosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTorneosItemStateChanged
+        if (jComboBoxTorneos.getSelectedIndex() != 0) {
+            roja = "";
+            amarilla = "";
+            verde = "";
+            cargarCamposTabla((Torneo)jComboBoxTorneos.getSelectedItem());
+        }else{
+            roja = "";
+            amarilla = "";
+            verde = "";
+            cargarCamposTabla(null);
+        }
+    }//GEN-LAST:event_jComboBoxTorneosItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
