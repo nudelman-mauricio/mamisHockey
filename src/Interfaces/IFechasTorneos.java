@@ -499,7 +499,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelFecha)
+                                .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelFecha1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -520,13 +520,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelFecha)
-                    .addComponent(jLabelFecha1)
-                    .addComponent(jLabelTotalFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFecha1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTotalFechas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -622,8 +624,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonAnteriorMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        unaControladoraGlobal.crearFechaTorneo(unTorneo, unTorneo.getCantidadFechas() + 1);        
-        if(Integer.parseInt(this.jLabelTotalFechas.getText())==0){
+        unaControladoraGlobal.crearFechaTorneo(unTorneo, unTorneo.getCantidadFechas() + 1);
+        if (Integer.parseInt(this.jLabelTotalFechas.getText()) == 0) {
             jLabelFecha.setText("1");
             jTextFieldNroFecha.setText("1");
         }
@@ -649,10 +651,32 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonInicioMouseClicked
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        if(this.unaFechaTorneo.getPartidos().isEmpty() && unTorneo.getCantidadFechas() == Integer.parseInt(jTextFieldNroFecha.getText())){
-            unaControladoraGlobal.eliminarFechaTorneo(this.unaFechaTorneo);
-            unaFechaTorneo = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText())-1, unTorneo);
-            this.jLabelTotalFechas.setText(String.valueOf(unTorneo.getCantidadFechas()));
+        if (this.unaFechaTorneo.getPartidos().isEmpty() && unTorneo.getCantidadFechas() == Integer.parseInt(jTextFieldNroFecha.getText())) {
+            Object[] options = {"Aceptar", "Cancelar"};
+            if (0 == JOptionPane.showOptionDialog(
+                    this,
+                    "¡Desea eliminar la fecha?",
+                    "Eliminar",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options)) {
+                unaControladoraGlobal.eliminarFechaTorneo(this.unaFechaTorneo);
+                unaFechaTorneo = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()) - 1, unTorneo);
+                this.jLabelTotalFechas.setText(String.valueOf(unTorneo.getCantidadFechas()));
+                this.jTextFieldNroFecha.setText(this.jLabelTotalFechas.getText());
+                this.jLabelFecha.setText(this.jLabelTotalFechas.getText());
+            }
+        } else {
+            if(this.unaFechaTorneo.getPartidos().isEmpty()){
+                JOptionPane.showMessageDialog(this,"Solo se puede borrar la ultima fecha de un Torneo");
+            } else {               
+                    Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
+                    unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado);
+            }
+            
+            
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
