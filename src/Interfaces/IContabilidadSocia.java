@@ -24,6 +24,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private Deuda unaDeudaSeleccionada;
+    private Cuota unaCuotaSeleccionada;
     private DefaultTableModel modeloTableDeudas, modeloTableCuotas;
     private DateFormat df;
 
@@ -75,11 +76,10 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         for (int i = 0; i < filas; i++) {
             modeloTabla.removeRow(0);
         }
-
     }
 
     //actualizar los campos al seleccionar una deuda en la tabla deudas
-    void camposCargar() {
+    void camposCargarDeuda() {
         if (jTableDeudas.getSelectedRow() > -1) {
             if (jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0) != null) {
                 unaDeudaSeleccionada = unaControladoraGlobal.getDeudaBD((Long) jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0));
@@ -92,6 +92,24 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 jComboBoxCantidadCuotas.setSelectedIndex(unaDeudaSeleccionada.getCantidadCuotas() - 1);
                 jTextFieldMontoCuota.setText(Double.toString(unaDeudaSeleccionada.getPrimerMonto()));
                 jTextAreaObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
+
+                jButtonEliminar.setEnabled(true);
+            }
+        }
+    }
+
+    //actualizar los campos Cuota al seleccionar una Cuota en la tabla Cuotas
+    void camposCargarCuota() {
+        if (jTableCuotas.getSelectedRow() > -1) {
+            if (jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0) != null) {
+                unaCuotaSeleccionada = unaControladoraGlobal.getCuotaBD((Long) jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0));
+
+                DateFormat df = DateFormat.getDateInstance();
+                if (unaCuotaSeleccionada.getFechaPago() != null) {
+                    jTextFieldFechaPagoCuota.setText(df.format(unaCuotaSeleccionada.getFechaPago()));
+                }
+                jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMontoPago()));
+                jTextAreaObservacionPago.setText(unaCuotaSeleccionada.getUnPagoCuota().getObservacion());
 
                 jButtonEliminar.setEnabled(true);
             }

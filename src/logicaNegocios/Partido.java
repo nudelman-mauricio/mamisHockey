@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -14,9 +15,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Partido implements Serializable, Comparable {
+
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
+    @ElementCollection
+    private Collection<Socia> plantelLocal;
 
     @Basic
     private String nombreVeedor;
@@ -24,7 +30,7 @@ public class Partido implements Serializable, Comparable {
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
 
-    @OneToOne(optional = false, targetEntity = Equipo.class)
+    @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoVisitante;
 
     @Temporal(TemporalType.DATE)
@@ -37,26 +43,29 @@ public class Partido implements Serializable, Comparable {
     @Basic
     private String nombreAyudanteMesaLocal;
 
-    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unArbitro1;
 
-    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unArbitro2;
 
-    @OneToOne(optional = false, targetEntity = Cancha.class)
+    @OneToOne(targetEntity = Cancha.class)
     private Cancha unaCancha;
 
-    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unArbitro3;
 
     @Basic
     private String observaciones;
 
+    @ElementCollection
+    private Collection<Socia> plantelVisitante;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPartido;
 
-    @OneToOne(optional = false, targetEntity = Equipo.class)
+    @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoLocal;
 
     @Basic
@@ -64,6 +73,7 @@ public class Partido implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Partido() {
 
@@ -79,10 +89,20 @@ public class Partido implements Serializable, Comparable {
         this.observaciones = observaciones;
         this.unEquipoLocal = unEquipoLocal;
         this.borradoLogico = false;
+        this.cargarPlantelLocal();
+        this.cargarPlantelVisitante();
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
+    public Collection<Socia> getPlantelLocal() {
+        return this.plantelLocal;
+    }
+
+    public void setPlantelLocal(Collection<Socia> plantelLocal) {
+        this.plantelLocal = plantelLocal;
+    }
+
     public String getNombreVeedor() {
         return this.nombreVeedor;
     }
@@ -171,6 +191,14 @@ public class Partido implements Serializable, Comparable {
         this.observaciones = observaciones;
     }
 
+    public Collection<Socia> getPlantelVisitante() {
+        return this.plantelVisitante;
+    }
+
+    public void setPlantelVisitante(Collection<Socia> plantelVisitante) {
+        this.plantelVisitante = plantelVisitante;
+    }
+
     public Long getIdPartido() {
         return this.idPartido;
     }
@@ -202,7 +230,7 @@ public class Partido implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -216,7 +244,7 @@ public class Partido implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -229,9 +257,9 @@ public class Partido implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>    
 
-//-----------------------------------GOLES--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Goles">
     public void agregarGol(EntityManager entityManager, Gol unGol) {
         this.goles.add(unGol);
         this.persistir(entityManager);
@@ -241,9 +269,9 @@ public class Partido implements Serializable, Comparable {
         this.goles.remove(unGol);
         this.persistir(entityManager);
     }
-//---------------------------------FIN GOLES------------------------------------
+    // </editor-fold>  
 
-//---------------------------------TARJETAS-------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Tarjetas">
     public void agregarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
         this.tarjetas.add(unaTarjeta);
         this.persistir(entityManager);
@@ -253,5 +281,17 @@ public class Partido implements Serializable, Comparable {
         this.tarjetas.remove(unaTarjeta);
         this.persistir(entityManager);
     }
-//-------------------------------FIN TARJETAS-----------------------------------
+    // </editor-fold>    
+
+    // <editor-fold defaultstate="collapsed" desc="Planteles">
+    private void cargarPlantelLocal() {
+        //ya hago
+        JOptionPane.showMessageDialog(null, "Te Debo Compadre");
+    }
+
+    private void cargarPlantelVisitante() {
+        //te debo
+        JOptionPane.showMessageDialog(null, "Para la proxima amigo");
+    }
+    // </editor-fold>   
 }
