@@ -11,7 +11,8 @@ public class ICategoria extends javax.swing.JInternalFrame {
  
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaCategoria;
-    private Categoria unaCategoria;      
+    private Categoria unaCategoria;    
+    private boolean modificar=false;
     
     public ICategoria(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -27,10 +28,10 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }
     
     public void camposActivo(boolean Editable) {
-        jTextFieldNombre.setEnabled(Editable);       
-        jTextFieldEdadParametro.setEnabled(Editable);
-        jTextFieldMaximoMenores.setEnabled(Editable);
-        jTextFieldMinimoMenores.setEnabled(Editable);
+        jTextFieldNombre.setEditable(Editable);       
+        jTextFieldEdadParametro.setEditable(Editable);
+        jTextFieldMaximoMenores.setEditable(Editable);
+        jTextFieldMinimoMenores.setEditable(Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonEditar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
@@ -280,12 +281,17 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        jButtonCancelar.setEnabled(true);
-        
+        modificar = true;
+        unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
+        jTextFieldEdadParametro.setText(String.valueOf(unaCategoria.getEdadParametro()));
+        jTextFieldMaximoMenores.setText(String.valueOf(unaCategoria.getCantidadMaxima()));
+        jTextFieldMinimoMenores.setText(String.valueOf(unaCategoria.getCantidadMinima()));
+        jTextFieldNombre.setText(unaCategoria.getNombre());              
+        camposActivo(true);        
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Categoria unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
+        unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -303,6 +309,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        modificar=false;
         camposActivoNuevo(true);
         this.jTextFieldNombre.setText("");
         this.jTextFieldEdadParametro.setText("");
@@ -311,15 +318,16 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (unaCategoria == null) {
+        if (!modificar) {
             unaControladoraGlobal.crearCategoria(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdadParametro.getText()), Integer.parseInt(jTextFieldMinimoMenores.getText()), Integer.parseInt(jTextFieldMaximoMenores.getText()));
             JOptionPane.showMessageDialog(this, "Categoria Guardada");
-
         } else {
+            unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
             unaControladoraGlobal.modificarCategoria(unaCategoria,jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdadParametro.getText()), Integer.parseInt(jTextFieldMinimoMenores.getText()), Integer.parseInt(jTextFieldMaximoMenores.getText()), false);
-            unaCategoria = null;
+   
         }
-        camposActivoNuevo(false);        
+        camposActivo(false);
+        //camposActivoNuevo(false);        
         this.jTextFieldNombre.setText("");
         this.jTextFieldEdadParametro.setText("");
         this.jTextFieldMinimoMenores.setText("");
@@ -332,12 +340,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTableCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCategoriaFocusGained
-        this.SeleccionarObjetoTabla(true);
-        Categoria unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
-        jTextFieldNombre.setText(unaCategoria.getNombre());
-        jTextFieldEdadParametro.setText(Integer.toString(unaCategoria.getEdadParametro()));
-        jTextFieldMinimoMenores.setText(Integer.toString(unaCategoria.getCantidadMinima()));
-        jTextFieldMaximoMenores.setText(Integer.toString(unaCategoria.getCantidadMaxima()));
+        this.SeleccionarObjetoTabla(true);       
     }//GEN-LAST:event_jTableCategoriaFocusGained
 
     private void jTextFieldEdadParametroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEdadParametroActionPerformed

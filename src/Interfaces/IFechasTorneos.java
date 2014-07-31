@@ -591,15 +591,26 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo),
-                (Equipo) jComboBoxEquipoVisitante.getSelectedItem(),
-                null,
-                (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(),
-                (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(),
-                (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(),
-                (Cancha) jComboBoxCancha.getSelectedItem(),
-                title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
-        cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));
+       if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
+            if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
+                JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
+            } else {
+                if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
+                } else {
+                    for (FechaTorneo aux : unTorneo.getFechasTorneo()) {
+                        if (aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())) {
+                            unaControladoraGlobal.crearPartido(aux, (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
+                        }
+                    }
+
+                }
+               
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Hay campos sin completar");
+        }
+                    
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -669,16 +680,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 this.jLabelFecha.setText(this.jLabelTotalFechas.getText());
             }
         } else {
-            if(this.unaFechaTorneo.getPartidos().isEmpty()){
-                JOptionPane.showMessageDialog(this,"Solo se puede borrar la ultima fecha de un Torneo");
-            } else {               
-                if(jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0)!= null){  
+            if (this.unaFechaTorneo.getPartidos().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Solo se puede borrar la ultima fecha de un Torneo");
+            } else {
+                if (jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0) != null) {
                     Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
-                    unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado); 
+                    unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado);
                 }
             }
-            
-            
+
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 

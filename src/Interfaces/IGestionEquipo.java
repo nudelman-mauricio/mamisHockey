@@ -33,8 +33,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         IMenuPrincipalInterface.centrar(this);
 
-        this.modeloTablaEquipo = new DefaultTableModel();
-        jTableEquipo.setModel(modeloTablaEquipo);
+        this.modeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
        
         this.SeleccionarObjetoTabla(false);
 
