@@ -655,7 +655,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             Object[] options = {"Aceptar", "Cancelar"};
             if (0 == JOptionPane.showOptionDialog(
                     this,
-                    "¡Desea eliminar la fecha?",
+                    "¿Desea eliminar la fecha?",
                     "Eliminar",
                     JOptionPane.PLAIN_MESSAGE,
                     JOptionPane.WARNING_MESSAGE,
@@ -672,8 +672,10 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             if(this.unaFechaTorneo.getPartidos().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Solo se puede borrar la ultima fecha de un Torneo");
             } else {               
+                if(jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0)!= null){  
                     Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
-                    unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado);
+                    unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado); 
+                }
             }
             
             
