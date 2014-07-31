@@ -121,6 +121,15 @@ public class ControladoraContabilidad {
         return unaListaResultado;
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Cuotas">
+    public Cuota getCuotaBD(Long id) {
+        Cuota resultado;
+        Query traerCuota = this.entityManager.createQuery("SELECT auxCD FROM Cuota auxCD WHERE auxCD.idCuota = " + id);
+        resultado = (Cuota) traerCuota.getSingleResult();
+        return resultado;
+    }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Pago Cuotas">
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {

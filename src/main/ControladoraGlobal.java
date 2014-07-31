@@ -26,15 +26,15 @@ public class ControladoraGlobal {
     public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, cuerpoTecnicoActivo, borradoLogico);
     }
-    
-    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta){
+
+    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta) {
         this.unaControladoraEntidades.modificarNumeroCamiseta(unaSocia, numeroCamiseta);
     }
 
     public void eliminarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar) {
         this.unaControladoraEntidades.eliminarPersonaAuxiliar(unaPersonaAuxiliar);
     }
-    
+
     public PersonaAuxiliar getPersonaAuxiliarBD(Long dni) {
         return this.unaControladoraEntidades.getPersonaAuxiliarBD(dni);
     }
@@ -111,7 +111,7 @@ public class ControladoraGlobal {
         } else {
             observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
         }
-        
+
         ConceptoDeportivo porPase = null;
         for (ConceptoDeportivo aux : this.getConceptosDeportivosBD()) {
             if ((!aux.isBorradoLogico()) && (aux.getConcepto().compareToIgnoreCase("Por Pase") == 0)) {
@@ -121,7 +121,7 @@ public class ControladoraGlobal {
         if (porPase == null) {
             this.crearConceptoDeportivo(0.0, "Por Pase");
         }
-        
+
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, porPase, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
@@ -288,11 +288,11 @@ public class ControladoraGlobal {
     public List<Tarjeta> getTarjetasBD() {
         return this.unaControladoraDeportiva.getTarjetasBD();
     }
-    
+
     public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getTorneoTarjeta(unaTarjeta);
     }
-    
+
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
@@ -318,11 +318,11 @@ public class ControladoraGlobal {
     public Equipo getEquipoBD(Long id) {
         return this.unaControladoraDeportiva.getEquipoBD(id);
     }
-    
+
     public Club getClubBD(Equipo unEquipo) {
         return this.unaControladoraDeportiva.getClubBD(unEquipo);
     }
-    
+
     public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
         return this.unaControladoraDeportiva.getEquiposDBPorCategoria(unaCategoria);
     }
@@ -412,7 +412,7 @@ public class ControladoraGlobal {
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
     public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
-        this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);        
+        this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);
     }
 
     public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
@@ -470,7 +470,7 @@ public class ControladoraGlobal {
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return this.unaControladoraDeportiva.agregarEquipoInscripto(unTorneo, unEquipo);
     }
-    
+
     public int quitarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return this.unaControladoraDeportiva.quitarEquipoInscripto(unTorneo, unEquipo);
     }
@@ -486,7 +486,7 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
-    
+
     public Torneo getTorneoPartido(Partido unaPartido) {
         return this.unaControladoraDeportiva.getTorneoPartido(unaPartido);
     }
@@ -512,13 +512,13 @@ public class ControladoraGlobal {
     public List<FechaTorneo> getFechasTorneosBD() {
         return this.unaControladoraDeportiva.getFechasTorneosBD();
     }
-    
-    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual,Torneo unTorneo){
-        return this.unaControladoraDeportiva.getSiguienteFecha(fechaActual,unTorneo);
+
+    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual, Torneo unTorneo) {
+        return this.unaControladoraDeportiva.getSiguienteFecha(fechaActual, unTorneo);
     }
-    
-    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo){
-        return this.unaControladoraDeportiva.getUnaFecha(numeroFecha,unTorneo);
+
+    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo) {
+        return this.unaControladoraDeportiva.getUnaFecha(numeroFecha, unTorneo);
     }
     // </editor-fold>
 
@@ -617,6 +617,12 @@ public class ControladoraGlobal {
 
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Cuotas">
+    public Cuota getCuotaBD(Long id) {
+        return this.unaControladoraContabilidad.getCuotaBD(id);
     }
     // </editor-fold>
 
