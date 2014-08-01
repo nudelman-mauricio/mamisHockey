@@ -7,7 +7,6 @@ package Interfaces;
 
 import java.util.Collection;
 import java.util.Vector;
-import javafx.beans.property.IntegerProperty;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -46,13 +45,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         } else {
             this.jTextFieldNroFecha.setText("0");
         }
-        modeloFechaTorneo = new DefaultTableModel();
-        jTableFechasTorneo.setModel(modeloFechaTorneo);
+        this.modeloFechaTorneo = (DefaultTableModel) jTableFechasTorneo.getModel();
         this.setTitle("Torneo: " + unTorneo.getNombre());
         SeInicio();
         if (unTorneo.getCantidadFechas() > 0) {
-            cargarTabla(this.unaFechaTorneo = unaControladoraGlobal.getUnaFecha(1, unTorneo));
+            this.unaFechaTorneo = unaControladoraGlobal.getUnaFecha(1, unTorneo);
+            cargarTabla(unaFechaTorneo);
         }
+        this.jButtonEditar.setEnabled(false);
+        habilitarCampos(false);
     }
 
     public void SeInicio() {
@@ -70,6 +71,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.jComboBoxCancha.setEnabled(estado);
         this.jComboBoxEquipoLocal.setEnabled(estado);
         this.jComboBoxEquipoVisitante.setEnabled(estado);
+        this.jButtonGuardar.setEnabled(estado);
+        this.jButtonCancelar.setEnabled(estado);
+        this.jButtonEliminar.setEnabled(!estado);
+        this.jButtonNuevo.setEnabled(!estado);
+        this.jButtonImprimir.setEnabled(!estado);
     }
 
     private void limpiarCampos() {
@@ -112,11 +118,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
     private void cargarTabla(FechaTorneo unaFecha) {
         limpiarTabla(modeloFechaTorneo);
-        this.modeloFechaTorneo = (DefaultTableModel) jTableFechasTorneo.getModel();
-        Collection<Partido> listaPartidos = unaFecha.getPartidos();
-        if (listaPartidos != null) {
-            for (Partido unPartido : listaPartidos) {
-                this.modeloFechaTorneo.addRow(new Object[]{unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+        if (unaFecha != null) {
+            this.modeloFechaTorneo = (DefaultTableModel) jTableFechasTorneo.getModel();
+            Collection<Partido> listaPartidos = unaFecha.getPartidos();
+            if (listaPartidos != null) {
+                for (Partido unPartido : listaPartidos) {
+                    if (!unPartido.isBorradoLogico()) {
+                        this.modeloFechaTorneo.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                    }
+                }
             }
         }
     }
@@ -129,8 +139,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
-        jButtonFechas = new javax.swing.JButton();
-        jButtonCancelar1 = new javax.swing.JButton();
+        jButtonResultadoPartido = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -212,23 +222,23 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonFechas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PanillaResultados.png"))); // NOI18N
-        jButtonFechas.setText("Rtdo. Partido");
-        jButtonFechas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonFechas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonFechas.addActionListener(new java.awt.event.ActionListener() {
+        jButtonResultadoPartido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PanillaResultados.png"))); // NOI18N
+        jButtonResultadoPartido.setText("Rtdo. Partido");
+        jButtonResultadoPartido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonResultadoPartido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonResultadoPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFechasActionPerformed(evt);
+                jButtonResultadoPartidoActionPerformed(evt);
             }
         });
 
-        jButtonCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
-        jButtonCancelar1.setText("Cancelar");
-        jButtonCancelar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCancelar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelar1ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
@@ -262,7 +272,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -270,7 +280,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonResultadoPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -283,8 +293,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonResultadoPartido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
         );
@@ -294,11 +304,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Equipo Local", "GL", "GV", "Equipo Visitante", "Cancha", "Arbitro 1", "Arbitro 2", "Arbitro 3"
+                "id", "Equipo Local", "GL", "GV", "Equipo Visitante", "Cancha", "Arbitro 1", "Arbitro 2", "Arbitro 3"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
+                true, true, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -312,10 +322,13 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableFechasTorneo);
         if (jTableFechasTorneo.getColumnModel().getColumnCount() > 0) {
-            jTableFechasTorneo.getColumnModel().getColumn(1).setResizable(false);
-            jTableFechasTorneo.getColumnModel().getColumn(1).setPreferredWidth(5);
+            jTableFechasTorneo.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableFechasTorneo.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableFechasTorneo.getColumnModel().getColumn(0).setMaxWidth(0);
             jTableFechasTorneo.getColumnModel().getColumn(2).setResizable(false);
             jTableFechasTorneo.getColumnModel().getColumn(2).setPreferredWidth(5);
+            jTableFechasTorneo.getColumnModel().getColumn(3).setResizable(false);
+            jTableFechasTorneo.getColumnModel().getColumn(3).setPreferredWidth(5);
         }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -562,9 +575,9 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jButtonFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFechasActionPerformed
+    private void jButtonResultadoPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResultadoPartidoActionPerformed
 
-    }//GEN-LAST:event_jButtonFechasActionPerformed
+    }//GEN-LAST:event_jButtonResultadoPartidoActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
         if (unTorneo.getCantidadFechas() > Integer.parseInt(jTextFieldNroFecha.getText())) {
@@ -579,38 +592,37 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         habilitarCampos(true);
         cargarCombos();
         limpiarCampos();
+        seleccionarObjetoTabla(false);
+       
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    private void jButtonCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelar1ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         habilitarCampos(false);
         limpiarCampos();
-    }//GEN-LAST:event_jButtonCancelar1ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         habilitarCampos(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-       if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
+        if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
             if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
                 JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
             } else {
                 if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
                     JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
                 } else {
-                    for (FechaTorneo aux : unTorneo.getFechasTorneo()) {
-                        if (aux.getNumeroFecha() == Integer.parseInt(jTextFieldNroFecha.getText())) {
-                            unaControladoraGlobal.crearPartido(aux, (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
-                        }
-                    }
-
+                    unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
                 }
-               
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Hay campos sin completar");
         }
-                    
+        cargarTabla(unaFechaTorneo);
+        habilitarCampos(false);
+        seleccionarObjetoTabla(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -622,7 +634,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxEquipoVisitanteItemStateChanged
 
     private void jTableFechasTorneoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableFechasTorneoFocusGained
-
+        seleccionarObjetoTabla(true);
     }//GEN-LAST:event_jTableFechasTorneoFocusGained
 
     private void jButtonAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnteriorMouseClicked
@@ -662,7 +674,13 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonInicioMouseClicked
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        if (this.unaFechaTorneo.getPartidos().isEmpty() && unTorneo.getCantidadFechas() == Integer.parseInt(jTextFieldNroFecha.getText())) {
+        int vacio = 0;
+        for (Partido unPartido : this.unaFechaTorneo.getPartidos()) {
+            if (!unPartido.isBorradoLogico()) {
+                vacio++;
+            }
+        }
+        if (vacio == 0 && unTorneo.getCantidadFechas() == Integer.parseInt(jTextFieldNroFecha.getText())) {
             Object[] options = {"Aceptar", "Cancelar"};
             if (0 == JOptionPane.showOptionDialog(
                     this,
@@ -678,33 +696,55 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 this.jLabelTotalFechas.setText(String.valueOf(unTorneo.getCantidadFechas()));
                 this.jTextFieldNroFecha.setText(this.jLabelTotalFechas.getText());
                 this.jLabelFecha.setText(this.jLabelTotalFechas.getText());
+                cargarTabla(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo));
             }
         } else {
-            if (this.unaFechaTorneo.getPartidos().isEmpty()) {
+            if (vacio == 0) {
                 JOptionPane.showMessageDialog(this, "Solo se puede borrar la ultima fecha de un Torneo");
             } else {
-                if (jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0) != null) {
-                    Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
-                    unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado);
+                if (jTableFechasTorneo.getSelectedColumn() != (-1)) {
+                    if (jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0) != null) {
+                        Object[] options = {"Aceptar", "Cancelar"};
+                        if (0 == JOptionPane.showOptionDialog(
+                                this,
+                                "¿Desea eliminar el partido?",
+                                "Eliminar",
+                                JOptionPane.PLAIN_MESSAGE,
+                                JOptionPane.WARNING_MESSAGE,
+                                null,
+                                options,
+                                options)) {
+                            Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
+                            unaControladoraGlobal.eliminarPartido(unPartidoSeleccionado);
+                            cargarTabla(unaFechaTorneo);
+                        }
+                    }
+                } else {
+                    // JOptionPane.showMessageDialog(this, "Seleccione una fecha para eliminar");
+
                 }
             }
 
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
+    
+    public void seleccionarObjetoTabla(boolean estado){
+        this.jButtonEditar.setEnabled(estado);
+        this.jButtonResultadoPartido.setEnabled(estado);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnterior;
-    private javax.swing.JButton jButtonCancelar1;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonFechas;
     private javax.swing.JButton jButtonFinal;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonInicio;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonResultadoPartido;
     private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JComboBox jComboBoxArbitro1;
     private javax.swing.JComboBox jComboBoxArbitro2;
