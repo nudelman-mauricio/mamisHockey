@@ -1,9 +1,14 @@
 package Interfaces;
 
+import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import logicaNegocios.Partido;
+import logicaNegocios.SancionTribunal;
+import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IResultadoPartido extends javax.swing.JInternalFrame {
@@ -11,6 +16,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     ControladoraGlobal unaControladoraGlobal;
     JInternalFrame unJInternalFrame;
     Partido unPartido;
+    
+    private DefaultTableModel modeloTableLocal;
+    private DefaultTableModel modeloTableVisitante;
     
     public IResultadoPartido(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Partido unPartido) {
         initComponents();
@@ -26,8 +34,46 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
+        
+        
+        this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
+        cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal);
+        this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
+        cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante);
     }
 
+    public void cargarCamposTabla(Equipo unEquipo, DefaultTableModel modeloTable) {
+        limpiarTabla(modeloTable);
+
+        for (Socia unSocia : unEquipo.getPlantel()) {
+            
+            
+            DateFormat df = DateFormat.getDateInstance();
+            if (!unaSancion.isBorradoLogico()) {
+                modeloTable.addRow(new Object[]{});
+                
+                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), 
+                    df.format(unaSancion.getFecha()),
+                    unaSancion.getMotivo(),
+                    unaSancion.getNumeroResolucion(),
+                    unaSancion.getCantFechas(),
+                    unaSancion.getCantFechasCumplidas(),
+                    unaSancion.getVencimiento(),
+                    unaSancion.getUnPartido()});
+            }
+        }
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        try {
+            int filas = modeloTabla.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                modeloTabla.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,13 +85,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableSocias = new javax.swing.JTable();
+        jTableLocal = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabelEquipoLocal = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableGolLocal = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -58,13 +104,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTableSocias2 = new javax.swing.JTable();
+        jTableVisitante = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabelEquipoVisitante = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableGolVisitante = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -108,7 +154,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, "", null, null},
                 {null, null, null, null, null, null, null, null},
@@ -134,30 +180,30 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableSocias);
-        if (jTableSocias.getColumnModel().getColumnCount() > 0) {
-            jTableSocias.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(1).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(1).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(2).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(4).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(4).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(4).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(6).setMinWidth(35);
-            jTableSocias.getColumnModel().getColumn(6).setPreferredWidth(35);
-            jTableSocias.getColumnModel().getColumn(6).setMaxWidth(35);
-            jTableSocias.getColumnModel().getColumn(7).setPreferredWidth(150);
+        jScrollPane1.setViewportView(jTableLocal);
+        if (jTableLocal.getColumnModel().getColumnCount() > 0) {
+            jTableLocal.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(1).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(1).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(2).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(2).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(2).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(3).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(4).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(5).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(6).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(150);
         }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -172,7 +218,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelEquipoLocal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelEquipoLocal.setText("Nombre Equipo");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableGolLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, ""},
                 {null, null},
@@ -183,14 +229,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 "Cam", "Min"
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(35);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(35);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(35);
+        jScrollPane4.setViewportView(jTableGolLocal);
+        if (jTableGolLocal.getColumnModel().getColumnCount() > 0) {
+            jTableGolLocal.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(1).setMinWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(1).setMaxWidth(35);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -301,7 +347,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTableSocias2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, "", null, null},
                 {null, null, null, null, null, null, null, null},
@@ -327,30 +373,30 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTableSocias2);
-        if (jTableSocias2.getColumnModel().getColumnCount() > 0) {
-            jTableSocias2.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(1).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(1).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(2).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(4).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(4).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(4).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(6).setMinWidth(35);
-            jTableSocias2.getColumnModel().getColumn(6).setPreferredWidth(35);
-            jTableSocias2.getColumnModel().getColumn(6).setMaxWidth(35);
-            jTableSocias2.getColumnModel().getColumn(7).setPreferredWidth(150);
+        jScrollPane5.setViewportView(jTableVisitante);
+        if (jTableVisitante.getColumnModel().getColumnCount() > 0) {
+            jTableVisitante.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(1).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(1).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(2).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(2).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(3).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(3).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(4).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(4).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(4).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(5).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(5).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(5).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(6).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(6).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(6).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(150);
         }
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -365,7 +411,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelEquipoVisitante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelEquipoVisitante.setText("Nombre Visitante");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableGolVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, ""},
                 {null, null},
@@ -376,14 +422,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 "Cam", "Min"
             }
         ));
-        jScrollPane6.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(35);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(35);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTable2.getColumnModel().getColumn(1).setMaxWidth(35);
+        jScrollPane6.setViewportView(jTableGolVisitante);
+        if (jTableGolVisitante.getColumnModel().getColumnCount() > 0) {
+            jTableGolVisitante.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(1).setMinWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(1).setMaxWidth(35);
         }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -476,10 +522,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTableSocias;
-    private javax.swing.JTable jTableSocias2;
+    private javax.swing.JTable jTableGolLocal;
+    private javax.swing.JTable jTableGolVisitante;
+    private javax.swing.JTable jTableLocal;
+    private javax.swing.JTable jTableVisitante;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
