@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.text.DateFormat;
+import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -9,6 +10,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
+import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
 
 public class IResultadoPartido extends javax.swing.JInternalFrame {
@@ -16,51 +18,71 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     ControladoraGlobal unaControladoraGlobal;
     JInternalFrame unJInternalFrame;
     Partido unPartido;
-    
+
     private DefaultTableModel modeloTableLocal;
     private DefaultTableModel modeloTableVisitante;
-    
+
     public IResultadoPartido(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Partido unPartido) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unPartido = unPartido;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));
         this.setTitle(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         IMenuPrincipalInterface.centrar(this);
-        
+
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
-        
-        
+
         this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
-        cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal);
+        cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal, unPartido.getPlantelLocal());
         this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
-        cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante);
+        cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
     }
 
-    public void cargarCamposTabla(Equipo unEquipo, DefaultTableModel modeloTable) {
+    public void cargarCamposTabla(Equipo unEquipo, DefaultTableModel modeloTable, Collection<Socia> plantel) {
         limpiarTabla(modeloTable);
-
-        for (Socia unSocia : unEquipo.getPlantel()) {
-            
-            
-            DateFormat df = DateFormat.getDateInstance();
-            if (!unaSancion.isBorradoLogico()) {
-                modeloTable.addRow(new Object[]{});
-                
-                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), 
-                    df.format(unaSancion.getFecha()),
-                    unaSancion.getMotivo(),
-                    unaSancion.getNumeroResolucion(),
-                    unaSancion.getCantFechas(),
-                    unaSancion.getCantFechasCumplidas(),
-                    unaSancion.getVencimiento(),
-                    unaSancion.getUnPartido()});
+        String v1 = "-", v2 = "-", a1 = "-", a2 = "-", ra = "-", rd = "-";
+        for (Socia unaSocia : plantel) {
+            for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
+                if (unaSocia.getTarjetas().contains(unTarjeta)) {
+                    if ("Verde".equals(unTarjeta.getTipo())) {
+                        if (v1 == "-") {
+                            v1 = unTarjeta.getMinuto();
+                        } else {
+                            if (Double.parseDouble(v1) < Double.parseDouble(unTarjeta.getMinuto())) {
+                                v2 = unTarjeta.getMinuto();
+                            } else {
+                                v2 = v1;
+                                v1 = unTarjeta.getMinuto();
+                            }
+                        }
+                    }
+                    if ("Amarrilla".equals(unTarjeta.getTipo())) {
+                        if (a1 == "-") {
+                            a1 = unTarjeta.getMinuto();
+                        } else {
+                            if (Double.parseDouble(a1) < Double.parseDouble(unTarjeta.getMinuto())) {
+                                a2 = unTarjeta.getMinuto();
+                            } else {
+                                a2 = a1;
+                                a1 = unTarjeta.getMinuto();
+                            }
+                        }
+                    }
+                    if ("Roja".equals(unTarjeta.getTipo())) {
+                        rd = unTarjeta.getMinuto();
+                    }
+                }
+                if ((!"-".equals(a1)) && (!"-".equals(a2))) {
+                    ra = rd;
+                    rd = "-";
+                }
             }
+            modeloTable.addRow(new Object[]{v1, v2, a1, a2, ra, rd, unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre()});
         }
     }
 
@@ -74,6 +96,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
