@@ -37,7 +37,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.unaSocia = unaSocia;
         this.modeloTableDeudas = (DefaultTableModel) jTableDeudas.getModel();
         this.modeloTableCuotas = (DefaultTableModel) jTableCuotas.getModel();
-        
+
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
@@ -295,6 +295,12 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                         .addComponent(jButtonPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
         );
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jTableDeudas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -763,6 +769,12 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         camposActivo(jPanel4, true);
         camposLimpiarCuotas();
     }//GEN-LAST:event_jButtonPagarActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        if (jTabbedPane1.getSelectedIndex() == 0 && jTabbedPane1.getComponentCount()==2) {
+            jTabbedPane1.setEnabledAt(1, false);
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
