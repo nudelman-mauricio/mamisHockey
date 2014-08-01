@@ -37,7 +37,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.unaSocia = unaSocia;
         this.modeloTableDeudas = (DefaultTableModel) jTableDeudas.getModel();
         this.modeloTableCuotas = (DefaultTableModel) jTableCuotas.getModel();
-
+        
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
@@ -46,6 +46,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.jComboBoxConcepto.setModel(modelComboConcepto);
 
         jTabbedPane1.setEnabledAt(1, false);// deshabilita la pestaña de cuotas
+        camposActivo(jPanel3, false);
 
         cargarTablaDeudas();
         df = DateFormat.getDateInstance();
@@ -202,6 +203,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -222,11 +224,13 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -237,6 +241,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +252,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jButtonPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Pagar.png"))); // NOI18N
         jButtonPagar.setText("Pagar");
+        jButtonPagar.setEnabled(false);
         jButtonPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonPagar.addActionListener(new java.awt.event.ActionListener() {

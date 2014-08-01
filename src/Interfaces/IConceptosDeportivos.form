@@ -19,7 +19,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelBotones" pref="0" max="32767" attributes="0"/>
+          <Component id="jPanelBotones" pref="447" max="32767" attributes="0"/>
           <Component id="jPanel5" max="32767" attributes="0"/>
           <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -377,9 +377,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="DIAS 5"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -390,9 +387,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="E"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox2">
           <Properties>

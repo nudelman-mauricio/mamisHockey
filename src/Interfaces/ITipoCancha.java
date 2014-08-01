@@ -67,7 +67,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         }
     }
 
-    //blanqueda componentes editables
+    //blanquea componentes editables
     void camposLimpiar() {
         jTextFieldNombre.setText("");
         jTextFieldMonto.setText("");
