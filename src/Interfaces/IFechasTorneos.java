@@ -88,8 +88,9 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombos() {
-
-        this.modelComboLocal = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
+        Collection<Equipo> equiposInscriptos = unTorneo.getEquiposInscriptos();
+        this.modelComboLocal = new DefaultComboBoxModel((Vector)unTorneo.getEquiposInscriptos());
+       
         this.jComboBoxEquipoLocal.setModel(modelComboLocal);
 
         this.modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
@@ -593,7 +594,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         cargarCombos();
         limpiarCampos();
         seleccionarObjetoTabla(false);
-       
+
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -702,7 +703,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             if (vacio == 0) {
                 JOptionPane.showMessageDialog(this, "Solo se puede borrar la ultima fecha de un Torneo");
             } else {
-                if (jTableFechasTorneo.getSelectedColumn() != (-1)) {
+                if (jTableFechasTorneo.getSelectedRow() != (-1)) {
                     if (jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0) != null) {
                         Object[] options = {"Aceptar", "Cancelar"};
                         if (0 == JOptionPane.showOptionDialog(
@@ -720,15 +721,14 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                         }
                     }
                 } else {
-                    // JOptionPane.showMessageDialog(this, "Seleccione una fecha para eliminar");
-
+                    JOptionPane.showMessageDialog(this, "Seleccione un partido para eliminar");
                 }
             }
 
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-    
-    public void seleccionarObjetoTabla(boolean estado){
+
+    public void seleccionarObjetoTabla(boolean estado) {
         this.jButtonEditar.setEnabled(estado);
         this.jButtonResultadoPartido.setEnabled(estado);
     }
