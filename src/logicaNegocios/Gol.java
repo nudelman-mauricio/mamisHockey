@@ -12,8 +12,12 @@ import javax.persistence.Id;
 @Entity
 public class Gol implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private String minuto;
+
+    @Basic
+    private String tiempo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,24 +25,34 @@ public class Gol implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Gol() {
 
     }
 
-    public Gol(EntityManager entityManager, String minuto) {
+    public Gol(EntityManager entityManager, String tiempo, String minuto) {
+        this.tiempo = tiempo;
         this.minuto = minuto;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getMinuto() {
         return this.minuto;
     }
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
+    }
+
+    public String getTiempo() {
+        return this.tiempo;
+    }
+
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
     }
 
     public Long getIdGol() {
@@ -56,7 +70,7 @@ public class Gol implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -70,7 +84,7 @@ public class Gol implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -83,5 +97,5 @@ public class Gol implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 }

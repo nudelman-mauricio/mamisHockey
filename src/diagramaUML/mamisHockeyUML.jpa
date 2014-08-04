@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings theme="MAC" persistenceUnitName="mamisHockeyPU" id="_139786521181046" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings theme="MAC" version="2.0" persistenceUnitName="mamisHockeyPU" id="_139786521181046" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:package>logicaNegocios</jpa:package>
     <jpa:mapped-superclass class="Persona" minimized="true" id="_1397865228592">
         <jpa:attributes>
@@ -157,7 +157,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Gol" minimized="true" id="_1397866303816">
+    <jpa:entity class="Gol" minimized="false" id="_1397866303816">
         <jpa:attributes>
             <jpa:id name="idGol" attribute-type="Long" id="_1397867808230159">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -168,6 +168,9 @@
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817532147479">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="tiempo" attribute-type="String" id="_1406930401689171">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
@@ -184,9 +187,6 @@
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:one-to-many name="indumentarias" target-entity="Indumentaria" collection-type="java.util.Collection" connected-entity-id="_1397866545595" id="_1397868106414170">
-                <jpa:join-table/>
-            </jpa:one-to-many>
-            <jpa:one-to-many name="deudas" target-entity="Deuda" collection-type="java.util.Collection" connected-entity-id="_1397868049586" id="_1397868610565196">
                 <jpa:join-table/>
             </jpa:one-to-many>
             <jpa:one-to-many name="plantel" target-entity="Socia" collection-type="java.util.Collection" connected-entity-id="_1397865613179" id="_1397871322322296">
@@ -238,7 +238,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Estado" minimized="true" id="_1397866760557">
+    <jpa:entity class="Estado" minimized="false" id="_1397866760557">
         <jpa:attributes>
             <jpa:id name="idEstado" attribute-type="Long" id="_1398054332211519">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -251,12 +251,12 @@
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817537680780">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" primaryKey="false" connected-entity-id="_1399935822186" id="_1399936060742102">
+            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" optional="true" primaryKey="false" connected-entity-id="_1399935822186" id="_1399936060742102">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Pase" minimized="true" id="_1397867932817">
+    <jpa:entity class="Pase" minimized="false" id="_1397867932817">
         <jpa:attributes>
             <jpa:id name="idPase" attribute-type="Long" id="_1397867938079163">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -278,15 +278,15 @@
             <jpa:basic name="observacion" attribute-type="String" id="_140070603087792">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:one-to-one name="unEquipo" target-entity="Equipo" primaryKey="false" connected-entity-id="_1397866346227" id="_1397867967227166">
+            <jpa:one-to-one name="unEquipo" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" id="_1397867967227166">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaDeuda" target-entity="Deuda" primaryKey="false" connected-entity-id="_1397868049586" id="_140050712552382">
+            <jpa:one-to-one name="unaDeuda" target-entity="Deuda" optional="true" primaryKey="false" connected-entity-id="_1397868049586" id="_140050712552382">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Deuda" minimized="true" id="_1397868049586">
+    <jpa:entity class="Deuda" minimized="false" id="_1397868049586">
         <jpa:attributes>
             <jpa:id name="idDeuda" attribute-type="Long" id="_1397868146347172">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -310,7 +310,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoDeportivo" minimized="true" id="_1397868263876">
+    <jpa:entity class="ConceptoDeportivo" minimized="false" id="_1397868263876">
         <jpa:attributes>
             <jpa:id name="idConceptoDeportivo" attribute-type="Long" id="_1397868279346179">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -325,6 +325,15 @@
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868780091198">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
+            <jpa:one-to-one name="unaFrecuencia" target-entity="Frecuencia" optional="true" primaryKey="false" connected-entity-id="_1399935259852" id="_140692657207884">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" optional="true" primaryKey="false" connected-entity-id="_1399935822186" id="_140692668961485">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+            <jpa:one-to-one name="unTipoCancha" target-entity="TipoCancha" optional="true" primaryKey="false" connected-entity-id="_1399934614213" id="_140692673298586">
+                <jpa:join-table/>
+            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity class="Cuota" minimized="false" id="_1397868481186">
@@ -346,7 +355,7 @@
             <jpa:basic name="numero" attribute-type="String" id="_140050721802483">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:one-to-one name="unPagoCuota" target-entity="PagoCuota" primaryKey="false" connected-entity-id="_1400096950412" id="_1400097145632165">
+            <jpa:one-to-one name="unPagoCuota" target-entity="PagoCuota" optional="true" primaryKey="false" connected-entity-id="_1400096950412" id="_1400097145632165">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
@@ -358,9 +367,6 @@
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
             <jpa:basic name="nombre" attribute-type="String" id="_1397868821174201">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-            </jpa:basic>
-            <jpa:basic name="detalle" attribute-type="String" id="_1397868822063202">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868826416204">
@@ -375,9 +381,6 @@
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
             <jpa:basic name="nombre" attribute-type="String" id="_1397868860149206">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-            </jpa:basic>
-            <jpa:basic name="detalle" attribute-type="String" id="_1397868860332207">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868860501208">
@@ -395,7 +398,7 @@
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="detalle" attribute-type="String" id="_1397868983733219">
+            <jpa:basic name="observacion" attribute-type="String" id="_1397868983733219">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="monto" attribute-type="double" id="_1397868985043220">
@@ -545,7 +548,7 @@
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817525425577">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="detalles" attribute-type="String" id="_1399474887957215">
+            <jpa:basic name="tiempo" attribute-type="String" id="_1399474887957215">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
             <jpa:basic name="minuto" attribute-type="String" id="_140070092023583">
@@ -645,7 +648,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoCancha" minimized="true" id="_1399934614213">
+    <jpa:entity class="TipoCancha" minimized="false" id="_1399934614213">
         <jpa:attributes>
             <jpa:id name="idTipoCancha" attribute-type="Long" id="_139993462946377">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -654,15 +657,9 @@
             <jpa:basic name="nombre" attribute-type="String" id="_139993465045878">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_139993468253279">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
-            </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139993523745483">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:one-to-one name="unaFrecuencia" target-entity="Frecuencia" primaryKey="false" connected-entity-id="_1399935259852" id="_139993573552693">
-                <jpa:join-table/>
-            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity class="Mes" minimized="true" id="_1399935106939">
@@ -693,7 +690,7 @@
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoEstado" minimized="true" id="_1399935822186">
+    <jpa:entity class="TipoEstado" minimized="false" id="_1399935822186">
         <jpa:attributes>
             <jpa:id name="idTipoEstado" attribute-type="Long" id="_139993584407797">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -702,15 +699,9 @@
             <jpa:basic name="nombre" attribute-type="String" id="_139993587629598">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_139993597776199">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
-            </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1399935991330100">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:one-to-one name="unaFrecuencia" target-entity="Frecuencia" primaryKey="false" connected-entity-id="_1399935259852" id="_1399936038178101">
-                <jpa:join-table/>
-            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity class="PagoCuota" minimized="false" id="_1400096950412">
@@ -737,13 +728,13 @@
     <jpa:diagram id="_139786521181047">
         <plane elementRef="_139786521181046" id="_139786521181048_p">
             <shape elementRef="_1397865228592" id="_1397865228592_gui">
-                <Bounds x="1213.0" y="-782.0" width="162.0" height="24.0"/>
+                <Bounds x="1213.0" y="-782.0" width="144.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865386057" id="_1397865386057_gui">
                 <Bounds x="767.0" y="-732.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865613179" id="_1397865613179_gui">
-                <Bounds x="409.0" y="-407.0" width="149.0" height="24.0"/>
+                <Bounds x="409.0" y="-407.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865626096" id="_1397865626096_gui">
                 <Bounds x="326.0" y="-721.0" width="139.0" height="24.0"/>
@@ -755,73 +746,73 @@
                 <Bounds x="1055.0" y="-461.0" width="187.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866303816" id="_1397866303816_gui">
-                <Bounds x="923.0" y="-144.0" width="132.0" height="24.0"/>
+                <Bounds x="1213.0" y="-212.0" width="130.0" height="134.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
-                <Bounds x="36.0" y="-168.0" width="183.0" height="24.0"/>
+                <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866545595" id="_1397866545595_gui">
-                <Bounds x="-152.0" y="93.0" width="171.0" height="24.0"/>
+                <Bounds x="22.0" y="-3.0" width="171.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866760557" id="_1397866760557_gui">
-                <Bounds x="489.0" y="-246.0" width="135.0" height="24.0"/>
+                <Bounds x="489.0" y="-246.0" width="135.0" height="147.0"/>
             </shape>
             <shape elementRef="_1397867932817" id="_1397867932817_gui">
-                <Bounds x="-193.0" y="-348.0" width="130.0" height="24.0"/>
+                <Bounds x="-196.0" y="-351.0" width="137.0" height="231.0"/>
             </shape>
             <shape elementRef="_1397868049586" id="_1397868049586_gui">
-                <Bounds x="-439.0" y="117.0" width="132.0" height="24.0"/>
+                <Bounds x="-565.0" y="-333.0" width="176.0" height="189.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
-                <Bounds x="102.0" y="442.0" width="204.0" height="24.0"/>
+                <Bounds x="-428.0" y="67.0" width="204.0" height="210.0"/>
             </shape>
             <shape elementRef="_1397868481186" id="_1397868481186_gui">
-                <Bounds x="-543.0" y="-120.0" width="148.0" height="189.0"/>
+                <Bounds x="-639.0" y="-47.0" width="148.0" height="189.0"/>
             </shape>
             <shape elementRef="_1397868806733" id="_1397868806733_gui">
                 <Bounds x="-470.0" y="466.0" width="190.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868814587" id="_1397868814587_gui">
-                <Bounds x="-224.0" y="442.0" width="193.0" height="24.0"/>
+                <Bounds x="-196.0" y="413.0" width="193.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868975724" id="_1397868975724_gui">
-                <Bounds x="-210.0" y="285.0" width="164.0" height="24.0"/>
+                <Bounds x="-196.0" y="287.0" width="164.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869170762" id="_1397869170762_gui">
                 <Bounds x="-443.0" y="311.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869355771" id="_1397869355771_gui">
-                <Bounds x="128.0" y="309.0" width="151.0" height="24.0"/>
+                <Bounds x="406.0" y="466.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869438638" id="_1397869438638_gui">
-                <Bounds x="360.0" y="45.0" width="170.0" height="24.0"/>
+                <Bounds x="708.0" y="325.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="624.0" y="-585.0" width="222.0" height="24.0"/>
+                <Bounds x="719.0" y="200.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
-                <Bounds x="1140.0" y="256.0" width="136.0" height="176.0"/>
+                <Bounds x="1221.0" y="0.0" width="136.0" height="176.0"/>
             </shape>
             <shape elementRef="_1397870308298" id="_1397870308298_gui">
-                <Bounds x="624.0" y="376.0" width="188.0" height="24.0"/>
+                <Bounds x="1195.0" y="311.0" width="188.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870789243" id="_1397870789243_gui">
-                <Bounds x="136.0" y="141.0" width="136.0" height="24.0"/>
+                <Bounds x="406.0" y="311.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1398774975217" id="_1398774975217_gui">
-                <Bounds x="708.0" y="-168.0" width="159.0" height="24.0"/>
+                <Bounds x="708.0" y="-472.0" width="159.0" height="24.0"/>
             </shape>
             <shape elementRef="_1399934614213" id="_1399934614213_gui">
-                <Bounds x="219.0" y="-585.0" width="163.0" height="24.0"/>
+                <Bounds x="219.0" y="-585.0" width="163.0" height="113.0"/>
             </shape>
             <shape elementRef="_1399935106939" id="_1399935106939_gui">
-                <Bounds x="-249.0" y="-545.0" width="130.0" height="24.0"/>
+                <Bounds x="-695.0" y="442.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1399935259852" id="_1399935259852_gui">
-                <Bounds x="-42.0" y="-609.0" width="159.0" height="24.0"/>
+                <Bounds x="-710.0" y="280.0" width="159.0" height="24.0"/>
             </shape>
             <shape elementRef="_1399935822186" id="_1399935822186_gui">
-                <Bounds x="501.0" y="-70.0" width="159.0" height="24.0"/>
+                <Bounds x="477.0" y="29.0" width="159.0" height="113.0"/>
             </shape>
             <shape elementRef="_1400096950412" id="_1400096950412_gui">
                 <Bounds x="-852.0" y="21.0" width="158.0" height="155.0"/>

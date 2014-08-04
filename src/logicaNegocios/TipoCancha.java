@@ -1,7 +1,6 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -9,21 +8,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class TipoCancha implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    @Basic
-    private double monto;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTipoCancha;
-
-    @OneToOne(optional = false, targetEntity = Frecuencia.class)
-    private Frecuencia unaFrecuencia;
 
     @Basic
     private String nombre;
@@ -35,38 +27,20 @@ public class TipoCancha implements Serializable, Comparable {
     public TipoCancha() {
 
     }
-
-    public TipoCancha(EntityManager entityManager, double monto, Frecuencia unaFrecuencia, String nombre) {
-        this.monto = monto;
-        this.unaFrecuencia = unaFrecuencia;
+    
+    public TipoCancha(EntityManager entityManager, String nombre) {
         this.nombre = nombre;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
-    public double getMonto() {
-        return this.monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
     public Long getIdTipoCancha() {
         return this.idTipoCancha;
     }
 
     public void setIdTipoCancha(Long idTipoCancha) {
         this.idTipoCancha = idTipoCancha;
-    }
-
-    public Frecuencia getUnaFrecuencia() {
-        return this.unaFrecuencia;
-    }
-
-    public void setUnaFrecuencia(Frecuencia unaFrecuencia) {
-        this.unaFrecuencia = unaFrecuencia;
     }
 
     public String getNombre() {
@@ -85,7 +59,7 @@ public class TipoCancha implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
     // </editor-fold>
-
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -101,8 +75,8 @@ public class TipoCancha implements Serializable, Comparable {
     @Override
     public String toString() {
         return nombre;
-    }    
-
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

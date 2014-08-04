@@ -165,39 +165,34 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTablePase">
+            <Component class="javax.swing.JTable" name="jTableConceptos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Concepto Deportivo" type="java.lang.Object">
+                    <Column editable="false" title="id" type="java.lang.Long"/>
+                    <Column editable="false" title="Concepto Deportivo" type="java.lang.Object">
                       <Data value="Inscripci&#xf3;n"/>
                       <Data value="ReInscripci&#xf3;n"/>
                       <Data value="Cuota"/>
                       <Data value="Cuota"/>
                     </Column>
-                    <Column editable="true" title="Fecuencia" type="java.lang.Object">
-                      <Data value="Anual"/>
-                      <Data value="Anual"/>
-                      <Data value="Mensual"/>
-                      <Data value="Mensual"/>
-                    </Column>
-                    <Column editable="true" title="Le corresponde a" type="java.lang.Object">
-                      <Data value="Nueva Socia"/>
-                      <Data value="Socia"/>
-                      <Data value="Socia"/>
-                      <Data value="Socia Jugadora"/>
-                    </Column>
-                    <Column editable="true" title="Costo ($)" type="java.lang.Object">
+                    <Column editable="false" title="Monto ($)" type="java.lang.Object">
                       <Data value="100"/>
                       <Data value="50"/>
                       <Data value="70"/>
                       <Data value="150"/>
                     </Column>
+                    <Column editable="false" title="Le corresponde a" type="java.lang.Object">
+                      <Data value="Nueva Socia"/>
+                      <Data value="Socia"/>
+                      <Data value="Socia"/>
+                      <Data value="Socia Jugadora"/>
+                    </Column>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -255,9 +250,9 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldFechaRealizacion" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldFechaCaducidad" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBox2" pref="150" max="32767" attributes="0"/>
+                              <Component id="jTextFieldConcepto" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldCosto" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jComboBoxEstados" pref="150" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -271,17 +266,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelFechaCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFechaCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldCosto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelFechaRealizacion2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxEstados" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" pref="168" max="-2" attributes="0"/>
@@ -298,19 +293,19 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaCaducidad">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Costo ($)"/>
+            <Property name="text" type="java.lang.String" value="Monto ($)"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion">
+        <Component class="javax.swing.JTextField" name="jTextFieldConcepto">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaCaducidad">
+        <Component class="javax.swing.JTextField" name="jTextFieldCosto">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le corresponde pagar a"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
+        <Component class="javax.swing.JComboBox" name="jComboBoxEstados">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">

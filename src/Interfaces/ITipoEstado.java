@@ -7,8 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Frecuencia;
-import logicaNegocios.Mes;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
@@ -37,7 +35,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         
         jTableTipoEstado.clearSelection();
         
-        camposActivo(false);
+        jTextFieldNombre.setEditable(false);
         
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
@@ -53,7 +51,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablePases);
         for (Object aux : unaControladoraGlobal.getTiposEstadosBD()) {
             TipoEstado unTipoEstado = (TipoEstado) aux;
-            this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre(), unTipoEstado.getUnaFrecuencia().getDiaGeneracion(), unTipoEstado.getUnaFrecuencia().getDiaVencimiento(), unTipoEstado.getMonto()});
+            this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre()});
         }
     }
     
@@ -68,134 +66,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         }
     }
     
-    public void camposActivo(boolean Editable) {
-        jTextFieldNombreEstado.setEditable(Editable);
-        jTextFieldMontoMensual.setEditable(Editable);
-        //FALTA VERIFICAR SI HAY UNA MEJOR PROPIEDAD, SETENABLE LO DEJA POCO LEIBLE--------------------------------------------------
-        jCheckBox1.setFocusable(Editable);
-        jCheckBox2.setFocusable(Editable);
-        jCheckBox3.setFocusable(Editable);
-        jCheckBox4.setFocusable(Editable);
-        jCheckBox5.setFocusable(Editable);
-        jCheckBox6.setFocusable(Editable);
-        jCheckBox7.setFocusable(Editable);
-        jCheckBox8.setFocusable(Editable);
-        jCheckBox9.setFocusable(Editable);
-        jCheckBox10.setFocusable(Editable);
-        jCheckBox11.setFocusable(Editable);
-        jCheckBox12.setFocusable(Editable);
-        //---------------------------------------------------------------------------------------------------------------------------
-        jComboBoxDiaGeneracion.setEnabled(Editable);
-        jComboBoxDiaVencimiento.setEnabled(Editable);
-    }
-    
-    public void camposLimpiar() {
-        jTextFieldNombreEstado.setText("");
-        jTextFieldMontoMensual.setText("");
-        jCheckBox1.setSelected(false);
-        jCheckBox2.setSelected(false);
-        jCheckBox3.setSelected(false);
-        jCheckBox4.setSelected(false);
-        jCheckBox5.setSelected(false);
-        jCheckBox6.setSelected(false);
-        jCheckBox7.setSelected(false);
-        jCheckBox8.setSelected(false);
-        jCheckBox9.setSelected(false);
-        jCheckBox10.setSelected(false);
-        jCheckBox11.setSelected(false);
-        jCheckBox12.setSelected(false);
-        jComboBoxDiaGeneracion.setSelectedIndex(-1);
-        jComboBoxDiaVencimiento.setSelectedIndex(-1);
-    }
-    
     public void mostrarDetalle(TipoEstado unTipoEstado) {
-        camposLimpiar();
-        jTextFieldNombreEstado.setText(unTipoEstado.getNombre());
-        jTextFieldMontoMensual.setText(String.valueOf(unTipoEstado.getMonto()));
-        for (Mes aux : unTipoEstado.getUnaFrecuencia().getMeses()) {
-            switch (aux.getNombre()) {
-                case "Enero":
-                    jCheckBox1.setSelected(true);
-                    break;
-                case "Febrero":
-                    jCheckBox2.setSelected(true);
-                    break;
-                case "Marzo":
-                    jCheckBox3.setSelected(true);
-                    break;
-                case "Abril":
-                    jCheckBox4.setSelected(true);
-                    break;
-                case "Mayo":
-                    jCheckBox5.setSelected(true);
-                    break;
-                case "Junio":
-                    jCheckBox6.setSelected(true);
-                    break;
-                case "Julio":
-                    jCheckBox7.setSelected(true);
-                    break;
-                case "Agosto":
-                    jCheckBox8.setSelected(true);
-                    break;
-                case "Septiembre":
-                    jCheckBox9.setSelected(true);
-                    break;
-                case "Octubre":
-                    jCheckBox10.setSelected(true);
-                    break;
-                case "Nobiembre":
-                    jCheckBox11.setSelected(true);
-                    break;
-                case "Diciembre":
-                    jCheckBox12.setSelected(true);
-                    break;
-            }
-        }
-        jComboBoxDiaGeneracion.setSelectedIndex(Integer.parseInt(unTipoEstado.getUnaFrecuencia().getDiaGeneracion()));
-        jComboBoxDiaVencimiento.setSelectedIndex(Integer.parseInt(unTipoEstado.getUnaFrecuencia().getDiaVencimiento()));
-    }
-
-    //Crear Frecuencia para el Tipo de Estado
-    private Frecuencia crearFrecuencia() {
-        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
-        if (jCheckBox1.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(1));
-        }
-        if (jCheckBox2.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(2));
-        }
-        if (jCheckBox3.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(3));
-        }
-        if (jCheckBox4.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(4));
-        }
-        if (jCheckBox5.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(5));
-        }
-        if (jCheckBox6.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(6));
-        }
-        if (jCheckBox7.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(7));
-        }
-        if (jCheckBox8.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(8));
-        }
-        if (jCheckBox9.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(9));
-        }
-        if (jCheckBox10.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(10));
-        }
-        if (jCheckBox11.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(11));
-        }
-        if (jCheckBox12.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(12));
-        }
-        return unaFrecuencia;
+        jTextFieldNombre.setText(unTipoEstado.getNombre());
     }
     
     @SuppressWarnings("unchecked")
@@ -213,28 +85,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jTableTipoEstado = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabelFechaRealizacion = new javax.swing.JLabel();
-        jLabelFechaCaducidad = new javax.swing.JLabel();
-        jTextFieldNombreEstado = new javax.swing.JTextField();
-        jTextFieldMontoMensual = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jLabelFechaCaducidad2 = new javax.swing.JLabel();
-        jLabelFechaCaducidad3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabelFechaCaducidad4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
-        jCheckBox12 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jComboBoxDiaGeneracion = new javax.swing.JComboBox();
-        jComboBoxDiaVencimiento = new javax.swing.JComboBox();
+        jTextFieldNombre = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -324,17 +175,14 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
         jTableTipoEstado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "IdTipoEstado", "Nombre", "Dia Generación", "Dia Vencimiento", "Cuota Mensual ($)"
+                "IdTipoEstado", "Nombre del Tipo de Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -350,11 +198,6 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
                 jButtonEditar.setEnabled(true);
             }
         });
-        jTableTipoEstado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableTipoEstadoFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableTipoEstado);
         if (jTableTipoEstado.getColumnModel().getColumnCount() > 0) {
             jTableTipoEstado.getColumnModel().getColumn(0).setMinWidth(0);
@@ -366,7 +209,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,161 +221,16 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion.setText("Nombre del Estado");
 
-        jLabelFechaCaducidad.setText("Cuota Mensual ($)");
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Frecuencia"));
-
-        jLabelFechaCaducidad2.setText("Dia Generación");
-
-        jLabelFechaCaducidad3.setText("Dia Vencimiento");
-
-        jLabelFechaCaducidad4.setText("Meses a los que se aplica");
-
-        jCheckBox1.setText("E");
-
-        jCheckBox2.setText("F");
-
-        jCheckBox3.setText("M");
-
-        jCheckBox4.setText("A");
-
-        jCheckBox5.setText("M");
-
-        jCheckBox6.setText("J");
-
-        jCheckBox8.setText("A");
-
-        jCheckBox9.setText("S");
-
-        jCheckBox10.setText("O");
-
-        jCheckBox11.setText("N");
-
-        jCheckBox12.setText("D");
-
-        jCheckBox7.setText("J");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelFechaCaducidad4)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox6))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBox7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox12)))))
-                .addGap(10, 10, 10))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jLabelFechaCaducidad4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox7)
-                    .addComponent(jCheckBox8)
-                    .addComponent(jCheckBox9)
-                    .addComponent(jCheckBox10)
-                    .addComponent(jCheckBox11)
-                    .addComponent(jCheckBox12))
-                .addGap(10, 10, 10))
-        );
-
-        jComboBoxDiaGeneracion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        jComboBoxDiaVencimiento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaCaducidad3)
-                            .addComponent(jLabelFechaCaducidad2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxDiaGeneracion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxDiaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(11, 11, 11))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaCaducidad2)
-                    .addComponent(jComboBoxDiaGeneracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaCaducidad3)
-                    .addComponent(jComboBoxDiaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67))
-        );
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaRealizacion)
-                            .addComponent(jLabelFechaCaducidad))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldNombreEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jTextFieldMontoMensual))
-                        .addGap(82, 82, 82))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(82, 82, 82)
+                .addComponent(jLabelFechaRealizacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,14 +238,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaRealizacion)
-                    .addComponent(jTextFieldNombreEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaCaducidad)
-                    .addComponent(jTextFieldMontoMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -563,7 +255,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(1, 1, 1)
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -575,8 +267,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         jTableTipoEstado.clearSelection();
         jTableTipoEstado.setEnabled(false);
-        camposActivo(true);
-        camposLimpiar();
+        jTextFieldNombre.setEditable(true);
+        jTextFieldNombre.setText("");
 
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
@@ -587,8 +279,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearTipoEstado(Double.parseDouble(jTextFieldMontoMensual.getText()), crearFrecuencia(), jTextFieldNombreEstado.getText());
-        JOptionPane.showMessageDialog(this, "Nuevo Estado posible Guardado.");
+        unaControladoraGlobal.crearTipoEstado(jTextFieldNombre.getText());
+        JOptionPane.showMessageDialog(this, "Nuevo Estado Guardado.");
 
         //Comportamientos Extras
         jButtonNuevo.setEnabled(true);
@@ -597,8 +289,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         
-        camposLimpiar();
-        camposActivo(false);
+        jTextFieldNombre.setText("");
+        jTextFieldNombre.setEditable(false);
         jTableTipoEstado.setEnabled(true);
         cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -606,8 +298,8 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jTableTipoEstado.clearSelection();
         
-        camposLimpiar();
-        camposActivo(false);
+        jTextFieldNombre.setText("");
+        jTextFieldNombre.setEditable(false);
         jTableTipoEstado.setEnabled(true);
         
         jButtonNuevo.setEnabled(true);
@@ -630,7 +322,6 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarFrecuencia(unTipoEstado.getUnaFrecuencia());
             unaControladoraGlobal.eliminarTipoEstado(unTipoEstado);
             
             cargarCamposTabla();
@@ -641,14 +332,6 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
-    private void jTableTipoEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableTipoEstadoFocusGained
-//        TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
-//
-//        mostrarDetalle(unTipoEstadoSeleccionado);
-//
-//        jButtonEditar.setEnabled(true);
-    }//GEN-LAST:event_jTableTipoEstadoFocusGained
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -656,33 +339,12 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox12;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JComboBox jComboBoxDiaGeneracion;
-    private javax.swing.JComboBox jComboBoxDiaVencimiento;
-    private javax.swing.JLabel jLabelFechaCaducidad;
-    private javax.swing.JLabel jLabelFechaCaducidad2;
-    private javax.swing.JLabel jLabelFechaCaducidad3;
-    private javax.swing.JLabel jLabelFechaCaducidad4;
     private javax.swing.JLabel jLabelFechaRealizacion;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTipoEstado;
-    private javax.swing.JTextField jTextFieldMontoMensual;
-    private javax.swing.JTextField jTextFieldNombreEstado;
+    private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 public class Tarjeta implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTarjeta;
@@ -23,28 +24,29 @@ public class Tarjeta implements Serializable, Comparable {
     private String motivo;
 
     @Basic
+    private String tiempo;
+
+    @Basic
     private String minuto;
 
     @Basic
-    private String detalles;
-
-    @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public Tarjeta() {
 
     }
 
-    public Tarjeta(EntityManager entityManager, String tipo, String motivo, String minuto, String detalles) {
+    public Tarjeta(EntityManager entityManager, String tipo, String motivo, String tiempo, String minuto) {
         this.tipo = tipo;
         this.motivo = motivo;
+        this.tiempo = tiempo;
         this.minuto = minuto;
-        this.detalles = detalles;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Long getIdTarjeta() {
         return this.idTarjeta;
     }
@@ -69,20 +71,20 @@ public class Tarjeta implements Serializable, Comparable {
         this.motivo = motivo;
     }
 
+    public String getTiempo() {
+        return this.tiempo;
+    }
+
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
+    }
+
     public String getMinuto() {
         return this.minuto;
     }
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
-    }
-
-    public String getDetalles() {
-        return this.detalles;
-    }
-
-    public void setDetalles(String detalles) {
-        this.detalles = detalles;
     }
 
     public boolean isBorradoLogico() {
@@ -92,7 +94,7 @@ public class Tarjeta implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -105,8 +107,8 @@ public class Tarjeta implements Serializable, Comparable {
         }
         return retorno;
     }
-
-//----------------------------------PERSISTENCIA--------------------------------
+    
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -119,5 +121,5 @@ public class Tarjeta implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 }

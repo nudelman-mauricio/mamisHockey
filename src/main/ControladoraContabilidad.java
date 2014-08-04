@@ -25,28 +25,11 @@ public class ControladoraContabilidad {
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
         this.construirMeses();
-        this.crearConceptoPase();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
     public void crearConceptoDeportivo(double monto, String concepto) {
         new ConceptoDeportivo(this.entityManager, monto, concepto);
-    }
-
-    /**
-     * Crea el concepto deportivo PORPASE si es que no existe ya en la base de
-     * datos
-     */
-    public void crearConceptoPase() {
-        boolean bandera = true;
-        for (ConceptoDeportivo aux : this.getConceptosDeportivosBD()) {
-            if ((!aux.isBorradoLogico()) && (aux.getConcepto().compareToIgnoreCase("Por Pase") == 0)) {
-                bandera = false;
-            }
-        }
-        if (bandera) {
-            this.crearConceptoDeportivo(0.0, "Por Pase");
-        }
     }
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {

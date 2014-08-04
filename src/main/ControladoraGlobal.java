@@ -219,12 +219,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
-    public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
-        this.unaControladoraEntidades.crearTipoEstado(monto, unaFrecuencia, nombre);
+    public void crearTipoEstado(String nombre) {
+        this.unaControladoraEntidades.crearTipoEstado(nombre);
     }
 
-    public void modificarTipoEstado(TipoEstado unTipoEstado, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarTipoEstado(unTipoEstado, monto, unaFrecuencia, nombre, borradoLogico);
+    public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
+        this.unaControladoraEntidades.modificarTipoEstado(unTipoEstado, nombre, borradoLogico);
     }
 
     public void eliminarTipoEstado(TipoEstado unTipoEstado) {
@@ -265,16 +265,16 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String minuto, String detalles) {
-        this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, minuto, detalles);
+    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String tiempo, String minuto) {
+        this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, tiempo, minuto);
     }
 
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String minuto, String detalles) {
-        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, minuto, detalles);
+    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String tiempo, String minuto) {
+        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, tiempo, minuto);
     }
 
-    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String minuto, String detalles, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, tipo, motivo, minuto, detalles, borradoLogico);
+    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, tipo, motivo, tiempo, minuto, borradoLogico);
     }
 
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
@@ -411,12 +411,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
-    public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
-        this.unaControladoraDeportiva.crearTipoCancha(monto, unaFrecuencia, nombre);
+    public void crearTipoCancha(String nombre) {
+        this.unaControladoraDeportiva.crearTipoCancha(nombre);
     }
 
-    public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarTipoCancha(unTipoCancha, monto, unaFrecuencia, nombre, borradoLogico);
+    public void modificarTipoCancha(TipoCancha unTipoCancha, String nombre, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarTipoCancha(unTipoCancha, nombre, borradoLogico);
     }
 
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {
@@ -545,12 +545,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Gol">
-    public void crearGol(Socia unaSocia, Partido unPartido, String minuto) {
-        this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, minuto);
+    public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, String minuto) {
+        this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, tiempo, minuto);
     }
 
-    public void modificarGol(Gol unGol, String minuto, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarGol(unGol, minuto, borradoLogico);
+    public void modificarGol(Gol unGol, String tiempo, String minuto, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarGol(unGol, tiempo, minuto, borradoLogico);
     }
 
     public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {

@@ -8,12 +8,17 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ConceptoDeportivo implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private double monto;
+
+    @OneToOne(targetEntity = TipoEstado.class)
+    private TipoEstado unTipoEstado;
 
     @Basic
     private String concepto;
@@ -22,11 +27,17 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idConceptoDeportivo;
 
+    @OneToOne(targetEntity = Frecuencia.class)
+    private Frecuencia unaFrecuencia;
+
     @Basic
     private boolean borradoLogico;
 
-    public ConceptoDeportivo() {
+    @OneToOne(targetEntity = TipoCancha.class)
+    private TipoCancha unTipoCancha;
+    // </editor-fold>
 
+    public ConceptoDeportivo() {
     }
 
     public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto) {
@@ -36,13 +47,21 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public double getMonto() {
         return this.monto;
     }
 
     public void setMonto(double monto) {
         this.monto = monto;
+    }
+
+    public TipoEstado getUnTipoEstado() {
+        return this.unTipoEstado;
+    }
+
+    public void setUnTipoEstado(TipoEstado unTipoEstado) {
+        this.unTipoEstado = unTipoEstado;
     }
 
     public String getConcepto() {
@@ -61,6 +80,14 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.idConceptoDeportivo = idConceptoDeportivo;
     }
 
+    public Frecuencia getUnaFrecuencia() {
+        return this.unaFrecuencia;
+    }
+
+    public void setUnaFrecuencia(Frecuencia unaFrecuencia) {
+        this.unaFrecuencia = unaFrecuencia;
+    }
+
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
@@ -68,9 +95,17 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
 
-//----------------------------------PERSISTENCIA--------------------------------
+    public TipoCancha getUnTipoCancha() {
+        return this.unTipoCancha;
+    }
+
+    public void setUnTipoCancha(TipoCancha unTipoCancha) {
+        this.unTipoCancha = unTipoCancha;
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -83,8 +118,8 @@ public class ConceptoDeportivo implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
-
+    // </editor-fold>
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

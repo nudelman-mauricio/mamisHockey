@@ -9,7 +9,6 @@ import logicaNegocios.Categoria;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
-import logicaNegocios.Frecuencia;
 import logicaNegocios.Gol;
 import logicaNegocios.Indumentaria;
 import logicaNegocios.Localidad;
@@ -23,9 +22,9 @@ import logicaNegocios.TipoCancha;
 import logicaNegocios.Torneo;
 
 public class ControladoraDeportiva {
-
+    
     private final EntityManager entityManager;
-
+    
     public ControladoraDeportiva(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -34,7 +33,7 @@ public class ControladoraDeportiva {
     public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
         new SancionTribunal(this.entityManager, fecha, motivo, detalles);
     }
-
+    
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date vencimiento, int cantFechas, Date fecha, String motivo, String detalles, Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico) {
         unaSancionTribunal.setVencimiento(vencimiento);
         unaSancionTribunal.setCantFechas(cantFechas);
@@ -48,7 +47,7 @@ public class ControladoraDeportiva {
         unaSancionTribunal.setBorradoLogico(borradoLogico);
         unaSancionTribunal.persistir(this.entityManager);
     }
-
+    
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         unaSancionTribunal.setBorradoLogico(true);
         unaSancionTribunal.persistir(this.entityManager);
@@ -74,8 +73,8 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String minuto, String detalles) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, tipo, motivo, minuto, detalles);
+    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String tiempo, String minuto) {
+        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, tipo, motivo, tiempo, minuto);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
         unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
     }
@@ -83,23 +82,23 @@ public class ControladoraDeportiva {
     /**
      * Al mismo tiempo se crea una sancion tribunal por la Roja
      */
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String minuto, String detalles) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, "Roja", motivo, minuto, detalles);
+    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String tiempo, String minuto) {
+        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, "Roja", motivo, tiempo, minuto);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
         unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
         unaSancionTribunal.setUnaTarjeta(unaTarjeta);
         unaSancionTribunal.persistir(this.entityManager);
     }
-
-    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String minuto, String detalles, boolean borradoLogico) {
+    
+    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
         unaTarjeta.setTipo(tipo);
         unaTarjeta.setMotivo(motivo);
+        unaTarjeta.setTiempo(tiempo);
         unaTarjeta.setMinuto(minuto);
-        unaTarjeta.setDetalles(detalles);
         unaTarjeta.setBorradoLogico(borradoLogico);
         unaTarjeta.persistir(this.entityManager);
     }
-
+    
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         unaTarjeta.setBorradoLogico(true);
         unaTarjeta.persistir(this.entityManager);
@@ -123,7 +122,7 @@ public class ControladoraDeportiva {
         List<Tarjeta> unaListaResultado = traerTarjeta.getResultList();
         return unaListaResultado;
     }
-    
+
     /**
      * Devuelve el Torneo de una tarjeta
      */
@@ -133,7 +132,7 @@ public class ControladoraDeportiva {
         Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
         return unTorneo;
     }
-    
+
     /**
      * Devuelve el Partido de una tarjeta
      */
@@ -151,7 +150,7 @@ public class ControladoraDeportiva {
         unClub.agregarEquipo(this.entityManager, unEquipo);
         return unEquipo;
     }
-
+    
     public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
         unEquipo.setNombre(nombre);
         unEquipo.setUnaCapitana(unaCapitana);
@@ -164,12 +163,12 @@ public class ControladoraDeportiva {
         unEquipo.setBorradoLogico(borradoLogico);
         unEquipo.persistir(this.entityManager);
     }
-
+    
     public void cambiarEquipoDeClub(Equipo unEquipo, Club unClubActual, Club unClubNuevo) {
         unClubActual.quitarEquipo(this.entityManager, unEquipo);
         unClubNuevo.agregarEquipo(this.entityManager, unEquipo);
     }
-
+    
     public void eliminarEquipo(Equipo unEquipo) {
         unEquipo.setBorradoLogico(true);
         unEquipo.persistir(this.entityManager);
@@ -222,7 +221,7 @@ public class ControladoraDeportiva {
     public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
         new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
-
+    
     public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setNombre(nombre);
         unClub.setLogo(logo);
@@ -231,7 +230,7 @@ public class ControladoraDeportiva {
         unClub.setBorradoLogico(borradoLogico);
         unClub.persistir(this.entityManager);
     }
-
+    
     public void eliminarClub(Club unClub) {
         unClub.setBorradoLogico(true);
         unClub.persistir(this.entityManager);
@@ -257,7 +256,7 @@ public class ControladoraDeportiva {
             if (aux.getEquipos().contains(unEquipo)) {
                 resultado = aux;
                 break;
-            }            
+            }
         }
         return resultado;
     }
@@ -286,7 +285,7 @@ public class ControladoraDeportiva {
         Indumentaria unaIndumentaria = new Indumentaria(this.entityManager, camiseta, media, pollera);
         unEquipo.agregarIndumentaria(this.entityManager, unaIndumentaria);
     }
-
+    
     public void modificarIndumentaria(Indumentaria unaIndumentaria, String camiseta, String media, String pollera, boolean borradoLogico) {
         unaIndumentaria.setCamiseta(camiseta);
         unaIndumentaria.setMedia(media);
@@ -294,12 +293,12 @@ public class ControladoraDeportiva {
         unaIndumentaria.setBorradoLogico(borradoLogico);
         unaIndumentaria.persistir(this.entityManager);
     }
-
+    
     public void cambiarIndumentariaDeEquipo(Indumentaria unaIndumentaria, Equipo unEquipoActual, Equipo unEquipoNuevo) {
         unEquipoActual.quitarIndumentaria(this.entityManager, unaIndumentaria);
         unEquipoNuevo.agregarIndumentaria(this.entityManager, unaIndumentaria);
     }
-
+    
     public void eliminarIndumentaria(Indumentaria unaIndumentaria) {
         unaIndumentaria.setBorradoLogico(true);
         unaIndumentaria.persistir(this.entityManager);
@@ -331,7 +330,7 @@ public class ControladoraDeportiva {
         Cancha unaCancha = new Cancha(this.entityManager, nombre, seOcupa, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
     }
-
+    
     public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
         unaCancha.setSeOcupa(seOcupa);
@@ -339,7 +338,7 @@ public class ControladoraDeportiva {
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(this.entityManager);
     }
-
+    
     public void eliminarCancha(Cancha unaCancha) {
         unaCancha.setBorradoLogico(true);
         unaCancha.persistir(this.entityManager);
@@ -367,18 +366,16 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
-    public void crearTipoCancha(double monto, Frecuencia unaFrecuencia, String nombre) {
-        new TipoCancha(this.entityManager, monto, unaFrecuencia, nombre);
+    public void crearTipoCancha(String nombre) {
+        new TipoCancha(this.entityManager, nombre);
     }
-
-    public void modificarTipoCancha(TipoCancha unTipoCancha, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
-        unTipoCancha.setMonto(monto);
-        unTipoCancha.setUnaFrecuencia(unaFrecuencia);
+    
+    public void modificarTipoCancha(TipoCancha unTipoCancha, String nombre, boolean borradoLogico) {
         unTipoCancha.setNombre(nombre);
         unTipoCancha.setBorradoLogico(borradoLogico);
         unTipoCancha.persistir(this.entityManager);
     }
-
+    
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {
         unTipoCancha.setBorradoLogico(true);
         unTipoCancha.persistir(this.entityManager);
@@ -409,7 +406,7 @@ public class ControladoraDeportiva {
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
     }
-
+    
     public void modificarCategoria(Categoria unaCategoria, String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima, boolean borradoLogico) {
         unaCategoria.setNombre(nombre);
         unaCategoria.setEdadParametro(edadParametro);
@@ -418,7 +415,7 @@ public class ControladoraDeportiva {
         unaCategoria.setBorradoLogico(borradoLogico);
         unaCategoria.persistir(this.entityManager);
     }
-
+    
     public void eliminarCategoria(Categoria unaCategoria) {
         unaCategoria.setBorradoLogico(true);
         unaCategoria.persistir(this.entityManager);
@@ -451,19 +448,19 @@ public class ControladoraDeportiva {
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         new Torneo(this.entityManager, diaInicio, unaCategoria, nombre);
     }
-
+    
     public void modificarTorneo(Torneo unTorneo, Date fechaInicio, Categoria unaCategoria, String nombre) {
         unTorneo.setFechaInicio(fechaInicio);
         unTorneo.setUnaCategoria(unaCategoria);
         unTorneo.setNombre(nombre);
         unTorneo.persistir(this.entityManager);
     }
-
+    
     public void eliminarTorneo(Torneo unTorneo) {
         unTorneo.setBorradoLogico(true);
         unTorneo.persistir(this.entityManager);
     }
-
+    
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return unTorneo.agregarEquipoInscripto(this.entityManager, unEquipo);
     }
@@ -499,7 +496,7 @@ public class ControladoraDeportiva {
         List<Torneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
+
     /**
      * Devuelve el Torneo de un Partido
      */
@@ -516,19 +513,19 @@ public class ControladoraDeportiva {
         FechaTorneo unaFechaTorneo = new FechaTorneo(this.entityManager, numeroFecha);
         unTorneo.agregarFechaTorneo(this.entityManager, unaFechaTorneo);
     }
-
+    
     public void modificarFechaTorneo(FechaTorneo unaFechaTorneo, int numeroFecha, boolean borradoLogico) {
         unaFechaTorneo.setNumeroFecha(numeroFecha);
         unaFechaTorneo.setBorradoLogico(borradoLogico);
         unaFechaTorneo.persistir(this.entityManager);
     }
-
+    
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
         unaFechaTorneo.setBorradoLogico(true);
         unaFechaTorneo.persistir(this.entityManager);
     }
     
-    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual, Torneo unTorneo){
+    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual, Torneo unTorneo) {
         return unTorneo.getSiguienteFecha(fechaActual);
     }
 
@@ -551,7 +548,7 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
     
-    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo){
+    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo) {
         return unTorneo.getUnaFecha(numeroFecha);
     }
     // </editor-fold>
@@ -561,7 +558,7 @@ public class ControladoraDeportiva {
         Partido unPartido = new Partido(this.entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
         unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
     }
-
+    
     public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.setFecha(fecha);
@@ -577,7 +574,7 @@ public class ControladoraDeportiva {
         unPartido.setUnaCancha(unaCancha);
         unPartido.persistir(this.entityManager);
     }
-
+    
     public void eliminarPartido(Partido unPartido) {
         unPartido.setBorradoLogico(true);
         unPartido.persistir(this.entityManager);
@@ -604,28 +601,29 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Gol">
-    public void crearGol(Socia unaSocia, Partido unPartido, String minuto) {
-        Gol unGol = new Gol(this.entityManager, minuto);
+    public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, String minuto) {
+        Gol unGol = new Gol(this.entityManager, tiempo, minuto);
         unaSocia.agregarGol(this.entityManager, unGol);
         unPartido.agregarGol(this.entityManager, unGol);
     }
-
-    public void modificarGol(Gol unGol, String minuto, boolean borradoLogico) {
+    
+    public void modificarGol(Gol unGol, String tiempo, String minuto, boolean borradoLogico) {
+        unGol.setTiempo(tiempo);
         unGol.setMinuto(minuto);
         unGol.setBorradoLogico(borradoLogico);
         unGol.persistir(this.entityManager);
     }
-
+    
     public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
         unaAutoraActual.quitarGol(entityManager, unGol);
         unaAutoraNueva.agregarGol(entityManager, unGol);
     }
-
+    
     public void cambiarPartidoGol(Gol unGol, Partido unPartidoActual, Partido unPartidoNuevo) {
         unPartidoActual.quitarGol(this.entityManager, unGol);
         unPartidoNuevo.agregarGol(this.entityManager, unGol);
     }
-
+    
     public void eliminarGol(Gol unGol) {
         unGol.setBorradoLogico(true);
         unGol.persistir(this.entityManager);

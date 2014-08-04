@@ -9,7 +9,6 @@ import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
-import logicaNegocios.Frecuencia;
 import logicaNegocios.Localidad;
 import logicaNegocios.Pase;
 import logicaNegocios.Socia;
@@ -381,13 +380,11 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
-    public void crearTipoEstado(double monto, Frecuencia unaFrecuencia, String nombre) {
-        new TipoEstado(this.entityManager, monto, unaFrecuencia, nombre);
+    public void crearTipoEstado(String nombre) {
+        new TipoEstado(this.entityManager, nombre);
     }
 
-    public void modificarTipoEstado(TipoEstado unTipoEstado, double monto, Frecuencia unaFrecuencia, String nombre, boolean borradoLogico) {
-        unTipoEstado.setMonto(monto);
-        unTipoEstado.setUnaFrecuencia(unaFrecuencia);
+    public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
         unTipoEstado.setNombre(nombre);
         unTipoEstado.setBorradoLogico(borradoLogico);
         unTipoEstado.persistir(this.entityManager);

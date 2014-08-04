@@ -21,7 +21,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         initComponents();
         
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.modeloTable = (DefaultTableModel) jTablePase.getModel();
+        this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
         camposActivo(jPanel7, false);
         cargarTabla();
 
@@ -63,8 +63,8 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
 
     //blanquea componentes editables
     void camposLimpiar() {
-        jTextField.setText("");
-        jTextFieldMonto.setText("");
+        jTextFieldConcepto.setText("");
+        jTextFieldCosto.setText("");
 
         jCheckBox1.setSelected(false);
         jCheckBox2.setSelected(false);
@@ -79,8 +79,9 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jCheckBox11.setSelected(false);
         jCheckBox12.setSelected(false);
 
-        jComboBox1.setSelectedIndex(0);
-        jComboBox2.setSelectedIndex(0);
+        jComboBoxEstados.setSelectedIndex(0);
+        jComboBoxDiaGeneracion.setSelectedIndex(0);
+        jComboBoxDiaVencimiento.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -95,14 +96,14 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jButtonCancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablePase = new javax.swing.JTable();
+        jTableConceptos = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabelFechaRealizacion = new javax.swing.JLabel();
         jLabelFechaCaducidad = new javax.swing.JLabel();
-        jTextFieldFechaRealizacion = new javax.swing.JTextField();
-        jTextFieldFechaCaducidad = new javax.swing.JTextField();
+        jTextFieldConcepto = new javax.swing.JTextField();
+        jTextFieldCosto = new javax.swing.JTextField();
         jLabelFechaRealizacion2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        jComboBoxEstados = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabelFechaCaducidad2 = new javax.swing.JLabel();
         jLabelFechaCaducidad3 = new javax.swing.JLabel();
@@ -182,18 +183,38 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jTablePase.setModel(new javax.swing.table.DefaultTableModel(
+        jTableConceptos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Inscripción", "Anual", "Nueva Socia", "100"},
-                {"ReInscripción", "Anual", "Socia", "50"},
-                {"Cuota", "Mensual", "Socia", "70"},
-                {"Cuota", "Mensual", "Socia Jugadora", "150"}
+                {null, "Inscripción", "100", "Nueva Socia"},
+                {null, "ReInscripción", "50", "Socia"},
+                {null, "Cuota", "70", "Socia"},
+                {null, "Cuota", "150", "Socia Jugadora"}
             },
             new String [] {
-                "Concepto Deportivo", "Fecuencia", "Le corresponde a", "Costo ($)"
+                "id", "Concepto Deportivo", "Monto ($)", "Le corresponde a"
             }
-        ));
-        jScrollPane1.setViewportView(jTablePase);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableConceptos);
+        if (jTableConceptos.getColumnModel().getColumnCount() > 0) {
+            jTableConceptos.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableConceptos.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableConceptos.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -214,11 +235,11 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion.setText("Concepto Deportivo");
 
-        jLabelFechaCaducidad.setText("Costo ($)");
+        jLabelFechaCaducidad.setText("Monto ($)");
 
         jLabelFechaRealizacion2.setText("Le corresponde pagar a");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ACA VAN LOS ESTADOS", "Equipo" }));
+        jComboBoxEstados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ACA VAN LOS ESTADOS", "Equipo" }));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Frecuencia"));
 
@@ -367,9 +388,9 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                             .addComponent(jLabelFechaRealizacion2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldFechaRealizacion)
-                            .addComponent(jTextFieldFechaCaducidad)
-                            .addComponent(jComboBox2, 0, 150, Short.MAX_VALUE))))
+                            .addComponent(jTextFieldConcepto)
+                            .addComponent(jTextFieldCosto)
+                            .addComponent(jComboBoxEstados, 0, 150, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -378,15 +399,15 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaRealizacion)
-                    .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaCaducidad)
-                    .addComponent(jTextFieldFechaCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaRealizacion2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -433,9 +454,9 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBoxDiaGeneracion;
     private javax.swing.JComboBox jComboBoxDiaVencimiento;
+    private javax.swing.JComboBox jComboBoxEstados;
     private javax.swing.JLabel jLabelFechaCaducidad;
     private javax.swing.JLabel jLabelFechaCaducidad2;
     private javax.swing.JLabel jLabelFechaCaducidad3;
@@ -448,8 +469,8 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTablePase;
-    private javax.swing.JTextField jTextFieldFechaCaducidad;
-    private javax.swing.JTextField jTextFieldFechaRealizacion;
+    private javax.swing.JTable jTableConceptos;
+    private javax.swing.JTextField jTextFieldConcepto;
+    private javax.swing.JTextField jTextFieldCosto;
     // End of variables declaration//GEN-END:variables
 }

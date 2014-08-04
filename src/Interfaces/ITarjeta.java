@@ -1,7 +1,6 @@
 package Interfaces;
 
 import java.text.DateFormat;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -54,8 +53,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldTipoTarjeta.setEditable(Editable);
         jTextFieldTorneo.setEditable(Editable);
         jTextFieldPartido.setEditable(Editable);
-        jTextFieldMotivo.setEditable(Editable);
-        jTextAreaDetalle.setEditable(Editable);
+        jTextAreaMotivo.setEditable(Editable);
         jTextFieldCantFechasSuspendidas.setEditable(Editable);
         jTextFieldCantFechasCumplidas.setEditable(Editable);
         jTextFieldSuspendidaHastaLaFecha.setEditable(Editable);
@@ -66,8 +64,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldTipoTarjeta.setText("");
         jTextFieldTorneo.setText("");
         jTextFieldPartido.setText("");
-        jTextFieldMotivo.setText("");
-        jTextAreaDetalle.setText("");
+        jTextAreaMotivo.setText("");
         jTextFieldCantFechasSuspendidas.setText("");
         jTextFieldCantFechasCumplidas.setText("");
         jTextFieldSuspendidaHastaLaFecha.setText("");
@@ -80,8 +77,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldTipoTarjeta.setText(unaTarjeta.getTipo());
         jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta).getNombre());
         jTextFieldPartido.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        jTextFieldMotivo.setText(unaTarjeta.getMotivo());
-        jTextAreaDetalle.setText(unaTarjeta.getDetalles());
+        jTextAreaMotivo.setText(unaTarjeta.getMotivo());
 
         jTextFieldCantFechasSuspendidas.setText("asd");
         jTextFieldCantFechasCumplidas.setText("asd");
@@ -141,10 +137,8 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jLabelPartido = new javax.swing.JLabel();
         jTextFieldPartido = new javax.swing.JTextField();
         jLabelMotivo = new javax.swing.JLabel();
-        jTextFieldMotivo = new javax.swing.JTextField();
-        jLabelDetalle = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaDetalle = new javax.swing.JTextArea();
+        jTextAreaMotivo = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jTextFieldCantFechasSuspendidas = new javax.swing.JTextField();
         jLabelCantFechasSuspendida = new javax.swing.JLabel();
@@ -261,14 +255,10 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jLabelMotivo.setText("Motivo");
 
-        jTextFieldMotivo.setEditable(false);
-
-        jLabelDetalle.setText("Detalle");
-
-        jTextAreaDetalle.setEditable(false);
-        jTextAreaDetalle.setColumns(20);
-        jTextAreaDetalle.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaDetalle);
+        jTextAreaMotivo.setEditable(false);
+        jTextAreaMotivo.setColumns(20);
+        jTextAreaMotivo.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaMotivo);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -279,24 +269,19 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabelDetalle)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabelMotivo)
-                                .addComponent(jLabelTorneo)
-                                .addComponent(jLabelFecha)
-                                .addComponent(jLabelPartido)
-                                .addComponent(jLabelTipoTarjeta))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldPartido)
-                                .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                .addComponent(jTextFieldTorneo)
-                                .addComponent(jTextFieldMotivo)
-                                .addComponent(jTextFieldTipoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabelMotivo)
+                        .addComponent(jLabelTorneo)
+                        .addComponent(jLabelFecha)
+                        .addComponent(jLabelPartido)
+                        .addComponent(jLabelTipoTarjeta))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldPartido)
+                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(jTextFieldTorneo)
+                            .addComponent(jTextFieldTipoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
@@ -321,14 +306,10 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldPartido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelPartido))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelMotivo))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelDetalle))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabelMotivo)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sanción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -568,7 +549,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelCantFechasCumplidas;
     private javax.swing.JLabel jLabelCantFechasSuspendida;
-    private javax.swing.JLabel jLabelDetalle;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelMotivo;
     private javax.swing.JLabel jLabelPartido;
@@ -585,11 +565,10 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableTarjeta;
-    private javax.swing.JTextArea jTextAreaDetalle;
+    private javax.swing.JTextArea jTextAreaMotivo;
     private javax.swing.JTextField jTextFieldCantFechasCumplidas;
     private javax.swing.JTextField jTextFieldCantFechasSuspendidas;
     private javax.swing.JTextField jTextFieldFecha;
-    private javax.swing.JTextField jTextFieldMotivo;
     private javax.swing.JTextField jTextFieldPartido;
     private javax.swing.JTextField jTextFieldSuspendidaHastaLaFecha;
     private javax.swing.JTextField jTextFieldTipoTarjeta;
