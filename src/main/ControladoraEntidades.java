@@ -158,7 +158,8 @@ public class ControladoraEntidades {
             unaListaResultado.remove(unPartido.getUnArbitro1());
             unaListaResultado.remove(unPartido.getUnArbitro2());
             if (unPartido.getUnArbitro3() != null) {
-                unaListaResultado.remove(unPartido.getUnArbitro3());
+                if(!unPartido.isBorradoLogico()){
+                unaListaResultado.remove(unPartido.getUnArbitro3());}
             }
         }
         return unaListaResultado;

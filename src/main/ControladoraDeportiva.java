@@ -221,8 +221,9 @@ public class ControladoraDeportiva {
         Query traerEquipos = this.entityManager.createQuery("SELECT E FROM Equipo E WHERE E.borradoLogico = FALSE");
         List<Equipo> unaListaResultado = traerEquipos.getResultList();
         for(Partido unPartido : unaFecha.getPartidos()){
+            if(!unPartido.isBorradoLogico()){
             unaListaResultado.remove(unPartido.getUnEquipoLocal());
-            unaListaResultado.remove(unPartido.getUnEquipoVisitante());
+            unaListaResultado.remove(unPartido.getUnEquipoVisitante());}
         }
         return unaListaResultado;
     }
@@ -376,10 +377,11 @@ public class ControladoraDeportiva {
     }
     
     public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha){
-        String unaConsulta = "SELECT C FROM Cancha C WHERE C.borradoLogico = FALSE";
+        String unaConsulta = "SELECT C FROM Cancha C WHERE C.borradoLogico = FALSE AND C.seOcupa = TRUE";
         List<Cancha> listaTodasLasCanchas = this.entityManager.createQuery(unaConsulta).getResultList();       
         for(Partido unPartido : unaFecha.getPartidos()){
-            listaTodasLasCanchas.remove(unPartido.getUnaCancha());
+            if(!unPartido.isBorradoLogico()){
+            listaTodasLasCanchas.remove(unPartido.getUnaCancha());}
         }
         return listaTodasLasCanchas;        
     }

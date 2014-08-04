@@ -89,7 +89,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombos() {
-        Collection<Equipo> equiposInscriptos = unTorneo.getEquiposInscriptos();
+
         this.modelComboLocal = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
 
         this.jComboBoxEquipoLocal.setModel(modelComboLocal);
@@ -631,16 +631,17 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
                 } else {
                     unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
+                    cargarTabla(unaFechaTorneo);
+                    habilitarCampos(false);
+                    seleccionarObjetoTabla(false);
+                    botonesNavegacion(true);
                 }
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Hay campos sin completar");
         }
-        cargarTabla(unaFechaTorneo);
-        habilitarCampos(false);
-        seleccionarObjetoTabla(false);
-        botonesNavegacion(true);
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -679,7 +680,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.unaFechaTorneo = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
         cargarTabla(unaFechaTorneo);
         jLabelFecha.setText(jTextFieldNroFecha.getText());
-        habilitarCampos(false); 
+        habilitarCampos(false);
         seleccionarObjetoTabla(false);
     }//GEN-LAST:event_jButtonFinalMouseClicked
 
