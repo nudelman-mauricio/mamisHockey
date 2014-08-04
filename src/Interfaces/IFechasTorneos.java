@@ -89,23 +89,23 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
     private void cargarCombos() {
         Collection<Equipo> equiposInscriptos = unTorneo.getEquiposInscriptos();
-        this.modelComboLocal = new DefaultComboBoxModel((Vector)unTorneo.getEquiposInscriptos());
+        this.modelComboLocal = new DefaultComboBoxModel((Vector)unaControladoraGlobal.getEquipoPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
        
         this.jComboBoxEquipoLocal.setModel(modelComboLocal);
 
-        this.modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
+        this.modelComboVisitante = new DefaultComboBoxModel((Vector)unaControladoraGlobal.getEquipoPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxEquipoVisitante.setModel(modelComboVisitante);
 
-        DefaultComboBoxModel modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
+        DefaultComboBoxModel modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxCancha.setModel(modelComboCancha);
 
-        DefaultComboBoxModel modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        DefaultComboBoxModel modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxArbitro1.setModel(modelComboArbitro);
 
-        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxArbitro2.setModel(modelComboArbitro);
 
-        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxArbitro3.setModel(modelComboArbitro);
 
     }

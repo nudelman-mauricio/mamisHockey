@@ -74,6 +74,10 @@ public class ControladoraGlobal {
     public List<PersonaAuxiliar> getPersonaAuxiliarBDFiltro(String dato) {
         return this.unaControladoraEntidades.getPersonasAuxiliarBDFiltro(dato);
     }
+    
+    public List<PersonaAuxiliar> getArbitrosPorFecha(FechaTorneo unaFecha){
+        return this.unaControladoraEntidades.getArbitrosPorFecha(unaFecha);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Socias">
@@ -334,6 +338,10 @@ public class ControladoraGlobal {
     public List<Equipo> getEquiposBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getEquiposBDFiltro(dato);
     }
+    
+    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha){
+        return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Clubes">
@@ -407,6 +415,10 @@ public class ControladoraGlobal {
 
     public List<Cancha> getCanchasBD() {
         return this.unaControladoraDeportiva.getCanchasBD();
+    }
+    
+    public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha){
+        return this.unaControladoraDeportiva.getCanchasPorFecha(unaFecha);
     }
     // </editor-fold>
 

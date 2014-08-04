@@ -4,14 +4,16 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
 import logicaNegocios.Ergometria;
 import logicaNegocios.Estado;
+import logicaNegocios.FechaTorneo;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Localidad;
+import logicaNegocios.Partido;
 import logicaNegocios.Pase;
+import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 
@@ -58,7 +60,7 @@ public class ControladoraEntidades {
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
+
     /**
      * Devuelve una PersonaAuxiliar buscando por DNI
      */
@@ -148,6 +150,20 @@ public class ControladoraEntidades {
         List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+
+    public List<PersonaAuxiliar> getArbitrosPorFecha(FechaTorneo unaFecha) {
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.borradoLogico = FALSE AND A.arbitro = TRUE";
+        List<PersonaAuxiliar> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        for (Partido unPartido : unaFecha.getPartidos()) {
+            unaListaResultado.remove(unPartido.getUnArbitro1());
+            unaListaResultado.remove(unPartido.getUnArbitro2());
+            if (unPartido.getUnArbitro3() != null) {
+                unaListaResultado.remove(unPartido.getUnArbitro3());
+            }
+        }
+        return unaListaResultado;
+
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Socias">
@@ -198,10 +214,11 @@ public class ControladoraEntidades {
         return unaListaResultado;
     }
 
-    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamistea){
+    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamistea) {
         unaSocia.setNumeroCamiseta(numeroCamistea);
         unaSocia.persistir(entityManager);
     }
+
     /**
      * Devuelve todas las Socias filtradas por Dato
      */
