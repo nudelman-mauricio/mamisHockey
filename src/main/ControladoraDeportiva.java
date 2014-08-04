@@ -215,6 +215,17 @@ public class ControladoraDeportiva {
         List<Equipo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha){
+        Query traerEquipos = this.entityManager.createQuery("SELECT E FROM Equipo E WHERE E.borradoLogico = FALSE");
+        List<Equipo> unaListaResultado = traerEquipos.getResultList();
+        for(Partido unPartido : unaFecha.getPartidos()){
+            if(!unPartido.isBorradoLogico()){
+            unaListaResultado.remove(unPartido.getUnEquipoLocal());
+            unaListaResultado.remove(unPartido.getUnEquipoVisitante());}
+        }
+        return unaListaResultado;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Clubes">
@@ -362,6 +373,16 @@ public class ControladoraDeportiva {
         String unaConsulta = "SELECT C FROM Cancha C WHERE C.borradoLogico = FALSE";
         List<Cancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
+    }
+    
+    public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha){
+        String unaConsulta = "SELECT C FROM Cancha C WHERE C.borradoLogico = FALSE AND C.seOcupa = TRUE";
+        List<Cancha> listaTodasLasCanchas = this.entityManager.createQuery(unaConsulta).getResultList();       
+        for(Partido unPartido : unaFecha.getPartidos()){
+            if(!unPartido.isBorradoLogico()){
+            listaTodasLasCanchas.remove(unPartido.getUnaCancha());}
+        }
+        return listaTodasLasCanchas;        
     }
     // </editor-fold>
 

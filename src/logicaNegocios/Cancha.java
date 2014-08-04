@@ -82,7 +82,10 @@ public class Cancha implements Serializable, Comparable {
         this.unTipoCancha = unTipoCancha;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------
-
+    @Override
+     public String toString() {
+        return nombre+", "+this.getUnTipoCancha();
+    }  
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

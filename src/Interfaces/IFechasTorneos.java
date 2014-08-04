@@ -54,6 +54,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         }
         this.jButtonEditar.setEnabled(false);
         habilitarCampos(false);
+        seleccionarObjetoTabla(false);
     }
 
     public void SeInicio() {
@@ -88,24 +89,24 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombos() {
-        Collection<Equipo> equiposInscriptos = unTorneo.getEquiposInscriptos();
-        this.modelComboLocal = new DefaultComboBoxModel((Vector)unTorneo.getEquiposInscriptos());
-       
+
+        this.modelComboLocal = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
+
         this.jComboBoxEquipoLocal.setModel(modelComboLocal);
 
-        this.modelComboVisitante = new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos());
+        this.modelComboVisitante = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxEquipoVisitante.setModel(modelComboVisitante);
 
-        DefaultComboBoxModel modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
+        DefaultComboBoxModel modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxCancha.setModel(modelComboCancha);
 
-        DefaultComboBoxModel modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        DefaultComboBoxModel modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxArbitro1.setModel(modelComboArbitro);
 
-        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxArbitro2.setModel(modelComboArbitro);
 
-        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosPorFecha(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo)));
         this.jComboBoxArbitro3.setModel(modelComboArbitro);
 
     }
@@ -130,6 +131,13 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 }
             }
         }
+    }
+
+    public void botonesNavegacion(boolean estado) {
+        this.jButtonAnterior.setEnabled(estado);
+        this.jButtonFinal.setEnabled(estado);
+        this.jButtonInicio.setEnabled(estado);
+        this.jButtonSiguiente.setEnabled(estado);
     }
 
     @SuppressWarnings("unchecked")
@@ -577,7 +585,12 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonResultadoPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResultadoPartidoActionPerformed
-
+        Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
+        IResultadoPartido unIResultadoPartido = new IResultadoPartido(unaControladoraGlobal, this, unPartidoSeleccionado);
+        unIResultadoPartido.pack();
+        unIResultadoPartido.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIResultadoPartido);
     }//GEN-LAST:event_jButtonResultadoPartidoActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
@@ -587,6 +600,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             cargarTabla(unaFechaTorneo);
             jLabelFecha.setText(jTextFieldNroFecha.getText());
         }
+        seleccionarObjetoTabla(false);
     }//GEN-LAST:event_jButtonSiguienteMouseClicked
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -594,16 +608,18 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         cargarCombos();
         limpiarCampos();
         seleccionarObjetoTabla(false);
-
+        botonesNavegacion(false);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         habilitarCampos(false);
         limpiarCampos();
+        botonesNavegacion(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         habilitarCampos(true);
+        botonesNavegacion(false);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -615,15 +631,17 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
                 } else {
                     unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
+                    cargarTabla(unaFechaTorneo);
+                    habilitarCampos(false);
+                    seleccionarObjetoTabla(false);
+                    botonesNavegacion(true);
                 }
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Hay campos sin completar");
         }
-        cargarTabla(unaFechaTorneo);
-        habilitarCampos(false);
-        seleccionarObjetoTabla(false);
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -645,6 +663,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             cargarTabla(this.unaFechaTorneo);
             jLabelFecha.setText(jTextFieldNroFecha.getText());
         }
+        seleccionarObjetoTabla(false);
     }//GEN-LAST:event_jButtonAnteriorMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -661,6 +680,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.unaFechaTorneo = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
         cargarTabla(unaFechaTorneo);
         jLabelFecha.setText(jTextFieldNroFecha.getText());
+        habilitarCampos(false);
+        seleccionarObjetoTabla(false);
     }//GEN-LAST:event_jButtonFinalMouseClicked
 
     private void jButtonInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonInicioMouseClicked
@@ -672,6 +693,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             jTextFieldNroFecha.setText(String.valueOf(0));
         }
         jLabelFecha.setText(jTextFieldNroFecha.getText());
+        habilitarCampos(false);
+        seleccionarObjetoTabla(false);
     }//GEN-LAST:event_jButtonInicioMouseClicked
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
