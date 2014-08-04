@@ -1,47 +1,69 @@
-
 package Interfaces;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoDeportivo;
+import logicaNegocios.Frecuencia;
+import logicaNegocios.Mes;
 import logicaNegocios.TipoCancha;
+import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class IConceptosDeportivos extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
-    private TipoCancha unTipoCanchaSeleccionado;
+    private ConceptoDeportivo unConceptoDeportivoSeleccionado;
     private DefaultTableModel modeloTable;
 
     public IConceptosDeportivos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
         camposActivo(jPanel7, false);
         cargarTabla();
 
+        Vector comboBoxItems = new Vector();
+        for (TipoCancha aux : unaControladoraGlobal.getTiposCanchasBD()) {
+            comboBoxItems.add(aux);
+        }
+        for (TipoEstado aux : unaControladoraGlobal.getTiposEstadosBD()) {
+            comboBoxItems.add(aux);
+        }
+        DefaultComboBoxModel modelComboAfectados = new DefaultComboBoxModel(comboBoxItems);
+        this.jComboBoxAfectados.setModel(modelComboAfectados);
+
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Conceptos Deportivos"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar 
     }
-    
+
     private void limpiarTabla(DefaultTableModel modeloTabla) {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
 
     //Cargar Tabla con los conceptos deportivos
     public void cargarTabla() {
         limpiarTabla(modeloTable);
+        String unAfectado = "No Especificado";
         for (ConceptoDeportivo unConceptoDeportivo : unaControladoraGlobal.getConceptosDeportivosBD()) {
-            this.modeloTable.addRow(new Object[]{unConceptoDeportivo.getIdConceptoDeportivo(), unConceptoDeportivo.getConcepto(), unConceptoDeportivo.getMonto()});
+            if (unConceptoDeportivo.getUnTipoCancha() != null) {
+                unAfectado = "Cancha: " + unConceptoDeportivo.getUnTipoCancha().getNombre();
+            }
+            if (unConceptoDeportivo.getUnTipoEstado() != null) {
+                unAfectado = "Estado: " + unConceptoDeportivo.getUnTipoEstado().getNombre();
+            }
+
+            this.modeloTable.addRow(new Object[]{unConceptoDeportivo.getIdConceptoDeportivo(), unConceptoDeportivo.getConcepto(), unConceptoDeportivo.getMonto(), unAfectado});
         }
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
@@ -64,7 +86,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     //blanquea componentes editables
     void camposLimpiar() {
         jTextFieldConcepto.setText("");
-        jTextFieldCosto.setText("");
+        jTextFieldMonto.setText("");
 
         jCheckBox1.setSelected(false);
         jCheckBox2.setSelected(false);
@@ -79,9 +101,124 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jCheckBox11.setSelected(false);
         jCheckBox12.setSelected(false);
 
-        jComboBoxEstados.setSelectedIndex(0);
-        jComboBoxDiaGeneracion.setSelectedIndex(0);
-        jComboBoxDiaVencimiento.setSelectedIndex(0);
+        jComboBoxAfectados.setSelectedIndex(-1);
+        jComboBoxDiaGeneracion.setSelectedIndex(-1);
+        jComboBoxDiaVencimiento.setSelectedIndex(-1);
+    }
+
+    //cargar Check de Meses Frecuencia
+    void setMeses(Frecuencia unaFrecuencia) {
+        for (Mes aux : unaFrecuencia.getMeses()) {
+            switch (aux.getNombre()) {
+                case "Enero":
+                    jCheckBox1.setSelected(true);
+                    break;
+                case "Febrero":
+                    jCheckBox2.setSelected(true);
+                    break;
+                case "Marzo":
+                    jCheckBox3.setSelected(true);
+                    break;
+                case "Abril":
+                    jCheckBox4.setSelected(true);
+                    break;
+                case "Mayo":
+                    jCheckBox5.setSelected(true);
+                    break;
+                case "Junio":
+                    jCheckBox6.setSelected(true);
+                    break;
+                case "Julio":
+                    jCheckBox7.setSelected(true);
+                    break;
+                case "Agosto":
+                    jCheckBox8.setSelected(true);
+                    break;
+                case "Septiembre":
+                    jCheckBox9.setSelected(true);
+                    break;
+                case "Octubre":
+                    jCheckBox10.setSelected(true);
+                    break;
+                case "Nobiembre":
+                    jCheckBox11.setSelected(true);
+                    break;
+                case "Diciembre":
+                    jCheckBox12.setSelected(true);
+                    break;
+            }
+        }
+    }
+    
+    //Crear Frecuencia
+    private Frecuencia crearFrecuencia() {
+        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
+        if (jCheckBox1.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(1));
+        }
+        if (jCheckBox2.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(2));
+        }
+        if (jCheckBox3.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(3));
+        }
+        if (jCheckBox4.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(4));
+        }
+        if (jCheckBox5.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(5));
+        }
+        if (jCheckBox6.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(6));
+        }
+        if (jCheckBox7.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(7));
+        }
+        if (jCheckBox8.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(8));
+        }
+        if (jCheckBox9.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(9));
+        }
+        if (jCheckBox10.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(10));
+        }
+        if (jCheckBox11.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(11));
+        }
+        if (jCheckBox12.isSelected()) {
+            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(12));
+        }
+        return unaFrecuencia;
+    }
+
+    //actualizar campos al seleccionar en la tabla
+    void camposCargar() {
+        if (jTableConceptos.getSelectedRow() > -1) {
+            if (jTableConceptos.getValueAt(jTableConceptos.getSelectedRow(), 0) != null) {
+                unConceptoDeportivoSeleccionado = unaControladoraGlobal.getConceptoDeportivoBD((Long) jTableConceptos.getValueAt(jTableConceptos.getSelectedRow(), 0));
+                Frecuencia unaFrecuencia = unConceptoDeportivoSeleccionado.getUnaFrecuencia();
+
+                camposLimpiar();
+
+                jTextFieldConcepto.setText(unConceptoDeportivoSeleccionado.getConcepto());
+                jTextFieldMonto.setText(String.valueOf(unConceptoDeportivoSeleccionado.getMonto()));
+
+                if (unConceptoDeportivoSeleccionado.getUnTipoCancha() != null) {
+                    jComboBoxAfectados.setSelectedItem(unConceptoDeportivoSeleccionado.getUnTipoCancha());
+                }
+                if (unConceptoDeportivoSeleccionado.getUnTipoEstado() != null) {
+                    jComboBoxAfectados.setSelectedItem(unConceptoDeportivoSeleccionado.getUnTipoEstado());
+                }
+
+                setMeses(unaFrecuencia);
+                jComboBoxDiaGeneracion.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaGeneracion()) - 1);
+                jComboBoxDiaVencimiento.setSelectedIndex(Integer.valueOf(unaFrecuencia.getDiaVencimiento()) - 1);
+
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -101,9 +238,10 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion = new javax.swing.JLabel();
         jLabelFechaCaducidad = new javax.swing.JLabel();
         jTextFieldConcepto = new javax.swing.JTextField();
-        jTextFieldCosto = new javax.swing.JTextField();
+        jTextFieldMonto = new javax.swing.JTextField();
         jLabelFechaRealizacion2 = new javax.swing.JLabel();
-        jComboBoxEstados = new javax.swing.JComboBox();
+        jComboBoxAfectados = new javax.swing.JComboBox();
+        jCheckBox13 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabelFechaCaducidad2 = new javax.swing.JLabel();
         jLabelFechaCaducidad3 = new javax.swing.JLabel();
@@ -123,16 +261,26 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jCheckBox7 = new javax.swing.JCheckBox();
         jComboBoxDiaGeneracion = new javax.swing.JComboBox();
         jComboBoxDiaVencimiento = new javax.swing.JComboBox();
+        jLabelFechaRealizacion3 = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -140,14 +288,26 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -185,10 +345,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
 
         jTableConceptos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Inscripción", "100", "Nueva Socia"},
-                {null, "ReInscripción", "50", "Socia"},
-                {null, "Cuota", "70", "Socia"},
-                {null, "Cuota", "150", "Socia Jugadora"}
+
             },
             new String [] {
                 "id", "Concepto Deportivo", "Monto ($)", "Le corresponde a"
@@ -214,6 +371,9 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
             jTableConceptos.getColumnModel().getColumn(0).setMinWidth(0);
             jTableConceptos.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableConceptos.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableConceptos.getColumnModel().getColumn(2).setMinWidth(100);
+            jTableConceptos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jTableConceptos.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -239,7 +399,11 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion2.setText("Le corresponde pagar a");
 
-        jComboBoxEstados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ACA VAN LOS ESTADOS", "Equipo" }));
+        jCheckBox13.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox13StateChanged(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Frecuencia"));
 
@@ -373,24 +537,33 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                 .addGap(67, 67, 67))
         );
 
+        jLabelFechaRealizacion3.setText("Habilitar Auto Generación");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaCaducidad)
-                            .addComponent(jLabelFechaRealizacion)
-                            .addComponent(jLabelFechaRealizacion2))
+                        .addGap(112, 112, 112)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabelFechaCaducidad)
+                                    .addComponent(jLabelFechaRealizacion)
+                                    .addComponent(jLabelFechaRealizacion2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldMonto)
+                                    .addComponent(jComboBoxAfectados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(jLabelFechaRealizacion3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldConcepto)
-                            .addComponent(jTextFieldCosto)
-                            .addComponent(jComboBoxEstados, 0, 150, Short.MAX_VALUE))))
+                        .addComponent(jCheckBox13)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -403,12 +576,16 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaCaducidad)
-                    .addComponent(jTextFieldCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaRealizacion2)
-                    .addComponent(jComboBoxEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jComboBoxAfectados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFechaRealizacion3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox13))
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -417,7 +594,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 447, Short.MAX_VALUE)
+            .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 543, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -429,12 +606,68 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptos.setEnabled(false);
+
+        camposActivo(jPanel7, true);
+        camposLimpiar();
+        unConceptoDeportivoSeleccionado = null;
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptos.setEnabled(false);
+
+        camposActivo(jPanel7, true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        if (unConceptoDeportivoSeleccionado == null) {
+            ConceptoDeportivo unConceptoDeportivo = unaControladoraGlobal.crearConceptoDeportivo(Double.valueOf(jTextFieldMonto.getText()), jTextFieldConcepto.getText());
+            if (verificarFrecuencia()) {
+                unConceptoDeportivo.setUnaFrecuencia(crearFrecuencia());
+            }
+            JOptionPane.showMessageDialog(this, "Concepto Deportivo Creado");
+        } else {
+            unaControladoraGlobal.eliminarFrecuencia(unTipoCanchaSeleccionado.getUnaFrecuencia());
+            unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, Double.valueOf(jTextFieldMonto.getText()), crearFrecuencia(), jTextFieldNombre.getText(), false);
+            JOptionPane.showMessageDialog(this, "Tipo Cancha Modificada");
+            unConceptoDeportivoSeleccionado = null;
+        }
+        cargarTabla();
+
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableTipoCancha.setEnabled(true);
+
+        camposActivo(jPanel3, false);
+        camposLimpiar();
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jCheckBox13StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox13StateChanged
+        camposActivo(jPanel1, jCheckBox13.isSelected());
+    }//GEN-LAST:event_jCheckBox13StateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -446,6 +679,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox11;
     private javax.swing.JCheckBox jCheckBox12;
+    private javax.swing.JCheckBox jCheckBox13;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
@@ -454,15 +688,16 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
+    private javax.swing.JComboBox jComboBoxAfectados;
     private javax.swing.JComboBox jComboBoxDiaGeneracion;
     private javax.swing.JComboBox jComboBoxDiaVencimiento;
-    private javax.swing.JComboBox jComboBoxEstados;
     private javax.swing.JLabel jLabelFechaCaducidad;
     private javax.swing.JLabel jLabelFechaCaducidad2;
     private javax.swing.JLabel jLabelFechaCaducidad3;
     private javax.swing.JLabel jLabelFechaCaducidad4;
     private javax.swing.JLabel jLabelFechaRealizacion;
     private javax.swing.JLabel jLabelFechaRealizacion2;
+    private javax.swing.JLabel jLabelFechaRealizacion3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
@@ -471,6 +706,6 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConceptos;
     private javax.swing.JTextField jTextFieldConcepto;
-    private javax.swing.JTextField jTextFieldCosto;
+    private javax.swing.JTextField jTextFieldMonto;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,8 +28,8 @@ public class ControladoraContabilidad {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public void crearConceptoDeportivo(double monto, String concepto) {
-        new ConceptoDeportivo(this.entityManager, monto, concepto);
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto) {
+        return new ConceptoDeportivo(this.entityManager, monto, concepto);
     }
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {

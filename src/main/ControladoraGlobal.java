@@ -589,8 +589,8 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public void crearConceptoDeportivo(double monto, String concepto) {
-        this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto) {
+        return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
     }
 
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {

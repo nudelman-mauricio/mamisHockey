@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -19,7 +22,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelBotones" pref="447" max="32767" attributes="0"/>
+          <Component id="jPanelBotones" pref="543" max="32767" attributes="0"/>
           <Component id="jPanel5" max="32767" attributes="0"/>
           <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -32,8 +35,7 @@
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jPanel7" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -93,9 +95,13 @@
               <Image iconType="3" name="/Iconos Nuevos/Edit2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Editar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonEliminar">
           <Properties>
@@ -103,6 +109,7 @@
               <Image iconType="3" name="/Iconos Nuevos/deletered.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -116,6 +123,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNuevoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonGuardar">
           <Properties>
@@ -123,9 +133,13 @@
               <Image iconType="3" name="/Iconos Nuevos/save.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGuardarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCancelar">
           <Properties>
@@ -133,6 +147,7 @@
               <Image iconType="3" name="/Iconos Nuevos/cancel.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -168,26 +183,11 @@
             <Component class="javax.swing.JTable" name="jTableConceptos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
+                  <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="id" type="java.lang.Long"/>
-                    <Column editable="false" title="Concepto Deportivo" type="java.lang.Object">
-                      <Data value="Inscripci&#xf3;n"/>
-                      <Data value="ReInscripci&#xf3;n"/>
-                      <Data value="Cuota"/>
-                      <Data value="Cuota"/>
-                    </Column>
-                    <Column editable="false" title="Monto ($)" type="java.lang.Object">
-                      <Data value="100"/>
-                      <Data value="50"/>
-                      <Data value="70"/>
-                      <Data value="150"/>
-                    </Column>
-                    <Column editable="false" title="Le corresponde a" type="java.lang.Object">
-                      <Data value="Nueva Socia"/>
-                      <Data value="Socia"/>
-                      <Data value="Socia"/>
-                      <Data value="Socia Jugadora"/>
-                    </Column>
+                    <Column editable="false" title="Concepto Deportivo" type="java.lang.Object"/>
+                    <Column editable="false" title="Monto ($)" type="java.lang.Object"/>
+                    <Column editable="false" title="Le corresponde a" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -202,7 +202,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -238,22 +238,32 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabelFechaCaducidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabelFechaCaducidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelFechaRealizacion2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextFieldConcepto" alignment="0" pref="169" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldMonto" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jComboBoxAfectados" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaRealizacion3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldConcepto" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldCosto" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBoxEstados" pref="150" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jCheckBox13" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -271,14 +281,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelFechaCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldCosto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldMonto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelFechaRealizacion2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxEstados" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxAfectados" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelFechaRealizacion3" min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="jCheckBox13" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" pref="168" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -298,22 +313,24 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldConcepto">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldCosto">
+        <Component class="javax.swing.JTextField" name="jTextFieldMonto">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Le corresponde pagar a"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxEstados">
+        <Component class="javax.swing.JComboBox" name="jComboBoxAfectados">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="ACA VAN LOS ESTADOS"/>
-                <StringItem index="1" value="Equipo"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBox13">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jCheckBox13StateChanged"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
@@ -600,6 +617,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Habilitar Auto Generaci&#xf3;n"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
