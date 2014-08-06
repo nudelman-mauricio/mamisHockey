@@ -35,11 +35,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
-        jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
+        //jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
 
         this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
         cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal, unPartido.getPlantelLocal());
-        this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
+        //this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
         cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
     }
 
@@ -105,16 +105,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonEditar1 = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableLocal = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabelEquipoLocal = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTableGolLocal = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -125,15 +115,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jTextField3 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTableVisitante = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabelEquipoVisitante = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTableGolVisitante = new javax.swing.JTable();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableLocal = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelEquipoLocal = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableGolLocal = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableLocal1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelEquipoLocal1 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTableGolLocal1 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -177,141 +175,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, "", null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "1° V", "2° V", "1° A", "2° A", "RA", "RD", "Cam", "Apellido y Nombre"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTableLocal);
-        if (jTableLocal.getColumnModel().getColumnCount() > 0) {
-            jTableLocal.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(1).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(1).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(2).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(4).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(6).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(150);
-        }
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Equipo Local: ");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Resultado Local: ");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("#");
-
-        jLabelEquipoLocal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelEquipoLocal.setText("Nombre Equipo");
-
-        jTableGolLocal.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, ""},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Cam", "Min"
-            }
-        ));
-        jScrollPane4.setViewportView(jTableGolLocal);
-        if (jTableGolLocal.getColumnModel().getColumnCount() > 0) {
-            jTableGolLocal.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(1).setMinWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(1).setMaxWidth(35);
-        }
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEquipoLocal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabelEquipoLocal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4)))
-        );
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel7.setText("Ayudante de Mesa Local");
@@ -331,7 +194,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
                     .addComponent(jLabel7)
@@ -340,13 +203,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(51, 51, 51)
                         .addComponent(jLabel9))
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,22 +233,40 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, "", null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "1° V", "2° V", "1° A", "2° A", "RA", "RD", "Cam", "Apellido y Nombre"
+                "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false
+                false, false, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -396,111 +277,294 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTableVisitante);
-        if (jTableVisitante.getColumnModel().getColumnCount() > 0) {
-            jTableVisitante.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(1).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(1).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(2).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(4).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(4).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(4).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(6).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(6).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(6).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(150);
+        jScrollPane1.setViewportView(jTableLocal);
+        if (jTableLocal.getColumnModel().getColumnCount() > 0) {
+            jTableLocal.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTableLocal.getColumnModel().getColumn(2).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(2).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(3).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(4).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(5).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(6).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(7).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(7).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(8).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(9).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(10).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(10).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(10).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(11).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(11).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(11).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(12).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(12).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(12).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(13).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(13).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(13).setMaxWidth(35);
         }
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setText("Equipo Visitante: ");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Equipo Local: ");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setText("Resultado Visitante: ");
+        jLabelEquipoLocal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelEquipoLocal.setText("Nombre Equipo");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel15.setText("#");
-
-        jLabelEquipoVisitante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelEquipoVisitante.setText("Nombre Visitante");
-
-        jTableGolVisitante.setModel(new javax.swing.table.DefaultTableModel(
+        jTableGolLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, ""},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, ""},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Cam", "Min"
+                "Cam", "T", "Min"
             }
         ));
-        jScrollPane6.setViewportView(jTableGolVisitante);
-        if (jTableGolVisitante.getColumnModel().getColumnCount() > 0) {
-            jTableGolVisitante.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(1).setMinWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(1).setPreferredWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(1).setMaxWidth(35);
+        jScrollPane4.setViewportView(jTableGolLocal);
+        if (jTableGolLocal.getColumnModel().getColumnCount() > 0) {
+            jTableGolLocal.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(1).setMinWidth(20);
+            jTableGolLocal.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTableGolLocal.getColumnModel().getColumn(1).setMaxWidth(20);
+            jTableGolLocal.getColumnModel().getColumn(2).setMinWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(2).setPreferredWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(2).setMaxWidth(35);
         }
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Goles");
+        jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel13)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEquipoVisitante)
+                        .addComponent(jLabelEquipoLocal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabelEquipoVisitante))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabelEquipoLocal))
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane6)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane4))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.addTab("Equipo Local: Nombre Equipo", jPanel5);
+
+        jTableLocal1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, true, true, true, true, true, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTableLocal1);
+        if (jTableLocal1.getColumnModel().getColumnCount() > 0) {
+            jTableLocal1.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableLocal1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTableLocal1.getColumnModel().getColumn(2).setMinWidth(20);
+            jTableLocal1.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTableLocal1.getColumnModel().getColumn(2).setMaxWidth(20);
+            jTableLocal1.getColumnModel().getColumn(3).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(3).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(3).setMaxWidth(35);
+            jTableLocal1.getColumnModel().getColumn(4).setMinWidth(20);
+            jTableLocal1.getColumnModel().getColumn(4).setPreferredWidth(20);
+            jTableLocal1.getColumnModel().getColumn(4).setMaxWidth(20);
+            jTableLocal1.getColumnModel().getColumn(5).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(5).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(5).setMaxWidth(35);
+            jTableLocal1.getColumnModel().getColumn(6).setMinWidth(20);
+            jTableLocal1.getColumnModel().getColumn(6).setPreferredWidth(20);
+            jTableLocal1.getColumnModel().getColumn(6).setMaxWidth(20);
+            jTableLocal1.getColumnModel().getColumn(7).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(7).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(7).setMaxWidth(35);
+            jTableLocal1.getColumnModel().getColumn(8).setMinWidth(20);
+            jTableLocal1.getColumnModel().getColumn(8).setPreferredWidth(20);
+            jTableLocal1.getColumnModel().getColumn(8).setMaxWidth(20);
+            jTableLocal1.getColumnModel().getColumn(9).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(9).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(9).setMaxWidth(35);
+            jTableLocal1.getColumnModel().getColumn(10).setMinWidth(20);
+            jTableLocal1.getColumnModel().getColumn(10).setPreferredWidth(20);
+            jTableLocal1.getColumnModel().getColumn(10).setMaxWidth(20);
+            jTableLocal1.getColumnModel().getColumn(11).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(11).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(11).setMaxWidth(35);
+            jTableLocal1.getColumnModel().getColumn(12).setMinWidth(20);
+            jTableLocal1.getColumnModel().getColumn(12).setPreferredWidth(20);
+            jTableLocal1.getColumnModel().getColumn(12).setMaxWidth(20);
+            jTableLocal1.getColumnModel().getColumn(13).setMinWidth(35);
+            jTableLocal1.getColumnModel().getColumn(13).setPreferredWidth(35);
+            jTableLocal1.getColumnModel().getColumn(13).setMaxWidth(35);
+        }
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Equipo Visitante: ");
+
+        jLabelEquipoLocal1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelEquipoLocal1.setText("Nombre Equipo");
+
+        jTableGolLocal1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, ""},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Cam", "T", "Min"
+            }
+        ));
+        jScrollPane7.setViewportView(jTableGolLocal1);
+        if (jTableGolLocal1.getColumnModel().getColumnCount() > 0) {
+            jTableGolLocal1.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableGolLocal1.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableGolLocal1.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableGolLocal1.getColumnModel().getColumn(1).setMinWidth(20);
+            jTableGolLocal1.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTableGolLocal1.getColumnModel().getColumn(1).setMaxWidth(20);
+            jTableGolLocal1.getColumnModel().getColumn(2).setMinWidth(35);
+            jTableGolLocal1.getColumnModel().getColumn(2).setPreferredWidth(35);
+            jTableGolLocal1.getColumnModel().getColumn(2).setMaxWidth(35);
+        }
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Goles");
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelEquipoLocal1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelEquipoLocal1)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane7))
+                .addGap(0, 44, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Equipo Visitantel: Nombre Equipo", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,10 +572,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -524,31 +586,29 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEditar1;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEquipoLocal;
-    private javax.swing.JLabel jLabelEquipoVisitante;
+    private javax.swing.JLabel jLabelEquipoLocal1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableGolLocal;
-    private javax.swing.JTable jTableGolVisitante;
+    private javax.swing.JTable jTableGolLocal1;
     private javax.swing.JTable jTableLocal;
-    private javax.swing.JTable jTableVisitante;
+    private javax.swing.JTable jTableLocal1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
