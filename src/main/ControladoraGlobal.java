@@ -74,8 +74,8 @@ public class ControladoraGlobal {
     public List<PersonaAuxiliar> getPersonaAuxiliarBDFiltro(String dato) {
         return this.unaControladoraEntidades.getPersonasAuxiliarBDFiltro(dato);
     }
-    
-    public List<PersonaAuxiliar> getArbitrosPorFecha(FechaTorneo unaFecha){
+
+    public List<PersonaAuxiliar> getArbitrosPorFecha(FechaTorneo unaFecha) {
         return this.unaControladoraEntidades.getArbitrosPorFecha(unaFecha);
     }
     // </editor-fold>
@@ -338,8 +338,8 @@ public class ControladoraGlobal {
     public List<Equipo> getEquiposBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getEquiposBDFiltro(dato);
     }
-    
-    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha){
+
+    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha) {
         return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha);
     }
     // </editor-fold>
@@ -416,8 +416,8 @@ public class ControladoraGlobal {
     public List<Cancha> getCanchasBD() {
         return this.unaControladoraDeportiva.getCanchasBD();
     }
-    
-    public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha){
+
+    public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha) {
         return this.unaControladoraDeportiva.getCanchasPorFecha(unaFecha);
     }
     // </editor-fold>
@@ -757,6 +757,10 @@ public class ControladoraGlobal {
     // <editor-fold defaultstate="collapsed" desc="Frecuencia"> 
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
         return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
+    }
+
+    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre, boolean borradoLogico) {
+        this.unaControladoraContabilidad.modificarFrecuencia(unaFrecuencia, diaGeneracion, diaVencimiento, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, borradoLogico);
     }
 
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {

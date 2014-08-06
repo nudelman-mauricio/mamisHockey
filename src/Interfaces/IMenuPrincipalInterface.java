@@ -64,7 +64,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jMenuItemConceptoIngreso = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItemConceptosDeportivos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -253,8 +253,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuContabilidad.add(jMenuItemConceptoIngreso);
 
-        jMenuItem3.setText("Conceptos Deportivos");
-        jMenuContabilidad.add(jMenuItem3);
+        jMenuItemConceptosDeportivos.setText("Conceptos Deportivos");
+        jMenuItemConceptosDeportivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConceptosDeportivosActionPerformed(evt);
+            }
+        });
+        jMenuContabilidad.add(jMenuItemConceptosDeportivos);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -519,6 +524,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unaVentanaTipoCancha);
     }//GEN-LAST:event_jMenuItemTipoCanchaActionPerformed
 
+    private void jMenuItemConceptosDeportivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosDeportivosActionPerformed
+        IConceptosDeportivos unaVentanaConceptosDeportivos = new IConceptosDeportivos(unaControladoraGlobal);
+        unaVentanaConceptosDeportivos.pack();
+        unaVentanaConceptosDeportivos.setVisible(true);
+        this.jDesktopPane.add(unaVentanaConceptosDeportivos);
+    }//GEN-LAST:event_jMenuItemConceptosDeportivosActionPerformed
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -538,7 +550,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
@@ -550,6 +561,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemBalanceMensual;
     private javax.swing.JMenuItem jMenuItemCategoria;
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
+    private javax.swing.JMenuItem jMenuItemConceptosDeportivos;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
     private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
     private javax.swing.JMenuItem jMenuItemEstadosSocia;

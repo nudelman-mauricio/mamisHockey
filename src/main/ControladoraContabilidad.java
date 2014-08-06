@@ -273,7 +273,6 @@ public class ControladoraContabilidad {
         unEgreso.setObservacion(observacion);
         unEgreso.setBorradoLogico(borradoLogico);
         unEgreso.persistir(this.entityManager);
-
     }
 
     public void eliminarEgreso(Egreso unEgreso) {
@@ -383,9 +382,10 @@ public class ControladoraContabilidad {
         return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento);
     }
 
-    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
+    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre, boolean borradoLogico) {
         unaFrecuencia.setDiaGeneracion(diaGeneracion);
         unaFrecuencia.setDiaVencimiento(diaVencimiento);
+        unaFrecuencia.
         unaFrecuencia.setBorradoLogico(borradoLogico);
         unaFrecuencia.persistir(this.entityManager);
     }

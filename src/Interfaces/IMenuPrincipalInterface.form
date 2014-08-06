@@ -214,10 +214,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConceptoIngresoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConceptosDeportivos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Conceptos Deportivos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConceptosDeportivosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
