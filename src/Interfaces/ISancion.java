@@ -257,10 +257,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "id Sancion", "Fecha", "Motivo", "N° de Resolución", "Cantidad de Fecha", "Fechas Cumplidas", "Fecha Vencimiento", "Partido"
@@ -427,34 +424,44 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-//        DateFormat df = DateFormat.getDateInstance();
-//        try {
-//            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-//            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
-//            if (!modificar) {
-//                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fechaCaducidad, title, title);
-//                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
-//                JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
-//            } else {
-//                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
-//                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText(), false);
-//                JOptionPane.showMessageDialog(this, "Ergometria Modificada");
-//            }
-//        } catch (ParseException e) {
-//            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
-//        }
-//
-//        jButtonNuevo.setEnabled(true);
-//        jButtonGuardar.setEnabled(false);
-//        jButtonCancelar.setEnabled(false);
-//        jButtonEliminar.setEnabled(false);
-//        jButtonEditar.setEnabled(true);
-//        jButtonImprimir.setEnabled(false);
-//
-//        camposLimpiar();
-//        activarCampos(false);
-//        jTableSancion.setEnabled(true);
-//        cargarCamposTabla();
+        DateFormat df = DateFormat.getDateInstance();
+        try {
+            Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldHastaUnaFecha.getText()).getTime());
+            if (!modificar) {
+                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextAreaDetalle.getText());
+                JOptionPane.showMessageDialog(this, "Sancion Creada");
+            } else {
+                SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+                
+                unaControladoraGlobal.modificarSancionTribunal(
+                        unaSancion, 
+                        fechaCaducidad, 
+                        Integer.parseInt(jTextFieldCantFechasACumplir.getText()), 
+                        fecha, jTextFieldMotivo.getText(), jTextAreaDetalle.getText(), 
+                        unaSancion.getUnaTarjeta(), 
+                        unaSancion.getUnPartido(), 
+                        Integer.parseInt(jTextFieldCantFechasACumplir.getText()), 
+                        jTextFieldNumResolucion.getText(), 
+                        false
+                );
+                JOptionPane.showMessageDialog(this, "Sancion Modificada");
+            }
+        } catch (ParseException e) {
+            System.out.println("Error en el formato de las fechas. dd/mm/aaaa " + e.getMessage());
+        }
+
+        jButtonNuevo.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(false);
+
+        camposLimpiar();
+        activarCampos(false);
+        jTableSancion.setEnabled(true);
+        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -481,9 +488,9 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTableSancionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSancionFocusGained
-            SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));  
-            
-            camposCargar(unaSancion);
+            /*SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));              
+            if(unaSancion != null){
+            camposCargar(unaSancion);}*/
     }//GEN-LAST:event_jTableSancionFocusGained
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
