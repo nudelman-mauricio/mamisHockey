@@ -385,7 +385,7 @@ public class ControladoraContabilidad {
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre, boolean borradoLogico) {
         unaFrecuencia.setDiaGeneracion(diaGeneracion);
         unaFrecuencia.setDiaVencimiento(diaVencimiento);
-        unaFrecuencia.
+        unaFrecuencia.borrarListaMeses;
         unaFrecuencia.setBorradoLogico(borradoLogico);
         unaFrecuencia.persistir(this.entityManager);
     }

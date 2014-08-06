@@ -86,6 +86,7 @@ public class ConceptoDeportivo implements Serializable, Comparable {
 
     public void setUnaFrecuencia(Frecuencia unaFrecuencia) {
         this.unaFrecuencia = unaFrecuencia;
+        persistir(null);
     }
 
     public boolean isBorradoLogico() {

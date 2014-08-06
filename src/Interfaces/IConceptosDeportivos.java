@@ -22,7 +22,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTable;
 
     public IConceptosDeportivos(ControladoraGlobal unaControladoraGlobal) {
-        initComponents();    
+        initComponents();
 
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
@@ -42,12 +42,12 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Conceptos Deportivos"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar 
-        
+
         /**
          * Borrar esto despues
          */
         String nl = System.getProperty("line.separator");
-        JOptionPane.showMessageDialog(this, "Esta ventana necesita que Pela verifique: "+nl+"*bloqueo chek frecuencia"+nl+"*carga mixta combo afectados"+nl+"*set estado de los combos en cargar datos");
+        JOptionPane.showMessageDialog(this, "Esta ventana necesita que Pela verifique: " + nl + "*bloqueo chek frecuencia" + nl + "*carga mixta combo afectados" + nl + "*set estado de los combos en cargar datos");
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -94,7 +94,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jTextFieldConcepto.setText("");
         jTextFieldMonto.setText("");
         jComboBoxAfectados.setSelectedIndex(-1);
-        
+
         jCheckBoxAutoGeneracion.setSelected(false);
 
         jCheckBox1.setSelected(false);
@@ -109,7 +109,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jCheckBox10.setSelected(false);
         jCheckBox11.setSelected(false);
         jCheckBox12.setSelected(false);
-        
+
         jComboBoxDiaGeneracion.setSelectedIndex(-1);
         jComboBoxDiaVencimiento.setSelectedIndex(-1);
     }
@@ -157,7 +157,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     //Crear Frecuencia
     private Frecuencia crearFrecuencia() {
         Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
@@ -654,10 +654,16 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
             }
             JOptionPane.showMessageDialog(this, "Concepto Deportivo Creado");
         } else {
-            
-            unaControladoraGlobal.eliminarFrecuencia(unTipoCanchaSeleccionado.getUnaFrecuencia());
+            if (jCheckBoxAutoGeneracion.isSelected()) {
+                if (unConceptoDeportivoSeleccionado.getUnaFrecuencia() == null) {
+                    unConceptoDeportivoSeleccionado.setUnaFrecuencia(crearFrecuencia());
+                } else {
+                    unaControladoraGlobal.modificarFrecuencia(unConceptoDeportivoSeleccionado.getUnaFrecuencia(), title, title, isIcon, isIcon, isIcon, isIcon, isIcon, isIcon, isIcon, closable, resizable, iconable, resizable, iconable, closable);
+                }
+            }
+
             unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, Double.valueOf(jTextFieldMonto.getText()), crearFrecuencia(), jTextFieldNombre.getText(), false);
-            JOptionPane.showMessageDialog(this, "Tipo Cancha Modificada");
+            JOptionPane.showMessageDialog(this, "Concepto Deportivo Modificado");
             unConceptoDeportivoSeleccionado = null;
         }
         cargarTabla();
