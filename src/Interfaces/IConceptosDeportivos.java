@@ -47,7 +47,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
          * Borrar esto despues
          */
         String nl = System.getProperty("line.separator");
-        JOptionPane.showMessageDialog(this, "Esta ventana necesita que Pela verifique: " + nl + "*bloqueo chek frecuencia" + nl + "*carga mixta combo afectados" + nl + "*set estado de los combos en cargar datos");
+        JOptionPane.showMessageDialog(this, "Esta ventana necesita que Pela verifique: " + nl + "*bloqueo chek frecuencia" + nl + "*carga mixta combo afectados" + nl + "*set estado de los combos en cargar datos" + nl + "*botonCancelar" + nl + "*botonEliminar");
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -160,44 +160,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
 
     //Crear Frecuencia
     private Frecuencia crearFrecuencia() {
-        Frecuencia unaFrecuencia = unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem());
-        if (jCheckBox1.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(1));
-        }
-        if (jCheckBox2.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(2));
-        }
-        if (jCheckBox3.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(3));
-        }
-        if (jCheckBox4.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(4));
-        }
-        if (jCheckBox5.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(5));
-        }
-        if (jCheckBox6.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(6));
-        }
-        if (jCheckBox7.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(7));
-        }
-        if (jCheckBox8.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(8));
-        }
-        if (jCheckBox9.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(9));
-        }
-        if (jCheckBox10.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(10));
-        }
-        if (jCheckBox11.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(11));
-        }
-        if (jCheckBox12.isSelected()) {
-            unaControladoraGlobal.agregarMesFrecuencia(unaFrecuencia, unaControladoraGlobal.getMesDB(12));
-        }
-        return unaFrecuencia;
+        return unaControladoraGlobal.crearFrecuencia((String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(),jCheckBox1.isSelected(),jCheckBox2.isSelected(),jCheckBox3.isSelected(),jCheckBox4.isSelected(),jCheckBox5.isSelected(),jCheckBox6.isSelected(),jCheckBox7.isSelected(),jCheckBox8.isSelected(),jCheckBox9.isSelected(),jCheckBox10.isSelected(),jCheckBox11.isSelected(),jCheckBox12.isSelected());
     }
 
     //actualizar campos al seleccionar en la tabla
@@ -291,6 +254,11 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -318,6 +286,11 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
@@ -594,7 +567,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaRealizacion3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBoxAutoGeneracion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -658,11 +631,10 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                 if (unConceptoDeportivoSeleccionado.getUnaFrecuencia() == null) {
                     unConceptoDeportivoSeleccionado.setUnaFrecuencia(crearFrecuencia());
                 } else {
-                    unaControladoraGlobal.modificarFrecuencia(unConceptoDeportivoSeleccionado.getUnaFrecuencia(), title, title, isIcon, isIcon, isIcon, isIcon, isIcon, isIcon, isIcon, closable, resizable, iconable, resizable, iconable, closable);
+                    unaControladoraGlobal.modificarFrecuencia(unConceptoDeportivoSeleccionado.getUnaFrecuencia(),(String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), jCheckBox1.isSelected(), jCheckBox2.isSelected(), jCheckBox3.isSelected(), jCheckBox4.isSelected(), jCheckBox5.isSelected(), jCheckBox6.isSelected(), jCheckBox7.isSelected(), jCheckBox8.isSelected(), jCheckBox9.isSelected(), jCheckBox10.isSelected(), jCheckBox11.isSelected(), jCheckBox12.isSelected(), unConceptoDeportivoSeleccionado.getUnaFrecuencia().isBorradoLogico());
                 }
             }
-
-            unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, Double.valueOf(jTextFieldMonto.getText()), crearFrecuencia(), jTextFieldNombre.getText(), false);
+            unaControladoraGlobal.modificarConceptoDeportivo(unConceptoDeportivoSeleccionado, Double.valueOf(jTextFieldMonto.getText()),  jTextFieldConcepto.getText(), unConceptoDeportivoSeleccionado.isBorradoLogico());
             JOptionPane.showMessageDialog(this, "Concepto Deportivo Modificado");
             unConceptoDeportivoSeleccionado = null;
         }
@@ -674,15 +646,23 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
 
-        jTableTipoCancha.setEnabled(true);
+        jTableConceptos.setEnabled(true);
 
-        camposActivo(jPanel3, false);
+        camposActivo(jPanel7, false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jCheckBoxAutoGeneracionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxAutoGeneracionStateChanged
         camposActivo(jPanel1, jCheckBoxAutoGeneracion.isSelected());
     }//GEN-LAST:event_jCheckBoxAutoGeneracionStateChanged
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

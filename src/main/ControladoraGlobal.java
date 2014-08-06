@@ -593,8 +593,8 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, id, monto, concepto, borradoLogico);
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, boolean borradoLogico) {
+        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, borradoLogico);
     }
 
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
@@ -755,12 +755,85 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Frecuencia"> 
-    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
-        return this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
+    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre) {
+        Frecuencia nuevaFrecuencia = this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
+        if (enero) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(1));
+        }
+        if (febrero) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(2));
+        }
+        if (marzo) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(3));
+        }
+        if (abril) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(4));
+        }
+        if (mayo) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(5));
+        }
+        if (junio) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(6));
+        }
+        if (julio) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(7));
+        }
+        if (agosto) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(8));
+        }
+        if (septiembre) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(9));
+        }
+        if (octubre) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(10));
+        }
+        if (noviembre) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(11));
+        }
+        if (diciembre) {
+            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(12));
+        }
+        return nuevaFrecuencia;
     }
 
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarFrecuencia(unaFrecuencia, diaGeneracion, diaVencimiento, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, borradoLogico);
+        this.unaControladoraContabilidad.modificarFrecuencia(unaFrecuencia, diaGeneracion, diaVencimiento, borradoLogico);
+        if (enero) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(1));
+        }
+        if (febrero) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(2));
+        }
+        if (marzo) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(3));
+        }
+        if (abril) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(4));
+        }
+        if (mayo) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(5));
+        }
+        if (junio) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(6));
+        }
+        if (julio) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(7));
+        }
+        if (agosto) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(8));
+        }
+        if (septiembre) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(9));
+        }
+        if (octubre) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(10));
+        }
+        if (noviembre) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(11));
+        }
+        if (diciembre) {
+            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(12));
+        }
     }
 
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {

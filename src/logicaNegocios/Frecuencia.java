@@ -14,7 +14,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Frecuencia implements Serializable, Comparable {
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private String diaGeneracion;
 
@@ -30,9 +31,9 @@ public class Frecuencia implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
-
+    // </editor-fold>
+    
     public Frecuencia() {
-
     }
 
     public Frecuencia(EntityManager entityManager, String diaGeneracion, String diaVencimiento) {
@@ -42,7 +43,7 @@ public class Frecuencia implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getDiaGeneracion() {
         return this.diaGeneracion;
     }
@@ -82,7 +83,7 @@ public class Frecuencia implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -96,7 +97,7 @@ public class Frecuencia implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -109,17 +110,17 @@ public class Frecuencia implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//-----------------------------------MESES--------------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Mes">
     public void agregarMes(EntityManager entityManager, Mes unMes) {
         this.meses.add(unMes);
         this.persistir(entityManager);
     }
 
-    public void quitarMes(EntityManager entityManager, Mes unMes) {
-        this.meses.remove(unMes);
+    public void quitarTodosMeses(EntityManager entityManager) {
+        this.meses.clear();
         this.persistir(entityManager);
     }
-//---------------------------------FIN MESES------------------------------------
+    // </editor-fold>
 }

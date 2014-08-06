@@ -32,7 +32,7 @@ public class ControladoraContabilidad {
         return new ConceptoDeportivo(this.entityManager, monto, concepto);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, Long id, double monto, String concepto, boolean borradoLogico) {
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, boolean borradoLogico) {
         unConceptoDeportivo.setMonto(monto);
         unConceptoDeportivo.setConcepto(concepto);
         unConceptoDeportivo.setBorradoLogico(borradoLogico);
@@ -104,7 +104,7 @@ public class ControladoraContabilidad {
         return unaListaResultado;
     }
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Cuotas">
     public Cuota getCuotaBD(Long id) {
         Cuota resultado;
@@ -382,11 +382,11 @@ public class ControladoraContabilidad {
         return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento);
     }
 
-    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre, boolean borradoLogico) {
+    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
         unaFrecuencia.setDiaGeneracion(diaGeneracion);
         unaFrecuencia.setDiaVencimiento(diaVencimiento);
-        unaFrecuencia.borrarListaMeses;
         unaFrecuencia.setBorradoLogico(borradoLogico);
+        unaFrecuencia.quitarTodosMeses(this.entityManager);
         unaFrecuencia.persistir(this.entityManager);
     }
 
@@ -397,10 +397,6 @@ public class ControladoraContabilidad {
 
     public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
         unaFrecuencia.agregarMes(this.entityManager, unMes);
-    }
-
-    public void quitarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
-        unaFrecuencia.quitarMes(this.entityManager, unMes);
     }
 
     /**
