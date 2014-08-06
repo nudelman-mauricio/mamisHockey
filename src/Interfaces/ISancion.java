@@ -429,7 +429,7 @@ public class ISancion extends javax.swing.JInternalFrame {
             Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
             Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldHastaUnaFecha.getText()).getTime());
             if (!modificar) {
-                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextAreaDetalle.getText());
+                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextAreaDetalle.getText());                
                 JOptionPane.showMessageDialog(this, "Sancion Creada");
             } else {
                 SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));

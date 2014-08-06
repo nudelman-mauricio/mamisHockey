@@ -31,7 +31,12 @@ public class ControladoraDeportiva {
 
     // <editor-fold defaultstate="collapsed" desc="Sanciones">
     public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
-        new SancionTribunal(this.entityManager, fecha, motivo, detalles);
+        SancionTribunal unaSancion = new SancionTribunal(this.entityManager, fecha, motivo, detalles);
+        if(unEquipo == null){
+            unaPersona.agregarSancionTribunal(entityManager, unaSancion);
+        } else {
+            unEquipo.agregarSancionTribunal(entityManager, unaSancion);
+        }        
     }
     
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date vencimiento, int cantFechas, Date fecha, String motivo, String detalles, Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico) {
