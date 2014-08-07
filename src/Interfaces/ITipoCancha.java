@@ -334,7 +334,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
 
-        jTableTipoCancha.setEnabled(true);
+        jTableTipoCancha.setEnabled(false);
 
         jTextFieldNombre.setEditable(false);
 
@@ -353,6 +353,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             cargarTabla();
         }
         jTableTipoCancha.clearSelection();
+        jTableTipoCancha.setEnabled(true);
         jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 

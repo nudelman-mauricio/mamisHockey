@@ -123,7 +123,7 @@ public class ControladoraGlobal {
             }
         }
         if (porPase == null) {
-            this.crearConceptoDeportivo(0.0, "Por Pase");
+            this.crearConceptoDeportivo(0.0, "Por Pase", null, null, null);
         }
 
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, porPase, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
@@ -589,12 +589,12 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto) {
-        return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto);
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+        return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, borradoLogico);
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, boolean borradoLogico) {
+        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, unaFrecuencia, borradoLogico);
     }
 
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {

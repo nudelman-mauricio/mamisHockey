@@ -17,6 +17,8 @@ import logicaNegocios.IngresoOtro;
 import logicaNegocios.Mes;
 import logicaNegocios.PagoCuota;
 import logicaNegocios.Socia;
+import logicaNegocios.TipoCancha;
+import logicaNegocios.TipoEstado;
 
 public class ControladoraContabilidad {
 
@@ -28,13 +30,14 @@ public class ControladoraContabilidad {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto) {
-        return new ConceptoDeportivo(this.entityManager, monto, concepto);
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+        return new ConceptoDeportivo(this.entityManager, monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, boolean borradoLogico) {
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, boolean borradoLogico) {
         unConceptoDeportivo.setMonto(monto);
         unConceptoDeportivo.setConcepto(concepto);
+        unConceptoDeportivo.setUnaFrecuencia(unaFrecuencia);
         unConceptoDeportivo.setBorradoLogico(borradoLogico);
         unConceptoDeportivo.persistir(this.entityManager);
     }

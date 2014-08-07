@@ -86,4 +86,9 @@ public class TipoEstado implements Serializable, Comparable {
         }
         return retorno;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }   
 }

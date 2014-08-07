@@ -40,9 +40,12 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     public ConceptoDeportivo() {
     }
 
-    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto) {
+    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
         this.monto = monto;
         this.concepto = concepto;
+        this.unaFrecuencia = unaFrecuencia;
+        this.unTipoCancha = unTipoCancha;
+        this.unTipoEstado = unTipoEstado;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -86,7 +89,6 @@ public class ConceptoDeportivo implements Serializable, Comparable {
 
     public void setUnaFrecuencia(Frecuencia unaFrecuencia) {
         this.unaFrecuencia = unaFrecuencia;
-        persistir(null);
     }
 
     public boolean isBorradoLogico() {
@@ -120,7 +122,7 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         }
     }
     // </editor-fold>
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
