@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/Interfaces/IConceptosDeportivos.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/main/ControladoraGlobal.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/logicaNegocios/TipoEstado.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/Interfaces/IGestionTorneo.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/logicaNegocios/Frecuencia.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/main/ControladoraContabilidad.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/logicaNegocios/ConceptoDeportivo.java</file>
+        </group>
     </open-files>
 </project-private>
