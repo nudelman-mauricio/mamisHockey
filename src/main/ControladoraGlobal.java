@@ -593,8 +593,8 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, unaFrecuencia, borradoLogico);
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
+        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado, borradoLogico);
     }
 
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {

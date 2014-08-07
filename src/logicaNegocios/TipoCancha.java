@@ -27,7 +27,7 @@ public class TipoCancha implements Serializable, Comparable {
     public TipoCancha() {
 
     }
-    
+
     public TipoCancha(EntityManager entityManager, String nombre) {
         this.nombre = nombre;
         this.borradoLogico = false;
@@ -59,7 +59,7 @@ public class TipoCancha implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
     // </editor-fold>
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -70,13 +70,13 @@ public class TipoCancha implements Serializable, Comparable {
             }
         }
         return retorno;
-    }    
+    }
 
     @Override
     public String toString() {
-        return nombre;
+        return "Cancha Tipo: " + nombre;
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

@@ -27,7 +27,7 @@ public class TipoEstado implements Serializable, Comparable {
     public TipoEstado() {
 
     }
-    
+
     public TipoEstado(EntityManager entityManager, String nombre) {
         this.nombre = nombre;
         this.borradoLogico = false;
@@ -74,7 +74,7 @@ public class TipoEstado implements Serializable, Comparable {
         }
     }
     // </editor-fold>
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -89,6 +89,6 @@ public class TipoEstado implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return nombre;
-    }   
+        return "Socia Estado: " + nombre;
+    }
 }
