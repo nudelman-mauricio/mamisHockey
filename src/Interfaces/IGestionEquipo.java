@@ -48,11 +48,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         }
     }
     
-    private void limpiarTabla(DefaultTableModel modeloTablaClub) {
+    private void limpiarTabla(DefaultTableModel modeloTablaEquipo) {
         try {
-            int filas = modeloTablaClub.getRowCount();
+            int filas = modeloTablaEquipo.getRowCount();
             for (int i = 0; i < filas; i++) {
-                modeloTablaClub.removeRow(0);
+                modeloTablaEquipo.removeRow(0);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
@@ -344,11 +344,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     public void centrar(JInternalFrame unJInternalFrame) {
-        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension ventana = unJInternalFrame.getSize();
-        unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-    }
+    
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed

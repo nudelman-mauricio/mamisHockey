@@ -436,14 +436,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
-        IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane);
+        IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane,unaControladoraGlobal);
         unConceptoIngresos.pack();
         unConceptoIngresos.setVisible(true);
         this.jDesktopPane.add(unConceptoIngresos);
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
-        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(jDesktopPane);
+        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(jDesktopPane,unaControladoraGlobal);
         unConceptoEgresos.pack();
         unConceptoEgresos.setVisible(true);
         this.jDesktopPane.add(unConceptoEgresos);
