@@ -497,7 +497,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemLocalidadesActionPerformed
 
     private void jMenuItemNuevoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoTorneoActionPerformed
-        ITorneo unTorneo = new ITorneo(unaControladoraGlobal, jDesktopPane);
+        ITorneo unTorneo = new ITorneo(unaControladoraGlobal);
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.jDesktopPane.add(unTorneo);
