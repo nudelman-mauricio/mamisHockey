@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.sql.Date;
@@ -11,75 +6,65 @@ import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
-
 public class ISocia extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
-    
+
     private boolean modificar = false;
     private Socia unaSocia = null;
 
     //LLAMADO DESDE EL MENUPRINCIPAL
-    public ISocia(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
-        initComponents();
-        this.unjDesktopPane1 = unjDesktopPane1;
-        SeInicio(unaControladoraGlobal);
-
-        jButtonImprimir.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        camposLimpiar();
+    public ISocia(ControladoraGlobal unaControladoraGlobal) {        
+        SeInicio(unaControladoraGlobal);        
     }
 
     //LLAMADO DESDE UN INTERNAL FRAME
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
-        initComponents();
         this.unJInternalFrame = unJInternalFrame;
-        SeInicio(unaControladoraGlobal);
-
-        jButtonImprimir.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        camposLimpiar();
+        SeInicio(unaControladoraGlobal);      
     }
 
     //LLAMADO MOSTRANDO UNA SOCIA
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
-        initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         
-        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         SeInicio(unaControladoraGlobal);
+        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
 
         jButtonImprimir.setEnabled(true);
         jButtonEditar.setEnabled(true);
 
         camposCargar(unaSocia);
+        camposActivo(false);
+        modificar = true;
     }
-
+    
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
+        initComponents();
+        
+        this.setTitle("Panel de Nueva Socia");//titulo de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));//Icono de la ventana
+        IMenuPrincipalInterface.centrar(this);//centrar ventana
 
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
-
-        cargarComboBoxLocalidades();
-        IMenuPrincipalInterface.centrar(this);
-
-        camposActivo(false);
+        cargarComboBoxLocalidades();        
+        camposLimpiar();
+        camposActivo(true);
+        jButtonImprimir.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        modificar = false;
     }
 
     public void cargarComboBoxLocalidades() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
-        this.jComboBoxLocalidad.setModel(modelCombo);
+        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
         jComboBoxLocalidad.setSelectedIndex(-1);
     }
 
@@ -141,10 +126,6 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonImprimir = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabelImagen = new javax.swing.JLabel();
-        jButtonExaminarImagen = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabelDni = new javax.swing.JLabel();
         jLabelApellido = new javax.swing.JLabel();
@@ -169,6 +150,9 @@ public class ISocia extends javax.swing.JInternalFrame {
         jLabelFechaIngreso2 = new javax.swing.JLabel();
         jTextFieldTelCelular = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabelImagen = new javax.swing.JLabel();
+        jButtonExaminarImagen = new javax.swing.JButton();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -216,11 +200,6 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImprimirActionPerformed(evt);
-            }
-        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -257,7 +236,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,31 +252,6 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jLabelImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonExaminarImagen.setText("Seleccionar");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonExaminarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                .addGap(36, 36, 36))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonExaminarImagen)
-                .addContainerGap())
-        );
-
         jLabelDni.setText("DNI *");
 
         jLabelApellido.setText("Apellido *");
@@ -306,12 +260,6 @@ public class ISocia extends javax.swing.JInternalFrame {
 
         jLabelLocalidad.setText("Localidad *");
 
-        jTextFieldDNI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDNIActionPerformed(evt);
-            }
-        });
-
         jLabelDomicilio.setText("Domicilio *");
 
         jLabelFechaNacimiento.setText("Fecha de Nacimiento *");
@@ -319,12 +267,6 @@ public class ISocia extends javax.swing.JInternalFrame {
         jLabelFechaIngreso.setText("Fecha Ingreso *");
 
         jLabelExJugadora.setText("ExJugadora *");
-
-        jCheckBoxExJugadora.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxExJugadoraActionPerformed(evt);
-            }
-        });
 
         jLabelDomicilio1.setText("E-mail");
 
@@ -341,7 +283,7 @@ public class ISocia extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
+                        .addGap(39, 39, 39)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,39 +296,34 @@ public class ISocia extends javax.swing.JInternalFrame {
                                     .addComponent(jLabelDomicilio1, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabelFechaIngreso1, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabelFechaIngreso2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldFechaNacimiento, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.Alignment.TRAILING, 0, 160, Short.MAX_VALUE)
-                                            .addComponent(jTextFieldNombres)
-                                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCheckBoxExJugadora)
-                                            .addComponent(jTextFieldFechaIngreso)
-                                            .addComponent(jTextFieldTelFijo)
-                                            .addComponent(jTextFieldTelCelular)))))
+                                    .addComponent(jCheckBoxExJugadora)
+                                    .addComponent(jTextFieldFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabelDni)
                                     .addComponent(jLabelApellido))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldDNI)))))
+                                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDni))
@@ -430,56 +367,63 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelExJugadora)
                     .addComponent(jCheckBoxExJugadora))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jLabel1))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+        jLabelImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButtonExaminarImagen.setText("Seleccionar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonExaminarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonExaminarImagen)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDNIActionPerformed
-
-    private void jCheckBoxExJugadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxExJugadoraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxExJugadoraActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         if (unJInternalFrame != null) {
@@ -493,7 +437,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        modificar=false;
+        modificar = false;
         camposActivo(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -503,61 +447,57 @@ public class ISocia extends javax.swing.JInternalFrame {
         try {
             Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
             Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
-            if(!modificar){
-            unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()),
-                jTextFieldApellido.getText(),
-                jTextFieldNombres.getText(),
-                (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                jTextFieldDomicilio.getText(),
-                fechaNacimiento,
-                fechaIngreso,
-                "FOTO CARNET",
-                jCheckBoxExJugadora.isSelected(),
-                jTextFieldEmail.getText(),
-                jTextFieldTelFijo.getText(),
-                jTextFieldTelCelular.getText());
-            JOptionPane.showMessageDialog(this, "Socia Guardada");}
-            else { 
-            unaControladoraGlobal.modificarSocia(
-                unaSocia,
-                Long.parseLong(jTextFieldDNI.getText()),
-                jTextFieldApellido.getText(),
-                jTextFieldNombres.getText(),
-                (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                jTextFieldDomicilio.getText(),
-                fechaNacimiento,
-                jTextFieldTelFijo.getText(),
-                jTextFieldTelCelular.getText(),
-                jTextFieldEmail.getText(),
-                fechaIngreso,
-                false,
-                "FOTO CARNET",
-                jCheckBoxExJugadora.isSelected()                                
+            if (!modificar) {
+                unaControladoraGlobal.crearSocia(Long.parseLong(jTextFieldDNI.getText()),
+                        jTextFieldApellido.getText(),
+                        jTextFieldNombres.getText(),
+                        (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                        jTextFieldDomicilio.getText(),
+                        fechaNacimiento,
+                        fechaIngreso,
+                        "FOTO CARNET",
+                        jCheckBoxExJugadora.isSelected(),
+                        jTextFieldEmail.getText(),
+                        jTextFieldTelFijo.getText(),
+                        jTextFieldTelCelular.getText());
+                JOptionPane.showMessageDialog(this, "Socia Guardada");
+            } else {
+                unaControladoraGlobal.modificarSocia(
+                        unaSocia,
+                        Long.parseLong(jTextFieldDNI.getText()),
+                        jTextFieldApellido.getText(),
+                        jTextFieldNombres.getText(),
+                        (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                        jTextFieldDomicilio.getText(),
+                        fechaNacimiento,
+                        jTextFieldTelFijo.getText(),
+                        jTextFieldTelCelular.getText(),
+                        jTextFieldEmail.getText(),
+                        fechaIngreso,
+                        false,
+                        "FOTO CARNET",
+                        jCheckBoxExJugadora.isSelected()
                 );
-            JOptionPane.showMessageDialog(this, "Socia Modificada");
-            }            
+                JOptionPane.showMessageDialog(this, "Socia Modificada");
+            }
             camposActivo(false);
 
-        } catch (ParseException e) {            
+        } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         modificar = false;
-        if (this.unaSocia == null){
+        if (this.unaSocia == null) {
             camposLimpiar();
-            
-        }else{
+
+        } else {
             camposCargar(unaSocia);
         }
         camposActivo(false);
         jButtonNuevo.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -582,7 +522,6 @@ public class ISocia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelLocalidad;
     private javax.swing.JLabel jLabelNombres;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextFieldApellido;

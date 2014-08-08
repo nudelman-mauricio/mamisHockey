@@ -392,7 +392,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
 
     private void jMenuItemNuevaSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaSociasActionPerformed
-        ISocia unaSocia = new ISocia(unaControladoraGlobal, jDesktopPane);
+        ISocia unaSocia = new ISocia(unaControladoraGlobal);
         unaSocia.pack();
         unaSocia.setVisible(true);
         this.jDesktopPane.add(unaSocia);
