@@ -2,6 +2,8 @@ package Interfaces;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Localidad;
 import main.ControladoraGlobal;
@@ -10,7 +12,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaLocalidad;
-    private Localidad unaLocalidad;
+    private Localidad unaLocalidadSeleccionada;
 
     public ILocalidad(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -18,20 +20,55 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         this.modeloTablaLocalidad = (DefaultTableModel) jTableLocalidad.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
         cargarTabla();
-        
+
         //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
     }
 
-    public void camposActivo(boolean Editable) {        
+    private void limpiarTabla() {
+        int filas = this.modeloTablaLocalidad.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaLocalidad.removeRow(0);
+        }
+    }
+
+    private void cargarTabla() {
+        limpiarTabla();
+        List<Localidad> unaListaResultado = this.unaControladoraGlobal.getLocalidadesBD();
+        for (Localidad unaLocalidad : unaListaResultado) {
+            this.modeloTablaLocalidad.addRow(new Object[]{unaLocalidad.getIdLocalidad(), unaLocalidad.getNombre(), unaLocalidad.getCodPostal()});
+        }
+    }
+
+    public void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextFieldCodPostal.setEditable(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonEditar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
+    }
+
+    //blanquea componentes editables
+    void camposLimpiar() {
+        jTextFieldCodPostal.setText("");
+        jTextFieldNombre.setText("");
+    }
+
+    //actualizar campos al seleccionar en la tabla
+    void camposCargar() {
+        if (jTableLocalidad.getSelectedRow() > -1) {
+            if (jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0) != null) {
+                unaLocalidadSeleccionada = unaControladoraGlobal.getLocalidadBD((Long) jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0));
+
+                camposLimpiar();
+
+                jTextFieldNombre.setText(unaLocalidadSeleccionada.getNombre());
+                jTextFieldCodPostal.setText(unaLocalidadSeleccionada.getCodPostal());
+
+                camposActivo(false);
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -120,22 +157,23 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(239, 239, 239))
+                .addGap(3, 3, 3))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonGuardar))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonEliminar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonGuardar))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(3, 3, 3))
         );
 
@@ -162,17 +200,17 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableLocalidad.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableLocalidadFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableLocalidad);
         if (jTableLocalidad.getColumnModel().getColumnCount() > 0) {
             jTableLocalidad.getColumnModel().getColumn(0).setMinWidth(0);
             jTableLocalidad.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableLocalidad.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableLocalidad.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -182,7 +220,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
         );
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -203,9 +241,9 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaRealizacion1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(jTextFieldCodPostal))
-                .addContainerGap(99, Short.MAX_VALUE))
+                    .addComponent(jTextFieldCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,125 +263,127 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        camposActivoNuevo(true);
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableLocalidad.setEnabled(false);
+
+        camposActivo(true);
+        camposLimpiar();
+        unaLocalidadSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    public void camposActivoNuevo(boolean Editable) {
-        jTextFieldNombre.setEditable(Editable);
-        jTextFieldCodPostal.setEditable(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonNuevo.setEnabled(!Editable);
-        jButtonEditar.setEnabled(!Editable);
-        jButtonEliminar.setEnabled(!Editable);
-        jTableLocalidad.setEnabled(!Editable);
-    }
-    
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-     if(!(jTextFieldNombre.getText().isEmpty()) && !(jTextFieldCodPostal.getText().isEmpty())){
-        if (unaLocalidad == null) {
-            unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
-            JOptionPane.showMessageDialog(this, "Localidad Guardada");
-            
+        if (!(jTextFieldNombre.getText().isEmpty()) && !(jTextFieldCodPostal.getText().isEmpty())) {
+            if (unaLocalidadSeleccionada == null) {
+                unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
+                JOptionPane.showMessageDialog(this, "Localidad Guardada");
+
+            } else {
+                unaControladoraGlobal.modificarLocalidad(unaLocalidadSeleccionada, jTextFieldNombre.getText(), jTextFieldCodPostal.getText(), unaLocalidadSeleccionada.isBorradoLogico());
+                unaLocalidadSeleccionada = null;
+                JOptionPane.showMessageDialog(this, "Localidad Modificada");
+            }
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            camposActivo(false);
+            camposLimpiar();
+
+            cargarTabla();
+            jTableLocalidad.setEnabled(true);
         } else {
-            unaControladoraGlobal.modificarLocalidad(unaLocalidad, jTextFieldNombre.getText(), jTextFieldCodPostal.getText(), false);
-            unaLocalidad = null;            
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
         }
-        camposActivoNuevo(false);
-        this.jTextFieldCodPostal.setText("");
-        this.jTextFieldNombre.setText("");
-        cargarTabla();
-     } else {
-         JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
-     }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void jTableLocalidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableLocalidadFocusGained
-        this.SeleccionarObjetoTabla(true); // TODO add your handling code here:
-    }//GEN-LAST:event_jTableLocalidadFocusGained
-
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        camposActivoNuevo(false); // TODO add your handling code here:
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableLocalidad.setEnabled(true);
+
+        camposActivo(false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Localidad unaLocalidad = unaControladoraGlobal.getLocalidadBD((Long) jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0));
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableLocalidad.setEnabled(false);
+
+        camposActivo(false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar la localidad: " + unaLocalidad.getNombre() + " " + unaLocalidad.getCodPostal(),
+                "Desea eliminar la Localidad: " + unaLocalidadSeleccionada.getNombre() + " (" + unaLocalidadSeleccionada.getCodPostal() + ")?",
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarLocalidad(unaLocalidad);
+            unaControladoraGlobal.eliminarLocalidad(unaLocalidadSeleccionada);
+            unaLocalidadSeleccionada=null;
             cargarTabla();
         }
-        // TODO add your handling code here:
+        
+        jTableLocalidad.clearSelection();
+        jTableLocalidad.setEnabled(true);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        Localidad unaLocalidad = unaControladoraGlobal.getLocalidadBD((Long) jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0));
-        jTextFieldNombre.setText(unaLocalidad.getNombre());
-        jTextFieldCodPostal.setText(unaLocalidad.getCodPostal());
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableLocalidad.setEnabled(false);
+
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
-    private void cargarTabla() {
-        limpiarTabla();
-        List<Localidad> unaListaResultado = this.unaControladoraGlobal.getLocalidadesBD();
-        for (Localidad unaLocalidad : unaListaResultado) {
-            this.modeloTablaLocalidad.addRow(new Object[]{
-                unaLocalidad.getIdLocalidad(),
-                unaLocalidad.getNombre(),
-                unaLocalidad.getCodPostal()
-            });
-        }
-    }
-
-    private void limpiarTabla() {
-        try {
-            int filas = this.modeloTablaLocalidad.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaLocalidad.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla localidad.");
-        }
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonCancelar.setEnabled(estado);
-        jButtonEditar.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableLocalidad.clearSelection();
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
