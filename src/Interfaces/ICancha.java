@@ -98,16 +98,16 @@ public class ICancha extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanelBotones = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCancha = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelDetalles = new javax.swing.JPanel();
         jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelTipo = new javax.swing.JLabel();
@@ -135,7 +135,7 @@ public class ICancha extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
@@ -150,7 +150,6 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
-        jButtonNuevo.setEnabled(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -192,11 +191,11 @@ public class ICancha extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
+        jPanelBotones.setLayout(jPanelBotonesLayout);
+        jPanelBotonesLayout.setHorizontalGroup(
+            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,15 +208,15 @@ public class ICancha extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanelBotonesLayout.setVerticalGroup(
+            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonEditar)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonCancelar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
@@ -251,6 +250,9 @@ public class ICancha extends javax.swing.JInternalFrame {
             jTableCancha.getColumnModel().getColumn(0).setMinWidth(0);
             jTableCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableCancha.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableCancha.getColumnModel().getColumn(3).setMinWidth(150);
+            jTableCancha.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTableCancha.getColumnModel().getColumn(3).setMaxWidth(150);
         }
         jTableCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -258,61 +260,60 @@ public class ICancha extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+        javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
+        jPanelTabla.setLayout(jPanelTablaLayout);
+        jPanelTablaLayout.setHorizontalGroup(
+            jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelTablaLayout.setVerticalGroup(
+            jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Cancha"));
+        jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Cancha"));
 
         jLabelNombre.setText("Nombre");
 
         jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setEnabled(false);
 
         jLabelTipo.setText("Tipo");
 
         jComboBoxTipo.setEnabled(false);
 
-        jCheckBoxSeOcupa.setEnabled(false);
-
         jLabelTipo1.setText("Se Ocupa");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
+        jPanelDetalles.setLayout(jPanelDetallesLayout);
+        jPanelDetallesLayout.setHorizontalGroup(
+            jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                .addGap(194, 194, 194)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNombre)
                     .addComponent(jLabelTipo)
                     .addComponent(jLabelTipo1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBoxSeOcupa)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanelDetallesLayout.setVerticalGroup(
+            jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipo)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelTipo1)
                     .addComponent(jCheckBoxSeOcupa))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -325,20 +326,20 @@ public class ICancha extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelTabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -354,7 +355,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(false);
 
-        camposActivo(jPanel3, true);
+        camposActivo(jPanelDetalles, true);
         camposLimpiar();
         unaCanchaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -368,7 +369,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(false);
 
-        camposActivo(jPanel3, true);
+        camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -384,7 +385,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(true);
 
-        camposActivo(jPanel3, false);
+        camposActivo(jPanelDetalles, false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -407,7 +408,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(true);
 
-        camposActivo(jPanel3, false);
+        camposActivo(jPanelDetalles, false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -420,7 +421,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(true);
 
-        camposActivo(jPanel3, false);
+        camposActivo(jPanelDetalles, false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -451,9 +452,9 @@ public class ICancha extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelTipo;
     private javax.swing.JLabel jLabelTipo1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelBotones;
+    private javax.swing.JPanel jPanelDetalles;
+    private javax.swing.JPanel jPanelTabla;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCancha;
     private javax.swing.JTextField jTextFieldNombre;

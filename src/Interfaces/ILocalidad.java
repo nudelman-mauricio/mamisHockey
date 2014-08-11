@@ -125,7 +125,6 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
-        jButtonNuevo.setEnabled(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -241,10 +240,6 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion1.setText("Nombre");
 
         jLabelOrigen.setText("Cod. Postal");
-
-        jTextFieldCodPostal.setEnabled(false);
-
-        jTextFieldNombre.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

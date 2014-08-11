@@ -365,8 +365,8 @@ public class IErgometria extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGap(0, 3, Short.MAX_VALUE))
-        .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 542, Short.MAX_VALUE)
+            .addGap(0, 95, Short.MAX_VALUE))
+        .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 634, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

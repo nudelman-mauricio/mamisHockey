@@ -133,15 +133,17 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         jButtonAgregar = new javax.swing.JButton();
         jButtonQuitar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableEquiposDisponibles = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableEquiposInscriptos = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTableEquiposDisponibles = new javax.swing.JTable();
 
         setClosable(true);
+        setMaximumSize(new java.awt.Dimension(800, 450));
+        setMinimumSize(new java.awt.Dimension(800, 450));
+        setPreferredSize(new java.awt.Dimension(800, 450));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -219,8 +221,6 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/next.png"))); // NOI18N
         jButtonAgregar.setEnabled(false);
         jButtonAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -241,6 +241,28 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
                 jButtonQuitarActionPerformed(evt);
             }
         });
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipos disponibles no Inscrptos"));
+
+        jTableEquiposDisponibles.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Nombre", "Club", "Categoria"
+            }
+        ));
+        jTableEquiposDisponibles.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableEquiposDisponiblesFocusGained(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableEquiposDisponibles);
+        if (jTableEquiposDisponibles.getColumnModel().getColumnCount() > 0) {
+            jTableEquiposDisponibles.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableEquiposDisponibles.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableEquiposDisponibles.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipos Inscriptos"));
 
@@ -264,76 +286,42 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
             jTableEquiposInscriptos.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
-        jScrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder("Equipos sin Inscribir"));
-
-        jTableEquiposDisponibles.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "id", "Nombre", "Club", "Categoria"
-            }
-        ));
-        jTableEquiposDisponibles.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableEquiposDisponiblesFocusGained(evt);
-            }
-        });
-        jScrollPane4.setViewportView(jTableEquiposDisponibles);
-        if (jTableEquiposDisponibles.getColumnModel().getColumnCount() > 0) {
-            jTableEquiposDisponibles.getColumnModel().getColumn(0).setMinWidth(0);
-            jTableEquiposDisponibles.getColumnModel().getColumn(0).setPreferredWidth(0);
-            jTableEquiposDisponibles.getColumnModel().getColumn(0).setMaxWidth(0);
-        }
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAgregar)
-                    .addComponent(jButtonQuitar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(67, Short.MAX_VALUE)
-                        .addComponent(jButtonAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonQuitar)
-                        .addGap(129, 129, 129))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addGap(3, 3, 3))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
+                .addContainerGap()
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jButtonAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonQuitar)
+                        .addContainerGap(152, Short.MAX_VALUE))))
         );
 
         pack();
@@ -390,10 +378,9 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonQuitar;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBotones;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableEquiposDisponibles;
     private javax.swing.JTable jTableEquiposInscriptos;
     // End of variables declaration//GEN-END:variables
