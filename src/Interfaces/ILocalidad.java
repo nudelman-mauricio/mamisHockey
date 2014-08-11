@@ -25,6 +25,10 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
     }
 
     private void limpiarTabla() {

@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
-
 
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -20,68 +18,76 @@ import main.ControladoraGlobal;
  * @author Lucas
  */
 public class IConceptoEgresos extends javax.swing.JInternalFrame {
+
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unJDesktopPanel;
     private DefaultTableModel modeloTablaConceptoEgresos;
-    private ConceptoEgreso unConceptoEgreso;
+    private ConceptoEgreso unConceptoEgresoSeleccionado;
 
     /**
      * Creates new form ConceptoEgresos
      */
     public IConceptoEgresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+
+        this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unJDesktopPanel = unjDesktopPanel;
-        
-         IMenuPrincipalInterface.centrar(this);
-        
+        cargarTabla();
+
+        IMenuPrincipalInterface.centrar(this);
+        camposActivo(false);
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
-        cargarTabla();
-        camposActivo(false);
-        
+        jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+
     }
-    
-      public void camposActivo(boolean Editable) {        
+
+    private void limpiarTabla() {
+        int filas = this.modeloTablaConceptoEgresos.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaConceptoEgresos.removeRow(0);
+        }
+    }
+
+    private void cargarTabla() {
+        limpiarTabla();
+        List<ConceptoEgreso> unaListaResultado = this.unaControladoraGlobal.getConceptosEgresosBD();
+        for (ConceptoEgreso unConceptoEgreso : unaListaResultado) {
+            this.modeloTablaConceptoEgresos.addRow(new Object[]{unConceptoEgreso.getIdConceptoEgreso(), unConceptoEgreso.getNombre(), unConceptoEgreso.getDetalle()});
+        }
+    }
+
+    public void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextAreaDetalle.setEditable(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonEditar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
     }
-    
-    public void cargarTabla(){
-        limpiarTabla(modeloTablaConceptoEgresos);
-        List<ConceptoEgreso> unaListaResultado = this.unaControladoraGlobal.getConceptosEgresosBD();
-        for (ConceptoEgreso unConcepto : unaListaResultado) {
-            this.modeloTablaConceptoEgresos.addRow(new Object[]{unConcepto.getIdConceptoEgreso(), unConcepto.getNombre(),unConcepto.getDetalle()});
-        }
+
+    //blanquea componentes editables
+    void camposLimpiar() {
+        jTextAreaDetalle.setText("");
+        jTextFieldNombre.setText("");
     }
-    
-    private void limpiarTabla(DefaultTableModel modeloTablaConceptoEgresos) {
-        try {
-            int filas = modeloTablaConceptoEgresos.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaConceptoEgresos.removeRow(0);
+
+    //actualizar campos al seleccionar en la tabla
+    void camposCargar() {
+        if (jTableConceptoEgresos.getSelectedRow() > -1) {
+            if (jTableConceptoEgresos.getValueAt(jTableConceptoEgresos.getSelectedRow(), 0) != null) {
+                unConceptoEgresoSeleccionado = unaControladoraGlobal.getConceptoEgresoBD((Long) jTableConceptoEgresos.getValueAt(jTableConceptoEgresos.getSelectedRow(), 0));
+
+                camposLimpiar();
+
+                jTextFieldNombre.setText(unConceptoEgresoSeleccionado.getNombre());
+                jTextAreaDetalle.setText(unConceptoEgresoSeleccionado.getDetalle());
+
+                camposActivo(false);
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
-   private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonCancelar.setEnabled(estado);
-        jButtonEditar.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableConceptoEgresos.clearSelection();
-        }
-    }
-    
-   
-  
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -196,11 +202,6 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
                 "id", "Nombre", "Detalle"
             }
         ));
-        jTableConceptoEgresos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableConceptoEgresosFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableConceptoEgresos);
         if (jTableConceptoEgresos.getColumnModel().getColumnCount() > 0) {
             jTableConceptoEgresos.getColumnModel().getColumn(0).setMinWidth(0);
@@ -283,61 +284,101 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-       if(!(jTextFieldNombre.getText().isEmpty())){
-        if (unConceptoEgreso == null) {
-            unaControladoraGlobal.crearConceptoEgreso(jTextFieldNombre.getText(), jTextAreaDetalle.getText());
-            JOptionPane.showMessageDialog(this, "Concepto Egreso Guardada");            
+        if (!(jTextFieldNombre.getText().isEmpty())) {
+            if (unConceptoEgresoSeleccionado == null) {
+                unaControladoraGlobal.crearConceptoEgreso(jTextFieldNombre.getText(), jTextAreaDetalle.getText());
+                JOptionPane.showMessageDialog(this, "Concepto Egreso Guardada");
+            } else {
+                unaControladoraGlobal.modificarConceptoEgreso(unConceptoEgresoSeleccionado, jTextFieldNombre.getText(), jTextAreaDetalle.getText(), false);
+                unConceptoEgresoSeleccionado = null;
+                JOptionPane.showMessageDialog(this, "Concepto Egreso Modificada");
+            }
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            camposActivo(false);
+            camposLimpiar();
+
+            cargarTabla();
+            jTableConceptoEgresos.setEnabled(true);
         } else {
-            unaControladoraGlobal.modificarConceptoEgreso(unConceptoEgreso, jTextFieldNombre.getText(), jTextAreaDetalle.getText(), false);
-            unConceptoEgreso = null;            
+            JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
         }
-        camposActivoNuevo(false);
-        this.jTextAreaDetalle.setText("");
-        this.jTextFieldNombre.setText("");
-        cargarTabla();
-     } else {
-         JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
-     }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        camposActivoNuevo(true);
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptoEgresos.setEnabled(false);
+
+        camposActivo(true);
+        camposLimpiar();
+        unConceptoEgresoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    private void jTableConceptoEgresosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableConceptoEgresosFocusGained
-       this.SeleccionarObjetoTabla(true);
-    }//GEN-LAST:event_jTableConceptoEgresosFocusGained
-
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        ConceptoEgreso unConceptoEgreso = unaControladoraGlobal.getConceptoEgresoBD((Long) jTableConceptoEgresos.getValueAt(jTableConceptoEgresos.getSelectedRow(), 0));
-        jTextFieldNombre.setText(unConceptoEgreso.getNombre());
-        jTextAreaDetalle.setText(unConceptoEgreso.getDetalle());
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptoEgresos.setEnabled(false);
+
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-         camposActivoNuevo(false);
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptoEgresos.setEnabled(true);
+
+        camposActivo(false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        ConceptoEgreso unConceptoEgreso = unaControladoraGlobal.getConceptoEgresoBD((Long) jTableConceptoEgresos.getValueAt(jTableConceptoEgresos.getSelectedRow(), 0));
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
 
+        jTableConceptoEgresos.setEnabled(false);
+
+        camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el concepto egreso: " + unConceptoEgreso.getNombre(),
+                "Desea eliminar el concepto egreso: " + unConceptoEgresoSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarConceptoEgreso(unConceptoEgreso);
-            cargarTabla();
+            unaControladoraGlobal.eliminarConceptoEgreso(unConceptoEgresoSeleccionado);
+           unConceptoEgresoSeleccionado=null;
+           cargarTabla();
         }
+        
+        jTableConceptoEgresos.clearSelection();
+        jTableConceptoEgresos.setEnabled(true);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-   
-     public void camposActivoNuevo(boolean Editable) {
+    public void camposActivoNuevo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextAreaDetalle.setEditable(Editable);
         jButtonCancelar.setEnabled(Editable);

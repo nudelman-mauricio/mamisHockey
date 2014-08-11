@@ -20,62 +20,72 @@ import main.ControladoraGlobal;
  */
 public class IConceptoIngresos extends javax.swing.JInternalFrame {
 
-    private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unJDesktopPanel;
+       private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaConceptoIngresos;
-    private ConceptoIngreso unConceptoIngreso;
+    private ConceptoIngreso unConceptoIngresoSeleccionado;
 
     /**
-     * Creates new form ConceptoIngreso
+     * Creates new form ConceptoIngresos
      */
-    public IConceptoIngresos(JDesktopPane unJDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
+    public IConceptoIngresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+
+        this.modeloTablaConceptoIngresos = (DefaultTableModel) jTableConceptoIngreso.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unJDesktopPanel = unJDesktopPanel;
+        cargarTabla();
 
         IMenuPrincipalInterface.centrar(this);
-
+        camposActivo(false);
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.modeloTablaConceptoIngresos = (DefaultTableModel) jTableConceptoIngreso.getModel();
-        cargarTabla();
-        camposActivo(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+
+    }
+
+    private void limpiarTabla() {
+        int filas = this.modeloTablaConceptoIngresos.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaConceptoIngresos.removeRow(0);
+        }
+    }
+
+    private void cargarTabla() {
+        limpiarTabla();
+        List<ConceptoIngreso> unaListaResultado = this.unaControladoraGlobal.getConceptosIngresosBD();
+        for (ConceptoIngreso unConceptoIngreso : unaListaResultado) {
+            this.modeloTablaConceptoIngresos.addRow(new Object[]{unConceptoIngreso.getIdConceptoIngreso(), unConceptoIngreso.getNombre(), unConceptoIngreso.getDetalle()});
+        }
     }
 
     public void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextAreaDetalle.setEditable(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonEditar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
     }
 
-    public void cargarTabla() {
-        limpiarTabla(modeloTablaConceptoIngresos);
-        List<ConceptoIngreso> unaListaResultado = this.unaControladoraGlobal.getConceptosIngresosBD();
-        for (ConceptoIngreso unConcepto : unaListaResultado) {
-            this.modeloTablaConceptoIngresos.addRow(new Object[]{unConcepto.getIdConceptoIngreso(), unConcepto.getNombre(), unConcepto.getDetalle()});
-        }
+    //blanquea componentes editables
+    void camposLimpiar() {
+        jTextAreaDetalle.setText("");
+        jTextFieldNombre.setText("");
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTablaConceptoIngresos) {
-        try {
-            int filas = modeloTablaConceptoIngresos.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaConceptoIngresos.removeRow(0);
+    //actualizar campos al seleccionar en la tabla
+    void camposCargar() {
+        if (jTableConceptoIngreso.getSelectedRow() > -1) {
+            if (jTableConceptoIngreso.getValueAt(jTableConceptoIngreso.getSelectedRow(), 0) != null) {
+                unConceptoIngresoSeleccionado = unaControladoraGlobal.getConceptoIngresoBD((Long) jTableConceptoIngreso.getValueAt(jTableConceptoIngreso.getSelectedRow(), 0));
+
+                camposLimpiar();
+
+                jTextFieldNombre.setText(unConceptoIngresoSeleccionado.getNombre());
+                jTextAreaDetalle.setText(unConceptoIngresoSeleccionado.getDetalle());
+
+                camposActivo(false);
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonCancelar.setEnabled(estado);
-        jButtonEditar.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableConceptoIngreso.clearSelection();
         }
     }
 
@@ -193,11 +203,6 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
                 "id", "Nombre", "Detalle"
             }
         ));
-        jTableConceptoIngreso.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableConceptoIngresoFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableConceptoIngreso);
         if (jTableConceptoIngreso.getColumnModel().getColumnCount() > 0) {
             jTableConceptoIngreso.getColumnModel().getColumn(0).setMinWidth(0);
@@ -280,61 +285,102 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        camposActivoNuevo(true);
+         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptoIngreso.setEnabled(false);
+
+        camposActivo(true);
+        camposLimpiar();
+        unConceptoIngresoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        ConceptoIngreso unConceptoIngreso = unaControladoraGlobal.getConceptoIngresoBD((Long) jTableConceptoIngreso.getValueAt(jTableConceptoIngreso.getSelectedRow(), 0));
-        jTextFieldNombre.setText(unConceptoIngreso.getNombre());
-        jTextAreaDetalle.setText(unConceptoIngreso.getDetalle());
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptoIngreso.setEnabled(false);
+
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if(!(jTextFieldNombre.getText().isEmpty())){
-        if (unConceptoIngreso == null) {
-            unaControladoraGlobal.crearConceptoIngreso(jTextFieldNombre.getText(), jTextAreaDetalle.getText());
-            JOptionPane.showMessageDialog(this, "Concepto Ingreso Guardada");            
+       if (!(jTextFieldNombre.getText().isEmpty())) {
+            if (unConceptoIngresoSeleccionado == null) {
+                unaControladoraGlobal.crearConceptoIngreso(jTextFieldNombre.getText(), jTextAreaDetalle.getText());
+                JOptionPane.showMessageDialog(this, "Concepto Ingreso Guardada");
+            } else {
+                unaControladoraGlobal.modificarConceptoIngreso(unConceptoIngresoSeleccionado, jTextFieldNombre.getText(), jTextAreaDetalle.getText(), false);
+                unConceptoIngresoSeleccionado = null;
+                JOptionPane.showMessageDialog(this, "Concepto Ingreso Modificada");
+            }
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            camposActivo(false);
+            camposLimpiar();
+
+            cargarTabla();
+            jTableConceptoIngreso.setEnabled(true);
         } else {
-            unaControladoraGlobal.modificarConceptoIngreso(unConceptoIngreso, jTextFieldNombre.getText(), jTextAreaDetalle.getText(), false);
-            unConceptoIngreso = null;            
+            JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
         }
-        camposActivoNuevo(false);
-        this.jTextAreaDetalle.setText("");
-        this.jTextFieldNombre.setText("");
-        cargarTabla();
-     } else {
-         JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
-     }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-       camposActivoNuevo(false);
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableConceptoIngreso.setEnabled(true);
+
+        camposActivo(false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        ConceptoIngreso unConceptoIngreso = unaControladoraGlobal.getConceptoIngresoBD((Long) jTableConceptoIngreso.getValueAt(jTableConceptoIngreso.getSelectedRow(), 0));
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
 
+        jTableConceptoIngreso.setEnabled(false);
+
+        camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el concepto ingreso: " + unConceptoIngreso.getNombre(),
+                "Desea eliminar el concepto Ingreso: " + unConceptoIngresoSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarConceptoIngreso(unConceptoIngreso);
-            cargarTabla();
+            unaControladoraGlobal.eliminarConceptoIngreso(unConceptoIngresoSeleccionado);
+           unConceptoIngresoSeleccionado=null;
+           cargarTabla();
         }
+        
+        jTableConceptoIngreso.clearSelection();
+        jTableConceptoIngreso.setEnabled(true);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void jTableConceptoIngresoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableConceptoIngresoFocusGained
-        this.SeleccionarObjetoTabla(true);
-    }//GEN-LAST:event_jTableConceptoIngresoFocusGained
     
     public void camposActivoNuevo(boolean Editable) {
-        jTextFieldNombre.setEditable(Editable);
+       jTextFieldNombre.setEditable(Editable);
         jTextAreaDetalle.setEditable(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonGuardar.setEnabled(Editable);
