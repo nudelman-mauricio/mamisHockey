@@ -322,7 +322,7 @@ public class ControladoraContabilidad {
     }
     
     public List<Egreso> getEgresosEntreFechas(Date desde , Date hasta){
-        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha = '"+desde+ "' AND A.fecha='"+hasta+"' ORDER BY A.fecha ASC";
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha >= '"+desde+ "' AND A.fecha<'"+hasta+"' ORDER BY A.fecha ASC";       
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
         return unaListaResultado;
     }

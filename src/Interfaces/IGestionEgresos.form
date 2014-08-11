@@ -495,6 +495,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDesdeMesItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBoxDesdeA&#xf1;o">
               <Properties>
@@ -509,6 +512,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDesdeA&#xf1;oItemStateChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -582,6 +588,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxHastaMesItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBoxHastaA&#xf1;o">
               <Properties>
@@ -596,6 +605,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxHastaA&#xf1;oItemStateChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
