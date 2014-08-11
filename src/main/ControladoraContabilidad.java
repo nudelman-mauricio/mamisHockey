@@ -297,8 +297,33 @@ public class ControladoraContabilidad {
      * Devuelve todos los Egresos menos los borrados
      */
     public List<Egreso> getEgresosBD() {
-        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE";
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE ORDER BY A.fecha ASC";
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+    
+    public Egreso getUltimoEgreso(){
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE ORDER BY A.fecha DESC";
+        List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        for(Egreso unEgreso: unaListaResultado){
+            return unEgreso;
+        }
+        return null;
+    }    
+   
+    
+    public Egreso getPrimerEgreso(){
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE ORDER BY A.fecha ASC";
+        List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        for(Egreso unEgreso: unaListaResultado){
+            return unEgreso;
+        }
+        return null;
+    }
+    
+    public List<Egreso> getEgresosEntreFechas(Date desde , Date hasta){
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha = '"+desde+ "' AND A.fecha='"+hasta+"' ORDER BY A.fecha ASC";
+        List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
         return unaListaResultado;
     }
     // </editor-fold>

@@ -5,8 +5,10 @@
  */
 package Interfaces;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +31,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private Egreso unEgresoSeleccionado;
     private DefaultComboBoxModel unModeloComboConceptoEgreso;
     private DateFormat df = DateFormat.getDateInstance();
+    private String unaFecha;
+    private String[] unaFechaDividida;
 
     /**
      * Creates new form GestionEgresos
@@ -40,18 +44,22 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
+        cargarTabla();
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-
+        jButtonGuardar.setEnabled(false);        
+       
+        cargarFechasFiltrado();   
     }
 
     private void cargarTabla() {
         limpiarTabla();
-        List<Egreso> unaListaResultado = this.unaControladoraGlobal.getEgresosBD();
+        /*Date desde = new java.sql.Date(df.parse(jComboBoxDesdeMes.getSelectedIndex()));
+        Date hasta = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());*/
+        List<Egreso> unaListaResultado = this.unaControladoraGlobal.getEgresosEntreFechas(null, null);
         for (Egreso unEgreso : unaListaResultado) {
             this.modeloTablaGestionEgresos.addRow(new Object[]{unEgreso.getIdEgreso(), df.format(unEgreso.getFecha()), unEgreso.getUnConceptoEgreso(), unEgreso.getObservacion(), unEgreso.getMonto()});
         }
@@ -84,7 +92,18 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         this.jComboBoxConceptoEgreso.setModel(unModeloComboConceptoEgreso);
         this.jComboBoxConceptoEgreso.setSelectedIndex(-1);
     }
-
+    
+    public void cargarFechasFiltrado(){
+        String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
+        String[] fechaDividida = fecha.split("/");        
+        jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1])-1);       
+        jComboBoxDesdeAño.setSelectedIndex(Integer.parseInt(fechaDividida[2])+1-Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
+        
+        fecha = df.format(unaControladoraGlobal.getUltimoEgreso().getFecha());
+        fechaDividida = fecha.split("/"); 
+        jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1])-1);       
+        jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2])+1-Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,7 +115,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonImprimir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jButtonFiltrar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEgresos = new javax.swing.JTable();
@@ -115,17 +133,13 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jComboBoxDesdeMes = new javax.swing.JComboBox();
         jComboBoxDesdeAño = new javax.swing.JComboBox();
-        jComboBoxDesdeDia = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
-        jComboBoxHastaDia = new javax.swing.JComboBox();
 
         setClosable(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -140,11 +154,21 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonEditar.setText("Editar");
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -180,14 +204,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        jButtonFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
-        jButtonFiltrar.setText("Filtrar");
-        jButtonFiltrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonFiltrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFiltrarActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
@@ -208,9 +227,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,8 +238,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -247,10 +263,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +299,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(123, 123, 123)
+                .addGap(92, 92, 92)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaCaducidad1)
                     .addComponent(jLabelFechaCaducidad)
@@ -337,24 +350,16 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Mes");
 
-        jLabel3.setText("Dia");
+        jComboBoxDesdeMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
-        jComboBoxDesdeMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Septiembre", "Item 3", "Item 4" }));
-
-        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012" }));
-
-        jComboBoxDesdeDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxDesdeDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,8 +376,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBoxDesdeDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
@@ -384,24 +387,16 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Mes");
 
-        jLabel9.setText("Dia");
+        jComboBoxHastaMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
-        jComboBoxHastaMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Septiembre", "Item 3", "Item 4" }));
-
-        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012" }));
-
-        jComboBoxHastaDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxHastaDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,7 +404,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxHastaAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,8 +413,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jComboBoxHastaAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboBoxHastaDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jComboBoxHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
@@ -434,46 +427,43 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addGap(10, 10, 10)
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -482,10 +472,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-
-    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFiltrarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         jButtonNuevo.setEnabled(false);
@@ -559,29 +545,78 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableEgresos.setEnabled(false);
+
+        camposActivo(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableEgresos.setEnabled(true);
+
+        camposActivo(false);
+        camposLimpiar();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableEgresos.setEnabled(false);
+
+        camposActivo(false);
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar el egreso: " + unEgresoSeleccionado.getFecha() + " - " + unEgresoSeleccionado.getUnConceptoEgreso() + " - " + unEgresoSeleccionado.getMonto(),
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarEgreso(unEgresoSeleccionado);
+           unEgresoSeleccionado=null;
+           cargarTabla();
+        }        
+        jTableEgresos.clearSelection();
+        jTableEgresos.setEnabled(true);
+        camposLimpiar();
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonNuevoEgreso;
     private javax.swing.JComboBox jComboBoxConceptoEgreso;
     private javax.swing.JComboBox jComboBoxDesdeAño;
-    private javax.swing.JComboBox jComboBoxDesdeDia;
     private javax.swing.JComboBox jComboBoxDesdeMes;
     private javax.swing.JComboBox jComboBoxHastaAño;
-    private javax.swing.JComboBox jComboBoxHastaDia;
     private javax.swing.JComboBox jComboBoxHastaMes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelComentario;
     private javax.swing.JLabel jLabelFechaCaducidad;
     private javax.swing.JLabel jLabelFechaCaducidad1;

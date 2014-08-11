@@ -746,6 +746,18 @@ public class ControladoraGlobal {
     public List<Egreso> getEgresosBD() {
         return this.unaControladoraContabilidad.getEgresosBD();
     }
+    
+    public Egreso getUltimoEgreso(){
+        return this.unaControladoraContabilidad.getUltimoEgreso();
+    }
+    
+     public Egreso getPrimerEgreso(){
+        return this.unaControladoraContabilidad.getPrimerEgreso();
+    }
+     
+     public List<Egreso> getEgresosEntreFechas(Date desde, Date hasta){
+         return this.unaControladoraContabilidad.getEgresosEntreFechas(desde, hasta);
+     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Meses">

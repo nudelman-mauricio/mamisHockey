@@ -33,7 +33,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         this.modeloTablaConceptoIngresos = (DefaultTableModel) jTableConceptoIngreso.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
         cargarTabla();
-
+       
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
         //Icono de la ventana
