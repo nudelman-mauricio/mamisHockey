@@ -424,7 +424,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemGestionTorneoActionPerformed
 
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
-        IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane);
+        IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane,unaControladoraGlobal);
         unGestionEgresos.pack();
         unGestionEgresos.setVisible(true);
         this.jDesktopPane.add(unGestionEgresos);

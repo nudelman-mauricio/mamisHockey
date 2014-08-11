@@ -8,6 +8,7 @@ package Interfaces;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoEgreso;
@@ -22,6 +23,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaConceptoEgresos;
     private ConceptoEgreso unConceptoEgresoSeleccionado;
+    private JInternalFrame unJInternalFrame;
 
     /**
      * Creates new form ConceptoEgresos
@@ -31,6 +33,25 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
         this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
+        cargarTabla();
+
+        IMenuPrincipalInterface.centrar(this);
+        camposActivo(false);
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+
+    }
+    
+     public IConceptoEgresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
+        initComponents();
+
+        this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unJInternalFrame = unJInternalFrame;
         cargarTabla();
 
         IMenuPrincipalInterface.centrar(this);
@@ -109,6 +130,23 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jLabelFechaCaducidad1 = new javax.swing.JLabel();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -377,6 +415,12 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jTableConceptoEgresos.setEnabled(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+       if(unJInternalFrame != null){
+           this.unJInternalFrame.setVisible(true);
+       }
+    }//GEN-LAST:event_formInternalFrameClosed
 
     public void camposActivoNuevo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
