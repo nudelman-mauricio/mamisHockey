@@ -95,9 +95,9 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jTextFieldNombre = new javax.swing.JTextField();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(488, 414));
-        setMinimumSize(new java.awt.Dimension(488, 414));
-        setPreferredSize(new java.awt.Dimension(488, 414));
+        setMaximumSize(new java.awt.Dimension(650, 410));
+        setMinimumSize(new java.awt.Dimension(650, 410));
+        setPreferredSize(new java.awt.Dimension(650, 410));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -246,7 +246,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(180, 180, 180)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaRealizacion1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -254,7 +254,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldCodPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(jTextFieldNombre))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
