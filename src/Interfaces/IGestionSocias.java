@@ -209,6 +209,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonPases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Transferencia.png"))); // NOI18N
         jButtonPases.setText("Pases");
+        jButtonPases.setEnabled(false);
         jButtonPases.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPases.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonPases.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +220,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonSancion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
         jButtonSancion.setText("Sanciones");
+        jButtonSancion.setEnabled(false);
         jButtonSancion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSancion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSancion.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +231,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonTarjetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png"))); // NOI18N
         jButtonTarjetas.setText("Tarjetas");
+        jButtonTarjetas.setEnabled(false);
         jButtonTarjetas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonTarjetas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonTarjetas.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +242,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonErgometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/corazon.png"))); // NOI18N
         jButtonErgometria.setText("Ergometrias");
+        jButtonErgometria.setEnabled(false);
         jButtonErgometria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonErgometria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonErgometria.addActionListener(new java.awt.event.ActionListener() {
@@ -249,6 +253,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
+        jButtonDatos.setEnabled(false);
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +264,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png"))); // NOI18N
         jButtonEstado.setText("Estados");
+        jButtonEstado.setEnabled(false);
         jButtonEstado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEstado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +275,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonContabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); // NOI18N
         jButtonContabilidad.setText("Contabilidad");
+        jButtonContabilidad.setEnabled(false);
         jButtonContabilidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonContabilidad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonContabilidad.addActionListener(new java.awt.event.ActionListener() {
@@ -346,34 +353,36 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
+        this.SeleccionarObjetoTabla(false);
+        
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(unaControladoraGlobal, this, unaSociaSeleccionada);
-
         unaIContabilidadSocia.pack();
         unaIContabilidadSocia.setVisible(true);
+        
+        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadSocia);
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         IEstado unIEstado = new IEstado(unaControladoraGlobal, this, unaSociaSeleccionada);
-
         unIEstado.pack();
         unIEstado.setVisible(true);
+        
+        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIEstado);
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         ISocia unaISocia = new ISocia(unaControladoraGlobal, this, unaSociaSeleccionada);
-
         unaISocia.pack();
         unaISocia.setVisible(true);
+        
+        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
@@ -381,44 +390,44 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal, this, unaSociaSeleccionada);
-
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
+        
+        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIErgometria);
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         ITarjeta unaITarjeta = new ITarjeta(unaControladoraGlobal, this, unaSociaSeleccionada);
-
         unaITarjeta.pack();
         unaITarjeta.setVisible(true);
+        
+        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaITarjeta);
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         ISancion unaISancion = new ISancion(this, unaSociaSeleccionada, unaControladoraGlobal);
-
         unaISancion.pack();
         unaISancion.setVisible(true);
+        
+        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-
         IPase unIPase = new IPase(unaControladoraGlobal, this, unaSociaSeleccionada);
-
         unIPase.pack();
         unIPase.setVisible(true);
+        
+        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIPase);
     }//GEN-LAST:event_jButtonPasesActionPerformed

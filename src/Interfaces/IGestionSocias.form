@@ -333,6 +333,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Transferencia.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pases"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -346,6 +347,7 @@
               <Image iconType="3" name="/Iconos Nuevos/sanciones.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sanciones"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -359,6 +361,7 @@
               <Image iconType="3" name="/Iconos Nuevos/tarjeta-roja-amarilla-verde.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Tarjetas"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -372,6 +375,7 @@
               <Image iconType="3" name="/Iconos Nuevos/corazon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ergometrias"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -385,6 +389,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Datos.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Datos"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -398,6 +403,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Estados.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Estados"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -411,6 +417,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Contabilidad.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Contabilidad"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>

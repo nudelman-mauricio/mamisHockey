@@ -8,9 +8,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Estado;
-import logicaNegocios.Pase;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -236,17 +237,18 @@ public class IEstado extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableEstado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableEstadoFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableEstado);
         if (jTableEstado.getColumnModel().getColumnCount() > 0) {
             jTableEstado.getColumnModel().getColumn(0).setMinWidth(0);
             jTableEstado.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableEstado.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableEstado.getSelectionModel () .addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                jButtonEliminar.setEnabled(true);
+                jButtonEditar.setEnabled(true);
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -358,7 +360,7 @@ public class IEstado extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(true);
+        jButtonEditar.setEnabled(false);
         
         camposLimpiar();
         camposActivo(false);
@@ -417,12 +419,6 @@ public class IEstado extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonEditar.setEnabled(false);
     }//GEN-LAST:event_jButtonEditarActionPerformed
-
-    private void jTableEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEstadoFocusGained
-        jButtonEliminar.setEnabled(true);
-        jButtonEditar.setEnabled(true);
-        
-    }//GEN-LAST:event_jTableEstadoFocusGained
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         if (unJInternalFrame != null) {
