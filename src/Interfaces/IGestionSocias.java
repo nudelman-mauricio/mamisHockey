@@ -353,13 +353,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        this.SeleccionarObjetoTabla(false);
-        
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(unaControladoraGlobal, this, unaSociaSeleccionada);
         unaIContabilidadSocia.pack();
         unaIContabilidadSocia.setVisible(true);
-        
         
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadSocia);
@@ -371,7 +368,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unIEstado.pack();
         unIEstado.setVisible(true);
         
-        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIEstado);
     }//GEN-LAST:event_jButtonEstadoActionPerformed
@@ -382,7 +378,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaISocia.pack();
         unaISocia.setVisible(true);
         
-        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
@@ -394,7 +389,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
         
-        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIErgometria);
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
@@ -405,7 +399,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaITarjeta.pack();
         unaITarjeta.setVisible(true);
         
-        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaITarjeta);
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
@@ -416,7 +409,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaISancion.pack();
         unaISancion.setVisible(true);
         
-        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
@@ -427,7 +419,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unIPase.pack();
         unIPase.setVisible(true);
         
-        this.SeleccionarObjetoTabla(false);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIPase);
     }//GEN-LAST:event_jButtonPasesActionPerformed
@@ -460,8 +451,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        SeleccionarObjetoTabla(false);
         filtrarSocias(jTextFieldBusqueda.getText());
+        SeleccionarObjetoTabla(false);
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
