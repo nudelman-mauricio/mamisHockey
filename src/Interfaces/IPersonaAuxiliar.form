@@ -307,9 +307,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldDNI">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDNIActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelApellido">
           <Properties>
@@ -357,9 +354,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldFechaNacimiento">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldFechaNacimientoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaIngreso">
           <Properties>
@@ -367,9 +361,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldFechaIngreso">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldFechaIngresoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelFijo">
           <Properties>
@@ -403,9 +394,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxEsArbitro">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxEsArbitroActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTecnico">
           <Properties>
@@ -413,9 +401,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxEsCuerpoTecnico">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxEsCuerpoTecnicoActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

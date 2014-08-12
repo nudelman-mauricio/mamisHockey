@@ -65,7 +65,7 @@ public class ControladoraEntidades {
      */
     public PersonaAuxiliar getPersonaAuxiliarBD(Long dni) {
         PersonaAuxiliar resultado;
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.cuerpoTecnico = TRUE";
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni;
         Query traerCuerpoTecnico = this.entityManager.createQuery(unaConsulta);
         resultado = (PersonaAuxiliar) traerCuerpoTecnico.getSingleResult();
         return resultado;
@@ -76,7 +76,7 @@ public class ControladoraEntidades {
      */
     public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
         PersonaAuxiliar resultado;
-        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.borradoLogico = FALSE";
+        String unaConsulta = "SELECT A FROM PersonaAuxiliar A WHERE A.dni = " + dni + " AND A.cuerpoTecnico = TRUE AND A.borradoLogico = FALSE";
         Query traerPersonaAuxiliar = this.entityManager.createQuery(unaConsulta);
         resultado = (PersonaAuxiliar) traerPersonaAuxiliar.getSingleResult();
         return resultado;

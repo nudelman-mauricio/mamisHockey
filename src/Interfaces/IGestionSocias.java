@@ -4,6 +4,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
@@ -91,11 +93,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImprimirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
@@ -127,11 +124,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldBusquedaFocusGained(evt);
-            }
-        });
-        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBusquedaActionPerformed(evt);
             }
         });
         jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -187,11 +179,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableSocias.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableSociasFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableSocias);
         if (jTableSocias.getColumnModel().getColumnCount() > 0) {
             jTableSocias.getColumnModel().getColumn(0).setMinWidth(60);
@@ -201,6 +188,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             jTableSocias.getColumnModel().getColumn(3).setPreferredWidth(80);
             jTableSocias.getColumnModel().getColumn(3).setMaxWidth(80);
         }
+        jTableSocias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                SeleccionarObjetoTabla(true);
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -442,10 +434,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         }
     }
 
-    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonImprimirActionPerformed
-
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         ISocia unaSocia = new ISocia(unaControladoraGlobal, this);
         unaSocia.pack();
@@ -453,10 +441,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaSocia);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
-
-    private void jTableSociasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSociasFocusGained
-        this.SeleccionarObjetoTabla(true);
-    }//GEN-LAST:event_jTableSociasFocusGained
 
     private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
         this.SeleccionarObjetoTabla(false);
@@ -491,10 +475,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             this.SeleccionarObjetoTabla(false);
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
 
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
