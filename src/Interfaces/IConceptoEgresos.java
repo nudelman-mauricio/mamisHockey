@@ -433,6 +433,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarConceptoEgreso(unConceptoEgresoSeleccionado);
            unConceptoEgresoSeleccionado=null;
            cargarTabla();
+           
         }
         
         jTableConceptoEgresos.clearSelection();

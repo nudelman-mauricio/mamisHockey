@@ -57,9 +57,10 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
 
-        if(unaControladoraGlobal.getIngresosOtrosBD().size()>0){
-        cargarFechasFiltrado();
-        cargarTabla();}
+        if (unaControladoraGlobal.getIngresosOtrosBD().size() > 0) {
+            cargarFechasFiltrado();
+            cargarTabla();
+        }
     }
 
     private void cargarTabla() {
@@ -654,6 +655,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 options)) {
             unaControladoraGlobal.eliminarEgreso(unEgresoSeleccionado);
             unEgresoSeleccionado = null;
+            cargarFechasFiltrado();
             cargarTabla();
         }
         jTableEgresos.clearSelection();
