@@ -94,7 +94,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 jTextFieldMontoTotalDeuda.setText(Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 jComboBoxCantidadCuotas.setSelectedIndex(unaDeudaSeleccionada.getCantidadCuotas() - 1);
                 jTextFieldMontoCuota.setText(Double.toString(unaDeudaSeleccionada.getPrimerMonto()));
-                jTextAreaObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
+                jTextPaneObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
 
                 jButtonEliminar.setEnabled(true);
             }
@@ -112,7 +112,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     jTextFieldFechaPagoCuota.setText(df.format(unaCuotaSeleccionada.getFechaPago()));
                 }
                 jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMontoPago()));
-                jTextAreaObservacionPago.setText(unaCuotaSeleccionada.getUnPagoCuota().getObservacion());
+                jTextPaneObservacionPago.setText(unaCuotaSeleccionada.getUnPagoCuota().getObservacion());
 
                 jButtonPagar.setEnabled(true);
             }
@@ -141,14 +141,14 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jTextFieldMontoTotalDeuda.setText("");
         jComboBoxCantidadCuotas.setSelectedIndex(-1);
         jTextFieldMontoCuota.setText("");
-        jTextAreaObservacionDeuda.setText("");
+        jTextPaneObservacionDeuda.setText("");
     }
 
     //blanqueda componentes editables de la solapa Cuotas
     void camposLimpiarCuotas() {
         jTextFieldFechaPagoCuota.setText("");
         jTextFieldMontoCuotaAbonado.setText("");
-        jTextAreaObservacionPago.setText("");
+        jTextPaneObservacionPago.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -175,14 +175,14 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion2 = new javax.swing.JLabel();
         jComboBoxConcepto = new javax.swing.JComboBox();
         jLabelFechaRealizacion3 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaObservacionDeuda = new javax.swing.JTextArea();
         jLabelFechaRealizacion4 = new javax.swing.JLabel();
         jTextFieldMontoTotalDeuda = new javax.swing.JTextField();
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
         jTextFieldMontoCuota = new javax.swing.JTextField();
         jComboBoxCantidadCuotas = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPaneObservacionDeuda = new javax.swing.JTextPane();
         jPanelCuotas = new javax.swing.JPanel();
         jPanelTablaCuotas = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -192,9 +192,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jTextFieldFechaPagoCuota = new javax.swing.JTextField();
         jLabelFechaRealizacion10 = new javax.swing.JLabel();
         jTextFieldMontoCuotaAbonado = new javax.swing.JTextField();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextAreaObservacionPago = new javax.swing.JTextArea();
         jLabelFechaRealizacion8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextPaneObservacionPago = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -323,10 +323,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jTableDeudas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "id", "Fecha", "Concepto", "Cant. Cuotas", "1° Vencimiento", "Monto", "Deuda Saldada"
@@ -374,7 +371,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jPanelTablaDeudas.setLayout(jPanelTablaDeudasLayout);
         jPanelTablaDeudasLayout.setHorizontalGroup(
             jPanelTablaDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
         );
         jPanelTablaDeudasLayout.setVerticalGroup(
             jPanelTablaDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,10 +388,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion3.setText("Observación");
 
-        jTextAreaObservacionDeuda.setColumns(20);
-        jTextAreaObservacionDeuda.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaObservacionDeuda);
-
         jLabelFechaRealizacion4.setText("Monto ($)");
 
         jLabelFechaRealizacion5.setText("Cuotas");
@@ -404,6 +397,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jComboBoxCantidadCuotas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         jLabel1.setText("X ($)");
+
+        jScrollPane3.setViewportView(jTextPaneObservacionDeuda);
 
         javax.swing.GroupLayout jPanelDetalleDeudasLayout = new javax.swing.GroupLayout(jPanelDetalleDeudas);
         jPanelDetalleDeudas.setLayout(jPanelDetalleDeudasLayout);
@@ -419,13 +414,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaRealizacion2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
-                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabelFechaRealizacion3))
-                    .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetalleDeudasLayout.createSequentialGroup()
                             .addComponent(jComboBoxCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,16 +421,23 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTextFieldMontoCuota))
-                        .addComponent(jTextFieldMontoTotalDeuda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldMontoTotalDeuda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
+                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabelFechaRealizacion3))
+                    .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDetalleDeudasLayout.setVerticalGroup(
             jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelFechaRealizacion)
@@ -465,10 +460,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                             .addComponent(jLabelFechaRealizacion5)
                             .addComponent(jTextFieldMontoCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(0, 11, Short.MAX_VALUE))
+                            .addComponent(jLabel1)))
                     .addComponent(jScrollPane3))
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelDeudasLayout = new javax.swing.GroupLayout(jPanelDeudas);
@@ -496,10 +490,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jTableCuotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "id", "Número", "Vencimiento", "Monto", "Fecha de Pago", "Monto Abonado"
@@ -549,11 +540,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion10.setText("Monto Abonado ($)");
 
-        jTextAreaObservacionPago.setColumns(20);
-        jTextAreaObservacionPago.setRows(5);
-        jScrollPane5.setViewportView(jTextAreaObservacionPago);
-
         jLabelFechaRealizacion8.setText("Observación");
+
+        jScrollPane4.setViewportView(jTextPaneObservacionPago);
 
         javax.swing.GroupLayout jPanelDetalleCuotasLayout = new javax.swing.GroupLayout(jPanelDetalleCuotas);
         jPanelDetalleCuotas.setLayout(jPanelDetalleCuotasLayout);
@@ -574,8 +563,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabelFechaRealizacion8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addComponent(jScrollPane4)
+                .addContainerGap())
         );
         jPanelDetalleCuotasLayout.setVerticalGroup(
             jPanelDetalleCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,13 +577,15 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetalleCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMontoCuotaAbonado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelFechaRealizacion10))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 46, Short.MAX_VALUE))
             .addGroup(jPanelDetalleCuotasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetalleCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFechaRealizacion8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanelDetalleCuotasLayout.createSequentialGroup()
+                        .addComponent(jLabelFechaRealizacion8)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -669,7 +660,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
 
-                unaControladoraGlobal.crearDeudaSocia(unaSocia, fechaRealizacion, (ConceptoDeportivo) jComboBoxConcepto.getSelectedItem(), jTextAreaObservacionDeuda.getText(), Double.parseDouble(jTextFieldMontoTotalDeuda.getText()), jComboBoxCantidadCuotas.getSelectedIndex() + 1, fechaVencimiento);
+                unaControladoraGlobal.crearDeudaSocia(unaSocia, fechaRealizacion, (ConceptoDeportivo) jComboBoxConcepto.getSelectedItem(), jTextPaneObservacionDeuda.getText(), Double.parseDouble(jTextFieldMontoTotalDeuda.getText()), jComboBoxCantidadCuotas.getSelectedIndex() + 1, fechaVencimiento);
                 JOptionPane.showMessageDialog(this, "Deuda Guardada");
 
                 cargarTablaDeudas();
@@ -842,17 +833,17 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableCuotas;
     private javax.swing.JTable jTableDeudas;
-    private javax.swing.JTextArea jTextAreaObservacionDeuda;
-    private javax.swing.JTextArea jTextAreaObservacionPago;
     private javax.swing.JTextField jTextFieldFechaPagoCuota;
     private javax.swing.JTextField jTextFieldFechaRealizacion;
     private javax.swing.JTextField jTextFieldFechaVencimiento;
     private javax.swing.JTextField jTextFieldMontoCuota;
     private javax.swing.JTextField jTextFieldMontoCuotaAbonado;
     private javax.swing.JTextField jTextFieldMontoTotalDeuda;
+    private javax.swing.JTextPane jTextPaneObservacionDeuda;
+    private javax.swing.JTextPane jTextPaneObservacionPago;
     // End of variables declaration//GEN-END:variables
 }

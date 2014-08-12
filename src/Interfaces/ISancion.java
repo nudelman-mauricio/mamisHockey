@@ -49,7 +49,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     }
 
     private void activarCampos(Boolean editable) {
-        this.jTextAreaDetalle.setEditable(editable);
+        this.jTextPaneDetalle.setEditable(editable);
         this.jTextFieldCantFechasACumplir.setEditable(editable);
         this.jTextFieldFecha.setEditable(editable);
         this.jTextFieldHastaUnaFecha.setEditable(editable);
@@ -63,7 +63,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTextFieldCantFechasACumplir.setText("");
         this.jTextFieldHastaUnaFecha.setText("");
         this.jTextFieldMotivo.setText("");
-        this.jTextAreaDetalle.setText("");
+        this.jTextPaneDetalle.setText("");
     }
 
     public void camposCargar(SancionTribunal unaSancion) {
@@ -73,7 +73,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTextFieldCantFechasACumplir.setText(String.valueOf(unaSancion.getCantFechas()));
         this.jTextFieldHastaUnaFecha.setText(df.format(unaSancion.getVencimiento()));
         this.jTextFieldMotivo.setText(unaSancion.getMotivo());
-        this.jTextAreaDetalle.setText(unaSancion.getDetalles());
+        this.jTextPaneDetalle.setText(unaSancion.getDetalles());
 
         jButtonEliminar.setEnabled(true);
         jButtonEditar.setEnabled(true);
@@ -127,8 +127,6 @@ public class ISancion extends javax.swing.JInternalFrame {
         jPanelDetalles = new javax.swing.JPanel();
         jLabelFecha = new javax.swing.JLabel();
         jLabelDetalle = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaDetalle = new javax.swing.JTextArea();
         jTextFieldFecha = new javax.swing.JTextField();
         jLabel1NumResolucion = new javax.swing.JLabel();
         jTextFieldNumResolucion = new javax.swing.JTextField();
@@ -138,6 +136,8 @@ public class ISancion extends javax.swing.JInternalFrame {
         jTextFieldHastaUnaFecha = new javax.swing.JTextField();
         jLabelMotivo = new javax.swing.JLabel();
         jTextFieldMotivo = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPaneDetalle = new javax.swing.JTextPane();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 544));
@@ -240,7 +240,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,10 +305,6 @@ public class ISancion extends javax.swing.JInternalFrame {
 
     jLabelDetalle.setText("Detalle");
 
-    jTextAreaDetalle.setColumns(20);
-    jTextAreaDetalle.setRows(5);
-    jScrollPane2.setViewportView(jTextAreaDetalle);
-
     jLabel1NumResolucion.setText("N° de Resolución");
 
     jLabelCantFechasACumplir.setText("Cantidad de Fechas a Cumplir");
@@ -316,6 +312,8 @@ public class ISancion extends javax.swing.JInternalFrame {
     jLabelHastaUnaFecha.setText("Hasta una fecha");
 
     jLabelMotivo.setText("Motivo");
+
+    jScrollPane3.setViewportView(jTextPaneDetalle);
 
     javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
     jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -337,8 +335,8 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                 .addComponent(jTextFieldNumResolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                 .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-            .addContainerGap(207, Short.MAX_VALUE))
+                .addComponent(jScrollPane3))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     jPanelDetallesLayout.setVerticalGroup(
         jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,7 +364,7 @@ public class ISancion extends javax.swing.JInternalFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabelDetalle)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap())
     );
 
@@ -391,7 +389,7 @@ public class ISancion extends javax.swing.JInternalFrame {
             .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
     );
 
     pack();
@@ -430,7 +428,7 @@ public class ISancion extends javax.swing.JInternalFrame {
             Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
             Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldHastaUnaFecha.getText()).getTime());
             if (!modificar) {
-                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextAreaDetalle.getText());                
+                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());                
                 JOptionPane.showMessageDialog(this, "Sancion Creada");
             } else {
                 SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
@@ -439,7 +437,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                         unaSancion, 
                         fechaCaducidad, 
                         Integer.parseInt(jTextFieldCantFechasACumplir.getText()), 
-                        fecha, jTextFieldMotivo.getText(), jTextAreaDetalle.getText(), 
+                        fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), 
                         unaSancion.getUnaTarjeta(), 
                         unaSancion.getUnPartido(), 
                         Integer.parseInt(jTextFieldCantFechasACumplir.getText()), 
@@ -478,7 +476,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTextFieldCantFechasACumplir.setText(String.valueOf(unaSancion.getCantFechas()));
         this.jTextFieldHastaUnaFecha.setText(df.format(unaSancion.getVencimiento()));
         this.jTextFieldMotivo.setText(unaSancion.getMotivo());
-        this.jTextAreaDetalle.setText(unaSancion.getDetalles());
+        this.jTextPaneDetalle.setText(unaSancion.getDetalles());
 
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
@@ -548,13 +546,13 @@ public class ISancion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableSancion;
-    private javax.swing.JTextArea jTextAreaDetalle;
     private javax.swing.JTextField jTextFieldCantFechasACumplir;
     private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldHastaUnaFecha;
     private javax.swing.JTextField jTextFieldMotivo;
     private javax.swing.JTextField jTextFieldNumResolucion;
+    private javax.swing.JTextPane jTextPaneDetalle;
     // End of variables declaration//GEN-END:variables
 }

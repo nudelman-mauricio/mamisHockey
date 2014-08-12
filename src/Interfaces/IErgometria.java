@@ -52,14 +52,14 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jTextFieldFechaRealizacion.setEditable(Editable);
         jTextFieldFechaCaducidad.setEditable(Editable);
         jCheckBoxEgometriaAprobada.setEnabled(Editable);
-        jTextAreaErgometriaComentario.setEditable(Editable);
+        jTextPaneErgometriaComentario.setEditable(Editable);
     }
 
     public void camposLimpiar() {
         jTextFieldFechaRealizacion.setText("");
         jTextFieldFechaCaducidad.setText("");
         jCheckBoxEgometriaAprobada.setSelected(false);
-        jTextAreaErgometriaComentario.setText("");
+        jTextPaneErgometriaComentario.setText("");
     }
 
     public void camposCargar(Ergometria unaErgometria) {
@@ -67,7 +67,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jTextFieldFechaRealizacion.setText(df.format(unaErgometria.getFechaRealizacion()));
         jTextFieldFechaCaducidad.setText(df.format(unaErgometria.getFechaCaducidad()));
         jCheckBoxEgometriaAprobada.setSelected(unaErgometria.isAprobado());
-        jTextAreaErgometriaComentario.setText(unaErgometria.getComentarios());
+        jTextPaneErgometriaComentario.setText(unaErgometria.getComentarios());
         
         jButtonEliminar.setEnabled(true);
         jButtonEditar.setEnabled(true);
@@ -116,11 +116,11 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jLabelFechaCaducidad = new javax.swing.JLabel();
         jCheckBoxEgometriaAprobada = new javax.swing.JCheckBox();
         jLabelComentario = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaErgometriaComentario = new javax.swing.JTextArea();
         jTextFieldFechaRealizacion = new javax.swing.JTextField();
         jTextFieldFechaCaducidad = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPaneErgometriaComentario = new javax.swing.JTextPane();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 483));
@@ -310,11 +310,9 @@ public class IErgometria extends javax.swing.JInternalFrame {
 
     jLabelComentario.setText("Comentario");
 
-    jTextAreaErgometriaComentario.setColumns(20);
-    jTextAreaErgometriaComentario.setRows(5);
-    jScrollPane2.setViewportView(jTextAreaErgometriaComentario);
-
     jLabel1.setText("Aprobado");
+
+    jScrollPane3.setViewportView(jTextPaneErgometriaComentario);
 
     javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
     jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -331,11 +329,11 @@ public class IErgometria extends javax.swing.JInternalFrame {
                 .addComponent(jCheckBoxEgometriaAprobada)
                 .addComponent(jTextFieldFechaCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
             .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabelComentario)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(20, 20, 20))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(30, 30, 30))
     );
     jPanelDetallesLayout.setVerticalGroup(
         jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,7 +355,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(jCheckBoxEgometriaAprobada))
                     .addGap(0, 0, Short.MAX_VALUE))
-                .addComponent(jScrollPane2))
+                .addComponent(jScrollPane3))
             .addContainerGap())
     );
 
@@ -426,7 +424,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jTextFieldFechaRealizacion.setText(df.format(unaErgometria.getFechaRealizacion()));
         jTextFieldFechaCaducidad.setText(df.format(unaErgometria.getFechaCaducidad()));
         jCheckBoxEgometriaAprobada.setSelected(unaErgometria.isAprobado());
-        jTextAreaErgometriaComentario.setText(unaErgometria.getComentarios());
+        jTextPaneErgometriaComentario.setText(unaErgometria.getComentarios());
 
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
@@ -452,11 +450,11 @@ public class IErgometria extends javax.swing.JInternalFrame {
             Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
             Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
             if (!modificar) {
-                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText());
+                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText());
                 JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
             } else {
                 Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextAreaErgometriaComentario.getText(), false);
+                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText(), false);
                 JOptionPane.showMessageDialog(this, "Ergometria Modificada");
             }
         } catch (ParseException e) {
@@ -529,10 +527,10 @@ public class IErgometria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableErgometrias;
-    private javax.swing.JTextArea jTextAreaErgometriaComentario;
     private javax.swing.JTextField jTextFieldFechaCaducidad;
     private javax.swing.JTextField jTextFieldFechaRealizacion;
+    private javax.swing.JTextPane jTextPaneErgometriaComentario;
     // End of variables declaration//GEN-END:variables
 }
