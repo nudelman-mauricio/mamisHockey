@@ -155,9 +155,9 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextPaneMotivo = new javax.swing.JTextPane();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(726, 655));
-        setMinimumSize(new java.awt.Dimension(726, 655));
-        setPreferredSize(new java.awt.Dimension(726, 655));
+        setMaximumSize(new java.awt.Dimension(726, 630));
+        setMinimumSize(new java.awt.Dimension(726, 630));
+        setPreferredSize(new java.awt.Dimension(726, 630));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -365,7 +365,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 .addComponent(jLabelSuspendidaHastaLaFecha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldSuspendidaHastaLaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabelMotivo.setText("Motivo");
@@ -417,7 +417,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(12, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -471,7 +471,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 .addComponent(jPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();

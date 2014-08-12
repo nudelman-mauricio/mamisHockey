@@ -4,13 +4,13 @@
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[650, 655]"/>
+      <Dimension value="[650, 656]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[650, 655]"/>
+      <Dimension value="[650, 656]"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[650, 655]"/>
+      <Dimension value="[650, 656]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -53,8 +53,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelTabla" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanelDetalles" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jPanelDetalles" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

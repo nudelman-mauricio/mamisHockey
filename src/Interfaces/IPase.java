@@ -148,9 +148,9 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle = new javax.swing.JTextPane();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 655));
-        setMinimumSize(new java.awt.Dimension(650, 655));
-        setPreferredSize(new java.awt.Dimension(650, 655));
+        setMaximumSize(new java.awt.Dimension(650, 656));
+        setMinimumSize(new java.awt.Dimension(650, 656));
+        setPreferredSize(new java.awt.Dimension(650, 656));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -540,8 +540,8 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
