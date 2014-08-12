@@ -62,11 +62,15 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Concepto Egresos");//titulo de la ventana
-        jButtonCancelar.setEnabled(false);
+        
+        jTextFieldNombre.setEditable(true);
+        jTextPaneDetalle.setEditable(true);
+        jTableConceptoEgresos.setEnabled(false);
+        jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-
     }
 
     private void limpiarTabla() {

@@ -63,10 +63,16 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Conceptos Ingresos");//titulo de la ventana
-        jButtonCancelar.setEnabled(false);
+        
+        //Se setea para que puedas crear el concepto sin tener que hacer click en el boton nuevo
+        jTextFieldNombre.setEditable(true);
+        jTextPaneDetalle.setEditable(true);
+        jTableConceptoIngreso.setEnabled(false);
+        jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
 
     }
 
@@ -138,6 +144,23 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         setMaximumSize(new java.awt.Dimension(650, 501));
         setMinimumSize(new java.awt.Dimension(650, 501));
         setPreferredSize(new java.awt.Dimension(650, 501));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -419,6 +442,12 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         jTableConceptoIngreso.setEnabled(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+       if(unJInternalFrame != null){
+           this.unJInternalFrame.setVisible(true);
+       }
+    }//GEN-LAST:event_formInternalFrameClosed
     
     public void camposActivoNuevo(boolean Editable) {
        jTextFieldNombre.setEditable(Editable);
