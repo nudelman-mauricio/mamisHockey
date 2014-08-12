@@ -16,6 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoIngreso;
 import logicaNegocios.IngresoOtro;
@@ -51,12 +53,13 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
 
+        if(unaControladoraGlobal.getIngresosOtrosBD().size()>0){
         cargarFechasFiltrado();
-        cargarTabla();
+        cargarTabla();}
     }
 
-    private void cargarTabla() {
-        limpiarTabla();
+    private void cargarTabla() {       
+        limpiarTabla();        
         String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedIndex() + 2010);
         String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedIndex() + 2010);
         Date fechaHasta = null;
@@ -279,6 +282,11 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(jTableIngresos);
+        jTableIngresos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -543,6 +551,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
                 options)) {
             unaControladoraGlobal.eliminarIngresoOtro(unIngresoSeleccionado);
             unIngresoSeleccionado = null;
+            cargarFechasFiltrado();
             cargarTabla();
         }
         jTableIngresos.clearSelection();
@@ -606,7 +615,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
 
             camposActivo(false);
             camposLimpiar();
-
+            cargarFechasFiltrado();
             cargarTabla();
             jTableIngresos.setEnabled(true);
         } else {
