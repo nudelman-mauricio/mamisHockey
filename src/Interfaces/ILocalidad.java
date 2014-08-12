@@ -22,7 +22,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         cargarTabla();
 
         //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
-        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
+        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png"))); 
+         this.setTitle("Localidades");//titulo de la ventana
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
         jButtonCancelar.setEnabled(false);

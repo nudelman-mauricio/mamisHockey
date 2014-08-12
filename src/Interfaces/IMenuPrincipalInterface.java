@@ -223,6 +223,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.setMaximumSize(new java.awt.Dimension(129, 32767));
 
         jMenuItemGestionarIngresos.setText("Gestionar Ingresos");
+        jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGestionarIngresosActionPerformed(evt);
+            }
+        });
         jMenuContabilidad.add(jMenuItemGestionarIngresos);
 
         jMenuItemGestionarEgresos.setText("Gestionar Egresos");
@@ -530,6 +535,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unaVentanaConceptosDeportivos.setVisible(true);
         this.jDesktopPane.add(unaVentanaConceptosDeportivos);
     }//GEN-LAST:event_jMenuItemConceptosDeportivosActionPerformed
+
+    private void jMenuItemGestionarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarIngresosActionPerformed
+        IGestionIngresos unaGestionIngresos = new IGestionIngresos(jDesktopPane,unaControladoraGlobal);
+        unaGestionIngresos.pack();
+        unaGestionIngresos.setVisible(true);
+        this.jDesktopPane.add(unaGestionIngresos);
+    }//GEN-LAST:event_jMenuItemGestionarIngresosActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();

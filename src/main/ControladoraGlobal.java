@@ -724,6 +724,18 @@ public class ControladoraGlobal {
     public List<IngresoOtro> getIngresosOtrosBD() {
         return this.unaControladoraContabilidad.getIngresosOtrosBD();
     }
+    
+     public IngresoOtro getUltimoIngresoOtro(){
+        return this.unaControladoraContabilidad.getUltimoIngresoOtro();
+    }
+    
+     public IngresoOtro getPrimerIngresoOtro(){
+        return this.unaControladoraContabilidad.getPrimerIngresoOtro();
+    }
+     
+     public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde, Date hasta){
+         return this.unaControladoraContabilidad.getIngresoOtroEntreFechas(desde, hasta);
+     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Egreso">

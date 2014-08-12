@@ -264,6 +264,31 @@ public class ControladoraContabilidad {
         List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+    public IngresoOtro getUltimoIngresoOtro(){
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE ORDER BY A.fecha DESC";
+        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        for(IngresoOtro unIngreso: unaListaResultado){
+            return unIngreso;
+        }
+        return null;
+    }    
+   
+    
+    public IngresoOtro getPrimerIngresoOtro(){
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE ORDER BY A.fecha ASC";
+        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        for(IngresoOtro unIngreso: unaListaResultado){
+            return unIngreso;
+        }
+        return null;
+    }
+    
+    public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde , Date hasta){
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE AND A.fecha >= '"+desde+ "' AND A.fecha<'"+hasta+"' ORDER BY A.fecha ASC";       
+        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
+        return unaListaResultado;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Egreso">

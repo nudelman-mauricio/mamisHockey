@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoEgreso;
 import main.ControladoraGlobal;
@@ -39,6 +41,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         camposActivo(false);
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        this.setTitle("Gestión de Concepto Egresos");//titulo de la ventana
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
@@ -58,6 +61,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         camposActivo(false);
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        this.setTitle("Gestión de Concepto Egresos");//titulo de la ventana
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
@@ -82,12 +86,12 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
     public void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
-        jTextAreaDetalle.setEditable(Editable);
+        jTextPaneDetalle.setEditable(Editable);
     }
 
     //blanquea componentes editables
     void camposLimpiar() {
-        jTextAreaDetalle.setText("");
+        jTextPaneDetalle.setText("");
         jTextFieldNombre.setText("");
     }
 
@@ -100,7 +104,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
                 camposLimpiar();
 
                 jTextFieldNombre.setText(unConceptoEgresoSeleccionado.getNombre());
-                jTextAreaDetalle.setText(unConceptoEgresoSeleccionado.getDetalle());
+                jTextPaneDetalle.setText(unConceptoEgresoSeleccionado.getDetalle());
 
                 camposActivo(false);
                 jButtonEditar.setEnabled(true);
@@ -124,10 +128,10 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jTableConceptoEgresos = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
         jLabelFechaRealizacion = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaDetalle = new javax.swing.JTextArea();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelFechaCaducidad1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPaneDetalle = new javax.swing.JTextPane();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 501));
@@ -253,12 +257,17 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
             jTableConceptoEgresos.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableConceptoEgresos.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableConceptoEgresos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,11 +279,9 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion.setText("Nombre");
 
-        jTextAreaDetalle.setColumns(20);
-        jTextAreaDetalle.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaDetalle);
-
         jLabelFechaCaducidad1.setText("Detalle");
+
+        jScrollPane3.setViewportView(jTextPaneDetalle);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -287,9 +294,9 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaRealizacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,9 +307,11 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelFechaCaducidad1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(jLabelFechaCaducidad1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -335,10 +344,10 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (!(jTextFieldNombre.getText().isEmpty())) {
             if (unConceptoEgresoSeleccionado == null) {
-                unaControladoraGlobal.crearConceptoEgreso(jTextFieldNombre.getText(), jTextAreaDetalle.getText());
+                unaControladoraGlobal.crearConceptoEgreso(jTextFieldNombre.getText(), jTextPaneDetalle.getText());
                 JOptionPane.showMessageDialog(this, "Concepto Egreso Guardada");
             } else {
-                unaControladoraGlobal.modificarConceptoEgreso(unConceptoEgresoSeleccionado, jTextFieldNombre.getText(), jTextAreaDetalle.getText(), false);
+                unaControladoraGlobal.modificarConceptoEgreso(unConceptoEgresoSeleccionado, jTextFieldNombre.getText(), jTextPaneDetalle.getText(), false);
                 unConceptoEgresoSeleccionado = null;
                 JOptionPane.showMessageDialog(this, "Concepto Egreso Modificada");
             }
@@ -435,7 +444,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
     public void camposActivoNuevo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
-        jTextAreaDetalle.setEditable(Editable);
+        jTextPaneDetalle.setEditable(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonNuevo.setEnabled(!Editable);
@@ -455,9 +464,9 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableConceptoEgresos;
-    private javax.swing.JTextArea jTextAreaDetalle;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextPane jTextPaneDetalle;
     // End of variables declaration//GEN-END:variables
 }

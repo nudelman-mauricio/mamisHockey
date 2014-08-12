@@ -17,6 +17,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.Egreso;
@@ -49,6 +51,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        this.setTitle("Gestión de Egresos");//titulo de la ventana
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
@@ -86,13 +89,13 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     public void camposActivo(boolean Editable) {
         jTextFieldMonto.setEditable(Editable);
         jTextFieldFecha.setEditable(Editable);
-        jTextAreaObservacion.setEditable(Editable);
+        jTextPaneDetalle.setEditable(Editable);
         jComboBoxConceptoEgreso.setEnabled(Editable);
     }
 
     //blanquea componentes editables
     void camposLimpiar() {
-        jTextAreaObservacion.setText("");
+        jTextPaneDetalle.setText("");
         jTextFieldFecha.setText("dd/mm/aaaa");
         jTextFieldMonto.setText("");
         jComboBoxConceptoEgreso.setSelectedIndex(-1);
@@ -105,15 +108,37 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }
 
     public void cargarFechasFiltrado() {
-        String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
-        String[] fechaDividida = fecha.split("/");
-        jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
-        jComboBoxDesdeAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
+        if (unaControladoraGlobal.getPrimerIngresoOtro() != null) {
+            String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
+            String[] fechaDividida = fecha.split("/");
+            jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
+            jComboBoxDesdeAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
 
-        fecha = df.format(unaControladoraGlobal.getUltimoEgreso().getFecha());
-        fechaDividida = fecha.split("/");
-        jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
-        jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
+            fecha = df.format(unaControladoraGlobal.getUltimoEgreso().getFecha());
+            fechaDividida = fecha.split("/");
+            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
+            jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
+        }
+    }
+
+    //actualizar campos al seleccionar en la tabla
+    void camposCargar() {
+        if (jTableEgresos.getSelectedRow() > -1) {
+            if (jTableEgresos.getValueAt(jTableEgresos.getSelectedRow(), 0) != null) {
+                unEgresoSeleccionado = unaControladoraGlobal.getEgresoBD((Long) jTableEgresos.getValueAt(jTableEgresos.getSelectedRow(), 0));
+
+                camposLimpiar();
+
+                jTextFieldFecha.setText(df.format(unEgresoSeleccionado.getFecha()));
+                jTextFieldMonto.setText(String.valueOf(unEgresoSeleccionado.getMonto()));
+                jTextPaneDetalle.setText(unEgresoSeleccionado.getObservacion());
+                jComboBoxConceptoEgreso.setSelectedItem(unEgresoSeleccionado.getUnConceptoEgreso());
+
+                camposActivo(false);
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -134,13 +159,13 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion = new javax.swing.JLabel();
         jLabelFechaCaducidad = new javax.swing.JLabel();
         jLabelComentario = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaObservacion = new javax.swing.JTextArea();
         jTextFieldFecha = new javax.swing.JTextField();
         jTextFieldMonto = new javax.swing.JTextField();
         jLabelFechaCaducidad1 = new javax.swing.JLabel();
         jComboBoxConceptoEgreso = new javax.swing.JComboBox();
         jButtonNuevoEgreso = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPaneDetalle = new javax.swing.JTextPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -270,6 +295,11 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             jTableEgresos.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableEgresos.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableEgresos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -291,10 +321,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
         jLabelComentario.setText("Observación");
 
-        jTextAreaObservacion.setColumns(20);
-        jTextAreaObservacion.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaObservacion);
-
         jTextFieldFecha.setText("dd/mm/aaaa");
 
         jLabelFechaCaducidad1.setText("Monto");
@@ -305,6 +331,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 jButtonNuevoEgresoActionPerformed(evt);
             }
         });
+
+        jScrollPane3.setViewportView(jTextPaneDetalle);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -325,9 +353,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonNuevoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextFieldMonto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                    .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -349,9 +376,11 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaCaducidad1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelComentario))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabelComentario)
+                        .addGap(0, 57, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -541,7 +570,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime()),
                             Integer.parseInt(jTextFieldMonto.getText()),
                             (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
-                            jTextAreaObservacion.getText());
+                            jTextPaneDetalle.getText());
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
                 }
@@ -553,7 +582,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime()),
                             Integer.parseInt(jTextFieldMonto.getText()),
                             (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
-                            jTextAreaObservacion.getText(),
+                            jTextPaneDetalle.getText(),
                             false);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
@@ -676,10 +705,10 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableEgresos;
-    private javax.swing.JTextArea jTextAreaObservacion;
     private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldMonto;
+    private javax.swing.JTextPane jTextPaneDetalle;
     // End of variables declaration//GEN-END:variables
 }
