@@ -446,6 +446,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
        if(unJInternalFrame != null){
            this.unJInternalFrame.setVisible(true);
+          
        }
     }//GEN-LAST:event_formInternalFrameClosed
     

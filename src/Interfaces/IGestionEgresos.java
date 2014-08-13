@@ -110,7 +110,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }
 
     public void cargarFechasFiltrado() {
-        if (unaControladoraGlobal.getPrimerIngresoOtro() != null) {
+        if (unaControladoraGlobal.getPrimerEgreso()!= null) {
             String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
             String[] fechaDividida = fecha.split("/");
             jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
@@ -654,9 +654,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarEgreso(unEgresoSeleccionado);
-            unEgresoSeleccionado = null;
+            unEgresoSeleccionado = null; 
             cargarFechasFiltrado();
-            cargarTabla();
+            cargarTabla();            
         }
         jTableEgresos.clearSelection();
         jTableEgresos.setEnabled(true);

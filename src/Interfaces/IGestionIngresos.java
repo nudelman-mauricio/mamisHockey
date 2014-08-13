@@ -176,6 +176,11 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jComboBoxHastaAño = new javax.swing.JComboBox();
 
         setClosable(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -659,6 +664,10 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
     private void jComboBoxHastaAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxHastaAñoItemStateChanged
         cargarTabla();
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        cargarComboBoxConceptoIngreso(); 
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
