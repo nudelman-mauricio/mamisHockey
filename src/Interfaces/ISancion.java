@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import logicaNegocios.Ergometria_;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
@@ -87,13 +88,13 @@ public class ISancion extends javax.swing.JInternalFrame {
             SancionTribunal unaSancion = (SancionTribunal) aux;
             DateFormat df = DateFormat.getDateInstance();
             if (!unaSancion.isBorradoLogico()) {
-                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), 
+                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(),
                     df.format(unaSancion.getFecha()),
                     unaSancion.getMotivo(),
                     unaSancion.getNumeroResolucion(),
                     unaSancion.getCantFechas(),
                     unaSancion.getCantFechasCumplidas(),
-                    unaSancion.getVencimiento(),
+                    df.format(unaSancion.getVencimiento()),
                     unaSancion.getUnPartido()});
             }
         }
@@ -428,20 +429,20 @@ public class ISancion extends javax.swing.JInternalFrame {
             Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
             Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldHastaUnaFecha.getText()).getTime());
             if (!modificar) {
-                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());                
+                unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
                 JOptionPane.showMessageDialog(this, "Sancion Creada");
             } else {
                 SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
-                
+
                 unaControladoraGlobal.modificarSancionTribunal(
-                        unaSancion, 
-                        fechaCaducidad, 
-                        Integer.parseInt(jTextFieldCantFechasACumplir.getText()), 
-                        fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), 
-                        unaSancion.getUnaTarjeta(), 
-                        unaSancion.getUnPartido(), 
-                        Integer.parseInt(jTextFieldCantFechasACumplir.getText()), 
-                        jTextFieldNumResolucion.getText(), 
+                        unaSancion,
+                        fechaCaducidad,
+                        Integer.parseInt(jTextFieldCantFechasACumplir.getText()),
+                        fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(),
+                        unaSancion.getUnaTarjeta(),
+                        unaSancion.getUnPartido(),
+                        Integer.parseInt(jTextFieldCantFechasACumplir.getText()),
+                        jTextFieldNumResolucion.getText(),
                         false
                 );
                 JOptionPane.showMessageDialog(this, "Sancion Modificada");
@@ -487,14 +488,14 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTableSancionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableSancionFocusGained
-            /*SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));              
-            if(unaSancion != null){
-            camposCargar(unaSancion);}*/
+        /*SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));              
+         if(unaSancion != null){
+         camposCargar(unaSancion);}*/
     }//GEN-LAST:event_jTableSancionFocusGained
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jTableSancion.clearSelection();
-        
+
         modificar = false;
 
         camposLimpiar();
@@ -510,8 +511,8 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-            SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
-                
+        SancionTribunal unaSancion = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -523,9 +524,9 @@ public class ISancion extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarSancionTribunal(unaSancion);
-            
+
             cargarCamposTabla();
-        }   
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
