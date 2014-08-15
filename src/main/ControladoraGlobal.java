@@ -300,6 +300,10 @@ public class ControladoraGlobal {
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
+    
+    public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
+        return unaControladoraDeportiva.getTarjetaSociaPartido(unPartido, unaSocia);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Equipos">

@@ -332,6 +332,11 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 jTableFechasTorneoFocusGained(evt);
             }
         });
+        jTableFechasTorneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFechasTorneoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableFechasTorneo);
         if (jTableFechasTorneo.getColumnModel().getColumnCount() > 0) {
             jTableFechasTorneo.getColumnModel().getColumn(0).setMinWidth(0);
@@ -517,9 +522,9 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -530,11 +535,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonAgregarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 572, Short.MAX_VALUE))
-                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -754,6 +756,19 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jTableFechasTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFechasTorneoMouseClicked
+    if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            evt.consume();
+            
+            Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
+            IResultadoPartido unIResultadoPartido = new IResultadoPartido(unaControladoraGlobal, this, unPartidoSeleccionado);
+            unIResultadoPartido.pack();
+            unIResultadoPartido.setVisible(true);
+            this.setVisible(false);
+            IMenuPrincipalInterface.jDesktopPane.add(unIResultadoPartido);
+        }
+    }//GEN-LAST:event_jTableFechasTorneoMouseClicked
 
     public void seleccionarObjetoTabla(boolean estado) {
         this.jButtonEditar.setEnabled(estado);
