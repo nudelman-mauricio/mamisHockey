@@ -18,10 +18,10 @@ public class SancionTribunal implements Serializable, Comparable {
 
     @Temporal(TemporalType.DATE)
     @Basic
-    private Date vencimiento;
+    private Date vencimiento = null;
 
     @Basic
-    private int cantFechas;
+    private int cantFechas = 0;
 
     @Temporal(TemporalType.DATE)
     @Basic
@@ -44,7 +44,7 @@ public class SancionTribunal implements Serializable, Comparable {
     private String detalles;
 
     @Basic
-    private int cantFechasCumplidas;
+    private int cantFechasCumplidas = 0;
 
     @Basic
     private String numeroResolucion;

@@ -247,12 +247,12 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Deportiva">
     // <editor-fold defaultstate="collapsed" desc="Sanciones">
-    public void crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
-        this.unaControladoraDeportiva.crearSancionTribunal(unEquipo, unaPersona, fecha, motivo, detalles);
+    public SancionTribunal crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
+        return this.unaControladoraDeportiva.crearSancionTribunal(unEquipo, unaPersona, fecha, motivo, detalles);
     }
 
-    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date vencimiento, int cantFechas, Date fecha, String motivo, String detalles, Tarjeta unaTarjeta, Partido unPartido, int cantFechasCumplidas, String numeroResolucion, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarSancionTribunal(unaSancionTribunal, vencimiento, cantFechas, fecha, motivo, detalles, unaTarjeta, unPartido, cantFechasCumplidas, numeroResolucion, borradoLogico);
+    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, int cantFechasCumplidas, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarSancionTribunal(unaSancionTribunal, fecha, motivo, detalles, numeroResolucion, vencimiento, cantFechas, cantFechasCumplidas, borradoLogico);
     }
 
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
@@ -549,6 +549,10 @@ public class ControladoraGlobal {
 
     public Partido getPartidoBD(Long id) {
         return this.unaControladoraDeportiva.getPartidoBD(id);
+    }
+      
+    public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
+        return this.unaControladoraDeportiva.getPartidosConPlantelNoJugadosBD(fechaParametro);
     }
 
     public List<Partido> getPartidosBD() {

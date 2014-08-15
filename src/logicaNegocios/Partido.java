@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -244,6 +245,11 @@ public class Partido implements Serializable, Comparable {
         return retorno;
     }
 
+    @Override
+    public String toString() {
+        return unEquipoVisitante + " vs " + unEquipoLocal + "Fecha: " + DateFormat.getDateInstance().format(this.fecha);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
@@ -292,6 +298,24 @@ public class Partido implements Serializable, Comparable {
     private void cargarPlantelVisitante() {
         //te debo
         JOptionPane.showMessageDialog(null, "Para la proxima amigo");
+    }
+
+    /**
+     * Devuelve TRUE si la jugadora que se pasa esta en el plantel local o
+     * visitante
+     *
+     * @param unaSocia
+     * @return
+     */
+    public boolean isJugadoraInscripta(Socia unaSocia) {
+        boolean resultado = false;
+        if (this.plantelLocal.contains(unaSocia)) {
+            resultado = true;
+        }
+        if (this.plantelVisitante.contains(unaSocia)) {
+            resultado = true;
+        }
+        return resultado;
     }
     // </editor-fold>   
 }
