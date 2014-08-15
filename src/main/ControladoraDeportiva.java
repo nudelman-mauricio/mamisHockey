@@ -148,9 +148,9 @@ public class ControladoraDeportiva {
         Partido unPartido = (Partido) traerPartido.getSingleResult();
         return unPartido;
     }
-    
+
     /**
-     * Devuelve las tarjetas de una Socia y un Partido 
+     * Devuelve las tarjetas de una Socia y un Partido
      */
     public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
         String unaConsulta = "Select T FROM Tarjeta T, Partido P, Socia S WHERE P.tarjetas.idTarjeta = S.tarjetas.idTarjeta AND S.dni = " + unaSocia.getDni() + " AND P.idPartido = " + unPartido.getIdPartido();
@@ -593,8 +593,8 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Partidos">
-    public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
-        Partido unPartido = new Partido(this.entityManager, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
+    public void crearPartido(FechaTorneo unaFechaTorneo, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
+        Partido unPartido = new Partido(this.entityManager, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3);
         unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
     }
 
@@ -617,13 +617,15 @@ public class ControladoraDeportiva {
     public void eliminarPartido(Partido unPartido) {
         unPartido.setBorradoLogico(true);
         unPartido.persistir(this.entityManager);
-    }             
+    }
 
     /**
-     * Devuelve los partidos que ya poseen plantel guardado, es decir que estan a punto de jugarse
-     * pero todavia no se jugaron hasta el dia de la fecha pasada como parametro
+     * Devuelve los partidos que ya poseen plantel guardado, es decir que estan
+     * a punto de jugarse pero todavia no se jugaron hasta el dia de la fecha
+     * pasada como parametro
+     *
      * @param Date fechaParametro
-     * @return 
+     * @return
      */
     public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
         return this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.plantelLocal <> NULL AND T.fecha >=" + fechaParametro).getResultList();

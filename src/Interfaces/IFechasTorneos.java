@@ -636,7 +636,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
                     JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
                 } else {
-                    unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), null, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem(), (Cancha) jComboBoxCancha.getSelectedItem(), title, (Equipo) jComboBoxEquipoLocal.getSelectedItem());
+                    unaControladoraGlobal.crearPartido(unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo), DIAaJUGARdelPARTIDO, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem());
                     cargarTabla(unaFechaTorneo);
                     habilitarCampos(false);
                     seleccionarObjetoTabla(false);
@@ -758,9 +758,9 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTableFechasTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFechasTorneoMouseClicked
-    if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
             evt.consume();
-            
+
             Partido unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
             IResultadoPartido unIResultadoPartido = new IResultadoPartido(unaControladoraGlobal, this, unPartidoSeleccionado);
             unIResultadoPartido.pack();

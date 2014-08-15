@@ -300,7 +300,7 @@ public class ControladoraGlobal {
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
-    
+
     public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
         return unaControladoraDeportiva.getTarjetaSociaPartido(unPartido, unaSocia);
     }
@@ -539,8 +539,8 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Partidos">
-    public void crearPartido(FechaTorneo unaFechaTorneo, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
-        this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, unEquipoVisitante, fecha, unArbitro1, unArbitro2, unArbitro3, unaCancha, observaciones, unEquipoLocal);
+    public void crearPartido(FechaTorneo unaFechaTorneo, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
+        this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3);
     }
 
     public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
@@ -554,7 +554,7 @@ public class ControladoraGlobal {
     public Partido getPartidoBD(Long id) {
         return this.unaControladoraDeportiva.getPartidoBD(id);
     }
-      
+
     public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
         return this.unaControladoraDeportiva.getPartidosConPlantelNoJugadosBD(fechaParametro);
     }
@@ -732,18 +732,18 @@ public class ControladoraGlobal {
     public List<IngresoOtro> getIngresosOtrosBD() {
         return this.unaControladoraContabilidad.getIngresosOtrosBD();
     }
-    
-     public IngresoOtro getUltimoIngresoOtro(){
+
+    public IngresoOtro getUltimoIngresoOtro() {
         return this.unaControladoraContabilidad.getUltimoIngresoOtro();
     }
-    
-     public IngresoOtro getPrimerIngresoOtro(){
+
+    public IngresoOtro getPrimerIngresoOtro() {
         return this.unaControladoraContabilidad.getPrimerIngresoOtro();
     }
-     
-     public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde, Date hasta){
-         return this.unaControladoraContabilidad.getIngresoOtroEntreFechas(desde, hasta);
-     }
+
+    public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde, Date hasta) {
+        return this.unaControladoraContabilidad.getIngresoOtroEntreFechas(desde, hasta);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Egreso">
@@ -766,18 +766,18 @@ public class ControladoraGlobal {
     public List<Egreso> getEgresosBD() {
         return this.unaControladoraContabilidad.getEgresosBD();
     }
-    
-    public Egreso getUltimoEgreso(){
+
+    public Egreso getUltimoEgreso() {
         return this.unaControladoraContabilidad.getUltimoEgreso();
     }
-    
-     public Egreso getPrimerEgreso(){
+
+    public Egreso getPrimerEgreso() {
         return this.unaControladoraContabilidad.getPrimerEgreso();
     }
-     
-     public List<Egreso> getEgresosEntreFechas(Date desde, Date hasta){
-         return this.unaControladoraContabilidad.getEgresosEntreFechas(desde, hasta);
-     }
+
+    public List<Egreso> getEgresosEntreFechas(Date desde, Date hasta) {
+        return this.unaControladoraContabilidad.getEgresosEntreFechas(desde, hasta);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Meses">

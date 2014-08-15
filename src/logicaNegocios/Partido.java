@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.swing.JOptionPane;
 
 @Entity
 public class Partido implements Serializable, Comparable {
@@ -80,18 +79,15 @@ public class Partido implements Serializable, Comparable {
 
     }
 
-    public Partido(EntityManager entityManager, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, Cancha unaCancha, String observaciones, Equipo unEquipoLocal) {
-        this.unEquipoVisitante = unEquipoVisitante;
+    public Partido(EntityManager entityManager, Date fecha, Cancha unaCancha, Equipo unEquipoLocal , Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
         this.fecha = fecha;
+        this.unaCancha = unaCancha;
+        this.unEquipoLocal = unEquipoLocal;        
+        this.unEquipoVisitante = unEquipoVisitante;        
         this.unArbitro1 = unArbitro1;
         this.unArbitro2 = unArbitro2;
-        this.unArbitro3 = unArbitro3;
-        this.unaCancha = unaCancha;
-        this.observaciones = observaciones;
-        this.unEquipoLocal = unEquipoLocal;
+        this.unArbitro3 = unArbitro3;        
         this.borradoLogico = false;
-        this.cargarPlantelLocal();
-        this.cargarPlantelVisitante();
         this.persistir(entityManager);
     }
 
@@ -290,16 +286,6 @@ public class Partido implements Serializable, Comparable {
     // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Planteles">
-    private void cargarPlantelLocal() {
-        //ya hago
-        JOptionPane.showMessageDialog(null, "Te Debo Compadre");
-    }
-
-    private void cargarPlantelVisitante() {
-        //te debo
-        JOptionPane.showMessageDialog(null, "Para la proxima amigo");
-    }
-
     /**
      * Devuelve TRUE si la jugadora que se pasa esta en el plantel local o
      * visitante
