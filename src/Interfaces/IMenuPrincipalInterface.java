@@ -239,11 +239,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.add(jMenuItemGestionarEgresos);
 
         jMenuItemBalanceMensual.setText("Balance Mensual");
-        jMenuItemBalanceMensual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemBalanceMensualActionPerformed(evt);
-            }
-        });
         jMenuContabilidad.add(jMenuItemBalanceMensual);
         jMenuContabilidad.add(jSeparator1);
 
@@ -547,13 +542,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unaGestionIngresos.setVisible(true);
         this.jDesktopPane.add(unaGestionIngresos);
     }//GEN-LAST:event_jMenuItemGestionarIngresosActionPerformed
-
-    private void jMenuItemBalanceMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBalanceMensualActionPerformed
-        IBalanceMensual unaIBalanceMensual = new IBalanceMensual(this.unaControladoraGlobal);
-        unaIBalanceMensual.pack();
-        unaIBalanceMensual.setVisible(true);
-        this.jDesktopPane.add(unaIBalanceMensual);
-    }//GEN-LAST:event_jMenuItemBalanceMensualActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
