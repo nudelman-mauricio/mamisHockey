@@ -28,7 +28,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private Deuda unaDeudaSeleccionada;
     private Cuota unaCuotaSeleccionada;
     private DefaultTableModel modeloTableDeudas, modeloTableCuotas;
-    private DateFormat df;
+    private DateFormat df = DateFormat.getDateInstance();
 
     public IContabilidadSocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
@@ -49,7 +49,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalleDeudas, false);
 
         cargarTablaDeudas();
-        df = DateFormat.getDateInstance();
     }
 
     //Cargar Tabla con las Deudas de la socia

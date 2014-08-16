@@ -598,19 +598,31 @@ public class ControladoraDeportiva {
         unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
     }
 
-    public void modificarPartido(Partido unPartido, Equipo unEquipoVisitante, Date fecha, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, Cancha unaCancha, String observaciones, Equipo unEquipoLocal, boolean borradoLogico) {
-        unPartido.setBorradoLogico(borradoLogico);
+    public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, boolean borradoLogico) {
         unPartido.setFecha(fecha);
-        unPartido.setObservaciones(observaciones);
+        unPartido.setUnaCancha(unaCancha);
+        unPartido.setUnEquipoLocal(unEquipoLocal);
+        unPartido.setUnEquipoVisitante(unEquipoVisitante);
+        unPartido.setUnArbitro1(unArbitro1);
+        unPartido.setUnArbitro2(unArbitro2);
+        unPartido.setUnArbitro3(unArbitro3);
+        unPartido.setBorradoLogico(borradoLogico);
+        unPartido.persistir(this.entityManager);
+    }
+    
+    public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
+        unPartido.setFecha(fecha);
+        unPartido.setUnaCancha(unaCancha);
+        unPartido.setUnEquipoLocal(unEquipoLocal);
+        unPartido.setUnEquipoVisitante(unEquipoVisitante);
         unPartido.setUnArbitro1(unArbitro1);
         unPartido.setUnArbitro2(unArbitro2);
         unPartido.setUnArbitro3(unArbitro3);
         unPartido.setNombreVeedor(nombreVeedor);
         unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
         unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
-        unPartido.setUnEquipoLocal(unEquipoLocal);
-        unPartido.setUnEquipoVisitante(unEquipoVisitante);
-        unPartido.setUnaCancha(unaCancha);
+        unPartido.setObservaciones(observaciones);
+        unPartido.setBorradoLogico(borradoLogico);
         unPartido.persistir(this.entityManager);
     }
 

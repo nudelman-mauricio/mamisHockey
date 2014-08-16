@@ -394,7 +394,7 @@ public class ICancha extends javax.swing.JInternalFrame {
             unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Cancha Guardada");
         } else {
-            unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), false);
+            unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
             JOptionPane.showMessageDialog(this, "Cancha Modificada");
             unaCanchaSeleccionada = null;
         }
