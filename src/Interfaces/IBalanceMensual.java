@@ -6,17 +6,21 @@
 
 package Interfaces;
 
+import main.ControladoraGlobal;
+
 /**
  *
- * @author Lucas
+ * @author Leanwit
  */
-public class IBalanceMensual extends javax.swing.JFrame {
+public class IBalanceMensual extends javax.swing.JInternalFrame {
 
+     ControladoraGlobal unaControladoraGlobal;
     /**
      * Creates new form IBalanceMensual
      */
-    public IBalanceMensual() {
+    public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        this.unaControladoraGlobal = unaControladoraGlobal;
     }
 
     /**
@@ -40,8 +44,6 @@ public class IBalanceMensual extends javax.swing.JFrame {
         jComboBoxHastaAño = new javax.swing.JComboBox();
         jButtonCancelar = new javax.swing.JButton();
         jButtonVer = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Desde"));
 
@@ -140,6 +142,11 @@ public class IBalanceMensual extends javax.swing.JFrame {
         jButtonCancelar.setText("Cancelar");
 
         jButtonVer.setText("Ver");
+        jButtonVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,7 +176,7 @@ public class IBalanceMensual extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonVer, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jButtonVer, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -192,6 +199,11 @@ public class IBalanceMensual extends javax.swing.JFrame {
     private void jComboBoxHastaAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxHastaAñoItemStateChanged
 
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
+
+    private void jButtonVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerActionPerformed
+        unaControladoraGlobal.generarReporteClub();
+    }//GEN-LAST:event_jButtonVerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

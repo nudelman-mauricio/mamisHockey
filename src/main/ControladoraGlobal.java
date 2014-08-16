@@ -372,6 +372,11 @@ public class ControladoraGlobal {
     public List<Club> getClubesBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getClubesBDFiltro(dato);
     }
+    
+     public void generarReporteClub() {
+       this.unaControladoraDeportiva.generarReporteClub();
+    }
+     
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Indumentarias">
@@ -889,4 +894,6 @@ public class ControladoraGlobal {
     }
     // </editor-fold>
 // </editor-fold>
+
+   
 }
