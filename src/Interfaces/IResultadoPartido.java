@@ -36,6 +36,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
+        jLabelResultado.setText("- a -");
 
         this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
         cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal, unPartido.getPlantelLocal());
@@ -81,122 +82,138 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
         
-        //CARGAR TABLA Local cargarCamposTablaControlando(unPartido.getUnEquipoLocal(), modeloTableLocal);
+        //Cargar Tabla Visitante
+        limpiarTabla(modeloTableVisitante);
+        if (unPartido.getPlantelLocal()== null) {
+            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal())) {
+                cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+            }
+        } else {
+            for (Socia unaSocia : unPartido.getPlantelLocal()) {
+                cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+            }
+        }
         //CARGAR TABLA GOLES
-        
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Visitante">
         //DT
         if (unPartido.getUnDTVisitante() == null) {
-        jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnDT().getNombre());
+            jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnDT().getNombre());
         } else {
-        jTextFieldDTVisitante.setText(unPartido.getUnDTVisitante().getApellido() + ", " + unPartido.getUnDTVisitante().getNombre());
+            jTextFieldDTVisitante.setText(unPartido.getUnDTVisitante().getApellido() + ", " + unPartido.getUnDTVisitante().getNombre());
         }
         //AC
         if (unPartido.getUnAyudanteCampoVisitante() == null) {
-        jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
+            jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
         } else {
-        jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnAyudanteCampoVisitante().getApellido() + ", " + unPartido.getUnAyudanteCampoVisitante().getNombre());
+            jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnAyudanteCampoVisitante().getApellido() + ", " + unPartido.getUnAyudanteCampoVisitante().getNombre());
         }
         //PF
         if (unPartido.getUnPreparadorFisicoVisitante() == null) {
-        jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
+            jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
         } else {
-        jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().getApellido() + ", " + unPartido.getUnPreparadorFisicoVisitante().getNombre());
+            jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().getApellido() + ", " + unPartido.getUnPreparadorFisicoVisitante().getNombre());
         }
-        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());        
+        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
+
+        //Cargar Tabla Visitante
+        limpiarTabla(modeloTableVisitante);
+        if (unPartido.getPlantelVisitante() == null) {
+            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante())) {
+                cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
+            }
+        } else {
+            for (Socia unaSocia : unPartido.getPlantelVisitante()) {
+                cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
+            }
+        }
         
-        //CARGAR TABLA Visitante cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
         //CARGAR TABLA GOLES
-        
+
         // </editor-fold>
         jTextAreaObservacion.setText(unPartido.getObservaciones());
-        
+
         //REVISAR Y CARGAR LOS GOLES --- ACA ME QUEDE
-        jLabelResultado.setText("- a -");
     }
 
-    public void cargarCamposTablaControlando(Equipo unEquipo, DefaultTableModel modeloTable) {
+    public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
         Tarjeta v1 = null, v2 = null, a1 = null, a2 = null, ra = null, rd = null;
-        limpiarTabla(modeloTable);
-        for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unEquipo)) {
-            for (Tarjeta unTarjeta : unaControladoraGlobal.getTarjetaSociaPartido(unPartido, unaSocia)) {
-                if (unTarjeta != null) {
-                    if ("Verde".equals(unTarjeta.getTipo())) {
-                        if (v1 == null) {
-                            v1 = unTarjeta;
-                        } else {
-                            if (Double.parseDouble(v1.getTiempo()) <= Double.parseDouble(unTarjeta.getTiempo())) {
-                                if (Double.parseDouble(v1.getMinuto()) > Double.parseDouble(unTarjeta.getMinuto())) {
-                                    v2 = unTarjeta;
-                                } else {
-                                    v2 = v1;
-                                    v1 = unTarjeta;
-                                }
+        for (Tarjeta unTarjeta : unaControladoraGlobal.getTarjetaSociaPartido(unPartido, unaSocia)) {
+            if (unTarjeta != null) {
+                if ("Verde".equals(unTarjeta.getTipo())) {
+                    if (v1 == null) {
+                        v1 = unTarjeta;
+                    } else {
+                        if (Double.parseDouble(v1.getTiempo()) <= Double.parseDouble(unTarjeta.getTiempo())) {
+                            if (Double.parseDouble(v1.getMinuto()) > Double.parseDouble(unTarjeta.getMinuto())) {
+                                v2 = unTarjeta;
                             } else {
                                 v2 = v1;
                                 v1 = unTarjeta;
                             }
+                        } else {
+                            v2 = v1;
+                            v1 = unTarjeta;
                         }
                     }
-                    if ("Amarrilla".equals(unTarjeta.getTipo())) {
-                        if (a1 == null) {
-                            a1 = unTarjeta;
-                        } else {
-                            if (Double.parseDouble(a1.getTiempo()) <= Double.parseDouble(unTarjeta.getTiempo())) {
-                                if (Double.parseDouble(a1.getMinuto()) > Double.parseDouble(unTarjeta.getMinuto())) {
-                                    a2 = unTarjeta;
-                                } else {
-                                    a2 = v1;
-                                    a1 = unTarjeta;
-                                }
+                }
+                if ("Amarrilla".equals(unTarjeta.getTipo())) {
+                    if (a1 == null) {
+                        a1 = unTarjeta;
+                    } else {
+                        if (Double.parseDouble(a1.getTiempo()) <= Double.parseDouble(unTarjeta.getTiempo())) {
+                            if (Double.parseDouble(a1.getMinuto()) > Double.parseDouble(unTarjeta.getMinuto())) {
+                                a2 = unTarjeta;
                             } else {
-                                a2 = a1;
+                                a2 = v1;
                                 a1 = unTarjeta;
                             }
+                        } else {
+                            a2 = a1;
+                            a1 = unTarjeta;
                         }
                     }
-                    if ("Roja".equals(unTarjeta.getTipo())) {
-                        rd = unTarjeta;
-                    }
                 }
-                if ((a1 == null) && (a2 == null)) {
-                    ra = rd;
-                    rd = null;
-                }
-                if (v1 == null) {
-                    v1.setTiempo("-");
-                    v1.setMinuto("-");
-                }
-                if (v2 == null) {
-                    v2.setTiempo("-");
-                    v2.setMinuto("-");
-                }
-                if (a1 == null) {
-                    a1.setTiempo("-");
-                    a1.setMinuto("-");
-                }
-                if (a2 == null) {
-                    a2.setTiempo("-");
-                    a2.setMinuto("-");
-                }
-                if (ra == null) {
-                    ra.setTiempo("-");
-                    ra.setMinuto("-");
-                }
-                if (rd == null) {
-                    rd.setTiempo("-");
-                    rd.setMinuto("-");
+                if ("Roja".equals(unTarjeta.getTipo())) {
+                    rd = unTarjeta;
                 }
             }
-            modeloTable.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
-                v1.getTiempo(), v1.getMinuto(),
-                v2.getTiempo(), v2.getMinuto(),
-                a1.getTiempo(), a1.getMinuto(),
-                a2.getTiempo(), a2.getMinuto(),
-                ra.getTiempo(), ra.getMinuto(),
-                rd.getTiempo(), rd.getMinuto()});
+            if ((a1 == null) && (a2 == null)) {
+                ra = rd;
+                rd = null;
+            }
+            if (v1 == null) {
+                v1.setTiempo("-");
+                v1.setMinuto("-");
+            }
+            if (v2 == null) {
+                v2.setTiempo("-");
+                v2.setMinuto("-");
+            }
+            if (a1 == null) {
+                a1.setTiempo("-");
+                a1.setMinuto("-");
+            }
+            if (a2 == null) {
+                a2.setTiempo("-");
+                a2.setMinuto("-");
+            }
+            if (ra == null) {
+                ra.setTiempo("-");
+                ra.setMinuto("-");
+            }
+            if (rd == null) {
+                rd.setTiempo("-");
+                rd.setMinuto("-");
+            }
         }
+        modeloTable.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+            v1.getTiempo(), v1.getMinuto(),
+            v2.getTiempo(), v2.getMinuto(),
+            a1.getTiempo(), a1.getMinuto(),
+            a2.getTiempo(), a2.getMinuto(),
+            ra.getTiempo(), ra.getMinuto(),
+            rd.getTiempo(), rd.getMinuto()});
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
