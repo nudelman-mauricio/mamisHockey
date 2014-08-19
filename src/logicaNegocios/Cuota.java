@@ -132,30 +132,62 @@ public class Cuota implements Serializable, Comparable {
         }
     }
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="PagosCuotas">    
     /**
      * Fecha del Pago o Null
+     *
      * @return NULL o FechaPago
      */
-    public Date getFechaPago(){
+    public Date getFechaPago() {
         Date fechaPago = null;
-        if (this.unPagoCuota != null){
-            fechaPago= this.unPagoCuota.getFechaPago();
+        if ((this.unPagoCuota != null) && (!this.unPagoCuota.isBorradoLogico())) {
+            fechaPago = this.unPagoCuota.getFechaPago();
         }
         return fechaPago;
     }
-    
+
     /**
      * Monto pagado o 0.0
+     *
      * @return MontoPago o 0.0
      */
-    public Double getMontoPago(){
+    public Double getMontoPago() {
         Double montoPago = 0.0;
-        if (this.unPagoCuota != null){
-            montoPago= this.unPagoCuota.getMonto();
+        if ((this.unPagoCuota != null) && (!this.unPagoCuota.isBorradoLogico())) {
+            montoPago = this.unPagoCuota.getMonto();
         }
         return montoPago;
+    }
+
+    /**
+     * devuelve true solo si la cuota esta pagada en su totalidad
+     *
+     * @return
+     */
+    public boolean isSaldado() {
+        boolean resultado = false;
+        if (this.unPagoCuota != null) {
+            if (!this.unPagoCuota.isBorradoLogico()) {
+                if (this.unPagoCuota.getMonto() == this.monto) {
+                    resultado = true;
+                }
+            }
+        }
+        return resultado;
+    }
+
+    /**
+     * Devuelve TRue si la cuota no esta pagada y esta vencida.
+     *
+     * @return
+     */
+    public boolean isVencido(Date unaFecha) {
+        boolean resultado = false;
+        if ((!isSaldado()) && (unaFecha.after(this.fechaVencimiento))) {
+            resultado = true;
+        }
+        return resultado;
     }
     // </editor-fold>    
 }

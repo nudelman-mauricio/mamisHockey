@@ -182,12 +182,13 @@ public class Deuda implements Serializable, Comparable {
         }
         return cantidadCuotas;
     }
-    
+
     /**
      * Devuelve el vencimiento de la primera cuota
+     *
      * @return Date
      */
-    public Date getPrimerVencimiento(){
+    public Date getPrimerVencimiento() {
         Date primerVencimiento = null;
         for (Cuota aux : this.cuotas) {
             if ((!aux.isBorradoLogico()) && (primerVencimiento.after(aux.getFechaVencimiento()))) {
@@ -196,15 +197,16 @@ public class Deuda implements Serializable, Comparable {
         }
         return primerVencimiento;
     }
-    
+
     /**
      * Devuelve el monto de la primera cuota no borrada
+     *
      * @return Monto
      */
-    public Double getPrimerMonto(){
+    public Double getPrimerMonto() {
         Double primerMonto = 0.0;
         for (Cuota aux : this.cuotas) {
-            if ((!aux.isBorradoLogico()) && (primerMonto > aux.getMonto())) {
+            if ((!aux.isBorradoLogico()) && (primerMonto < aux.getMonto())) {
                 primerMonto = aux.getMonto();
             }
         }
@@ -232,25 +234,51 @@ public class Deuda implements Serializable, Comparable {
      */
     public double getMontoTotalAdeudado() {
         double montoAdeudado = 0;
-        for (Cuota aux : this.cuotas) {
-            if ((!aux.isBorradoLogico()) && (aux.getUnPagoCuota() != null)) {
-                if (!aux.getUnPagoCuota().isBorradoLogico()) {
-                    montoAdeudado += aux.getMonto();
+        for (Cuota unaCuota : this.cuotas) {
+            if (!unaCuota.isBorradoLogico()) {
+                if (!unaCuota.isSaldado()) {
+                    if (unaCuota.getUnPagoCuota() != null) {
+                        if (!unaCuota.getUnPagoCuota().isBorradoLogico()) {
+                            montoAdeudado += (unaCuota.getMonto() - unaCuota.getUnPagoCuota().getMonto());
+                        }
+                    } else {
+                        montoAdeudado += unaCuota.getMonto();
+                    }
                 }
             }
         }
         return montoAdeudado;
     }
+
     /**
      * Devuelve True solo si la Deuda esta totalmente pagada
+     *
      * @return True si estÃƒÂ¡ pagada
      */
-    public boolean isSaldado(){
+    public boolean isSaldado() {
         boolean saldado = false;
-        if (getMontoTotalAdeudado() == 0){
+        if (getMontoTotalAdeudado() == 0) {
             saldado = true;
         }
         return saldado;
+    }
+
+    /**
+     * Devuelve True si hay al menos una cuota que no esté totalmente pagada y
+     * ya paso el vencimiento
+     *
+     * @return
+     */
+    public boolean isVencido(Date unaFecha) {
+        boolean resultado = false;
+        if (!isSaldado()) {
+            for (Cuota unaCuota : this.getCuotas()) {
+                if ((!unaCuota.isBorradoLogico()) && (unaCuota.isVencido(unaFecha))) {
+                    resultado = true;
+                }
+            }
+        }
+        return resultado;
     }
     // </editor-fold>
 }

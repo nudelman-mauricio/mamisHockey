@@ -40,7 +40,7 @@ public class Socia extends Persona implements Serializable {
     @OneToMany(targetEntity = Estado.class)
     private Collection<Estado> estados;
     // </editor-fold>
-    
+
     public Socia() {
 
     }
@@ -59,7 +59,6 @@ public class Socia extends Persona implements Serializable {
 
     public void setNumeroCamiseta(String numeroCamiseta) {
         this.numeroCamiseta = numeroCamiseta;
-        
     }
 
     public String getFotoCarnet() {
@@ -194,6 +193,23 @@ public class Socia extends Persona implements Serializable {
         this.getDeudas().add(unaDeuda);
         this.persistir(entityManager);
     }
+
+    /**
+     * Devuelve True solo si hasta el dia de la fecha pasada por parametro no
+     * hay ninguna cuota vencida no pagada
+     *
+     * @param unaFecha
+     * @return
+     */
+    public boolean isAlDia(Date unaFecha) {
+        boolean resultado = true;
+        for (Deuda unaDeuda : this.getDeudas()) {
+            if ((!unaDeuda.isBorradoLogico()) && (unaDeuda.isVencido(unaFecha))) {
+                resultado = false;
+            }
+        }
+        return resultado;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Goles">
@@ -235,14 +251,20 @@ public class Socia extends Persona implements Serializable {
     /**
      * Devuelve el Estado Actual de la Socia
      */
-    public TipoEstado getUltimoEstado() {
-        TipoEstado resultado = null;
-        for (Estado aux : getEstados()) {
-            if (!aux.isBorradoLogico()) {
-                resultado = aux.getUnTipoEstado();
+    public Estado getUltimoEstado() {
+        Estado ultimoEstado = null;
+        for (Estado unEstado : getEstados()) {
+            if (!unEstado.isBorradoLogico()) {
+                if (ultimoEstado != null) {
+                    if (unEstado.getFecha().after(ultimoEstado.getFecha())) {
+                        ultimoEstado = unEstado;
+                    }
+                } else {
+                    ultimoEstado = unEstado;
+                }
             }
         }
-        return resultado;
+        return ultimoEstado;
     }
     // </editor-fold>
 }

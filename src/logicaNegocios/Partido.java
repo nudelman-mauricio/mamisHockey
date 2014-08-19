@@ -25,22 +25,22 @@ public class Partido implements Serializable, Comparable {
     private Collection<Socia> plantelLocal;
 
     @Basic
-    private String unAyudanteCampoLocal;
+    private PersonaAuxiliar unAyudanteCampoLocal;
 
     @Basic
     private String nombreVeedor;
 
     @Basic
-    private String unDTLocal;
+    private PersonaAuxiliar unDTLocal;
 
     @Basic
-    private String unPreparadorFisicoLocal;
+    private PersonaAuxiliar unPreparadorFisicoLocal;
 
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
 
     @Basic
-    private String unAyudanteCampoVisitante;
+    private PersonaAuxiliar unAyudanteCampoVisitante;
 
     @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoVisitante;
@@ -50,10 +50,10 @@ public class Partido implements Serializable, Comparable {
     private Date fecha;
 
     @Basic
-    private String unDTVisitante;
+    private PersonaAuxiliar unDTVisitante;
 
     @Basic
-    private String unPreparadorFisicoVisitante;
+    private PersonaAuxiliar unPreparadorFisicoVisitante;
 
     @OneToMany(targetEntity = Tarjeta.class)
     private Collection<Tarjeta> tarjetas;
@@ -118,11 +118,11 @@ public class Partido implements Serializable, Comparable {
         this.plantelLocal = plantelLocal;
     }
 
-    public String getUnAyudanteCampoLocal() {
+    public PersonaAuxiliar getUnAyudanteCampoLocal() {
         return this.unAyudanteCampoLocal;
     }
 
-    public void setUnAyudanteCampoLocal(String unAyudanteCampoLocal) {
+    public void setUnAyudanteCampoLocal(PersonaAuxiliar unAyudanteCampoLocal) {
         this.unAyudanteCampoLocal = unAyudanteCampoLocal;
     }
 
@@ -134,19 +134,19 @@ public class Partido implements Serializable, Comparable {
         this.nombreVeedor = nombreVeedor;
     }
 
-    public String getUnDTLocal() {
+    public PersonaAuxiliar getUnDTLocal() {
         return this.unDTLocal;
     }
 
-    public void setUnDTLocal(String unDTLocal) {
+    public void setUnDTLocal(PersonaAuxiliar unDTLocal) {
         this.unDTLocal = unDTLocal;
     }
 
-    public String getUnPreparadorFisicoLocal() {
+    public PersonaAuxiliar getUnPreparadorFisicoLocal() {
         return this.unPreparadorFisicoLocal;
     }
 
-    public void setUnPreparadorFisicoLocal(String unPreparadorFisicoLocal) {
+    public void setUnPreparadorFisicoLocal(PersonaAuxiliar unPreparadorFisicoLocal) {
         this.unPreparadorFisicoLocal = unPreparadorFisicoLocal;
     }
 
@@ -158,11 +158,11 @@ public class Partido implements Serializable, Comparable {
         this.goles = goles;
     }
 
-    public String getUnAyudanteCampoVisitante() {
+    public PersonaAuxiliar getUnAyudanteCampoVisitante() {
         return this.unAyudanteCampoVisitante;
     }
 
-    public void setUnAyudanteCampoVisitante(String unAyudanteCampoVisitante) {
+    public void setUnAyudanteCampoVisitante(PersonaAuxiliar unAyudanteCampoVisitante) {
         this.unAyudanteCampoVisitante = unAyudanteCampoVisitante;
     }
 
@@ -182,19 +182,19 @@ public class Partido implements Serializable, Comparable {
         this.fecha = fecha;
     }
 
-    public String getUnDTVisitante() {
+    public PersonaAuxiliar getUnDTVisitante() {
         return this.unDTVisitante;
     }
 
-    public void setUnDTVisitante(String unDTVisitante) {
+    public void setUnDTVisitante(PersonaAuxiliar unDTVisitante) {
         this.unDTVisitante = unDTVisitante;
     }
 
-    public String getUnPreparadorFisicoVisitante() {
+    public PersonaAuxiliar getUnPreparadorFisicoVisitante() {
         return this.unPreparadorFisicoVisitante;
     }
 
-    public void setUnPreparadorFisicoVisitante(String unPreparadorFisicoVisitante) {
+    public void setUnPreparadorFisicoVisitante(PersonaAuxiliar unPreparadorFisicoVisitante) {
         this.unPreparadorFisicoVisitante = unPreparadorFisicoVisitante;
     }
 
