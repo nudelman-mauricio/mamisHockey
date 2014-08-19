@@ -228,7 +228,8 @@ public class ControladoraDeportiva {
             if (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) {
                 listaHabilitadas.remove(unaSocia);
             }
-            //
+            //que tenga la ergometria aprobada y en vigencia
+            unaSocia.get
 
         }
         return listaHabilitadas;
