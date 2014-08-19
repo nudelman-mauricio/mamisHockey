@@ -5,8 +5,11 @@ import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
+import logicaNegocios.Gol;
 import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
@@ -20,7 +23,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     Partido unPartido;
 
     private DefaultTableModel modeloTableLocal;
+    private DefaultTableModel modeloTableGolLocal;
     private DefaultTableModel modeloTableVisitante;
+    private DefaultTableModel modeloTableGolVisitante;
 
     public IResultadoPartido(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Partido unPartido) {
         initComponents();
@@ -28,6 +33,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unPartido = unPartido;
+
+        this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
+        this.modeloTableGolLocal = (DefaultTableModel) jTableGolLocal.getModel();
+        this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
+        this.modeloTableGolVisitante = (DefaultTableModel) jTableGolVisitante.getModel();
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));
@@ -38,10 +48,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
         jLabelResultado.setText("- a -");
 
-        this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
-        cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal, unPartido.getPlantelLocal());
-        this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
-        cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
+        camposCargar();
     }
 
     public void camposActivo(boolean Editable) {
@@ -50,8 +57,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTextFieldAyudanteDeMesaVisitante.setEditable(Editable);
         jTextAreaObservacion.setEditable(Editable);
 
-        //jTableLocal.setEnabled(false);
-        //jTableVisitante.setEnabled(false);
+        jTableLocal.setEnabled(Editable);
+        jTableGolLocal.setEnabled(Editable);
+        jTableVisitante.setEnabled(Editable);
+        jTableGolVisitante.setEnabled(Editable);
+
+        jButtonGolLocal.setEnabled(Editable);
+        jButtonGolVisitante.setEnabled(Editable);
     }
 
     void camposCargar() {
@@ -81,10 +93,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().getApellido() + ", " + unPartido.getUnPreparadorFisicoLocal().getNombre());
         }
         jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
-        
-        //Cargar Tabla Visitante
-        limpiarTabla(modeloTableVisitante);
-        if (unPartido.getPlantelLocal()== null) {
+
+        //Cargar Tabla Local
+        limpiarTabla(modeloTableLocal);
+        if (unPartido.getPlantelLocal() == null) {
             for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal())) {
                 cargarCamposTablaControlando(unaSocia, modeloTableLocal);
             }
@@ -93,7 +105,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 cargarCamposTablaControlando(unaSocia, modeloTableLocal);
             }
         }
-        //CARGAR TABLA GOLES
+        cargarGoles(unPartido.getUnEquipoLocal(), modeloTableLocal);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Visitante">
         //DT
@@ -127,13 +139,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
             }
         }
-        
-        //CARGAR TABLA GOLES
-
+        cargarGoles(unPartido.getUnEquipoVisitante(), modeloTableVisitante);
         // </editor-fold>
         jTextAreaObservacion.setText(unPartido.getObservaciones());
-
-        //REVISAR Y CARGAR LOS GOLES --- ACA ME QUEDE
+        if (unPartido.getNombreVeedor() == null) { //El partido se jugo
+            jLabelResultado.setText(unaControladoraGlobal.getGoles(unPartido, unPartido.getUnEquipoLocal()) + " a " + unaControladoraGlobal.getGoles(unPartido, unPartido.getUnEquipoVisitante()));
+        } else {
+            jLabelResultado.setText("- a -");
+        }
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
@@ -216,6 +229,16 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             rd.getTiempo(), rd.getMinuto()});
     }
 
+    public void cargarGoles(Equipo unEquipo, DefaultTableModel modeloTable) {
+        for (Gol unGol : unPartido.getGoles()) {
+            for (Socia unaSocia : unEquipo.getPlantel()) {
+                if (unaSocia.getGoles().contains(unaControladoraGlobal.getGolBD(unGol.getIdGol()))) {
+                    modeloTable.addRow(new Object[]{unaSocia.getNumeroCamiseta(), unGol.getTiempo(), unGol.getMinuto()});
+                }
+            }
+        }
+    }
+
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -290,9 +313,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabelEquipoVisitante = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTableGolLocal2 = new javax.swing.JTable();
+        jTableGolVisitante = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
         jButtonGolVisitante = new javax.swing.JButton();
+
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -703,6 +732,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableLocal.setEnabled(false);
         jScrollPane1.setViewportView(jTableLocal);
         if (jTableLocal.getColumnModel().getColumnCount() > 0) {
             jTableLocal.getColumnModel().getColumn(0).setMinWidth(0);
@@ -886,6 +916,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableVisitante.setEnabled(false);
         jScrollPane5.setViewportView(jTableVisitante);
         if (jTableVisitante.getColumnModel().getColumnCount() > 0) {
             jTableVisitante.getColumnModel().getColumn(0).setMinWidth(0);
@@ -944,7 +975,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelEquipoVisitante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelEquipoVisitante.setText("Nombre Equipo");
 
-        jTableGolLocal2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableGolVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, ""},
                 {null, null, null},
@@ -955,18 +986,18 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 "Cam", "T", "Min"
             }
         ));
-        jTableGolLocal2.setEnabled(false);
-        jScrollPane8.setViewportView(jTableGolLocal2);
-        if (jTableGolLocal2.getColumnModel().getColumnCount() > 0) {
-            jTableGolLocal2.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableGolLocal2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableGolLocal2.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableGolLocal2.getColumnModel().getColumn(1).setMinWidth(20);
-            jTableGolLocal2.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jTableGolLocal2.getColumnModel().getColumn(1).setMaxWidth(20);
-            jTableGolLocal2.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableGolLocal2.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableGolLocal2.getColumnModel().getColumn(2).setMaxWidth(35);
+        jTableGolVisitante.setEnabled(false);
+        jScrollPane8.setViewportView(jTableGolVisitante);
+        if (jTableGolVisitante.getColumnModel().getColumnCount() > 0) {
+            jTableGolVisitante.getColumnModel().getColumn(0).setMinWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(1).setMinWidth(20);
+            jTableGolVisitante.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTableGolVisitante.getColumnModel().getColumn(1).setMaxWidth(20);
+            jTableGolVisitante.getColumnModel().getColumn(2).setMinWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(2).setPreferredWidth(35);
+            jTableGolVisitante.getColumnModel().getColumn(2).setMaxWidth(35);
         }
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1057,44 +1088,31 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
 
         unPartido.setNombreVeedor(jTextFieldVeedor.getText());
+        unPartido.setNombreAyudanteMesaLocal(jTextFieldAyudanteDeMesaLocal.getText());
+        unPartido.setNombreAyudanteMesaVisitante(jTextFieldAyudanteDeMesaVisitante.getText());
         unPartido.setObservaciones(jTextAreaObservacion.getText());
 
-        //Local
-        jTextFieldDTLocal.getText();
-        jTextFieldAyudanteCampoLocal.getText();
-        jTextFieldPreparadorFisicoLocal.getText();
-        unPartido.setNombreAyudanteMesaLocal(jTextFieldAyudanteDeMesaLocal.getText());
-
-        //Visitante
-        jTextFieldDTVisitante.getText();
-        jTextFieldAyudanteCampoVisitante.getText();
-        jTextFieldPreparadorFisicoVisitante.getText();
-        unPartido.setNombreAyudanteMesaVisitante(jTextFieldAyudanteDeMesaVisitante.getText());
-
-        if (!(jTextFieldNombre.getText().isEmpty()) && !(jTextFieldCodPostal.getText().isEmpty())) {
-            if (unaLocalidadSeleccionada == null) {
-                unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
-                JOptionPane.showMessageDialog(this, "Localidad Guardada");
-
-            } else {
-                unaControladoraGlobal.modificarLocalidad(unaLocalidadSeleccionada, jTextFieldNombre.getText(), jTextFieldCodPostal.getText(), unaLocalidadSeleccionada.isBorradoLogico());
-                unaLocalidadSeleccionada = null;
-                JOptionPane.showMessageDialog(this, "Localidad Modificada");
+        if (unPartido.getPlantelLocal() == null) {
+            Collection<Socia> unPlantelLocal = null;
+            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+                unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
             }
-            jButtonNuevo.setEnabled(true);
-            jButtonEditar.setEnabled(false);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-
-            camposActivo(false);
-            camposLimpiar();
-
-            cargarTabla();
-            jTableLocalidad.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
+            unPartido.setPlantelLocal(unPlantelLocal);
         }
+        
+        if (unPartido.getPlantelLocal() == null) {
+            Collection<Socia> unPlantelVisitante = null;
+            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+                unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
+            }
+            unPartido.setPlantelLocal(unPlantelVisitante);
+        }
+
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+
+        camposActivo(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -1126,8 +1144,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
 
-        jTableLocalidad.setEnabled(false);
-
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -1136,13 +1152,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
 
-        jTableLocalidad.setEnabled(true);
-
         camposActivo(false);
 
         //¿Aca un Actualizar?
         //camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        camposCargar();
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;
@@ -1190,7 +1208,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableGolLocal;
-    private javax.swing.JTable jTableGolLocal2;
+    private javax.swing.JTable jTableGolVisitante;
     private javax.swing.JTable jTableLocal;
     private javax.swing.JTable jTableVisitante;
     private javax.swing.JTextArea jTextAreaObservacion;
