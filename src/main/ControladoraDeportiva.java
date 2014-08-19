@@ -1,8 +1,12 @@
 package main;
 
+import static groovy.inspect.Inspector.print;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import logicaNegocios.Cancha;
@@ -21,6 +25,17 @@ import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import logicaNegocios.TipoCancha;
 import logicaNegocios.Torneo;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ControladoraDeportiva {
 
@@ -210,12 +225,11 @@ public class ControladoraDeportiva {
                 listaHabilitadas.remove(unaSocia);
             }
             //que sea socia jugadora activa
-            if(!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")){
+            if (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) {
                 listaHabilitadas.remove(unaSocia);
             }
             //
-            
-            
+
         }
         return listaHabilitadas;
     }
@@ -468,6 +482,31 @@ public class ControladoraDeportiva {
         String unaConsulta = "SELECT C FROM TipoCancha C WHERE C.borradoLogico = FALSE";
         List<TipoCancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
+    }
+
+    public void generarReporteClub() {
+        entityManager.getTransaction().begin();
+        java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class);
+        File fichero = new File("reportes/reporteClubesMisiones.jasper");
+        JasperPrint jasperPrint = null;
+        try {
+            //JasperCompileManager.compileReportToFile("reporteClub.jrxml");
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
+            jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "reportes/reportesPDFClub.pdf");
+            
+//            JRExporter exporter = new JRPdfExporter();
+//            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportes/reportePDF.pdf"));
+//            exporter.exportReport();
+//            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+//            JasperPrintManager.printReport(jasperPrint, true);
+
+            //jviewer.viewReport(jasperPrint);
+        } catch (JRException ex) {
+            Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     // </editor-fold>
 

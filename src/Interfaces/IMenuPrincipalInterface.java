@@ -239,6 +239,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.add(jMenuItemGestionarEgresos);
 
         jMenuItemBalanceMensual.setText("Balance Mensual");
+        jMenuItemBalanceMensual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBalanceMensualActionPerformed(evt);
+            }
+        });
         jMenuContabilidad.add(jMenuItemBalanceMensual);
         jMenuContabilidad.add(jSeparator1);
 
@@ -429,7 +434,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemGestionTorneoActionPerformed
 
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
-        IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane,unaControladoraGlobal);
+        IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane, unaControladoraGlobal);
         unGestionEgresos.pack();
         unGestionEgresos.setVisible(true);
         this.jDesktopPane.add(unGestionEgresos);
@@ -441,14 +446,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
-        IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane,unaControladoraGlobal);
+        IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane, unaControladoraGlobal);
         unConceptoIngresos.pack();
         unConceptoIngresos.setVisible(true);
         this.jDesktopPane.add(unConceptoIngresos);
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
-        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(jDesktopPane,unaControladoraGlobal);
+        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(jDesktopPane, unaControladoraGlobal);
         unConceptoEgresos.pack();
         unConceptoEgresos.setVisible(true);
         this.jDesktopPane.add(unConceptoEgresos);
@@ -537,11 +542,18 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemConceptosDeportivosActionPerformed
 
     private void jMenuItemGestionarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarIngresosActionPerformed
-        IGestionIngresos unaGestionIngresos = new IGestionIngresos(jDesktopPane,unaControladoraGlobal);
+        IGestionIngresos unaGestionIngresos = new IGestionIngresos(jDesktopPane, unaControladoraGlobal);
         unaGestionIngresos.pack();
         unaGestionIngresos.setVisible(true);
         this.jDesktopPane.add(unaGestionIngresos);
     }//GEN-LAST:event_jMenuItemGestionarIngresosActionPerformed
+
+    private void jMenuItemBalanceMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBalanceMensualActionPerformed
+        IBalanceMensual unaIBalanceMensual = new IBalanceMensual(this.unaControladoraGlobal);
+        unaIBalanceMensual.pack();
+        unaIBalanceMensual.setVisible(true);
+        this.jDesktopPane.add(unaIBalanceMensual);
+    }//GEN-LAST:event_jMenuItemBalanceMensualActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();

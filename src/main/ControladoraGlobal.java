@@ -372,6 +372,10 @@ public class ControladoraGlobal {
     public List<Club> getClubesBD() {
         return this.unaControladoraDeportiva.getClubesBD();
     }
+    
+     public void generarReporteClub() {
+       this.unaControladoraDeportiva.generarReporteClub();
+    }
 
     public List<Club> getClubesBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getClubesBDFiltro(dato);
