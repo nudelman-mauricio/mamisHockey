@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteClubesMisiones" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c2b36602-4791-4c46-a747-c12c1cc5a285">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     club.`NOMBREPRESIDENTE` AS club_NOMBREPRESIDENTE,
+     localidad.`NOMBRE` AS localidad_NOMBRE,
+     club.`NOMBRE` AS club_NOMBRE
+FROM
+     `localidad` localidad INNER JOIN `club` club ON localidad.`IDLOCALIDAD` = club.`UNALOCALIDAD_IDLOCALIDAD`]]>
+	</queryString>
+	<field name="club_NOMBREPRESIDENTE" class="java.lang.String"/>
+	<field name="localidad_NOMBRE" class="java.lang.String"/>
+	<field name="club_NOMBRE" class="java.lang.String"/>
+	<group name="club_NOMBRE">
+		<groupExpression><![CDATA[$F{club_NOMBRE}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="108" y="15" width="342" height="43" forecolor="#003399" uuid="5f0200f3-3094-4532-b255-90b5ea4c072a"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Clubes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="29" y="4" width="100" height="20" uuid="e548399b-c3bd-4eb4-a0ac-a0633160efe5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{club_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="29" width="59" height="20" uuid="98628ee7-4eda-427b-b17a-81f9c32f709e"/>
+				<text><![CDATA[Presidente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="30" width="100" height="20" uuid="c69d3a1c-d5bb-4524-9f25-8c7427903198"/>
+				<textFieldExpression><![CDATA[$F{club_NOMBREPRESIDENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="298" y="29" width="52" height="20" uuid="cbf121c0-b0b4-41bc-bdf5-7c6dda8f95d8"/>
+				<text><![CDATA[Localidad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="350" y="29" width="100" height="20" uuid="cd8a2c91-470b-47a8-88fc-a08e4092cb37"/>
+				<textFieldExpression><![CDATA[$F{localidad_NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="34" width="100" height="20" uuid="7d136787-3110-4500-b836-e89ee78693a6"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
