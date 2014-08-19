@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import logicaNegocios.*;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class ControladoraGlobal {
 
@@ -373,8 +374,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getClubesBD();
     }
     
-     public void generarReporteClub() {
-       this.unaControladoraDeportiva.generarReporteClub();
+     public JasperPrint generarReporteClub() {
+       return this.unaControladoraDeportiva.generarReporteClub();
     }
 
     public List<Club> getClubesBDFiltro(String dato) {

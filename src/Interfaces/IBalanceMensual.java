@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
-
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import javax.swing.JFrame;
 import main.ControladoraGlobal;
-
+import net.sf.jasperreports.view.JRViewer;
 
 class IBalanceMensual extends javax.swing.JInternalFrame {
 
     ControladoraGlobal unaControladoraGlobal;
+
     /**
      * Creates new form IBalance
      */
     public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
-        initComponents();       
+        initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
     }
 
@@ -201,7 +202,11 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
 
     private void jButtonVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerActionPerformed
-        unaControladoraGlobal.generarReporteClub();
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(new JRViewer(unaControladoraGlobal.generarReporteClub()));
+        frame.pack();
+        frame.setExtendedState(MAXIMIZED_BOTH);
+        frame.setVisible(true);
     }//GEN-LAST:event_jButtonVerActionPerformed
 
 

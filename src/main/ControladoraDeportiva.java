@@ -1,6 +1,5 @@
 package main;
 
-import static groovy.inspect.Inspector.print;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,16 +25,12 @@ import logicaNegocios.Tarjeta;
 import logicaNegocios.TipoCancha;
 import logicaNegocios.Torneo;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
+
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
+
 
 public class ControladoraDeportiva {
 
@@ -351,6 +346,20 @@ public class ControladoraDeportiva {
         List<Club> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+
+    public JasperPrint generarReporteClub() {
+        entityManager.getTransaction().begin();
+        java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class);
+        File fichero = new File("reportes/reporteClubesMisiones.jasper");
+        JasperPrint jasperPrint = null;
+        try {            
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
+            jasperPrint = JasperFillManager.fillReport(reporte, null, conexion); 
+        } catch (JRException ex) {
+            Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return jasperPrint;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Indumentarias">
@@ -485,34 +494,7 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
 
-    public void generarReporteClub() {
-        entityManager.getTransaction().begin();
-        java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class);
-        File fichero = new File("reportes/reporteClubesMisiones.jasper");
-        JasperPrint jasperPrint = null;
-        try {
-            //JasperCompileManager.compileReportToFile("reporteClub.jrxml");
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
-            jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "reportes/reportesPDFClub.pdf");
-
-            //JRExporter exporter = new JRPdfExporter();
-//            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportes/reportePDF.pdf"));
-//            exporter.exportReport();
-            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
-            //Linea para mandar a imprimir
-//  JasperPrintManager.printReport(jasperPrint, true);
-
-//linea para ver el pdf en jasper
-            jviewer.viewReport(jasperPrint);
-        } catch (JRException ex) {
-            Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Categorias">
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
