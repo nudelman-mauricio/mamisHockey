@@ -495,15 +495,17 @@ public class ControladoraDeportiva {
             JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
             jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
             JasperExportManager.exportReportToPdfFile(jasperPrint, "reportes/reportesPDFClub.pdf");
-            
-//            JRExporter exporter = new JRPdfExporter();
+
+            //JRExporter exporter = new JRPdfExporter();
 //            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 //            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportes/reportePDF.pdf"));
 //            exporter.exportReport();
-//            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
-//            JasperPrintManager.printReport(jasperPrint, true);
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            //Linea para mandar a imprimir
+//  JasperPrintManager.printReport(jasperPrint, true);
 
-            //jviewer.viewReport(jasperPrint);
+//linea para ver el pdf en jasper
+            jviewer.viewReport(jasperPrint);
         } catch (JRException ex) {
             Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
         }

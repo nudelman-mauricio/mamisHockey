@@ -136,6 +136,13 @@ public class Socia extends Persona implements Serializable {
         this.getErgometrias().remove(unaErgometria);
         this.persistir(entityManager);
     }
+    
+    /**
+     * Devuelve True si la Socia tiene Ergometria en vigencia y aprobada
+     */
+    public void isErgometriaAprobada(){
+        
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
