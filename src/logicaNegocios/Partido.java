@@ -25,10 +25,22 @@ public class Partido implements Serializable, Comparable {
     private Collection<Socia> plantelLocal;
 
     @Basic
+    private String unAyudanteCampoLocal;
+
+    @Basic
     private String nombreVeedor;
+
+    @Basic
+    private String unDTLocal;
+
+    @Basic
+    private String unPreparadorFisicoLocal;
 
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
+
+    @Basic
+    private String unAyudanteCampoVisitante;
 
     @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoVisitante;
@@ -36,6 +48,12 @@ public class Partido implements Serializable, Comparable {
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
+
+    @Basic
+    private String unDTVisitante;
+
+    @Basic
+    private String unPreparadorFisicoVisitante;
 
     @OneToMany(targetEntity = Tarjeta.class)
     private Collection<Tarjeta> tarjetas;
@@ -79,14 +97,14 @@ public class Partido implements Serializable, Comparable {
 
     }
 
-    public Partido(EntityManager entityManager, Date fecha, Cancha unaCancha, Equipo unEquipoLocal , Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
+    public Partido(EntityManager entityManager, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
         this.fecha = fecha;
         this.unaCancha = unaCancha;
-        this.unEquipoLocal = unEquipoLocal;        
-        this.unEquipoVisitante = unEquipoVisitante;        
+        this.unEquipoLocal = unEquipoLocal;
+        this.unEquipoVisitante = unEquipoVisitante;
         this.unArbitro1 = unArbitro1;
         this.unArbitro2 = unArbitro2;
-        this.unArbitro3 = unArbitro3;        
+        this.unArbitro3 = unArbitro3;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -100,6 +118,14 @@ public class Partido implements Serializable, Comparable {
         this.plantelLocal = plantelLocal;
     }
 
+    public String getUnAyudanteCampoLocal() {
+        return this.unAyudanteCampoLocal;
+    }
+
+    public void setUnAyudanteCampoLocal(String unAyudanteCampoLocal) {
+        this.unAyudanteCampoLocal = unAyudanteCampoLocal;
+    }
+
     public String getNombreVeedor() {
         return this.nombreVeedor;
     }
@@ -108,12 +134,36 @@ public class Partido implements Serializable, Comparable {
         this.nombreVeedor = nombreVeedor;
     }
 
+    public String getUnDTLocal() {
+        return this.unDTLocal;
+    }
+
+    public void setUnDTLocal(String unDTLocal) {
+        this.unDTLocal = unDTLocal;
+    }
+
+    public String getUnPreparadorFisicoLocal() {
+        return this.unPreparadorFisicoLocal;
+    }
+
+    public void setUnPreparadorFisicoLocal(String unPreparadorFisicoLocal) {
+        this.unPreparadorFisicoLocal = unPreparadorFisicoLocal;
+    }
+
     public Collection<Gol> getGoles() {
         return this.goles;
     }
 
     public void setGoles(Collection<Gol> goles) {
         this.goles = goles;
+    }
+
+    public String getUnAyudanteCampoVisitante() {
+        return this.unAyudanteCampoVisitante;
+    }
+
+    public void setUnAyudanteCampoVisitante(String unAyudanteCampoVisitante) {
+        this.unAyudanteCampoVisitante = unAyudanteCampoVisitante;
     }
 
     public Equipo getUnEquipoVisitante() {
@@ -130,6 +180,22 @@ public class Partido implements Serializable, Comparable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getUnDTVisitante() {
+        return this.unDTVisitante;
+    }
+
+    public void setUnDTVisitante(String unDTVisitante) {
+        this.unDTVisitante = unDTVisitante;
+    }
+
+    public String getUnPreparadorFisicoVisitante() {
+        return this.unPreparadorFisicoVisitante;
+    }
+
+    public void setUnPreparadorFisicoVisitante(String unPreparadorFisicoVisitante) {
+        this.unPreparadorFisicoVisitante = unPreparadorFisicoVisitante;
     }
 
     public Collection<Tarjeta> getTarjetas() {
@@ -227,7 +293,7 @@ public class Partido implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-    // </editor-fold>
+// </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
