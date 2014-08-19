@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -188,6 +189,18 @@ public class ControladoraDeportiva {
     public void eliminarEquipo(Equipo unEquipo) {
         unEquipo.setBorradoLogico(true);
         unEquipo.persistir(this.entityManager);
+    }
+    
+    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo){
+        List<Socia> listaHabilitadas = new ArrayList(unEquipo.getPlantel());
+        
+        //comprobar que la socia este al dia con los pagos
+        //que tenga la ergometria aprobada y en vigencia
+        //que figuren en la lista de buena fe
+        //que sean socias jugadoras activas
+        //que no posean tarjetas ni sanciones
+        
+        return listaHabilitadas;
     }
 
     /**

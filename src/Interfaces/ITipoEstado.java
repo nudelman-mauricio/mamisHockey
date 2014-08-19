@@ -11,65 +11,68 @@ import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class ITipoEstado extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane;
-    
     private DefaultTableModel modeloTablePases;
-    
+    private TipoEstado unTipoEstadoSeleccionado;
+
     public ITipoEstado(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unjDesktopPane = unjDesktopPanel;
 
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
-        //Centrar
-        IMenuPrincipalInterface.centrar(this);
-        //Titulo Ventana
-        this.setTitle("Estados posibles de una Socia");
-        
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));//Icono de la ventana        
+        IMenuPrincipalInterface.centrar(this);//Centrar        
+        this.setTitle("Estados posibles de una Socia");//Titulo Ventana
+
         this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
-        cargarCamposTabla();
-        
+        cargarTabla();
+
         jTableTipoEstado.clearSelection();
-        
+
         jTextFieldNombre.setEditable(false);
-        
+
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        
+
     }
 
     //Cargar Tabla con los pases de la Socia
-    public void cargarCamposTabla() {
+    public void cargarTabla() {
         DateFormat df = DateFormat.getDateInstance();
         limpiarTabla(modeloTablePases);
-        for (Object aux : unaControladoraGlobal.getTiposEstadosBD()) {
-            TipoEstado unTipoEstado = (TipoEstado) aux;
-            this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre()});
-        }
-    }
-    
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
+        for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+            if (!unTipoEstado.isBorradoLogico()) {
+                this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre()});
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
         }
     }
-    
-    public void mostrarDetalle(TipoEstado unTipoEstado) {
-        jTextFieldNombre.setText(unTipoEstado.getNombre());
+
+    public void camposCargar() {
+        if (jTableTipoEstado.getSelectedRow() > -1) {
+            if (jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0) != null) {
+                unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
+                jTextFieldNombre.setText(unTipoEstadoSeleccionado.getNombre());
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -196,21 +199,17 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableTipoEstado.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                TipoEstado unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
-
-                mostrarDetalle(unTipoEstadoSeleccionado);
-
-                jButtonEditar.setEnabled(true);
-            }
-        });
         jScrollPane1.setViewportView(jTableTipoEstado);
         if (jTableTipoEstado.getColumnModel().getColumnCount() > 0) {
             jTableTipoEstado.getColumnModel().getColumn(0).setMinWidth(0);
             jTableTipoEstado.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableTipoEstado.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableTipoEstado.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -277,67 +276,83 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        jTableTipoEstado.clearSelection();
-        jTableTipoEstado.setEnabled(false);
-        jTextFieldNombre.setEditable(true);
-        jTextFieldNombre.setText("");
-
-        //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
+
+        jTableTipoEstado.setEnabled(false);
+
+        jTextFieldNombre.setEditable(true);
+        jTextFieldNombre.setText("");
+
+        unTipoEstadoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.crearTipoEstado(jTextFieldNombre.getText());
-        JOptionPane.showMessageDialog(this, "Nuevo Estado Guardado.");
+        if (unTipoEstadoSeleccionado == null) {
+            unaControladoraGlobal.crearTipoEstado(jTextFieldNombre.getText());
+            JOptionPane.showMessageDialog(this, "Tipo de Estado Guardado");
+        } else {
+            unaControladoraGlobal.modificarTipoEstado(unTipoEstadoSeleccionado, jTextFieldNombre.getText(), unTipoEstadoSeleccionado.isBorradoLogico());
+            JOptionPane.showMessageDialog(this, "Tipo de Estado Modificado");
+            unTipoEstadoSeleccionado = null;
+        }
+        cargarTabla();
 
-        //Comportamientos Extras
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        
-        jTextFieldNombre.setText("");
-        jTextFieldNombre.setEditable(false);
+
         jTableTipoEstado.setEnabled(true);
-        cargarCamposTabla();
+
+        jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jTableTipoEstado.clearSelection();
-        
-        jTextFieldNombre.setText("");
-        jTextFieldNombre.setEditable(false);
-        jTableTipoEstado.setEnabled(true);
-        
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
+
+        jTableTipoEstado.setEnabled(true);
+
+        jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        TipoEstado unTipoEstado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
-        
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableTipoEstado.setEnabled(true);
+
+        jTextFieldNombre.setEditable(false);
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el estado: " + unTipoEstado.getNombre(),
+                "Desea eliminar el Tipo de Estado: " + unTipoEstadoSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarTipoEstado(unTipoEstado);
-            
-            cargarCamposTabla();
+            unaControladoraGlobal.eliminarTipoEstado(unTipoEstadoSeleccionado);
+            unTipoEstadoSeleccionado = null;
+            cargarTabla();
         }
+        jTableTipoEstado.clearSelection();
+        jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
