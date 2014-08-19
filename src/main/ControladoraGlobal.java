@@ -600,6 +600,10 @@ public class ControladoraGlobal {
     public List<Gol> getGolesBD() {
         return this.unaControladoraDeportiva.getGolesBD();
     }
+    
+    public int getGoles(Partido unPartido, Equipo unEquipo){
+        return 0;
+    }
     // </editor-fold>
 // </editor-fold>
 
