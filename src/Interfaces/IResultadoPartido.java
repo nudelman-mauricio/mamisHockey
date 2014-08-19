@@ -37,51 +37,83 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
 
-        //Detalles
-        jTextFieldArbitro1.setText(unPartido.getUnArbitro1().getApellido() + ", " + unPartido.getUnArbitro1().getNombre());
-        jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
-        jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
-        jTextFieldCancha.setText(unPartido.getUnaCancha().getNombre());
-        jTextFieldVeedor.setText(unPartido.getNombreVeedor());
-        jTextAreaDetalle.setText(unPartido.getObservaciones());
-        jLabelResultado.setText("- a -");
-
         this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
         cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal, unPartido.getPlantelLocal());
         this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
         cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
     }
 
-    public void InicioNuevo() {
-        //Local
-        jTextFieldDTLocal.setText(unPartido.getUnEquipoLocal().getUnDT().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnDT().getNombre());
-        jTextFieldAyudanteCampoLocal.setText(unPartido.getUnEquipoLocal().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnAyudanteCampo().getNombre());
-        jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnEquipoLocal().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnPreparadorFisico().getNombre());
-        jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
-        cargarCamposTablaControlando(unPartido.getUnEquipoLocal(), modeloTableLocal);
+    public void camposActivo(boolean Editable) {
+        jTextFieldVeedor.setEditable(Editable);
+        jTextFieldAyudanteDeMesaLocal.setEditable(Editable);
+        jTextFieldAyudanteDeMesaVisitante.setEditable(Editable);
+        jTextAreaObservacion.setEditable(Editable);
 
-        //Visitante
-        jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnDT().getNombre());
-        jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
-        jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
-        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
-        cargarCamposTablaControlando(unPartido.getUnEquipoVisitante(), modeloTableVisitante);
+        //jTableLocal.setEnabled(false);
+        //jTableVisitante.setEnabled(false);
     }
 
-    public void InicioGuardado() {
-        //Local
-        jTextFieldDTLocal.setText(unPartido.getUnDTLocal().getApellido() + ", " + unPartido.getUnDTLocal().getNombre());
-        jTextFieldAyudanteCampoLocal.setText(unPartido.getUnAyudanteCampoLocal().getApellido() + ", " + unPartido.getUnAyudanteCampoLocal().getNombre());
-        jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().getApellido() + ", " + unPartido.getUnPreparadorFisicoLocal().getNombre());
+    void camposCargar() {
+        //Detalles
+        jTextFieldArbitro1.setText(unPartido.getUnArbitro1().getApellido() + ", " + unPartido.getUnArbitro1().getNombre());
+        jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
+        jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
+        jTextFieldCancha.setText(unPartido.getUnaCancha().getNombre());
+        jTextFieldVeedor.setText(unPartido.getNombreVeedor());
+        // <editor-fold defaultstate="collapsed" desc="Local">
+        //DT
+        if (unPartido.getUnDTLocal() == null) {
+            jTextFieldDTLocal.setText(unPartido.getUnEquipoLocal().getUnDT().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnDT().getNombre());
+        } else {
+            jTextFieldDTLocal.setText(unPartido.getUnDTLocal().getApellido() + ", " + unPartido.getUnDTLocal().getNombre());
+        }
+        //AC
+        if (unPartido.getUnAyudanteCampoLocal() == null) {
+            jTextFieldAyudanteCampoLocal.setText(unPartido.getUnEquipoLocal().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnAyudanteCampo().getNombre());
+        } else {
+            jTextFieldAyudanteCampoLocal.setText(unPartido.getUnAyudanteCampoLocal().getApellido() + ", " + unPartido.getUnAyudanteCampoLocal().getNombre());
+        }
+        //PF
+        if (unPartido.getUnPreparadorFisicoLocal() == null) {
+            jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnEquipoLocal().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnPreparadorFisico().getNombre());
+        } else {
+            jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().getApellido() + ", " + unPartido.getUnPreparadorFisicoLocal().getNombre());
+        }
         jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
-        cargarCamposTabla(unPartido.getUnEquipoLocal(), modeloTableLocal, unPartido.getPlantelLocal());
-
-        //Visitante
+        
+        //CARGAR TABLA Local cargarCamposTablaControlando(unPartido.getUnEquipoLocal(), modeloTableLocal);
+        //CARGAR TABLA GOLES
+        
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Visitante">
+        //DT
+        if (unPartido.getUnDTVisitante() == null) {
+        jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnDT().getNombre());
+        } else {
         jTextFieldDTVisitante.setText(unPartido.getUnDTVisitante().getApellido() + ", " + unPartido.getUnDTVisitante().getNombre());
+        }
+        //AC
+        if (unPartido.getUnAyudanteCampoVisitante() == null) {
+        jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
+        } else {
         jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnAyudanteCampoVisitante().getApellido() + ", " + unPartido.getUnAyudanteCampoVisitante().getNombre());
+        }
+        //PF
+        if (unPartido.getUnPreparadorFisicoVisitante() == null) {
+        jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
+        } else {
         jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().getApellido() + ", " + unPartido.getUnPreparadorFisicoVisitante().getNombre());
-        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
-        cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
+        }
+        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());        
+        
+        //CARGAR TABLA Visitante cargarCamposTabla(unPartido.getUnEquipoVisitante(), modeloTableVisitante, unPartido.getPlantelVisitante());
+        //CARGAR TABLA GOLES
+        
+        // </editor-fold>
+        jTextAreaObservacion.setText(unPartido.getObservaciones());
+        
+        //REVISAR Y CARGAR LOS GOLES --- ACA ME QUEDE
+        jLabelResultado.setText("- a -");
     }
 
     public void cargarCamposTablaControlando(Equipo unEquipo, DefaultTableModel modeloTable) {
@@ -132,37 +164,37 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     ra = rd;
                     rd = null;
                 }
-                if (v1 == null){
+                if (v1 == null) {
                     v1.setTiempo("-");
                     v1.setMinuto("-");
                 }
-                if (v2 == null){
+                if (v2 == null) {
                     v2.setTiempo("-");
                     v2.setMinuto("-");
                 }
-                if (a1 == null){
+                if (a1 == null) {
                     a1.setTiempo("-");
                     a1.setMinuto("-");
                 }
-                if (a2 == null){
+                if (a2 == null) {
                     a2.setTiempo("-");
                     a2.setMinuto("-");
                 }
-                if (ra == null){
+                if (ra == null) {
                     ra.setTiempo("-");
                     ra.setMinuto("-");
                 }
-                if (rd == null){
+                if (rd == null) {
                     rd.setTiempo("-");
                     rd.setMinuto("-");
                 }
             }
-            modeloTable.addRow(new Object[]{unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
-                v1.getTiempo(), v1.getMinuto(), 
+            modeloTable.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+                v1.getTiempo(), v1.getMinuto(),
                 v2.getTiempo(), v2.getMinuto(),
-                a1.getTiempo(), a1.getMinuto(), 
+                a1.getTiempo(), a1.getMinuto(),
                 a2.getTiempo(), a2.getMinuto(),
-                ra.getTiempo(), ra.getMinuto(), 
+                ra.getTiempo(), ra.getMinuto(),
                 rd.getTiempo(), rd.getMinuto()});
         }
     }
@@ -184,8 +216,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jPanelBotones = new javax.swing.JPanel();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonEditar1 = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jButtonActualizar = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
         jPanelTitulo = new javax.swing.JPanel();
@@ -206,7 +238,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaDetalle = new javax.swing.JTextArea();
+        jTextAreaObservacion = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -237,24 +269,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonGolLocal = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTableVisitante1 = new javax.swing.JTable();
+        jTableVisitante = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jLabelEquipoVisitante1 = new javax.swing.JLabel();
+        jLabelEquipoVisitante = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTableGolLocal2 = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
         jButtonGolVisitante = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableVisitante = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabelEquipoVisitante = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTableGolLocal1 = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        jButtonGol = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -268,15 +289,25 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
-        jButtonEditar1.setText("Editar");
-        jButtonEditar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
-        jButtonEditar.setText("Cancelar");
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipo.png"))); // NOI18N
         jButtonActualizar.setText("Actualizar");
@@ -301,9 +332,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,17 +346,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonEditar1)
-                            .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButtonActualizar))
-                        .addGap(3, 3, 3))))
+                    .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonEditar)
+                    .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonActualizar))
+                .addGap(3, 3, 3))
         );
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -361,11 +388,19 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jLabel15.setText("Arbitro 1");
 
+        jTextFieldArbitro1.setEditable(false);
+
         jLabel14.setText("Arbitro 2");
+
+        jTextFieldArbitro2.setEditable(false);
 
         jLabel13.setText("Arbitro 3");
 
+        jTextFieldArbitro3.setEditable(false);
+
         jLabel16.setText("Chancha");
+
+        jTextFieldCancha.setEditable(false);
 
         jLabel12.setText("Veedor");
 
@@ -419,9 +454,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jTextAreaDetalle.setColumns(20);
-        jTextAreaDetalle.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaDetalle);
+        jTextAreaObservacion.setColumns(20);
+        jTextAreaObservacion.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaObservacion);
 
         jLabel9.setText("Observación");
 
@@ -452,9 +487,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Director Tecnico");
 
+        jTextFieldDTLocal.setEditable(false);
+
         jLabel17.setText("Ayudante de Campo");
 
+        jTextFieldAyudanteCampoLocal.setEditable(false);
+
         jLabel18.setText("Preparador Físico");
+
+        jTextFieldPreparadorFisicoLocal.setEditable(false);
 
         jLabel19.setText("Ayudante de Mesa Local");
 
@@ -510,9 +551,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jLabel20.setText("Director Tecnico");
 
+        jTextFieldDTVisitante.setEditable(false);
+
         jLabel21.setText("Ayudante de Campo");
 
+        jTextFieldAyudanteCampoVisitante.setEditable(false);
+
         jLabel22.setText("Preparador Físico");
+
+        jTextFieldPreparadorFisicoVisitante.setEditable(false);
 
         jLabel23.setText("Ayudante de Mesa Visitante");
 
@@ -597,38 +644,38 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
+                "DNI", "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true, true, true, true, true, true
+                false, false, false, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -641,47 +688,55 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableLocal);
         if (jTableLocal.getColumnModel().getColumnCount() > 0) {
-            jTableLocal.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTableLocal.getColumnModel().getColumn(2).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(2).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(2).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(4).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(6).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(7).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(7).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(8).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(9).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(10).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(10).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(10).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(11).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(11).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(11).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(12).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(12).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(12).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(13).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(13).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(13).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableLocal.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableLocal.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableLocal.getColumnModel().getColumn(1).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(1).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTableLocal.getColumnModel().getColumn(3).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(4).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(5).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(6).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(7).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(7).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(8).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(9).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(10).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(10).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(10).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(11).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(11).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(11).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(12).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(12).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(12).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(13).setMinWidth(20);
+            jTableLocal.getColumnModel().getColumn(13).setPreferredWidth(20);
+            jTableLocal.getColumnModel().getColumn(13).setMaxWidth(20);
+            jTableLocal.getColumnModel().getColumn(14).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(14).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(14).setMaxWidth(35);
         }
+        jTableLocal.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                jButtonGolLocal.setEnabled(true);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Equipo Local: ");
@@ -700,6 +755,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 "Cam", "T", "Min"
             }
         ));
+        jTableGolLocal.setEnabled(false);
         jScrollPane4.setViewportView(jTableGolLocal);
         if (jTableGolLocal.getColumnModel().getColumnCount() > 0) {
             jTableGolLocal.getColumnModel().getColumn(0).setMinWidth(35);
@@ -719,6 +775,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButtonGolLocal.setText("Agregar Gol");
+        jButtonGolLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGolLocalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -764,40 +825,40 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Equipo Local", jPanel5);
 
-        jTableVisitante1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
+                "DNI", "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true, true, true, true, true, true
+                true, false, false, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -808,55 +869,63 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTableVisitante1);
-        if (jTableVisitante1.getColumnModel().getColumnCount() > 0) {
-            jTableVisitante1.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTableVisitante1.getColumnModel().getColumn(2).setMinWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(2).setPreferredWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(2).setMaxWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(4).setMinWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(4).setMaxWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(6).setMinWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(6).setPreferredWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(6).setMaxWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(7).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(7).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(7).setMaxWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(8).setMinWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(8).setPreferredWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(8).setMaxWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(9).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(9).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(9).setMaxWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(10).setMinWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(10).setPreferredWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(10).setMaxWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(11).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(11).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(11).setMaxWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(12).setMinWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(12).setPreferredWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(12).setMaxWidth(20);
-            jTableVisitante1.getColumnModel().getColumn(13).setMinWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(13).setPreferredWidth(35);
-            jTableVisitante1.getColumnModel().getColumn(13).setMaxWidth(35);
+        jScrollPane5.setViewportView(jTableVisitante);
+        if (jTableVisitante.getColumnModel().getColumnCount() > 0) {
+            jTableVisitante.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableVisitante.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableVisitante.getColumnModel().getColumn(1).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(1).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTableVisitante.getColumnModel().getColumn(3).setMinWidth(20);
+            jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(20);
+            jTableVisitante.getColumnModel().getColumn(3).setMaxWidth(20);
+            jTableVisitante.getColumnModel().getColumn(4).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(4).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(4).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(5).setMinWidth(20);
+            jTableVisitante.getColumnModel().getColumn(5).setPreferredWidth(20);
+            jTableVisitante.getColumnModel().getColumn(5).setMaxWidth(20);
+            jTableVisitante.getColumnModel().getColumn(6).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(6).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(6).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(7).setMinWidth(20);
+            jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(20);
+            jTableVisitante.getColumnModel().getColumn(7).setMaxWidth(20);
+            jTableVisitante.getColumnModel().getColumn(8).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(20);
+            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(20);
+            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(20);
+            jTableVisitante.getColumnModel().getColumn(10).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(10).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(10).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(11).setMinWidth(20);
+            jTableVisitante.getColumnModel().getColumn(11).setPreferredWidth(20);
+            jTableVisitante.getColumnModel().getColumn(11).setMaxWidth(20);
+            jTableVisitante.getColumnModel().getColumn(12).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(12).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(12).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(13).setMinWidth(20);
+            jTableVisitante.getColumnModel().getColumn(13).setPreferredWidth(20);
+            jTableVisitante.getColumnModel().getColumn(13).setMaxWidth(20);
+            jTableVisitante.getColumnModel().getColumn(14).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(14).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(14).setMaxWidth(35);
         }
+        jTableVisitante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                jButtonGolVisitante.setEnabled(true);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Equipo Visitante: ");
 
-        jLabelEquipoVisitante1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelEquipoVisitante1.setText("Nombre Equipo");
+        jLabelEquipoVisitante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelEquipoVisitante.setText("Nombre Equipo");
 
         jTableGolLocal2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -869,6 +938,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 "Cam", "T", "Min"
             }
         ));
+        jTableGolLocal2.setEnabled(false);
         jScrollPane8.setViewportView(jTableGolLocal2);
         if (jTableGolLocal2.getColumnModel().getColumnCount() > 0) {
             jTableGolLocal2.getColumnModel().getColumn(0).setMinWidth(35);
@@ -888,6 +958,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButtonGolVisitante.setText("Agregar Gol");
+        jButtonGolVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGolVisitanteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -899,7 +974,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEquipoVisitante1)
+                        .addComponent(jLabelEquipoVisitante)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
@@ -916,7 +991,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabelEquipoVisitante1)
+                    .addComponent(jLabelEquipoVisitante)
                     .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -929,191 +1004,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.addTab("Equipo Visitante", jPanel7);
-
-        jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true, true, true, true, true, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTableVisitante);
-        if (jTableVisitante.getColumnModel().getColumnCount() > 0) {
-            jTableVisitante.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTableVisitante.getColumnModel().getColumn(2).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(2).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(3).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(3).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(4).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(4).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(5).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(5).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(5).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(6).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(6).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(6).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(7).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(7).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(8).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(10).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(10).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(10).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(11).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(11).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(11).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(12).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(12).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(12).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(13).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(13).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(13).setMaxWidth(35);
-        }
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Equipo Visitante: ");
-
-        jLabelEquipoVisitante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelEquipoVisitante.setText("Nombre Equipo");
-
-        jTableGolLocal1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, ""},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Cam", "T", "Min"
-            }
-        ));
-        jScrollPane7.setViewportView(jTableGolLocal1);
-        if (jTableGolLocal1.getColumnModel().getColumnCount() > 0) {
-            jTableGolLocal1.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableGolLocal1.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableGolLocal1.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableGolLocal1.getColumnModel().getColumn(1).setMinWidth(20);
-            jTableGolLocal1.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jTableGolLocal1.getColumnModel().getColumn(1).setMaxWidth(20);
-            jTableGolLocal1.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableGolLocal1.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableGolLocal1.getColumnModel().getColumn(2).setMaxWidth(35);
-        }
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Goles");
-        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jButtonGol.setText("Agregar Gol");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane6.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEquipoVisitante))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1282, 1282, 1282)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                        .addComponent(jButtonGol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelEquipoVisitante)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonGol))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Equipo Visitante: Nombre Equipo", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1148,23 +1038,105 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
+
+        unPartido.setNombreVeedor(jTextFieldVeedor.getText());
+        unPartido.setObservaciones(jTextAreaObservacion.getText());
+
+        //Local
+        jTextFieldDTLocal.getText();
+        jTextFieldAyudanteCampoLocal.getText();
+        jTextFieldPreparadorFisicoLocal.getText();
+        unPartido.setNombreAyudanteMesaLocal(jTextFieldAyudanteDeMesaLocal.getText());
+
+        //Visitante
+        jTextFieldDTVisitante.getText();
+        jTextFieldAyudanteCampoVisitante.getText();
+        jTextFieldPreparadorFisicoVisitante.getText();
+        unPartido.setNombreAyudanteMesaVisitante(jTextFieldAyudanteDeMesaVisitante.getText());
+
+        if (!(jTextFieldNombre.getText().isEmpty()) && !(jTextFieldCodPostal.getText().isEmpty())) {
+            if (unaLocalidadSeleccionada == null) {
+                unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
+                JOptionPane.showMessageDialog(this, "Localidad Guardada");
+
+            } else {
+                unaControladoraGlobal.modificarLocalidad(unaLocalidadSeleccionada, jTextFieldNombre.getText(), jTextFieldCodPostal.getText(), unaLocalidadSeleccionada.isBorradoLogico());
+                unaLocalidadSeleccionada = null;
+                JOptionPane.showMessageDialog(this, "Localidad Modificada");
+            }
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            camposActivo(false);
+            camposLimpiar();
+
+            cargarTabla();
+            jTableLocalidad.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
+
+    private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
+        IGol unIGol = new IGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
+        unIGol.pack();
+        unIGol.setVisible(true);
+
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIGol);
+    }//GEN-LAST:event_jButtonGolLocalActionPerformed
+
+    private void jButtonGolVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolVisitanteActionPerformed
+        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
+        IGol unIGol = new IGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
+        unIGol.pack();
+        unIGol.setVisible(true);
+
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIGol);
+    }//GEN-LAST:event_jButtonGolVisitanteActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jButtonCancelar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+
+        jTableLocalidad.setEnabled(false);
+
+        camposActivo(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+
+        jTableLocalidad.setEnabled(true);
+
+        camposActivo(false);
+
+        //¿Aca un Actualizar?
+        //camposLimpiar();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonEditar1;
-    private javax.swing.JButton jButtonGol;
     private javax.swing.JButton jButtonGolLocal;
     private javax.swing.JButton jButtonGolVisitante;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1173,7 +1145,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1184,7 +1155,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEquipoLocal;
     private javax.swing.JLabel jLabelEquipoVisitante;
-    private javax.swing.JLabel jLabelEquipoVisitante1;
     private javax.swing.JLabel jLabelResultado;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
@@ -1192,28 +1162,21 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableGolLocal;
-    private javax.swing.JTable jTableGolLocal1;
     private javax.swing.JTable jTableGolLocal2;
     private javax.swing.JTable jTableLocal;
     private javax.swing.JTable jTableVisitante;
-    private javax.swing.JTable jTableVisitante1;
-    private javax.swing.JTextArea jTextAreaDetalle;
+    private javax.swing.JTextArea jTextAreaObservacion;
     private javax.swing.JTextField jTextFieldArbitro1;
     private javax.swing.JTextField jTextFieldArbitro2;
     private javax.swing.JTextField jTextFieldArbitro3;
