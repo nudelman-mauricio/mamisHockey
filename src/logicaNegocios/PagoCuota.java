@@ -15,7 +15,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class PagoCuota implements Serializable, Comparable {
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPagoCuota;
@@ -32,6 +33,7 @@ public class PagoCuota implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public PagoCuota() {
 
@@ -44,7 +46,8 @@ public class PagoCuota implements Serializable, Comparable {
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Long getIdPagoCuota() {
         return this.idPagoCuota;
     }
@@ -85,7 +88,7 @@ public class PagoCuota implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
         return this.monto;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -99,7 +102,7 @@ public class PagoCuota implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -112,5 +115,5 @@ public class PagoCuota implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 }

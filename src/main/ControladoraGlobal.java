@@ -323,8 +323,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarEquipo(unEquipo);
     }
     
-    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo){
-        return this.unaControladoraDeportiva.getJugadorasHabilitadas(unEquipo);
+    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha){
+        return this.unaControladoraDeportiva.getJugadorasHabilitadas(unEquipo, unaFecha);
     }
 
     public Equipo getEquipoBD(Long id) {

@@ -190,16 +190,33 @@ public class ControladoraDeportiva {
         unEquipo.setBorradoLogico(true);
         unEquipo.persistir(this.entityManager);
     }
-    
-    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo){
+
+    /**
+     * Devuelve una lista con el plantel del equipo pasado por parametro menos
+     * aquellas jugadoras que no puedan jugar por alguno de los siguientes
+     * motivos: que la socia este al dia con los pagos. que tenga la ergometria
+     * aprobada y en vigencia. que figuren en la lista de buena fe. que sean
+     * socias jugadoras activas. que no posean tarjetas ni sanciones.
+     *
+     * @param unEquipo
+     * @param unaFecha
+     * @return
+     */
+    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha) {
         List<Socia> listaHabilitadas = new ArrayList(unEquipo.getPlantel());
-        
-        //comprobar que la socia este al dia con los pagos
-        //que tenga la ergometria aprobada y en vigencia
-        //que figuren en la lista de buena fe
-        //que sean socias jugadoras activas
-        //que no posean tarjetas ni sanciones
-        
+        for (Socia unaSocia : unEquipo.getPlantel()) {
+            //que este al dia con las deudas
+            if (!unaSocia.isAlDia(unaFecha)) {
+                listaHabilitadas.remove(unaSocia);
+            }
+            //que sea socia jugadora activa
+            if(!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")){
+                listaHabilitadas.remove(unaSocia);
+            }
+            //
+            
+            
+        }
         return listaHabilitadas;
     }
 
@@ -622,7 +639,7 @@ public class ControladoraDeportiva {
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.persistir(this.entityManager);
     }
-    
+
     public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
         unPartido.setFecha(fecha);
         unPartido.setUnaCancha(unaCancha);
