@@ -97,7 +97,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //Cargar Tabla Local
         limpiarTabla(modeloTableLocal);
         if (unPartido.getPlantelLocal() == null) {
-            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal())) {
+            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
                 cargarCamposTablaControlando(unaSocia, modeloTableLocal);
             }
         } else {
@@ -131,7 +131,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //Cargar Tabla Visitante
         limpiarTabla(modeloTableVisitante);
         if (unPartido.getPlantelVisitante() == null) {
-            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante())) {
+            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
                 cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
             }
         } else {
@@ -1086,7 +1086,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
-
+        
         unPartido.setNombreVeedor(jTextFieldVeedor.getText());
         unPartido.setNombreAyudanteMesaLocal(jTextFieldAyudanteDeMesaLocal.getText());
         unPartido.setNombreAyudanteMesaVisitante(jTextFieldAyudanteDeMesaVisitante.getText());
