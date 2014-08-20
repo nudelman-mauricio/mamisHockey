@@ -206,7 +206,7 @@ public class ControladoraDeportiva {
      * aquellas jugadoras que no puedan jugar por alguno de los siguientes
      * motivos: que la socia este al dia con los pagos. que tenga la ergometria
      * aprobada y en vigencia. que figuren en la lista de buena fe. que sean
-     * socias jugadoras activas. que no posean tarjetas ni sanciones.
+     * socias jugadoras activas. que no posean tarjetas rojas ni sanciones.
      *
      * @param unEquipo
      * @param unaFecha
@@ -224,7 +224,11 @@ public class ControladoraDeportiva {
                 listaHabilitadas.remove(unaSocia);
             }
             //que tenga la ergometria aprobada y en vigencia
-            unaSocia.get
+            if (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)){
+                listaHabilitadas.remove(unaSocia);
+            }
+            //que no posean tarjetas rojas ni sanciones
+            
 
         }
         return listaHabilitadas;
