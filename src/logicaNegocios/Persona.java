@@ -221,11 +221,19 @@ public abstract class Persona implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
+    /**
+     * Devuelve True si la persona tiene al menos una SancionTribunal que no
+     * este borrada y que no haya terminado hasta el dia de la fecha pasada por
+     * parametro
+     *
+     * @param unaFecha
+     * @return
+     */
     public boolean isSancionada(Date unaFecha) {
         boolean resultado = false;
         for (SancionTribunal unaSancionTribunal : this.getSancionesTribunal()) {
-            if (!unaSancionTribunal.isBorradoLogico()) {
-                
+            if (unaSancionTribunal.isVigente(unaFecha)) {
+                resultado = true;
             }
         }
         return resultado;

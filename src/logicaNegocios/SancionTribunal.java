@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class SancionTribunal implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Temporal(TemporalType.DATE)
     @Basic
     private Date vencimiento = null;
@@ -51,6 +52,7 @@ public class SancionTribunal implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public SancionTribunal() {
 
@@ -64,7 +66,7 @@ public class SancionTribunal implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Date getVencimiento() {
         return this.vencimiento;
     }
@@ -152,7 +154,7 @@ public class SancionTribunal implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -166,7 +168,7 @@ public class SancionTribunal implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -179,5 +181,27 @@ public class SancionTribunal implements Serializable, Comparable {
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
+
+    /**
+     * Devuelve True solo si la Sancion no se cumplio totalmente, ya sea porque
+     * no vencio todavia o porque no se cumplieron todas las fechas de
+     * penalizacion
+     *
+     * @param unaFecha
+     * @return
+     */
+    public boolean isVigente(Date unaFecha) {
+        boolean resultado = false;
+        if (this.borradoLogico == false) {
+            if ((this.cantFechas != 0) && (this.cantFechas > this.cantFechasCumplidas)) {
+                resultado = true;
+            } else {
+                if ((this.cantFechas == 0) && (this.vencimiento != null) && (this.vencimiento.before(unaFecha))) {
+                    resultado = true;
+                }
+            }
+        }
+        return resultado;
+    }
 }
