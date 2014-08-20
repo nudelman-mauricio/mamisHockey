@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-
 import main.ControladoraGlobal;
+import main.ImagenFondo;
 
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
@@ -29,9 +29,8 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        //FONDO jDesktopPane      - TODAVIA ME ESTA GANANDO - 
-        //jDesktopPane.setBorder(new ImagenFondo());
-        //https://www.youtube.com/watch?v=vrNc5bBbJ3g
+        //FONDO jDesktopPane
+        jDesktopPane.setBorder(new ImagenFondo());
     }
 
     @SuppressWarnings("unchecked")
