@@ -362,6 +362,7 @@ public class ControladoraDeportiva {
         } catch (JRException ex) {
             Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
         }
+        entityManager.getTransaction().commit();        
         return jasperPrint;
     }
     // </editor-fold>
