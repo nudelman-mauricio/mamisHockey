@@ -220,13 +220,23 @@ public abstract class Persona implements Serializable, Comparable {
         this.sancionesTribunal.remove(unaSancionTribunal);
         this.persistir(entityManager);
     }
+
+    public boolean isSancionada(Date unaFecha) {
+        boolean resultado = false;
+        for (SancionTribunal unaSancionTribunal : this.getSancionesTribunal()) {
+            if (!unaSancionTribunal.isBorradoLogico()) {
+                
+            }
+        }
+        return resultado;
+    }
     // </editor-fold>
 
-    public int getEdadCalendario() {        
+    public int getEdadCalendario() {
         Calendar fechaSO = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");        
-        int anioNacimiento= Integer.parseInt(dateFormat.format(this.fechaNacimiento));        
-        int anoActual = fechaSO.get(fechaSO.YEAR);        
-        return (anoActual-anioNacimiento);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        int anioNacimiento = Integer.parseInt(dateFormat.format(this.fechaNacimiento));
+        int anoActual = fechaSO.get(fechaSO.YEAR);
+        return (anoActual - anioNacimiento);
     }
 }

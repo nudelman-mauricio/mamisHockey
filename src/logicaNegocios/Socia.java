@@ -136,12 +136,34 @@ public class Socia extends Persona implements Serializable {
         this.getErgometrias().remove(unaErgometria);
         this.persistir(entityManager);
     }
-    
+
     /**
-     * Devuelve True si la Socia tiene Ergometria en vigencia y aprobada
+     * Devuelve True si la Socia tiene Ergometria en vigencia y aprobada al dia
+     * de la fecha pasada por parametro
      */
-    public void isErgometriaAprobada(){
-        
+    public boolean isErgometriaAprobada_y_Vigente(Date unaFecha) {
+        boolean resultado = false;
+        Ergometria ultimaErgometria = this.getUltimaErgometria();
+        if ((ultimaErgometria.getFechaCaducidad().after(unaFecha)) && (ultimaErgometria.isAprobado())) {
+            resultado = true;
+        }
+        return resultado;
+    }
+
+    public Ergometria getUltimaErgometria() {
+        Ergometria ultimaErgometria = null;
+        for (Ergometria unaErgometria : getErgometrias()) {
+            if (!unaErgometria.isBorradoLogico()) {
+                if (ultimaErgometria != null) {
+                    if (unaErgometria.getFechaRealizacion().after(ultimaErgometria.getFechaRealizacion())) {
+                        ultimaErgometria = unaErgometria;
+                    }
+                } else {
+                    ultimaErgometria = unaErgometria;
+                }
+            }
+        }
+        return ultimaErgometria;
     }
     // </editor-fold>
 
