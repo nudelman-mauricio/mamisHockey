@@ -31,7 +31,6 @@ import net.sf.jasperreports.engine.JasperReport;
 
 import net.sf.jasperreports.engine.util.JRLoader;
 
-
 public class ControladoraDeportiva {
 
     private final EntityManager entityManager;
@@ -215,20 +214,9 @@ public class ControladoraDeportiva {
     public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha) {
         List<Socia> listaHabilitadas = new ArrayList(unEquipo.getPlantel());
         for (Socia unaSocia : unEquipo.getPlantel()) {
-            //que este al dia con las deudas
-            if (!unaSocia.isAlDia(unaFecha)) {
+            if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
                 listaHabilitadas.remove(unaSocia);
             }
-            //que sea socia jugadora activa
-            if (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) {
-                listaHabilitadas.remove(unaSocia);
-            }
-            //que tenga la ergometria aprobada y en vigencia
-            if (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)){
-                listaHabilitadas.remove(unaSocia);
-            }
-            //que no posean tarjetas rojas ni sanciones
-            
 
         }
         return listaHabilitadas;
@@ -356,9 +344,9 @@ public class ControladoraDeportiva {
         java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class);
         File fichero = new File("reportes/reporteClubesMisiones.jasper");
         JasperPrint jasperPrint = null;
-        try {            
+        try {
             JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
-            jasperPrint = JasperFillManager.fillReport(reporte, null, conexion); 
+            jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
         } catch (JRException ex) {
             Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
         }

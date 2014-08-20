@@ -540,7 +540,10 @@ public class ISancion extends javax.swing.JInternalFrame {
             try {
                 Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
                 Date fechaCaducidad = null;
-                int cantidadFechas = 0;
+                int cantidadFechas = 0, cantidadFechasCumplidas = 0;
+                if (!jTextFieldFechasCumplidas.getText().isEmpty()) {
+                    cantidadFechasCumplidas = Integer.parseInt(jTextFieldFechasCumplidas.getText());
+                }
                 if (jRadioButtonHasta.isSelected()) {
                     fechaCaducidad = new java.sql.Date(df.parse(jTextFieldPenalizacion.getText()).getTime());
                 }
@@ -558,10 +561,10 @@ public class ISancion extends javax.swing.JInternalFrame {
                     if (unEquipo != null) {
                         unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(unEquipo, null, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
                     }
-                    unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, Integer.parseInt(jTextFieldFechasCumplidas.getText()), unaNuevaSancion.isBorradoLogico());
+                    unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, cantidadFechasCumplidas, unaNuevaSancion.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Sanción Guardada");
                 } else {
-                    unaControladoraGlobal.modificarSancionTribunal(unaSancionSeleccionada, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, Integer.parseInt(jTextFieldFechasCumplidas.getText()), unaSancionSeleccionada.isBorradoLogico());
+                    unaControladoraGlobal.modificarSancionTribunal(unaSancionSeleccionada, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, cantidadFechasCumplidas, unaSancionSeleccionada.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Sancion Modificada");
                     unaSancionSeleccionada = null;
                 }
