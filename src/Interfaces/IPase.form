@@ -338,7 +338,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelFechaRealizacion5" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelFechaMonto" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelMonto" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelFechaMonto1" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -364,7 +364,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldMonto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaMonto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelMonto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jButtonCalcularMonto" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
                       </Group>
@@ -385,7 +385,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabelFechaMonto">
+            <Component class="javax.swing.JLabel" name="jLabelMonto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Monto"/>
               </Properties>

@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-        
+
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana        
         IMenuPrincipalInterface.centrar(this); //Centrar
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre()); //Titulo Ventana
@@ -105,6 +106,28 @@ public class IPase extends javax.swing.JInternalFrame {
         jCheckBoxLibreDeudaClub.setSelected(false);
         jCheckBoxSolicitudPase.setSelected(false);
     }
+    
+    public boolean validar() {        
+        boolean bandera = true;
+        if (jTextFieldMonto.getText().isEmpty()) {
+            jLabelMonto.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelMonto.setForeground(Color.black);
+        }
+        
+        if (jComboBoxEquipoDestino.getSelectedIndex() == -1) {
+            jLabelDestino.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelDestino.setForeground(Color.black);
+        }
+        if(jTextFieldEquipoOrigen.getText().equals(jComboBoxEquipoDestino.getSelectedItem().toString())){
+            JOptionPane.showMessageDialog(this, "No se puede generar un pase entre equipos iguales");
+            bandera = false;
+        }
+        return bandera;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -124,7 +147,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelNumeroPase = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabelFechaMonto = new javax.swing.JLabel();
+        jLabelMonto = new javax.swing.JLabel();
         jTextFieldMonto = new javax.swing.JTextField();
         jButtonCalcularMonto = new javax.swing.JButton();
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
@@ -305,7 +328,7 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabel3.setText("* Los proximos vencimiento, en el caso de ser en mas de una cuota se genera para el mismo dia del mes siguiente");
 
-        jLabelFechaMonto.setText("Monto");
+        jLabelMonto.setText("Monto");
 
         jTextFieldMonto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -354,7 +377,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelFechaRealizacion5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaMonto, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelMonto, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaMonto1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -375,7 +398,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelFechaMonto))
+                        .addComponent(jLabelMonto))
                     .addComponent(jButtonCalcularMonto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -590,30 +613,33 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        //Guardado de Datos
-        DateFormat df = DateFormat.getDateInstance();
-        try {
-            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-            Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
+        if (validar()) {//Guardado de Datos
+            DateFormat df = DateFormat.getDateInstance();
+            try {
+                Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
+                Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
 
-            unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
 
-            JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
-        } catch (ParseException e) {
-            System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
+            } catch (ParseException e) {
+                System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
+            }
+
+            //Comportamientos Extras
+            jButtonNuevo.setEnabled(true);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonImprimir.setEnabled(true);
+
+            camposLimpiar();
+            camposActivo(false);
+            jTablePases.setEnabled(true);
+            cargarCamposTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
-
-        //Comportamientos Extras
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(true);
-
-        camposLimpiar();
-        camposActivo(false);
-        jTablePases.setEnabled(true);
-        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -686,10 +712,10 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelDestino1;
     private javax.swing.JLabel jLabelDestino2;
-    private javax.swing.JLabel jLabelFechaMonto;
     private javax.swing.JLabel jLabelFechaMonto1;
     private javax.swing.JLabel jLabelFechaRealizacion1;
     private javax.swing.JLabel jLabelFechaRealizacion5;
+    private javax.swing.JLabel jLabelMonto;
     private javax.swing.JLabel jLabelNumeroPase;
     private javax.swing.JLabel jLabelOrigen;
     private javax.swing.JLabel jLabelPaseNumero;
