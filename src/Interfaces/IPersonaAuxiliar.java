@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -35,7 +36,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
     public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         this(unaControladoraGlobal);
-        this.unJInternalFrame = unJInternalFrame;   
+        this.unJInternalFrame = unJInternalFrame;
     }
 
     public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, PersonaAuxiliar unaPersonaAuxiliar) {
@@ -70,6 +71,60 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     public void cargarComboBoxLocalidades() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
+    }
+
+    public boolean validar() {
+        boolean bandera = true;
+        if (jTextFieldDNI.getText().isEmpty()) {
+            jLabelDni.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelDni.setForeground(Color.black);
+        }
+        if (jTextFieldApellido.getText().isEmpty()) {
+            jLabelApellido.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelApellido.setForeground(Color.black);
+        }
+
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (jComboBoxLocalidad.getSelectedIndex() == -1) {
+            jLabelLocalidad.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelLocalidad.setForeground(Color.black);
+        }
+        if (jTextFieldDomicilio.getText().isEmpty()) {
+            jLabelDomicilio.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelDomicilio.setForeground(Color.black);
+        }
+        if (jTextFieldFechaNacimiento.getText().isEmpty()) {
+            jLabelFechaNacimiento.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFechaNacimiento.setForeground(Color.black);
+        }
+        if (jTextFieldFechaIngreso.getText().isEmpty()) {
+            jLabelFechaIngreso.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFechaIngreso.setForeground(Color.black);
+        }       
+        if(!bandera){
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+         if(!jCheckBoxEsArbitro.isSelected() && !jCheckBoxEsCuerpoTecnico.isSelected() && bandera){
+            JOptionPane.showMessageDialog(this, "Por favor, defina si es Arbitro, Cuerpo Tecnico o ambos");
+        }
+        return bandera;
     }
 
     @SuppressWarnings("unchecked")
@@ -415,64 +470,67 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldFotocopiaDni.setText("");
         jCheckBoxEsArbitro.setSelected(false);
         jCheckBoxEsCuerpoTecnico.setSelected(false);
+        jComboBoxLocalidad.setSelectedIndex(-1);
     }
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (unaPersonaAuxiliar == null) {
-            DateFormat df = DateFormat.getDateInstance();
-            try {
-                Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
-                Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
+        if (validar()) {
+            if (unaPersonaAuxiliar == null) {
+                DateFormat df = DateFormat.getDateInstance();
+                try {
+                    Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
+                    Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
 
-                unaControladoraGlobal.crearPersonaAuxiliar(Long.parseLong(jTextFieldDNI.getText()),
-                        jTextFieldApellido.getText(),
-                        jTextFieldNombre.getText(),
-                        (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                        jTextFieldDomicilio.getText(),
-                        fechaNacimiento,
-                        fechaIngreso,
-                        jTextFieldEmail.getText(),
-                        jTextFieldTelFijo.getText(),
-                        jTextFieldTelCelular.getText(),
-                        jCheckBoxEsArbitro.isSelected(),
-                        jCheckBoxEsCuerpoTecnico.isSelected(),
-                        false);
-                JOptionPane.showMessageDialog(this, "Persona Auxiliar Generada");
-                camposActivo(false);
-                camposLimpiar();
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
+                    unaControladoraGlobal.crearPersonaAuxiliar(Long.parseLong(jTextFieldDNI.getText()),
+                            jTextFieldApellido.getText(),
+                            jTextFieldNombre.getText(),
+                            (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                            jTextFieldDomicilio.getText(),
+                            fechaNacimiento,
+                            fechaIngreso,
+                            jTextFieldEmail.getText(),
+                            jTextFieldTelFijo.getText(),
+                            jTextFieldTelCelular.getText(),
+                            jCheckBoxEsArbitro.isSelected(),
+                            jCheckBoxEsCuerpoTecnico.isSelected(),
+                            false);
+                    JOptionPane.showMessageDialog(this, "Persona Auxiliar Generada");
+                    camposActivo(false);
+                    camposLimpiar();
+                } catch (ParseException e) {
+                    JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
+                }
+
+            } else {
+                DateFormat df = DateFormat.getDateInstance();
+                try {
+                    Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
+                    Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
+                    unaControladoraGlobal.modificarPersonaAuxiliar(unaPersonaAuxiliar,
+                            Long.parseLong(jTextFieldDNI.getText()),
+                            jTextFieldApellido.getText(),
+                            jTextFieldNombre.getText(),
+                            (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                            jTextFieldDomicilio.getText(),
+                            fechaNacimiento,
+                            jTextFieldTelFijo.getText(),
+                            jTextFieldTelCelular.getText(),
+                            jTextFieldEmail.getText(),
+                            fechaIngreso,
+                            "Fotocopia",
+                            jCheckBoxEsArbitro.isSelected(),
+                            jCheckBoxEsCuerpoTecnico.isSelected(),
+                            false,
+                            false
+                    );
+
+                } catch (ParseException e) {
+                    System.out.println("ERROR EN LAS FECHAS PERSONA AUXILIAR" + e.getMessage());
+                }
             }
-
-        } else {
-            DateFormat df = DateFormat.getDateInstance();
-            try {
-                Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
-                Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
-                unaControladoraGlobal.modificarPersonaAuxiliar(unaPersonaAuxiliar,
-                        Long.parseLong(jTextFieldDNI.getText()),
-                        jTextFieldApellido.getText(),
-                        jTextFieldNombre.getText(),
-                        (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                        jTextFieldDomicilio.getText(),
-                        fechaNacimiento,
-                        jTextFieldTelFijo.getText(),
-                        jTextFieldTelCelular.getText(),
-                        jTextFieldEmail.getText(),
-                        fechaIngreso,
-                        "Fotocopia",
-                        jCheckBoxEsArbitro.isSelected(),
-                        jCheckBoxEsCuerpoTecnico.isSelected(),
-                        false,
-                        false
-                );
-
-            } catch (ParseException e) {
-                System.out.println("ERROR EN LAS FECHAS PERSONA AUXILIAR" + e.getMessage());
-            }
-        }
+        } 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed

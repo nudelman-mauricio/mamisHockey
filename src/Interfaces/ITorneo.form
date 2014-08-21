@@ -165,9 +165,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelApellido" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDni" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFechaInicio" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombreTorneo" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCategoria" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -185,16 +185,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextFieldNombreTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDni" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombreTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelApellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -203,7 +203,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelApellido">
+        <Component class="javax.swing.JLabel" name="jLabelFechaInicio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha de Inicio"/>
           </Properties>
@@ -215,12 +215,12 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelLocalidad">
+        <Component class="javax.swing.JLabel" name="jLabelCategoria">
           <Properties>
             <Property name="text" type="java.lang.String" value="Categorias"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelDni">
+        <Component class="javax.swing.JLabel" name="jLabelNombreTorneo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre del Torneo"/>
           </Properties>

@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -21,33 +22,33 @@ public class IEstado extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private Socia unaSocia;
-    
-    private boolean modificar = false;    
+
+    private boolean modificar = false;
     private DefaultTableModel modeloTableEstado;
-    
+
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
-    public IEstado(ControladoraGlobal unaControladoraGlobal,JInternalFrame unJInternalFrame, Socia unaSocia) {
+    public IEstado(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-        
+
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-        
+
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
         //Centrar
         IMenuPrincipalInterface.centrar(this);
         //Titulo Ventana
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
-        
+
         //ComboBox con los tipos de estados
         cargarComboBoxTipoEstado();
-        
+
         this.modeloTableEstado = (DefaultTableModel) jTableEstado.getModel();
         cargarCamposTabla();
-        
+
         camposActivo(false);
-        
+
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonEditar.setEnabled(false);
@@ -57,20 +58,20 @@ public class IEstado extends javax.swing.JInternalFrame {
 
     public void cargarComboBoxTipoEstado() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposEstadosBD());
-        this.jComboBoxTipoEstado.setModel(modelCombo);
+        this.jComboBoxEstado.setModel(modelCombo);
     }
-    
+
     //Cargar Tabla con los Estados de la Socia
     public void cargarCamposTabla() {
         limpiarTabla(modeloTableEstado);
-        
+
         for (Object aux : unaSocia.getEstadosValidos()) {
             Estado unEstado = (Estado) aux;
             DateFormat df = DateFormat.getDateInstance();
-            this.modeloTableEstado.addRow(new Object[]{unEstado.getIdEstado(), df.format(unEstado.getFecha()),unEstado.getUnTipoEstado().getNombre()});
+            this.modeloTableEstado.addRow(new Object[]{unEstado.getIdEstado(), df.format(unEstado.getFecha()), unEstado.getUnTipoEstado().getNombre()});
         }
     }
-    
+
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -81,17 +82,33 @@ public class IEstado extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
+
     public void camposActivo(boolean Editable) {
-        jTextFieldFechaRealizacion.setEditable(Editable);
-        jComboBoxTipoEstado.setEnabled(Editable);
+        jTextFieldFecha.setEditable(Editable);
+        jComboBoxEstado.setEnabled(Editable);
     }
-    
+
     public void camposLimpiar() {
-        jTextFieldFechaRealizacion.setText("");
-        jComboBoxTipoEstado.setSelectedIndex(-1);
+        jTextFieldFecha.setText("");
+        jComboBoxEstado.setSelectedIndex(-1);
     }
-    
+ 
+    public boolean validar() {
+        boolean bandera = true;
+        if (jTextFieldFecha.getText().isEmpty()) {
+            jLabelFecha.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFecha.setForeground(Color.black);
+        }
+       if (jComboBoxEstado.getSelectedIndex() == -1) {
+            jLabelEstado.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelEstado.setForeground(Color.black);
+        }
+        return bandera;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,10 +123,10 @@ public class IEstado extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEstado = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
-        jLabelFechaCaducidad = new javax.swing.JLabel();
-        jTextFieldFechaRealizacion = new javax.swing.JTextField();
-        jComboBoxTipoEstado = new javax.swing.JComboBox();
+        jLabelFecha = new javax.swing.JLabel();
+        jLabelEstado = new javax.swing.JLabel();
+        jTextFieldFecha = new javax.swing.JTextField();
+        jComboBoxEstado = new javax.swing.JComboBox();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 391));
@@ -264,9 +281,9 @@ public class IEstado extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Fecha");
+        jLabelFecha.setText("Fecha");
 
-        jLabelFechaCaducidad.setText("Estado");
+        jLabelEstado.setText("Estado");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -275,12 +292,12 @@ public class IEstado extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGap(193, 193, 193)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaRealizacion)
-                    .addComponent(jLabelFechaCaducidad))
+                    .addComponent(jLabelFecha)
+                    .addComponent(jLabelEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTipoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -288,12 +305,12 @@ public class IEstado extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion)
-                    .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelFecha)
+                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaCaducidad)
-                    .addComponent(jComboBoxTipoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelEstado)
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -325,13 +342,13 @@ public class IEstado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        modificar=false;
-        
+        modificar = false;
+
         jTableEstado.clearSelection();
         jTableEstado.setEnabled(false);
         camposActivo(true);
         camposLimpiar();
-        
+
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
@@ -341,38 +358,42 @@ public class IEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        DateFormat df = DateFormat.getDateInstance();
-        try {
-            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-            if(!modificar){
-            unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxTipoEstado.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "Nuevo Estado Guardado");}
-            else { 
-            Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
-            unaControladoraGlobal.modificarEstado(unEstado,  fechaRealizacion, (TipoEstado) jComboBoxTipoEstado.getSelectedItem(), false); 
-            JOptionPane.showMessageDialog(this, "Estado Modificado");
+        if (validar()) {
+            DateFormat df = DateFormat.getDateInstance();
+            try {
+                Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+                if (!modificar) {
+                    unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem());
+                    JOptionPane.showMessageDialog(this, "Nuevo Estado Guardado");
+                } else {
+                    Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
+                    unaControladoraGlobal.modificarEstado(unEstado, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem(), false);
+                    JOptionPane.showMessageDialog(this, "Estado Modificado");
+                }
+            } catch (ParseException e) {
+                System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
             }
-        } catch (ParseException e) {
-            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+
+            jButtonNuevo.setEnabled(true);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+
+            camposLimpiar();
+            camposActivo(false);
+            jTableEstado.setEnabled(true);
+            cargarCamposTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
-        
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        
-        camposLimpiar();
-        camposActivo(false);
-        jTableEstado.setEnabled(true);
-        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         modificar = false;
-        
+
         jTableEstado.clearSelection();
-        
+
         camposLimpiar();
         camposActivo(false);
         jTableEstado.setEnabled(true);
@@ -386,7 +407,7 @@ public class IEstado extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
-                
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -398,21 +419,21 @@ public class IEstado extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarEstado(unEstado);
-            
+
             cargarCamposTabla();
-        }        
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        modificar = true;        
+        modificar = true;
         jTableEstado.setEnabled(false);
         camposActivo(true);
-        
+
         Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
         DateFormat df = DateFormat.getDateInstance();
-        jTextFieldFechaRealizacion.setText(df.format(unEstado.getFecha()));
-        jComboBoxTipoEstado.setSelectedItem(unEstado.getUnTipoEstado());
-        
+        jTextFieldFecha.setText(df.format(unEstado.getFecha()));
+        jComboBoxEstado.setSelectedItem(unEstado.getUnTipoEstado());
+
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -433,14 +454,14 @@ public class IEstado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JComboBox jComboBoxTipoEstado;
-    private javax.swing.JLabel jLabelFechaCaducidad;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JComboBox jComboBoxEstado;
+    private javax.swing.JLabel jLabelEstado;
+    private javax.swing.JLabel jLabelFecha;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEstado;
-    private javax.swing.JTextField jTextFieldFechaRealizacion;
+    private javax.swing.JTextField jTextFieldFecha;
     // End of variables declaration//GEN-END:variables
 }

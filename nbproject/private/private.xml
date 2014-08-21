@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/Interfaces/IPase.java</file>
             <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/Interfaces/IGestionIngresos.java</file>
+            <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/logicaNegocios/Deuda.java</file>
             <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/main/ControladoraGlobal.java</file>
             <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/Interfaces/IBalanceMensual.java</file>
             <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/main/ControladoraDeportiva.java</file>
+            <file>file:/C:/Users/Leanwit/Documents/NetBeansProjects/mamisHockey/src/Interfaces/ISocia.java</file>
         </group>
     </open-files>
 </project-private>
