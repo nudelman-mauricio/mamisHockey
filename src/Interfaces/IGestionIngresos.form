@@ -273,9 +273,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelFechaCaducidad1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaCaducidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMonto" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelConceptoIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFecha" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelComentario" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -300,13 +300,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldFecha" alignment="3" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="jLabelFechaCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelConceptoIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxConceptoIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jButtonNuevoIngreso" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
@@ -314,7 +314,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextFieldMonto" alignment="3" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaCaducidad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMonto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -330,12 +330,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion">
+        <Component class="javax.swing.JLabel" name="jLabelFecha">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaCaducidad">
+        <Component class="javax.swing.JLabel" name="jLabelConceptoIngreso">
           <Properties>
             <Property name="text" type="java.lang.String" value="Concepto Ingreso"/>
           </Properties>
@@ -352,7 +352,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMonto">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaCaducidad1">
+        <Component class="javax.swing.JLabel" name="jLabelMonto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Monto"/>
           </Properties>

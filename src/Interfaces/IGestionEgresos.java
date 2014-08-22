@@ -5,10 +5,11 @@
  */
 package Interfaces;
 
+import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -35,8 +36,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private Egreso unEgresoSeleccionado;
     private DefaultComboBoxModel unModeloComboConceptoEgreso;
     private DateFormat df = DateFormat.getDateInstance();
-    private String unaFecha;
-    private String[] unaFechaDividida;
 
     /**
      * Creates new form GestionEgresos
@@ -110,7 +109,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }
 
     public void cargarFechasFiltrado() {
-        if (unaControladoraGlobal.getPrimerEgreso()!= null) {
+        if (unaControladoraGlobal.getPrimerEgreso() != null) {
             String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
             String[] fechaDividida = fecha.split("/");
             jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
@@ -143,6 +142,32 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
     }
 
+    public boolean validar() {
+        boolean bandera = true;
+        if (jTextFieldMonto.getText().isEmpty()) {
+            jLabelMonto.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelMonto.setForeground(Color.black);
+        }
+        if (jComboBoxConceptoEgreso.getSelectedIndex() == -1) {
+            jLabelConceptoEgreso.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelConceptoEgreso.setForeground(Color.black);
+        }
+        if (jTextFieldFecha.getText().isEmpty()) {
+            jLabelFecha.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFecha.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -158,12 +183,12 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEgresos = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
-        jLabelFechaCaducidad = new javax.swing.JLabel();
+        jLabelFecha = new javax.swing.JLabel();
+        jLabelConceptoEgreso = new javax.swing.JLabel();
         jLabelComentario = new javax.swing.JLabel();
         jTextFieldFecha = new javax.swing.JTextField();
         jTextFieldMonto = new javax.swing.JTextField();
-        jLabelFechaCaducidad1 = new javax.swing.JLabel();
+        jLabelMonto = new javax.swing.JLabel();
         jComboBoxConceptoEgreso = new javax.swing.JComboBox();
         jButtonNuevoEgreso = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -317,15 +342,15 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel7.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Fecha");
+        jLabelFecha.setText("Fecha");
 
-        jLabelFechaCaducidad.setText("Concepto Egreso");
+        jLabelConceptoEgreso.setText("Concepto Egreso");
 
         jLabelComentario.setText("Observación");
 
         jTextFieldFecha.setText("dd/mm/aaaa");
 
-        jLabelFechaCaducidad1.setText("Monto");
+        jLabelMonto.setText("Monto");
 
         jButtonNuevoEgreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Nuevo2.png"))); // NOI18N
         jButtonNuevoEgreso.addActionListener(new java.awt.event.ActionListener() {
@@ -343,9 +368,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaCaducidad1)
-                    .addComponent(jLabelFechaCaducidad)
-                    .addComponent(jLabelFechaRealizacion)
+                    .addComponent(jLabelMonto)
+                    .addComponent(jLabelConceptoEgreso)
+                    .addComponent(jLabelFecha)
                     .addComponent(jLabelComentario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,18 +389,18 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion)
+                    .addComponent(jLabelFecha)
                     .addComponent(jTextFieldFecha))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelFechaCaducidad)
+                        .addComponent(jLabelConceptoEgreso)
                         .addComponent(jComboBoxConceptoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButtonNuevoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMonto)
-                    .addComponent(jLabelFechaCaducidad1))
+                    .addComponent(jLabelMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -565,7 +590,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
 
-        if (!(jTextFieldFecha.getText().isEmpty() && jTextFieldMonto.getText().isEmpty() && jComboBoxConceptoEgreso.getSelectedIndex() != -1)) {
+        if (validar()) {
             if (unEgresoSeleccionado == null) {
                 try {
                     unaControladoraGlobal.crearEgreso(
@@ -573,10 +598,22 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             Integer.parseInt(jTextFieldMonto.getText()),
                             (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
                             jTextPaneDetalle.getText());
+                    JOptionPane.showMessageDialog(this, "Egreso Guardada");
+                    jButtonNuevo.setEnabled(true);
+                    jButtonEditar.setEnabled(false);
+                    jButtonGuardar.setEnabled(false);
+                    jButtonCancelar.setEnabled(false);
+                    jButtonEliminar.setEnabled(false);
+
+                    camposActivo(false);
+                    camposLimpiar();
+                    cargarFechasFiltrado();
+                    cargarTabla();
+                    jTableEgresos.setEnabled(true);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
                 }
-                JOptionPane.showMessageDialog(this, "Egreso Guardada");
+
             } else {
                 try {
                     unaControladoraGlobal.modificarEgreso(
@@ -586,25 +623,25 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
                             jTextPaneDetalle.getText(),
                             false);
+                    JOptionPane.showMessageDialog(this, "Egreso Modificada");
+                    jButtonNuevo.setEnabled(true);
+                    jButtonEditar.setEnabled(false);
+                    jButtonGuardar.setEnabled(false);
+                    jButtonCancelar.setEnabled(false);
+                    jButtonEliminar.setEnabled(false);
+
+                    camposActivo(false);
+                    camposLimpiar();
+                    cargarFechasFiltrado();
+                    cargarTabla();
+                    jTableEgresos.setEnabled(true);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
                 }
                 unEgresoSeleccionado = null;
-                JOptionPane.showMessageDialog(this, "Egreso Modificada");
-            }
-            jButtonNuevo.setEnabled(true);
-            jButtonEditar.setEnabled(false);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
 
-            camposActivo(false);
-            camposLimpiar();
-            cargarFechasFiltrado();
-            cargarTabla();
-            jTableEgresos.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
+            }
+
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -654,9 +691,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarEgreso(unEgresoSeleccionado);
-            unEgresoSeleccionado = null; 
+            unEgresoSeleccionado = null;
             cargarFechasFiltrado();
-            cargarTabla();            
+            cargarTabla();
         }
         jTableEgresos.clearSelection();
         jTableEgresos.setEnabled(true);
@@ -698,9 +735,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelComentario;
-    private javax.swing.JLabel jLabelFechaCaducidad;
-    private javax.swing.JLabel jLabelFechaCaducidad1;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JLabel jLabelConceptoEgreso;
+    private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelMonto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
