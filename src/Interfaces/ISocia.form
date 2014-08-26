@@ -196,9 +196,9 @@
                                       <Component id="jLabelFechaNacimiento" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabelFechaIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabelExJugadora" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelDomicilio1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaIngreso1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaIngreso2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelEmail" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelTelefonoFijo" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelTelefonoCelular" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -265,7 +265,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelDomicilio1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -280,12 +280,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaIngreso1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTelefonoFijo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldTelFijo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaIngreso2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTelefonoCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldTelCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -352,7 +352,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelExJugadora">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ExJugadora *"/>
+            <Property name="text" type="java.lang.String" value="ExJugadora "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxExJugadora">
@@ -361,21 +361,21 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldFechaIngreso">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelDomicilio1">
+        <Component class="javax.swing.JLabel" name="jLabelEmail">
           <Properties>
             <Property name="text" type="java.lang.String" value="E-mail"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldEmail">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaIngreso1">
+        <Component class="javax.swing.JLabel" name="jLabelTelefonoFijo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Telefono Fijo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelFijo">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaIngreso2">
+        <Component class="javax.swing.JLabel" name="jLabelTelefonoCelular">
           <Properties>
             <Property name="text" type="java.lang.String" value="Telefono Celular"/>
           </Properties>

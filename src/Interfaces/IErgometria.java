@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
-        
+
         this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
         cargarCamposTabla();
     }
@@ -68,19 +69,19 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jTextFieldFechaCaducidad.setText(df.format(unaErgometria.getFechaCaducidad()));
         jCheckBoxEgometriaAprobada.setSelected(unaErgometria.isAprobado());
         jTextPaneErgometriaComentario.setText(unaErgometria.getComentarios());
-        
+
         jButtonEliminar.setEnabled(true);
         jButtonEditar.setEnabled(true);
         jButtonImprimir.setEnabled(true);
     }
-    
+
     public void cargarCamposTabla() {
         limpiarTabla(modeloTableErgometrias);
 
         for (Ergometria aux : this.unaSocia.getErgometrias()) {
             Ergometria unaErgometria = (Ergometria) aux;
             DateFormat df = DateFormat.getDateInstance();
-            if (!unaErgometria.isBorradoLogico()){
+            if (!unaErgometria.isBorradoLogico()) {
                 this.modeloTableErgometrias.addRow(new Object[]{unaErgometria.getIdErgometria(), df.format(unaErgometria.getFechaRealizacion()), df.format(unaErgometria.getFechaCaducidad()), unaErgometria.isAprobado()});
             }
         }
@@ -95,6 +96,23 @@ public class IErgometria extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
+    }
+
+    public boolean validar() {
+        boolean bandera = true;
+        if (jTextFieldFechaRealizacion.getText().isEmpty()) {
+            jLabelFechaRealizacion.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFechaRealizacion.setForeground(Color.black);
+        }
+        if (jTextFieldFechaCaducidad.getText().isEmpty()) {
+            jLabelFechaCaducidad.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFechaCaducidad.setForeground(Color.black);
+        }       
+        return bandera;
     }
 
     @SuppressWarnings("unchecked")
@@ -435,9 +453,9 @@ public class IErgometria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTableErgometriasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableErgometriasFocusGained
-            Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));  
-            
-            camposCargar(unaErgometria);
+        Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
+
+        camposCargar(unaErgometria);
 
 //        jButtonEliminar.setEnabled(true);
 //        jButtonEditar.setEnabled(true);
@@ -445,38 +463,42 @@ public class IErgometria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableErgometriasFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        DateFormat df = DateFormat.getDateInstance();
-        try {
-            Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-            Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
-            if (!modificar) {
-                unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText());
-                JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
-            } else {
-                Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-                unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText(), false);
-                JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+        if (validar()) {
+            DateFormat df = DateFormat.getDateInstance();
+            try {
+                Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
+                Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
+                if (!modificar) {
+                    unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText());
+                    JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
+                } else {
+                    Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
+                    unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText(), false);
+                    JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+                }
+            } catch (ParseException e) {
+                System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
             }
-        } catch (ParseException e) {
-            System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+
+            jButtonNuevo.setEnabled(true);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonEditar.setEnabled(true);
+            jButtonImprimir.setEnabled(false);
+
+            camposLimpiar();
+            camposActivo(false);
+            jTableErgometrias.setEnabled(true);
+            cargarCamposTabla();
+        } else {
+           JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
-
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(true);
-        jButtonImprimir.setEnabled(false);
-
-        camposLimpiar();
-        camposActivo(false);
-        jTableErgometrias.setEnabled(true);
-        cargarCamposTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jTableErgometrias.clearSelection();
-        
+
         modificar = false;
 
         camposLimpiar();
@@ -493,7 +515,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-                
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -505,9 +527,9 @@ public class IErgometria extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarErgometria(unaErgometria);
-            
+
             cargarCamposTabla();
-        }    
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
