@@ -606,8 +606,12 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getGolesBD();
     }
     
-    public int getGoles(Partido unPartido, Equipo unEquipo){
-        return 0;
+    public int getGolesLocal(Partido unPartido){
+        return this.unaControladoraDeportiva.getGolesLocal(unPartido);
+    }
+    
+    public int getGolesVisitante(Partido unPartido){
+        return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
     // </editor-fold>
 // </editor-fold>

@@ -350,7 +350,7 @@ public class ControladoraDeportiva {
         } catch (JRException ex) {
             Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
         }
-        entityManager.getTransaction().commit();        
+        entityManager.getTransaction().commit();
         return jasperPrint;
     }
     // </editor-fold>
@@ -756,6 +756,34 @@ public class ControladoraDeportiva {
         String unaConsulta = ("SELECT T FROM Gol T WHERE T.borradoLogico = FALSE");
         List<Gol> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
+    }
+
+    public int getGolesLocal(Partido unPartido) {
+        int cantidadGoles = 0;
+        for (Gol unGol : unPartido.getGoles()) {
+            if (!unGol.isBorradoLogico()) {
+                for (Socia unaSociaAutoraGol : unPartido.getPlantelLocal()) {
+                    if (unaSociaAutoraGol.getGoles().contains(unGol)) {
+                        cantidadGoles++;
+                    }
+                }
+            }
+        }
+        return cantidadGoles;
+    }
+
+    public int getGolesVisitante(Partido unPartido) {
+        int cantidadGoles = 0;
+        for (Gol unGol : unPartido.getGoles()) {
+            if (!unGol.isBorradoLogico()) {
+                for (Socia unaSociaAutoraGol : unPartido.getPlantelVisitante()) {
+                    if (unaSociaAutoraGol.getGoles().contains(unGol)) {
+                        cantidadGoles++;
+                    }
+                }
+            }
+        }
+        return cantidadGoles;
     }
     // </editor-fold>
 }

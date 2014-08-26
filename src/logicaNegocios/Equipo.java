@@ -299,7 +299,7 @@ public class Equipo implements Serializable, Comparable {
             if (aux.getEdadCalendario() < edadParametro){
                 cantidadMenores++;
             }
-        }        
+        }
         return cantidadMenores;
     }
     // </editor-fold>
