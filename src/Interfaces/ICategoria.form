@@ -264,10 +264,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelOrigen1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaRealizacion1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelOrigen" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelOrigen2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMinimoMenores" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelEdad" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMaximoMenores" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -285,22 +285,22 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelEdad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldEdadParametro" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelOrigen1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMinimoMenores" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldMinimoMenores" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelOrigen2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMaximoMenores" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldMaximoMenores" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -309,12 +309,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion1">
+        <Component class="javax.swing.JLabel" name="jLabelNombre">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelOrigen">
+        <Component class="javax.swing.JLabel" name="jLabelEdad">
           <Properties>
             <Property name="text" type="java.lang.String" value="Edad Par&#xe1;metro"/>
           </Properties>
@@ -326,7 +326,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelOrigen1">
+        <Component class="javax.swing.JLabel" name="jLabelMinimoMenores">
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#xed;nimo Permitido de Menores"/>
           </Properties>
@@ -344,7 +344,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMaximoMenoresActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelOrigen2">
+        <Component class="javax.swing.JLabel" name="jLabelMaximoMenores">
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#xe1;ximo Permitido de Menores"/>
           </Properties>

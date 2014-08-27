@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.Vector;
@@ -92,6 +93,26 @@ public class ICancha extends javax.swing.JInternalFrame {
     void camposLimpiar() {
         jTextFieldNombre.setText("");
         jCheckBoxSeOcupa.setSelected(false);
+    }
+
+    public boolean validar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (jComboBoxTipo.getSelectedIndex() == -1) {
+            jLabelTipo.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelTipo.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
     }
 
     @SuppressWarnings("unchecked")
@@ -390,26 +411,28 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (unaCanchaSeleccionada == null) {
-            unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "Cancha Guardada");
-        } else {
-            unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
-            JOptionPane.showMessageDialog(this, "Cancha Modificada");
-            unaCanchaSeleccionada = null;
+        if (validar()) {
+            if (unaCanchaSeleccionada == null) {
+                unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
+                JOptionPane.showMessageDialog(this, "Cancha Guardada");
+            } else {
+                unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Cancha Modificada");
+                unaCanchaSeleccionada = null;
+            }
+            cargarTabla();
+
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            jTableCancha.setEnabled(true);
+
+            camposActivo(jPanelDetalles, false);
+            camposLimpiar();
         }
-        cargarTabla();
-
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-
-        jTableCancha.setEnabled(true);
-
-        camposActivo(jPanelDetalles, false);
-        camposLimpiar();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed

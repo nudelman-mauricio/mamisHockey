@@ -1,6 +1,6 @@
 package Interfaces;
 
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Vector;
@@ -14,22 +14,23 @@ import logicaNegocios.Localidad;
 import main.ControladoraGlobal;
 
 public class IClub extends javax.swing.JInternalFrame {
+
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
     private boolean modificar = false;
     private ControladoraGlobal unaControladoraGlobal;
     private Club unClub = null;
-        
+
     //LLAMADO DESDE EL MENUPRINCIPAL
     public IClub(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
         initComponents();
         this.unjDesktopPane1 = unjDesktopPane1;
         SeInicio(unaControladoraGlobal);
 
-        jButtonEditar.setEnabled(false);
+        jButtonEditar.setEnabled(false);        
         camposLimpiar();
     }
-    
+
     //LLAMADO DESDE UN INTERNAL FRAME
     public IClub(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
@@ -39,23 +40,23 @@ public class IClub extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         camposLimpiar();
     }
-    
+
     //LLAMADO MOSTRANDO UN CLUB
     public IClub(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         initComponents();
-        
+
         this.unClub = unClub;
         this.unJInternalFrame = unJInternalFrame;
-        
+
         this.setTitle("Club: " + unClub.getNombre());
-        
+
         SeInicio(unaControladoraGlobal);
 
         jButtonEditar.setEnabled(true);
 
         camposCargar(unClub);
     }
-    
+
     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
 
@@ -63,11 +64,12 @@ public class IClub extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
 
         cargarComboBoxLocalidades();
+        jComboBoxLocalidad.setSelectedIndex(-1);
         IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
     }
-    
+
     public void cargarComboBoxLocalidades() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
@@ -82,17 +84,44 @@ public class IClub extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(Editable);
         jButtonNuevo.setEnabled(!Editable);
     }
-        
+
     public void camposLimpiar() {
         jTextFieldNombre.setText("");
         jTextFieldPresidente.setText("");
     }
-    
+
     public void camposCargar(Club unaClub) {
         jTextFieldNombre.setText(unaClub.getNombre());
         jTextFieldPresidente.setText(unClub.getNombrePresidente());
         jComboBoxLocalidad.setSelectedItem(unClub.getUnaLocalidad());
     }
+
+    public boolean validar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (jTextFieldPresidente.getText().isEmpty()) {
+            jLabelPresidente.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelPresidente.setForeground(Color.black);
+        }
+        if (jComboBoxLocalidad.getSelectedIndex() == -1) {
+            jLabelLocalidad.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelLocalidad.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -309,39 +338,41 @@ public class IClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (this.unClub == null){
+        if (this.unClub == null) {
             camposLimpiar();
-            
-        }else{
+
+        } else {
             camposCargar(unClub);
         }
         camposActivo(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (this.unClub == null){
-            if(!modificar){            
-                unaControladoraGlobal.crearClub(jTextFieldNombre.getText(),
-                    jTextFieldPresidente.getText(),
-                    (Localidad) jComboBoxLocalidad.getSelectedItem());
-            JOptionPane.showMessageDialog(this, "Club Creado");  }              
-            else {                
-               unaControladoraGlobal.modificarClub(
-                    unClub, 
-                    jTextFieldNombre.getText(),
-                    //"aca va el logo",
-                    "",
-                    jTextFieldPresidente.getText(),
-                    (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                    false);
-                JOptionPane.showMessageDialog(this, "Club Modificado");
+        if (validar()) {
+            if (this.unClub == null) {
+                if (!modificar) {
+                    unaControladoraGlobal.crearClub(jTextFieldNombre.getText(),
+                            jTextFieldPresidente.getText(),
+                            (Localidad) jComboBoxLocalidad.getSelectedItem());
+                    JOptionPane.showMessageDialog(this, "Club Creado");
+                } else {
+                    unaControladoraGlobal.modificarClub(
+                            unClub,
+                            jTextFieldNombre.getText(),
+                            //"aca va el logo",
+                            "",
+                            jTextFieldPresidente.getText(),
+                            (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                            false);
+                    JOptionPane.showMessageDialog(this, "Club Modificado");
+                }
+            } else {
+                unaControladoraGlobal.modificarClub(unClub, jTextFieldNombre.getText(), "FALTA LO DEL LOGO", jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), false);
+                JOptionPane.showMessageDialog(this, "Club editado con exito");
             }
-        }else{
-            unaControladoraGlobal.modificarClub(unClub, jTextFieldNombre.getText(),"FALTA LO DEL LOGO" ,jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), false);
-            JOptionPane.showMessageDialog(this, "Club editado con exito");  
+            camposActivo(false);
+            jButtonEditar.setEnabled(true);
         }
-        camposActivo(false);
-        jButtonEditar.setEnabled(true);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -356,7 +387,7 @@ public class IClub extends javax.swing.JInternalFrame {
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
- public void centrar (JInternalFrame unJInternalFrame){
+    public void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
         unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
