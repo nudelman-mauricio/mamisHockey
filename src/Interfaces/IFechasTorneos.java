@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.sql.Date;
@@ -102,7 +103,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }
 
     //actualizar los campos al seleccionar una cancha en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableFechasTorneo.getSelectedRow() > -1) {
             if (jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0) != null) {
                 unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
@@ -129,7 +130,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    void camposActivo(Container c, boolean bandera) {
+    private void camposActivo(Container c, boolean bandera) {
         Component[] components = c.getComponents();
         for (int i = 0; i < components.length; i++) {
             components[i].setEnabled(bandera);
@@ -150,6 +151,65 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         this.jComboBoxEquipoLocal.setSelectedIndex(-1);
         this.jComboBoxEquipoVisitante.setSelectedIndex(-1);
         this.jTextFieldFecha.setText("");
+    }
+
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldFecha.getText().isEmpty()) {
+            jLabelFechaCalendario.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFechaCalendario.setForeground(Color.black);
+        }
+        if (jComboBoxEquipoLocal.getSelectedIndex() == -1) {
+            jLabelLocal.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelLocal.setForeground(Color.black);
+        }
+        if (jComboBoxEquipoVisitante.getSelectedIndex() == -1) {
+            jLabelVisitante.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelVisitante.setForeground(Color.black);
+        }
+        if (jComboBoxCancha.getSelectedIndex() == -1) {
+            jLabelCancha.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelCancha.setForeground(Color.black);
+        }
+        if (jComboBoxArbitro1.getSelectedIndex() == -1) {
+            jLabelArbitro1.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelArbitro1.setForeground(Color.black);
+        }
+        if (jComboBoxArbitro2.getSelectedIndex() == -1) {
+            jLabelArbitro2.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelArbitro2.setForeground(Color.black);
+        }
+
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios.");
+            return bandera;
+        }
+        if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
+            JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo equipo como Local y Visitante.");
+            jLabelLocal.setForeground(Color.red);
+            jLabelVisitante.setForeground(Color.red);
+            return false;
+        } else {
+            jLabelLocal.setForeground(Color.black);
+            jLabelVisitante.setForeground(Color.black);
+        }
+        if ((jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro2.getSelectedItem()) || (jComboBoxArbitro1.getSelectedItem() == jComboBoxArbitro3.getSelectedItem()) || (jComboBoxArbitro2.getSelectedItem() == jComboBoxArbitro3.getSelectedItem())) {
+            JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo árbitro mas de una vez.");
+            return false;
+        }
+        return bandera;
     }
 
     @SuppressWarnings("unchecked")
@@ -178,15 +238,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jComboBoxCancha = new javax.swing.JComboBox();
         jComboBoxArbitro1 = new javax.swing.JComboBox();
         jComboBoxArbitro2 = new javax.swing.JComboBox();
-        jLabelApellido = new javax.swing.JLabel();
-        jLabelNombre1 = new javax.swing.JLabel();
-        jLabelLocalidad = new javax.swing.JLabel();
-        jLabelDomicilio = new javax.swing.JLabel();
-        jLabelFechaNacimiento = new javax.swing.JLabel();
-        jLabelFechaNacimiento1 = new javax.swing.JLabel();
+        jLabelLocal = new javax.swing.JLabel();
+        jLabelVisitante = new javax.swing.JLabel();
+        jLabelCancha = new javax.swing.JLabel();
+        jLabelArbitro1 = new javax.swing.JLabel();
+        jLabelArbitro2 = new javax.swing.JLabel();
+        jLabelArbitro3 = new javax.swing.JLabel();
         jComboBoxArbitro3 = new javax.swing.JComboBox();
         jTextFieldFecha = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelFechaCalendario = new javax.swing.JLabel();
         jPanelBotones2 = new javax.swing.JPanel();
         jButtonInicio = new javax.swing.JButton();
         jTextFieldNroFecha = new javax.swing.JTextField();
@@ -425,23 +485,23 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
         jComboBoxArbitro2.setEnabled(false);
 
-        jLabelApellido.setText("Equipo Local");
+        jLabelLocal.setText("Equipo Local");
 
-        jLabelNombre1.setText("Equipo Visitante");
+        jLabelVisitante.setText("Equipo Visitante");
 
-        jLabelLocalidad.setText("Cancha");
+        jLabelCancha.setText("Cancha");
 
-        jLabelDomicilio.setText("Árbitro 1");
+        jLabelArbitro1.setText("Árbitro 1");
 
-        jLabelFechaNacimiento.setText("Árbitro 2");
+        jLabelArbitro2.setText("Árbitro 2");
 
-        jLabelFechaNacimiento1.setText("Árbitro 3");
+        jLabelArbitro3.setText("Árbitro 3");
 
         jComboBoxArbitro3.setEnabled(false);
 
         jTextFieldFecha.setEnabled(false);
 
-        jLabel2.setText("Fecha");
+        jLabelFechaCalendario.setText("Fecha");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -450,10 +510,10 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelLocalidad)
-                    .addComponent(jLabelApellido)
-                    .addComponent(jLabelNombre1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabelCancha)
+                    .addComponent(jLabelLocal)
+                    .addComponent(jLabelVisitante)
+                    .addComponent(jLabelFechaCalendario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,15 +524,15 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                         .addGap(58, 58, 58)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                                .addComponent(jLabelFechaNacimiento)
+                                .addComponent(jLabelArbitro2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxArbitro2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                                .addComponent(jLabelDomicilio)
+                                .addComponent(jLabelArbitro1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxArbitro1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                                .addComponent(jLabelFechaNacimiento1)
+                                .addComponent(jLabelArbitro3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxArbitro3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jComboBoxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -483,26 +543,26 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelApellido)
+                    .addComponent(jLabelLocal)
                     .addComponent(jComboBoxEquipoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDomicilio)
+                    .addComponent(jLabelArbitro1)
                     .addComponent(jComboBoxArbitro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNombre1)
+                    .addComponent(jLabelVisitante)
                     .addComponent(jComboBoxEquipoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFechaNacimiento)
+                    .addComponent(jLabelArbitro2)
                     .addComponent(jComboBoxArbitro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaNacimiento1)
+                    .addComponent(jLabelArbitro3)
                     .addComponent(jComboBoxArbitro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelLocalidad))
+                    .addComponent(jLabelCancha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabelFechaCalendario))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -680,50 +740,40 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (jComboBoxEquipoLocal.getSelectedItem() != null && jComboBoxEquipoVisitante.getSelectedItem() != null && jComboBoxCancha.getSelectedItem() != null && jComboBoxArbitro1.getSelectedItem() != null && jComboBoxArbitro2.getSelectedItem() != null) {
-            if (jComboBoxEquipoLocal.getSelectedItem() != jComboBoxEquipoVisitante.getSelectedItem()) {
-                if ((jComboBoxArbitro1.getSelectedItem() != jComboBoxArbitro2.getSelectedItem()) && (jComboBoxArbitro1.getSelectedItem() != jComboBoxArbitro3.getSelectedItem()) && (jComboBoxArbitro2.getSelectedItem() != jComboBoxArbitro3.getSelectedItem())) {
-                    try {
-                        Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
-                        PersonaAuxiliar arbitro3 = null;
-                        if (jComboBoxArbitro3.getSelectedIndex() != -1) {
-                            arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
-                        }
-                        if (unPartidoSeleccionado == null) {
-                            unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
-                            JOptionPane.showMessageDialog(this, "Partido Guardado");
-                        } else {
-                            unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
-                            JOptionPane.showMessageDialog(this, "Partido Modificado");
-                            unPartidoSeleccionado = null;
-                        }
-                        cargarTabla();
-
-                        jButtonNuevo.setEnabled(true);
-                        jButtonEditar.setEnabled(false);
-                        jButtonGuardar.setEnabled(false);
-                        jButtonCancelar.setEnabled(false);
-                        jButtonEliminar.setEnabled(false);
-                        jButtonImprimir.setEnabled(false);
-                        jButtonResultadoPartido.setEnabled(false);
-                        jButtonAgregarFecha.setEnabled(true);
-
-                        jTableFechasTorneo.setEnabled(true);
-
-                        camposActivo(jPanelDetalles, false);
-                        camposActivo(jPanelBotones2, true);
-                        camposLimpiar();
-                    } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error, verifique la asignacion de los arbitros.");
+        if (camposValidar()) {
+            try {
+                Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+                PersonaAuxiliar arbitro3 = null;
+                if (jComboBoxArbitro3.getSelectedIndex() != -1) {
+                    arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Error, El equipo local y visitante son iguales.");
+                if (unPartidoSeleccionado == null) {
+                    unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
+                    JOptionPane.showMessageDialog(this, "Partido Guardado");
+                } else {
+                    unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
+                    JOptionPane.showMessageDialog(this, "Partido Modificado");
+                    unPartidoSeleccionado = null;
+                }
+                cargarTabla();
+
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+                jButtonResultadoPartido.setEnabled(false);
+                jButtonAgregarFecha.setEnabled(true);
+
+                jTableFechasTorneo.setEnabled(true);
+
+                camposActivo(jPanelDetalles, false);
+                camposActivo(jPanelBotones2, true);
+                camposLimpiar();
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Completar todos los campos por favor. El tercer árbitro es opcional.");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -878,16 +928,16 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxEquipoLocal;
     private javax.swing.JComboBox jComboBoxEquipoVisitante;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelApellido;
-    private javax.swing.JLabel jLabelDomicilio;
+    private javax.swing.JLabel jLabelArbitro1;
+    private javax.swing.JLabel jLabelArbitro2;
+    private javax.swing.JLabel jLabelArbitro3;
+    private javax.swing.JLabel jLabelCancha;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelFecha1;
-    private javax.swing.JLabel jLabelFechaNacimiento;
-    private javax.swing.JLabel jLabelFechaNacimiento1;
-    private javax.swing.JLabel jLabelLocalidad;
-    private javax.swing.JLabel jLabelNombre1;
+    private javax.swing.JLabel jLabelFechaCalendario;
+    private javax.swing.JLabel jLabelLocal;
     private javax.swing.JLabel jLabelTotalFechas;
+    private javax.swing.JLabel jLabelVisitante;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelBotones2;
     private javax.swing.JPanel jPanelDetalles;

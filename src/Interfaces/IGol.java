@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Partido;
@@ -27,9 +28,31 @@ public class IGol extends javax.swing.JInternalFrame {
         
     }
     
-    
-    
-    
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (jTextFieldPresidente.getText().isEmpty()) {
+            jLabelPresidente.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelPresidente.setForeground(Color.black);
+        }
+        if (jComboBoxLocalidad.getSelectedIndex() == -1) {
+            jLabelLocalidad.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelLocalidad.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

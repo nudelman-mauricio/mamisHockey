@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
-
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -25,10 +19,6 @@ import logicaNegocios.ConceptoEgreso;
 import logicaNegocios.Egreso;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IGestionEgresos extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
@@ -37,9 +27,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel unModeloComboConceptoEgreso;
     private DateFormat df = DateFormat.getDateInstance();
 
-    /**
-     * Creates new form GestionEgresos
-     */
     public IGestionEgresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.modeloTablaGestionEgresos = (DefaultTableModel) jTableEgresos.getModel();
@@ -87,7 +74,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
     }
 
-    public void camposActivo(boolean Editable) {
+    private void camposActivo(boolean Editable) {
         jTextFieldMonto.setEditable(Editable);
         jTextFieldFecha.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
@@ -95,20 +82,20 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }
 
     //blanquea componentes editables
-    void camposLimpiar() {
+    private void camposLimpiar() {
         jTextPaneDetalle.setText("");
         jTextFieldFecha.setText("dd/mm/aaaa");
         jTextFieldMonto.setText("");
         jComboBoxConceptoEgreso.setSelectedIndex(-1);
     }
 
-    public void cargarComboBoxConceptoEgreso() {
+    private void cargarComboBoxConceptoEgreso() {
         this.unModeloComboConceptoEgreso = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getConceptosEgresosBD());
         this.jComboBoxConceptoEgreso.setModel(unModeloComboConceptoEgreso);
         this.jComboBoxConceptoEgreso.setSelectedIndex(-1);
     }
 
-    public void cargarFechasFiltrado() {
+    private void cargarFechasFiltrado() {
         if (unaControladoraGlobal.getPrimerEgreso() != null) {
             String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
             String[] fechaDividida = fecha.split("/");
@@ -123,7 +110,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }
 
     //actualizar campos al seleccionar en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableEgresos.getSelectedRow() > -1) {
             if (jTableEgresos.getValueAt(jTableEgresos.getSelectedRow(), 0) != null) {
                 unEgresoSeleccionado = unaControladoraGlobal.getEgresoBD((Long) jTableEgresos.getValueAt(jTableEgresos.getSelectedRow(), 0));
@@ -142,7 +129,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldMonto.getText().isEmpty()) {
             jLabelMonto.setForeground(Color.red);
@@ -590,7 +577,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
 
-        if (validar()) {
+        if (camposValidar()) {
             if (unEgresoSeleccionado == null) {
                 try {
                     unaControladoraGlobal.crearEgreso(

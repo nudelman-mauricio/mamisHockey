@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.awt.Color;
@@ -24,10 +19,6 @@ import logicaNegocios.ConceptoIngreso;
 import logicaNegocios.IngresoOtro;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IGestionIngresos extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
@@ -83,7 +74,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         }
     }
 
-    public void camposActivo(boolean Editable) {
+    private void camposActivo(boolean Editable) {
         jTextFieldMonto.setEditable(Editable);
         jTextFieldFecha.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
@@ -91,20 +82,20 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
     }
 
     //blanquea componentes editables
-    void camposLimpiar() {
+    private void camposLimpiar() {
         jTextPaneDetalle.setText("");
         jTextFieldFecha.setText("dd/mm/aaaa");
         jTextFieldMonto.setText("");
         jComboBoxConceptoIngreso.setSelectedIndex(-1);
     }
 
-    public void cargarComboBoxConceptoIngreso() {
+    private void cargarComboBoxConceptoIngreso() {
         this.unModeloComboConceptoIngreso = new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getConceptosIngresosBD());
         this.jComboBoxConceptoIngreso.setModel(unModeloComboConceptoIngreso);
         this.jComboBoxConceptoIngreso.setSelectedIndex(-1);
     }
 
-    public void cargarFechasFiltrado() {
+    private void cargarFechasFiltrado() {
         if (unaControladoraGlobal.getPrimerIngresoOtro() != null) {
             String fecha = df.format(unaControladoraGlobal.getPrimerIngresoOtro().getFecha());
             String[] fechaDividida = fecha.split("/");
@@ -119,7 +110,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
     }
 
     //actualizar campos al seleccionar en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableIngresos.getSelectedRow() > -1) {
             if (jTableIngresos.getValueAt(jTableIngresos.getSelectedRow(), 0) != null) {
                 unIngresoSeleccionado = unaControladoraGlobal.getIngresoOtroBD((Long) jTableIngresos.getValueAt(jTableIngresos.getSelectedRow(), 0));
@@ -138,7 +129,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         }
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldMonto.getText().isEmpty()) {
             jLabelMonto.setForeground(Color.red);
@@ -610,8 +601,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-
-        if (validar()) {
+        if (camposValidar()) {
             if (unIngresoSeleccionado == null) {
                 try {
                     unaControladoraGlobal.crearIngresoOtro(
@@ -634,7 +624,6 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
                 }
-
             } else {
                 try {
                     unaControladoraGlobal.modificarIngresoOtro(
@@ -660,11 +649,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
                 }
                 unIngresoSeleccionado = null;
-
             }
-
-        } else {
-
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

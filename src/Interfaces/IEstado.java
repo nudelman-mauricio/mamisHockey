@@ -92,8 +92,8 @@ public class IEstado extends javax.swing.JInternalFrame {
         jTextFieldFecha.setText("");
         jComboBoxEstado.setSelectedIndex(-1);
     }
- 
-    public boolean validar() {
+
+    public boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldFecha.getText().isEmpty()) {
             jLabelFecha.setForeground(Color.red);
@@ -101,14 +101,18 @@ public class IEstado extends javax.swing.JInternalFrame {
         } else {
             jLabelFecha.setForeground(Color.black);
         }
-       if (jComboBoxEstado.getSelectedIndex() == -1) {
+        if (jComboBoxEstado.getSelectedIndex() == -1) {
             jLabelEstado.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelEstado.setForeground(Color.black);
         }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
         return bandera;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -358,7 +362,7 @@ public class IEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
@@ -384,8 +388,6 @@ public class IEstado extends javax.swing.JInternalFrame {
             camposActivo(false);
             jTableEstado.setEnabled(true);
             cargarCamposTabla();
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

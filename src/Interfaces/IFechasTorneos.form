@@ -397,10 +397,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelApellido" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelNombre1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCancha" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLocal" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelVisitante" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFechaCalendario" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -413,17 +413,17 @@
                           <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jLabelFechaNacimiento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelArbitro2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jComboBoxArbitro2" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jLabelDomicilio" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelArbitro1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jComboBoxArbitro1" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jLabelFechaNacimiento1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelArbitro3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jComboBoxArbitro3" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
@@ -440,29 +440,29 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelApellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLocal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxEquipoLocal" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDomicilio" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelArbitro1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxArbitro1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelNombre1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxEquipoVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelArbitro2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxArbitro2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaNacimiento1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelArbitro3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxArbitro3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxCancha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCancha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextFieldFecha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFechaCalendario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -510,32 +510,32 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelApellido">
+        <Component class="javax.swing.JLabel" name="jLabelLocal">
           <Properties>
             <Property name="text" type="java.lang.String" value="Equipo Local"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelNombre1">
+        <Component class="javax.swing.JLabel" name="jLabelVisitante">
           <Properties>
             <Property name="text" type="java.lang.String" value="Equipo Visitante"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelLocalidad">
+        <Component class="javax.swing.JLabel" name="jLabelCancha">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancha"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelDomicilio">
+        <Component class="javax.swing.JLabel" name="jLabelArbitro1">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc1;rbitro 1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento">
+        <Component class="javax.swing.JLabel" name="jLabelArbitro2">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc1;rbitro 2"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento1">
+        <Component class="javax.swing.JLabel" name="jLabelArbitro3">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc1;rbitro 3"/>
           </Properties>
@@ -553,7 +553,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="jLabelFechaCalendario">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha"/>
           </Properties>
