@@ -143,7 +143,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // </editor-fold>
         jTextAreaObservacion.setText(unPartido.getObservaciones());
         if (unPartido.getNombreVeedor() == null) { //El partido se jugo
-            jLabelResultado.setText(unaControladoraGlobal.getGoles(unPartido, unPartido.getUnEquipoLocal()) + " a " + unaControladoraGlobal.getGoles(unPartido, unPartido.getUnEquipoVisitante()));
+            jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
         } else {
             jLabelResultado.setText("- a -");
         }
@@ -359,6 +359,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonActualizar.setText("Actualizar");
         jButtonActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarActionPerformed(evt);
+            }
+        });
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
@@ -1087,26 +1092,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
         
-        unPartido.setNombreVeedor(jTextFieldVeedor.getText());
-        unPartido.setNombreAyudanteMesaLocal(jTextFieldAyudanteDeMesaLocal.getText());
-        unPartido.setNombreAyudanteMesaVisitante(jTextFieldAyudanteDeMesaVisitante.getText());
-        unPartido.setObservaciones(jTextAreaObservacion.getText());
+        unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
 
-        if (unPartido.getPlantelLocal() == null) {
-            Collection<Socia> unPlantelLocal = null;
-            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-                unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
-            }
-            unPartido.setPlantelLocal(unPlantelLocal);
-        }
         
-        if (unPartido.getPlantelLocal() == null) {
-            Collection<Socia> unPlantelVisitante = null;
-            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-                unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
-            }
-            unPartido.setPlantelLocal(unPlantelVisitante);
-        }
 
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
@@ -1116,7 +1104,25 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+        
+        //Guarda el plantel e imprime la planilla de resultados de partido
+        
+        if (unPartido.getPlantelLocal() == null) {
+            Collection<Socia> unPlantelLocal = null;
+            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+                unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
+            }
+            unPartido.setPlantelLocal(unPlantelLocal);
+        }
+        
+        if (unPartido.getPlantelVisitante()== null) {
+            Collection<Socia> unPlantelVisitante = null;
+            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+                unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
+            }
+            unPartido.setPlantelVisitante(unPlantelVisitante);
+        }
+        
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
@@ -1161,6 +1167,12 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         camposCargar();
     }//GEN-LAST:event_formComponentShown
+
+    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+        //Carga la tabla con las socias habilitadas para jugar.
+        //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido)
+        //-Habilitado siempre y cuando no se haya jugado el partido.
+    }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;
