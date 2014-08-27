@@ -49,6 +49,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelResultado.setText("- a -");
 
         camposCargar();
+
+        //Botones
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        if (unaControladoraGlobal.partidoAnteriorJugado(unPartido)) {
+            jButtonImprimir.setEnabled(true);
+            jButtonEditar.setEnabled(true);
+        } else {
+            jButtonImprimir.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+
+        }
+        if (unPartido.getNombreVeedor() == null) { //El partido se jugo
+            jButtonActualizar.setEnabled(false);
+        } else {
+            jButtonActualizar.setEnabled(true);
+        }
     }
 
     public void camposActivo(boolean Editable) {
@@ -67,10 +84,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     void camposCargar() {
+        //Problemas con, no tiene dt, ac, pf al momento de jugar.... if (unPartido.getUnAyudanteCampoLocal() == null) {
+
         //Detalles
         jTextFieldArbitro1.setText(unPartido.getUnArbitro1().getApellido() + ", " + unPartido.getUnArbitro1().getNombre());
         jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
-        jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
+        if (unPartido.getUnArbitro3() != null) {
+            jTextFieldArbitro3.setText(unPartido.getUnArbitro3().getApellido() + ", " + unPartido.getUnArbitro3().getNombre());
+        }
         jTextFieldCancha.setText(unPartido.getUnaCancha().getNombre());
         jTextFieldVeedor.setText(unPartido.getNombreVeedor());
         // <editor-fold defaultstate="collapsed" desc="Local">
@@ -1091,22 +1112,33 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
-        
+        if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
+            unaControladoraGlobal.descontarSancion(unPartido.getUnEquipoLocal(), unPartido.getUnEquipoVisitante());
+        }
         unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
 
-        
+        //Guardar Tarjetas
+        guardarTarjetas();
 
-        jButtonEditar.setEnabled(false);
+        //Guardar Goles (Son Guardados en otra ventana)
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(true);
+        jButtonActualizar.setEnabled(false);
 
         camposActivo(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+    private void guardarTarjetas() {
+        //Recorrer toda la tabla
+        //Guardar todas las tarjetas siempre y cuando no esten guardadas
+        //Siempre tiene prioridad la ventana (En el caso del editar) si hay una guardad y no existe mas, Borrarla.
 
+        unaControladoraGlobal.crearTarjeta(null, unPartido, title, title, title, title);
+    }
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        
+
         //Guarda el plantel e imprime la planilla de resultados de partido
-        
         if (unPartido.getPlantelLocal() == null) {
             Collection<Socia> unPlantelLocal = null;
             for (int i = 0; i < jTableLocal.getRowCount(); i++) {
@@ -1114,15 +1146,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
             unPartido.setPlantelLocal(unPlantelLocal);
         }
-        
-        if (unPartido.getPlantelVisitante()== null) {
+
+        if (unPartido.getPlantelVisitante() == null) {
             Collection<Socia> unPlantelVisitante = null;
             for (int i = 0; i < jTableLocal.getRowCount(); i++) {
                 unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
             }
             unPartido.setPlantelVisitante(unPlantelVisitante);
         }
-        
+
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
@@ -1172,6 +1204,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //Carga la tabla con las socias habilitadas para jugar.
         //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido)
         //-Habilitado siempre y cuando no se haya jugado el partido.
+
+
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
