@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Interfaces;
 
+import java.awt.Color;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -15,8 +10,6 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Indumentaria;
 import main.ControladoraGlobal;
 
-
-
 public class IIndumentaria extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
@@ -24,29 +17,28 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     Equipo unEquipo;
     Indumentaria unaIndumentaria;
     DefaultTableModel modeloTablaIndumentaria;
-    
-     public IIndumentaria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
+
+    public IIndumentaria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
         SeInicio(unaControladoraGlobal);
         jButtonCancelar.setEnabled(false);
         camposLimpiar();
-        this.modeloTablaIndumentaria = (DefaultTableModel) jTableIndumentaria.getModel();        
+        this.modeloTablaIndumentaria = (DefaultTableModel) jTableIndumentaria.getModel();
         filtrarIndumentaria();
     }
 
     private void filtrarIndumentaria() {
         limpiarTabla(modeloTablaIndumentaria);
         List<Indumentaria> unaListaResultado = (List) unEquipo.getIndumentarias();
-        int contador=1;
+        int contador = 1;
         for (Indumentaria unaIndumentaria : unaListaResultado) {
-            this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(),contador, unaIndumentaria.getCamiseta(),unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
+            this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(), contador, unaIndumentaria.getCamiseta(), unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
             contador++;
         }
-    }    
-    
-    
+    }
+
     private void limpiarTabla(DefaultTableModel modeloTablaIndumentaria) {
         try {
             int filas = modeloTablaIndumentaria.getRowCount();
@@ -58,37 +50,64 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         }
     }
 
-   public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
+    private void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
         camposActivo(false);
         IMenuPrincipalInterface.centrar(this);
     }
-   
-   public void camposActivo(boolean Editable) {
+
+    private void camposActivo(boolean Editable) {
         jButtonEditar.setEnabled(Editable);
         jButtonEliminar.setEnabled(Editable);
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonNuevo.setEnabled(!Editable);
         jButtonImprimir.setEnabled(!Editable);
-        
+
         jTextFieldCamiseta.setEditable(Editable);
         jTextFieldMedias.setEditable(Editable);
         jTextFieldPollera.setEditable(Editable);
     }
-   
-   public void camposLimpiar() {
+
+    private void camposLimpiar() {
         jTextFieldCamiseta.setText("");
         jTextFieldPollera.setText("");
-        jTextFieldMedias.setText("");      
+        jTextFieldMedias.setText("");
     }
-   
-  private void SeleccionarObjetoTabla(boolean estado) {
+
+    private void SeleccionarObjetoTabla(boolean estado) {
         jButtonEditar.setEnabled(estado);
         jButtonEliminar.setEnabled(estado);
     }
+
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldCamiseta.getText().isEmpty()) {
+            jLabelCamiseta.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelCamiseta.setForeground(Color.black);
+        }
+        if (jTextFieldPollera.getText().isEmpty()) {
+            jLabelPollera.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelPollera.setForeground(Color.black);
+        }
+        if (jTextFieldMedias.getText().isEmpty()) {
+            jLabelMedias.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelMedias.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -103,9 +122,9 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableIndumentaria = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelFechaRealizacion1 = new javax.swing.JLabel();
-        jLabelOrigen = new javax.swing.JLabel();
-        jLabelDestino = new javax.swing.JLabel();
+        jLabelCamiseta = new javax.swing.JLabel();
+        jLabelPollera = new javax.swing.JLabel();
+        jLabelMedias = new javax.swing.JLabel();
         jTextFieldCamiseta = new javax.swing.JTextField();
         jTextFieldPollera = new javax.swing.JTextField();
         jTextFieldMedias = new javax.swing.JTextField();
@@ -258,11 +277,11 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jLabelFechaRealizacion1.setText("Camiseta");
+        jLabelCamiseta.setText("Camiseta");
 
-        jLabelOrigen.setText("Pollera");
+        jLabelPollera.setText("Pollera");
 
-        jLabelDestino.setText("Medias");
+        jLabelMedias.setText("Medias");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -271,9 +290,9 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap(188, Short.MAX_VALUE)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelDestino, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaRealizacion1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabelPollera, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelMedias, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelCamiseta, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,15 +305,15 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion1)
+                    .addComponent(jLabelCamiseta)
                     .addComponent(jTextFieldCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelOrigen)
+                    .addComponent(jLabelPollera)
                     .addComponent(jTextFieldPollera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDestino)
+                    .addComponent(jLabelMedias)
                     .addComponent(jTextFieldMedias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -331,38 +350,40 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-       camposActivo(true);
-       jButtonEliminar.setEnabled(false);// TODO add your handling code here:
+        camposActivo(true);
+        jButtonEliminar.setEnabled(false);// TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-         if (this.unaIndumentaria == null) {
-            unaControladoraGlobal.crearIndumentaria(unEquipo, jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText());
-           
-            JOptionPane.showMessageDialog(this, "Equipo creado con exito");
-        } else {
-            unaControladoraGlobal.modificarIndumentaria(unaIndumentaria,
-                    jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText(),false);
-            JOptionPane.showMessageDialog(this, "Equipo editado con exito");
+        if (camposValidar()) {
+            if (this.unaIndumentaria == null) {
+                unaControladoraGlobal.crearIndumentaria(unEquipo, jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText());
+
+                JOptionPane.showMessageDialog(this, "Equipo creado con exito");
+            } else {
+                unaControladoraGlobal.modificarIndumentaria(unaIndumentaria,
+                        jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText(), false);
+                JOptionPane.showMessageDialog(this, "Equipo editado con exito");
+            }
+            camposActivo(false);
+            jButtonEditar.setEnabled(true);
+            filtrarIndumentaria();
         }
-        camposActivo(false);        
-        jButtonEditar.setEnabled(true);
-        filtrarIndumentaria();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         if (unJInternalFrame != null) {
             this.unJInternalFrame.setVisible(true);
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jTableIndumentariaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableIndumentariaFocusGained
-        this.SeleccionarObjetoTabla(true);        
+        this.SeleccionarObjetoTabla(true);
     }//GEN-LAST:event_jTableIndumentariaFocusGained
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.camposActivo(false);
-        this.camposLimpiar();// TODO add your handling code here:
+        this.camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -372,7 +393,7 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jTextFieldCamiseta.setText(unaIndumentaria.getCamiseta());
         jTextFieldMedias.setText(unaIndumentaria.getMedia());
         jTextFieldPollera.setText(unaIndumentaria.getPollera());
-                
+
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
@@ -383,9 +404,9 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabelDestino;
-    private javax.swing.JLabel jLabelFechaRealizacion1;
-    private javax.swing.JLabel jLabelOrigen;
+    private javax.swing.JLabel jLabelCamiseta;
+    private javax.swing.JLabel jLabelMedias;
+    private javax.swing.JLabel jLabelPollera;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;

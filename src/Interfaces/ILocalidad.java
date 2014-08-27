@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -23,7 +24,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
         //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png"))); 
-         this.setTitle("Localidades");//titulo de la ventana
+        this.setTitle("Localidades");//titulo de la ventana
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
         jButtonCancelar.setEnabled(false);
@@ -47,19 +48,19 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         }
     }
 
-    public void camposActivo(boolean Editable) {
+    private void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextFieldCodPostal.setEditable(Editable);
     }
 
     //blanquea componentes editables
-    void camposLimpiar() {
+    private void camposLimpiar() {
         jTextFieldCodPostal.setText("");
         jTextFieldNombre.setText("");
     }
 
     //actualizar campos al seleccionar en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableLocalidad.getSelectedRow() > -1) {
             if (jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0) != null) {
                 unaLocalidadSeleccionada = unaControladoraGlobal.getLocalidadBD((Long) jTableLocalidad.getValueAt(jTableLocalidad.getSelectedRow(), 0));
@@ -76,6 +77,26 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         }
     }
 
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (jTextFieldCodPostal.getText().isEmpty()) {
+            jLabelCodigo.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelCodigo.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,8 +111,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLocalidad = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabelFechaRealizacion1 = new javax.swing.JLabel();
-        jLabelOrigen = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabelCodigo = new javax.swing.JLabel();
         jTextFieldCodPostal = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
 
@@ -238,9 +259,9 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel3.setName(""); // NOI18N
 
-        jLabelFechaRealizacion1.setText("Nombre");
+        jLabelNombre.setText("Nombre");
 
-        jLabelOrigen.setText("Cod. Postal");
+        jLabelCodigo.setText("Cod. Postal");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -249,8 +270,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaRealizacion1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabelCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldCodPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
@@ -262,11 +283,11 @@ public class ILocalidad extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion1)
+                    .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelOrigen)
+                    .addComponent(jLabelCodigo)
                     .addComponent(jTextFieldCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -313,7 +334,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (!(jTextFieldNombre.getText().isEmpty()) && !(jTextFieldCodPostal.getText().isEmpty())) {
+        if (camposValidar()) {
             if (unaLocalidadSeleccionada == null) {
                 unaControladoraGlobal.crearLocalidad(jTextFieldNombre.getText(), jTextFieldCodPostal.getText());
                 JOptionPane.showMessageDialog(this, "Localidad Guardada");
@@ -334,8 +355,6 @@ public class ILocalidad extends javax.swing.JInternalFrame {
 
             cargarTabla();
             jTableLocalidad.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -374,10 +393,10 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarLocalidad(unaLocalidadSeleccionada);
-            unaLocalidadSeleccionada=null;
+            unaLocalidadSeleccionada = null;
             cargarTabla();
         }
-        
+
         jTableLocalidad.clearSelection();
         jTableLocalidad.setEnabled(true);
         camposLimpiar();
@@ -401,8 +420,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabelFechaRealizacion1;
-    private javax.swing.JLabel jLabelOrigen;
+    private javax.swing.JLabel jLabelCodigo;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

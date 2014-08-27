@@ -255,8 +255,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelOrigen" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaRealizacion1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCodigo" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -272,12 +272,12 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCodPostal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -286,12 +286,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion1">
+        <Component class="javax.swing.JLabel" name="jLabelNombre">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelOrigen">
+        <Component class="javax.swing.JLabel" name="jLabelCodigo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cod. Postal"/>
           </Properties>

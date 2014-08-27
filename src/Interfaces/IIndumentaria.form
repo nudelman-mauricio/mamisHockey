@@ -280,9 +280,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace pref="188" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelOrigen" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDestino" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaRealizacion1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPollera" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMedias" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCamiseta" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -299,17 +299,17 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCamiseta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCamiseta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPollera" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldPollera" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelDestino" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelMedias" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldMedias" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -318,17 +318,17 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion1">
+        <Component class="javax.swing.JLabel" name="jLabelCamiseta">
           <Properties>
             <Property name="text" type="java.lang.String" value="Camiseta"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelOrigen">
+        <Component class="javax.swing.JLabel" name="jLabelPollera">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pollera"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelDestino">
+        <Component class="javax.swing.JLabel" name="jLabelMedias">
           <Properties>
             <Property name="text" type="java.lang.String" value="Medias"/>
           </Properties>

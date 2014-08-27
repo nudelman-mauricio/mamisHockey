@@ -8,52 +8,39 @@ import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IGol extends javax.swing.JInternalFrame {
-    
+
     ControladoraGlobal unaControladoraGlobal;
     JInternalFrame unJInternalFrame;
     Socia unaSocia;
     Partido unPartido;
-        
+
     public IGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
-        
+
         jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
-        
-        
+
     }
-    
+
     private boolean camposValidar() {
         boolean bandera = true;
-        if (jTextFieldNombre.getText().isEmpty()) {
-            jLabelNombre.setForeground(Color.red);
+        if (jTextFieldMinuto.getText().isEmpty()) {
+            jLabelMinuto.setForeground(Color.red);
             bandera = false;
         } else {
-            jLabelNombre.setForeground(Color.black);
-        }
-        if (jTextFieldPresidente.getText().isEmpty()) {
-            jLabelPresidente.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelPresidente.setForeground(Color.black);
-        }
-        if (jComboBoxLocalidad.getSelectedIndex() == -1) {
-            jLabelLocalidad.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelLocalidad.setForeground(Color.black);
+            jLabelMinuto.setForeground(Color.black);
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
         return bandera;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -190,12 +177,10 @@ public class IGol extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        if (jComboBoxTiempo.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Debe selecionar un Tiempo");
-        }else{
-            if (jComboBoxTiempo.getSelectedIndex() == 0){
+        if (camposValidar()) {
+            if (jComboBoxTiempo.getSelectedIndex() == 0) {
                 unaControladoraGlobal.crearGol(unaSocia, unPartido, "1", jTextFieldMinuto.getText());
-            }else{
+            } else {
                 unaControladoraGlobal.crearGol(unaSocia, unPartido, "2", jTextFieldMinuto.getText());
             }
             if (unJInternalFrame != null) {
@@ -204,7 +189,6 @@ public class IGol extends javax.swing.JInternalFrame {
                 this.unJInternalFrame.setVisible(true);
             }
         }
-
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
