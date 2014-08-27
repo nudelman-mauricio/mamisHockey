@@ -6,15 +6,18 @@
 
 package Interfaces;
 
-/**
- *
- * @author Lucas
- */
+import javax.swing.JInternalFrame;
+import logicaNegocios.Partido;
+import logicaNegocios.Socia;
+import main.ControladoraGlobal;
+
 public class ICargarTarjeta extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ICargarTarjeta
-     */
+    ControladoraGlobal unaControladoraGlobal;
+    JInternalFrame unJInternalFrame;
+    Socia unaSocia;
+    Partido unPartido;
+    
     public ICargarTarjeta() {
         initComponents();
     }
