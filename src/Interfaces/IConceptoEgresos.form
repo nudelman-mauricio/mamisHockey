@@ -256,8 +256,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelFechaCaducidad1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDetalle" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -273,13 +273,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabelFechaCaducidad1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDetalle" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane3" pref="71" max="32767" attributes="0"/>
@@ -290,14 +290,14 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion">
+        <Component class="javax.swing.JLabel" name="jLabelNombre">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelFechaCaducidad1">
+        <Component class="javax.swing.JLabel" name="jLabelDetalle">
           <Properties>
             <Property name="text" type="java.lang.String" value="Detalle"/>
           </Properties>

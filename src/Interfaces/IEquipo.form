@@ -165,15 +165,15 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelNombres" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDT" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelDomicilio" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelFechaNacimiento" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelFechaIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelApellido" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelClub" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelFechaNacimiento1" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelFechaIngreso1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDni" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -196,17 +196,17 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelDni" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelApellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelClub" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxClub" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDT" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxDT" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -245,17 +245,17 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelDni">
+        <Component class="javax.swing.JLabel" name="jLabelNombre">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelApellido">
+        <Component class="javax.swing.JLabel" name="jLabelClub">
           <Properties>
             <Property name="text" type="java.lang.String" value="Club"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelNombres">
+        <Component class="javax.swing.JLabel" name="jLabelDT">
           <Properties>
             <Property name="text" type="java.lang.String" value="Director Tecnico"/>
           </Properties>

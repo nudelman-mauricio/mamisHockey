@@ -332,11 +332,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabelFechaRealizacion1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelConcepto" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelMontoTotalDeuda" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion5" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaVencimiento" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -375,17 +375,17 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBoxConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelFechaRealizacion2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jTextFieldFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelFechaRealizacion4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelMontoTotalDeuda" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jTextFieldMontoTotalDeuda" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -412,14 +412,14 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion1">
+                <Component class="javax.swing.JLabel" name="jLabelConcepto">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Concepto"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldFechaVencimiento">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion2">
+                <Component class="javax.swing.JLabel" name="jLabelFechaVencimiento">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Primer Vencimiento"/>
                   </Properties>
@@ -436,7 +436,7 @@
                     <Property name="text" type="java.lang.String" value="Observaci&#xf3;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion4">
+                <Component class="javax.swing.JLabel" name="jLabelMontoTotalDeuda">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Monto ($)"/>
                   </Properties>
@@ -626,11 +626,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="jLabelFechaRealizacion6" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaPagoCuota" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabelFechaRealizacion10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFieldMontoCuotaAbonado" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -651,13 +651,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelFechaRealizacion6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaPagoCuota" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldFechaPagoCuota" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextFieldMontoCuotaAbonado" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFieldMontoCuotaAbonado" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
                       </Group>
@@ -676,14 +676,14 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion6">
+                <Component class="javax.swing.JLabel" name="jLabelFechaPagoCuota">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fecha de Pago"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldFechaPagoCuota">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion10">
+                <Component class="javax.swing.JLabel" name="jLabelFieldMontoCuotaAbonado">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Monto Abonado ($)"/>
                   </Properties>

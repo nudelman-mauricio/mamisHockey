@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
+import java.awt.Color;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -16,10 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoEgreso;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
@@ -27,9 +19,6 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private ConceptoEgreso unConceptoEgresoSeleccionado;
     private JInternalFrame unJInternalFrame;
 
-    /**
-     * Creates new form ConceptoEgresos
-     */
     public IConceptoEgresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
@@ -48,8 +37,8 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
 
     }
-    
-     public IConceptoEgresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
+
+    public IConceptoEgresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
         this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
@@ -62,7 +51,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Concepto Egresos");//titulo de la ventana
-        
+
         jTextFieldNombre.setEditable(true);
         jTextPaneDetalle.setEditable(true);
         jTableConceptoEgresos.setEnabled(false);
@@ -88,19 +77,19 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         }
     }
 
-    public void camposActivo(boolean Editable) {
+    private void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
     }
 
     //blanquea componentes editables
-    void camposLimpiar() {
+    private void camposLimpiar() {
         jTextPaneDetalle.setText("");
         jTextFieldNombre.setText("");
     }
 
     //actualizar campos al seleccionar en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableConceptoEgresos.getSelectedRow() > -1) {
             if (jTableConceptoEgresos.getValueAt(jTableConceptoEgresos.getSelectedRow(), 0) != null) {
                 unConceptoEgresoSeleccionado = unaControladoraGlobal.getConceptoEgresoBD((Long) jTableConceptoEgresos.getValueAt(jTableConceptoEgresos.getSelectedRow(), 0));
@@ -117,6 +106,20 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         }
     }
 
+    public boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,9 +134,9 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConceptoEgresos = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
-        jLabelFechaCaducidad1 = new javax.swing.JLabel();
+        jLabelDetalle = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPaneDetalle = new javax.swing.JTextPane();
 
@@ -281,9 +284,9 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Nombre");
+        jLabelNombre.setText("Nombre");
 
-        jLabelFechaCaducidad1.setText("Detalle");
+        jLabelDetalle.setText("Detalle");
 
         jScrollPane3.setViewportView(jTextPaneDetalle);
 
@@ -294,8 +297,8 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGap(168, 168, 168)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaCaducidad1)
-                    .addComponent(jLabelFechaRealizacion))
+                    .addComponent(jLabelDetalle)
+                    .addComponent(jLabelNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
@@ -307,12 +310,12 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion)
+                    .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addComponent(jLabelFechaCaducidad1)
+                        .addComponent(jLabelDetalle)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
                 .addContainerGap())
@@ -346,7 +349,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (!(jTextFieldNombre.getText().isEmpty())) {
+        if (camposValidar()) {
             if (unConceptoEgresoSeleccionado == null) {
                 unaControladoraGlobal.crearConceptoEgreso(jTextFieldNombre.getText(), jTextPaneDetalle.getText());
                 JOptionPane.showMessageDialog(this, "Concepto Egreso Guardada");
@@ -366,8 +369,6 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
             cargarTabla();
             jTableConceptoEgresos.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -431,20 +432,20 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarConceptoEgreso(unConceptoEgresoSeleccionado);
-           unConceptoEgresoSeleccionado=null;
-           cargarTabla();
-           
+            unConceptoEgresoSeleccionado = null;
+            cargarTabla();
+
         }
-        
+
         jTableConceptoEgresos.clearSelection();
         jTableConceptoEgresos.setEnabled(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-       if(unJInternalFrame != null){
-           this.unJInternalFrame.setVisible(true);
-       }
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }
     }//GEN-LAST:event_formInternalFrameClosed
 
     public void camposActivoNuevo(boolean Editable) {
@@ -463,8 +464,8 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabelFechaCaducidad1;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JLabel jLabelDetalle;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;

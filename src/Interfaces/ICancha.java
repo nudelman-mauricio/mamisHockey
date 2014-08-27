@@ -50,7 +50,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     }
 
     //Cargar Tabla con las Canchas del Club
-    public void cargarTabla() {
+    private void cargarTabla() {
         limpiarTabla(modeloTable);
         for (Cancha unaCancha : unClub.getCanchas()) {
             if (!unaCancha.isBorradoLogico()) {
@@ -62,7 +62,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     }
 
     //actualizar los campos al seleccionar una cancha en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableCancha.getSelectedRow() > -1) {
             if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
                 unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
@@ -76,7 +76,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    void camposActivo(Container c, boolean bandera) {
+    private void camposActivo(Container c, boolean bandera) {
         Component[] components = c.getComponents();
         for (int i = 0; i < components.length; i++) {
             components[i].setEnabled(bandera);
@@ -90,12 +90,12 @@ public class ICancha extends javax.swing.JInternalFrame {
     }
 
     //blanqueda componentes editables
-    void camposLimpiar() {
+    private void camposLimpiar() {
         jTextFieldNombre.setText("");
         jCheckBoxSeOcupa.setSelected(false);
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNombre.getText().isEmpty()) {
             jLabelNombre.setForeground(Color.red);
@@ -411,7 +411,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             if (unaCanchaSeleccionada == null) {
                 unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
                 JOptionPane.showMessageDialog(this, "Cancha Guardada");

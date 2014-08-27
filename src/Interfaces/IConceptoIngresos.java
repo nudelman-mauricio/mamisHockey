@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
-
+import java.awt.Color;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -17,27 +12,20 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoIngreso;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IConceptoIngresos extends javax.swing.JInternalFrame {
 
-       private ControladoraGlobal unaControladoraGlobal;
+    private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaConceptoIngresos;
     private ConceptoIngreso unConceptoIngresoSeleccionado;
     private JInternalFrame unJInternalFrame;
 
-    /**
-     * Creates new form ConceptoIngresos
-     */
     public IConceptoIngresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
         this.modeloTablaConceptoIngresos = (DefaultTableModel) jTableConceptoIngreso.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
         cargarTabla();
-       
+
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
         //Icono de la ventana
@@ -49,7 +37,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
 
     }
-    
+
     public IConceptoIngresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
@@ -57,13 +45,13 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         cargarTabla();
-       
+
         IMenuPrincipalInterface.centrar(this);
         camposActivo(false);
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Conceptos Ingresos");//titulo de la ventana
-        
+
         //Se setea para que puedas crear el concepto sin tener que hacer click en el boton nuevo
         jTextFieldNombre.setEditable(true);
         jTextPaneDetalle.setEditable(true);
@@ -120,6 +108,20 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         }
     }
 
+    public boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -134,7 +136,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConceptoIngreso = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelFechaCaducidad1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -284,7 +286,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Nombre");
+        jLabelNombre.setText("Nombre");
 
         jLabelFechaCaducidad1.setText("Detalle");
 
@@ -298,7 +300,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
                 .addGap(168, 168, 168)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaCaducidad1)
-                    .addComponent(jLabelFechaRealizacion))
+                    .addComponent(jLabelNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
@@ -310,7 +312,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion)
+                    .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +351,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-         jButtonNuevo.setEnabled(false);
+        jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -375,7 +377,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-       if (!(jTextFieldNombre.getText().isEmpty())) {
+        if (camposValidar()) {
             if (unConceptoIngresoSeleccionado == null) {
                 unaControladoraGlobal.crearConceptoIngreso(jTextFieldNombre.getText(), jTextPaneDetalle.getText());
                 JOptionPane.showMessageDialog(this, "Concepto Ingreso Guardada");
@@ -395,8 +397,6 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
 
             cargarTabla();
             jTableConceptoIngreso.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "El campo nombre es obligatorio");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -434,24 +434,24 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarConceptoIngreso(unConceptoIngresoSeleccionado);
-           unConceptoIngresoSeleccionado=null;
-           cargarTabla();
+            unConceptoIngresoSeleccionado = null;
+            cargarTabla();
         }
-        
+
         jTableConceptoIngreso.clearSelection();
         jTableConceptoIngreso.setEnabled(true);
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-       if(unJInternalFrame != null){
-           this.unJInternalFrame.setVisible(true);
-          
-       }
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+
+        }
     }//GEN-LAST:event_formInternalFrameClosed
-    
+
     public void camposActivoNuevo(boolean Editable) {
-       jTextFieldNombre.setEditable(Editable);
+        jTextFieldNombre.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
         jButtonCancelar.setEnabled(Editable);
         jButtonGuardar.setEnabled(Editable);
@@ -468,7 +468,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JLabel jLabelFechaCaducidad1;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;

@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
+import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -69,7 +65,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         camposCargar(unEquipo);
     }
 
-    public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
+    private void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
 
         //Icono de la ventana
@@ -82,7 +78,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
     }
 
-    public void cargarCombosBox() {
+    private void cargarCombosBox() {
         cargarComboBox(this.jComboBoxClub, (Vector) unaControladoraGlobal.getClubesBD());
 
         cargarComboBox(this.jComboBoxDT, (Vector) unaControladoraGlobal.getCuerposTecnicosBD());
@@ -97,12 +93,12 @@ public class IEquipo extends javax.swing.JInternalFrame {
         }
     }
 
-    public void cargarComboBox(JComboBox unComboBox, Vector unVector) {
+    private void cargarComboBox(JComboBox unComboBox, Vector unVector) {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel(unVector);
         unComboBox.setModel(modelCombo);
     }
 
-    public void camposCargar(Equipo unEquipo) {
+    private void camposCargar(Equipo unEquipo) {
         jTextFieldNombre.setText(unEquipo.getNombre());
 
         //FALTAN METODOS PARA ESTE COMBO
@@ -117,7 +113,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jComboBoxCapitanaSup.setSelectedItem(unEquipo.getUnaCapitanaSuplente());
     }
 
-    public void camposActivo(boolean Editable) {
+    private void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jComboBoxClub.setEnabled(Editable);
         jComboBoxDT.setEnabled(Editable);
@@ -133,7 +129,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(!Editable);
     }
 
-    public void camposLimpiar() {
+    private void camposLimpiar() {
         jTextFieldNombre.setText("");
         jComboBoxClub.setSelectedIndex(-1);
         jComboBoxClub.setSelectedIndex(-1);
@@ -146,6 +142,32 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jComboBoxCapitanaSup.setSelectedIndex(-1);
     }
 
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (jComboBoxClub.getSelectedIndex() == -1) {
+            jLabelClub.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelClub.setForeground(Color.black);
+        }
+        if (jComboBoxDT.getSelectedIndex() == -1) {
+            jLabelDT.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelDT.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -156,9 +178,9 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelDni = new javax.swing.JLabel();
-        jLabelApellido = new javax.swing.JLabel();
-        jLabelNombres = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabelClub = new javax.swing.JLabel();
+        jLabelDT = new javax.swing.JLabel();
         jLabelLocalidad = new javax.swing.JLabel();
         jComboBoxDT = new javax.swing.JComboBox();
         jTextFieldNombre = new javax.swing.JTextField();
@@ -270,11 +292,11 @@ public class IEquipo extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
-        jLabelDni.setText("Nombre");
+        jLabelNombre.setText("Nombre");
 
-        jLabelApellido.setText("Club");
+        jLabelClub.setText("Club");
 
-        jLabelNombres.setText("Director Tecnico");
+        jLabelDT.setText("Director Tecnico");
 
         jLabelLocalidad.setText("Preparador Fisico");
 
@@ -303,15 +325,15 @@ public class IEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelNombres)
+                    .addComponent(jLabelDT)
                     .addComponent(jLabelLocalidad)
                     .addComponent(jLabelDomicilio)
                     .addComponent(jLabelFechaNacimiento)
                     .addComponent(jLabelFechaIngreso)
-                    .addComponent(jLabelApellido)
+                    .addComponent(jLabelClub)
                     .addComponent(jLabelFechaNacimiento1)
                     .addComponent(jLabelFechaIngreso1)
-                    .addComponent(jLabelDni))
+                    .addComponent(jLabelNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jComboBoxCapitana, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,15 +352,15 @@ public class IEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDni)
+                    .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelApellido)
+                    .addComponent(jLabelClub)
                     .addComponent(jComboBoxClub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNombres)
+                    .addComponent(jLabelDT)
                     .addComponent(jComboBoxDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -415,7 +437,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEditar.setEnabled(false);
-        
+
         camposLimpiar();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -425,27 +447,28 @@ public class IEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (this.unEquipo == null) {
-            unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getText(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
+        if (camposValidar()) {
+            if (this.unEquipo == null) {
+                unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getText(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
 
             //unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), null, null, null, null, null, (PersonaAuxiliar) jComboBoxPF.getSelectedItem(), (PersonaAuxiliar) jComboBoxAC.getSelectedItem(), false);
-
-            JOptionPane.showMessageDialog(this, "Equipo creado con exito");
-        } else {
-            unaControladoraGlobal.modificarEquipo(unEquipo,
-                    jTextFieldNombre.getText(),
-                    (Socia) jComboBoxCapitana.getSelectedItem(),
-                    (Socia) jComboBoxCapitanaSup.getSelectedItem(),
-                    (Socia) jComboBoxDelegada.getSelectedItem(),
-                    (Socia) jComboBoxDelegadaSup.getSelectedItem(),
-                    (PersonaAuxiliar) jComboBoxDT.getSelectedItem(),
-                    (PersonaAuxiliar) jComboBoxPF.getSelectedItem(),
-                    (PersonaAuxiliar) jComboBoxAC.getSelectedItem(),
-                    false);
-            JOptionPane.showMessageDialog(this, "Equipo editado con exito");
+                JOptionPane.showMessageDialog(this, "Equipo creado con exito");
+            } else {
+                unaControladoraGlobal.modificarEquipo(unEquipo,
+                        jTextFieldNombre.getText(),
+                        (Socia) jComboBoxCapitana.getSelectedItem(),
+                        (Socia) jComboBoxCapitanaSup.getSelectedItem(),
+                        (Socia) jComboBoxDelegada.getSelectedItem(),
+                        (Socia) jComboBoxDelegadaSup.getSelectedItem(),
+                        (PersonaAuxiliar) jComboBoxDT.getSelectedItem(),
+                        (PersonaAuxiliar) jComboBoxPF.getSelectedItem(),
+                        (PersonaAuxiliar) jComboBoxAC.getSelectedItem(),
+                        false);
+                JOptionPane.showMessageDialog(this, "Equipo editado con exito");
+            }
+            camposActivo(false);
+            jButtonEditar.setEnabled(true);
         }
-        camposActivo(false);
-        jButtonEditar.setEnabled(true);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -467,15 +490,15 @@ public class IEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxDelegada;
     private javax.swing.JComboBox jComboBoxDelegadaSup;
     private javax.swing.JComboBox jComboBoxPF;
-    private javax.swing.JLabel jLabelApellido;
-    private javax.swing.JLabel jLabelDni;
+    private javax.swing.JLabel jLabelClub;
+    private javax.swing.JLabel jLabelDT;
     private javax.swing.JLabel jLabelDomicilio;
     private javax.swing.JLabel jLabelFechaIngreso;
     private javax.swing.JLabel jLabelFechaIngreso1;
     private javax.swing.JLabel jLabelFechaNacimiento;
     private javax.swing.JLabel jLabelFechaNacimiento1;
     private javax.swing.JLabel jLabelLocalidad;
-    private javax.swing.JLabel jLabelNombres;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JTextField jTextFieldNombre;

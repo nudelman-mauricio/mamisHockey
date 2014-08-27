@@ -27,7 +27,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void camposActivo(boolean Editable) {
+    private void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextFieldEdadParametro.setEditable(Editable);
         jTextFieldMaximoMenores.setEditable(Editable);
@@ -38,7 +38,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(Editable);
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNombre.getText().isEmpty()) {
             jLabelNombre.setForeground(Color.red);
@@ -69,7 +69,6 @@ public class ICategoria extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -369,7 +368,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             if (!modificar) {
                 unaControladoraGlobal.crearCategoria(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdadParametro.getText()), Integer.parseInt(jTextFieldMinimoMenores.getText()), Integer.parseInt(jTextFieldMaximoMenores.getText()));
                 JOptionPane.showMessageDialog(this, "Categoria Guardada");

@@ -117,7 +117,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         jComboBoxLocalidad.setSelectedIndex(-1);
     }
 
-    public boolean validar() {        
+    public boolean camposValidar() {        
         boolean bandera = true;
         if (jTextFieldDNI.getText().isEmpty()) {
             jLabelDni.setForeground(Color.red);
@@ -161,6 +161,9 @@ public class ISocia extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelFechaIngreso.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
         return bandera;
     }
@@ -495,7 +498,7 @@ public class ISocia extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
 
-        if (validar()) {
+        if (camposValidar()) {
             DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
@@ -537,9 +540,7 @@ public class ISocia extends javax.swing.JInternalFrame {
 
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+            }        
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

@@ -98,7 +98,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
         }
     }
 
-    public boolean validar() {
+    public boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldFechaRealizacion.getText().isEmpty()) {
             jLabelFechaRealizacion.setForeground(Color.red);
@@ -111,7 +111,10 @@ public class IErgometria extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelFechaCaducidad.setForeground(Color.black);
-        }       
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
         return bandera;
     }
 
@@ -463,7 +466,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableErgometriasFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
@@ -491,8 +494,6 @@ public class IErgometria extends javax.swing.JInternalFrame {
             camposActivo(false);
             jTableErgometrias.setEnabled(true);
             cargarCamposTabla();
-        } else {
-           JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

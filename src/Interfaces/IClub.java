@@ -96,7 +96,7 @@ public class IClub extends javax.swing.JInternalFrame {
         jComboBoxLocalidad.setSelectedItem(unClub.getUnaLocalidad());
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNombre.getText().isEmpty()) {
             jLabelNombre.setForeground(Color.red);
@@ -348,7 +348,7 @@ public class IClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             if (this.unClub == null) {
                 if (!modificar) {
                     unaControladoraGlobal.crearClub(jTextFieldNombre.getText(),
