@@ -657,14 +657,7 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
-        unPartido.setFecha(fecha);
-        unPartido.setUnaCancha(unaCancha);
-        unPartido.setUnEquipoLocal(unEquipoLocal);
-        unPartido.setUnEquipoVisitante(unEquipoVisitante);
-        unPartido.setUnArbitro1(unArbitro1);
-        unPartido.setUnArbitro2(unArbitro2);
-        unPartido.setUnArbitro3(unArbitro3);
+    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {        
         unPartido.setNombreVeedor(nombreVeedor);
         unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
         unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
