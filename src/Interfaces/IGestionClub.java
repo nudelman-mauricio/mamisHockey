@@ -368,7 +368,11 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
     private void jButtonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEquiposActionPerformed
         Club unClubSeleccionado = unaControladoraGlobal.getClubBD((Long)jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
-      
+        IClubEquipo unIClubEquipo = new IClubEquipo(unaControladoraGlobal, unClubSeleccionado, jDesktopPane1);
+        unIClubEquipo.pack();
+        unIClubEquipo.setVisible(true);
+        this.setVisible(false);
+        this.jDesktopPane1.add(unIClubEquipo);
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed

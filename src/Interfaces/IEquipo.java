@@ -48,6 +48,17 @@ public class IEquipo extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         camposLimpiar();
     }
+    
+    public IEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
+        initComponents();
+        this.unJInternalFrame = unJInternalFrame;        
+        SeInicio(unaControladoraGlobal);
+        jButtonCancelar.setEnabled(false);
+        camposLimpiar();       
+        camposActivo(true);
+        jComboBoxClub.setSelectedItem(unClub);
+        jComboBoxClub.setEnabled(false);  
+    }
 
     //LLAMADO MOSTRANDO UN CLUB
     public IEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
@@ -465,7 +476,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
                         (PersonaAuxiliar) jComboBoxAC.getSelectedItem(),
                         false);
                 JOptionPane.showMessageDialog(this, "Equipo editado con exito");
-            }
+            }            
             camposActivo(false);
             jButtonEditar.setEnabled(true);
         }
