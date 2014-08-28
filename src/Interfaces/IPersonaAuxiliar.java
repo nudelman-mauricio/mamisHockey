@@ -51,7 +51,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void camposCargar(PersonaAuxiliar unaPersonaAuxiliar) {
+    private void camposCargar(PersonaAuxiliar unaPersonaAuxiliar) {
         jTextFieldDNI.setText(unaPersonaAuxiliar.getDni().toString());
         jTextFieldApellido.setText(unaPersonaAuxiliar.getApellido());
         jTextFieldNombre.setText(unaPersonaAuxiliar.getNombre());
@@ -68,12 +68,12 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
     }
 
-    public void cargarComboBoxLocalidades() {
+    private void cargarComboBoxLocalidades() {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldDNI.getText().isEmpty()) {
             jLabelDni.setForeground(Color.red);
@@ -117,12 +117,14 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelFechaIngreso.setForeground(Color.black);
-        }       
-        if(!bandera){
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
-         if(!jCheckBoxEsArbitro.isSelected() && !jCheckBoxEsCuerpoTecnico.isSelected() && bandera){
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+            return bandera;
+        }
+        if (!jCheckBoxEsArbitro.isSelected() && !jCheckBoxEsCuerpoTecnico.isSelected() && bandera) {
             JOptionPane.showMessageDialog(this, "Por favor, defina si es Arbitro, Cuerpo Tecnico o ambos");
+            bandera = false;
         }
         return bandera;
     }
@@ -474,7 +476,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     }
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             if (unaPersonaAuxiliar == null) {
                 DateFormat df = DateFormat.getDateInstance();
                 try {
@@ -527,10 +529,10 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                     );
 
                 } catch (ParseException e) {
-                    System.out.println("ERROR EN LAS FECHAS PERSONA AUXILIAR" + e.getMessage());
+                    JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
                 }
             }
-        } 
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed

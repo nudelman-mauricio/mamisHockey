@@ -133,9 +133,15 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jLabelFechaVencimiento.setForeground(Color.black);
         }
-        if(!jCheckBoxLibreDeudaClub.isSelected() && !jCheckBoxSolicitudPase.isSelected()){
+        if (!jCheckBoxLibreDeudaClub.isSelected() && !jCheckBoxSolicitudPase.isSelected()) {
             jCheckBoxLibreDeudaClub.setForeground(Color.red);
-            
+            jCheckBoxSolicitudPase.setForeground(Color.red);
+            bandera = false;
+            JOptionPane.showMessageDialog(this, "Es necesario que la socia entregue al menos un documento de los solicitdos: Libre Deuda o Solicitud Pase");
+            return bandera;
+        } else {
+            jCheckBoxLibreDeudaClub.setForeground(Color.black);
+            jCheckBoxSolicitudPase.setForeground(Color.black);
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");

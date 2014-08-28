@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Interfaces;
 
+import java.awt.Color;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -15,10 +10,6 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IPlantel extends javax.swing.JInternalFrame {
 
     JInternalFrame unJInternalFrame;
@@ -26,28 +17,28 @@ public class IPlantel extends javax.swing.JInternalFrame {
     ControladoraGlobal unaControladoraGlobal;
     DefaultTableModel modeloTablaPlantel;
     Socia unaSocia;
-    
-      public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
+
+    public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
         SeInicio(unaControladoraGlobal);
         jButtonCancelar.setEnabled(false);
         camposLimpiar();
-        this.modeloTablaPlantel = (DefaultTableModel) jTablePlantel.getModel();        
+        this.modeloTablaPlantel = (DefaultTableModel) jTablePlantel.getModel();
         obtenerPlantel();
     }
-      
-      public void obtenerPlantel(){
-        limpiarTabla(modeloTablaPlantel);
-        List<Socia> unaListaResultado = (List<Socia>) unEquipo.getPlantel();        
-        for (Socia unaSocia : unaListaResultado) {            
-            this.modeloTablaPlantel.addRow(new Object[]{unaSocia.getDni(),unaSocia.getNumeroCamiseta(),unaSocia.getApellido(),unaSocia.getNombre() , unaSocia.getUltimoEstado(), "aca va puesto", "Siii"});
-        }    
-      
-      }
 
-       private void limpiarTabla(DefaultTableModel modeloTablaPlantel) {
+    private void obtenerPlantel() {
+        limpiarTabla(modeloTablaPlantel);
+        List<Socia> unaListaResultado = (List<Socia>) unEquipo.getPlantel();
+        for (Socia unaSocia : unaListaResultado) {
+            this.modeloTablaPlantel.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.getUltimoEstado(), "aca va puesto", "Siii"});
+        }
+
+    }
+
+    private void limpiarTabla(DefaultTableModel modeloTablaPlantel) {
         try {
             int filas = modeloTablaPlantel.getRowCount();
             for (int i = 0; i < filas; i++) {
@@ -57,31 +48,28 @@ public class IPlantel extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-     public void SeInicio(ControladoraGlobal unaControladoraGlobal) {
+
+    private void SeInicio(ControladoraGlobal unaControladoraGlobal) {
         this.unaControladoraGlobal = unaControladoraGlobal;
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
 
-     
         IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
     }
-     
-        public void camposLimpiar() {
+
+    private void camposLimpiar() {
         jTextFieldNroCamiseta.setText("");
         jTextFieldApellido.setText("");
         jTextFieldNombre.setText("");
-        
+
     }
-     
-   
-     
-      public void camposActivo(boolean Editable) {
-        jTextFieldNroCamiseta.setEditable(Editable);           
+
+    private void camposActivo(boolean Editable) {
+        jTextFieldNroCamiseta.setEditable(Editable);
         jButton1.setEnabled(Editable);
-       
 
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
@@ -89,8 +77,8 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(!Editable);
     }
-      
-        private void SeleccionarObjetoTabla(boolean estado) {
+
+    private void SeleccionarObjetoTabla(boolean estado) {
         jButtonGuardar.setEnabled(estado);
         jButtonCancelar.setEnabled(estado);
         jButtonEditar.setEnabled(estado);
@@ -100,6 +88,21 @@ public class IPlantel extends javax.swing.JInternalFrame {
             jTablePlantel.clearSelection();
         }
     }
+
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNroCamiseta.getText().isEmpty()) {
+            jLabelNroCamiseta.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNroCamiseta.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -113,7 +116,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePlantel = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelFechaRealizacion1 = new javax.swing.JLabel();
+        jLabelNroCamiseta = new javax.swing.JLabel();
         jLabelFechaMonto = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
         jLabelDestino = new javax.swing.JLabel();
@@ -257,7 +260,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jLabelFechaRealizacion1.setText("N° Camiseta");
+        jLabelNroCamiseta.setText("N° Camiseta");
 
         jLabelOrigen.setText("Apellido");
 
@@ -294,7 +297,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGap(159, 159, 159)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelFechaRealizacion1)
+                            .addComponent(jLabelNroCamiseta)
                             .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelDestino, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +317,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion1)
+                    .addComponent(jLabelNroCamiseta)
                     .addComponent(jTextFieldNroCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jLabel1))
@@ -380,24 +383,26 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTablePlantelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePlantelFocusGained
-       this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
+        this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jTablePlantelFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        unaControladoraGlobal.modificarNumeroCamiseta(unaSocia,jTextFieldNroCamiseta.getText());
-        JOptionPane.showMessageDialog(this, "Numero de camiseta modificado exitosamente");
-        camposActivo(false);       
-        camposLimpiar();
-        obtenerPlantel();        // TODO add your handling code here:
+        if (camposValidar()) {
+            unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldNroCamiseta.getText());
+            JOptionPane.showMessageDialog(this, "Numero de camiseta modificado exitosamente");
+            camposActivo(false);
+            camposLimpiar();
+            obtenerPlantel();
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-       this.camposActivo(false);
-       this.camposLimpiar();
+        this.camposActivo(false);
+        this.camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-         this.unJInternalFrame.setVisible(true);       
+        this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
 
@@ -411,7 +416,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelFechaMonto;
-    private javax.swing.JLabel jLabelFechaRealizacion1;
+    private javax.swing.JLabel jLabelNroCamiseta;
     private javax.swing.JLabel jLabelOrigen;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;

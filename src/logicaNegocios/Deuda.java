@@ -1,6 +1,8 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.TreeSet;
@@ -189,11 +191,11 @@ public class Deuda implements Serializable, Comparable {
      * @return Date
      */
     public Date getPrimerVencimiento() {
-        Date primerVencimiento = null;
+        //inicializar con dia de hoy
+        DateFormat df = DateFormat.getDateInstance();
+        Calendar FechaSO = Calendar.getInstance();
+        Date primerVencimiento = FechaSO.getTime();
         for (Cuota aux : this.cuotas) {
-            if (primerVencimiento == null && !aux.isBorradoLogico()) {
-                primerVencimiento = aux.getFechaVencimiento();
-            }
             if ((!aux.isBorradoLogico()) && (primerVencimiento.after(aux.getFechaVencimiento()))) {
                 primerVencimiento = aux.getFechaVencimiento();
             }

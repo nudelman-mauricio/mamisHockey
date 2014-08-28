@@ -280,7 +280,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelFechaRealizacion1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNroCamiseta" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelOrigen" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelDestino" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -307,7 +307,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNroCamiseta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNroCamiseta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -330,7 +330,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion1">
+        <Component class="javax.swing.JLabel" name="jLabelNroCamiseta">
           <Properties>
             <Property name="text" type="java.lang.String" value="N&#xb0; Camiseta"/>
           </Properties>

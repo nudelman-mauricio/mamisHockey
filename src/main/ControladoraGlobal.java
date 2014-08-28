@@ -124,7 +124,7 @@ public class ControladoraGlobal {
             }
         }
         if (porPase == null) {
-            this.crearConceptoDeportivo(0.0, "Por Pase", null, null, null);
+            porPase = this.crearConceptoDeportivo(0.0, "Por Pase", null, null, null);
         }
 
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, porPase, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
@@ -323,8 +323,8 @@ public class ControladoraGlobal {
     public void eliminarEquipo(Equipo unEquipo) {
         this.unaControladoraDeportiva.eliminarEquipo(unEquipo);
     }
-    
-    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha){
+
+    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha) {
         return this.unaControladoraDeportiva.getJugadorasHabilitadas(unEquipo, unaFecha);
     }
 
@@ -373,9 +373,9 @@ public class ControladoraGlobal {
     public List<Club> getClubesBD() {
         return this.unaControladoraDeportiva.getClubesBD();
     }
-    
-     public JasperPrint generarReporteClub() {
-       return this.unaControladoraDeportiva.generarReporteClub();
+
+    public JasperPrint generarReporteClub() {
+        return this.unaControladoraDeportiva.generarReporteClub();
     }
 
     public List<Club> getClubesBDFiltro(String dato) {
@@ -605,12 +605,12 @@ public class ControladoraGlobal {
     public List<Gol> getGolesBD() {
         return this.unaControladoraDeportiva.getGolesBD();
     }
-    
-    public int getGolesLocal(Partido unPartido){
+
+    public int getGolesLocal(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesLocal(unPartido);
     }
-    
-    public int getGolesVisitante(Partido unPartido){
+
+    public int getGolesVisitante(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
     // </editor-fold>
