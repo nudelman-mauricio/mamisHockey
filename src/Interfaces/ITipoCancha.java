@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -39,7 +40,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     }
 
     //Cargar Tabla con los tipos de canchas
-    public void cargarTabla() {
+    private void cargarTabla() {
         limpiarTabla(modeloTable);
         for (TipoCancha unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
             this.modeloTable.addRow(new Object[]{unTipoCancha.getIdTipoCancha(), unTipoCancha.getNombre()});
@@ -47,19 +48,33 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
     }
-    
+
     //actualizar campos al seleccionar un tipo cancha en la tabla
-    void camposCargar(){
+    private void camposCargar() {
         if (jTableTipoCancha.getSelectedRow() > -1) {
             if (jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0) != null) {
                 unTipoCanchaSeleccionado = unaControladoraGlobal.getTipoCanchaBD((Long) jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0));
-                
+
                 jTextFieldNombre.setText(unTipoCanchaSeleccionado.getNombre());
 
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
             }
         }
+    }
+
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
     }
 
     @SuppressWarnings("unchecked")
@@ -76,7 +91,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableTipoCancha = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
 
         setClosable(true);
@@ -221,7 +236,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Nombre");
+        jLabelNombre.setText("Nombre");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -229,7 +244,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGap(196, 196, 196)
-                .addComponent(jLabelFechaRealizacion)
+                .addComponent(jLabelNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -239,7 +254,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion)
+                    .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -311,26 +326,28 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (unTipoCanchaSeleccionado == null) {
-            unaControladoraGlobal.crearTipoCancha(jTextFieldNombre.getText());
-            JOptionPane.showMessageDialog(this, "Tipo Cancha Creada");
-        } else {
-            unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, jTextFieldNombre.getText(), false);
-            JOptionPane.showMessageDialog(this, "Tipo Cancha Modificada");
-            unTipoCanchaSeleccionado = null;
+        if (camposValidar()) {
+            if (unTipoCanchaSeleccionado == null) {
+                unaControladoraGlobal.crearTipoCancha(jTextFieldNombre.getText());
+                JOptionPane.showMessageDialog(this, "Tipo Cancha Creada");
+            } else {
+                unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, jTextFieldNombre.getText(), false);
+                JOptionPane.showMessageDialog(this, "Tipo Cancha Modificada");
+                unTipoCanchaSeleccionado = null;
+            }
+            cargarTabla();
+
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            jTableTipoCancha.setEnabled(true);
+
+            jTextFieldNombre.setEditable(false);
+            jTextFieldNombre.setText("");
         }
-        cargarTabla();
-
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-
-        jTableTipoCancha.setEnabled(true);
-
-        jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -353,7 +370,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
-                options)) {            
+                options)) {
             unaControladoraGlobal.eliminarTipoCancha(unTipoCanchaSeleccionado);
             unTipoCanchaSeleccionado = null;
             cargarTabla();
@@ -370,7 +387,7 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;

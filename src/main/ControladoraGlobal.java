@@ -252,8 +252,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.crearSancionTribunal(unEquipo, unaPersona, fecha, motivo, detalles);
     }
 
-    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, int cantFechasCumplidas, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarSancionTribunal(unaSancionTribunal, fecha, motivo, detalles, numeroResolucion, vencimiento, cantFechas, cantFechasCumplidas, borradoLogico);
+    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarSancionTribunal(unaSancionTribunal, fecha, motivo, detalles, numeroResolucion, vencimiento, cantFechas, borradoLogico);
     }
 
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {

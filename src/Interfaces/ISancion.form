@@ -473,6 +473,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cant. Fechas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCantFechasActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonHasta">
               <Properties>
@@ -481,8 +484,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hasta"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonHastaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldPenalizacion">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -490,6 +499,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldFechasCumplidas">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

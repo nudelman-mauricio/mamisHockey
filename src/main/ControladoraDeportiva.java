@@ -50,7 +50,7 @@ public class ControladoraDeportiva {
         return unaSancion;
     }
 
-    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, int cantFechasCumplidas, boolean borradoLogico) {
+    public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, boolean borradoLogico) {
         unaSancionTribunal.setFecha(fecha);
         unaSancionTribunal.setMotivo(motivo);
         unaSancionTribunal.setDetalles(detalles);
@@ -59,7 +59,7 @@ public class ControladoraDeportiva {
         //unaSancionTribunal.setUnaTarjeta(unaTarjeta);        
         unaSancionTribunal.setVencimiento(vencimiento);
         unaSancionTribunal.setCantFechas(cantFechas);
-        unaSancionTribunal.setCantFechasCumplidas(cantFechasCumplidas);
+        //unaSancionTribunal.setCantFechasCumplidas(cantFechasCumplidas);
         unaSancionTribunal.setBorradoLogico(borradoLogico);
         unaSancionTribunal.persistir(this.entityManager);
     }

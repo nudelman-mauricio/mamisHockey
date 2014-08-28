@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -73,6 +74,20 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         }
     }
 
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldNombre.getText().isEmpty()) {
+            jLabelNombre.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelNombre.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        }
+        return bandera;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,7 +102,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTipoEstado = new javax.swing.JTable();
         jPanelDetalle = new javax.swing.JPanel();
-        jLabelFechaRealizacion = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
 
         setClosable(true);
@@ -225,7 +240,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jPanelDetalle.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalle.setName(""); // NOI18N
 
-        jLabelFechaRealizacion.setText("Nombre del Estado");
+        jLabelNombre.setText("Nombre del Estado");
 
         javax.swing.GroupLayout jPanelDetalleLayout = new javax.swing.GroupLayout(jPanelDetalle);
         jPanelDetalle.setLayout(jPanelDetalleLayout);
@@ -233,7 +248,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetalleLayout.createSequentialGroup()
                 .addGap(150, 150, 150)
-                .addComponent(jLabelFechaRealizacion)
+                .addComponent(jLabelNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -243,7 +258,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetalleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion)
+                    .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -291,26 +306,28 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (unTipoEstadoSeleccionado == null) {
-            unaControladoraGlobal.crearTipoEstado(jTextFieldNombre.getText());
-            JOptionPane.showMessageDialog(this, "Tipo de Estado Guardado");
-        } else {
-            unaControladoraGlobal.modificarTipoEstado(unTipoEstadoSeleccionado, jTextFieldNombre.getText(), unTipoEstadoSeleccionado.isBorradoLogico());
-            JOptionPane.showMessageDialog(this, "Tipo de Estado Modificado");
-            unTipoEstadoSeleccionado = null;
+        if (camposValidar()) {
+            if (unTipoEstadoSeleccionado == null) {
+                unaControladoraGlobal.crearTipoEstado(jTextFieldNombre.getText());
+                JOptionPane.showMessageDialog(this, "Tipo de Estado Guardado");
+            } else {
+                unaControladoraGlobal.modificarTipoEstado(unTipoEstadoSeleccionado, jTextFieldNombre.getText(), unTipoEstadoSeleccionado.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Tipo de Estado Modificado");
+                unTipoEstadoSeleccionado = null;
+            }
+            cargarTabla();
+
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            jTableTipoEstado.setEnabled(true);
+
+            jTextFieldNombre.setEditable(false);
+            jTextFieldNombre.setText("");
         }
-        cargarTabla();
-
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-
-        jTableTipoEstado.setEnabled(true);
-
-        jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -374,7 +391,7 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JLabel jLabelFechaRealizacion;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalle;
     private javax.swing.JPanel jPanelTabla;

@@ -59,7 +59,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
         camposActivo(false);
     }
 
-    public void propiedadesVentana() {
+    private void propiedadesVentana() {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
         IMenuPrincipalInterface.centrar(this);
@@ -67,14 +67,14 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
     }
 
-    public void camposCargar(Torneo unTorneo) {
+    private void camposCargar(Torneo unTorneo) {
         DateFormat df = DateFormat.getDateInstance();
         jTextFieldFechaInicio.setText(df.format(unTorneo.getFechaInicio()));
         this.jTextFieldNombreTorneo.setText(unTorneo.getNombre());
         this.jComboBoxCategoria.setSelectedItem(unTorneo.getUnaCategoria());
     }
 
-    public boolean validar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNombreTorneo.getText().isEmpty()) {
             jLabelNombreTorneo.setForeground(Color.red);
@@ -93,6 +93,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelFechaInicio.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
         return bandera;
     }
@@ -295,7 +298,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {
+        if (camposValidar()) {
             DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaInicio = new java.sql.Date(df.parse(jTextFieldFechaInicio.getText()).getTime());
@@ -314,8 +317,6 @@ public class ITorneo extends javax.swing.JInternalFrame {
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

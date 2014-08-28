@@ -497,7 +497,6 @@ public class ISocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-
         if (camposValidar()) {
             DateFormat df = DateFormat.getDateInstance();
             try {

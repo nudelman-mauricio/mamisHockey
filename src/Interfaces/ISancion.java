@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.text.DateFormat;
@@ -77,7 +78,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    void camposActivo(Container c, boolean bandera) {
+    private void camposActivo(Container c, boolean bandera) {
         Component[] components = c.getComponents();
         for (int i = 0; i < components.length; i++) {
             components[i].setEnabled(bandera);
@@ -90,7 +91,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         }
     }
 
-    public void camposLimpiar() {
+    private void camposLimpiar() {
         this.jTextFieldFecha.setText("");
         this.jTextFieldNumResolucion.setText("");
         this.jTextFieldPenalizacion.setText("");
@@ -101,7 +102,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTextFieldTarjeta.setText("");
     }
 
-    public void camposCargar() {
+    private void camposCargar() {
         if (jTableSancion.getSelectedRow() > -1) {
             if (jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0) != null) {
                 unaSancionSeleccionada = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
@@ -127,7 +128,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         }
     }
 
-    public void cargarTabla() {
+    private void cargarTabla() {
         limpiarTabla(modeloTableSancion);
         Collection<SancionTribunal> sanciones = null;
         if (unaSocia != null) {
@@ -165,6 +166,41 @@ public class ISancion extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
+    }
+
+    private boolean camposValidar() {
+        boolean bandera = true;
+        if (jTextFieldFecha.getText().isEmpty()) {
+            jLabelFecha.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFecha.setForeground(Color.black);
+        }
+        if (jTextFieldMotivo.getText().isEmpty()) {
+            jLabelMotivo.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelMotivo.setForeground(Color.black);
+        }
+        if (!jRadioButtonCantFechas.isSelected() && !jRadioButtonHasta.isSelected()) {
+            bandera = false;
+            jPanelPenalizacion.setForeground(Color.red);
+        } else {
+            jPanelPenalizacion.setForeground(Color.black);
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+            return bandera;
+        }
+        if ((!jTextFieldPenalizacion.getText().isEmpty()) && !jRadioButtonCantFechas.isSelected() && !jRadioButtonHasta.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Error en la Penalización. Indique si es una cantidad de fechas determinada o si es hasta una fecha calendario.");
+            bandera = false;
+            jPanelPenalizacion.setForeground(Color.red);
+            return bandera;
+        } else {
+            jPanelPenalizacion.setForeground(Color.black);
+        }
+        return bandera;
     }
 
     @SuppressWarnings("unchecked")
@@ -373,11 +409,25 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jRadioButtonCantFechas);
         jRadioButtonCantFechas.setText("Cant. Fechas");
+        jRadioButtonCantFechas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCantFechasActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButtonHasta);
         jRadioButtonHasta.setText("Hasta");
+        jRadioButtonHasta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonHastaActionPerformed(evt);
+            }
+        });
+
+        jTextFieldPenalizacion.setEditable(false);
 
         jLabel1.setText("Fechas Cumplidas");
+
+        jTextFieldFechasCumplidas.setEditable(false);
 
         javax.swing.GroupLayout jPanelPenalizacionLayout = new javax.swing.GroupLayout(jPanelPenalizacion);
         jPanelPenalizacion.setLayout(jPanelPenalizacionLayout);
@@ -534,16 +584,11 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if ((!jTextFieldPenalizacion.getText().isEmpty()) && !jRadioButtonCantFechas.isSelected() && !jRadioButtonHasta.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Error en la Penalización. Indique si es una cantidad de fechas determinada o si es hasta una fecha calendario.");
-        } else {
+        if (camposValidar()) {
             try {
                 Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
                 Date fechaCaducidad = null;
-                int cantidadFechas = 0, cantidadFechasCumplidas = 0;
-                if (!jTextFieldFechasCumplidas.getText().isEmpty()) {
-                    cantidadFechasCumplidas = Integer.parseInt(jTextFieldFechasCumplidas.getText());
-                }
+                int cantidadFechas = 0;
                 if (jRadioButtonHasta.isSelected()) {
                     fechaCaducidad = new java.sql.Date(df.parse(jTextFieldPenalizacion.getText()).getTime());
                 }
@@ -561,10 +606,10 @@ public class ISancion extends javax.swing.JInternalFrame {
                     if (unEquipo != null) {
                         unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(unEquipo, null, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
                     }
-                    unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, cantidadFechasCumplidas, unaNuevaSancion.isBorradoLogico());
+                    unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaNuevaSancion.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Sanción Guardada");
                 } else {
-                    unaControladoraGlobal.modificarSancionTribunal(unaSancionSeleccionada, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, cantidadFechasCumplidas, unaSancionSeleccionada.isBorradoLogico());
+                    unaControladoraGlobal.modificarSancionTribunal(unaSancionSeleccionada, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaSancionSeleccionada.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Sancion Modificada");
                     unaSancionSeleccionada = null;
                 }
@@ -580,7 +625,6 @@ public class ISancion extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "La Socia " + unaSocia.getApellido() + ", " + unaSocia.getNombre() + "tiene uno o más partidos por jugar." + enter + "Es MUY NECESARIO actualizar las planillas de los siguientes partidos para que se refleje la Penalización: " + enter + partidos);
                     }
                 }
-
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
@@ -655,6 +699,14 @@ public class ISancion extends javax.swing.JInternalFrame {
         jTableSancion.clearSelection();
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jRadioButtonCantFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCantFechasActionPerformed
+        jTextFieldPenalizacion.setEditable(true);
+    }//GEN-LAST:event_jRadioButtonCantFechasActionPerformed
+
+    private void jRadioButtonHastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHastaActionPerformed
+        jTextFieldPenalizacion.setEditable(true);
+    }//GEN-LAST:event_jRadioButtonHastaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
