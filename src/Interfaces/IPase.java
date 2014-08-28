@@ -106,25 +106,47 @@ public class IPase extends javax.swing.JInternalFrame {
         jCheckBoxLibreDeudaClub.setSelected(false);
         jCheckBoxSolicitudPase.setSelected(false);
     }
-    
-    public boolean validar() {        
+
+    public boolean camposValidar() {
         boolean bandera = true;
-        if (jTextFieldMonto.getText().isEmpty()) {
+        if (jTextFieldFechaRealizacion.getText().isEmpty()) {
             jLabelMonto.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelMonto.setForeground(Color.black);
         }
-        
         if (jComboBoxEquipoDestino.getSelectedIndex() == -1) {
             jLabelDestino.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelDestino.setForeground(Color.black);
         }
-        if(jTextFieldEquipoOrigen.getText().equals(jComboBoxEquipoDestino.getSelectedItem().toString())){
-            JOptionPane.showMessageDialog(this, "No se puede generar un pase entre equipos iguales");
+        if (jTextFieldMonto.getText().isEmpty()) {
+            jLabelMonto.setForeground(Color.red);
             bandera = false;
+        } else {
+            jLabelMonto.setForeground(Color.black);
+        }
+        if (jTextFieldFechaVencimiento.getText().isEmpty()) {
+            jLabelFechaVencimiento.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelFechaVencimiento.setForeground(Color.black);
+        }
+        if(!jCheckBoxLibreDeudaClub.isSelected() && !jCheckBoxSolicitudPase.isSelected()){
+            jCheckBoxLibreDeudaClub.setForeground(Color.red);
+            
+        }
+        if (!bandera) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+            return bandera;
+        }
+        if (jTextFieldEquipoOrigen.getText().equals(jComboBoxEquipoDestino.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(this, "No se puede generar un pase entre equipos iguales");
+            jLabelDestino.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelDestino.setForeground(Color.black);
         }
         return bandera;
     }
@@ -152,11 +174,11 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonCalcularMonto = new javax.swing.JButton();
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
         jComboBoxCuota = new javax.swing.JComboBox();
-        jLabelFechaMonto1 = new javax.swing.JLabel();
+        jLabelFechaVencimiento = new javax.swing.JLabel();
         jTextFieldFechaVencimiento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabelFechaRealizacion1 = new javax.swing.JLabel();
+        jLabelFechaRealizacion = new javax.swing.JLabel();
         jTextFieldFechaRealizacion = new javax.swing.JTextField();
         jLabelOrigen = new javax.swing.JLabel();
         jTextFieldEquipoOrigen = new javax.swing.JTextField();
@@ -359,7 +381,7 @@ public class IPase extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelFechaMonto1.setText("Fecha 1° Vto");
+        jLabelFechaVencimiento.setText("Fecha 1° Vto");
 
         jTextFieldFechaVencimiento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -378,7 +400,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelFechaRealizacion5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelMonto, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaMonto1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabelFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -407,12 +429,12 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFechaMonto1)
+                    .addComponent(jLabelFechaVencimiento)
                     .addComponent(jLabel2))
                 .addContainerGap())
         );
 
-        jLabelFechaRealizacion1.setText("Fecha de Realización");
+        jLabelFechaRealizacion.setText("Fecha de Realización");
 
         jLabelOrigen.setText("Equipo Origen");
 
@@ -433,7 +455,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelOrigen)
-                    .addComponent(jLabelFechaRealizacion1)
+                    .addComponent(jLabelFechaRealizacion)
                     .addComponent(jLabelDestino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -447,7 +469,7 @@ public class IPase extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFechaRealizacion1)
+                    .addComponent(jLabelFechaRealizacion)
                     .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -613,17 +635,15 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validar()) {//Guardado de Datos
+        if (camposValidar()) {//Guardado de Datos
             DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-
                 unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
-
                 JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
-            } catch (ParseException e) {
-                System.out.println("ERROR EN LAS FECHAS REALIZACION PASE" + e.getMessage());
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
 
             //Comportamientos Extras
@@ -637,8 +657,6 @@ public class IPase extends javax.swing.JInternalFrame {
             camposActivo(false);
             jTablePases.setEnabled(true);
             cargarCamposTabla();
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -712,9 +730,9 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelDestino1;
     private javax.swing.JLabel jLabelDestino2;
-    private javax.swing.JLabel jLabelFechaMonto1;
-    private javax.swing.JLabel jLabelFechaRealizacion1;
+    private javax.swing.JLabel jLabelFechaRealizacion;
     private javax.swing.JLabel jLabelFechaRealizacion5;
+    private javax.swing.JLabel jLabelFechaVencimiento;
     private javax.swing.JLabel jLabelMonto;
     private javax.swing.JLabel jLabelNumeroPase;
     private javax.swing.JLabel jLabelOrigen;

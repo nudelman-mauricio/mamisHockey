@@ -339,7 +339,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelFechaRealizacion5" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelMonto" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelFechaMonto1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaVencimiento" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -376,7 +376,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelFechaMonto1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -434,7 +434,7 @@
                 <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="jComboBoxCuotaCaretPositionChanged"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelFechaMonto1">
+            <Component class="javax.swing.JLabel" name="jLabelFechaVencimiento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fecha 1&#xb0; Vto"/>
               </Properties>
@@ -460,7 +460,7 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLabelOrigen" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelFechaRealizacion1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelDestino" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -478,7 +478,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelFechaRealizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -497,7 +497,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion1">
+            <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fecha de Realizaci&#xf3;n"/>
               </Properties>

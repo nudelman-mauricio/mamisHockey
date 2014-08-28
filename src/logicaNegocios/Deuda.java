@@ -191,6 +191,9 @@ public class Deuda implements Serializable, Comparable {
     public Date getPrimerVencimiento() {
         Date primerVencimiento = null;
         for (Cuota aux : this.cuotas) {
+            if (primerVencimiento == null && !aux.isBorradoLogico()) {
+                primerVencimiento = aux.getFechaVencimiento();
+            }
             if ((!aux.isBorradoLogico()) && (primerVencimiento.after(aux.getFechaVencimiento()))) {
                 primerVencimiento = aux.getFechaVencimiento();
             }
