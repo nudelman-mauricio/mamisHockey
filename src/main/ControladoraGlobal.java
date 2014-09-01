@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -258,6 +259,10 @@ public class ControladoraGlobal {
 
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
+    }
+    
+    public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro){
+        this.unaControladoraDeportiva.descontarSancion(unPlantel, unaFechaParametro);
     }
 
     public SancionTribunal getSancionTribunalBD(Long id) {

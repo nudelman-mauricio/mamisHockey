@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.TreeSet;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
@@ -221,6 +222,16 @@ public abstract class Persona implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
+    public Collection<SancionTribunal> getSancionesVigentes(Date unaFecha) {
+        Collection<SancionTribunal> resultado = new TreeSet();
+        for (SancionTribunal unaSancionTribunal : this.getSancionesTribunal()) {
+            if (unaSancionTribunal.isVigente(unaFecha)) {
+                resultado.add(unaSancionTribunal);
+            }
+        }
+        return resultado;
+    }
+
     /**
      * Devuelve True si la persona tiene al menos una SancionTribunal que no
      * este borrada y que no haya terminado hasta el dia de la fecha pasada por
@@ -230,11 +241,9 @@ public abstract class Persona implements Serializable, Comparable {
      * @return
      */
     public boolean isSancionada(Date unaFecha) {
-        boolean resultado = false;
-        for (SancionTribunal unaSancionTribunal : this.getSancionesTribunal()) {
-            if (unaSancionTribunal.isVigente(unaFecha)) {
-                resultado = true;
-            }
+        boolean resultado = true;
+        if (this.getSancionesVigentes(unaFecha).isEmpty()) {
+            resultado = false;
         }
         return resultado;
     }

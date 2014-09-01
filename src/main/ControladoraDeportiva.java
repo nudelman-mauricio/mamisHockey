@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,6 +68,15 @@ public class ControladoraDeportiva {
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         unaSancionTribunal.setBorradoLogico(true);
         unaSancionTribunal.persistir(this.entityManager);
+    }
+
+    public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro) {
+        for (Socia unaSocia : unPlantel) {
+            for (SancionTribunal unaSancionTribunal : unaSocia.getSancionesVigentes(unaFechaParametro)){
+                unaSancionTribunal.sumarFechaCumplida();
+                unaSancionTribunal.persistir(this.entityManager);
+            }
+        }
     }
 
     /**

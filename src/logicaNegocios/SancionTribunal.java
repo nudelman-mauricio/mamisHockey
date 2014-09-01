@@ -197,11 +197,17 @@ public class SancionTribunal implements Serializable, Comparable {
             if ((this.cantFechas != 0) && (this.cantFechas > this.cantFechasCumplidas)) {
                 resultado = true;
             } else {
-                if ((this.cantFechas == 0) && (this.vencimiento != null) && (this.vencimiento.before(unaFecha))) {
-                    resultado = true;
+                if ((this.cantFechas == 0) && (this.vencimiento != null)) {
+                    if(this.vencimiento.before(unaFecha)){
+                        resultado = true;
+                    }
                 }
             }
         }
         return resultado;
+    }
+    
+    public void sumarFechaCumplida(){
+        this.cantFechasCumplidas++;
     }
 }
