@@ -1,12 +1,15 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -19,9 +22,9 @@ public class IErgometria extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
-
-    private boolean modificar = false;
+    private Ergometria unaErgometriaSeleccionada;
     private DefaultTableModel modeloTableErgometrias;
+    private DateFormat df = DateFormat.getDateInstance();
 
     //LLAMADO MOSTRANDO UNA SOCIA
     public IErgometria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
@@ -36,7 +39,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
 
-        camposActivo(false);
+        camposActivo(jPanelDetalles, false);
 
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
@@ -46,14 +49,21 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(false);
 
         this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
-        cargarCamposTabla();
+        cargarTabla();
     }
 
-    public void camposActivo(boolean Editable) {
-        jTextFieldFechaRealizacion.setEditable(Editable);
-        jTextFieldFechaCaducidad.setEditable(Editable);
-        jCheckBoxEgometriaAprobada.setEnabled(Editable);
-        jTextPaneErgometriaComentario.setEditable(Editable);
+    //deshabilitar todo lo de un contenedor
+    private void camposActivo(Container c, boolean bandera) {
+        Component[] components = c.getComponents();
+        for (int i = 0; i < components.length; i++) {
+            components[i].setEnabled(bandera);
+            if (components[i] instanceof JTextField) {
+                ((JTextField) components[i]).setEditable(bandera);
+            }
+            if (components[i] instanceof Container) {
+                camposActivo((Container) components[i], bandera);
+            }
+        }
     }
 
     public void camposLimpiar() {
@@ -63,24 +73,24 @@ public class IErgometria extends javax.swing.JInternalFrame {
         jTextPaneErgometriaComentario.setText("");
     }
 
-    public void camposCargar(Ergometria unaErgometria) {
-        DateFormat df = DateFormat.getDateInstance();
-        jTextFieldFechaRealizacion.setText(df.format(unaErgometria.getFechaRealizacion()));
-        jTextFieldFechaCaducidad.setText(df.format(unaErgometria.getFechaCaducidad()));
-        jCheckBoxEgometriaAprobada.setSelected(unaErgometria.isAprobado());
-        jTextPaneErgometriaComentario.setText(unaErgometria.getComentarios());
-
-        jButtonEliminar.setEnabled(true);
-        jButtonEditar.setEnabled(true);
-        jButtonImprimir.setEnabled(true);
+    public void camposCargar() {
+        if (jTableErgometrias.getSelectedRow() > -1) {
+            if (jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0) != null) {
+                unaErgometriaSeleccionada = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
+                jTextFieldFechaRealizacion.setText(df.format(unaErgometriaSeleccionada.getFechaRealizacion()));
+                jTextFieldFechaCaducidad.setText(df.format(unaErgometriaSeleccionada.getFechaCaducidad()));
+                jCheckBoxEgometriaAprobada.setSelected(unaErgometriaSeleccionada.isAprobado());
+                jTextPaneErgometriaComentario.setText(unaErgometriaSeleccionada.getComentarios());
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
+            }
+        }
     }
 
-    public void cargarCamposTabla() {
+    public void cargarTabla() {
         limpiarTabla(modeloTableErgometrias);
-
-        for (Ergometria aux : this.unaSocia.getErgometrias()) {
-            Ergometria unaErgometria = (Ergometria) aux;
-            DateFormat df = DateFormat.getDateInstance();
+        for (Ergometria unaErgometria : this.unaSocia.getErgometrias()) {
             if (!unaErgometria.isBorradoLogico()) {
                 this.modeloTableErgometrias.addRow(new Object[]{unaErgometria.getIdErgometria(), df.format(unaErgometria.getFechaRealizacion()), df.format(unaErgometria.getFechaCaducidad()), unaErgometria.isAprobado()});
             }
@@ -88,13 +98,9 @@ public class IErgometria extends javax.swing.JInternalFrame {
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
         }
     }
 
@@ -299,11 +305,6 @@ public class IErgometria extends javax.swing.JInternalFrame {
         }
 
     );
-    jTableErgometrias.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            jTableErgometriasFocusGained(evt);
-        }
-    });
     jScrollPane1.setViewportView(jTableErgometrias);
     if (jTableErgometrias.getColumnModel().getColumnCount() > 0) {
         jTableErgometrias.getColumnModel().getColumn(0).setMinWidth(0);
@@ -408,7 +409,6 @@ public class IErgometria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -418,119 +418,108 @@ public class IErgometria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        modificar = false;
-
-        jTableErgometrias.clearSelection();
-        jTableErgometrias.setEnabled(false);
-        camposActivo(true);
-        camposLimpiar();
-
-        //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
+
+        jTableErgometrias.setEnabled(false);
+
+        camposActivo(jPanelDetalles, true);
+        camposLimpiar();
+        unaErgometriaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        modificar = true;
-        jTableErgometrias.setEnabled(false);
-        camposActivo(true);
-
-        Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-
-        DateFormat df = DateFormat.getDateInstance();
-        jTextFieldFechaRealizacion.setText(df.format(unaErgometria.getFechaRealizacion()));
-        jTextFieldFechaCaducidad.setText(df.format(unaErgometria.getFechaCaducidad()));
-        jCheckBoxEgometriaAprobada.setSelected(unaErgometria.isAprobado());
-        jTextPaneErgometriaComentario.setText(unaErgometria.getComentarios());
-
         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
+
+        jTableErgometrias.setEnabled(false);
+
+        camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
-
-    private void jTableErgometriasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableErgometriasFocusGained
-        Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-
-        camposCargar(unaErgometria);
-
-//        jButtonEliminar.setEnabled(true);
-//        jButtonEditar.setEnabled(true);
-//        jButtonImprimir.setEnabled(true);
-    }//GEN-LAST:event_jTableErgometriasFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
-                if (!modificar) {
+                if (unaErgometriaSeleccionada == null) {
                     unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText());
-                    JOptionPane.showMessageDialog(this, "Nuevo Ergometria Guardada");
+                    JOptionPane.showMessageDialog(this, "Ergometria Guardada");
                 } else {
-                    Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
-                    unaControladoraGlobal.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText(), false);
+                    unaControladoraGlobal.modificarErgometria(unaErgometriaSeleccionada, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText(), unaErgometriaSeleccionada.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+                    unaErgometriaSeleccionada = null;
                 }
-            } catch (ParseException e) {
-                System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
+            cargarTabla();
 
             jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-            jButtonEditar.setEnabled(true);
             jButtonImprimir.setEnabled(false);
 
+            jTableCancha.setEnabled(true);
+
+            camposActivo(jPanelDetalles, false);
             camposLimpiar();
-            camposActivo(false);
-            jTableErgometrias.setEnabled(true);
-            cargarCamposTabla();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jTableErgometrias.clearSelection();
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
 
-        modificar = false;
-
-        camposLimpiar();
-        camposActivo(false);
         jTableErgometrias.setEnabled(true);
 
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        camposActivo(jPanelDetalles, false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Ergometria unaErgometria = unaControladoraGlobal.getErgometriaBD((Long) jTableErgometrias.getValueAt(jTableErgometrias.getSelectedRow(), 0));
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+
+        jTableErgometrias.setEnabled(true);
+
+        camposActivo(jPanelDetalles, false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el estado de la Socia",
+                "Desea eliminar la ergometría de la Socia",
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarErgometria(unaErgometria);
+            unaControladoraGlobal.eliminarErgometria(unaErgometriaSeleccionada);
+            unaErgometriaSeleccionada = null;
 
-            cargarCamposTabla();
+            cargarTabla();
         }
+        jTableErgometrias.clearSelection();
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
