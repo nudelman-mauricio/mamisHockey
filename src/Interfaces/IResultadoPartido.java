@@ -1139,22 +1139,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
 
         //Guarda el plantel e imprime la planilla de resultados de partido
-        if (unPartido.getPlantelLocal() == null) {
-            Collection<Socia> unPlantelLocal = null;
-            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-                unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
-            }
-            unPartido.setPlantelLocal(unPlantelLocal);
+        //if (unPartido.getPlantelLocal() == null) {
+        Collection<Socia> unPlantelLocal = null;
+        for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+            unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
         }
+        unPartido.setPlantelLocal(unPlantelLocal);
+        //}
 
-        if (unPartido.getPlantelVisitante() == null) {
-            Collection<Socia> unPlantelVisitante = null;
-            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-                unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
-            }
-            unPartido.setPlantelVisitante(unPlantelVisitante);
+        //if (unPartido.getPlantelVisitante() == null) {
+        Collection<Socia> unPlantelVisitante = null;
+        for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+            unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
         }
+        unPartido.setPlantelVisitante(unPlantelVisitante);
+        //}
 
+        //Genera el reporte de la planilla de partido
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
@@ -1201,11 +1202,35 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        //Carga la tabla con las socias habilitadas para jugar.
-        //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido)
-        //-Habilitado siempre y cuando no se haya jugado el partido.
+        //Carga la tabla con las socias habilitadas para jugar. ok
+        //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido) FALTA
+        //-Habilitado siempre y cuando no se haya jugado el partido. ok
 
+        if (unPartido.getNombreVeedor() != null) {//Siempre y cuando el partodo no se haya jugado
+            //Local
+            if (unPartido.getPlantelLocal() != null) {
+                Object[] options = {"OK", "Cancelar"};
+                if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el plantel Local", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
+                    //Cargar Tabla Local
+                    limpiarTabla(modeloTableLocal);
+                    for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
+                        cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                    }
+                }
+            }
 
+            //Visitante
+            if (unPartido.getPlantelVisitante() != null) {
+                Object[] options = {"OK", "Cancelar"};
+                if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el Plantel Visitante", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
+                    //Cargar Tabla Visitante
+                    limpiarTabla(modeloTableLocal);
+                    for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
+                        cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
