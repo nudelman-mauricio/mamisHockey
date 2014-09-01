@@ -563,6 +563,10 @@ public class ControladoraGlobal {
     public void eliminarPartido(Partido unPartido) {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
     }
+    
+    public boolean isPartidoAnteriorJugado(Partido unPartido){
+        return this.unaControladoraDeportiva.isPartidoAnteriorJugado(unPartido);
+    }
 
     public Partido getPartidoBD(Long id) {
         return this.unaControladoraDeportiva.getPartidoBD(id);

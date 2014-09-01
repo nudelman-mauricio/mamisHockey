@@ -657,7 +657,7 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {        
+    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
         unPartido.setNombreVeedor(nombreVeedor);
         unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
         unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
@@ -669,6 +669,45 @@ public class ControladoraDeportiva {
     public void eliminarPartido(Partido unPartido) {
         unPartido.setBorradoLogico(true);
         unPartido.persistir(this.entityManager);
+    }
+
+    public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
+        FechaTorneo resultado = null;
+        for (Torneo unTorneo : this.getTorneosBD()) {
+            for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
+                if (unaFechaTorneo.getPartidos().contains(unPartido)) {
+                    resultado = unaFechaTorneo;
+                }
+            }
+        }
+        return resultado;
+    }
+
+    public Partido getPartidoAnterior(Partido unPartidoActual) {
+        Partido resultado = null;
+        FechaTorneo unaFechaTorneo = this.getFechaTorneoDePartido(unPartidoActual);
+        for (Partido unPartidoAnterior : unaFechaTorneo.getPartidos()) {
+            if (!unPartidoAnterior.isBorradoLogico()) {
+                if (resultado == null) {
+                    resultado = unPartidoAnterior;
+                }
+                if ((unPartidoAnterior.getFecha().before(unPartidoActual.getFecha())) && unPartidoAnterior.getFecha().after(resultado.getFecha())) {
+                    resultado = unPartidoAnterior;
+                }
+            }
+        }
+        return resultado;
+    }
+
+    public boolean isPartidoAnteriorJugado(Partido unPartido) {
+        boolean resultado = true;
+        Partido unPartidoAnterior = this.getPartidoAnterior(unPartido);
+        if (unPartido != unPartidoAnterior) {
+            if (unPartidoAnterior.getNombreVeedor().isEmpty()) {
+                resultado = false;
+            }
+        }
+        return resultado;
     }
 
     /**
