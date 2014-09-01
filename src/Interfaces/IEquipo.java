@@ -18,7 +18,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
     private JDesktopPane unjDesktopPane1;
     private JInternalFrame unJInternalFrame;
-
+    private Club unClub;
     private ControladoraGlobal unaControladoraGlobal;
     private Equipo unEquipo = null;
 
@@ -54,6 +54,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;        
         SeInicio(unaControladoraGlobal);
         jButtonCancelar.setEnabled(false);
+        this.unClub = unClub;
         camposLimpiar();       
         camposActivo(true);
         jComboBoxClub.setSelectedItem(unClub);
@@ -66,13 +67,11 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
         this.unEquipo = unEquipo;
         this.unJInternalFrame = unJInternalFrame;
-
         this.setTitle("Club: " + unEquipo.getNombre());
-
         SeInicio(unaControladoraGlobal);
 
-        jButtonCancelar.setEnabled(true);
-
+        camposActivo(true);
+        
         camposCargar(unEquipo);
     }
 
@@ -435,6 +434,10 @@ public class IEquipo extends javax.swing.JInternalFrame {
             camposCargar(unEquipo);
         }
         camposActivo(false);
+        jButtonEditar.setEnabled(true);
+        if(this.unClub != null){
+            this.dispose();
+        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -479,6 +482,9 @@ public class IEquipo extends javax.swing.JInternalFrame {
             }            
             camposActivo(false);
             jButtonEditar.setEnabled(true);
+            if(this.unClub != null){
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
