@@ -21,12 +21,12 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
     // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
-    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
-        this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, cuerpoTecnicoActivo);
+    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
+        this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico);
     }
 
-    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, cuerpoTecnicoActivo, borradoLogico);
+    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean borradoLogico) {
+        this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, borradoLogico);
     }
 
     public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta) {
@@ -260,8 +260,8 @@ public class ControladoraGlobal {
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
-    
-    public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro){
+
+    public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro) {
         this.unaControladoraDeportiva.descontarSancion(unPlantel, unaFechaParametro);
     }
 
@@ -568,8 +568,8 @@ public class ControladoraGlobal {
     public void eliminarPartido(Partido unPartido) {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
     }
-    
-    public boolean isPartidoAnteriorJugado(Partido unPartido){
+
+    public boolean isPartidoAnteriorJugado(Partido unPartido) {
         return this.unaControladoraDeportiva.isPartidoAnteriorJugado(unPartido);
     }
 

@@ -1,6 +1,8 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -9,48 +11,79 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import logicaNegocios.Localidad;
 import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
 public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
+    
+    private JInternalFrame unJInternalFrame;
+    private ControladoraGlobal unaControladoraGlobal;
+    private PersonaAuxiliar unaPersonaAuxiliar = null;
+    private DateFormat df = DateFormat.getDateInstance();
 
-    JInternalFrame unJInternalFrame;
-    ControladoraGlobal unaControladoraGlobal;
-    PersonaAuxiliar unaPersonaAuxiliar = null;
-
-    public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
-        initComponents();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana
-        IMenuPrincipalInterface.centrar(this);
-
-        this.unaControladoraGlobal = unaControladoraGlobal;
-
-        cargarComboBoxLocalidades();
-        jComboBoxLocalidad.setSelectedIndex(-1);
-
-        jButtonEditar.setEnabled(false);
-        camposActivo(true);
-        camposLimpiar();
-    }
-
+    //LLAMADO PARA NUEVO PERSONA AUXILIAR
     public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
-        this(unaControladoraGlobal);
+        initComponents();
+        IMenuPrincipalInterface.centrar(this);
         this.unJInternalFrame = unJInternalFrame;
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana
+
+        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
+        jComboBoxLocalidad.setSelectedIndex(-1);
+        
+        camposLimpiar();
+        camposActivo(jPanelDetalles, true);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
     }
 
+    //LLAMADO MOSTRANDO UNA PERSONA AUXILIAR
     public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, PersonaAuxiliar unaPersonaAuxiliar) {
-        this(unaControladoraGlobal);
-        this.unJInternalFrame = unJInternalFrame;
+        this(unaControladoraGlobal, unJInternalFrame);
         this.unaPersonaAuxiliar = unaPersonaAuxiliar;
-
         this.setTitle("Arbitro: " + unaPersonaAuxiliar.getApellido() + " " + unaPersonaAuxiliar.getNombre());
-
-        jButtonEditar.setEnabled(true);
         camposCargar(unaPersonaAuxiliar);
-        camposActivo(false);
+        camposActivo(jPanelDetalles, false);
+        
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(true);
     }
 
+    //deshabilitar todo lo de un contenedor
+    private void camposActivo(Container c, boolean bandera) {
+        Component[] components = c.getComponents();
+        for (int i = 0; i < components.length; i++) {
+            components[i].setEnabled(bandera);
+            if (components[i] instanceof JTextField) {
+                ((JTextField) components[i]).setEditable(bandera);
+            }
+            if (components[i] instanceof Container) {
+                camposActivo((Container) components[i], bandera);
+            }
+        }
+    }
+    
+    public void camposLimpiar() {
+        jTextFieldDNI.setText("");
+        jTextFieldApellido.setText("");
+        jTextFieldNombre.setText("");
+        jTextFieldDomicilio.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldFechaNacimiento.setText("");
+        jTextFieldFechaIngreso.setText("");
+        jTextFieldTelFijo.setText("");
+        jTextFieldTelCelular.setText("");
+        jTextFieldFotocopiaDni.setText("");
+        jCheckBoxEsArbitro.setSelected(false);
+        jCheckBoxEsCuerpoTecnico.setSelected(false);
+        jComboBoxLocalidad.setSelectedIndex(-1);
+    }
+    
     private void camposCargar(PersonaAuxiliar unaPersonaAuxiliar) {
         jTextFieldDNI.setText(unaPersonaAuxiliar.getDni().toString());
         jTextFieldApellido.setText(unaPersonaAuxiliar.getApellido());
@@ -58,21 +91,12 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jComboBoxLocalidad.setSelectedItem(unaPersonaAuxiliar.getUnaLocalidad());
         jTextFieldDomicilio.setText(unaPersonaAuxiliar.getDomicilio());
         jTextFieldEmail.setText(unaPersonaAuxiliar.getEmail());
-
-        DateFormat df = DateFormat.getDateInstance();
         jTextFieldFechaNacimiento.setText(df.format(unaPersonaAuxiliar.getFechaNacimiento()));
         jTextFieldFechaIngreso.setText(df.format(unaPersonaAuxiliar.getFechaIngreso()));
-
         jTextFieldTelFijo.setText(unaPersonaAuxiliar.getTelFijo());
         jTextFieldTelCelular.setText(unaPersonaAuxiliar.getTelCelular());
-
     }
-
-    private void cargarComboBoxLocalidades() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
-        this.jComboBoxLocalidad.setModel(modelCombo);
-    }
-
+    
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldDNI.getText().isEmpty()) {
@@ -87,7 +111,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         } else {
             jLabelApellido.setForeground(Color.black);
         }
-
+        
         if (jTextFieldNombre.getText().isEmpty()) {
             jLabelNombre.setForeground(Color.red);
             bandera = false;
@@ -128,7 +152,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -194,16 +218,13 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.setEnabled(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevoActionPerformed(evt);
-            }
-        });
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,6 +235,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -224,6 +246,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -234,6 +257,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -427,63 +451,17 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        if (unJInternalFrame != null) {
-            this.unJInternalFrame.setVisible(true);
-        } else {
-            IMenuPrincipalInterface.jDesktopPane.setVisible(true);
-        }
+        unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
-
-    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        camposActivo(true);
-        camposLimpiar();
-    }//GEN-LAST:event_jButtonNuevoActionPerformed
-
-    public void camposActivo(boolean Editable) {
-        jTextFieldDNI.setEditable(Editable);
-        jTextFieldApellido.setEditable(Editable);
-        jTextFieldNombre.setEditable(Editable);
-        jComboBoxLocalidad.setEnabled(Editable);
-        jTextFieldDomicilio.setEditable(Editable);
-        jTextFieldEmail.setEditable(Editable);
-        jTextFieldFechaNacimiento.setEditable(Editable);
-        jTextFieldFechaIngreso.setEditable(Editable);
-        jTextFieldTelFijo.setEditable(Editable);
-        jTextFieldTelCelular.setEditable(Editable);
-        jTextFieldFotocopiaDni.setEditable(Editable);
-        jCheckBoxEsArbitro.setEnabled(Editable);
-        jCheckBoxEsCuerpoTecnico.setEnabled(Editable);
-
-        jButtonGuardar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonNuevo.setEnabled(!Editable);
-    }
-
-    public void camposLimpiar() {
-        jTextFieldDNI.setText("");
-        jTextFieldApellido.setText("");
-        jTextFieldNombre.setText("");
-        jTextFieldDomicilio.setText("");
-        jTextFieldEmail.setText("");
-        jTextFieldFechaNacimiento.setText("");
-        jTextFieldFechaIngreso.setText("");
-        jTextFieldTelFijo.setText("");
-        jTextFieldTelCelular.setText("");
-        jTextFieldFotocopiaDni.setText("");
-        jCheckBoxEsArbitro.setSelected(false);
-        jCheckBoxEsCuerpoTecnico.setSelected(false);
-        jComboBoxLocalidad.setSelectedIndex(-1);
-    }
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (unaPersonaAuxiliar == null) {
-                DateFormat df = DateFormat.getDateInstance();
-                try {
-                    Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
-                    Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
-
-                    unaControladoraGlobal.crearPersonaAuxiliar(Long.parseLong(jTextFieldDNI.getText()),
+            try {
+                Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
+                Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
+                if (unaPersonaAuxiliar == null) {
+                    unaControladoraGlobal.crearPersonaAuxiliar(
+                            Long.parseLong(jTextFieldDNI.getText()),
                             jTextFieldApellido.getText(),
                             jTextFieldNombre.getText(),
                             (Localidad) jComboBoxLocalidad.getSelectedItem(),
@@ -494,22 +472,10 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                             jTextFieldTelFijo.getText(),
                             jTextFieldTelCelular.getText(),
                             jCheckBoxEsArbitro.isSelected(),
-                            jCheckBoxEsCuerpoTecnico.isSelected(),
-                            false);
-                    JOptionPane.showMessageDialog(this, "Persona Auxiliar Generada");
-                    camposActivo(false);
-                    camposLimpiar();
-                } catch (ParseException e) {
-                    JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
-                }
-
-            } else {
-                DateFormat df = DateFormat.getDateInstance();
-                try {
-                    Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
-                    Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
+                            jCheckBoxEsCuerpoTecnico.isSelected()
+                    );
+                    JOptionPane.showMessageDialog(this, "Persona Auxiliar Guardado");
+                } else {
                     unaControladoraGlobal.modificarPersonaAuxiliar(unaPersonaAuxiliar,
                             Long.parseLong(jTextFieldDNI.getText()),
                             jTextFieldApellido.getText(),
@@ -521,32 +487,32 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                             jTextFieldTelCelular.getText(),
                             jTextFieldEmail.getText(),
                             fechaIngreso,
-                            "Fotocopia",
+                            "Fotocopia Dni",
                             jCheckBoxEsArbitro.isSelected(),
                             jCheckBoxEsCuerpoTecnico.isSelected(),
-                            false,
-                            false
+                            unaPersonaAuxiliar.isBorradoLogico()
                     );
-
-                } catch (ParseException e) {
-                    JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+                    JOptionPane.showMessageDialog(this, "Persona Auxiliar Modificada");
                 }
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
             }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (this.unaPersonaAuxiliar == null) {
-            camposLimpiar();
-        } else {
-            camposCargar(unaPersonaAuxiliar);
-        }
-        camposActivo(false);
-        jButtonNuevo.setEnabled(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        camposActivo(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonImprimir.setEnabled(false);
+        
+        camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
 

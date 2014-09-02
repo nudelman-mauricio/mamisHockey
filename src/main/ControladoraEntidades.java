@@ -25,11 +25,11 @@ public class ControladoraEntidades {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
-    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
-        new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, cuerpoTecnicoActivo);
+    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
+        new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico);
     }
 
-    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo, boolean borradoLogico) {
+    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean borradoLogico) {
         unaPersonaAuxiliar.setDni(dni);
         unaPersonaAuxiliar.setApellido(apellido);
         unaPersonaAuxiliar.setNombre(nombre);
@@ -43,7 +43,6 @@ public class ControladoraEntidades {
         unaPersonaAuxiliar.setFotocopiaDni(fotocopiaDni);
         unaPersonaAuxiliar.setArbitro(arbitro);
         unaPersonaAuxiliar.setCuerpoTecnico(cuerpoTecnico);
-        unaPersonaAuxiliar.setCuerpoTecnicoActivo(cuerpoTecnicoActivo);
         unaPersonaAuxiliar.setBorradoLogico(borradoLogico);
         unaPersonaAuxiliar.persistir(this.entityManager);
     }
@@ -157,8 +156,9 @@ public class ControladoraEntidades {
             unaListaResultado.remove(unPartido.getUnArbitro1());
             unaListaResultado.remove(unPartido.getUnArbitro2());
             if (unPartido.getUnArbitro3() != null) {
-                if(!unPartido.isBorradoLogico()){
-                unaListaResultado.remove(unPartido.getUnArbitro3());}
+                if (!unPartido.isBorradoLogico()) {
+                    unaListaResultado.remove(unPartido.getUnArbitro3());
+                }
             }
         }
         return unaListaResultado;

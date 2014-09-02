@@ -41,9 +41,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuSocias = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItemNuevoArbitro = new javax.swing.JMenuItem();
-        jMenuItemGestionarArbitro = new javax.swing.JMenuItem();
+        jMenuAuxiliares = new javax.swing.JMenu();
         jMenuTorneo = new javax.swing.JMenu();
         jMenuItemNuevoTorneo = new javax.swing.JMenuItem();
         jMenuItemGestionTorneo = new javax.swing.JMenuItem();
@@ -109,30 +107,18 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenuSocias);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/referee.png"))); // NOI18N
-        jMenu3.setText("Auxiliares");
-        jMenu3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jMenu3.setMaximumSize(new java.awt.Dimension(129, 32767));
-        jMenu3.setPreferredSize(new java.awt.Dimension(91, 32));
-
-        jMenuItemNuevoArbitro.setText("Nuevo Auxiliar");
-        jMenuItemNuevoArbitro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNuevoArbitroActionPerformed(evt);
+        jMenuAuxiliares.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/referee.png"))); // NOI18N
+        jMenuAuxiliares.setText("Auxiliares");
+        jMenuAuxiliares.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jMenuAuxiliares.setMaximumSize(new java.awt.Dimension(129, 32767));
+        jMenuAuxiliares.setPreferredSize(new java.awt.Dimension(91, 32));
+        jMenuAuxiliares.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuAuxiliaresMouseClicked(evt);
             }
         });
-        jMenu3.add(jMenuItemNuevoArbitro);
-
-        jMenuItemGestionarArbitro.setText("Gestionar Auxiliares");
-        jMenuItemGestionarArbitro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGestionarArbitroActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItemGestionarArbitro);
-
-        jMenuBar1.add(jMenu3);
-        jMenu3.getAccessibleContext().setAccessibleName("       Arbitros     ");
+        jMenuBar1.add(jMenuAuxiliares);
+        jMenuAuxiliares.getAccessibleContext().setAccessibleName("       Arbitros     ");
 
         jMenuTorneo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png"))); // NOI18N
         jMenuTorneo.setText("Torneos");
@@ -381,13 +367,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unaGestionClub);
     }//GEN-LAST:event_jMenuItemAdmClubesActionPerformed
 
-    private void jMenuItemGestionarArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarArbitroActionPerformed
-        IGestionPersonaAuxiliar unaGestionArbitro = new IGestionPersonaAuxiliar(unaControladoraGlobal);
-        unaGestionArbitro.pack();
-        unaGestionArbitro.setVisible(true);
-        this.jDesktopPane.add(unaGestionArbitro);
-    }//GEN-LAST:event_jMenuItemGestionarArbitroActionPerformed
-
     private void jMenuItemEstadisticaTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadisticaTorneoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemEstadisticaTorneoActionPerformed
@@ -432,13 +411,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
     
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-
-    private void jMenuItemNuevoArbitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoArbitroActionPerformed
-        IPersonaAuxiliar unArbitro = new IPersonaAuxiliar(this.unaControladoraGlobal);
-        unArbitro.pack();
-        unArbitro.setVisible(true);
-        this.jDesktopPane.add(unArbitro);
-    }//GEN-LAST:event_jMenuItemNuevoArbitroActionPerformed
 
     private void jMenuItemNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEquipoActionPerformed
         IEquipo unEquipo = new IEquipo(this.unaControladoraGlobal, jDesktopPane);
@@ -523,6 +495,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unaGestionSocias);
     }//GEN-LAST:event_jMenuSociasMouseClicked
 
+    private void jMenuAuxiliaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAuxiliaresMouseClicked
+        IGestionPersonaAuxiliar unaIGestionAuxiliares = new IGestionPersonaAuxiliar(unaControladoraGlobal);
+        unaIGestionAuxiliares.pack();
+        unaIGestionAuxiliares.setVisible(true);
+        this.jDesktopPane.add(unaIGestionAuxiliares);
+    }//GEN-LAST:event_jMenuAuxiliaresMouseClicked
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -532,9 +511,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenuAuxiliares;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClub;
     private javax.swing.JMenu jMenuContabilidad;
@@ -557,11 +536,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
     private javax.swing.JMenuItem jMenuItemEstadosSocia;
     private javax.swing.JMenuItem jMenuItemGestionTorneo;
-    private javax.swing.JMenuItem jMenuItemGestionarArbitro;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemLocalidades;
-    private javax.swing.JMenuItem jMenuItemNuevoArbitro;
     private javax.swing.JMenuItem jMenuItemNuevoEquipo;
     private javax.swing.JMenuItem jMenuItemNuevoTorneo;
     private javax.swing.JMenuItem jMenuItemSkin;

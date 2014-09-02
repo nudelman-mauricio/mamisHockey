@@ -25,11 +25,10 @@ public class PersonaAuxiliar extends Persona implements Serializable {
 
     }
 
-    public PersonaAuxiliar(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean cuerpoTecnicoActivo) {
+    public PersonaAuxiliar(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
         this.arbitro = arbitro;
         this.cuerpoTecnico = cuerpoTecnico;
-        this.cuerpoTecnicoActivo = cuerpoTecnicoActivo;
         this.persistir(entityManager);
     }
 
