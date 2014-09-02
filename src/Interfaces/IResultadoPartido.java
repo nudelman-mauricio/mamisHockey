@@ -53,7 +53,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //Botones
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        if (unaControladoraGlobal.partidoAnteriorJugado(unPartido)) {
+        if (unaControladoraGlobal.isPartidoAnteriorJugado(unPartido)) {
             jButtonImprimir.setEnabled(true);
             jButtonEditar.setEnabled(true);
         } else {
@@ -1113,7 +1113,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
         if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
-            unaControladoraGlobal.descontarSancion(unPartido.getUnEquipoLocal(), unPartido.getUnEquipoVisitante());
+            unaControladoraGlobal.descontarSancion(unPartido.getPlantelLocal(), unPartido.getFecha());
+            unaControladoraGlobal.descontarSancion(unPartido.getPlantelVisitante(),unPartido.getFecha());
         }
         unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
 

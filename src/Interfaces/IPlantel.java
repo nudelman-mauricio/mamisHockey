@@ -1,6 +1,8 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -30,10 +32,25 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }
 
     private void obtenerPlantel() {
+        DateFormat df = DateFormat.getDateInstance();
+        Calendar FechaSO = Calendar.getInstance();
+        String deudas;
         limpiarTabla(modeloTablaPlantel);
         List<Socia> unaListaResultado = (List<Socia>) unEquipo.getPlantel();
-        for (Socia unaSocia : unaListaResultado) {
-            this.modeloTablaPlantel.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.getUltimoEstado(), "aca va puesto", "Siii"});
+        for (Socia unaSocia : unaListaResultado) {            
+            if (unaSocia.isAlDia(FechaSO.getTime())){
+                deudas = "Si";
+            }else{
+                deudas = "No";
+            }
+            this.modeloTablaPlantel.addRow(new Object[]{
+                unaSocia.getDni(), 
+                unaSocia.getNumeroCamiseta(), 
+                unaSocia.getApellido(), 
+                unaSocia.getNombre(), 
+                unaSocia.getUltimoEstado(), 
+                "(Falta) aca va puesto", 
+                deudas});
         }
 
     }
@@ -231,9 +248,17 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Dni", "N° Camiseta", "Apellido", "Nombre", "Estado", "Puesto", "Posee Deudas (?)"
+                "Dni", "N° Camiseta", "Apellido", "Nombre", "Estado", "Cargo", "¿Posee Deudas?"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTablePlantel.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTablePlantelFocusGained(evt);

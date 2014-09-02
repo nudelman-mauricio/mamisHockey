@@ -210,7 +210,15 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             new String [] {
                 "IdEquipo", "Nombre", "Club", "Delegada", "Delegada Sup.", "Director Tecnico"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableEquipo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTableEquipoFocusGained(evt);
