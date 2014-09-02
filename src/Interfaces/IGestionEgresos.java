@@ -41,10 +41,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);      
         
-        //Lean me parece que el if esta mal porque toma INGRESOS cuando estamos en EGRESOS
-        if (unaControladoraGlobal.getIngresosOtrosBD().size() > 0) {
+        if (unaControladoraGlobal.getEgresosBD().size() > 0) {
             cargarFechasFiltrado();
             cargarTabla();
         }
