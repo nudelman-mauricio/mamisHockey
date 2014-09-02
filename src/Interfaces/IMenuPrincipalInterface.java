@@ -41,8 +41,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuSocias = new javax.swing.JMenu();
-        jMenuItemNuevaSocias = new javax.swing.JMenuItem();
-        jMenuItemAdministrarSocias = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItemNuevoArbitro = new javax.swing.JMenuItem();
         jMenuItemGestionarArbitro = new javax.swing.JMenuItem();
@@ -104,23 +102,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuSocias.setText("Socias        ");
         jMenuSocias.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jMenuSocias.setMaximumSize(new java.awt.Dimension(129, 32767));
-
-        jMenuItemNuevaSocias.setText("Nueva Socia");
-        jMenuItemNuevaSocias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNuevaSociasActionPerformed(evt);
+        jMenuSocias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuSociasMouseClicked(evt);
             }
         });
-        jMenuSocias.add(jMenuItemNuevaSocias);
-
-        jMenuItemAdministrarSocias.setText("Gestionar Socias");
-        jMenuItemAdministrarSocias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAdministrarSociasActionPerformed(evt);
-            }
-        });
-        jMenuSocias.add(jMenuItemAdministrarSocias);
-
         jMenuBar1.add(jMenuSocias);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/referee.png"))); // NOI18N
@@ -370,11 +356,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 jMenuSalirMouseClicked(evt);
             }
         });
-        jMenuSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSalirActionPerformed(evt);
-            }
-        });
         jMenuBar1.add(jMenuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -392,20 +373,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItemAdministrarSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdministrarSociasActionPerformed
-        IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal, jDesktopPane);
-        unaGestionSocias.pack();
-        unaGestionSocias.setVisible(true);
-        this.jDesktopPane.add(unaGestionSocias);
-    }//GEN-LAST:event_jMenuItemAdministrarSociasActionPerformed
-
-    private void jMenuItemNuevaSociasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaSociasActionPerformed
-        ISocia unaSocia = new ISocia(unaControladoraGlobal);
-        unaSocia.pack();
-        unaSocia.setVisible(true);
-        this.jDesktopPane.add(unaSocia);
-    }//GEN-LAST:event_jMenuItemNuevaSociasActionPerformed
 
     private void jMenuItemAdmClubesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAdmClubesActionPerformed
         IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal, this.jDesktopPane);
@@ -438,11 +405,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unGestionEgresos.setVisible(true);
         this.jDesktopPane.add(unGestionEgresos);
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
-
-    private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
         IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane, unaControladoraGlobal);
@@ -554,6 +516,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unaIBalanceMensual);
     }//GEN-LAST:event_jMenuItemBalanceMensualActionPerformed
 
+    private void jMenuSociasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSociasMouseClicked
+        IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal, jDesktopPane);
+        unaGestionSocias.pack();
+        unaGestionSocias.setVisible(true);
+        this.jDesktopPane.add(unaGestionSocias);
+    }//GEN-LAST:event_jMenuSociasMouseClicked
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -580,7 +549,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemAdmClubes;
     private javax.swing.JMenuItem jMenuItemAdmEquipos;
-    private javax.swing.JMenuItem jMenuItemAdministrarSocias;
     private javax.swing.JMenuItem jMenuItemBalanceMensual;
     private javax.swing.JMenuItem jMenuItemCategoria;
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
@@ -593,7 +561,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemLocalidades;
-    private javax.swing.JMenuItem jMenuItemNuevaSocias;
     private javax.swing.JMenuItem jMenuItemNuevoArbitro;
     private javax.swing.JMenuItem jMenuItemNuevoEquipo;
     private javax.swing.JMenuItem jMenuItemNuevoTorneo;

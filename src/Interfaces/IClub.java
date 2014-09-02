@@ -29,9 +29,8 @@ public class IClub extends javax.swing.JInternalFrame {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD());
         this.jComboBoxLocalidad.setModel(modelCombo);
 
-        camposActivo(jPanelDetalles, true);
         camposLimpiar();
-
+        camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
     }
@@ -40,10 +39,10 @@ public class IClub extends javax.swing.JInternalFrame {
     public IClub(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         this(unaControladoraGlobal, unJInternalFrame);
         this.unClub = unClub;
-        this.setTitle("Club: " + unClub.getNombre());        
+        this.setTitle("Club: " + unClub.getNombre());
         camposCargar(unClub);
         camposActivo(jPanelDetalles, false);
-        
+
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(true);
