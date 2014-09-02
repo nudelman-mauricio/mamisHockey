@@ -40,8 +40,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuSocias = new javax.swing.JMenu();
         jMenuAuxiliares = new javax.swing.JMenu();
         jMenuTorneo = new javax.swing.JMenu();
-        jMenuItemGestionTorneo = new javax.swing.JMenuItem();
-        jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
         jMenuClub = new javax.swing.JMenu();
         jMenuEquipo = new javax.swing.JMenu();
         jMenuContabilidad = new javax.swing.JMenu();
@@ -115,23 +113,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuTorneo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png"))); // NOI18N
         jMenuTorneo.setText("Torneos");
         jMenuTorneo.setMaximumSize(new java.awt.Dimension(129, 32767));
-
-        jMenuItemGestionTorneo.setText("Gestionar Torneos");
-        jMenuItemGestionTorneo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGestionTorneoActionPerformed(evt);
+        jMenuTorneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuTorneoMouseClicked(evt);
             }
         });
-        jMenuTorneo.add(jMenuItemGestionTorneo);
-
-        jMenuItemEstadisticaTorneo.setText("Estadisticas");
-        jMenuItemEstadisticaTorneo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEstadisticaTorneoActionPerformed(evt);
-            }
-        });
-        jMenuTorneo.add(jMenuItemEstadisticaTorneo);
-
         jMenuBar1.add(jMenuTorneo);
 
         jMenuClub.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Club.png"))); // NOI18N
@@ -325,17 +311,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemEstadisticaTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadisticaTorneoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemEstadisticaTorneoActionPerformed
-
-    private void jMenuItemGestionTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionTorneoActionPerformed
-        IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal);
-        unGestionTorneo.pack();
-        unGestionTorneo.setVisible(true);
-        this.jDesktopPane.add(unGestionTorneo);
-    }//GEN-LAST:event_jMenuItemGestionTorneoActionPerformed
-
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
         IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane, unaControladoraGlobal);
         unGestionEgresos.pack();
@@ -453,6 +428,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unaGestionEquipo);
     }//GEN-LAST:event_jMenuEquipoMouseClicked
 
+    private void jMenuTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTorneoMouseClicked
+        IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal);
+        unGestionTorneo.pack();
+        unGestionTorneo.setVisible(true);
+        this.jDesktopPane.add(unGestionTorneo);
+    }//GEN-LAST:event_jMenuTorneoMouseClicked
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -481,9 +463,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
     private javax.swing.JMenuItem jMenuItemConceptosDeportivos;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
-    private javax.swing.JMenuItem jMenuItemEstadisticaTorneo;
     private javax.swing.JMenuItem jMenuItemEstadosSocia;
-    private javax.swing.JMenuItem jMenuItemGestionTorneo;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemLocalidades;

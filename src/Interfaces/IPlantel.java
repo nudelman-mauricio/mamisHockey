@@ -14,17 +14,24 @@ import main.ControladoraGlobal;
 
 public class IPlantel extends javax.swing.JInternalFrame {
 
-    JInternalFrame unJInternalFrame;
-    Equipo unEquipo;
-    ControladoraGlobal unaControladoraGlobal;
-    DefaultTableModel modeloTablaPlantel;
-    Socia unaSocia;
+    private JInternalFrame unJInternalFrame;
+    private Equipo unEquipo;
+    private ControladoraGlobal unaControladoraGlobal;
+    private DefaultTableModel modeloTablaPlantel;
+    private Socia unaSocia;
 
     public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
-        SeInicio(unaControladoraGlobal);
+        this.unaControladoraGlobal = unaControladoraGlobal;
+
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
+
+        IMenuPrincipalInterface.centrar(this);
+
+        camposActivo(false);
         jButtonCancelar.setEnabled(false);
         camposLimpiar();
         this.modeloTablaPlantel = (DefaultTableModel) jTablePlantel.getModel();
@@ -37,19 +44,19 @@ public class IPlantel extends javax.swing.JInternalFrame {
         String deudas;
         limpiarTabla(modeloTablaPlantel);
         List<Socia> unaListaResultado = (List<Socia>) unEquipo.getPlantel();
-        for (Socia unaSocia : unaListaResultado) {            
-            if (unaSocia.isAlDia(FechaSO.getTime())){
+        for (Socia unaSocia : unaListaResultado) {
+            if (unaSocia.isAlDia(FechaSO.getTime())) {
                 deudas = "Si";
-            }else{
+            } else {
                 deudas = "No";
             }
             this.modeloTablaPlantel.addRow(new Object[]{
-                unaSocia.getDni(), 
-                unaSocia.getNumeroCamiseta(), 
-                unaSocia.getApellido(), 
-                unaSocia.getNombre(), 
-                unaSocia.getUltimoEstado(), 
-                "(Falta) aca va puesto", 
+                unaSocia.getDni(),
+                unaSocia.getNumeroCamiseta(),
+                unaSocia.getApellido(),
+                unaSocia.getNombre(),
+                unaSocia.getUltimoEstado(),
+                "(Falta) aca va puesto",
                 deudas});
         }
 
@@ -66,22 +73,10 @@ public class IPlantel extends javax.swing.JInternalFrame {
         }
     }
 
-    private void SeInicio(ControladoraGlobal unaControladoraGlobal) {
-        this.unaControladoraGlobal = unaControladoraGlobal;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
-
-        IMenuPrincipalInterface.centrar(this);
-
-        camposActivo(false);
-    }
-
     private void camposLimpiar() {
         jTextFieldNroCamiseta.setText("");
         jTextFieldApellido.setText("");
         jTextFieldNombre.setText("");
-
     }
 
     private void camposActivo(boolean Editable) {
@@ -292,18 +287,8 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jLabelDestino.setText("Nombre");
 
         jTextFieldApellido.setEditable(false);
-        jTextFieldApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldApellidoActionPerformed(evt);
-            }
-        });
 
         jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Auto-Asignar");
 
@@ -386,17 +371,9 @@ public class IPlantel extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldApellidoActionPerformed
-
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         this.unaSocia = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
