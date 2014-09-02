@@ -1,18 +1,21 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Categoria;
+import logicaNegocios.TipoCancha;
 import main.ControladoraGlobal;
 
 public class ICategoria extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaCategoria;
-    private Categoria unaCategoria;
-    private boolean modificar = false;
+    private Categoria unaCategoriaSeleccionada;
 
     public ICategoria(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -24,18 +27,60 @@ public class ICategoria extends javax.swing.JInternalFrame {
         //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
         //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
         IMenuPrincipalInterface.centrar(this);
-        camposActivo(false);
+        camposActivo(jPanelDetalles, false);
     }
 
-    private void camposActivo(boolean Editable) {
-        jTextFieldNombre.setEditable(Editable);
-        jTextFieldEdadParametro.setEditable(Editable);
-        jTextFieldMaximoMenores.setEditable(Editable);
-        jTextFieldMinimoMenores.setEditable(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonEditar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
+    private void limpiarTabla(DefaultTableModel modeloTabla) {
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }
+
+    private void cargarTabla() {
+        limpiarTabla(modeloTablaCategoria);
+        for (Categoria unaCategoria : this.unaControladoraGlobal.getCategoriasBD()) {
+            this.modeloTablaCategoria.addRow(new Object[]{unaCategoria.getIdCategoria(), unaCategoria.getNombre(), unaCategoria.getCantidadMinima(), unaCategoria.getCantidadMaxima()});
+        }
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+    }
+
+    //actualizar los campos al seleccionar una cancha en la tabla
+    private void camposCargar() {
+        if (jTableCategoria.getSelectedRow() > -1) {
+            if (jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0) != null) {
+                unaCategoriaSeleccionada = unaControladoraGlobal.getCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
+                jTextFieldNombre.setText(unaCategoriaSeleccionada.getNombre());
+                jTextFieldEdadParametro.setText(String.valueOf(unaCategoriaSeleccionada.getEdadParametro()));
+                jTextFieldMaximoMenores.setText(String.valueOf(unaCategoriaSeleccionada.getCantidadMaxima()));
+                jTextFieldMinimoMenores.setText(String.valueOf(unaCategoriaSeleccionada.getCantidadMinima()));
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
+    }
+
+    //deshabilitar todo lo de un contenedor
+    private void camposActivo(Container c, boolean bandera) {
+        Component[] components = c.getComponents();
+        for (int i = 0; i < components.length; i++) {
+            components[i].setEnabled(bandera);
+            if (components[i] instanceof JTextField) {
+                ((JTextField) components[i]).setEditable(bandera);
+            }
+            if (components[i] instanceof Container) {
+                camposActivo((Container) components[i], bandera);
+            }
+        }
+    }
+
+    //blanqueda componentes editables
+    private void camposLimpiar() {
+        jTextFieldNombre.setText("");
+        jTextFieldEdadParametro.setText("");
+        jTextFieldMaximoMenores.setText("");
+        jTextFieldMinimoMenores.setText("");
     }
 
     private boolean camposValidar() {
@@ -203,11 +248,6 @@ public class ICategoria extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableCategoriaFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableCategoria);
         if (jTableCategoria.getColumnModel().getColumnCount() > 0) {
             jTableCategoria.getColumnModel().getColumn(0).setMinWidth(0);
@@ -239,26 +279,9 @@ public class ICategoria extends javax.swing.JInternalFrame {
 
         jLabelEdad.setText("Edad Parámetro");
 
-        jTextFieldEdadParametro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldEdadParametroActionPerformed(evt);
-            }
-        });
-
         jLabelMinimoMenores.setText("Mínimo Permitido de Menores");
 
-        jTextFieldMinimoMenores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMinimoMenoresActionPerformed(evt);
-            }
-        });
-
         jTextFieldMaximoMenores.setToolTipText("");
-        jTextFieldMaximoMenores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMaximoMenoresActionPerformed(evt);
-            }
-        });
 
         jLabelMaximoMenores.setText("Máximo Permitido de Menores");
 
@@ -331,125 +354,98 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        modificar = true;
-        unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
-        jTextFieldEdadParametro.setText(String.valueOf(unaCategoria.getEdadParametro()));
-        jTextFieldMaximoMenores.setText(String.valueOf(unaCategoria.getCantidadMaxima()));
-        jTextFieldMinimoMenores.setText(String.valueOf(unaCategoria.getCantidadMinima()));
-        jTextFieldNombre.setText(unaCategoria.getNombre());
-        camposActivo(true);
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableCategoria.setEnabled(false);
+
+        camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableCategoria.setEnabled(true);
+
+        camposActivo(jPanelDetalles, false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar la categoria: " + unaCategoria.getNombre() + " (" + unaCategoria.getEdadParametro() + ")?",
+                "Desea eliminar la categoria: " + unaCategoriaSeleccionada.getNombre() + " (" + unaCategoriaSeleccionada.getEdadParametro() + ")?",
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarCategoria(unaCategoria);
+            unaControladoraGlobal.eliminarCategoria(unaCategoriaSeleccionada);
+            unaCategoriaSeleccionada = null;
             cargarTabla();
         }
+
+        jTableCategoria.clearSelection();
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        modificar = false;
-        camposActivoNuevo(true);
-        this.jTextFieldNombre.setText("");
-        this.jTextFieldEdadParametro.setText("");
-        this.jTextFieldMinimoMenores.setText("");
-        this.jTextFieldMaximoMenores.setText("");
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableCategoria.setEnabled(false);
+
+        camposActivo(jPanelDetalles, true);
+        camposLimpiar();
+        unaCategoriaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (!modificar) {
+            if (unaCategoriaSeleccionada == null) {
                 unaControladoraGlobal.crearCategoria(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdadParametro.getText()), Integer.parseInt(jTextFieldMinimoMenores.getText()), Integer.parseInt(jTextFieldMaximoMenores.getText()));
                 JOptionPane.showMessageDialog(this, "Categoria Guardada");
             } else {
-                unaCategoria = unaControladoraGlobal.buscarCategoriaBD((Long) jTableCategoria.getValueAt(jTableCategoria.getSelectedRow(), 0));
-                unaControladoraGlobal.modificarCategoria(unaCategoria, jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdadParametro.getText()), Integer.parseInt(jTextFieldMinimoMenores.getText()), Integer.parseInt(jTextFieldMaximoMenores.getText()), false);
-
+                unaControladoraGlobal.modificarCategoria(unaCategoriaSeleccionada, jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdadParametro.getText()), Integer.parseInt(jTextFieldMinimoMenores.getText()), Integer.parseInt(jTextFieldMaximoMenores.getText()), unaCategoriaSeleccionada.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Categoria Modificada");
+                unaCategoriaSeleccionada = null;
             }
-            camposActivo(false);
-            //camposActivoNuevo(false);        
-            this.jTextFieldNombre.setText("");
-            this.jTextFieldEdadParametro.setText("");
-            this.jTextFieldMinimoMenores.setText("");
-            this.jTextFieldMaximoMenores.setText("");
             cargarTabla();
+
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            jTableCategoria.setEnabled(true);
+
+            camposActivo(jPanelDetalles, false);
+            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        camposActivoNuevo(false); // TODO add your handling code here:
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableCategoria.setEnabled(true);
+
+        camposActivo(jPanelDetalles, false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jTableCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableCategoriaFocusGained
-        this.SeleccionarObjetoTabla(true);
-    }//GEN-LAST:event_jTableCategoriaFocusGained
-
-    private void jTextFieldEdadParametroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEdadParametroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldEdadParametroActionPerformed
-
-    private void jTextFieldMinimoMenoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMinimoMenoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMinimoMenoresActionPerformed
-
-    private void jTextFieldMaximoMenoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMaximoMenoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMaximoMenoresActionPerformed
-
-    private void cargarTabla() {
-        limpiarTabla();
-        List<Categoria> unaListaResultado = this.unaControladoraGlobal.getCategoriasBD();
-        for (Categoria unaCategoria : unaListaResultado) {
-            this.modeloTablaCategoria.addRow(new Object[]{
-                unaCategoria.getIdCategoria(),
-                unaCategoria.getNombre(),
-                unaCategoria.getCantidadMinima(),
-                unaCategoria.getCantidadMaxima()
-            });
-        }
-    }
-
-    public void camposActivoNuevo(boolean Editable) {
-        jTextFieldNombre.setEditable(Editable);
-        jTextFieldEdadParametro.setEditable(Editable);
-        jTextFieldMinimoMenores.setEditable(Editable);
-        jTextFieldMaximoMenores.setEditable(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonNuevo.setEnabled(!Editable);
-        jButtonEditar.setEnabled(!Editable);
-        jTableCategoria.setEnabled(!Editable);
-    }
-
-    private void limpiarTabla() {
-        try {
-            int filas = this.modeloTablaCategoria.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaCategoria.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla Cateogria.");
-        }
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonEditar.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableCategoria.clearSelection();
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

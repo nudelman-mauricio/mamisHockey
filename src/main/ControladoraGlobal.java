@@ -475,7 +475,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarCategoria(unaCategoria);
     }
 
-    public Categoria buscarCategoriaBD(Long id) {
+    public Categoria getCategoriaBD(Long id) {
         return this.unaControladoraDeportiva.getCategoriaBD(id);
     }
 
