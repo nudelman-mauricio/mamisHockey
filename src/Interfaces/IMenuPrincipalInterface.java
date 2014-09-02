@@ -43,7 +43,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuSocias = new javax.swing.JMenu();
         jMenuAuxiliares = new javax.swing.JMenu();
         jMenuTorneo = new javax.swing.JMenu();
-        jMenuItemNuevoTorneo = new javax.swing.JMenuItem();
         jMenuItemGestionTorneo = new javax.swing.JMenuItem();
         jMenuItemEstadisticaTorneo = new javax.swing.JMenuItem();
         jMenuClub = new javax.swing.JMenu();
@@ -123,14 +122,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuTorneo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png"))); // NOI18N
         jMenuTorneo.setText("Torneos");
         jMenuTorneo.setMaximumSize(new java.awt.Dimension(129, 32767));
-
-        jMenuItemNuevoTorneo.setText("Nuevo Torneo");
-        jMenuItemNuevoTorneo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNuevoTorneoActionPerformed(evt);
-            }
-        });
-        jMenuTorneo.add(jMenuItemNuevoTorneo);
 
         jMenuItemGestionTorneo.setText("Gestionar Torneos");
         jMenuItemGestionTorneo.addActionListener(new java.awt.event.ActionListener() {
@@ -439,13 +430,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unLocalidad);
     }//GEN-LAST:event_jMenuItemLocalidadesActionPerformed
 
-    private void jMenuItemNuevoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoTorneoActionPerformed
-        ITorneo unTorneo = new ITorneo(unaControladoraGlobal);
-        unTorneo.pack();
-        unTorneo.setVisible(true);
-        this.jDesktopPane.add(unTorneo);
-    }//GEN-LAST:event_jMenuItemNuevoTorneoActionPerformed
-
     private void jMenuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriaActionPerformed
         ICategoria unaCategoria = new ICategoria(unaControladoraGlobal);
         unaCategoria.pack();
@@ -540,7 +524,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemLocalidades;
     private javax.swing.JMenuItem jMenuItemNuevoEquipo;
-    private javax.swing.JMenuItem jMenuItemNuevoTorneo;
     private javax.swing.JMenuItem jMenuItemSkin;
     private javax.swing.JMenuItem jMenuItemTipoCancha;
     private javax.swing.JMenu jMenuSalir;

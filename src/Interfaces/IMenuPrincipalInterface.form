@@ -56,14 +56,6 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevoTorneo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nuevo Torneo"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNuevoTorneoActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionTorneo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar Torneos"/>
