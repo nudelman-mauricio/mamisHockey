@@ -71,13 +71,9 @@ public class IPase extends javax.swing.JInternalFrame {
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
         }
     }
 
@@ -358,12 +354,6 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelMonto.setText("Monto");
 
-        jTextFieldMonto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldMontoKeyReleased(evt);
-            }
-        });
-
         jButtonCalcularMonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Calc.PNG"))); // NOI18N
         jButtonCalcularMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,26 +364,8 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion5.setText("Cuotas");
 
         jComboBoxCuota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        jComboBoxCuota.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxCuotaItemStateChanged(evt);
-            }
-        });
-        jComboBoxCuota.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                jComboBoxCuotaCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
 
         jLabelFechaVencimiento.setText("Fecha 1° Vto");
-
-        jTextFieldFechaVencimiento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldFechaVencimientoKeyReleased(evt);
-            }
-        });
 
         jLabel2.setText("*");
 
@@ -445,11 +417,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelOrigen.setText("Equipo Origen");
 
         jTextFieldEquipoOrigen.setEnabled(false);
-        jTextFieldEquipoOrigen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldEquipoOrigenActionPerformed(evt);
-            }
-        });
 
         jLabelDestino.setText("Equipo Destino");
 
@@ -602,10 +569,6 @@ public class IPase extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jTextFieldEquipoOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEquipoOrigenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldEquipoOrigenActionPerformed
-
     private void jButtonCalcularMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcularMontoActionPerformed
         int nPase = Integer.parseInt(jLabelNumeroPase.getText());
         jTextFieldMonto.setText(String.valueOf(nPase * 250 + nPase * 0.25));
@@ -679,22 +642,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jTextFieldMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMontoKeyReleased
-
-    }//GEN-LAST:event_jTextFieldMontoKeyReleased
-
-    private void jComboBoxCuotaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBoxCuotaCaretPositionChanged
-
-    }//GEN-LAST:event_jComboBoxCuotaCaretPositionChanged
-
-    private void jTextFieldFechaVencimientoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFechaVencimientoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldFechaVencimientoKeyReleased
-
-    private void jComboBoxCuotaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCuotaItemStateChanged
-
-    }//GEN-LAST:event_jComboBoxCuotaItemStateChanged
 
     private void jTablePasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePasesFocusGained
         jButtonEliminar.setEnabled(true);

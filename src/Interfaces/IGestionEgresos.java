@@ -42,7 +42,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
-
+        
+        //Lean me parece que el if esta mal porque toma INGRESOS cuando estamos en EGRESOS
         if (unaControladoraGlobal.getIngresosOtrosBD().size() > 0) {
             cargarFechasFiltrado();
             cargarTabla();
@@ -585,7 +586,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             Integer.parseInt(jTextFieldMonto.getText()),
                             (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
                             jTextPaneDetalle.getText());
-                    JOptionPane.showMessageDialog(this, "Egreso Guardada");
+                    JOptionPane.showMessageDialog(this, "Egreso Guardado");
                     jButtonNuevo.setEnabled(true);
                     jButtonEditar.setEnabled(false);
                     jButtonGuardar.setEnabled(false);
@@ -610,7 +611,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                             (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
                             jTextPaneDetalle.getText(),
                             false);
-                    JOptionPane.showMessageDialog(this, "Egreso Modificada");
+                    JOptionPane.showMessageDialog(this, "Egreso Modificado");
                     jButtonNuevo.setEnabled(true);
                     jButtonEditar.setEnabled(false);
                     jButtonGuardar.setEnabled(false);

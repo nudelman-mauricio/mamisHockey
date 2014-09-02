@@ -7,7 +7,7 @@ import net.sf.jasperreports.view.JRViewer;
 
 class IBalanceMensual extends javax.swing.JInternalFrame {
 
-    ControladoraGlobal unaControladoraGlobal;
+    private ControladoraGlobal unaControladoraGlobal;
 
     public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();

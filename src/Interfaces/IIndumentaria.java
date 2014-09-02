@@ -12,17 +12,21 @@ import main.ControladoraGlobal;
 
 public class IIndumentaria extends javax.swing.JInternalFrame {
 
-    JInternalFrame unJInternalFrame;
-    ControladoraGlobal unaControladoraGlobal;
-    Equipo unEquipo;
-    Indumentaria unaIndumentaria;
-    DefaultTableModel modeloTablaIndumentaria;
+    private JInternalFrame unJInternalFrame;
+    private ControladoraGlobal unaControladoraGlobal;
+    private Equipo unEquipo = null;
+    private Indumentaria unaIndumentaria = null;
+    private DefaultTableModel modeloTablaIndumentaria;
 
     public IIndumentaria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
-        SeInicio(unaControladoraGlobal);
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
+        camposActivo(false);
+        IMenuPrincipalInterface.centrar(this);        
         jButtonCancelar.setEnabled(false);
         camposLimpiar();
         this.modeloTablaIndumentaria = (DefaultTableModel) jTableIndumentaria.getModel();
@@ -40,22 +44,10 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     }
 
     private void limpiarTabla(DefaultTableModel modeloTablaIndumentaria) {
-        try {
-            int filas = modeloTablaIndumentaria.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaIndumentaria.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = modeloTablaIndumentaria.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaIndumentaria.removeRow(0);
         }
-    }
-
-    private void SeInicio(ControladoraGlobal unaControladoraGlobal) {
-        this.unaControladoraGlobal = unaControladoraGlobal;
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
-        camposActivo(false);
-        IMenuPrincipalInterface.centrar(this);
     }
 
     private void camposActivo(boolean Editable) {

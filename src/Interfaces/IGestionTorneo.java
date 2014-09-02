@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Interfaces;
 
 import java.text.DateFormat;
@@ -15,16 +9,11 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTablaTorneo;
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unjDesktopPane1;
-    
+
     public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         IMenuPrincipalInterface.centrar(this);
@@ -34,16 +23,12 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         this.SeleccionarObjetoTabla(false);
 
         filtrar("");
-    }     
-    
+    }
+
     private void limpiarTabla(DefaultTableModel modeloTablaToneo) {
-        try {
-            int filas = modeloTablaTorneo.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaTorneo.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = modeloTablaTorneo.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaTorneo.removeRow(0);
         }
     }
 
@@ -52,24 +37,23 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(estado);
         jButtonTorneo.setEnabled(estado);
         jButtonEquipos.setEnabled(estado);
-        jButtonFechas.setEnabled(estado);      
-       
+        jButtonFechas.setEnabled(estado);
+
         if (!estado) {
             jTableTorneo.clearSelection();
         }
     }
-    
-    private void filtrar(String dato){
+
+    private void filtrar(String dato) {
         limpiarTabla(modeloTablaTorneo);
         DateFormat df = DateFormat.getDateInstance();
         List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBDFiltro(dato);
         for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(),df.format(unTorneo.getFechaInicio()),unTorneo.getNombre(),unTorneo.getUnaCategoria().getNombre(),unTorneo.getCantidadFechas()});
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas()});
         }
-        
-      
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -331,7 +315,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unIEquipoTorneo.pack();
         unIEquipoTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIEquipoTorneo);       
+        IMenuPrincipalInterface.jDesktopPane.add(unIEquipoTorneo);
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void jButtonFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFechasActionPerformed
@@ -340,7 +324,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unaFechaTorneo.pack();
         unaFechaTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaFechaTorneo);     
+        IMenuPrincipalInterface.jDesktopPane.add(unaFechaTorneo);
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTorneoActionPerformed
@@ -349,7 +333,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unTorneo);        
+        IMenuPrincipalInterface.jDesktopPane.add(unTorneo);
     }//GEN-LAST:event_jButtonTorneoActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -377,12 +361,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableTorneoFocusGained
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        //usar el "customize code"
         Torneo unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
-
+        //--
+        
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar al Torneo: " + unTorneoSeleccionado.getNombre()+ " de la categoria " + unTorneoSeleccionado.getUnaCategoria().getNombre(),
+                "Desea eliminar al Torneo: " + unTorneoSeleccionado.getNombre() + " de la categoria " + unTorneoSeleccionado.getUnaCategoria().getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
@@ -390,7 +376,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarTorneo(unTorneoSeleccionado);
-            
+
             jTextFieldBusqueda.setText("");
             filtrar("");
             this.SeleccionarObjetoTabla(false);

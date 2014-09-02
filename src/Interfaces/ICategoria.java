@@ -3,12 +3,10 @@ package Interfaces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Categoria;
-import logicaNegocios.TipoCancha;
 import main.ControladoraGlobal;
 
 public class ICategoria extends javax.swing.JInternalFrame {
@@ -390,7 +388,6 @@ public class ICategoria extends javax.swing.JInternalFrame {
             unaCategoriaSeleccionada = null;
             cargarTabla();
         }
-
         jTableCategoria.clearSelection();
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed

@@ -1,31 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Leanwit
- */
 public class IClubEquipo extends javax.swing.JInternalFrame {
 
-    ControladoraGlobal unaControladoraGlobal;
-    Club unClub;
-    DefaultTableModel unModeloTablaEquipo;
-    JDesktopPane unJDesktopPane;
+    private ControladoraGlobal unaControladoraGlobal;
+    private Club unClub;
+    private DefaultTableModel unModeloTablaEquipo;
+    private JDesktopPane unJDesktopPane;
 
-    public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub , JDesktopPane unJDesktopPane) {
+    public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub, JDesktopPane unJDesktopPane) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unClub = unClub;
@@ -34,17 +24,12 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
         this.unModeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
         cargarTablaEquipo();
-       
     }
 
     private void limpiarTabla(DefaultTableModel unModeloTablaEquipo) {
-        try {
-            int filas = unModeloTablaEquipo.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                unModeloTablaEquipo.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = unModeloTablaEquipo.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            unModeloTablaEquipo.removeRow(0);
         }
     }
 
@@ -53,7 +38,7 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
         List<Equipo> unaListaResultado = (List<Equipo>) this.unClub.getEquipos();
         for (Equipo unEquipo : unaListaResultado) {
             if (!unEquipo.isBorradoLogico()) {
-                this.unModeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(),unEquipo.getNombre(),unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT()});
+                this.unModeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT()});
             }
         }
     }
@@ -121,16 +106,6 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
                 "IdEquipo", "Nombre", "Delegada", "Delegada Sup.", "Director Tecnico"
             }
         ));
-        jTableEquipo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableEquipoFocusGained(evt);
-            }
-        });
-        jTableEquipo.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jTableEquipoComponentShown(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableEquipo);
         if (jTableEquipo.getColumnModel().getColumnCount() > 0) {
             jTableEquipo.getColumnModel().getColumn(0).setMinWidth(0);
@@ -173,14 +148,6 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-
-    private void jTableEquipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquipoFocusGained
-
-    }//GEN-LAST:event_jTableEquipoFocusGained
-
-    private void jTableEquipoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTableEquipoComponentShown
-
-    }//GEN-LAST:event_jTableEquipoComponentShown
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         cargarTablaEquipo();

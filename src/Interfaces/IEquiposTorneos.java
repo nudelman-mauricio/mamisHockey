@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -18,22 +11,15 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form EquiposTorneos
-     */
-    JInternalFrame unJInternalFrame;
-    ControladoraGlobal unaControladoraGlobal;
-    Torneo unTorneo;
-    DefaultComboBoxModel modelCombo;
-    DefaultTableModel modeloTablaEquipoInscripto;
-    DefaultTableModel modeloTablaEquipoDisponible;
-    Club unClub;
+    private JInternalFrame unJInternalFrame;
+    private ControladoraGlobal unaControladoraGlobal;
+    private Torneo unTorneo = null;
+    private DefaultComboBoxModel modelCombo;
+    private DefaultTableModel modeloTablaEquipoInscripto;
+    private DefaultTableModel modeloTablaEquipoDisponible;
+    private Club unClub = null;
 
     public IEquiposTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
@@ -55,7 +41,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
     }
 
-     private void limpiarTablaDisponible(DefaultTableModel modeloTablaEquipoDisponible) {
+    private void limpiarTablaDisponible(DefaultTableModel modeloTablaEquipoDisponible) {
         try {
             int filas = modeloTablaEquipoDisponible.getRowCount();
             for (int i = 0; i < filas; i++) {
@@ -64,8 +50,8 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
-     }
-    
+    }
+
     private void limpiarTabla(DefaultTableModel modeloTablaEquipoInscripto, DefaultTableModel modeloTablaEquipoDisponible) {
         try {
             int filas = modeloTablaEquipoInscripto.getRowCount();
@@ -75,7 +61,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
-        
+
         try {
             int filas = modeloTablaEquipoDisponible.getRowCount();
             for (int i = 0; i < filas; i++) {
@@ -84,8 +70,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
-        
-        
+
     }
 
     public void camposActivo(boolean Editable) {
@@ -116,8 +101,6 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         }
 
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -360,7 +343,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-     
+
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAgregarMouseClicked

@@ -9,7 +9,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
-import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IGestionClub extends javax.swing.JInternalFrame {

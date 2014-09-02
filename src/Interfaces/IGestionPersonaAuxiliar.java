@@ -11,7 +11,7 @@ import main.ControladoraGlobal;
 
 public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
-    ControladoraGlobal unaControladoraGlobal;
+    private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaPersonaAuxiliar;
 
     public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
@@ -352,8 +352,11 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        //esto tiene que ir en el evento de "customice code" de la tabla
         PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0));
-
+        //--
+        
+        
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
