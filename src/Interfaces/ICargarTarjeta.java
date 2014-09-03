@@ -13,11 +13,23 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private Partido unPartido;
-    
-    public ICargarTarjeta() {
+
+    public ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
         initComponents();
+
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaSocia = unaSocia;
+        this.unPartido = unPartido;
+
+        this.jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
+        this.jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        this.jComboBoxTipoTarjeta.setSelectedIndex(-1);
+        this.jComboBoxTipoTarjeta.setSelectedIndex(-1);
+        this.jTextFieldMinuto.setText("");
+
     }
-    
+
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldMinuto.getText().isEmpty()) {
@@ -25,19 +37,19 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelMinuto.setForeground(Color.black);
-        }        
+        }
         if (jComboBoxTipoTarjeta.getSelectedIndex() == -1) {
             jLabelTarjeta.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelTarjeta.setForeground(Color.black);
-        }        
+        }
         if (jComboBoxTiempo.getSelectedIndex() == -1) {
             jLabelTiempo.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelTiempo.setForeground(Color.black);
-        }        
+        }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
@@ -174,12 +186,31 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        if(camposValidar()){
-            if (jComboBoxTiempo.getSelectedIndex() == 0){
-                unaControladoraGlobal.crearGol(unaSocia, unPartido, "1", jTextFieldMinuto.getText());
-            }else{
-                unaControladoraGlobal.crearGol(unaSocia, unPartido, "2", jTextFieldMinuto.getText());
+        if (camposValidar()) {
+            if (jComboBoxTiempo.getSelectedIndex() == 0) {
+                if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "1", jTextFieldMinuto.getText());
+                    //Recorrer las tarjetas de esta socia en este partido. Si tiene dos verdes, Agregar una amarilla por acumulacion
+                }
+                if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Amarilla", "", "1", jTextFieldMinuto.getText());
+                }
+                if (jComboBoxTipoTarjeta.getSelectedIndex() == 2) {//Tarjeta Roja
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Roja", "", "1", jTextFieldMinuto.getText());
+                }
+            } else {
+                if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "2", jTextFieldMinuto.getText());
+                }
+                if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Amarilla", "", "2", jTextFieldMinuto.getText());
+                }
+                if (jComboBoxTipoTarjeta.getSelectedIndex() == 2) {//Tarjeta Roja
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Roja", "Roja Directa.", "2", jTextFieldMinuto.getText());
+                }
             }
+            
+            
             if (unJInternalFrame != null) {
                 this.setVisible(false);
                 this.dispose();

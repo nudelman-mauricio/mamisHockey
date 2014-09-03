@@ -716,38 +716,38 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, "", null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, true, true, true, true, true, true, true, true
+                false, false, false, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -768,42 +768,27 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableLocal.getColumnModel().getColumn(1).setPreferredWidth(35);
             jTableLocal.getColumnModel().getColumn(1).setMaxWidth(35);
             jTableLocal.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jTableLocal.getColumnModel().getColumn(3).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(4).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(5).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(6).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(7).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(7).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(8).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(9).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(10).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(10).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(10).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(11).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(11).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(11).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(12).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(12).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(12).setMaxWidth(35);
-            jTableLocal.getColumnModel().getColumn(13).setMinWidth(20);
-            jTableLocal.getColumnModel().getColumn(13).setPreferredWidth(20);
-            jTableLocal.getColumnModel().getColumn(13).setMaxWidth(20);
-            jTableLocal.getColumnModel().getColumn(14).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(14).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(14).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(3).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(3).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(3).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(4).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(4).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(5).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(5).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(5).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(6).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(6).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(6).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(7).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(7).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(8).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(9).setMinWidth(40);
+            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(40);
+            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(40);
         }
         jTableLocal.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
