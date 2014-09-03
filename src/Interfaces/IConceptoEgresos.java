@@ -35,7 +35,6 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
-
     }
 
     public IConceptoEgresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {

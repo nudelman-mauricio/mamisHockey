@@ -1,21 +1,13 @@
 package Interfaces;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Club;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IGestionEquipo extends javax.swing.JInternalFrame {
     
     private ControladoraGlobal unaControladoraGlobal;

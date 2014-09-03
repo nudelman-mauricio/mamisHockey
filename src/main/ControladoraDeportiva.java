@@ -72,7 +72,7 @@ public class ControladoraDeportiva {
 
     public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro) {
         for (Socia unaSocia : unPlantel) {
-            for (SancionTribunal unaSancionTribunal : unaSocia.getSancionesVigentes(unaFechaParametro)){
+            for (SancionTribunal unaSancionTribunal : unaSocia.getSancionesVigentes(unaFechaParametro)) {
                 unaSancionTribunal.sumarFechaCumplida();
                 unaSancionTribunal.persistir(this.entityManager);
             }
@@ -277,10 +277,12 @@ public class ControladoraDeportiva {
     public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha) {
         Query traerEquipos = this.entityManager.createQuery("SELECT E FROM Equipo E WHERE E.borradoLogico = FALSE");
         List<Equipo> unaListaResultado = traerEquipos.getResultList();
-        for (Partido unPartido : unaFecha.getPartidos()) {
-            if (!unPartido.isBorradoLogico()) {
-                unaListaResultado.remove(unPartido.getUnEquipoLocal());
-                unaListaResultado.remove(unPartido.getUnEquipoVisitante());
+        if (unaFecha != null) {
+            for (Partido unPartido : unaFecha.getPartidos()) {
+                if (!unPartido.isBorradoLogico()) {
+                    unaListaResultado.remove(unPartido.getUnEquipoLocal());
+                    unaListaResultado.remove(unPartido.getUnEquipoVisitante());
+                }
             }
         }
         return unaListaResultado;

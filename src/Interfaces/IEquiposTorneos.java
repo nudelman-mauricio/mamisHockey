@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -18,22 +10,14 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
 public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form EquiposTorneos
-     */
-    JInternalFrame unJInternalFrame;
-    ControladoraGlobal unaControladoraGlobal;
-    Torneo unTorneo;
-    DefaultComboBoxModel modelCombo;
-    DefaultTableModel modeloTablaEquipoInscripto;
-    DefaultTableModel modeloTablaEquipoDisponible;
-    Club unClub;
+    private JInternalFrame unJInternalFrame;
+    private ControladoraGlobal unaControladoraGlobal;
+    private Torneo unTorneo = null;    
+    private DefaultTableModel modeloTablaEquipoInscripto;
+    private DefaultTableModel modeloTablaEquipoDisponible;
+    private Club unClub = null;
 
     public IEquiposTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
@@ -44,28 +28,10 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
         this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
         this.setTitle("Torneo: " + unTorneo.getNombre());
-        SeInicio();
-        cargarTabla();
-    }
-
-    public void SeInicio() {
-        //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
-        camposActivo(false);
+        cargarTabla();
+    }   
 
-    }
-
-     private void limpiarTablaDisponible(DefaultTableModel modeloTablaEquipoDisponible) {
-        try {
-            int filas = modeloTablaEquipoDisponible.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaEquipoDisponible.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-     }
-    
     private void limpiarTabla(DefaultTableModel modeloTablaEquipoInscripto, DefaultTableModel modeloTablaEquipoDisponible) {
         try {
             int filas = modeloTablaEquipoInscripto.getRowCount();
@@ -75,7 +41,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
-        
+
         try {
             int filas = modeloTablaEquipoDisponible.getRowCount();
             for (int i = 0; i < filas; i++) {
@@ -84,13 +50,8 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
-        
-        
-    }
 
-    public void camposActivo(boolean Editable) {
-        jButtonCancelar.setEnabled(Editable);
-    }
+    }   
 
     public void cargarTabla() {
         this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
@@ -116,8 +77,6 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         }
 
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,9 +89,6 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
-        jButtonGuardar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
-        jButtonEditar = new javax.swing.JButton();
         jButtonAgregar = new javax.swing.JButton();
         jButtonQuitar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -174,50 +130,20 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
-        jButtonGuardar.setText("Guardar");
-        jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
-            }
-        });
-
-        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
-        jButtonEditar.setText("Editar");
-        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
         jPanelBotonesLayout.setHorizontalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(680, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonImprimir)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonEditar))
+                .addComponent(jButtonImprimir)
                 .addGap(3, 3, 3))
         );
 
@@ -301,7 +227,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
                             .addComponent(jButtonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -331,10 +257,6 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
-
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         this.unJInternalFrame.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameClosed
@@ -360,7 +282,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-     
+
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAgregarMouseClicked
@@ -373,9 +295,6 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgregar;
-    private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonQuitar;
     private javax.swing.JPanel jPanelBotones;

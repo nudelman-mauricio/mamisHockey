@@ -29,7 +29,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     private Torneo unTorneo;
     private FechaTorneo unaFechaTorneoSeleccionada;
     private Partido unPartidoSeleccionado;
-    private DefaultComboBoxModel modelComboEquipo, modelComboCancha, modelComboArbitro;
+    private DefaultComboBoxModel modelComboEquipolocal, modelComboEquipoVisitante, modelComboCancha, modelComboArbitro1, modelComboArbitro2, modelComboArbitro3;
     private DefaultTableModel modeloTable;
     private DateFormat df = DateFormat.getDateInstance();
 
@@ -70,16 +70,19 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         modelComboCancha = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD());
         this.jComboBoxCancha.setModel(modelComboCancha);
 
-        modelComboArbitro = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
-        this.jComboBoxArbitro1.setModel(modelComboArbitro);
-        this.jComboBoxArbitro2.setModel(modelComboArbitro);
-        this.jComboBoxArbitro3.setModel(modelComboArbitro);
+        modelComboArbitro1 = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        modelComboArbitro2 = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        modelComboArbitro3 = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD());
+        this.jComboBoxArbitro1.setModel(modelComboArbitro1);
+        this.jComboBoxArbitro2.setModel(modelComboArbitro2);
+        this.jComboBoxArbitro3.setModel(modelComboArbitro3);
     }
 
     private void cargarCombosEquipos() {
-        this.modelComboEquipo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada));
-        this.jComboBoxEquipoLocal.setModel(modelComboEquipo);
-        this.jComboBoxEquipoVisitante.setModel(modelComboEquipo);
+        this.modelComboEquipolocal = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada));
+        this.modelComboEquipoVisitante = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada));
+        this.jComboBoxEquipoLocal.setModel(modelComboEquipolocal);
+        this.jComboBoxEquipoVisitante.setModel(modelComboEquipoVisitante);
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -114,12 +117,12 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
                 jComboBoxArbitro2.setSelectedItem(unPartidoSeleccionado.getUnArbitro2());
                 jComboBoxArbitro3.setSelectedItem(unPartidoSeleccionado.getUnArbitro3());
 
-                modelComboEquipo.addElement(unPartidoSeleccionado.getUnEquipoLocal());
-                modelComboEquipo.addElement(unPartidoSeleccionado.getUnEquipoVisitante());
-                this.jComboBoxEquipoLocal.setModel(modelComboEquipo);
-                this.jComboBoxEquipoVisitante.setModel(modelComboEquipo);
-                modelComboEquipo.removeElement(unPartidoSeleccionado.getUnEquipoLocal());
-                modelComboEquipo.removeElement(unPartidoSeleccionado.getUnEquipoVisitante());
+                modelComboEquipolocal.addElement(unPartidoSeleccionado.getUnEquipoLocal());
+                modelComboEquipoVisitante.addElement(unPartidoSeleccionado.getUnEquipoVisitante());
+                this.jComboBoxEquipoLocal.setModel(modelComboEquipolocal);
+                this.jComboBoxEquipoVisitante.setModel(modelComboEquipoVisitante);
+                modelComboEquipolocal.removeElement(unPartidoSeleccionado.getUnEquipoLocal());
+                modelComboEquipoVisitante.removeElement(unPartidoSeleccionado.getUnEquipoVisitante());
 
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
@@ -783,6 +786,10 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
     private void jButtonAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnteriorMouseClicked
         if (Integer.parseInt(jTextFieldNroFecha.getText()) > 1) {
+            if(unaFechaTorneoSeleccionada.getPartidos().size()<1 && unaFechaTorneoSeleccionada.getNumeroFecha() == unTorneo.getCantidadFechas()){
+                unaControladoraGlobal.eliminarFechaTorneo(unaFechaTorneoSeleccionada);
+                this.jLabelTotalFechas.setText(String.valueOf(this.unTorneo.getCantidadFechas()));
+            }
             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(this.jTextFieldNroFecha.getText()) - 1));
             this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
             cargarCombosEquipos();

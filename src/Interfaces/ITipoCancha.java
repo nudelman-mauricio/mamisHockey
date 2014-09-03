@@ -29,13 +29,9 @@ public class ITipoCancha extends javax.swing.JInternalFrame {
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
         }
     }
 

@@ -28,8 +28,8 @@ public class ISancion extends javax.swing.JInternalFrame {
     private Socia unaSocia = null;
     private PersonaAuxiliar unaPersonaAuxiliar = null;
     private Equipo unEquipo = null;
-    SancionTribunal unaSancionSeleccionada = null;
-    DateFormat df = DateFormat.getDateInstance();
+    private SancionTribunal unaSancionSeleccionada = null;
+    private DateFormat df = DateFormat.getDateInstance();
     private DefaultTableModel modeloTableSancion;
 
     //Llamado Generico
