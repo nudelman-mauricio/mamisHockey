@@ -100,7 +100,8 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarIngresos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gestionar Ingresos"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Ingresos"/>
+                <Property name="actionCommand" type="java.lang.String" value="Gesti&#xf3;n Ingresos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarIngresosActionPerformed"/>
@@ -108,7 +109,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarEgresos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gestionar Egresos"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Egresos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarEgresosActionPerformed"/>

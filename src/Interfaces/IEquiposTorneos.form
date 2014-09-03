@@ -133,7 +133,6 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAgregarMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAgregarActionPerformed"/>
       </Events>
     </Component>
@@ -172,7 +171,7 @@
                 <Column editable="true" title="Categoria" type="java.lang.Object"/>
               </Table>
             </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableEquiposDisponibles.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        seleccionEquipoDisponible();&#xa;    }&#xa;});">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                   <Title/>
@@ -200,9 +199,6 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTableEquiposDisponiblesFocusGained"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -230,7 +226,7 @@
                 <Column editable="true" title="Categoria" type="java.lang.Object"/>
               </Table>
             </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableEquiposInscriptos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        seleccionEquipoInscripto();&#xa;    }&#xa;});">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                   <Title/>
@@ -258,9 +254,6 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTableEquiposInscriptosFocusGained"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

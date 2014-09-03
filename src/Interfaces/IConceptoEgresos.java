@@ -3,7 +3,6 @@ package Interfaces;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -17,48 +16,32 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaConceptoEgresos;
     private ConceptoEgreso unConceptoEgresoSeleccionado;
-    private JInternalFrame unJInternalFrame;
+    private JInternalFrame unJInternalFrame = null;
 
-    public IConceptoEgresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
+    //LLAMADO PARA GESTION CONCEPTOS
+    public IConceptoEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
-        this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
-        this.unaControladoraGlobal = unaControladoraGlobal;
-        cargarTabla();
-
         IMenuPrincipalInterface.centrar(this);
-        camposActivo(false);
-        //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.setTitle("Gestión de Concepto Egresos");//titulo de la ventana
+        this.setTitle("Gestión de Conceptos Egreso");
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
+        cargarTabla();
+        jButtonNuevo.setEnabled(true);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
     }
 
+    //LLAMADO PARA NUEVO CONCEPTO
     public IConceptoEgresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
-        initComponents();
-
-        this.modeloTablaConceptoEgresos = (DefaultTableModel) jTableConceptoEgresos.getModel();
-        this.unaControladoraGlobal = unaControladoraGlobal;
+        this(unaControladoraGlobal);
         this.unJInternalFrame = unJInternalFrame;
-        cargarTabla();
-
-        IMenuPrincipalInterface.centrar(this);
-        camposActivo(false);
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.setTitle("Gestión de Concepto Egresos");//titulo de la ventana
-
-        jTextFieldNombre.setEditable(true);
-        jTextPaneDetalle.setEditable(true);
         jTableConceptoEgresos.setEnabled(false);
-        jButtonNuevo.setEnabled(false);
-        jButtonEditar.setEnabled(false);
+        camposActivo(true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);
     }
 
     private void limpiarTabla() {
@@ -105,7 +88,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         }
     }
 
-    public boolean camposValidar() {
+    private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNombre.getText().isEmpty()) {
             jLabelNombre.setForeground(Color.red);
@@ -187,6 +170,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.setEnabled(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -285,8 +269,11 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
         jLabelNombre.setText("Nombre");
 
+        jTextFieldNombre.setEditable(false);
+
         jLabelDetalle.setText("Detalle");
 
+        jTextPaneDetalle.setEditable(false);
         jScrollPane3.setViewportView(jTextPaneDetalle);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
@@ -433,7 +420,6 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarConceptoEgreso(unConceptoEgresoSeleccionado);
             unConceptoEgresoSeleccionado = null;
             cargarTabla();
-
         }
 
         jTableConceptoEgresos.clearSelection();
@@ -447,16 +433,6 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameClosed
 
-    public void camposActivoNuevo(boolean Editable) {
-        jTextFieldNombre.setEditable(Editable);
-        jTextPaneDetalle.setEditable(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonNuevo.setEnabled(!Editable);
-        jButtonEditar.setEnabled(!Editable);
-        jButtonEliminar.setEnabled(!Editable);
-        jTableConceptoEgresos.setEnabled(!Editable);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;

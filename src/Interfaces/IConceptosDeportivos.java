@@ -42,7 +42,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         DefaultComboBoxModel modelComboAfectados = new DefaultComboBoxModel(comboBoxItems);
         this.jComboBoxAfectados.setModel(modelComboAfectados);
 
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Conceptos Deportivos"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         camposLimpiar();

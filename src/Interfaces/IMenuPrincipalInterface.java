@@ -144,7 +144,8 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.setText("Contabilidad");
         jMenuContabilidad.setMaximumSize(new java.awt.Dimension(129, 32767));
 
-        jMenuItemGestionarIngresos.setText("Gestionar Ingresos");
+        jMenuItemGestionarIngresos.setText("Gestión Ingresos");
+        jMenuItemGestionarIngresos.setActionCommand("Gestión Ingresos");
         jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemGestionarIngresosActionPerformed(evt);
@@ -152,7 +153,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuContabilidad.add(jMenuItemGestionarIngresos);
 
-        jMenuItemGestionarEgresos.setText("Gestionar Egresos");
+        jMenuItemGestionarEgresos.setText("Gestión Egresos");
         jMenuItemGestionarEgresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemGestionarEgresosActionPerformed(evt);
@@ -319,14 +320,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
-        IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(jDesktopPane, unaControladoraGlobal);
+        IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(unaControladoraGlobal);
         unConceptoIngresos.pack();
         unConceptoIngresos.setVisible(true);
         this.jDesktopPane.add(unConceptoIngresos);
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
-        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(jDesktopPane, unaControladoraGlobal);
+        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(unaControladoraGlobal);
         unConceptoEgresos.pack();
         unConceptoEgresos.setVisible(true);
         this.jDesktopPane.add(unConceptoEgresos);

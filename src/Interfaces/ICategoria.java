@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Categoria;
 import main.ControladoraGlobal;
@@ -23,7 +25,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
         cargarTabla();
 
         //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
-        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));        
+        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));
         IMenuPrincipalInterface.centrar(this);
         camposActivo(jPanelDetalles, false);
     }
@@ -258,6 +260,11 @@ public class ICategoria extends javax.swing.JInternalFrame {
             jTableCategoria.getColumnModel().getColumn(3).setPreferredWidth(150);
             jTableCategoria.getColumnModel().getColumn(3).setMaxWidth(150);
         }
+        jTableCategoria.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
