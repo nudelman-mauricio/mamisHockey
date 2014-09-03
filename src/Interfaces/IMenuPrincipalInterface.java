@@ -313,7 +313,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
-        IGestionEgresos unGestionEgresos = new IGestionEgresos(jDesktopPane, unaControladoraGlobal);
+        IGestionEgresos unGestionEgresos = new IGestionEgresos(unaControladoraGlobal);
         unGestionEgresos.pack();
         unGestionEgresos.setVisible(true);
         this.jDesktopPane.add(unGestionEgresos);
@@ -340,6 +340,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -416,7 +417,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuAuxiliaresMouseClicked
 
     private void jMenuClubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClubMouseClicked
-        IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal, this.jDesktopPane);
+        IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal);
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);
         this.jDesktopPane.add(unaGestionClub);

@@ -2,7 +2,7 @@ package Interfaces;
 
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
@@ -13,13 +13,13 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private Club unClub;
     private DefaultTableModel unModeloTablaEquipo;
-    private JDesktopPane unJDesktopPane;
-
-    public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub, JDesktopPane unJDesktopPane) {
+    private JInternalFrame unJInternalFrame;    
+    
+    public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub, JInternalFrame unJInternalFrame) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unClub = unClub;
-        this.unJDesktopPane = unJDesktopPane;
+        this.unClub = unClub;     
+        this.unJInternalFrame = unJInternalFrame;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
         IMenuPrincipalInterface.centrar(this);
         this.unModeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
@@ -54,6 +54,23 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
         jTableEquipo = new javax.swing.JTable();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -142,7 +159,7 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
         unIEquipo.pack();
         unIEquipo.setVisible(true);
         this.setVisible(false);
-        this.unJDesktopPane.add(unIEquipo);
+        IMenuPrincipalInterface.jDesktopPane.add(unIEquipo);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -152,6 +169,10 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         cargarTablaEquipo();
     }//GEN-LAST:event_formComponentShown
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
