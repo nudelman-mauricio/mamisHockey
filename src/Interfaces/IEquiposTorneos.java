@@ -68,17 +68,25 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     }
 
     private void seleccionEquipoDisponible() {
-        jButtonAgregar.setEnabled(true);
-        jButtonQuitar.setEnabled(false);
-        jTableEquiposInscriptos.clearSelection();
-        unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
+        if (jTableEquiposDisponibles.getSelectedRow() > -1) {
+            if (jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0) != null) {
+                jButtonAgregar.setEnabled(true);
+                jButtonQuitar.setEnabled(false);
+                jTableEquiposInscriptos.clearSelection();
+                unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
+            }
+        }
     }
 
     private void seleccionEquipoInscripto() {
-        jButtonAgregar.setEnabled(false);
-        jButtonQuitar.setEnabled(true);
-        jTableEquiposDisponibles.clearSelection();
-        unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposInscriptos.getValueAt(jTableEquiposInscriptos.getSelectedRow(), 0));
+        if (jTableEquiposInscriptos.getSelectedRow() > -1) {
+            if (jTableEquiposInscriptos.getValueAt(jTableEquiposInscriptos.getSelectedRow(), 0) != null) {
+                jButtonAgregar.setEnabled(false);
+                jButtonQuitar.setEnabled(true);
+                jTableEquiposDisponibles.clearSelection();
+                unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposInscriptos.getValueAt(jTableEquiposInscriptos.getSelectedRow(), 0));
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -168,7 +176,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Nombre", "Club", "Categoria"
+                "id", "Nombre", "Club"
             }
         ));
         jScrollPane1.setViewportView(jTableEquiposDisponibles);
@@ -190,7 +198,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Nombre", "Club", "Categoria"
+                "id", "Nombre", "Club"
             }
         ));
         jScrollPane2.setViewportView(jTableEquiposInscriptos);

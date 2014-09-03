@@ -280,9 +280,8 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
 
-    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha) {
-        Query traerEquipos = this.entityManager.createQuery("SELECT E FROM Equipo E WHERE E.borradoLogico = FALSE");
-        List<Equipo> unaListaResultado = traerEquipos.getResultList();
+  public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) { 
+        List<Equipo> unaListaResultado = (List<Equipo>) unTorneo.getEquiposInscriptos();
         if (unaFecha != null) {
             for (Partido unPartido : unaFecha.getPartidos()) {
                 if (!unPartido.isBorradoLogico()) {
