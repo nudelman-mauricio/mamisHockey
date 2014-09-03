@@ -353,8 +353,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getEquiposBDFiltro(dato);
     }
 
-    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha) {
-        return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha);
+    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
+        return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha,unTorneo);
     }
     // </editor-fold>
 

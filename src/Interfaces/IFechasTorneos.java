@@ -79,8 +79,8 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombosEquipos() {
-        this.modelComboEquipolocal = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada));
-        this.modelComboEquipoVisitante = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada));
+        this.modelComboEquipolocal = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada, unTorneo));
+        this.modelComboEquipoVisitante = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada, unTorneo));
         this.jComboBoxEquipoLocal.setModel(modelComboEquipolocal);
         this.jComboBoxEquipoVisitante.setModel(modelComboEquipoVisitante);
     }
