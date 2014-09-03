@@ -448,10 +448,10 @@ public class IErgometria extends javax.swing.JInternalFrame {
                 Date fechaCaducidad = new java.sql.Date(df.parse(jTextFieldFechaCaducidad.getText()).getTime());
                 if (unaErgometriaSeleccionada == null) {
                     unaControladoraGlobal.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText());
-                    JOptionPane.showMessageDialog(this, "Ergometria Guardada");
+                    JOptionPane.showMessageDialog(this, "Ergometría Guardada");
                 } else {
                     unaControladoraGlobal.modificarErgometria(unaErgometriaSeleccionada, fechaCaducidad, fechaRealizacion, jCheckBoxEgometriaAprobada.isSelected(), jTextPaneErgometriaComentario.getText(), unaErgometriaSeleccionada.isBorradoLogico());
-                    JOptionPane.showMessageDialog(this, "Ergometria Modificada");
+                    JOptionPane.showMessageDialog(this, "Ergometría Modificada");
                     unaErgometriaSeleccionada = null;
                 }
             } catch (ParseException ex) {

@@ -227,7 +227,6 @@ public class ControladoraDeportiva {
             if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
                 listaHabilitadas.remove(unaSocia);
             }
-
         }
         return listaHabilitadas;
     }
@@ -500,6 +499,7 @@ public class ControladoraDeportiva {
     }
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Categorias">
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
