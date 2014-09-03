@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
+import main.TableCellRendererColor;
 
 public class IGestionSocias extends javax.swing.JInternalFrame {
 

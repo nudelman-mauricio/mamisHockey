@@ -42,9 +42,10 @@ public class IEquipo extends javax.swing.JInternalFrame {
         this(unaControladoraGlobal, unJInternalFrame);
         this.unEquipo = unEquipo;
         this.setTitle("Club: " + unEquipo.getNombre());
+        cargarCombosBox();
         camposCargar(unEquipo);
         camposActivo(jPanelDetalles, false);
-
+       
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(true);
@@ -104,26 +105,40 @@ public class IEquipo extends javax.swing.JInternalFrame {
     }
 
     private void camposCargar(Equipo unEquipo) {
+        camposLimpiar();
         jTextFieldNombre.setText(unEquipo.getNombre());
         jComboBoxClub.setSelectedItem(unaControladoraGlobal.getClubBD(unEquipo));
         jComboBoxDT.setSelectedItem(unEquipo.getUnDT());
         if (unEquipo.getUnPreparadorFisico() != null) {
             jComboBoxPF.setSelectedItem(unEquipo.getUnPreparadorFisico());
+            System.out.println(unEquipo.getUnPreparadorFisico().getApellido());
+        }else{
+            jComboBoxPF.setSelectedIndex(-1);
         }
         if (unEquipo.getUnAyudanteCampo() != null) {
             jComboBoxAC.setSelectedItem(unEquipo.getUnAyudanteCampo());
+        }else{
+            jComboBoxAC.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaDelegada() != null) {
             jComboBoxDelegada.setSelectedItem(unEquipo.getUnaDelegada());
+        }else{
+            jComboBoxDelegada.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaDelegadaSuplente() != null) {
             jComboBoxDelegadaSup.setSelectedItem(unEquipo.getUnaDelegadaSuplente());
+        }else{
+            jComboBoxDelegadaSup.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaCapitana() != null) {
             jComboBoxCapitana.setSelectedItem(unEquipo.getUnaCapitana());
+        }else{
+            jComboBoxCapitana.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaCapitanaSuplente() != null) {
             jComboBoxCapitanaSup.setSelectedItem(unEquipo.getUnaCapitanaSuplente());
+        }else{
+            jComboBoxCapitanaSup.setSelectedIndex(-1);
         }
     }
 
@@ -422,10 +437,10 @@ public class IEquipo extends javax.swing.JInternalFrame {
             }
             if (this.unEquipo == null) {
                 unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getText(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
-                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, (PersonaAuxiliar) jComboBoxDT.getSelectedItem(), unPF, unAC, unEquipo.isBorradoLogico());
+                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getText(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, (PersonaAuxiliar) jComboBoxDT.getSelectedItem(), unPF, unAC, unEquipo.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Equipo Guardado");
             } else {
-                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getName(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, (PersonaAuxiliar) jComboBoxDT.getSelectedItem(), unPF, unAC, unEquipo.isBorradoLogico());
+                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getText(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, (PersonaAuxiliar) jComboBoxDT.getSelectedItem(), unPF, unAC, unEquipo.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Equipo Modificado");
             }
             this.dispose();

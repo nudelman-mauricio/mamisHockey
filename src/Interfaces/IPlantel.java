@@ -54,29 +54,29 @@ public class IPlantel extends javax.swing.JInternalFrame {
             } else {
                 deudas = "No";
             }
-            puesto = "Jugadora";
-            if (unaSocia.getDni() == unEquipo.getUnaCapitana().getDni()) {
-                puesto = "Capitana";
-            } else {
-                if (unaSocia.getDni() == unEquipo.getUnaCapitanaSuplente().getDni()) {
-                    puesto = "Capitana Suplente";
-                } else {
-                    if (unaSocia.getDni() == unEquipo.getUnaDelegada().getDni()) {
-                        puesto = "Delegada";
-                    } else {
-                        if (unaSocia.getDni() == unEquipo.getUnaDelegadaSuplente().getDni()) {
-                            puesto = "Delegada Suplente";
-                        }
-                    }
-                }
-            }
+//            puesto = "Jugadora";
+//            if (unaSocia.getDni() == unEquipo.getUnaCapitana().getDni()) {
+//                puesto = "Capitana";
+//            } else {
+//                if (unaSocia.getDni() == unEquipo.getUnaCapitanaSuplente().getDni()) {
+//                    puesto = "Capitana Suplente";
+//                } else {
+//                    if (unaSocia.getDni() == unEquipo.getUnaDelegada().getDni()) {
+//                        puesto = "Delegada";
+//                    } else {
+//                        if (unaSocia.getDni() == unEquipo.getUnaDelegadaSuplente().getDni()) {
+//                            puesto = "Delegada Suplente";
+//                        }
+//                    }
+//                }
+//            }
             this.modeloTablaPlantel.addRow(new Object[]{
                 unaSocia.getDni(),
                 unaSocia.getNumeroCamiseta(),
                 unaSocia.getApellido(),
                 unaSocia.getNombre(),
                 unaSocia.getUltimoEstado(),
-                puesto,
+                "puesto",
                 deudas});
         }
 

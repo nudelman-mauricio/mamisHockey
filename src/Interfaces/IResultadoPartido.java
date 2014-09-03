@@ -15,6 +15,7 @@ import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
+import main.TableCellRendererColor;
 
 public class IResultadoPartido extends javax.swing.JInternalFrame {
 
@@ -34,6 +35,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unPartido = unPartido;
 
+        this.jTableLocal.setDefaultRenderer(Object.class, new TableCellRendererColor());
+
         this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
         this.modeloTableGolLocal = (DefaultTableModel) jTableGolLocal.getModel();
         this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
@@ -49,7 +52,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelResultado.setText("- a -");
 
         camposCargar();
-
         //Botones
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
@@ -61,7 +63,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jButtonEditar.setEnabled(false);
 
         }
-        if (unPartido.getNombreVeedor() == null) { //El partido se jugo
+        if (unPartido.getNombreVeedor() != null) { //El partido se jugo
             jButtonActualizar.setEnabled(false);
         } else {
             jButtonActualizar.setEnabled(true);
@@ -103,13 +105,21 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         //AC
         if (unPartido.getUnAyudanteCampoLocal() == null) {
-            jTextFieldAyudanteCampoLocal.setText(unPartido.getUnEquipoLocal().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnAyudanteCampo().getNombre());
+            if (unPartido.getUnEquipoLocal().getUnAyudanteCampo() != null) {
+                jTextFieldAyudanteCampoLocal.setText(unPartido.getUnEquipoLocal().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnAyudanteCampo().getNombre());
+            } else {
+                jTextFieldAyudanteCampoLocal.setText("-");
+            }
         } else {
             jTextFieldAyudanteCampoLocal.setText(unPartido.getUnAyudanteCampoLocal().getApellido() + ", " + unPartido.getUnAyudanteCampoLocal().getNombre());
         }
         //PF
         if (unPartido.getUnPreparadorFisicoLocal() == null) {
-            jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnEquipoLocal().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnPreparadorFisico().getNombre());
+            if (unPartido.getUnEquipoLocal().getUnPreparadorFisico() != null) {
+                jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnEquipoLocal().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnPreparadorFisico().getNombre());
+            } else {
+                jTextFieldPreparadorFisicoLocal.setText("-");
+            }
         } else {
             jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().getApellido() + ", " + unPartido.getUnPreparadorFisicoLocal().getNombre());
         }
@@ -137,13 +147,22 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         //AC
         if (unPartido.getUnAyudanteCampoVisitante() == null) {
-            jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
+            if (unPartido.getUnEquipoVisitante().getUnAyudanteCampo() != null) {
+                jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
+
+            } else {
+                jTextFieldAyudanteCampoVisitante.setText("-");
+            }
         } else {
             jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnAyudanteCampoVisitante().getApellido() + ", " + unPartido.getUnAyudanteCampoVisitante().getNombre());
         }
         //PF
         if (unPartido.getUnPreparadorFisicoVisitante() == null) {
-            jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
+            if (unPartido.getUnEquipoVisitante().getUnPreparadorFisico() != null) {
+                jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
+            } else {
+                jTextFieldPreparadorFisicoVisitante.setText("-");
+            }
         } else {
             jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().getApellido() + ", " + unPartido.getUnPreparadorFisicoVisitante().getNombre());
         }
@@ -153,6 +172,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTableVisitante);
         if (unPartido.getPlantelVisitante() == null) {
             for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
+                System.out.println(unaSocia.getApellido());
                 cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
             }
         } else {
@@ -338,6 +358,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel24 = new javax.swing.JLabel();
         jButtonGolVisitante = new javax.swing.JButton();
 
+        setClosable(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -716,7 +737,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, "", null},
+                {"125", "asdas", "asd", "12", null, "1", null, "1", "1", null},
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -746,16 +767,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, true, true, true
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jTableLocal.setEnabled(false);
@@ -885,38 +899,38 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, ""},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min", "T", "Min"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true, true, true, true, true, true, true, true, true, true, true
+                false, false, false, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -937,42 +951,27 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(35);
             jTableVisitante.getColumnModel().getColumn(1).setMaxWidth(35);
             jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jTableVisitante.getColumnModel().getColumn(3).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(3).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(4).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(4).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(4).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(5).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(5).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(5).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(6).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(6).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(6).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(7).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(7).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(8).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(10).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(10).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(10).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(11).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(11).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(11).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(12).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(12).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(12).setMaxWidth(35);
-            jTableVisitante.getColumnModel().getColumn(13).setMinWidth(20);
-            jTableVisitante.getColumnModel().getColumn(13).setPreferredWidth(20);
-            jTableVisitante.getColumnModel().getColumn(13).setMaxWidth(20);
-            jTableVisitante.getColumnModel().getColumn(14).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(14).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(14).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(3).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(3).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(4).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(4).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(5).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(5).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(5).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(6).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(6).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(6).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(7).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(7).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(8).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(40);
+            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(40);
+            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(40);
         }
         jTableVisitante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -1099,7 +1098,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
         if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
             unaControladoraGlobal.descontarSancion(unPartido.getPlantelLocal(), unPartido.getFecha());
-            unaControladoraGlobal.descontarSancion(unPartido.getPlantelVisitante(),unPartido.getFecha());
+            unaControladoraGlobal.descontarSancion(unPartido.getPlantelVisitante(), unPartido.getFecha());
         }
         unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
 
@@ -1192,15 +1191,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido) FALTA
         //-Habilitado siempre y cuando no se haya jugado el partido. ok
 
-        if (unPartido.getNombreVeedor() != null) {//Siempre y cuando el partodo no se haya jugado
+        if (unPartido.getNombreVeedor() == null) {//Siempre y cuando el partodo no se haya jugado
             //Local
             if (unPartido.getPlantelLocal() != null) {
                 Object[] options = {"OK", "Cancelar"};
                 if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el plantel Local", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
                     //Cargar Tabla Local
                     limpiarTabla(modeloTableLocal);
-                    for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
-                        cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                    
+                    //for (Socia unaSocia : unPartido.getUnEquipoLocal().getPlantel()) {
+                    
+                   for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
+                        modeloTableLocal.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+                        "", "","","","","",""});
+                        
+                        
+                        
+                        //cargarCamposTablaControlando(unaSocia, modeloTableLocal);
                     }
                 }
             }
@@ -1210,9 +1217,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 Object[] options = {"OK", "Cancelar"};
                 if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el Plantel Visitante", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
                     //Cargar Tabla Visitante
-                    limpiarTabla(modeloTableLocal);
+                    limpiarTabla(modeloTableVisitante);
                     for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
-                        cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                        modeloTableLocal.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+                        "", "","","","","",""});
+                        
+                        
+                        
+                        //cargarCamposTablaControlando(unaSocia, modeloTableLocal);
                     }
                 }
             }
