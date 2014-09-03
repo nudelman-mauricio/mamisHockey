@@ -27,7 +27,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel unModeloComboConceptoEgreso;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public IGestionEgresos(JDesktopPane unjDesktopPanel, ControladoraGlobal unaControladoraGlobal) {
+    public IGestionEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.modeloTablaGestionEgresos = (DefaultTableModel) jTableEgresos.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
