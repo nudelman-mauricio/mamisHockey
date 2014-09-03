@@ -144,8 +144,10 @@ public class Socia extends Persona implements Serializable {
     public boolean isErgometriaAprobada_y_Vigente(Date unaFecha) {
         boolean resultado = false;
         Ergometria ultimaErgometria = this.getUltimaErgometria();
-        if ((ultimaErgometria.getFechaCaducidad().after(unaFecha)) && (ultimaErgometria.isAprobado())) {
-            resultado = true;
+        if (ultimaErgometria != null) {
+            if ((ultimaErgometria.getFechaCaducidad().after(unaFecha)) && (ultimaErgometria.isAprobado())) {
+                resultado = true;
+            }
         }
         return resultado;
     }

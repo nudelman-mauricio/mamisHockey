@@ -1199,9 +1199,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     //Cargar Tabla Local
                     limpiarTabla(modeloTableLocal);
                     
-                    //for (Socia unaSocia : unPartido.getUnEquipoLocal().getPlantel()) {
+                    for (Socia unaSocia : unPartido.getUnEquipoLocal().getPlantel()) {
                     
-                   for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
+                   //for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
                         modeloTableLocal.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
                         "", "","","","","",""});
                         

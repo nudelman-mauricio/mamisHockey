@@ -224,8 +224,15 @@ public class ControladoraDeportiva {
     public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha) {
         List<Socia> listaHabilitadas = new ArrayList(unEquipo.getPlantel());
         for (Socia unaSocia : unEquipo.getPlantel()) {
-            if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
-                listaHabilitadas.remove(unaSocia);
+            if ((unaSocia.getErgometrias() != null) && (unaSocia.getEstados() != null)) {
+                if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
+                    System.out.println(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+                    System.out.println("Al dia: " + (!unaSocia.isAlDia(unaFecha)));
+                    System.out.println("Estado: " + (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")));
+                    System.out.println("Ergometria Vigente: " + (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)));
+                    System.out.println("Sancionada: " + (unaSocia.isSancionada(unaFecha)));
+                    listaHabilitadas.remove(unaSocia);
+                }
             }
         }
         return listaHabilitadas;
@@ -499,7 +506,6 @@ public class ControladoraDeportiva {
     }
 
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Categorias">
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
