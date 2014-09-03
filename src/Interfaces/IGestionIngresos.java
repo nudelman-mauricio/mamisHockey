@@ -101,7 +101,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
             String[] fechaDividida = fecha.split("/");
             jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
             jComboBoxDesdeAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
-
+            
             fecha = df.format(unaControladoraGlobal.getUltimoIngresoOtro().getFecha());
             fechaDividida = fecha.split("/");
             jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
