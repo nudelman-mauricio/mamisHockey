@@ -74,7 +74,7 @@ public class TipoCancha implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return "Cancha Tipo: " + nombre;
+        return nombre;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
