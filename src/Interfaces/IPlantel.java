@@ -7,6 +7,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import logicaNegocios.Socia;
@@ -34,22 +36,37 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void obtenerPlantel() {
         DateFormat df = DateFormat.getDateInstance();
         Calendar FechaSO = Calendar.getInstance();
-        String deudas;
+        String deudas, puesto;
         limpiarTabla(modeloTablaPlantel);
-        List<Socia> unaListaResultado = (List<Socia>) unEquipo.getPlantel();
-        for (Socia unaSocia : unaListaResultado) {            
-            if (unaSocia.isAlDia(FechaSO.getTime())){
+        for (Socia unaSocia : unEquipo.getPlantel()) {
+            if (unaSocia.isAlDia(FechaSO.getTime())) {
                 deudas = "Si";
-            }else{
+            } else {
                 deudas = "No";
             }
+            puesto = "Jugadora";
+            if (unaSocia.getDni() == unEquipo.getUnaCapitana().getDni()) {
+                puesto = "Capitana";
+            } else {
+                if (unaSocia.getDni() == unEquipo.getUnaCapitanaSuplente().getDni()) {
+                    puesto = "Capitana Suplente";
+                } else {
+                    if (unaSocia.getDni() == unEquipo.getUnaDelegada().getDni()) {
+                        puesto = "Delegada";
+                    } else {
+                        if (unaSocia.getDni() == unEquipo.getUnaDelegadaSuplente().getDni()) {
+                            puesto = "Delegada Suplente";
+                        }
+                    }
+                }
+            }
             this.modeloTablaPlantel.addRow(new Object[]{
-                unaSocia.getDni(), 
-                unaSocia.getNumeroCamiseta(), 
-                unaSocia.getApellido(), 
-                unaSocia.getNombre(), 
-                unaSocia.getUltimoEstado(), 
-                "(Falta) aca va puesto", 
+                unaSocia.getDni(),
+                unaSocia.getNumeroCamiseta(),
+                unaSocia.getApellido(),
+                unaSocia.getNombre(),
+                unaSocia.getUltimoEstado(),
+                puesto,
                 deudas});
         }
 
@@ -86,7 +103,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
     private void camposActivo(boolean Editable) {
         jTextFieldNroCamiseta.setEditable(Editable);
-        jButton1.setEnabled(Editable);
 
         jButtonGuardar.setEnabled(Editable);
         jButtonCancelar.setEnabled(Editable);
@@ -103,6 +119,25 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(!estado);
         if (!estado) {
             jTablePlantel.clearSelection();
+        }
+    }
+
+    //actualizar campos al seleccionar en la tabla
+    private void camposCargar() {
+        if (jTablePlantel.getSelectedRow() > -1) {
+            if (jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0) != null) {
+                Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
+
+                camposLimpiar();
+
+                jTextFieldNombre.setText(unaSociaSeleccionada.getNombre());
+                jTextFieldApellido.setText(unaSociaSeleccionada.getApellido());
+                jTextFieldNroCamiseta.setText(unaSociaSeleccionada.getNumeroCamiseta());
+
+                camposActivo(false);
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
         }
     }
 
@@ -140,8 +175,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jTextFieldApellido = new javax.swing.JTextField();
         jTextFieldNroCamiseta = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 431));
@@ -248,7 +281,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Dni", "N° Camiseta", "Apellido", "Nombre", "Estado", "Cargo", "¿Posee Deudas?"
+                "Dni", "N° Camiseta", "Apellido", "Nombre", "Estado", "Puesto", "¿Posee Deudas?"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -270,12 +303,17 @@ public class IPlantel extends javax.swing.JInternalFrame {
             jTablePlantel.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTablePlantel.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTablePlantel.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,11 +343,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Auto-Asignar");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/accept.png"))); // NOI18N
-        jLabel1.setText(" ");
-
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
@@ -320,43 +353,39 @@ public class IPlantel extends javax.swing.JInternalFrame {
                         .addGap(156, 156, 156)
                         .addComponent(jLabelFechaMonto))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNroCamiseta)
-                            .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelDestino, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(165, 165, 165)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelNroCamiseta)
+                                .addComponent(jLabelOrigen, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabelDestino))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                                .addComponent(jTextFieldNroCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(jTextFieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNroCamiseta))))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabelFechaMonto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNroCamiseta)
-                    .addComponent(jTextFieldNroCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(jTextFieldNroCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelOrigen)
                     .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDestino)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelFechaMonto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelDestino))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -408,20 +437,31 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTablePlantelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePlantelFocusGained
-        this.SeleccionarObjetoTabla(true);        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTablePlantelFocusGained
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (camposValidar()) {
-            unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldNroCamiseta.getText());
-            JOptionPane.showMessageDialog(this, "Numero de camiseta modificado exitosamente");
-            camposActivo(false);
-            camposLimpiar();
-            obtenerPlantel();
+        boolean control = true;
+        for (Socia SociasDelPlantel : unEquipo.getPlantel()) {
+            if ((SociasDelPlantel.getDni() != unaSocia.getDni()) && (SociasDelPlantel.getNumeroCamiseta() == unaSocia.getNumeroCamiseta())) {
+                control = false;
+            }
+        }
+        if (control) {
+            if (camposValidar()) {
+                unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldNroCamiseta.getText());
+                JOptionPane.showMessageDialog(this, "Numero de camiseta modificado exitosamente");
+                camposActivo(false);
+                camposLimpiar();
+                obtenerPlantel();
+            } else {
+                JOptionPane.showMessageDialog(this, "Ya existe una jugadora en el equipo con ese numero de camiseta");
+            }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.jTablePlantel.clearSelection();
         this.camposActivo(false);
         this.camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -432,13 +472,11 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelFechaMonto;
     private javax.swing.JLabel jLabelNroCamiseta;
