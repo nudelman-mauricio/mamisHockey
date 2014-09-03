@@ -89,6 +89,6 @@ public class TipoEstado implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return "Socia Estado: " + nombre;
+        return nombre;
     }
 }

@@ -481,8 +481,15 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void filtrarSocias(String dato) {
         limpiarTablaSocia(modeloTablaSocia);
         List<Socia> unaListaResultado = this.unaControladoraGlobal.getSociasBDFiltro(dato);
+        String ultimoEstado;
         for (Socia unaSocia : unaListaResultado) {
-            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), unaSocia.getUltimoEstado(), unaSocia.getEquipoActual()});
+            if (unaSocia.getUltimoEstado()!= null){
+                ultimoEstado=unaSocia.getUltimoEstado().getUnTipoEstado().getNombre();
+            }else
+            {
+                ultimoEstado= "";
+            }
+            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), ultimoEstado, unaSocia.getEquipoActual()});
         }
     }
 
