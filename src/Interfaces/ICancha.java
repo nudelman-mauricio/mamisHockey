@@ -457,10 +457,10 @@ public class ICancha extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarCancha(unaCanchaSeleccionada);
-            unaCanchaSeleccionada = null;
             cargarTabla();
         }
         jTableCancha.clearSelection();
+        unaCanchaSeleccionada = null;
         camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 

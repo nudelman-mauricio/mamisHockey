@@ -22,33 +22,25 @@ public class IEstado extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private Socia unaSocia;
-
-    private boolean modificar = false;
+    private Estado unEstadoSeleccionado = null;
     private DefaultTableModel modeloTableEstado;
+    private DateFormat df = DateFormat.getDateInstance();
 
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IEstado(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-
-        //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
-        //Centrar
         IMenuPrincipalInterface.centrar(this);
-        //Titulo Ventana
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
 
-        //ComboBox con los tipos de estados
-        cargarComboBoxTipoEstado();
-
+        this.jComboBoxEstado.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposEstadosBD()));
         this.modeloTableEstado = (DefaultTableModel) jTableEstado.getModel();
-        cargarCamposTabla();
+        cargarTabla();
 
         camposActivo(false);
-
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonEditar.setEnabled(false);
@@ -56,29 +48,31 @@ public class IEstado extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
     }
 
-    public void cargarComboBoxTipoEstado() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposEstadosBD());
-        this.jComboBoxEstado.setModel(modelCombo);
-    }
-
     //Cargar Tabla con los Estados de la Socia
-    public void cargarCamposTabla() {
-        limpiarTabla(modeloTableEstado);
-        DateFormat df = DateFormat.getDateInstance();
-        for (Object aux : unaSocia.getEstadosValidos()) {
-            Estado unEstado = (Estado) aux;
+    public void cargarTabla() {
+        limpiarTabla();
+        for (Estado unEstado : unaSocia.getEstadosValidos()) {
             this.modeloTableEstado.addRow(new Object[]{unEstado.getIdEstado(), df.format(unEstado.getFecha()), unEstado.getUnTipoEstado().getNombre()});
         }
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
+    private void limpiarTabla() {
+        int filas = modeloTableEstado.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTableEstado.removeRow(0);
+        }
+    }
+
+    //actualizar los campos al seleccionar en la tabla
+    private void camposCargar() {
+        if (jTableEstado.getSelectedRow() > -1) {
+            if (jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0) != null) {
+                unEstadoSeleccionado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
+                jTextFieldFecha.setText(df.format(unEstadoSeleccionado.getFecha()));
+                jComboBoxEstado.setSelectedItem(unEstadoSeleccionado.getUnTipoEstado());
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
 
@@ -263,10 +257,9 @@ public class IEstado extends javax.swing.JInternalFrame {
             jTableEstado.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableEstado.getColumnModel().getColumn(0).setMaxWidth(0);
         }
-        jTableEstado.getSelectionModel () .addListSelectionListener(new ListSelectionListener(){
+        jTableEstado.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                jButtonEliminar.setEnabled(true);
-                jButtonEditar.setEnabled(true);
+                camposCargar();
             }
         });
 
@@ -306,7 +299,7 @@ public class IEstado extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFecha)
                     .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -314,7 +307,7 @@ public class IEstado extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEstado)
                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -345,69 +338,70 @@ public class IEstado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        modificar = false;
-
-        jTableEstado.clearSelection();
-        jTableEstado.setEnabled(false);
-        camposActivo(true);
-        camposLimpiar();
-
-        //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
+
+        jTableEstado.setEnabled(false);
+        jTableEstado.clearSelection();
+
+        camposActivo(true);
+        camposLimpiar();
+        unEstadoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            DateFormat df = DateFormat.getDateInstance();
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
-                if (!modificar) {
+                if (unEstadoSeleccionado == null) {
                     unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem());
-                    JOptionPane.showMessageDialog(this, "Nuevo Estado Guardado");
+                    JOptionPane.showMessageDialog(this, "Estado Guardado");
                 } else {
-                    Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
-                    unaControladoraGlobal.modificarEstado(unEstado, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem(), false);
+                    unaControladoraGlobal.modificarEstado(unEstadoSeleccionado, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem(), unEstadoSeleccionado.isBorradoLogico());
+                    unEstadoSeleccionado = null;
                     JOptionPane.showMessageDialog(this, "Estado Modificado");
                 }
+                cargarTabla();
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jTableEstado.setEnabled(true);
+                camposActivo(false);
+                camposLimpiar();
             } catch (ParseException e) {
                 System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
             }
-
-            jButtonNuevo.setEnabled(true);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonEditar.setEnabled(false);
-
-            camposLimpiar();
-            camposActivo(false);
-            jTableEstado.setEnabled(true);
-            cargarCamposTabla();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        modificar = false;
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
 
-        jTableEstado.clearSelection();
-
-        camposLimpiar();
-        camposActivo(false);
         jTableEstado.setEnabled(true);
 
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
+        camposActivo(false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableEstado.setEnabled(true);
+
+        camposActivo(false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -419,33 +413,28 @@ public class IEstado extends javax.swing.JInternalFrame {
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarEstado(unEstado);
-
-            cargarCamposTabla();
+            unaControladoraGlobal.eliminarEstado(unEstadoSeleccionado);
+            cargarTabla();
         }
+        jTableEstado.clearSelection();
+        unEstadoSeleccionado = null;
+        camposLimpiar();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        modificar = true;
-        jTableEstado.setEnabled(false);
-        camposActivo(true);
-
-        Estado unEstado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
-        DateFormat df = DateFormat.getDateInstance();
-        jTextFieldFecha.setText(df.format(unEstado.getFecha()));
-        jComboBoxEstado.setSelectedItem(unEstado.getUnTipoEstado());
-
         jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
+
+        jTableEstado.setEnabled(false);
+
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        if (unJInternalFrame != null) {
-            this.unJInternalFrame.setVisible(true);
-        }
+        this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
 
