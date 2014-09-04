@@ -87,13 +87,18 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
         Socia unSocia = this.getSociaBD(dni);
         TipoEstado unTipoEstadoSocia = null;
-        for (TipoEstado unTipoEstado : this.getTiposEstadosBD()){
-            if ("Socia".equals(unTipoEstado.getNombre())){
+        for (TipoEstado unTipoEstado : this.getTiposEstadosBD()) {
+            if ("Socia".equals(unTipoEstado.getNombre())) {
                 unTipoEstadoSocia = unTipoEstado;
             }
         }
-        if (unTipoEstadoSocia == null){
+        if (unTipoEstadoSocia == null) {
             this.crearTipoEstado("Socia");
+            for (TipoEstado unTipoEstado : this.getTiposEstadosBD()) {
+                if ("Socia".equals(unTipoEstado.getNombre())) {
+                    unTipoEstadoSocia = unTipoEstado;
+                }
+            }
         }
         this.crearEstado(unSocia, fechaIngreso, unTipoEstadoSocia);
     }
@@ -365,7 +370,7 @@ public class ControladoraGlobal {
     }
 
     public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
-        return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha,unTorneo);
+        return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha, unTorneo);
     }
     // </editor-fold>
 

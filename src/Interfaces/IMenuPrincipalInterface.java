@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Socia;
+import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 import main.ImagenFondo;
 
@@ -67,6 +69,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemCategoria = new javax.swing.JMenuItem();
         jMenuItemTipoCancha = new javax.swing.JMenuItem();
         jMenuItemSkin = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,7 +148,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.setMaximumSize(new java.awt.Dimension(129, 32767));
 
         jMenuItemGestionarIngresos.setText("Gestión Ingresos");
-        jMenuItemGestionarIngresos.setActionCommand("Gestión Ingresos");
         jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemGestionarIngresosActionPerformed(evt);
@@ -283,6 +285,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItemSkin);
+
+        jMenuItem2.setText("Estado\"Socia\"ASocias");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
 
         jMenuBar1.add(jMenu4);
 
@@ -437,6 +447,30 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.jDesktopPane.add(unGestionTorneo);
     }//GEN-LAST:event_jMenuTorneoMouseClicked
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        //Si no hay tipoEstadoSocia, lo crea
+        TipoEstado unTipoEstadoSocia = null;
+        for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+            if ("Socia".equals(unTipoEstado.getNombre())) {
+                unTipoEstadoSocia = unTipoEstado;
+            }
+        }
+        if (unTipoEstadoSocia == null) {
+            unaControladoraGlobal.crearTipoEstado("Socia");
+            for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+                if ("Socia".equals(unTipoEstado.getNombre())) {
+                    unTipoEstadoSocia = unTipoEstado;
+                }
+            }
+        }
+        //A todas las socias que no tienen un estado, le asigna uno
+        for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
+            if (unaSocia.getUltimoEstado() == null) {
+                unaControladoraGlobal.crearEstado(unaSocia, unaSocia.getFechaIngreso(), unTipoEstadoSocia);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -455,6 +489,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;

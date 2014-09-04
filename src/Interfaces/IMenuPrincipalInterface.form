@@ -101,7 +101,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarIngresos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Ingresos"/>
-                <Property name="actionCommand" type="java.lang.String" value="Gesti&#xf3;n Ingresos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarIngresosActionPerformed"/>
@@ -268,6 +267,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSkinActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estado&quot;Socia&quot;ASocias"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
