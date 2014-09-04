@@ -281,7 +281,7 @@ public class ControladoraDeportiva {
     }
 
   public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) { 
-        List<Equipo> unaListaResultado = (List<Equipo>) unTorneo.getEquiposInscriptos();
+        List<Equipo> unaListaResultado = (List<Equipo>) unTorneo.getEquiposInscriptos();        
         if (unaFecha != null) {
             for (Partido unPartido : unaFecha.getPartidos()) {
                 if (!unPartido.isBorradoLogico()) {

@@ -3,7 +3,6 @@ package Interfaces;
 import java.text.DateFormat;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Torneo;
@@ -19,13 +18,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
+        this.setTitle("Gestión Torneos");
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
         this.SeleccionarObjetoTabla(false);
 
         filtrar("");
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTablaToneo) {
+    private void limpiarTabla() {
         int filas = modeloTablaTorneo.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTorneo.removeRow(0);
@@ -45,11 +45,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }
 
     private void filtrar(String dato) {
-        limpiarTabla(modeloTablaTorneo);
+        limpiarTabla();
         DateFormat df = DateFormat.getDateInstance();
         List<Torneo> unaListaResultado = this.unaControladoraGlobal.getTorneosBDFiltro(dato);
         for (Torneo unTorneo : unaListaResultado) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas()});
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
         }
 
     }
@@ -364,7 +364,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         //usar el "customize code"
         Torneo unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
         //--
-        
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
