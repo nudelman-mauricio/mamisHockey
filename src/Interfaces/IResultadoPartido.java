@@ -2,6 +2,7 @@ package Interfaces;
 
 import java.text.DateFormat;
 import java.util.Collection;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.unPartido = unPartido;
 
         this.jTableLocal.setDefaultRenderer(Object.class, new TableCellRendererColor());
+        this.jTableVisitante.setDefaultRenderer(Object.class, new TableCellRendererColor());
 
         this.modeloTableLocal = (DefaultTableModel) jTableLocal.getModel();
         this.modeloTableGolLocal = (DefaultTableModel) jTableGolLocal.getModel();
@@ -50,6 +52,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
         jLabelResultado.setText("- a -");
+
+        DateFormat df = DateFormat.getDateInstance();
+        jLabelFechaPartido.setText(df.format(unPartido.getFecha()));
 
         camposCargar();
         //Botones
@@ -191,83 +196,41 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
-        Tarjeta v1 = null, v2 = null, a1 = null, a2 = null, ra = null, rd = null;
-        for (Tarjeta unTarjeta : unaControladoraGlobal.getTarjetaSociaPartido(unPartido, unaSocia)) {
-            if (unTarjeta != null) {
-                if ("Verde".equals(unTarjeta.getTipo())) {
-                    if (v1 == null) {
-                        v1 = unTarjeta;
-                    } else {
-                        if (Double.parseDouble(v1.getTiempo()) <= Double.parseDouble(unTarjeta.getTiempo())) {
-                            if (Double.parseDouble(v1.getMinuto()) > Double.parseDouble(unTarjeta.getMinuto())) {
+        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
+        for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
+            for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
+                if (Objects.equals(unTarjeta.getIdTarjeta(), unTarjetaSocia.getIdTarjeta())) {
+                    if ("Verde".equals(unTarjeta.getTipo())) {
+                        if (v1 == null) {
+                            v1 = unTarjeta;
+                        } else {
+                            if (v2 == null) {
                                 v2 = unTarjeta;
                             } else {
-                                v2 = v1;
-                                v1 = unTarjeta;
+                                if (v3 == null) {
+                                    v3 = unTarjeta;
+                                }
                             }
-                        } else {
-                            v2 = v1;
-                            v1 = unTarjeta;
                         }
                     }
-                }
-                if ("Amarrilla".equals(unTarjeta.getTipo())) {
-                    if (a1 == null) {
-                        a1 = unTarjeta;
-                    } else {
-                        if (Double.parseDouble(a1.getTiempo()) <= Double.parseDouble(unTarjeta.getTiempo())) {
-                            if (Double.parseDouble(a1.getMinuto()) > Double.parseDouble(unTarjeta.getMinuto())) {
-                                a2 = unTarjeta;
-                            } else {
-                                a2 = v1;
-                                a1 = unTarjeta;
-                            }
-                        } else {
-                            a2 = a1;
+                    if ("Amarrilla".equals(unTarjeta.getTipo())) {
+                        if (a1 == null) {
                             a1 = unTarjeta;
+                        } else {
+                            v2 = unTarjeta;
                         }
                     }
+                    if ("Roja".equals(unTarjeta.getTipo())) {
+                        rd = unTarjeta;
+                    }
                 }
-                if ("Roja".equals(unTarjeta.getTipo())) {
-                    rd = unTarjeta;
+                if ((a1 == null) && (a2 == null)) {
+                    ra = rd;
+                    rd = null;
                 }
-            }
-            if ((a1 == null) && (a2 == null)) {
-                ra = rd;
-                rd = null;
-            }
-            if (v1 == null) {
-                v1.setTiempo("-");
-                v1.setMinuto("-");
-            }
-            if (v2 == null) {
-                v2.setTiempo("-");
-                v2.setMinuto("-");
-            }
-            if (a1 == null) {
-                a1.setTiempo("-");
-                a1.setMinuto("-");
-            }
-            if (a2 == null) {
-                a2.setTiempo("-");
-                a2.setMinuto("-");
-            }
-            if (ra == null) {
-                ra.setTiempo("-");
-                ra.setMinuto("-");
-            }
-            if (rd == null) {
-                rd.setTiempo("-");
-                rd.setMinuto("-");
             }
         }
-        modeloTable.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
-            v1.getTiempo(), v1.getMinuto(),
-            v2.getTiempo(), v2.getMinuto(),
-            a1.getTiempo(), a1.getMinuto(),
-            a2.getTiempo(), a2.getMinuto(),
-            ra.getTiempo(), ra.getMinuto(),
-            rd.getTiempo(), rd.getMinuto()});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v3, a1, a2, ra, rd});
     }
 
     public void cargarGoles(Equipo unEquipo, DefaultTableModel modeloTable) {
@@ -304,7 +267,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jPanelTitulo = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jLabelResultado = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelFechaPartido = new javax.swing.JLabel();
+        jLabelFechaPartido1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelDetalles = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -360,6 +324,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonGolVisitante = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -457,7 +438,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabelResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelResultado.setText("4 a 2");
 
-        jLabel2.setText("jLabel2");
+        jLabelFechaPartido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelFechaPartido.setText("dd/mm/aaaa");
+
+        jLabelFechaPartido1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelFechaPartido1.setText("Fecha del Partido: ");
 
         javax.swing.GroupLayout jPanelTituloLayout = new javax.swing.GroupLayout(jPanelTitulo);
         jPanelTitulo.setLayout(jPanelTituloLayout);
@@ -470,18 +455,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     .addComponent(jLabelResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTituloLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabelFechaPartido1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelFechaPartido)))
                 .addContainerGap())
         );
         jPanelTituloLayout.setVerticalGroup(
             jPanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelResultado)
+                .addGap(3, 3, 3)
+                .addGroup(jPanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTituloLayout.createSequentialGroup()
+                        .addComponent(jLabelFechaPartido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelResultado))
+                    .addComponent(jLabelFechaPartido1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -745,7 +735,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"125", "asdas", "asd", "12", null, "1", null, "1", "1", null},
+                {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -773,14 +763,26 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jTableLocal.setEnabled(false);
+        jTableLocal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLocalMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableLocal);
         if (jTableLocal.getColumnModel().getColumnCount() > 0) {
             jTableLocal.getColumnModel().getColumn(0).setMinWidth(0);
@@ -882,7 +884,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jButtonGolLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -935,10 +937,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, true, true, false
+                false, true, false, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1206,14 +1208,12 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el plantel Local", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
                     //Cargar Tabla Local
                     limpiarTabla(modeloTableLocal);
-                    
+
                     for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
-                        modeloTableLocal.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
-                        "", "","","","","",""});
-                        
-                        
-                        
-                        //cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                        //modeloTableLocal.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+                        //"", "", "", "", "", "", ""});
+
+                        cargarCamposTablaControlando(unaSocia, modeloTableLocal);
                     }
                 }
             }
@@ -1225,17 +1225,39 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     //Cargar Tabla Visitante
                     limpiarTabla(modeloTableVisitante);
                     for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
-                        modeloTableVisitante.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
-                        "", "","","","","",""});
-                        
-                        
-                        
+                        modeloTableVisitante.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+                            "", "", "", "", "", "", ""});
+
                         //cargarCamposTablaControlando(unaSocia, modeloTableLocal);
                     }
                 }
             }
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
+
+    private void jTableLocalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLocalMouseClicked
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            evt.consume();
+
+            if (jTableLocal.getSelectedRow() > -1) {
+                if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
+                    Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
+
+                    ICargarTarjeta unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
+                    unaICargarTarjeta.pack();
+                    unaICargarTarjeta.setVisible(true);
+
+                    this.setVisible(false);
+                    IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
+
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableLocalMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;
@@ -1255,7 +1277,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1266,6 +1287,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEquipoLocal;
     private javax.swing.JLabel jLabelEquipoVisitante;
+    private javax.swing.JLabel jLabelFechaPartido;
+    private javax.swing.JLabel jLabelFechaPartido1;
     private javax.swing.JLabel jLabelResultado;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;

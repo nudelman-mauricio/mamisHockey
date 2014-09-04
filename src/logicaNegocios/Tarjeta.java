@@ -94,7 +94,12 @@ public class Tarjeta implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
+
     // </editor-fold>
+    @Override
+    public String toString() {
+        return tiempo + "T " + minuto + "'";
+    }
 
     @Override
     public int compareTo(Object aux) {

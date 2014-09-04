@@ -190,7 +190,7 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
             if (jComboBoxTiempo.getSelectedIndex() == 0) {
                 if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
                     unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "1", jTextFieldMinuto.getText());
-                    //Recorrer las tarjetas de esta socia en este partido. Si tiene dos verdes, Agregar una amarilla por acumulacion
+                    //Recorrer las tarjetas de esta socia en este partido. Si tiene tres verdes, Agregar una amarilla por acumulacion
                 }
                 if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
                     unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Amarilla", "", "1", jTextFieldMinuto.getText());

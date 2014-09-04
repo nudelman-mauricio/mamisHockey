@@ -12,10 +12,15 @@ public class TableCellRendererColor extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
         componente = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.
         String texto = (String) value;
-
+        
+        if (column == 1){
+            componente.setHorizontalAlignment(CENTER);
+        }else{
+        componente.setHorizontalAlignment(LEFT);
+        }
+       
         if (column < 3) {
             componente.setBackground(Color.white);
         }
