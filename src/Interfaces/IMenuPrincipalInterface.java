@@ -69,7 +69,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemCategoria = new javax.swing.JMenuItem();
         jMenuItemTipoCancha = new javax.swing.JMenuItem();
         jMenuItemSkin = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -286,15 +288,27 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItemSkin);
 
+        jMenuBar1.add(jMenu4);
+
+        jMenu2.setText("Asistentes de Carga DB");
+
         jMenuItem2.setText("Estado\"Socia\"ASocias");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem2);
+        jMenu2.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu4);
+        jMenuItem3.setText("Asingar Equipo Aleatorio");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu2);
 
         jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
         jMenuSalir.setText("Salir");
@@ -471,6 +485,21 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+            
+            int Max=(unaControladoraGlobal.getEquiposBD().size())+1;
+            int Min=1;
+            int aux;
+            
+            for (Socia unaSocia : unaControladoraGlobal.getSociasBD()){
+                aux = ((int)(Math.random()*(Max-Min))+Min);
+                unaControladoraGlobal.crearPase(unaSocia, 
+                        unaSocia.getFechaIngreso(), 0, 1, 
+                        unaSocia.getFechaIngreso(), 
+                        unaControladoraGlobal.getEquipoBD(Long.valueOf(String.valueOf(aux))),true , false, "");
+            }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
@@ -480,6 +509,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenuAuxiliares;
@@ -490,6 +520,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
