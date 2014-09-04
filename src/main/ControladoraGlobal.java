@@ -85,6 +85,17 @@ public class ControladoraGlobal {
     // <editor-fold defaultstate="collapsed" desc="Socias">
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
+        Socia unSocia = this.getSociaBD(dni);
+        TipoEstado unTipoEstadoSocia = null;
+        for (TipoEstado unTipoEstado : this.getTiposEstadosBD()){
+            if ("Socia".equals(unTipoEstado.getNombre())){
+                unTipoEstadoSocia = unTipoEstado;
+            }
+        }
+        if (unTipoEstadoSocia == null){
+            this.crearTipoEstado("Socia");
+        }
+        this.crearEstado(unSocia, fechaIngreso, unTipoEstadoSocia);
     }
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
