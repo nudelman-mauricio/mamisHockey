@@ -558,9 +558,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
                 aux = ((int) (Math.random() * (Max - Min)) + Min);
                 if (aux == 1) {
-                    unaControladoraGlobal.crearErgometria(unaSocia, unaSocia.getFechaIngreso(), fechaVencimiento, false, "");
+                    unaControladoraGlobal.crearErgometria(unaSocia,fechaVencimiento ,unaSocia.getFechaIngreso() , false, "");
                 } else {
-                    unaControladoraGlobal.crearErgometria(unaSocia, unaSocia.getFechaIngreso(), fechaVencimiento, true, "");
+                    unaControladoraGlobal.crearErgometria(unaSocia,fechaVencimiento ,unaSocia.getFechaIngreso(), true, "");
                 }
 
             }

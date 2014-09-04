@@ -225,16 +225,13 @@ public class ControladoraDeportiva {
         List<Socia> listaHabilitadas = new ArrayList(unEquipo.getPlantel());
         for (Socia unaSocia : unEquipo.getPlantel()) {
             if ((unaSocia.getErgometrias() != null) && (unaSocia.getEstados() != null)) {
-                if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
-                    System.out.println(unaSocia.getApellido() + ", " + unaSocia.getNombre());
-                    System.out.println("Al dia: " + (!unaSocia.isAlDia(unaFecha)));
-                    System.out.println("Estado: " + (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")));
-                    System.out.println("Ergometria Vigente: " + (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)));
-                    System.out.println("Sancionada: " + (unaSocia.isSancionada(unaFecha)));
+                if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Socia")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
                     listaHabilitadas.remove(unaSocia);
                 }
+            }else{
+                listaHabilitadas.remove(unaSocia);
             }
-        }
+        }        
         return listaHabilitadas;
     }
 

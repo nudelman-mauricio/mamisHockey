@@ -1,9 +1,13 @@
 package main;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -931,4 +935,17 @@ public class ControladoraGlobal {
     }
     // </editor-fold>
 // </editor-fold>
+
+    public Date fechaSistema() {
+        Date fechaSO = null;
+        try {
+            DateFormat df = DateFormat.getDateInstance();
+            Calendar FechaSO = Calendar.getInstance();
+
+            fechaSO = new java.sql.Date(df.parse(df.format(FechaSO.getTime())).getTime());
+
+        } catch (ParseException ex) {
+        }
+        return fechaSO;
+    }
 }

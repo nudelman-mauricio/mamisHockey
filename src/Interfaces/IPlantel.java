@@ -41,45 +41,50 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }
 
     private void obtenerPlantel() {
-        DateFormat df = DateFormat.getDateInstance();
-        Calendar FechaSO = Calendar.getInstance();
-        String deudas, puesto;
+        String deudas = "", puesto = "";
         limpiarTabla(modeloTablaPlantel);
 
-        for (Socia unaSocia : unEquipo.getPlantel()) {    
-            
-        
-            if (unaSocia.isAlDia(FechaSO.getTime())) {
-                deudas = "Si";
-            } else {
-                deudas = "No";
-            }
-//            puesto = "Jugadora";
-//            if (unaSocia.getDni() == unEquipo.getUnaCapitana().getDni()) {
-//                puesto = "Capitana";
-//            } else {
-//                if (unaSocia.getDni() == unEquipo.getUnaCapitanaSuplente().getDni()) {
-//                    puesto = "Capitana Suplente";
-//                } else {
-//                    if (unaSocia.getDni() == unEquipo.getUnaDelegada().getDni()) {
-//                        puesto = "Delegada";
-//                    } else {
-//                        if (unaSocia.getDni() == unEquipo.getUnaDelegadaSuplente().getDni()) {
-//                            puesto = "Delegada Suplente";
-//                        }
-//                    }
-//                }
-//            }
-            this.modeloTablaPlantel.addRow(new Object[]{
-                unaSocia.getDni(),
-                unaSocia.getNumeroCamiseta(),
-                unaSocia.getApellido(),
-                unaSocia.getNombre(),
-                unaSocia.getUltimoEstado(),
-                "puesto",
-                deudas});
-        }
+        for (Socia unaSocia : unEquipo.getPlantel()) {
 
+            if (unaSocia.isAlDia(unaControladoraGlobal.fechaSistema())) {
+                deudas = "No";
+            } else {
+                deudas = "Si";
+            }
+            puesto = "Jugadora";
+            if (unEquipo.getUnaCapitana() != null) {
+                if (unaSocia.getDni() == unEquipo.getUnaCapitana().getDni()) {
+                    puesto = "Capitana";
+                }
+            }
+            if (unEquipo.getUnaCapitanaSuplente() != null) {
+                if (unaSocia.getDni() == unEquipo.getUnaCapitanaSuplente().getDni()) {
+                    puesto = "Capitana Suplente";
+                }
+            }
+            if (unEquipo.getUnaDelegada() != null) {
+                if (unaSocia.getDni() == unEquipo.getUnaDelegada().getDni()) {
+                    puesto = "Delegada";
+                }
+            }
+            if (unEquipo.getUnaDelegadaSuplente() != null) {
+                if (unaSocia.getDni() == unEquipo.getUnaDelegadaSuplente().getDni()) {
+                    puesto = "Delegada Suplente";
+                }
+            }
+
+            this.modeloTablaPlantel.addRow(
+                    new Object[]{
+                        unaSocia.getDni(),
+                        unaSocia.getNumeroCamiseta(),
+                        unaSocia.getApellido() + ", " + unaSocia.getNombre(),
+                        unaSocia.getUltimoEstado().getUnTipoEstado().getNombre(),
+                        puesto,
+                        deudas,
+                        unaSocia.isErgometriaAprobada_y_Vigente(unaControladoraGlobal.fechaSistema())
+                    }
+            );
+        }
     }
 
     private void limpiarTabla(DefaultTableModel modeloTablaPlantel) {
@@ -175,6 +180,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jTextFieldNombre = new javax.swing.JTextField();
 
         setClosable(true);
+        setResizable(true);
         setMaximumSize(new java.awt.Dimension(650, 431));
         setMinimumSize(new java.awt.Dimension(650, 431));
         setPreferredSize(new java.awt.Dimension(650, 431));
@@ -279,12 +285,19 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Dni", "N° Camiseta", "Apellido", "Nombre", "Estado", "Puesto", "¿Posee Deudas?"
+                "Dni", "N° Camiseta", "Apellido y Nombres", "Estado", "Puesto", "¿Posee Deudas?", "Ergometría"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -300,6 +313,19 @@ public class IPlantel extends javax.swing.JInternalFrame {
             jTablePlantel.getColumnModel().getColumn(0).setMinWidth(0);
             jTablePlantel.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTablePlantel.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTablePlantel.getColumnModel().getColumn(1).setMinWidth(80);
+            jTablePlantel.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jTablePlantel.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTablePlantel.getColumnModel().getColumn(2).setMinWidth(200);
+            jTablePlantel.getColumnModel().getColumn(3).setMinWidth(90);
+            jTablePlantel.getColumnModel().getColumn(3).setPreferredWidth(90);
+            jTablePlantel.getColumnModel().getColumn(3).setMaxWidth(90);
+            jTablePlantel.getColumnModel().getColumn(4).setMinWidth(90);
+            jTablePlantel.getColumnModel().getColumn(4).setPreferredWidth(90);
+            jTablePlantel.getColumnModel().getColumn(4).setMaxWidth(90);
+            jTablePlantel.getColumnModel().getColumn(5).setMinWidth(90);
+            jTablePlantel.getColumnModel().getColumn(5).setPreferredWidth(90);
+            jTablePlantel.getColumnModel().getColumn(5).setMaxWidth(90);
         }
         jTablePlantel.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -311,7 +337,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +367,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                         .addGap(156, 156, 156)
                         .addComponent(jLabelFechaMonto))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(165, 165, 165)
+                        .addGap(205, 205, 205)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelNroCamiseta)
@@ -352,7 +378,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jTextFieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jTextFieldNroCamiseta))))
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
