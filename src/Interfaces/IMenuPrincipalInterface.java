@@ -3,6 +3,11 @@ package Interfaces;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -72,6 +77,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -308,6 +314,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
+        jMenuItem6.setText("Asignar Ergometrias");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
         jMenuBar1.add(jMenu2);
 
         jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
@@ -486,19 +500,41 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-            
-            int Max=(unaControladoraGlobal.getEquiposBD().size())+1;
-            int Min=1;
-            int aux;
-            
-            for (Socia unaSocia : unaControladoraGlobal.getSociasBD()){
-                aux = ((int)(Math.random()*(Max-Min))+Min);
-                unaControladoraGlobal.crearPase(unaSocia, 
-                        unaSocia.getFechaIngreso(), 0, 1, 
-                        unaSocia.getFechaIngreso(), 
-                        unaControladoraGlobal.getEquipoBD(Long.valueOf(String.valueOf(aux))),true , false, "");
-            }
+
+        int Max = (unaControladoraGlobal.getEquiposBD().size()) + 1;
+        int Min = 1;
+        int aux;
+
+        for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
+            aux = ((int) (Math.random() * (Max - Min)) + Min);
+            unaControladoraGlobal.crearPase(unaSocia,
+                    unaSocia.getFechaIngreso(), 0, 1,
+                    unaSocia.getFechaIngreso(),
+                    unaControladoraGlobal.getEquipoBD(Long.valueOf(String.valueOf(aux))), true, false, "");
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        int Max = (10) + 1;
+        int Min = 1;
+        int aux;
+        DateFormat df = DateFormat.getDateInstance();
+        Date fechaVencimiento;
+        try {
+            fechaVencimiento = new java.sql.Date(df.parse("20/05/2019").getTime());
+            for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
+                aux = ((int) (Math.random() * (Max - Min)) + Min);
+                if (aux == 1) {
+                    unaControladoraGlobal.crearErgometria(unaSocia, unaSocia.getFechaIngreso(), fechaVencimiento, false, "");
+                } else {
+                    unaControladoraGlobal.crearErgometria(unaSocia, unaSocia.getFechaIngreso(), fechaVencimiento, true, "");
+                }
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -523,6 +559,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
