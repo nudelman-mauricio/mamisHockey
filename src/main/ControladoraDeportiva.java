@@ -228,10 +228,10 @@ public class ControladoraDeportiva {
                 if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Socia")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
                     listaHabilitadas.remove(unaSocia);
                 }
-            }else{
+            } else {
                 listaHabilitadas.remove(unaSocia);
             }
-        }        
+        }
         return listaHabilitadas;
     }
 
@@ -277,8 +277,8 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
 
-  public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) { 
-        List<Equipo> unaListaResultado = (List<Equipo>) unTorneo.getEquiposInscriptos();        
+    public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
+        List<Equipo> unaListaResultado = (List<Equipo>) unTorneo.getEquiposInscriptos();
         if (unaFecha != null) {
             for (Partido unPartido : unaFecha.getPartidos()) {
                 if (!unPartido.isBorradoLogico()) {
@@ -691,6 +691,7 @@ public class ControladoraDeportiva {
             for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
                 if (unaFechaTorneo.getPartidos().contains(unPartido)) {
                     resultado = unaFechaTorneo;
+                    return resultado;
                 }
             }
         }
@@ -714,11 +715,13 @@ public class ControladoraDeportiva {
     }
 
     public boolean isPartidoAnteriorJugado(Partido unPartido) {
-        boolean resultado = true;
+        boolean resultado = false;
         Partido unPartidoAnterior = this.getPartidoAnterior(unPartido);
         if (unPartido != unPartidoAnterior) {
-            if (unPartidoAnterior.getNombreVeedor().isEmpty()) {
-                resultado = false;
+            if (unPartidoAnterior.getNombreVeedor() != null) {
+                if (!unPartidoAnterior.getNombreVeedor().isEmpty()) {
+                    resultado = true;
+                }
             }
         }
         return resultado;
