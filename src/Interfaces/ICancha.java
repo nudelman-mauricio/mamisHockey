@@ -33,7 +33,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         this.modeloTable = (DefaultTableModel) jTableCancha.getModel();
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
-        this.setTitle("Club: " + unClub.getNombre()); //Titulo Ventana
+        this.setTitle("Canchas de Club: " + unClub.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
 
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());

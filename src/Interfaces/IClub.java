@@ -38,7 +38,7 @@ public class IClub extends javax.swing.JInternalFrame {
     public IClub(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         this(unaControladoraGlobal, unJInternalFrame);
         this.unClub = unClub;
-        this.setTitle("Club: " + unClub.getNombre());
+        this.setTitle("Datos de Club: " + unClub.getNombre());
         camposCargar(unClub);
         camposActivo(jPanelDetalles, false);
 

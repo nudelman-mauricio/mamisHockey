@@ -114,6 +114,7 @@
               <Image iconType="3" name="/Iconos Nuevos/deletered.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -140,6 +141,7 @@
               <Image iconType="3" name="/Iconos Nuevos/printer.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Imprimir"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -165,7 +167,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextFieldBusqueda" min="-2" pref="328" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldBusqueda" min="-2" pref="328" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -178,7 +183,8 @@
                       <Component id="jLabel3" alignment="3" max="32767" attributes="0"/>
                       <Component id="jTextFieldBusqueda" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -200,6 +206,11 @@
               <Image iconType="3" name="/Iconos Nuevos/Filtro2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Filtrar:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="* por nombre"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -236,7 +247,7 @@
                     <Column editable="true" title="Presidente" type="java.lang.Object"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableClub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        camposActivo(true);&#xa;    }&#xa;});">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableClub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        camposCargar();&#xa;    }&#xa;});">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                       <Title/>
@@ -264,9 +275,6 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTableClubFocusGained"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -316,6 +324,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Datos.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Datos"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -329,6 +338,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Equipoo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Equipos"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -342,6 +352,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Club.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Canchas"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>

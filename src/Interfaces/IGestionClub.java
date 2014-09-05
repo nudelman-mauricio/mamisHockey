@@ -1,7 +1,6 @@
 package Interfaces;
 
 import java.text.DateFormat;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -14,28 +13,32 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaClub;
-    private Club unClubSeleccionado;
+    private Club unClubSeleccionado = null;
     private DateFormat df = DateFormat.getDateInstance();
 
     public IGestionClub(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaClub = (DefaultTableModel) jTableClub.getModel();
-        filtrarClub("");
 
-        //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
         this.setTitle("Gestión de Clubes");
         IMenuPrincipalInterface.centrar(this);
-        camposActivo(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
     }
 
     private void limpiarTabla() {
         int filas = this.modeloTablaClub.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaClub.removeRow(0);
+        }
+    }
+
+    private void camposCargar() {
+        if (jTableClub.getSelectedRow() > -1) {
+            if (jTableClub.getValueAt(jTableClub.getSelectedRow(), 0) != null) {
+                unClubSeleccionado = unaControladoraGlobal.getClubBD((Long) jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
+                camposActivo(true);
+            }
         }
     }
 
@@ -47,12 +50,12 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(Editable);
     }
 
-    private void filtrarClub(String dato) {
+    private void cargarTabla(String dato) {
         limpiarTabla();
-        List<Club> unaListaResultado = this.unaControladoraGlobal.getClubesBDFiltro(dato);
-        for (Club unClub : unaListaResultado) {
+        for (Club unClub : this.unaControladoraGlobal.getClubesBDFiltro(dato)) {
             this.modeloTablaClub.addRow(new Object[]{unClub.getIdClub(), unClub.getNombre(), unClub.getUnaLocalidad().getNombre(), unClub.getNombrePresidente()});
         }
+        camposActivo(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,6 +69,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         jPanelFiltro = new javax.swing.JPanel();
         jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableClub = new javax.swing.JTable();
@@ -89,6 +93,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +114,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +160,8 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
         jLabel3.setText("Filtrar:");
 
+        jLabel1.setText("* por nombre");
+
         javax.swing.GroupLayout jPanelFiltroLayout = new javax.swing.GroupLayout(jPanelFiltro);
         jPanelFiltro.setLayout(jPanelFiltroLayout);
         jPanelFiltroLayout.setHorizontalGroup(
@@ -162,7 +170,9 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanelFiltroLayout.setVerticalGroup(
@@ -172,7 +182,8 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1))
         );
 
         jTableClub.setModel(new javax.swing.table.DefaultTableModel(
@@ -191,11 +202,6 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableClub.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableClubFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableClub);
         if (jTableClub.getColumnModel().getColumnCount() > 0) {
             jTableClub.getColumnModel().getColumn(0).setMinWidth(0);
@@ -204,7 +210,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         }
         jTableClub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                camposActivo(true);
+                camposCargar();
             }
         });
 
@@ -223,6 +229,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
+        jButtonDatos.setEnabled(false);
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +240,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
         jButtonEquipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipoo.png"))); // NOI18N
         jButtonEquipos.setText("Equipos");
+        jButtonEquipos.setEnabled(false);
         jButtonEquipos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEquipos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEquipos.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +251,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
         jButtonCanchas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Club.png"))); // NOI18N
         jButtonCanchas.setText("Canchas");
+        jButtonCanchas.setEnabled(false);
         jButtonCanchas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCanchas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCanchas.addActionListener(new java.awt.event.ActionListener() {
@@ -329,13 +338,13 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCanchasActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarClub(jTextFieldBusqueda.getText());
-        camposActivo(false);
+        cargarTabla(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        unClubSeleccionado = unaControladoraGlobal.getClubBD((Long) jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));        
+        jButtonNuevo.setEnabled(true);
         camposActivo(false);
+        jTableClub.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -347,15 +356,13 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarClub(unClubSeleccionado);
-            unClubSeleccionado = null;
-            filtrarClub("");            
+            cargarTabla("");
         }
         jTableClub.clearSelection();
-        jTableClub.setEnabled(true);
+        unClubSeleccionado = null;
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Club unClubSeleccionado = unaControladoraGlobal.getClubBD((Long) jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
         IClub unIClub = new IClub(unaControladoraGlobal, this, unClubSeleccionado);
         unIClub.pack();
         unIClub.setVisible(true);
@@ -364,8 +371,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEquiposActionPerformed
-        Club unClubSeleccionado = unaControladoraGlobal.getClubBD((Long) jTableClub.getValueAt(jTableClub.getSelectedRow(), 0));
-        IClubEquipo unIClubEquipo = new IClubEquipo(unaControladoraGlobal, unClubSeleccionado,this);
+        IClubEquipo unIClubEquipo = new IClubEquipo(unaControladoraGlobal, unClubSeleccionado, this);
         unIClubEquipo.pack();
         unIClubEquipo.setVisible(true);
         this.setVisible(false);
@@ -373,13 +379,8 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        filtrarClub(jTextFieldBusqueda.getText());
-        camposActivo(false);
+        cargarTabla(jTextFieldBusqueda.getText());
     }//GEN-LAST:event_formComponentShown
-
-    private void jTableClubFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableClubFocusGained
-        this.camposActivo(true);
-    }//GEN-LAST:event_jTableClubFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCanchas;
@@ -388,6 +389,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEquipos;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelBotones2;
