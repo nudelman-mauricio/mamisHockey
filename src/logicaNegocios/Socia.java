@@ -171,7 +171,7 @@ public class Socia extends Persona implements Serializable {
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
     public void agregarTarjeta(EntityManager entityManager, Tarjeta unaTarjeta) {
-        this.getTarjetas().add(unaTarjeta);
+        this.tarjetas.add(unaTarjeta);
         this.persistir(entityManager);
     }
 

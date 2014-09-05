@@ -83,12 +83,12 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         modelComboEquipolocal = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada, unTorneo));
         jComboBoxEquipoLocal.setModel(modelComboEquipolocal);
         jComboBoxEquipoLocal.setSelectedIndex(-1);
-        
+
         //combox visitante
         modelComboEquipoVisitante = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada, unTorneo));
         jComboBoxEquipoVisitante.setModel(modelComboEquipoVisitante);
         jComboBoxEquipoVisitante.setSelectedIndex(-1);
-        
+
         //jComboBoxEquipoLocal.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada, unTorneo)));        
         //jComboBoxEquipoVisitante.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquipoPorFecha(unaFechaTorneoSeleccionada, unTorneo)));        
     }
@@ -121,21 +121,25 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
 
                 camposLimpiar();
 
-                modelComboEquipolocal.addElement(unPartidoSeleccionado.getUnEquipoLocal());
-                modelComboEquipoVisitante.addElement(unPartidoSeleccionado.getUnEquipoVisitante());
-                jComboBoxEquipoLocal.setModel(modelComboEquipolocal);
-                jComboBoxEquipoVisitante.setModel(modelComboEquipoVisitante);
-
                 jTextFieldFecha.setText(df.format(unPartidoSeleccionado.getFecha()));
                 jComboBoxCancha.setSelectedItem(unPartidoSeleccionado.getUnaCancha());
-                jComboBoxEquipoLocal.setSelectedItem(unPartidoSeleccionado.getUnEquipoLocal());
-                jComboBoxEquipoVisitante.setSelectedItem(unPartidoSeleccionado.getUnEquipoVisitante());
                 jComboBoxArbitro1.setSelectedItem(unPartidoSeleccionado.getUnArbitro1());
                 jComboBoxArbitro2.setSelectedItem(unPartidoSeleccionado.getUnArbitro2());
                 jComboBoxArbitro3.setSelectedItem(unPartidoSeleccionado.getUnArbitro3());
 
-                //modelComboEquipolocal.removeElement(unPartidoSeleccionado.getUnEquipoLocal());
-                //modelComboEquipoVisitante.removeElement(unPartidoSeleccionado.getUnEquipoVisitante());
+//                modelComboEquipolocal.addElement(unPartidoSeleccionado.getUnEquipoLocal());
+//                modelComboEquipoVisitante.addElement(unPartidoSeleccionado.getUnEquipoVisitante());
+//                jComboBoxEquipoLocal.setModel(modelComboEquipolocal);
+//                jComboBoxEquipoVisitante.setModel(modelComboEquipoVisitante);
+//                modelComboEquipolocal.removeElement(unPartidoSeleccionado.getUnEquipoLocal());
+//                modelComboEquipoVisitante.removeElement(unPartidoSeleccionado.getUnEquipoVisitante());
+                
+                jComboBoxEquipoLocal.setEditable(true);
+                jComboBoxEquipoVisitante.setEditable(true);
+                jComboBoxEquipoLocal.setSelectedItem(unPartidoSeleccionado.getUnEquipoLocal());
+                jComboBoxEquipoVisitante.setSelectedItem(unPartidoSeleccionado.getUnEquipoVisitante());
+                jComboBoxEquipoLocal.setEditable(false);
+                jComboBoxEquipoVisitante.setEditable(false);
 
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
@@ -714,6 +718,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonAgregarFecha.setEnabled(false);
 
         jTableFechasTorneo.setEnabled(false);
+        jTableFechasTorneo.clearSelection();
 
         cargarCombosEquipos();
 
@@ -734,6 +739,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
         jButtonAgregarFecha.setEnabled(true);
 
         jTableFechasTorneo.setEnabled(true);
+        jTableFechasTorneo.clearSelection();
 
         camposActivo(jPanelDetalles, false);
         camposActivo(jPanelBotones2, true);
