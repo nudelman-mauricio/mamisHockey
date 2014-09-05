@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +18,12 @@ import logicaNegocios.Egreso;
 import main.ControladoraGlobal;
 
 public class IGestionEgresos extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaGestionEgresos;
-    private Egreso unEgresoSeleccionado;    
+    private Egreso unEgresoSeleccionado;
     private DateFormat df = DateFormat.getDateInstance();
-
+    
     public IGestionEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -40,25 +39,25 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
     }
     
-    private void cargarComboBoxConceptoEgreso() {        
+    private void cargarComboBoxConceptoEgreso() {
         this.jComboBoxConceptoEgreso.setModel(new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getConceptosEgresosBD()));
         this.jComboBoxConceptoEgreso.setSelectedIndex(-1);
     }
-
+    
     private void cargarFechasFiltrado() {
         if (unaControladoraGlobal.getPrimerEgreso() != null) {
             String fecha = df.format(unaControladoraGlobal.getPrimerEgreso().getFecha());
             String[] fechaDividida = fecha.split("/");
             jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
             jComboBoxDesdeAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
-
+            
             fecha = df.format(unaControladoraGlobal.getUltimoEgreso().getFecha());
             fechaDividida = fecha.split("/");
-            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
+            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]));//sin (-1) porque debe ser un mes mas del ultimo agreso
             jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
         }
     }
-
+    
     private void cargarTabla() {
         limpiarTabla();
         String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedIndex() + 2010);
@@ -70,24 +69,33 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
         } catch (ParseException ex) {
             Logger.getLogger(IGestionEgresos.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         for (Egreso unEgreso : this.unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta)) {
             this.modeloTablaGestionEgresos.addRow(new Object[]{unEgreso.getIdEgreso(), df.format(unEgreso.getFecha()), unEgreso.getUnConceptoEgreso(), unEgreso.getObservacion(), unEgreso.getMonto()});
         }
     }
-
+    
     private void limpiarTabla() {
         int filas = this.modeloTablaGestionEgresos.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaGestionEgresos.removeRow(0);
         }
+        camposLimpiar();
     }
-
+    
+    private void camposFiltroActivo(boolean Editable) {
+        jComboBoxDesdeMes.setEnabled(Editable);
+        jComboBoxDesdeAño.setEnabled(Editable);
+        jComboBoxHastaMes.setEnabled(Editable);
+        jComboBoxHastaAño.setEnabled(Editable);
+    }
+    
     private void camposActivo(boolean Editable) {
         jTextFieldMonto.setEditable(Editable);
         jTextFieldFecha.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
         jComboBoxConceptoEgreso.setEnabled(Editable);
+        jButtonNuevoEgreso.setEnabled(Editable);
     }
 
     //blanquea componentes editables
@@ -103,21 +111,22 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         if (jTableEgresos.getSelectedRow() > -1) {
             if (jTableEgresos.getValueAt(jTableEgresos.getSelectedRow(), 0) != null) {
                 unEgresoSeleccionado = unaControladoraGlobal.getEgresoBD((Long) jTableEgresos.getValueAt(jTableEgresos.getSelectedRow(), 0));
-
+                
                 camposLimpiar();
-
+                
                 jTextFieldFecha.setText(df.format(unEgresoSeleccionado.getFecha()));
                 jTextFieldMonto.setText(String.valueOf(unEgresoSeleccionado.getMonto()));
                 jTextPaneDetalle.setText(unEgresoSeleccionado.getObservacion());
                 jComboBoxConceptoEgreso.setSelectedItem(unEgresoSeleccionado.getUnConceptoEgreso());
-
+                
                 camposActivo(false);
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
             }
         }
     }
-
+    
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldMonto.getText().isEmpty()) {
@@ -143,7 +152,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -559,9 +568,11 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-
+        jButtonImprimir.setEnabled(false);
+        
         jTableEgresos.setEnabled(false);
-
+        
+        camposFiltroActivo(false);
         camposActivo(true);
         camposLimpiar();
         cargarComboBoxConceptoEgreso();
@@ -581,59 +592,32 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-
         if (camposValidar()) {
-            if (unEgresoSeleccionado == null) {
-                try {
-                    unaControladoraGlobal.crearEgreso(
-                            new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime()),
-                            Integer.parseInt(jTextFieldMonto.getText()),
-                            (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
-                            jTextPaneDetalle.getText());
+            try {
+                Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+                if (unEgresoSeleccionado == null) {
+                    unaControladoraGlobal.crearEgreso(fecha, Double.parseDouble(jTextFieldMonto.getText()), (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(), jTextPaneDetalle.getText());
                     JOptionPane.showMessageDialog(this, "Egreso Guardado");
-                    jButtonNuevo.setEnabled(true);
-                    jButtonEditar.setEnabled(false);
-                    jButtonGuardar.setEnabled(false);
-                    jButtonCancelar.setEnabled(false);
-                    jButtonEliminar.setEnabled(false);
-
-                    camposActivo(false);
-                    camposLimpiar();
-                    cargarFechasFiltrado();
-                    cargarTabla();
-                    jTableEgresos.setEnabled(true);
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
-                }
-
-            } else {
-                try {
-                    unaControladoraGlobal.modificarEgreso(
-                            unEgresoSeleccionado,
-                            new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime()),
-                            Integer.parseInt(jTextFieldMonto.getText()),
-                            (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(),
-                            jTextPaneDetalle.getText(),
-                            false);
+                } else {
+                    unaControladoraGlobal.modificarEgreso(unEgresoSeleccionado, fecha, Double.parseDouble(jTextFieldMonto.getText()), (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem(), jTextPaneDetalle.getText(), unEgresoSeleccionado.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Egreso Modificado");
-                    jButtonNuevo.setEnabled(true);
-                    jButtonEditar.setEnabled(false);
-                    jButtonGuardar.setEnabled(false);
-                    jButtonCancelar.setEnabled(false);
-                    jButtonEliminar.setEnabled(false);
-
-                    camposActivo(false);
-                    camposLimpiar();
-                    cargarFechasFiltrado();
-                    cargarTabla();
-                    jTableEgresos.setEnabled(true);
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
+                    unEgresoSeleccionado = null;
                 }
-                unEgresoSeleccionado = null;
-
+                cargarFechasFiltrado();
+                cargarTabla();
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+                jTableEgresos.setEnabled(true);
+                camposActivo(false);
+                camposFiltroActivo(true);
+                camposLimpiar();
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
             }
-
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -643,9 +627,11 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-
+        jButtonImprimir.setEnabled(false);
+        
         jTableEgresos.setEnabled(false);
-
+        
+        camposFiltroActivo(false);
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -655,9 +641,10 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableEgresos.setEnabled(true);
-
+        
+        camposFiltroActivo(true);
         camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -668,14 +655,13 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
-        jTableEgresos.setEnabled(false);
-
+        jButtonImprimir.setEnabled(false);
+        
         camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el egreso: " + unEgresoSeleccionado.getFecha() + " - " + unEgresoSeleccionado.getUnConceptoEgreso() + " - " + unEgresoSeleccionado.getMonto(),
+                "Desea eliminar el Egreso: " + unEgresoSeleccionado.getFecha() + " - " + unEgresoSeleccionado.getUnConceptoEgreso() + " - " + unEgresoSeleccionado.getMonto(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
@@ -683,10 +669,10 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarEgreso(unEgresoSeleccionado);
-            unEgresoSeleccionado = null;
             cargarFechasFiltrado();
             cargarTabla();
         }
+        unEgresoSeleccionado = null;
         jTableEgresos.clearSelection();
         jTableEgresos.setEnabled(true);
         camposLimpiar();
