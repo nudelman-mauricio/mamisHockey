@@ -196,41 +196,106 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
-        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
+        String v1 = "", v2 = "", v3 = "", a1 = "", a2 = "", ra = "", rd = "";
         for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
             for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
                 if (Objects.equals(unTarjeta.getIdTarjeta(), unTarjetaSocia.getIdTarjeta())) {
                     if ("Verde".equals(unTarjeta.getTipo())) {
-                        if (v1 == null) {
-                            v1 = unTarjeta;
+                        if (v1 == "") {
+                            v1 = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
                         } else {
-                            if (v2 == null) {
-                                v2 = unTarjeta;
+                            if (v2 == "") {
+                                v2 = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
                             } else {
-                                if (v3 == null) {
-                                    v3 = unTarjeta;
+                                if (v3 == "") {
+                                    v3 = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
                                 }
                             }
                         }
                     }
                     if ("Amarrilla".equals(unTarjeta.getTipo())) {
-                        if (a1 == null) {
-                            a1 = unTarjeta;
+                        if (a1 == "") {
+                            a1= unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
                         } else {
-                            v2 = unTarjeta;
+                            v2= unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
                         }
                     }
                     if ("Roja".equals(unTarjeta.getTipo())) {
-                        rd = unTarjeta;
+                        rd = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
                     }
                 }
-                if ((a1 == null) && (a2 == null)) {
+                if ((a1 == "") && (a2 == "")) {
                     ra = rd;
-                    rd = null;
+                    rd = "";
                 }
             }
         }
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v3, a1, a2, ra, rd});
+        
+         modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
+            v1,
+            v2,
+            v2,
+            a1,
+            a2,
+            ra,
+            rd});
+        
+//        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
+//        for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
+//            for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
+//                if (Objects.equals(unTarjeta.getIdTarjeta(), unTarjetaSocia.getIdTarjeta())) {
+//                    if ("Verde".equals(unTarjeta.getTipo())) {
+//                        if (v1 == null) {
+//                            v1 = unTarjeta;
+//                        } else {
+//                            if (v2 == null) {
+//                                v2 = unTarjeta;
+//                            } else {
+//                                if (v3 == null) {
+//                                    v3 = unTarjeta;
+//                                }
+//                            }
+//                        }
+//                    }
+//                    if ("Amarrilla".equals(unTarjeta.getTipo())) {
+//                        if (a1 == null) {
+//                            a1 = unTarjeta;
+//                        } else {
+//                            v2 = unTarjeta;
+//                        }
+//                    }
+//                    if ("Roja".equals(unTarjeta.getTipo())) {
+//                        rd = unTarjeta;
+//                    }
+//                }
+//                if ((a1 == null) && (a2 == null)) {
+//                    ra = rd;
+//                    rd = null;
+//                }
+//            }
+//        }
+//        if (v1 == null){
+//            v1 = new Tarjeta();
+//            v1 = new Tarjeta();
+//        }
+//        
+//         modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
+//            v1,
+//            v2,
+//            v2,
+//            a1,
+//            a2,
+//            ra,
+//            rd});
+//        
+//        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
+//            v1.getTiempo() + "T " + v1.getMinuto() + "'",
+//            v2.getTiempo() + "T " + v2.getMinuto() + "'",
+//            v2.getTiempo() + "T " + v3.getMinuto() + "'",
+//            a1.getTiempo() + "T " + a1.getMinuto() + "'",
+//            a2.getTiempo() + "T " + a2.getMinuto() + "'",
+//            ra.getTiempo() + "T " + ra.getMinuto() + "'",
+//            rd.getTiempo() + "T " + rd.getMinuto() + "'"});
     }
 
     public void cargarGoles(Equipo unEquipo, DefaultTableModel modeloTable) {
@@ -1177,12 +1242,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
+        jButtonEditar.setEnabled(false);
 
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jButtonEditar.setEnabled(false);
+        jButtonEditar.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
 

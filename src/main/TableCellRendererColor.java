@@ -25,13 +25,25 @@ public class TableCellRendererColor extends DefaultTableCellRenderer {
             componente.setBackground(Color.white);
         }
         if ((column >= 3) && (column < 5)) {
+            if (texto == ""){
+                componente.setBackground(Color.white);
+            }else{
             componente.setBackground(Color.green);
+            }
         }
         if ((column >= 6) && (column < 8)) {
+            if (texto == ""){
+                componente.setBackground(Color.white);
+            }else{
             componente.setBackground(Color.yellow);
+            }
         }
         if ((column >= 8) && (column < 9)) {
+            if (texto == ""){
+                componente.setBackground(Color.white);
+            }else{
             componente.setBackground(Color.red);
+            }
         }
     return componente ;
 

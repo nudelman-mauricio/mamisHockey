@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -78,6 +79,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -322,6 +324,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem6);
 
+        jMenuItem11.setText("jMenuItem11");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem11);
+
         jMenuBar1.add(jMenu2);
 
         jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
@@ -558,9 +568,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
                 aux = ((int) (Math.random() * (Max - Min)) + Min);
                 if (aux == 1) {
-                    unaControladoraGlobal.crearErgometria(unaSocia,fechaVencimiento ,unaSocia.getFechaIngreso() , false, "");
+                    unaControladoraGlobal.crearErgometria(unaSocia, fechaVencimiento, unaSocia.getFechaIngreso(), false, "");
                 } else {
-                    unaControladoraGlobal.crearErgometria(unaSocia,fechaVencimiento ,unaSocia.getFechaIngreso(), true, "");
+                    unaControladoraGlobal.crearErgometria(unaSocia, fechaVencimiento, unaSocia.getFechaIngreso(), true, "");
                 }
 
             }
@@ -568,6 +578,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+
+        Partido unPartido = unaControladoraGlobal.getPartidoBD(Long.valueOf("2256"));
+        Socia unaSocia = unaControladoraGlobal.getSociaBD(Long.valueOf("13005891"));
+        unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "1", "25");
+
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -588,6 +606,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
