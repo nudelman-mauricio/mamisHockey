@@ -264,16 +264,18 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
 
     private void jButtonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarActionPerformed
         unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);
-        unEquipoSeleccionado = null;
+        unEquipoSeleccionado = null;        
         limpiarTabla();
         cargarTabla();
+        jButtonQuitar.setEnabled(false);
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipoSeleccionado);
-        unEquipoSeleccionado = null;
+        unEquipoSeleccionado = null;        
         limpiarTabla();
         cargarTabla();
+        jButtonAgregar.setEnabled(false);
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
