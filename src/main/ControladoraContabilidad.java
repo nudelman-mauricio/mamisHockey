@@ -21,9 +21,9 @@ import logicaNegocios.TipoCancha;
 import logicaNegocios.TipoEstado;
 
 public class ControladoraContabilidad {
-    
+
     private final EntityManager entityManager;
-    
+
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
         this.construirMeses();
@@ -33,7 +33,7 @@ public class ControladoraContabilidad {
     public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
         return new ConceptoDeportivo(this.entityManager, monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
     }
-    
+
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
         unConceptoDeportivo.setMonto(monto);
         unConceptoDeportivo.setConcepto(concepto);
@@ -43,7 +43,7 @@ public class ControladoraContabilidad {
         unConceptoDeportivo.setBorradoLogico(borradoLogico);
         unConceptoDeportivo.persistir(this.entityManager);
     }
-    
+
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         unConceptoDeportivo.setBorradoLogico(true);
         unConceptoDeportivo.persistir(this.entityManager);
@@ -74,13 +74,13 @@ public class ControladoraContabilidad {
         Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
         unEquipo.agregarDeuda(this.entityManager, unaDeuda);
     }
-    
+
     public Deuda crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         Deuda unaDeuda = new Deuda(this.entityManager, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
         unaSocia.agregarDeuda(this.entityManager, unaDeuda);
         return unaDeuda;
     }
-    
+
     public void eliminarDeuda(Deuda unaDeuda) {
         unaDeuda.setBorradoLogico(true);
         double montoNotaCredito = unaDeuda.eliminarTodasLasCuotas(entityManager);
@@ -125,7 +125,7 @@ public class ControladoraContabilidad {
         unaCuota.setUnPagoCuota(unPagoCuota);
         unaCuota.persistir(this.entityManager);
     }
-    
+
     public void modificarPagoCuota(PagoCuota unPagoCuota, double monto, Date fechaPago, String observacion, boolean borradoLogico) {
         unPagoCuota.setMonto(monto);
         unPagoCuota.setFechaPago(fechaPago);
@@ -133,7 +133,7 @@ public class ControladoraContabilidad {
         unPagoCuota.setBorradoLogico(borradoLogico);
         unPagoCuota.persistir(this.entityManager);
     }
-    
+
     public void eliminarPagoCuota(PagoCuota unPagoCuota) {
         unPagoCuota.setBorradoLogico(true);
         unPagoCuota.persistir(this.entityManager);
@@ -163,14 +163,14 @@ public class ControladoraContabilidad {
     public void crearConceptoIngreso(String nombre, String detalle) {
         new ConceptoIngreso(this.entityManager, nombre, detalle);
     }
-    
+
     public void modificarConceptoIngreso(ConceptoIngreso unConceptoIngreso, String nombre, String detalle, boolean borradoLogico) {
         unConceptoIngreso.setNombre(nombre);
         unConceptoIngreso.setDetalle(detalle);
         unConceptoIngreso.setBorradoLogico(borradoLogico);
         unConceptoIngreso.persistir(this.entityManager);
     }
-    
+
     public void eliminarConceptoIngreso(ConceptoIngreso unConceptoIngreso) {
         unConceptoIngreso.setBorradoLogico(true);
         unConceptoIngreso.persistir(this.entityManager);
@@ -198,14 +198,14 @@ public class ControladoraContabilidad {
     public void crearConceptoEgreso(String nombre, String detalle) {
         new ConceptoEgreso(this.entityManager, nombre, detalle);
     }
-    
+
     public void modificarConceptoEgreso(ConceptoEgreso unConceptoEgreso, String nombre, String detalle, boolean borradoLogico) {
         unConceptoEgreso.setNombre(nombre);
         unConceptoEgreso.setDetalle(detalle);
         unConceptoEgreso.setBorradoLogico(borradoLogico);
         unConceptoEgreso.persistir(this.entityManager);
     }
-    
+
     public void eliminarConceptoEgreso(ConceptoEgreso unConceptoEgreso) {
         unConceptoEgreso.setBorradoLogico(true);
         unConceptoEgreso.persistir(this.entityManager);
@@ -233,7 +233,7 @@ public class ControladoraContabilidad {
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
         new IngresoOtro(this.entityManager, fecha, unConceptoIngreso, monto, detalle);
     }
-    
+
     public void modificarIngresoOtro(IngresoOtro unIngresoOtro, Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle, boolean borradoLogico) {
         unIngresoOtro.setFecha(fecha);
         unIngresoOtro.setMonto(monto);
@@ -242,7 +242,7 @@ public class ControladoraContabilidad {
         unIngresoOtro.setBorradoLogico(borradoLogico);
         unIngresoOtro.persistir(this.entityManager);
     }
-    
+
     public void eliminarIngresoOtro(IngresoOtro unIngresoOtro) {
         unIngresoOtro.setBorradoLogico(true);
         unIngresoOtro.persistir(entityManager);
@@ -264,29 +264,28 @@ public class ControladoraContabilidad {
         List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
-    public IngresoOtro getUltimoIngresoOtro(){
+
+    public IngresoOtro getUltimoIngresoOtro() {
         String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE ORDER BY A.fecha DESC";
         List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        for(IngresoOtro unIngreso: unaListaResultado){
-            return unIngreso;
-        }
-        return null;
-    }    
-   
-    
-    public IngresoOtro getPrimerIngresoOtro(){
-        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE ORDER BY A.fecha ASC";
-        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        for(IngresoOtro unIngreso: unaListaResultado){
+        for (IngresoOtro unIngreso : unaListaResultado) {
             return unIngreso;
         }
         return null;
     }
-    
-    public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde , Date hasta){
-        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE AND A.fecha >= '"+desde+ "' AND A.fecha<'"+hasta+"' ORDER BY A.fecha ASC";       
-        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
+
+    public IngresoOtro getPrimerIngresoOtro() {
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE ORDER BY A.fecha ASC";
+        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        for (IngresoOtro unIngreso : unaListaResultado) {
+            return unIngreso;
+        }
+        return null;
+    }
+
+    public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde, Date hasta) {
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha<'" + hasta + "' ORDER BY A.fecha ASC";
+        List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
     // </editor-fold>
@@ -295,7 +294,7 @@ public class ControladoraContabilidad {
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
         new Egreso(this.entityManager, fecha, monto, unConceptoEgreso, observacion);
     }
-    
+
     public void modificarEgreso(Egreso unEgreso, Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion, boolean borradoLogico) {
         unEgreso.setFecha(fecha);
         unEgreso.setMonto(monto);
@@ -304,7 +303,7 @@ public class ControladoraContabilidad {
         unEgreso.setBorradoLogico(borradoLogico);
         unEgreso.persistir(this.entityManager);
     }
-    
+
     public void eliminarEgreso(Egreso unEgreso) {
         unEgreso.setBorradoLogico(true);
         unEgreso.persistir(this.entityManager);
@@ -326,29 +325,30 @@ public class ControladoraContabilidad {
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
-    public Egreso getUltimoEgreso(){
+
+    public Egreso getUltimoEgreso() {
         String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE ORDER BY A.fecha DESC";
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        for(Egreso unEgreso: unaListaResultado){
-            return unEgreso;
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
         }
-        return null;
-    }    
-   
-    
-    public Egreso getPrimerEgreso(){
+    }
+
+    public Egreso getPrimerEgreso() {
         String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE ORDER BY A.fecha ASC";
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        for(Egreso unEgreso: unaListaResultado){
-            return unEgreso;
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
         }
-        return null;
     }
-    
-    public List<Egreso> getEgresosEntreFechas(Date desde , Date hasta){
-        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha >= '"+desde+ "' AND A.fecha<'"+hasta+"' ORDER BY A.fecha ASC";       
-        List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
+
+    public List<Egreso> getEgresosEntreFechas(Date desde, Date hasta) {
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha<'" + hasta + "' ORDER BY A.fecha ASC";
+        List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
     // </editor-fold>
@@ -436,7 +436,7 @@ public class ControladoraContabilidad {
     public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
         return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento);
     }
-    
+
     public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
         unaFrecuencia.setDiaGeneracion(diaGeneracion);
         unaFrecuencia.setDiaVencimiento(diaVencimiento);
@@ -444,12 +444,12 @@ public class ControladoraContabilidad {
         unaFrecuencia.quitarTodosMeses(this.entityManager);
         unaFrecuencia.persistir(this.entityManager);
     }
-    
+
     public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
         unaFrecuencia.setBorradoLogico(true);
         unaFrecuencia.persistir(this.entityManager);
     }
-    
+
     public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
         unaFrecuencia.agregarMes(this.entityManager, unMes);
     }
