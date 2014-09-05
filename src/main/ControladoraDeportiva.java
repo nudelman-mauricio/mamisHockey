@@ -500,8 +500,8 @@ public class ControladoraDeportiva {
         List<TipoCancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
     // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Categorias">
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
@@ -723,6 +723,8 @@ public class ControladoraDeportiva {
                     resultado = true;
                 }
             }
+        } else {
+            resultado = true;
         }
         return resultado;
     }
