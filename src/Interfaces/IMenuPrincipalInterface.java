@@ -580,11 +580,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-
+        //13005891
         Partido unPartido = unaControladoraGlobal.getPartidoBD(Long.valueOf("2256"));
-        Socia unaSocia = unaControladoraGlobal.getSociaBD(Long.valueOf("13005891"));
-        unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "1", "25");
-
+        Socia unaSocia = unaControladoraGlobal.getSociaBD(Long.valueOf("17751922"));
+        unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Amarilla", "", "1", "15");
+        unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Roja", "", "2", "12");
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     public static void centrar(JInternalFrame unJInternalFrame) {

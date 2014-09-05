@@ -5,6 +5,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Partido;
 import logicaNegocios.Socia;
+import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
 
 public class ICargarTarjeta extends javax.swing.JInternalFrame {
@@ -28,6 +29,10 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
         this.jComboBoxTipoTarjeta.setSelectedIndex(-1);
         this.jTextFieldMinuto.setText("");
 
+    }
+
+    ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, IResultadoPartido aThis, Socia unaSociaSeleccionada, Partido unPartido, Tarjeta unaTarjeta) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private boolean camposValidar() {
@@ -189,6 +194,7 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             if (jComboBoxTiempo.getSelectedIndex() == 0) {
                 if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
+                    
                     unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "1", jTextFieldMinuto.getText());
                     //Recorrer las tarjetas de esta socia en este partido. Si tiene tres verdes, Agregar una amarilla por acumulacion
                 }

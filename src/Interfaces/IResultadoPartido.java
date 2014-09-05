@@ -196,106 +196,41 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
-        String v1 = "", v2 = "", v3 = "", a1 = "", a2 = "", ra = "", rd = "";
+        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
         for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
             for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
-                if (Objects.equals(unTarjeta.getIdTarjeta(), unTarjetaSocia.getIdTarjeta())) {
+                if (unTarjeta == unTarjetaSocia) {
                     if ("Verde".equals(unTarjeta.getTipo())) {
-                        if (v1 == "") {
-                            v1 = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
+                        if (v1 == null) {
+                            v1 = unTarjeta;
                         } else {
-                            if (v2 == "") {
-                                v2 = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
+                            if (v2 == null) {
+                                v2 = unTarjeta;
                             } else {
-                                if (v3 == "") {
-                                    v3 = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
+                                if (v3 == null) {
+                                    v3 = unTarjeta;
                                 }
                             }
                         }
                     }
-                    if ("Amarrilla".equals(unTarjeta.getTipo())) {
-                        if (a1 == "") {
-                            a1= unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
+                    if ("Amarilla".equals(unTarjeta.getTipo())) {
+                        if (a1 == null) {
+                            a1 = unTarjeta;
                         } else {
-                            v2= unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
+                            v2 = unTarjeta;
                         }
                     }
                     if ("Roja".equals(unTarjeta.getTipo())) {
-                        rd = unTarjeta.getTiempo() + "T " + unTarjeta.getMinuto() + "'";
+                        rd = unTarjeta;
                     }
                 }
-                if ((a1 == "") && (a2 == "")) {
+                if ((a1 == null) && (a2 == null)) {
                     ra = rd;
-                    rd = "";
+                    rd = null;
                 }
             }
         }
-        
-         modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
-            v1,
-            v2,
-            v2,
-            a1,
-            a2,
-            ra,
-            rd});
-        
-//        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
-//        for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
-//            for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
-//                if (Objects.equals(unTarjeta.getIdTarjeta(), unTarjetaSocia.getIdTarjeta())) {
-//                    if ("Verde".equals(unTarjeta.getTipo())) {
-//                        if (v1 == null) {
-//                            v1 = unTarjeta;
-//                        } else {
-//                            if (v2 == null) {
-//                                v2 = unTarjeta;
-//                            } else {
-//                                if (v3 == null) {
-//                                    v3 = unTarjeta;
-//                                }
-//                            }
-//                        }
-//                    }
-//                    if ("Amarrilla".equals(unTarjeta.getTipo())) {
-//                        if (a1 == null) {
-//                            a1 = unTarjeta;
-//                        } else {
-//                            v2 = unTarjeta;
-//                        }
-//                    }
-//                    if ("Roja".equals(unTarjeta.getTipo())) {
-//                        rd = unTarjeta;
-//                    }
-//                }
-//                if ((a1 == null) && (a2 == null)) {
-//                    ra = rd;
-//                    rd = null;
-//                }
-//            }
-//        }
-//        if (v1 == null){
-//            v1 = new Tarjeta();
-//            v1 = new Tarjeta();
-//        }
-//        
-//         modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
-//            v1,
-//            v2,
-//            v2,
-//            a1,
-//            a2,
-//            ra,
-//            rd});
-//        
-//        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), 
-//            v1.getTiempo() + "T " + v1.getMinuto() + "'",
-//            v2.getTiempo() + "T " + v2.getMinuto() + "'",
-//            v2.getTiempo() + "T " + v3.getMinuto() + "'",
-//            a1.getTiempo() + "T " + a1.getMinuto() + "'",
-//            a2.getTiempo() + "T " + a2.getMinuto() + "'",
-//            ra.getTiempo() + "T " + ra.getMinuto() + "'",
-//            rd.getTiempo() + "T " + rd.getMinuto() + "'"});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v2, a1, a2, ra, rd});
     }
 
     public void cargarGoles(Equipo unEquipo, DefaultTableModel modeloTable) {
@@ -1276,9 +1211,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     limpiarTabla(modeloTableLocal);
 
                     for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
-                        //modeloTableLocal.addRow(new Object[]{String.valueOf(unaSocia.getDni()), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
-                        //"", "", "", "", "", "", ""});
-
                         cargarCamposTablaControlando(unaSocia, modeloTableLocal);
                     }
                 }
@@ -1291,10 +1223,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     //Cargar Tabla Visitante
                     limpiarTabla(modeloTableVisitante);
                     for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
-                        modeloTableVisitante.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(),
-                            "", "", "", "", "", "", ""});
-
-                        //cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                        cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
                     }
                 }
             }
@@ -1308,18 +1237,24 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jTableLocalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLocalMouseClicked
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
             evt.consume();
-
             if (jTableLocal.getSelectedRow() > -1) {
                 if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
+                    ICargarTarjeta unaICargarTarjeta;
+                    if (jTableLocal.getSelectedColumn() > 2) {
+                        Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
+                        
+                        if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
+                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
+                        } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
+                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
 
-                    ICargarTarjeta unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
-                    unaICargarTarjeta.pack();
-                    unaICargarTarjeta.setVisible(true);
-
-                    this.setVisible(false);
-                    IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
-
+                        }
+                        unaICargarTarjeta.pack();
+                        unaICargarTarjeta.setVisible(true);
+                        this.setVisible(false);
+                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
+                    }
                 }
             }
         }
