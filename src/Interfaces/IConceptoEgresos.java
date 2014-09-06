@@ -40,6 +40,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         jTableConceptoEgresos.setEnabled(false);
         camposActivo(true);
+        jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
     }
@@ -338,12 +339,16 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             if (unConceptoEgresoSeleccionado == null) {
                 unaControladoraGlobal.crearConceptoEgreso(jTextFieldNombre.getText(), jTextPaneDetalle.getText());
-                JOptionPane.showMessageDialog(this, "Concepto Egreso Guardada");
+                JOptionPane.showMessageDialog(this, "Concepto Egreso Guardado");
             } else {
                 unaControladoraGlobal.modificarConceptoEgreso(unConceptoEgresoSeleccionado, jTextFieldNombre.getText(), jTextPaneDetalle.getText(), false);
                 unConceptoEgresoSeleccionado = null;
-                JOptionPane.showMessageDialog(this, "Concepto Egreso Modificada");
+                JOptionPane.showMessageDialog(this, "Concepto Egreso Modificado");
             }
+            if (unJInternalFrame != null) {
+                this.dispose();
+            }
+
             jButtonNuevo.setEnabled(true);
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
@@ -385,16 +390,20 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
+        if (unJInternalFrame != null) {
+            this.dispose();
+        } else {
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
 
-        jTableConceptoEgresos.setEnabled(true);
+            jTableConceptoEgresos.setEnabled(true);
 
-        camposActivo(false);
-        camposLimpiar();
+            camposActivo(false);
+            camposLimpiar();
+        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed

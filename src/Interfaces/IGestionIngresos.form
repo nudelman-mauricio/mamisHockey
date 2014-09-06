@@ -42,7 +42,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jPanelBotones" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
@@ -99,6 +99,7 @@
                           <Component id="jButtonNuevo" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,6 +111,7 @@
               <Image iconType="3" name="/Iconos Nuevos/Edit2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Editar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -123,6 +125,7 @@
               <Image iconType="3" name="/Iconos Nuevos/deletered.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -149,6 +152,7 @@
               <Image iconType="3" name="/Iconos Nuevos/printer.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Imprimir"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -162,6 +166,7 @@
               <Image iconType="3" name="/Iconos Nuevos/save.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -175,6 +180,7 @@
               <Image iconType="3" name="/Iconos Nuevos/cancel.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -210,16 +216,16 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="id" type="java.lang.Object"/>
-                    <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                    <Column editable="true" title="Concepto Ingreso" type="java.lang.Object"/>
-                    <Column editable="true" title="Observaci&#xf3;n" type="java.lang.Object"/>
-                    <Column editable="true" title="Monto" type="java.lang.Object"/>
+                    <Column editable="false" title="id" type="java.lang.Object"/>
+                    <Column editable="false" title="Fecha" type="java.lang.Object"/>
+                    <Column editable="false" title="Concepto Ingreso" type="java.lang.Object"/>
+                    <Column editable="false" title="Observaci&#xf3;n" type="java.lang.Object"/>
+                    <Column editable="false" title="Monto" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="jTableIngresos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        camposCargar();&#xa;    }&#xa;});">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -347,10 +353,14 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldFecha">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="dd/mm/aaaa"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMonto">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelMonto">
           <Properties>
@@ -362,6 +372,7 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonNuevoIngreso">
@@ -369,6 +380,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos Nuevos/Nuevo2.png"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNuevoIngresoActionPerformed"/>
@@ -382,6 +394,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="jTextPaneDetalle">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -402,9 +417,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -499,13 +514,23 @@
             <Component class="javax.swing.JComboBox" name="jComboBoxDesdeA&#xf1;o">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="6">
+                  <StringArray count="16">
                     <StringItem index="0" value="2010"/>
                     <StringItem index="1" value="2011"/>
                     <StringItem index="2" value="2012"/>
                     <StringItem index="3" value="2013"/>
                     <StringItem index="4" value="2014"/>
                     <StringItem index="5" value="2015"/>
+                    <StringItem index="6" value="2016"/>
+                    <StringItem index="7" value="2017"/>
+                    <StringItem index="8" value="2018"/>
+                    <StringItem index="9" value="2019"/>
+                    <StringItem index="10" value="2020"/>
+                    <StringItem index="11" value="2021"/>
+                    <StringItem index="12" value="2022"/>
+                    <StringItem index="13" value="2023"/>
+                    <StringItem index="14" value="2024"/>
+                    <StringItem index="15" value="2025"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -592,13 +617,23 @@
             <Component class="javax.swing.JComboBox" name="jComboBoxHastaA&#xf1;o">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="6">
+                  <StringArray count="16">
                     <StringItem index="0" value="2010"/>
                     <StringItem index="1" value="2011"/>
                     <StringItem index="2" value="2012"/>
                     <StringItem index="3" value="2013"/>
                     <StringItem index="4" value="2014"/>
                     <StringItem index="5" value="2015"/>
+                    <StringItem index="6" value="2016"/>
+                    <StringItem index="7" value="2017"/>
+                    <StringItem index="8" value="2018"/>
+                    <StringItem index="9" value="2019"/>
+                    <StringItem index="10" value="2020"/>
+                    <StringItem index="11" value="2021"/>
+                    <StringItem index="12" value="2022"/>
+                    <StringItem index="13" value="2023"/>
+                    <StringItem index="14" value="2024"/>
+                    <StringItem index="15" value="2025"/>
                   </StringArray>
                 </Property>
               </Properties>

@@ -1,15 +1,25 @@
 package Interfaces;
 
+import java.io.File;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
+import DataSources.DataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class IGestionEquipo extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane jDesktopPane1;
     private DefaultTableModel modeloTablaEquipo;
@@ -26,7 +36,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
         this.modeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
-       
+
         this.SeleccionarObjetoTabla(false);
 
         filtrarEquipo("");
@@ -36,10 +46,10 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTablaEquipo);
         List<Equipo> unaListaResultado = this.unaControladoraGlobal.getEquiposBDFiltro(dato);
         for (Equipo unEquipo : unaListaResultado) {
-            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(),unaControladoraGlobal.getClubBD(unEquipo) , unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
+            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo), unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
-    
+
     private void limpiarTabla(DefaultTableModel modeloTablaEquipo) {
         try {
             int filas = modeloTablaEquipo.getRowCount();
@@ -50,9 +60,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
-    
-    
+
     private void SeleccionarObjetoTabla(boolean estado) {
         jButtonDatos.setEnabled(estado);
         jButtonPlantel.setEnabled(estado);
@@ -65,6 +73,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             jTableEquipo.clearSelection();
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -352,9 +361,28 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+        DataSource datasource = new DataSource(this.unaControladoraGlobal, (List) this.unaControladoraGlobal.getEquiposBDFiltro(""));
+        File archivo = new File("reportes/reporteTodosLosEquipos.jasper");
+        JasperReport reporte;
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(archivo);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, datasource);
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false); //generas tu visor del reporte
+            jasperViewer.setVisible(true);
+            
+            //Para exportar a pdf
+            /*JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportes/reporteClub"));
+            exporter.exportReport();*/
+          
+        } catch (JRException ex) {
+            Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
@@ -417,7 +445,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableEquipoComponentShown
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-    Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -430,7 +458,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarEquipo(unEquipoSeleccionado);
-            
+
             jTextFieldBusqueda.setText("");
             filtrarEquipo("");
             this.SeleccionarObjetoTabla(false);
