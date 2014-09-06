@@ -1,6 +1,5 @@
 package Interfaces;
 
-import static groovy.inspect.Inspector.print;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,12 +12,9 @@ import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
 import DataSources.DataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
