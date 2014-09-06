@@ -1,6 +1,5 @@
 package Interfaces;
 
-import java.awt.Color;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Objects;
@@ -50,8 +49,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.setTitle(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         IMenuPrincipalInterface.centrar(this);
 
-        cargarCampos();
+        jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
+        jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
+        jLabelResultado.setText("- a -");
 
+        DateFormat df = DateFormat.getDateInstance();
+        jLabelFechaPartido.setText(df.format(unPartido.getFecha()));
+
+        camposCargar();
         //Botones
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
@@ -63,7 +68,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jButtonEditar.setEnabled(false);
 
         }
-
         if (unPartido.getNombreVeedor() != null) { //El partido se jugo
             jButtonActualizar.setEnabled(false);
         } else {
@@ -71,45 +75,33 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
     }
 
-    public void cargarCampos() {
-        // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
-        jLabelTitulo.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        //Resultados
-        if (unPartido.getNombreVeedor() == null) { //El partido se jugo
-            jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
-        } else {
-            jLabelResultado.setText("- a -");
-        }
-        DateFormat df = DateFormat.getDateInstance();
-        jLabelFechaPartido.setText(df.format(unPartido.getFecha()));
-        // </editor-fold>
+    public void camposActivo(boolean Editable) {
+        jTextFieldVeedor.setEditable(Editable);
+        jTextFieldAyudanteDeMesaLocal.setEditable(Editable);
+        jTextFieldAyudanteDeMesaVisitante.setEditable(Editable);
+        jTextAreaObservacion.setEditable(Editable);
 
-        // <editor-fold defaultstate="collapsed" desc="Datos Generales">
-        //Arbitro 1
+        jTableLocal.setEnabled(Editable);
+        jTableGolLocal.setEnabled(Editable);
+        jTableVisitante.setEnabled(Editable);
+        jTableGolVisitante.setEnabled(Editable);
+
+        jButtonGolLocal.setEnabled(Editable);
+        jButtonGolVisitante.setEnabled(Editable);
+    }
+
+    void camposCargar() {
+        //Problemas con, no tiene dt, ac, pf al momento de jugar.... if (unPartido.getUnAyudanteCampoLocal() == null) {
+
+        //Detalles
         jTextFieldArbitro1.setText(unPartido.getUnArbitro1().getApellido() + ", " + unPartido.getUnArbitro1().getNombre());
-        //Arbitro 2
         jTextFieldArbitro2.setText(unPartido.getUnArbitro2().getApellido() + ", " + unPartido.getUnArbitro2().getNombre());
-        //Arbitro 3
         if (unPartido.getUnArbitro3() != null) {
             jTextFieldArbitro3.setText(unPartido.getUnArbitro3().getApellido() + ", " + unPartido.getUnArbitro3().getNombre());
         }
-        //Cancha
         jTextFieldCancha.setText(unPartido.getUnaCancha().getNombre());
-        //Veedor
         jTextFieldVeedor.setText(unPartido.getNombreVeedor());
-        jTextAreaObservacion.setText(unPartido.getObservaciones());
-        // </editor-fold> 
-
-        cargarInformacionLocal();
-
-        cargarInformacionVisitante();
-
-    }
-
-    public void cargarInformacionLocal() {
-        jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
-
-        // <editor-fold defaultstate="collapsed" desc="Informacion Cuerpos Tecnicos Local">
+        // <editor-fold defaultstate="collapsed" desc="Local">
         //DT
         if (unPartido.getUnDTLocal() == null) {
             jTextFieldDTLocal.setText(unPartido.getUnEquipoLocal().getUnDT().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnDT().getNombre());
@@ -137,12 +129,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().getApellido() + ", " + unPartido.getUnPreparadorFisicoLocal().getNombre());
         }
         jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
-        // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="Cargar Tabla Local">
+        //Cargar Tabla Local
         limpiarTabla(modeloTableLocal);
-        if (unPartido.getPlantelLocal() != null) {
-            if (unPartido.getPlantelLocal().isEmpty()) {
+        if (unPartido.getPlantelLocal() == null) {
             for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
                 cargarCamposTablaControlando(unaSocia, modeloTableLocal);
             }
@@ -151,17 +141,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 cargarCamposTablaControlando(unaSocia, modeloTableLocal);
             }
         }
-    }
-        // </editor-fold>
-
-        //Cargar Goles Visitante
         cargarGoles(unPartido.getUnEquipoLocal(), modeloTableLocal);
-    }
-
-    public void cargarInformacionVisitante() {
-        jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
-
-        // <editor-fold defaultstate="collapsed" desc="Informacion Cuerpos Tecnicos Visitante">
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Visitante">
         //DT
         if (unPartido.getUnDTVisitante() == null) {
             jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnDT().getNombre());
@@ -190,40 +172,27 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().getApellido() + ", " + unPartido.getUnPreparadorFisicoVisitante().getNombre());
         }
         jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
-        // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="Cargar Tabla Visitante">
+        //Cargar Tabla Visitante
         limpiarTabla(modeloTableVisitante);
-        if (unPartido.getPlantelVisitante() != null) {
-            if (unPartido.getPlantelVisitante().isEmpty()) {
-                for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
-                    cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
-                }
-            } else {
-                for (Socia unaSocia : unPartido.getPlantelVisitante()) {
-                    cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
-                }
+        if (unPartido.getPlantelVisitante() == null) {
+            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
+                System.out.println(unaSocia.getApellido());
+                cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
+            }
+        } else {
+            for (Socia unaSocia : unPartido.getPlantelVisitante()) {
+                cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
             }
         }
-        // </editor-fold>
-
-        //Cargar Goles Visitante
         cargarGoles(unPartido.getUnEquipoVisitante(), modeloTableVisitante);
-    }
-
-    public void camposActivo(boolean Editable) {
-        jTextFieldVeedor.setEditable(Editable);
-        jTextFieldAyudanteDeMesaLocal.setEditable(Editable);
-        jTextFieldAyudanteDeMesaVisitante.setEditable(Editable);
-        jTextAreaObservacion.setEditable(Editable);
-
-        jTableLocal.setEnabled(Editable);
-        jTableGolLocal.setEnabled(Editable);
-        jTableVisitante.setEnabled(Editable);
-        jTableGolVisitante.setEnabled(Editable);
-
-        jButtonGolLocal.setEnabled(Editable);
-        jButtonGolVisitante.setEnabled(Editable);
+        // </editor-fold>
+        jTextAreaObservacion.setText(unPartido.getObservaciones());
+        if (unPartido.getNombreVeedor() == null) { //El partido se jugo
+            jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
+        } else {
+            jLabelResultado.setText("- a -");
+        }
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
@@ -274,32 +243,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
     }
 
-    private boolean camposValidar() {
-        boolean bandera = true;
-        if (jTextFieldVeedor.getText().isEmpty()) {
-            jLabelVeedor.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelVeedor.setForeground(Color.black);
-        }
-        if (jTextFieldAyudanteCampoLocal.getText().isEmpty()) {
-            jLabelAML.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelAML.setForeground(Color.black);
-        }
-        if (jTextFieldAyudanteCampoVisitante.getText().isEmpty()) {
-            jLabelAMV.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelAMV.setForeground(Color.black);
-        }
-        if (!bandera) {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
-        }
-        return bandera;
-    }
-
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -338,11 +281,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextFieldCancha = new javax.swing.JTextField();
         jTextFieldVeedor = new javax.swing.JTextField();
-        jLabelVeedor = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextAreaObservacion = new javax.swing.JTextArea();
-        jLabelObservacion = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldDTLocal = new javax.swing.JTextField();
@@ -351,7 +294,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jTextFieldPreparadorFisicoLocal = new javax.swing.JTextField();
         jTextFieldAyudanteDeMesaLocal = new javax.swing.JTextField();
-        jLabelAML = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jTextFieldDTVisitante = new javax.swing.JTextField();
@@ -360,7 +303,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel22 = new javax.swing.JLabel();
         jTextFieldPreparadorFisicoVisitante = new javax.swing.JTextField();
         jTextFieldAyudanteDeMesaVisitante = new javax.swing.JTextField();
-        jLabelAMV = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLocal = new javax.swing.JTable();
@@ -550,7 +493,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTextFieldCancha.setEditable(false);
 
-        jLabelVeedor.setText("Veedor");
+        jLabel12.setText("Veedor");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -570,7 +513,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel16)
-                    .addComponent(jLabelVeedor))
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldCancha)
@@ -594,7 +537,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldArbitro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldVeedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelVeedor)))
+                        .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -606,7 +549,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTextAreaObservacion.setRows(5);
         jScrollPane3.setViewportView(jTextAreaObservacion);
 
-        jLabelObservacion.setText("Observación");
+        jLabel9.setText("Observación");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -616,7 +559,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelObservacion)
+                        .addComponent(jLabel9)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -625,7 +568,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelObservacion)
+                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -645,7 +588,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTextFieldPreparadorFisicoLocal.setEditable(false);
 
-        jLabelAML.setText("Ayudante de Mesa Local");
+        jLabel19.setText("Ayudante de Mesa Local");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -664,7 +607,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldAyudanteCampoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabelAML)
+                            .addComponent(jLabel19)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTextFieldAyudanteDeMesaLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -690,7 +633,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldPreparadorFisicoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelAML)
+                    .addComponent(jLabel19)
                     .addComponent(jTextFieldAyudanteDeMesaLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
@@ -709,7 +652,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTextFieldPreparadorFisicoVisitante.setEditable(false);
 
-        jLabelAMV.setText("Ayudante de Mesa Visitante");
+        jLabel23.setText("Ayudante de Mesa Visitante");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -720,7 +663,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabelAMV)
+                            .addComponent(jLabel23)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTextFieldAyudanteDeMesaVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -754,7 +697,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldPreparadorFisicoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelAMV)
+                    .addComponent(jLabel23)
                     .addComponent(jTextFieldAyudanteDeMesaVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
@@ -1163,23 +1106,31 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
-        if (camposValidar()) {
-            if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
-                unaControladoraGlobal.descontarSancion(unPartido.getPlantelLocal(), unPartido.getFecha());
-                unaControladoraGlobal.descontarSancion(unPartido.getPlantelVisitante(), unPartido.getFecha());
-            }
-            unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
-
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEditar.setEnabled(true);
-            jButtonImprimir.setEnabled(true);
-            jButtonActualizar.setEnabled(false);
-
-            camposActivo(false);
+        if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
+            unaControladoraGlobal.descontarSancion(unPartido.getPlantelLocal(), unPartido.getFecha());
+            unaControladoraGlobal.descontarSancion(unPartido.getPlantelVisitante(), unPartido.getFecha());
         }
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+        unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
 
+        //Guardar Tarjetas
+        guardarTarjetas();
+
+        //Guardar Goles (Son Guardados en otra ventana)
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEditar.setEnabled(true);
+        jButtonImprimir.setEnabled(true);
+        jButtonActualizar.setEnabled(false);
+
+        camposActivo(false);
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    private void guardarTarjetas() {
+        //Recorrer toda la tabla
+        //Guardar todas las tarjetas siempre y cuando no esten guardadas
+        //Siempre tiene prioridad la ventana (En el caso del editar) si hay una guardad y no existe mas, Borrarla.
+
+        unaControladoraGlobal.crearTarjeta(null, unPartido, title, title, title, title);
+    }
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
 
         //Guarda el plantel e imprime la planilla de resultados de partido
@@ -1243,7 +1194,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        cargarCampos();
+        camposCargar();
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
@@ -1292,7 +1243,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     ICargarTarjeta unaICargarTarjeta;
                     if (jTableLocal.getSelectedColumn() > 2) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
-
+                        
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
@@ -1319,28 +1270,28 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabelAML;
-    private javax.swing.JLabel jLabelAMV;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEquipoLocal;
     private javax.swing.JLabel jLabelEquipoVisitante;
     private javax.swing.JLabel jLabelFechaPartido;
     private javax.swing.JLabel jLabelFechaPartido1;
-    private javax.swing.JLabel jLabelObservacion;
     private javax.swing.JLabel jLabelResultado;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JLabel jLabelVeedor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
