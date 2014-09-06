@@ -54,8 +54,7 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
 
     private void cargarTabla() {
         limpiarTabla();
-        List<ConceptoEgreso> unaListaResultado = this.unaControladoraGlobal.getConceptosEgresosBD();
-        for (ConceptoEgreso unConceptoEgreso : unaListaResultado) {
+        for (ConceptoEgreso unConceptoEgreso : this.unaControladoraGlobal.getConceptosEgresosBD()) {
             this.modeloTablaConceptoEgresos.addRow(new Object[]{unConceptoEgreso.getIdConceptoEgreso(), unConceptoEgreso.getNombre(), unConceptoEgreso.getDetalle()});
         }
     }

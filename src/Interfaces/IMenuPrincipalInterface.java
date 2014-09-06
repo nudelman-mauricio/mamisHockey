@@ -456,7 +456,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItemGestionarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarIngresosActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
-            IGestionIngresos unaGestionIngresos = new IGestionIngresos(jDesktopPane, unaControladoraGlobal);
+            IGestionIngresos unaGestionIngresos = new IGestionIngresos(unaControladoraGlobal);
             unaGestionIngresos.pack();
             unaGestionIngresos.setVisible(true);
             this.jDesktopPane.add(unaGestionIngresos);
