@@ -306,7 +306,15 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             new String [] {
                 "id", "Fecha", "Concepto Egreso", "Observación", "Monto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableEgresos);
         if (jTableEgresos.getColumnModel().getColumnCount() > 0) {
             jTableEgresos.getColumnModel().getColumn(0).setMinWidth(0);
