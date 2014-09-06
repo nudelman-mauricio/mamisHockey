@@ -72,7 +72,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
             fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
         } catch (ParseException ex) {
             Logger.getLogger(IGestionIngresos.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         for (IngresoOtro unIngreso : this.unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta)) {
             this.modeloTablaGestionIngresos.addRow(new Object[]{unIngreso.getIdIngresoOtro(), df.format(unIngreso.getFecha()), unIngreso.getUnConceptoIngreso(), unIngreso.getDetalle(), unIngreso.getMonto()});
         }
@@ -86,11 +86,19 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         camposLimpiar();
     }
 
+    private void camposFiltroActivo(boolean Editable) {
+        jComboBoxDesdeMes.setEnabled(Editable);
+        jComboBoxDesdeAño.setEnabled(Editable);
+        jComboBoxHastaMes.setEnabled(Editable);
+        jComboBoxHastaAño.setEnabled(Editable);
+    }
+
     private void camposActivo(boolean Editable) {
         jTextFieldMonto.setEditable(Editable);
         jTextFieldFecha.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
         jComboBoxConceptoIngreso.setEnabled(Editable);
+        jButtonNuevoIngreso.setEnabled(Editable);
     }
 
     //blanquea componentes editables
@@ -117,6 +125,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
                 camposActivo(false);
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
             }
         }
     }
@@ -563,9 +572,11 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
 
         jTableIngresos.setEnabled(false);
 
+        camposFiltroActivo(false);
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -575,8 +586,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
-        jTableIngresos.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
 
         camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
@@ -590,10 +600,10 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarIngresoOtro(unIngresoSeleccionado);
-            unIngresoSeleccionado = null;
             cargarFechasFiltrado();
             cargarTabla();
         }
+        unIngresoSeleccionado = null;
         jTableIngresos.clearSelection();
         jTableIngresos.setEnabled(true);
         camposLimpiar();
@@ -605,9 +615,11 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
 
         jTableIngresos.setEnabled(false);
 
+        camposFiltroActivo(false);
         camposActivo(true);
         camposLimpiar();
         cargarComboBoxConceptoIngreso();
@@ -620,53 +632,30 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (unIngresoSeleccionado == null) {
-                try {
-                    unaControladoraGlobal.crearIngresoOtro(
-                            new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime()),
-                            Integer.parseInt(jTextFieldMonto.getText()),
-                            (ConceptoIngreso) jComboBoxConceptoIngreso.getSelectedItem(),
-                            jTextPaneDetalle.getText());
-                    JOptionPane.showMessageDialog(this, "Ingreso Guardada");
-                    jButtonNuevo.setEnabled(true);
-                    jButtonEditar.setEnabled(false);
-                    jButtonGuardar.setEnabled(false);
-                    jButtonCancelar.setEnabled(false);
-                    jButtonEliminar.setEnabled(false);
-
-                    camposActivo(false);
-                    camposLimpiar();
-                    cargarFechasFiltrado();
-                    cargarTabla();
-                    jTableIngresos.setEnabled(true);
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
+            try {
+                Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+                if (unIngresoSeleccionado == null) {
+                    unaControladoraGlobal.crearIngresoOtro(fecha, Integer.parseInt(jTextFieldMonto.getText()), (ConceptoIngreso) jComboBoxConceptoIngreso.getSelectedItem(), jTextPaneDetalle.getText());
+                    JOptionPane.showMessageDialog(this, "Ingreso Guardado");
+                } else {
+                    unaControladoraGlobal.modificarIngresoOtro(unIngresoSeleccionado, fecha, Integer.parseInt(jTextFieldMonto.getText()), (ConceptoIngreso) jComboBoxConceptoIngreso.getSelectedItem(), jTextPaneDetalle.getText(), false);
+                    JOptionPane.showMessageDialog(this, "Ingreso Modificado");
+                    unIngresoSeleccionado = null;
                 }
-            } else {
-                try {
-                    unaControladoraGlobal.modificarIngresoOtro(
-                            unIngresoSeleccionado,
-                            new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime()),
-                            Integer.parseInt(jTextFieldMonto.getText()),
-                            (ConceptoIngreso) jComboBoxConceptoIngreso.getSelectedItem(),
-                            jTextPaneDetalle.getText(),
-                            false);
-                    JOptionPane.showMessageDialog(this, "Ingreso Modificada");
-                    jButtonNuevo.setEnabled(true);
-                    jButtonEditar.setEnabled(false);
-                    jButtonGuardar.setEnabled(false);
-                    jButtonCancelar.setEnabled(false);
-                    jButtonEliminar.setEnabled(false);
-
-                    camposActivo(false);
-                    camposLimpiar();
-                    cargarFechasFiltrado();
-                    cargarTabla();
-                    jTableIngresos.setEnabled(true);
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
-                }
-                unIngresoSeleccionado = null;
+                cargarFechasFiltrado();
+                cargarTabla();
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+                jTableIngresos.setEnabled(true);
+                camposActivo(false);
+                camposFiltroActivo(true);
+                camposLimpiar();
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Error en el formato de la fecha. Por favor, ingrese la fecha con el siguiente formato: dd/mm/aaaa");
             }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -680,6 +669,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
 
         jTableIngresos.setEnabled(true);
 
+        camposFiltroActivo(true);
         camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
