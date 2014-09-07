@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
-import DataSources.DataSource;
+import DataSources.EquipoDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -363,8 +363,9 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        DataSource datasource = new DataSource(this.unaControladoraGlobal, (List) this.unaControladoraGlobal.getEquiposBDFiltro(""));
-        File archivo = new File("reportes/reporteTodosLosEquipos.jasper");
+        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+        EquipoDataSource datasource = new EquipoDataSource(this.unaControladoraGlobal,unEquipoSeleccionado);
+        File archivo = new File("reportes/reporteEquipo.jasper");
         JasperReport reporte;
         try {
             reporte = (JasperReport) JRLoader.loadObject(archivo);
