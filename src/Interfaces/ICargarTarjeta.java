@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Partido;
@@ -14,25 +15,64 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private Partido unPartido;
+    private Tarjeta unaTarjeta;
 
-    public ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
+    public ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, String unTipo) {
         initComponents();
 
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
+        this.unaTarjeta = null;
+
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        IMenuPrincipalInterface.centrar(this);
 
         this.jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         this.jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
-        this.jComboBoxTipoTarjeta.setSelectedIndex(-1);
-        this.jComboBoxTipoTarjeta.setSelectedIndex(-1);
         this.jTextFieldMinuto.setText("");
-
+        this.jComboBoxTiempo.setSelectedIndex(-1);
+        if ("Verde".equals(unTipo)) {
+            this.jComboBoxTipoTarjeta.setSelectedIndex(0);
+        } else if ("Amarilla".equals(unTipo)) {
+            this.jComboBoxTipoTarjeta.setSelectedIndex(1);
+        } else if ("Roja".equals(unTipo)) {
+            this.jComboBoxTipoTarjeta.setSelectedIndex(2);
+        }
     }
 
-    ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, IResultadoPartido aThis, Socia unaSociaSeleccionada, Partido unPartido, Tarjeta unaTarjeta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, Tarjeta unaTarjeta) {
+        initComponents();
+
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        this.unJInternalFrame = unJInternalFrame;
+        this.unaSocia = unaSocia;
+        this.unPartido = unPartido;
+        this.unaTarjeta = unaTarjeta;
+
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        IMenuPrincipalInterface.centrar(this);
+
+        this.jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
+        this.jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        this.jTextFieldMinuto.setText(unaTarjeta.getMinuto());
+
+        if ("1".equals(unaTarjeta.getTipo())) {
+            this.jComboBoxTiempo.setSelectedIndex(0);
+        } else {
+            this.jComboBoxTiempo.setSelectedIndex(1);
+        }
+
+        if ("Verde".equals(unaTarjeta.getTipo())) {
+            this.jComboBoxTipoTarjeta.setSelectedIndex(0);
+        } else if ("Amarilla".equals(unaTarjeta.getTipo())) {
+            this.jComboBoxTipoTarjeta.setSelectedIndex(1);
+        } else if ("Roja".equals(unaTarjeta.getTipo())) {
+            this.jComboBoxTipoTarjeta.setSelectedIndex(2);
+        }
     }
 
     private boolean camposValidar() {
@@ -192,31 +232,28 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         if (camposValidar()) {
+            String unTipo = "", unTiempo = "", motivo = "";
+            
             if (jComboBoxTiempo.getSelectedIndex() == 0) {
-                if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
-                    
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "1", jTextFieldMinuto.getText());
-                    //Recorrer las tarjetas de esta socia en este partido. Si tiene tres verdes, Agregar una amarilla por acumulacion
-                }
-                if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Amarilla", "", "1", jTextFieldMinuto.getText());
-                }
-                if (jComboBoxTipoTarjeta.getSelectedIndex() == 2) {//Tarjeta Roja
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Roja", "", "1", jTextFieldMinuto.getText());
-                }
+                unTiempo = "1";
             } else {
-                if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Verde", "", "2", jTextFieldMinuto.getText());
-                }
-                if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Amarilla", "", "2", jTextFieldMinuto.getText());
-                }
-                if (jComboBoxTipoTarjeta.getSelectedIndex() == 2) {//Tarjeta Roja
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, "Roja", "Roja Directa.", "2", jTextFieldMinuto.getText());
-                }
+                unTiempo = "2";
             }
             
-            
+            if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
+                unTipo = "Verde";
+            } else if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
+                unTipo = "Amarilla";
+            } else if (jComboBoxTipoTarjeta.getSelectedIndex() == 2) {//Tarjeta Roja
+                unTipo = "Roja";
+                motivo = "Roja Directa";
+            }
+            if (unaTarjeta == null){
+                unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, unTipo, motivo, unTiempo, jTextFieldMinuto.getText());
+            }else{
+                unaControladoraGlobal.modificarTarjeta(unaTarjeta, unTipo, motivo, unTiempo, jTextFieldMinuto.getText(), false);
+            }
+
             if (unJInternalFrame != null) {
                 this.setVisible(false);
                 this.dispose();
