@@ -143,15 +143,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTableLocal);
         if (unPartido.getPlantelLocal() != null) {
             if (unPartido.getPlantelLocal().isEmpty()) {
-            for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
-                cargarCamposTablaControlando(unaSocia, modeloTableLocal);
-            }
-        } else {
-            for (Socia unaSocia : unPartido.getPlantelLocal()) {
-                cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
+                    cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                }
+            } else {
+                for (Socia unaSocia : unPartido.getPlantelLocal()) {
+                    cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+                }
             }
         }
-    }
         // </editor-fold>
 
         //Cargar Goles Visitante
@@ -1292,12 +1292,18 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     ICargarTarjeta unaICargarTarjeta;
                     if (jTableLocal.getSelectedColumn() > 2) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
-
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
-                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
-
+                            String unTipo = "";
+                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
+                                unTipo = "Verde";
+                            } else if ((jTableLocal.getSelectedColumn() >= 6) && (jTableLocal.getSelectedColumn() < 8)) {
+                                unTipo = "Amarilla";
+                            } else if ((jTableLocal.getSelectedColumn() >= 8) && (jTableLocal.getSelectedColumn() < 10)) {
+                                unTipo = "Roja";
+                            }
+                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
                         }
                         unaICargarTarjeta.pack();
                         unaICargarTarjeta.setVisible(true);
