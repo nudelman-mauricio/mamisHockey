@@ -248,7 +248,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         if (a1 == null) {
                             a1 = unTarjeta;
                         } else {
-                            v2 = unTarjeta;
+                            a2 = unTarjeta;
                         }
                     }
                     if ("Roja".equals(unTarjeta.getTipo())) {
@@ -261,7 +261,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 }
             }
         }
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v2, a1, a2, ra, rd});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v3, a1, a2, ra, rd});
     }
 
     public void cargarGoles(Equipo unEquipo, DefaultTableModel modeloTable) {

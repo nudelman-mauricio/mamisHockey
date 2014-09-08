@@ -19,34 +19,24 @@ public class TableCellRendererColor extends DefaultTableCellRenderer {
         } else {
             componente.setHorizontalAlignment(CENTER);
         }
+
         if (value instanceof Tarjeta) {
-            if (column < 3) {
+            if ((column >= 3) && (column < 5)) {
+                componente.setBackground(Color.green);
+            } else if ((column >= 6) && (column < 8)) {
+                componente.setBackground(Color.yellow);
+            } else if ((column >= 8) && (column < 10)) {
+                componente.setBackground(Color.red);
+            }
+            if (isSelected) {
+                componente.setForeground(Color.black);
+            }
+        } else {
+            if (isSelected) {
+                componente.setBackground(Color.GRAY);
+            } else {
                 componente.setBackground(Color.white);
             }
-            if ((column >= 3) && (column < 5)) {
-                if ("".equals(value.toString())) {
-                    componente.setBackground(Color.white);
-                } else {
-                    componente.setBackground(Color.green);
-                }
-            }
-            if ((column >= 6) && (column < 8)) {
-                if ("".equals(value.toString())) {
-                    componente.setBackground(Color.white);
-                } else {
-                    componente.setBackground(Color.yellow);
-                }
-            }
-            if ((column >= 8) && (column < 10)) {
-
-                if ("".equals(value.toString())){
-                    componente.setBackground(Color.white);
-                } else {
-                    componente.setBackground(Color.red);
-                }
-            }
-        }else{
-            componente.setBackground(Color.white);
         }
 
         return componente;
