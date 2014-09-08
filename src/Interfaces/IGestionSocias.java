@@ -9,30 +9,61 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
-import main.TableCellRendererColor;
 
 public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unjDesktopPane1;
-
     private DefaultTableModel modeloTablaSocia;
+    private Socia unaSociaSeleccionada = null;
 
-    public IGestionSocias(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPane1) {
+    public IGestionSocias(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unjDesktopPane1 = unjDesktopPane1;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
-
-        IMenuPrincipalInterface.centrar(this);
-
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
-        this.SeleccionarObjetoTabla(false);
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
+        this.setTitle("Gestión de Socias");
+        IMenuPrincipalInterface.centrar(this);
+    }
 
-        filtrarSocias("");
+    private void limpiarTabla() {
+        int filas = modeloTablaSocia.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaSocia.removeRow(0);
+        }
+    }
+
+    private void camposCargar() {
+        if (jTableSocias.getSelectedRow() > -1) {
+            if (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0) != null) {
+                unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
+                camposActivo(true);
+            }
+        }
+    }
+
+    private void camposActivo(boolean Editable) {
+        jButtonEliminar.setEnabled(Editable);
+        jButtonImprimir.setEnabled(Editable);
+        jButtonDatos.setEnabled(Editable);
+        jButtonTarjetas.setEnabled(Editable);
+        jButtonPases.setEnabled(Editable);
+        jButtonSancion.setEnabled(Editable);
+        jButtonErgometria.setEnabled(Editable);
+        jButtonEstado.setEnabled(Editable);
+        jButtonContabilidad.setEnabled(Editable);
+    }
+
+    private void cargarTabla() {
+        limpiarTabla();
+        String ultimoEstado;
+        for (Socia unaSocia : this.unaControladoraGlobal.getSociasBDFiltro(jTextFieldBusqueda.getText())) {
+            if (unaSocia.getUltimoEstado() != null) {
+                ultimoEstado = unaSocia.getUltimoEstado().getUnTipoEstado().getNombre();
+            } else {
+                ultimoEstado = "";
+            }
+            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), ultimoEstado, unaSocia.getEquipoActual()});
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,6 +103,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +124,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -122,11 +155,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jPanelFiltro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldBusquedaFocusGained(evt);
-            }
-        });
         jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldBusquedaKeyReleased(evt);
@@ -191,7 +219,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         }
         jTableSocias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                SeleccionarObjetoTabla(true);
+                camposCargar();
             }
         });
 
@@ -354,86 +382,61 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         IContabilidadSocia unaIContabilidadSocia = new IContabilidadSocia(unaControladoraGlobal, this, unaSociaSeleccionada);
         unaIContabilidadSocia.pack();
         unaIContabilidadSocia.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadSocia);
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         IEstado unIEstado = new IEstado(unaControladoraGlobal, this, unaSociaSeleccionada);
         unIEstado.pack();
         unIEstado.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIEstado);
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         ISocia unaISocia = new ISocia(unaControladoraGlobal, this, unaSociaSeleccionada);
         unaISocia.pack();
         unaISocia.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal, this, unaSociaSeleccionada);
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIErgometria);
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         ITarjeta unaITarjeta = new ITarjeta(unaControladoraGlobal, this, unaSociaSeleccionada);
         unaITarjeta.pack();
         unaITarjeta.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaITarjeta);
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         ISancion unaISancion = new ISancion(this, unaSociaSeleccionada, unaControladoraGlobal);
         unaISancion.pack();
         unaISancion.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
         IPase unIPase = new IPase(unaControladoraGlobal, this, unaSociaSeleccionada);
         unIPase.pack();
         unIPase.setVisible(true);
-        
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIPase);
     }//GEN-LAST:event_jButtonPasesActionPerformed
-
-    private void limpiarTablaSocia(DefaultTableModel modeloTablaSocia) {
-        try {
-            int filas = modeloTablaSocia.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaSocia.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-    }
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         ISocia unaSocia = new ISocia(unaControladoraGlobal, this);
@@ -443,24 +446,19 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.jDesktopPane.add(unaSocia);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
-        this.SeleccionarObjetoTabla(false);
-    }//GEN-LAST:event_jTextFieldBusquedaFocusGained
-
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarSocias(jTextFieldBusqueda.getText());
+        camposCargar();
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        filtrarSocias(jTextFieldBusqueda.getText());
-        SeleccionarObjetoTabla(false);
+        jTextFieldBusqueda.setText("");
+        camposCargar();
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        //cambiar por el metodo de "customice code"
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0));
-        //--
-        
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTableSocias.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -472,42 +470,12 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarSocia(unaSociaSeleccionada);
-
             jTextFieldBusqueda.setText("");
-            filtrarSocias("");
-            this.SeleccionarObjetoTabla(false);
+            cargarTabla();
         }
+        jTableSocias.clearSelection();
+        unaSociaSeleccionada = null;
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void filtrarSocias(String dato) {
-        limpiarTablaSocia(modeloTablaSocia);
-        List<Socia> unaListaResultado = this.unaControladoraGlobal.getSociasBDFiltro(dato);
-        String ultimoEstado;
-        for (Socia unaSocia : unaListaResultado) {
-            if (unaSocia.getUltimoEstado()!= null){
-                ultimoEstado=unaSocia.getUltimoEstado().getUnTipoEstado().getNombre();
-            }else
-            {
-                ultimoEstado= "";
-            }
-            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), ultimoEstado, unaSocia.getEquipoActual()});
-        }
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonDatos.setEnabled(estado);
-        jButtonTarjetas.setEnabled(estado);
-        jButtonPases.setEnabled(estado);
-        jButtonSancion.setEnabled(estado);
-        jButtonErgometria.setEnabled(estado);
-        jButtonEstado.setEnabled(estado);
-        jButtonContabilidad.setEnabled(estado);
-        jButtonImprimir.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableSocias.clearSelection();
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContabilidad;

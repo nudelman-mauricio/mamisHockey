@@ -10,71 +10,66 @@ import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
 public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaPersonaAuxiliar;
-
+    private PersonaAuxiliar unaPersonaAuxiliarSeleccionado = null;
+    
     public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
-        IMenuPrincipalInterface.centrar(this);
-
         this.modeloTablaPersonaAuxiliar = (DefaultTableModel) jTablePersonaAuxiliar.getModel();
-        this.SeleccionarObjetoTabla(false);
-        filtrarPersonaAuxiliar("");
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
+        this.setTitle("Gestión de Auxiliares");
+        IMenuPrincipalInterface.centrar(this);
     }
     
-    private void filtrarPersonaAuxiliar(String dato) {
-        limpiarTabla(modeloTablaPersonaAuxiliar);
-        List<PersonaAuxiliar> unaListaResultado = this.unaControladoraGlobal.getPersonaAuxiliarBDFiltro(dato);
-        for (PersonaAuxiliar unaPersonaAux : unaListaResultado) {
-            this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
-        }
-    }
-    
-    private void filtrarArbitros(String dato) {
-        limpiarTabla(modeloTablaPersonaAuxiliar);
-        List<PersonaAuxiliar> unaListaResultado = this.unaControladoraGlobal.getArbitrosBDFiltro(dato);
-        for (PersonaAuxiliar unaPersonaAux : unaListaResultado) {
-            this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
-        }
-    }
-
-    private void filtrarCuerpoTecnicos(String dato) {
-        limpiarTabla(modeloTablaPersonaAuxiliar);
-        List<PersonaAuxiliar> unaListaResultado = this.unaControladoraGlobal.getCuerposTecnicosBDFiltro(dato);
-        for (PersonaAuxiliar unaPersonaAux : unaListaResultado) {
-            this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
-        }
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonDatos.setEnabled(estado);
-        jButtonImprimir.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTablePersonaAuxiliar.clearSelection();
+    private void limpiarTabla() {
+        int filas = modeloTablaPersonaAuxiliar.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaPersonaAuxiliar.removeRow(0);
         }
     }
     
-    private void limpiarTabla(DefaultTableModel modeloTablaPersonaAuxiliar) {
-        try {
-            int filas = modeloTablaPersonaAuxiliar.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaPersonaAuxiliar.removeRow(0);
+    private void camposCargar() {
+        if (jTablePersonaAuxiliar.getSelectedRow() > -1) {
+            if (jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0) != null) {
+                unaPersonaAuxiliarSeleccionado = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0));
+                camposActivo(true);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-
+    
+    private void camposActivo(boolean Editable) {
+        jButtonDatos.setEnabled(Editable);
+        jButtonEliminar.setEnabled(Editable);
+        jButtonImprimir.setEnabled(Editable);
+    }
+    
+    private void cargarTabla() {
+        limpiarTabla();
+        List<PersonaAuxiliar> lista = null;
+        if (jRadioButtonTodos.isSelected()) {
+            lista = this.unaControladoraGlobal.getPersonaAuxiliarBDFiltro(jTextFieldBusqueda.getText());
+        }
+        if (jRadioButtonArbitros.isSelected()) {
+            lista = this.unaControladoraGlobal.getArbitrosBDFiltro(jTextFieldBusqueda.getText());
+        }
+        if (jRadioButtonTecnicos.isSelected()) {
+            lista = this.unaControladoraGlobal.getCuerposTecnicosBDFiltro(jTextFieldBusqueda.getText());
+        }
+        for (PersonaAuxiliar unaPersonaAux : lista) {
+            this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
+        }
+        camposActivo(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanelBotones = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
@@ -82,9 +77,9 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jPanelFiltro = new javax.swing.JPanel();
         jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jCheckBoxTodos = new javax.swing.JCheckBox();
-        jCheckBoxCuerpoTecnicos = new javax.swing.JCheckBox();
-        jCheckBoxArbitros = new javax.swing.JCheckBox();
+        jRadioButtonTodos = new javax.swing.JRadioButton();
+        jRadioButtonArbitros = new javax.swing.JRadioButton();
+        jRadioButtonTecnicos = new javax.swing.JRadioButton();
         jPanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePersonaAuxiliar = new javax.swing.JTable();
@@ -116,6 +111,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +132,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -175,25 +172,28 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
         jLabel5.setText("Filtrar:");
 
-        jCheckBoxTodos.setSelected(true);
-        jCheckBoxTodos.setText("Todos");
-        jCheckBoxTodos.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonTodos);
+        jRadioButtonTodos.setSelected(true);
+        jRadioButtonTodos.setText("Todos");
+        jRadioButtonTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxTodosActionPerformed(evt);
+                jRadioButtonTodosActionPerformed(evt);
             }
         });
 
-        jCheckBoxCuerpoTecnicos.setText("Cuerpos Tecnicos");
-        jCheckBoxCuerpoTecnicos.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonArbitros);
+        jRadioButtonArbitros.setText("Árbitros");
+        jRadioButtonArbitros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxCuerpoTecnicosActionPerformed(evt);
+                jRadioButtonArbitrosActionPerformed(evt);
             }
         });
 
-        jCheckBoxArbitros.setText("Arbitros");
-        jCheckBoxArbitros.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonTecnicos);
+        jRadioButtonTecnicos.setText("Técnicos");
+        jRadioButtonTecnicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxArbitrosActionPerformed(evt);
+                jRadioButtonTecnicosActionPerformed(evt);
             }
         });
 
@@ -206,14 +206,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldBusqueda)
+                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addGroup(jPanelFiltroLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jCheckBoxTodos)
+                        .addGap(63, 63, 63)
+                        .addComponent(jRadioButtonTodos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxCuerpoTecnicos)
+                        .addComponent(jRadioButtonArbitros)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxArbitros)
+                        .addComponent(jRadioButtonTecnicos)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -222,13 +222,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             .addGroup(jPanelFiltroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxTodos)
-                    .addComponent(jCheckBoxCuerpoTecnicos)
-                    .addComponent(jCheckBoxArbitros)))
+                    .addGroup(jPanelFiltroLayout.createSequentialGroup()
+                        .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonTodos)
+                            .addComponent(jRadioButtonArbitros)
+                            .addComponent(jRadioButtonTecnicos)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jTablePersonaAuxiliar.setModel(new javax.swing.table.DefaultTableModel(
@@ -250,7 +251,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTablePersonaAuxiliar);
         jTablePersonaAuxiliar.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                SeleccionarObjetoTabla(true);
+                camposCargar();
             }
         });
 
@@ -262,13 +263,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
+        jButtonDatos.setEnabled(false);
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -335,8 +337,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0));
-        IPersonaAuxiliar unaIPersonaAuxiliar = new IPersonaAuxiliar(unaControladoraGlobal, this, unPersonaAuxSeleccionado);
+        IPersonaAuxiliar unaIPersonaAuxiliar = new IPersonaAuxiliar(unaControladoraGlobal, this, unaPersonaAuxiliarSeleccionado);
         unaIPersonaAuxiliar.pack();
         unaIPersonaAuxiliar.setVisible(true);
         this.setVisible(false);
@@ -344,69 +345,65 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        filtrarPersonaAuxiliar(jTextFieldBusqueda.getText());
+        jRadioButtonTodos.setSelected(true);
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarPersonaAuxiliar(jTextFieldBusqueda.getText());
+        cargarTabla();
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        //esto tiene que ir en el evento de "customice code" de la tabla
-        PersonaAuxiliar unPersonaAuxSeleccionado = unaControladoraGlobal.getArbitroBD((Long) jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0));
-        //--
-        
-        
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTablePersonaAuxiliar.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar la persona auxiliar: " + unPersonaAuxSeleccionado.getApellido() + " " + unPersonaAuxSeleccionado.getNombre(),
+                "Desea eliminar al Auxiliar: " + unaPersonaAuxiliarSeleccionado.getApellido() + " " + unaPersonaAuxiliarSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarPersonaAuxiliar(unPersonaAuxSeleccionado);
+            unaControladoraGlobal.eliminarPersonaAuxiliar(unaPersonaAuxiliarSeleccionado);
             jTextFieldBusqueda.setText("");
-            filtrarPersonaAuxiliar("");
-            this.SeleccionarObjetoTabla(false);
+            jRadioButtonTodos.setSelected(true);
+            cargarTabla();
         }
-
+        jTablePersonaAuxiliar.clearSelection();
+        unaPersonaAuxiliarSeleccionado = null;
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    private void jCheckBoxTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTodosActionPerformed
-        jCheckBoxArbitros.setSelected(false);
-        jCheckBoxCuerpoTecnicos.setSelected(false);
-        filtrarPersonaAuxiliar(this.jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jCheckBoxTodosActionPerformed
+    private void jRadioButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_jRadioButtonTodosActionPerformed
 
-    private void jCheckBoxCuerpoTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxCuerpoTecnicosActionPerformed
-        jCheckBoxArbitros.setSelected(false);
-        jCheckBoxTodos.setSelected(false);
-        filtrarCuerpoTecnicos(jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jCheckBoxCuerpoTecnicosActionPerformed
+    private void jRadioButtonArbitrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonArbitrosActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_jRadioButtonArbitrosActionPerformed
 
-    private void jCheckBoxArbitrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxArbitrosActionPerformed
-        jCheckBoxTodos.setSelected(false);
-        jCheckBoxCuerpoTecnicos.setSelected(false);
-        filtrarArbitros(jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jCheckBoxArbitrosActionPerformed
+    private void jRadioButtonTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTecnicosActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_jRadioButtonTecnicosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JCheckBox jCheckBoxArbitros;
-    private javax.swing.JCheckBox jCheckBoxCuerpoTecnicos;
-    private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelBotones2;
     private javax.swing.JPanel jPanelFiltro;
     private javax.swing.JPanel jPanelTabla;
+    private javax.swing.JRadioButton jRadioButtonArbitros;
+    private javax.swing.JRadioButton jRadioButtonTecnicos;
+    private javax.swing.JRadioButton jRadioButtonTodos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePersonaAuxiliar;
     private javax.swing.JTextField jTextFieldBusqueda;

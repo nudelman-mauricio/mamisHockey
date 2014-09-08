@@ -20,7 +20,6 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaClub = (DefaultTableModel) jTableClub.getModel();
-
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
         this.setTitle("Gestión de Clubes");
         IMenuPrincipalInterface.centrar(this);
@@ -50,9 +49,9 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(Editable);
     }
 
-    private void cargarTabla(String dato) {
+    private void cargarTabla() {
         limpiarTabla();
-        for (Club unClub : this.unaControladoraGlobal.getClubesBDFiltro(dato)) {
+        for (Club unClub : this.unaControladoraGlobal.getClubesBDFiltro(jTextFieldBusqueda.getText())) {
             this.modeloTablaClub.addRow(new Object[]{unClub.getIdClub(), unClub.getNombre(), unClub.getUnaLocalidad().getNombre(), unClub.getNombrePresidente()});
         }
         camposActivo(false);
@@ -338,7 +337,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCanchasActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        cargarTabla(jTextFieldBusqueda.getText());
+        cargarTabla();
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -356,7 +355,8 @@ public class IGestionClub extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarClub(unClubSeleccionado);
-            cargarTabla("");
+            jTextFieldBusqueda.setText("");
+            cargarTabla();
         }
         jTableClub.clearSelection();
         unClubSeleccionado = null;
@@ -379,7 +379,8 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        cargarTabla(jTextFieldBusqueda.getText());
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
     }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
