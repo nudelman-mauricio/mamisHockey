@@ -1,6 +1,9 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -12,6 +15,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Socia unaSociaSeleccionada = null;
+    private DateFormat df = DateFormat.getDateInstance();
 
     public IImprimirSocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
@@ -29,6 +33,10 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         boolean bandera = true;
         if (!jRadioButtonDatosPersonales.isSelected() && !jRadioButtonTarjetas.isSelected() && !jRadioButtonPases.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonErgometrias.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonEstados.isSelected()) {
             bandera = false;
+        }
+        if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {            
+            JOptionPane.showMessageDialog(this, "Las fechas son iguales. La diferencia debe ser como mínimo un mes.");
+            return false;
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione una opción");
@@ -53,8 +61,22 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxDesdeMes = new javax.swing.JComboBox();
+        jComboBoxDesdeAño = new javax.swing.JComboBox();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBoxHastaMes = new javax.swing.JComboBox();
+        jComboBoxHastaAño = new javax.swing.JComboBox();
 
         setClosable(true);
+        setMaximumSize(new java.awt.Dimension(545, 387));
+        setMinimumSize(new java.awt.Dimension(545, 387));
+        setPreferredSize(new java.awt.Dimension(545, 387));
 
         jLabelNombreJugadora.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelNombreJugadora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -165,21 +187,114 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Desde"));
+
+        jLabel1.setText("Año");
+
+        jLabel2.setText("Mes");
+
+        jComboBoxDesdeMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Hasta"));
+
+        jLabel7.setText("Año");
+
+        jLabel8.setText("Mes");
+
+        jComboBoxHastaMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxHastaAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBoxHastaAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBoxHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelNombreJugadora, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelNombreJugadora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -188,8 +303,10 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabelNombreJugadora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -205,26 +322,35 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         if (camposValidar()) {
-            if (jRadioButtonDatosPersonales.isSelected()) {
-                //llamar reporte
-            }
-            if (jRadioButtonTarjetas.isSelected()) {
-                //llamar reporte
-            }
-            if (jRadioButtonPases.isSelected()) {
-                //llamar reporte
-            }
-            if (jRadioButtonSanciones.isSelected()) {
-                //llamar reporte
-            }
-            if (jRadioButtonErgometrias.isSelected()) {
-                //llamar reporte
-            }
-            if (jRadioButtonContabilidad.isSelected()) {
-                //llamar reporte
-            }
-            if (jRadioButtonEstados.isSelected()) {
-                //llamar reporte
+            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedIndex() + 2010);
+            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedIndex() + 2010);
+            try {
+                Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
+                Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+
+                if (jRadioButtonDatosPersonales.isSelected()) {
+                    //llamar reporte
+                }
+                if (jRadioButtonTarjetas.isSelected()) {
+                    //llamar reporte
+                }
+                if (jRadioButtonPases.isSelected()) {
+                    //llamar reporte
+                }
+                if (jRadioButtonSanciones.isSelected()) {
+                    //llamar reporte
+                }
+                if (jRadioButtonErgometrias.isSelected()) {
+                    //llamar reporte
+                }
+                if (jRadioButtonContabilidad.isSelected()) {
+                    //llamar reporte
+                }
+                if (jRadioButtonEstados.isSelected()) {
+                    //llamar reporte
+                }
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
             }
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -233,8 +359,19 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JComboBox jComboBoxDesdeAño;
+    private javax.swing.JComboBox jComboBoxDesdeMes;
+    private javax.swing.JComboBox jComboBoxHastaAño;
+    private javax.swing.JComboBox jComboBoxHastaMes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelNombreJugadora;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JRadioButton jRadioButtonContabilidad;
     private javax.swing.JRadioButton jRadioButtonDatosPersonales;

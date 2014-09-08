@@ -4,13 +4,11 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,7 +22,6 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaGestionIngresos;
     private IngresoOtro unIngresoSeleccionado;
-    private DefaultComboBoxModel unModeloComboConceptoIngreso;
     private DateFormat df = DateFormat.getDateInstance();
 
     public IGestionIngresos(ControladoraGlobal unaControladoraGlobal) {
@@ -194,6 +191,9 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jComboBoxHastaAño = new javax.swing.JComboBox();
 
         setClosable(true);
+        setMaximumSize(new java.awt.Dimension(545, 665));
+        setMinimumSize(new java.awt.Dimension(545, 665));
+        setPreferredSize(new java.awt.Dimension(545, 665));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -556,7 +556,7 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
