@@ -1222,7 +1222,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
-        IGol unIGol = new IGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
+        ICargarGol unIGol = new ICargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
         unIGol.pack();
         unIGol.setVisible(true);
 
@@ -1232,7 +1232,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGolVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolVisitanteActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
-        IGol unIGol = new IGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
+        ICargarGol unIGol = new ICargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
         unIGol.pack();
         unIGol.setVisible(true);
 

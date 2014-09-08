@@ -7,16 +7,15 @@ import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
-public class IGol extends javax.swing.JInternalFrame {
+public class ICargarGol extends javax.swing.JInternalFrame {
 
-    ControladoraGlobal unaControladoraGlobal;
-    JInternalFrame unJInternalFrame;
-    Socia unaSocia;
-    Partido unPartido;
+    private ControladoraGlobal unaControladoraGlobal;
+    private JInternalFrame unJInternalFrame;
+    private Socia unaSocia;
+    private Partido unPartido;
 
-    public IGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
+    public ICargarGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -24,7 +23,6 @@ public class IGol extends javax.swing.JInternalFrame {
 
         jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
-
     }
 
     private boolean camposValidar() {
@@ -183,26 +181,20 @@ public class IGol extends javax.swing.JInternalFrame {
             } else {
                 unaControladoraGlobal.crearGol(unaSocia, unPartido, "2", jTextFieldMinuto.getText());
             }
-            if (unJInternalFrame != null) {
-                this.setVisible(false);
-                this.dispose();
-                this.unJInternalFrame.setVisible(true);
-            }
-        }
-    }//GEN-LAST:event_jButtonAceptarActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (unJInternalFrame != null) {
             this.setVisible(false);
             this.dispose();
             this.unJInternalFrame.setVisible(true);
         }
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+        this.dispose();
+        this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        if (unJInternalFrame != null) {
-            this.unJInternalFrame.setVisible(true);
-        }
+        this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
 
