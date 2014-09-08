@@ -1,10 +1,11 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import logicaNegocios.Indumentaria;
@@ -15,48 +16,50 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private Equipo unEquipo = null;
-    private Indumentaria unaIndumentaria = null;
+    private Indumentaria unaIndumentariaSeleccionada = null;
     private DefaultTableModel modeloTablaIndumentaria;
 
     public IIndumentaria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
-        this.unaControladoraGlobal = unaControladoraGlobal;
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
-        camposActivo(false);
-        IMenuPrincipalInterface.centrar(this);        
-        jButtonCancelar.setEnabled(false);
-        camposLimpiar();
         this.modeloTablaIndumentaria = (DefaultTableModel) jTableIndumentaria.getModel();
-        filtrarIndumentaria();
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
+        IMenuPrincipalInterface.centrar(this);
+        cargarTabla();
     }
 
-    private void filtrarIndumentaria() {
-        limpiarTabla(modeloTablaIndumentaria);
-        List<Indumentaria> unaListaResultado = (List) unEquipo.getIndumentarias();
-        int contador = 1;
-        for (Indumentaria unaIndumentaria : unaListaResultado) {
-            this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(), contador, unaIndumentaria.getCamiseta(), unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
-            contador++;
-        }
-    }
-
-    private void limpiarTabla(DefaultTableModel modeloTablaIndumentaria) {
+    private void limpiarTabla() {
         int filas = modeloTablaIndumentaria.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaIndumentaria.removeRow(0);
         }
     }
 
-    private void camposActivo(boolean Editable) {
-        jButtonEditar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
-        jButtonGuardar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonNuevo.setEnabled(!Editable);
+    private void cargarTabla() {
+        limpiarTabla();
+        int contador = 1;
+        for (Indumentaria unaIndumentaria : unEquipo.getIndumentarias()) {
+            this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(), contador, unaIndumentaria.getCamiseta(), unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
+            contador++;
+        }
+    }
 
+    private void camposCargar() {
+        if (jTableIndumentaria.getSelectedRow() > -1) {
+            if (jTableIndumentaria.getValueAt(jTableIndumentaria.getSelectedRow(), 0) != null) {
+                unaIndumentariaSeleccionada = unaControladoraGlobal.getIndumentariaBD((Long) jTableIndumentaria.getValueAt(jTableIndumentaria.getSelectedRow(), 0));
+                jTextFieldCamiseta.setText(unaIndumentariaSeleccionada.getCamiseta());
+                jTextFieldMedias.setText(unaIndumentariaSeleccionada.getMedia());
+                jTextFieldPollera.setText(unaIndumentariaSeleccionada.getPollera());
+                jButtonEditar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
+            }
+        }
+    }
+
+    private void camposActivo(boolean Editable) {
         jTextFieldCamiseta.setEditable(Editable);
         jTextFieldMedias.setEditable(Editable);
         jTextFieldPollera.setEditable(Editable);
@@ -66,11 +69,6 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jTextFieldCamiseta.setText("");
         jTextFieldPollera.setText("");
         jTextFieldMedias.setText("");
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonEditar.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
     }
 
     private boolean camposValidar() {
@@ -159,6 +157,11 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -232,17 +235,17 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
                 "id", "Indumentaria n°", "Camiseta", "Pollera", "Medias"
             }
         ));
-        jTableIndumentaria.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableIndumentariaFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTableIndumentaria);
         if (jTableIndumentaria.getColumnModel().getColumnCount() > 0) {
             jTableIndumentaria.getColumnModel().getColumn(0).setMinWidth(0);
             jTableIndumentaria.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableIndumentaria.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableIndumentaria.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -263,6 +266,12 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         jLabelPollera.setText("Pollera");
 
         jLabelMedias.setText("Medias");
+
+        jTextFieldCamiseta.setEditable(false);
+
+        jTextFieldPollera.setEditable(false);
+
+        jTextFieldMedias.setEditable(false);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -327,51 +336,98 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableIndumentaria.setEnabled(false);
+
         camposActivo(true);
-        jButtonEliminar.setEnabled(false);// TODO add your handling code here:
+        camposLimpiar();
+        unaIndumentariaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (this.unaIndumentaria == null) {
+            if (unaIndumentariaSeleccionada == null) {
                 unaControladoraGlobal.crearIndumentaria(unEquipo, jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText());
-
-                JOptionPane.showMessageDialog(this, "Equipo creado con exito");
+                JOptionPane.showMessageDialog(this, "Indumentaria Guardada");
             } else {
-                unaControladoraGlobal.modificarIndumentaria(unaIndumentaria,
-                        jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText(), false);
-                JOptionPane.showMessageDialog(this, "Equipo editado con exito");
+                unaControladoraGlobal.modificarIndumentaria(unaIndumentariaSeleccionada, jTextFieldCamiseta.getText(), jTextFieldMedias.getText(), jTextFieldPollera.getText(), unaIndumentariaSeleccionada.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Indumentaria Modificada");
+                unaIndumentariaSeleccionada = null;
             }
+            cargarTabla();
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jTableIndumentaria.setEnabled(true);
             camposActivo(false);
-            jButtonEditar.setEnabled(true);
-            filtrarIndumentaria();
+            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        if (unJInternalFrame != null) {
-            this.unJInternalFrame.setVisible(true);
-        }
+        this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jTableIndumentariaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableIndumentariaFocusGained
-        this.SeleccionarObjetoTabla(true);
-    }//GEN-LAST:event_jTableIndumentariaFocusGained
-
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.camposActivo(false);
-        this.camposLimpiar();
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableIndumentaria.setEnabled(true);
+
+        camposActivo(false);
+        camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        Indumentaria unaIndumentaria = unaControladoraGlobal.getIndumentariaBD((Long) jTableIndumentaria.getValueAt(jTableIndumentaria.getSelectedRow(), 0));
-        camposActivo(true);
+        jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        jTextFieldCamiseta.setText(unaIndumentaria.getCamiseta());
-        jTextFieldMedias.setText(unaIndumentaria.getMedia());
-        jTextFieldPollera.setText(unaIndumentaria.getPollera());
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
 
+        jTableIndumentaria.setEnabled(false);
+
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableIndumentaria.setEnabled(true);
+
+        camposActivo(false);
+
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "Desea eliminar la Indumentaria: ",
+                "Eliminar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+            unaControladoraGlobal.eliminarIndumentaria(unaIndumentariaSeleccionada);
+            cargarTabla();
+        }
+        jTableIndumentaria.clearSelection();
+        unaIndumentariaSeleccionada = null;
+        camposLimpiar();
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

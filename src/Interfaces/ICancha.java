@@ -42,16 +42,16 @@ public class ICancha extends javax.swing.JInternalFrame {
         cargarTabla();
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        int filas = modeloTabla.getRowCount();
+    private void limpiarTabla() {
+        int filas = modeloTable.getRowCount();
         for (int i = 0; i < filas; i++) {
-            modeloTabla.removeRow(0);
+            modeloTable.removeRow(0);
         }
     }
 
     //Cargar Tabla con las Canchas del Club
     private void cargarTabla() {
-        limpiarTabla(modeloTable);
+        limpiarTabla();
         for (Cancha unaCancha : unClub.getCanchas()) {
             if (!unaCancha.isBorradoLogico()) {
                 this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
