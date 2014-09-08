@@ -1,8 +1,10 @@
 package Interfaces;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import logicaNegocios.Gol;
 import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
@@ -13,6 +15,7 @@ public class ICargarGol extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private Partido unPartido;
+    private Gol unGolSeleccionado = null;
 
     public ICargarGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
         initComponents();
@@ -20,9 +23,25 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
-
+        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        IMenuPrincipalInterface.centrar(this);
         jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        this.jComboBoxTiempo.setSelectedIndex(-1);
+    }
+
+    public ICargarGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, Gol unGol) {
+        this(unaControladoraGlobal, unJInternalFrame, unaSocia, unPartido);
+        this.unGolSeleccionado = unGol;
+        this.jComboBoxTiempo.setSelectedIndex(Integer.parseInt(unGol.getTiempo()) - 1);
+        this.jTextFieldMinuto.setText(unGol.getMinuto());
+        camposActivo(false);
+    }
+
+    private void camposActivo(boolean Editable) {
+        jComboBoxTiempo.setEnabled(Editable);
+        jTextFieldMinuto.setEnabled(Editable);
     }
 
     private boolean camposValidar() {
@@ -32,6 +51,12 @@ public class ICargarGol extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelMinuto.setForeground(Color.black);
+        }
+        if (jComboBoxTiempo.getSelectedIndex() == -1) {
+            jLabelTiempo.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelTiempo.setForeground(Color.black);
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
@@ -55,6 +80,7 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         jPanelBotones = new javax.swing.JPanel();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(500, 270));
         setMinimumSize(new java.awt.Dimension(500, 270));
@@ -157,12 +183,25 @@ public class ICargarGol extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
+        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
         jPanelBotonesLayout.setHorizontalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,9 +211,10 @@ public class ICargarGol extends javax.swing.JInternalFrame {
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonCancelar))
+                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -214,10 +254,10 @@ public class ICargarGol extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (jComboBoxTiempo.getSelectedIndex() == 0) {
-                unaControladoraGlobal.crearGol(unaSocia, unPartido, "1", jTextFieldMinuto.getText());
+            if (unGolSeleccionado == null) {
+                unaControladoraGlobal.crearGol(unaSocia, unPartido, String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
             } else {
-                unaControladoraGlobal.crearGol(unaSocia, unPartido, "2", jTextFieldMinuto.getText());
+                unaControladoraGlobal.modificarGol(unGolSeleccionado, String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unGolSeleccionado.isBorradoLogico());
             }
             this.setVisible(false);
             this.dispose();
@@ -225,9 +265,15 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jButtonEditar.setEnabled(false);
+        camposActivo(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox jComboBoxTiempo;
     private javax.swing.JLabel jLabelCamiseta;
