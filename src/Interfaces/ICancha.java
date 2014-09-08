@@ -421,15 +421,12 @@ public class ICancha extends javax.swing.JInternalFrame {
                 unaCanchaSeleccionada = null;
             }
             cargarTabla();
-
             jButtonNuevo.setEnabled(true);
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-
             jTableCancha.setEnabled(true);
-
             camposActivo(jPanelDetalles, false);
             camposLimpiar();
         }
