@@ -230,7 +230,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
         for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
             for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
-                if (unTarjeta == unTarjetaSocia) {
+                if ((unTarjeta == unTarjetaSocia) && (!unTarjeta.isBorradoLogico())) {
                     if ("Verde".equals(unTarjeta.getTipo())) {
                         if (v1 == null) {
                             v1 = unTarjeta;
@@ -840,6 +840,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 jTableLocalMouseClicked(evt);
             }
         });
+        jTableLocal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableLocalKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTableLocalKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableLocal);
         if (jTableLocal.getColumnModel().getColumnCount() > 0) {
             jTableLocal.getColumnModel().getColumn(0).setMinWidth(0);
@@ -1009,6 +1017,16 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         });
         jTableVisitante.setEnabled(false);
+        jTableVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVisitanteMouseClicked(evt);
+            }
+        });
+        jTableVisitante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTableVisitanteKeyTyped(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTableVisitante);
         if (jTableVisitante.getColumnModel().getColumnCount() > 0) {
             jTableVisitante.getColumnModel().getColumn(0).setMinWidth(0);
@@ -1314,6 +1332,85 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jTableLocalMouseClicked
+
+    private void jTableLocalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableLocalKeyTyped
+        if (evt.getKeyChar() == 127) {
+            Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
+            if (unaTarjeta != null) {
+                Object[] options = {"OK", "Cancelar"};
+                if (0 == JOptionPane.showOptionDialog(
+                        this,
+                        "¿Esta seguro que desea eliminar la Tarjeta?",
+                        "Modificar",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        options,
+                        options)) {
+                    unaControladoraGlobal.eliminarTarjeta(unaTarjeta);
+                    cargarCampos();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jTableLocalKeyTyped
+
+    private void jTableLocalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableLocalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableLocalKeyPressed
+
+    private void jTableVisitanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableVisitanteKeyTyped
+        if (evt.getKeyChar() == 127) {
+            Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
+            if (unaTarjeta != null) {
+                Object[] options = {"OK", "Cancelar"};
+                if (0 == JOptionPane.showOptionDialog(
+                        this,
+                        "¿Esta seguro que desea eliminar la Tarjeta?",
+                        "Modificar",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        options,
+                        options)) {
+                    unaControladoraGlobal.eliminarTarjeta(unaTarjeta);
+                    cargarCampos();
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableVisitanteKeyTyped
+
+    private void jTableVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVisitanteMouseClicked
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            evt.consume();
+            if (jTableLocal.getSelectedRow() > -1) {
+                if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
+                    Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
+                    ICargarTarjeta unaICargarTarjeta;
+                    if (jTableLocal.getSelectedColumn() > 2) {
+                        Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
+                        if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
+                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
+                        } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
+                            String unTipo = "";
+                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
+                                unTipo = "Verde";
+                            } else if ((jTableLocal.getSelectedColumn() >= 6) && (jTableLocal.getSelectedColumn() < 8)) {
+                                unTipo = "Amarilla";
+                            } else if ((jTableLocal.getSelectedColumn() >= 8) && (jTableLocal.getSelectedColumn() < 10)) {
+                                unTipo = "Roja";
+                            }
+                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
+                        }
+                        unaICargarTarjeta.pack();
+                        unaICargarTarjeta.setVisible(true);
+                        this.setVisible(false);
+                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableVisitanteMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;

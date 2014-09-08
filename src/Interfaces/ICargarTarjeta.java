@@ -233,13 +233,13 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         if (camposValidar()) {
             String unTipo = "", unTiempo = "", motivo = "";
-            
+
             if (jComboBoxTiempo.getSelectedIndex() == 0) {
                 unTiempo = "1";
             } else {
                 unTiempo = "2";
             }
-            
+
             if (jComboBoxTipoTarjeta.getSelectedIndex() == 0) {//Tarjeta Verde
                 unTipo = "Verde";
             } else if (jComboBoxTipoTarjeta.getSelectedIndex() == 1) {//Tarjeta Amarilla
@@ -248,10 +248,23 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
                 unTipo = "Roja";
                 motivo = "Roja Directa";
             }
-            if (unaTarjeta == null){
+            if (unaTarjeta == null) {
                 unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, unTipo, motivo, unTiempo, jTextFieldMinuto.getText());
-            }else{
-                unaControladoraGlobal.modificarTarjeta(unaTarjeta, unTipo, motivo, unTiempo, jTextFieldMinuto.getText(), false);
+            } else {
+                if ((!unaTarjeta.getMinuto().equalsIgnoreCase(jTextFieldMinuto.getText())) || (!unaTarjeta.getTiempo().equalsIgnoreCase(unTiempo)) || (!unaTarjeta.getTipo().equalsIgnoreCase(unTipo))) {
+                    Object[] options = {"OK", "Cancelar"};
+                    if (0 == JOptionPane.showOptionDialog(
+                            this,
+                            "¿Esta seguro que desea modificar la Tarjeta?",
+                            "Modificar",
+                            JOptionPane.PLAIN_MESSAGE,
+                            JOptionPane.WARNING_MESSAGE,
+                            null,
+                            options,
+                            options)) {
+                        unaControladoraGlobal.modificarTarjeta(unaTarjeta, unTipo, motivo, unTiempo, jTextFieldMinuto.getText(), false);
+                    }
+                }
             }
 
             if (unJInternalFrame != null) {
