@@ -474,7 +474,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuSociasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSociasMouseClicked
         if (jDesktopPane.getComponentCount() == 0) {
-            IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal, jDesktopPane);
+            IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal);
             unaGestionSocias.pack();
             unaGestionSocias.setVisible(true);
             this.jDesktopPane.add(unaGestionSocias);

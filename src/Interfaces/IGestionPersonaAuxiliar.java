@@ -221,7 +221,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFiltroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFiltroLayout.createSequentialGroup()
                         .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -229,7 +229,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
                             .addComponent(jRadioButtonTodos)
                             .addComponent(jRadioButtonArbitros)
                             .addComponent(jRadioButtonTecnicos)))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel5)))
         );
 
         jTablePersonaAuxiliar.setModel(new javax.swing.table.DefaultTableModel(
