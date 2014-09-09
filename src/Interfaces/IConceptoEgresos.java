@@ -1,7 +1,6 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;

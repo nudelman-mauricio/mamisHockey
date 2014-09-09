@@ -1,6 +1,5 @@
 package Interfaces;
 
-import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
