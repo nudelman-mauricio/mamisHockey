@@ -29,26 +29,14 @@ public class IErgometria extends javax.swing.JInternalFrame {
     //LLAMADO MOSTRANDO UNA SOCIA
     public IErgometria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
-
-        //Icono de la ventana
+        this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/corazon.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
-
         camposActivo(jPanelDetalles, false);
-
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
-
-        this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
         cargarTabla();
     }
 
@@ -296,17 +284,17 @@ public class IErgometria extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableErgometrias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                camposCargar();
-            }
-        });
         jScrollPane1.setViewportView(jTableErgometrias);
         if (jTableErgometrias.getColumnModel().getColumnCount() > 0) {
             jTableErgometrias.getColumnModel().getColumn(0).setMinWidth(0);
             jTableErgometrias.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableErgometrias.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableErgometrias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -454,22 +442,22 @@ public class IErgometria extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Ergometría Modificada");
                     unaErgometriaSeleccionada = null;
                 }
+                cargarTabla();
+
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+
+                jTableErgometrias.setEnabled(true);
+
+                camposActivo(jPanelDetalles, false);
+                camposLimpiar();
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
-            cargarTabla();
-
-            jButtonNuevo.setEnabled(true);
-            jButtonEditar.setEnabled(false);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
-
-            jTableErgometrias.setEnabled(true);
-
-            camposActivo(jPanelDetalles, false);
-            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

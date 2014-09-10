@@ -10,6 +10,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import logicaNegocios.Pase;
@@ -24,6 +26,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private Pase unPaseSeleccionado = null;
     private DefaultTableModel modeloTablePases;
     private DateFormat df = DateFormat.getDateInstance();
+    private Calendar FechaSO = Calendar.getInstance();
 
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
@@ -32,36 +35,11 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana        
-        IMenuPrincipalInterface.centrar(this); //Centrar
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana                
         this.setTitle("Pases de : " + unaSocia.getApellido() + " " + unaSocia.getNombre()); //Titulo Ventana
-        cargarComboBoxEquipos(); 
-        cargarCamposTabla();
-    }
-
-    public void cargarComboBoxEquipos() {
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposBD());
-        this.jComboBoxEquipoDestino.setModel(modelCombo);
-    }
-
-    //Cargar Tabla con los pases de la Socia
-    public void cargarCamposTabla() {
-        DateFormat df = DateFormat.getDateInstance();
-        int nPase = 0;
-        limpiarTabla(modeloTablePases);
-        for (Pase unPase : unaSocia.getPasesValidos()) {
-            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().getMontoTotal()});
-            nPase++;
-        }
-        nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto
-        jLabelNumeroPase.setText(String.valueOf(nPase));
-    }
-
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        int filas = modeloTabla.getRowCount();
-        for (int i = 0; i < filas; i++) {
-            modeloTabla.removeRow(0);
-        }
+        IMenuPrincipalInterface.centrar(this); //Centrar
+        this.jComboBoxEquipoDestino.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposBD()));
+        cargarTabla();
     }
 
     public void camposActivo(boolean Editable) {
@@ -88,6 +66,43 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setText("");
         jCheckBoxLibreDeudaClub.setSelected(false);
         jCheckBoxSolicitudPase.setSelected(false);
+    }
+
+    public void camposCargar() {
+        if (jTablePases.getSelectedRow() > -1) {
+            if (jTablePases.getValueAt(jTablePases.getSelectedRow(), 0) != null) {
+                unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
+                jTextFieldFechaRealizacion.setText(df.format(unPaseSeleccionado.getFecha()));
+                
+                jTextFieldEquipoOrigen.setText(unPaseSeleccionado.);
+                
+                jTextFieldFechaCaducidad.setText(df.format(unaErgometriaSeleccionada.getFechaCaducidad()));
+                jCheckBoxEgometriaAprobada.setSelected(unaErgometriaSeleccionada.isAprobado());
+                jTextPaneErgometriaComentario.setText(unaErgometriaSeleccionada.getComentarios());
+
+                jButtonEliminar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
+            }
+        }
+    }
+
+    //Cargar Tabla con los pases de la Socia
+    public void cargarTabla() {
+        int nPase = 0;
+        limpiarTabla();
+        for (Pase unPase : unaSocia.getPasesValidos()) {
+            this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().getMontoTotal()});
+            nPase++;
+        }
+        nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto
+        jLabelNumeroPase.setText(String.valueOf(nPase));
+    }
+
+    private void limpiarTabla() {
+        int filas = modeloTablePases.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablePases.removeRow(0);
+        }
     }
 
     public boolean camposValidar() {
@@ -305,17 +320,17 @@ public class IPase extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTablePases.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTablePasesFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTablePases);
         if (jTablePases.getColumnModel().getColumnCount() > 0) {
             jTablePases.getColumnModel().getColumn(0).setMinWidth(0);
             jTablePases.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTablePases.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTablePases.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -575,7 +590,6 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCalcularMontoActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        //SE cerro
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
@@ -584,10 +598,8 @@ public class IPase extends javax.swing.JInternalFrame {
         jTablePases.setEnabled(false);
         camposActivo(true);
         camposLimpiar();
+        unPaseSeleccionado = null;
 
-        //PreCarga de Datos
-        DateFormat df = DateFormat.getDateInstance();
-        Calendar FechaSO = Calendar.getInstance();
         jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
         jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
         if (unaSocia.getEquipoActual() != null) {
@@ -601,71 +613,72 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
+        jButtonCalcularMonto.setEnabled(true);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (camposValidar()) {//Guardado de Datos
-            DateFormat df = DateFormat.getDateInstance();
+        if (camposValidar()) {
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
                 unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
                 JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
+
+                //Comportamientos Extras
+                jButtonNuevo.setEnabled(true);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+                jButtonCalcularMonto.setEnabled(false);
+
+                camposLimpiar();
+                camposActivo(false);
+                jTablePases.setEnabled(true);
+                cargarTabla();
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
-
-            //Comportamientos Extras
-            jButtonNuevo.setEnabled(true);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(true);
-
-            camposLimpiar();
-            camposActivo(false);
-            jTablePases.setEnabled(true);
-            cargarCamposTabla();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jTablePases.clearSelection();
-
+        jTablePases.setEnabled(true);
         camposLimpiar();
         camposActivo(false);
-        jTablePases.setEnabled(true);
-
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(true);
+        jButtonImprimir.setEnabled(false);
+        jButtonCalcularMonto.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jTablePasesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePasesFocusGained
-        jButtonEliminar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-    }//GEN-LAST:event_jTablePasesFocusGained
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         //Comprueba que la fila a eliminar sea la última si o si. Porque solo se permite eliminar el último pase realizado
         //Comprueba ademas que no se elimine el pase cero
         if ((jTablePases.isRowSelected(jTablePases.getRowCount() - 1)) && (jTablePases.getRowCount() > 1)) {
-            eliminarUltimoPase(unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0)));
+            Object[] options = {"OK", "Cancelar"};
+            if (0 == JOptionPane.showOptionDialog(
+                    this,
+                    "Desea eliminar el pase al Equipo: " + unPaseSeleccionado.getUnEquipo().getNombre(),
+                    "Eliminar",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options)) {
+                unaControladoraGlobal.eliminarUltimoPase(unPaseSeleccionado, this.unaSocia);
+                unPaseSeleccionado = null;
+                cargarTabla();
+                jTablePases.clearSelection();
+                camposLimpiar();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Únicamente se permite eliminar el último pase. Por favor seleccione el último pase.", "Seleccion Incorrecta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void eliminarUltimoPase(Pase ultimoPase) {
-        Object[] options = {"OK", "Cancelar"};
-        int respuesta = JOptionPane.showOptionDialog(this, "Desea eliminar el pase al Equipo: " + ultimoPase.getUnEquipo().getNombre(), "Eliminar", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options);
-        if (respuesta == 0) {
-            unaControladoraGlobal.eliminarUltimoPase(ultimoPase, this.unaSocia);
-            cargarCamposTabla();
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcularMonto;
