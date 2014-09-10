@@ -391,12 +391,16 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldMonto">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCalcularMonto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Iconos Nuevos/Calc.PNG"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCalcularMontoActionPerformed"/>
@@ -425,6 +429,7 @@
                     <StringItem index="11" value="12"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelFechaVencimiento">
@@ -433,6 +438,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldFechaVencimiento">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -493,6 +501,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelOrigen">
               <Properties>
@@ -514,6 +525,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -575,11 +587,13 @@
             <Component class="javax.swing.JCheckBox" name="jCheckBoxLibreDeudaClub">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Libre deuda del Club"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jCheckBoxSolicitudPase">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Solicitud de Pase"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
@@ -590,6 +604,9 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JTextPane" name="jTextPaneDetalle">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

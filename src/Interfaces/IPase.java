@@ -21,35 +21,22 @@ public class IPase extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private Socia unaSocia;
-
+    private Pase unPaseSeleccionado = null;
     private DefaultTableModel modeloTablePases;
+    private DateFormat df = DateFormat.getDateInstance();
 
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-
+        this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana        
         IMenuPrincipalInterface.centrar(this); //Centrar
-        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre()); //Titulo Ventana
-
-        cargarComboBoxEquipos();
-
-        this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
+        this.setTitle("Pases de : " + unaSocia.getApellido() + " " + unaSocia.getNombre()); //Titulo Ventana
+        cargarComboBoxEquipos(); 
         cargarCamposTabla();
-
-        jTablePases.clearSelection();
-
-        camposActivo(false);
-
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(true);
     }
 
     public void cargarComboBoxEquipos() {
@@ -354,7 +341,10 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelMonto.setText("Monto");
 
+        jTextFieldMonto.setEditable(false);
+
         jButtonCalcularMonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Calc.PNG"))); // NOI18N
+        jButtonCalcularMonto.setEnabled(false);
         jButtonCalcularMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCalcularMontoActionPerformed(evt);
@@ -364,8 +354,11 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion5.setText("Cuotas");
 
         jComboBoxCuota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBoxCuota.setEnabled(false);
 
         jLabelFechaVencimiento.setText("Fecha 1° Vto");
+
+        jTextFieldFechaVencimiento.setEditable(false);
 
         jLabel2.setText("*");
 
@@ -414,11 +407,15 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion.setText("Fecha de Realización");
 
+        jTextFieldFechaRealizacion.setEditable(false);
+
         jLabelOrigen.setText("Equipo Origen");
 
         jTextFieldEquipoOrigen.setEnabled(false);
 
         jLabelDestino.setText("Equipo Destino");
+
+        jComboBoxEquipoDestino.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -460,9 +457,12 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelDestino2.setText("Entrego:");
 
         jCheckBoxLibreDeudaClub.setText("Libre deuda del Club");
+        jCheckBoxLibreDeudaClub.setEnabled(false);
 
         jCheckBoxSolicitudPase.setText("Solicitud de Pase");
+        jCheckBoxSolicitudPase.setEnabled(false);
 
+        jTextPaneDetalle.setEditable(false);
         jScrollPane3.setViewportView(jTextPaneDetalle);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
