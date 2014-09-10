@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Estado;
 import logicaNegocios.Socia;
-import logicaNegocios.TipoEstado;
+import logicaNegocios.EstadoTipo;
 import main.ControladoraGlobal;
 
 public class IEstado extends javax.swing.JInternalFrame {
@@ -357,10 +357,10 @@ public class IEstado extends javax.swing.JInternalFrame {
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
                 if (unEstadoSeleccionado == null) {
-                    unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem());
+                    unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (EstadoTipo) jComboBoxEstado.getSelectedItem());
                     JOptionPane.showMessageDialog(this, "Estado Guardado");
                 } else {
-                    unaControladoraGlobal.modificarEstado(unEstadoSeleccionado, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem(), unEstadoSeleccionado.isBorradoLogico());
+                    unaControladoraGlobal.modificarEstado(unEstadoSeleccionado, fechaRealizacion, (EstadoTipo) jComboBoxEstado.getSelectedItem(), unEstadoSeleccionado.isBorradoLogico());
                     unEstadoSeleccionado = null;
                     JOptionPane.showMessageDialog(this, "Estado Modificado");
                 }

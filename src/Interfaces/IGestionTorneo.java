@@ -313,7 +313,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEquiposActionPerformed
-        IEquiposTorneos unIEquipoTorneo = new IEquiposTorneos(unaControladoraGlobal, this, unTorneoSeleccionado);
+        ITorneoEquipos unIEquipoTorneo = new ITorneoEquipos(unaControladoraGlobal, this, unTorneoSeleccionado);
         unIEquipoTorneo.pack();
         unIEquipoTorneo.setVisible(true);
         this.setVisible(false);
@@ -321,7 +321,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void jButtonFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFechasActionPerformed
-        IFechasTorneos unaFechaTorneo = new IFechasTorneos(unaControladoraGlobal, this, unTorneoSeleccionado);
+        ITorneoFechas unaFechaTorneo = new ITorneoFechas(unaControladoraGlobal, this, unTorneoSeleccionado);
         unaFechaTorneo.pack();
         unaFechaTorneo.setVisible(true);
         this.setVisible(false);

@@ -90,15 +90,15 @@ public class ControladoraGlobal {
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
         this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
         Socia unSocia = this.getSociaBD(dni);
-        TipoEstado unTipoEstadoSocia = null;
-        for (TipoEstado unTipoEstado : this.getTiposEstadosBD()) {
+        EstadoTipo unTipoEstadoSocia = null;
+        for (EstadoTipo unTipoEstado : this.getTiposEstadosBD()) {
             if ("Socia".equals(unTipoEstado.getNombre())) {
                 unTipoEstadoSocia = unTipoEstado;
             }
         }
         if (unTipoEstadoSocia == null) {
             this.crearTipoEstado("Socia");
-            for (TipoEstado unTipoEstado : this.getTiposEstadosBD()) {
+            for (EstadoTipo unTipoEstado : this.getTiposEstadosBD()) {
                 if ("Socia".equals(unTipoEstado.getNombre())) {
                     unTipoEstadoSocia = unTipoEstado;
                 }
@@ -215,11 +215,11 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Estados">
-    public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
+    public void crearEstado(Socia unaSocia, Date fecha, EstadoTipo unTipoEstado) {
         this.unaControladoraEntidades.crearEstado(unaSocia, fecha, unTipoEstado);
     }
 
-    public void modificarEstado(Estado unEstado, Date fecha, TipoEstado unTipoEstado, boolean borradoLogico) {
+    public void modificarEstado(Estado unEstado, Date fecha, EstadoTipo unTipoEstado, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarEstado(unEstado, fecha, unTipoEstado, borradoLogico);
     }
 
@@ -249,19 +249,19 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.crearTipoEstado(nombre);
     }
 
-    public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
+    public void modificarTipoEstado(EstadoTipo unTipoEstado, String nombre, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarTipoEstado(unTipoEstado, nombre, borradoLogico);
     }
 
-    public void eliminarTipoEstado(TipoEstado unTipoEstado) {
+    public void eliminarTipoEstado(EstadoTipo unTipoEstado) {
         this.unaControladoraEntidades.eliminarTipoEstado(unTipoEstado);
     }
 
-    public TipoEstado getTipoEstadoBD(Long id) {
+    public EstadoTipo getTipoEstadoBD(Long id) {
         return this.unaControladoraEntidades.getTipoEstadoBD(id);
     }
 
-    public List<TipoEstado> getTiposEstadosBD() {
+    public List<EstadoTipo> getTiposEstadosBD() {
         return unaControladoraEntidades.getTiposEstadosBD();
     }
     // </editor-fold>
@@ -435,11 +435,11 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Canchas">
-    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
+    public void crearCancha(Club unClub, String nombre, boolean seOcupa, CanchaTipo unTipoCancha) {
         this.unaControladoraDeportiva.crearCancha(unClub, nombre, seOcupa, unTipoCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
+    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, CanchaTipo unTipoCancha, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, seOcupa, unTipoCancha, borradoLogico);
     }
 
@@ -465,19 +465,19 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.crearTipoCancha(nombre);
     }
 
-    public void modificarTipoCancha(TipoCancha unTipoCancha, String nombre, boolean borradoLogico) {
+    public void modificarTipoCancha(CanchaTipo unTipoCancha, String nombre, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarTipoCancha(unTipoCancha, nombre, borradoLogico);
     }
 
-    public void eliminarTipoCancha(TipoCancha unTipoCancha) {
+    public void eliminarTipoCancha(CanchaTipo unTipoCancha) {
         this.unaControladoraDeportiva.eliminarTipoCancha(unTipoCancha);
     }
 
-    public TipoCancha getTipoCanchaBD(Long id) {
+    public CanchaTipo getTipoCanchaBD(Long id) {
         return this.unaControladoraDeportiva.getTipoCanchaBD(id);
     }
 
-    public List<TipoCancha> getTiposCanchasBD() {
+    public List<CanchaTipo> getTiposCanchasBD() {
         return this.unaControladoraDeportiva.getTiposCanchasBD();
     }
     // </editor-fold>
@@ -647,11 +647,11 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, CanchaTipo unTipoCancha, EstadoTipo unTipoEstado) {
         return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, CanchaTipo unTipoCancha, EstadoTipo unTipoEstado, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado, borradoLogico);
     }
 

@@ -25,8 +25,8 @@ public class Estado implements Serializable, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEstado;
 
-    @OneToOne(optional = false, targetEntity = TipoEstado.class)
-    private TipoEstado unTipoEstado;
+    @OneToOne(optional = false, targetEntity = EstadoTipo.class)
+    private EstadoTipo unTipoEstado;
 
     @Basic
     private boolean borradoLogico;
@@ -36,7 +36,7 @@ public class Estado implements Serializable, Comparable {
 
     }
 
-    public Estado(EntityManager entityManager, Date fecha, TipoEstado unTipoEstado) {
+    public Estado(EntityManager entityManager, Date fecha, EstadoTipo unTipoEstado) {
         this.fecha = fecha;
         this.unTipoEstado = unTipoEstado;
         this.borradoLogico = false;
@@ -60,11 +60,11 @@ public class Estado implements Serializable, Comparable {
         this.idEstado = idEstado;
     }
 
-    public TipoEstado getUnTipoEstado() {
+    public EstadoTipo getUnTipoEstado() {
         return this.unTipoEstado;
     }
 
-    public void setUnTipoEstado(TipoEstado unTipoEstado) {
+    public void setUnTipoEstado(EstadoTipo unTipoEstado) {
         this.unTipoEstado = unTipoEstado;
     }
 

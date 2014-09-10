@@ -1,59 +1,31 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.text.DateFormat;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.TipoEstado;
+import logicaNegocios.CanchaTipo;
 import main.ControladoraGlobal;
 
-public class ITipoEstado extends javax.swing.JInternalFrame {
+public class ICanchaTipo extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unjDesktopPane;
-    private DefaultTableModel modeloTablePases;
-    private TipoEstado unTipoEstadoSeleccionado;
+    private CanchaTipo unTipoCanchaSeleccionado;
+    private DefaultTableModel modeloTable;
 
-    public ITipoEstado(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
+    public ICanchaTipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unjDesktopPane = unjDesktopPanel;
-
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));//Icono de la ventana        
-        IMenuPrincipalInterface.centrar(this);//Centrar        
-        this.setTitle("Estados posibles de una Socia");//Titulo Ventana
-
-        this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
+        this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();
+        jTextFieldNombre.setEditable(false);
         cargarTabla();
 
-        jTableTipoEstado.clearSelection();
-
-        jTextFieldNombre.setEditable(false);
-
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-
-    }
-
-    //Cargar Tabla con los pases de la Socia
-    public void cargarTabla() {
-        DateFormat df = DateFormat.getDateInstance();
-        limpiarTabla(modeloTablePases);
-        for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
-            if (!unTipoEstado.isBorradoLogico()) {
-                this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre()});
-            }
-        }
-        jButtonEditar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
+        this.setTitle("Tipos de Canchas"); //Titulo Ventana
+        IMenuPrincipalInterface.centrar(this); //Centrar       
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -63,11 +35,24 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         }
     }
 
-    public void camposCargar() {
-        if (jTableTipoEstado.getSelectedRow() > -1) {
-            if (jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0) != null) {
-                unTipoEstadoSeleccionado = unaControladoraGlobal.getTipoEstadoBD((Long) jTableTipoEstado.getValueAt(jTableTipoEstado.getSelectedRow(), 0));
-                jTextFieldNombre.setText(unTipoEstadoSeleccionado.getNombre());
+    //Cargar Tabla con los tipos de canchas
+    private void cargarTabla() {
+        limpiarTabla(modeloTable);
+        for (CanchaTipo unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
+            this.modeloTable.addRow(new Object[]{unTipoCancha.getIdTipoCancha(), unTipoCancha.getNombre()});
+        }
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+    }
+
+    //actualizar campos al seleccionar un tipo cancha en la tabla
+    private void camposCargar() {
+        if (jTableTipoCancha.getSelectedRow() > -1) {
+            if (jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0) != null) {
+                unTipoCanchaSeleccionado = unaControladoraGlobal.getTipoCanchaBD((Long) jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0));
+
+                jTextFieldNombre.setText(unTipoCanchaSeleccionado.getNombre());
+
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
             }
@@ -93,15 +78,15 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanelBotones = new javax.swing.JPanel();
-        jButtonEditar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
         jPanelTabla = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableTipoEstado = new javax.swing.JTable();
-        jPanelDetalle = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableTipoCancha = new javax.swing.JTable();
+        jPanelDetalles = new javax.swing.JPanel();
         jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
 
@@ -111,17 +96,6 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(650, 387));
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
-        jButtonEditar.setText("Editar");
-        jButtonEditar.setEnabled(false);
-        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditarActionPerformed(evt);
-            }
-        });
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
@@ -144,17 +118,6 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
-        jButtonGuardar.setText("Guardar");
-        jButtonGuardar.setEnabled(false);
-        jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
-            }
-        });
-
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setEnabled(false);
@@ -163,6 +126,28 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
+        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
+        jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
             }
         });
 
@@ -187,40 +172,47 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonEliminar)
-                    .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonGuardar))
-                    .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(3, 3, 3))
+                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonGuardar)
+                    .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonEditar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButtonCancelar)
+                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
 
-        jTableTipoEstado.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTipoCancha.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IdTipoEstado", "Nombre del Tipo de Estado"
+                "IdTipoCancha", "Nombre del Tipo de Cancha"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableTipoEstado);
-        if (jTableTipoEstado.getColumnModel().getColumnCount() > 0) {
-            jTableTipoEstado.getColumnModel().getColumn(0).setMinWidth(0);
-            jTableTipoEstado.getColumnModel().getColumn(0).setPreferredWidth(0);
-            jTableTipoEstado.getColumnModel().getColumn(0).setMaxWidth(0);
+        jScrollPane4.setViewportView(jTableTipoCancha);
+        if (jTableTipoCancha.getColumnModel().getColumnCount() > 0) {
+            jTableTipoCancha.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableTipoCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableTipoCancha.getColumnModel().getColumn(0).setMaxWidth(0);
         }
-        jTableTipoEstado.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        jTableTipoCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 camposCargar();
             }
@@ -230,37 +222,37 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane4)
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
         );
 
-        jPanelDetalle.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        jPanelDetalle.setName(""); // NOI18N
+        jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        jPanelDetalles.setName(""); // NOI18N
 
-        jLabelNombre.setText("Nombre del Estado");
+        jLabelNombre.setText("Nombre");
 
-        javax.swing.GroupLayout jPanelDetalleLayout = new javax.swing.GroupLayout(jPanelDetalle);
-        jPanelDetalle.setLayout(jPanelDetalleLayout);
-        jPanelDetalleLayout.setHorizontalGroup(
-            jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDetalleLayout.createSequentialGroup()
-                .addGap(150, 150, 150)
+        javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
+        jPanelDetalles.setLayout(jPanelDetallesLayout);
+        jPanelDetallesLayout.setHorizontalGroup(
+            jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                .addGap(196, 196, 196)
                 .addComponent(jLabelNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanelDetalleLayout.setVerticalGroup(
-            jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetalleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanelDetallesLayout.setVerticalGroup(
+            jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,19 +264,19 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -297,23 +289,47 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
 
-        jTableTipoEstado.setEnabled(false);
+        jTableTipoCancha.setEnabled(false);
 
         jTextFieldNombre.setEditable(true);
         jTextFieldNombre.setText("");
-
-        unTipoEstadoSeleccionado = null;
+        unTipoCanchaSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jButtonNuevo.setEnabled(true);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+
+        jTableTipoCancha.setEnabled(true);
+
+        jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setText("");
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jButtonNuevo.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+
+        jTableTipoCancha.setEnabled(false);
+
+        jTextFieldNombre.setEditable(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (unTipoEstadoSeleccionado == null) {
-                unaControladoraGlobal.crearTipoEstado(jTextFieldNombre.getText());
-                JOptionPane.showMessageDialog(this, "Tipo de Estado Guardado");
+            if (unTipoCanchaSeleccionado == null) {
+                unaControladoraGlobal.crearTipoCancha(jTextFieldNombre.getText());
+                JOptionPane.showMessageDialog(this, "Tipo Cancha Creada");
             } else {
-                unaControladoraGlobal.modificarTipoEstado(unTipoEstadoSeleccionado, jTextFieldNombre.getText(), unTipoEstadoSeleccionado.isBorradoLogico());
-                JOptionPane.showMessageDialog(this, "Tipo de Estado Modificado");
-                unTipoEstadoSeleccionado = null;
+                unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, jTextFieldNombre.getText(), false);
+                JOptionPane.showMessageDialog(this, "Tipo Cancha Modificada");
+                unTipoCanchaSeleccionado = null;
             }
             cargarTabla();
 
@@ -323,25 +339,12 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
 
-            jTableTipoEstado.setEnabled(true);
+            jTableTipoCancha.setEnabled(true);
 
             jTextFieldNombre.setEditable(false);
             jTextFieldNombre.setText("");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-
-        jTableTipoEstado.setEnabled(true);
-
-        jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setText("");
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         jButtonNuevo.setEnabled(true);
@@ -350,39 +353,28 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
 
-        jTableTipoEstado.setEnabled(true);
+        jTableTipoCancha.setEnabled(false);
 
         jTextFieldNombre.setEditable(false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el Tipo de Estado: " + unTipoEstadoSeleccionado.getNombre(),
+                "Desea eliminar el Tipo de Cancha: " + unTipoCanchaSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarTipoEstado(unTipoEstadoSeleccionado);
-            unTipoEstadoSeleccionado = null;
+            unaControladoraGlobal.eliminarTipoCancha(unTipoCanchaSeleccionado);
+            unTipoCanchaSeleccionado = null;
             cargarTabla();
         }
-        jTableTipoEstado.clearSelection();
+        jTableTipoCancha.clearSelection();
+        jTableTipoCancha.setEnabled(true);
         jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        jButtonNuevo.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-        jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);
-
-        jTableTipoEstado.setEnabled(false);
-
-        jTextFieldNombre.setEditable(true);
-    }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -393,10 +385,10 @@ public class ITipoEstado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JPanel jPanelBotones;
-    private javax.swing.JPanel jPanelDetalle;
+    private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableTipoEstado;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTableTipoCancha;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }

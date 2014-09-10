@@ -23,7 +23,7 @@ import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
-public class IFechasTorneos extends javax.swing.JInternalFrame {
+public class ITorneoFechas extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
@@ -33,7 +33,7 @@ public class IFechasTorneos extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTable;
     private DateFormat df = DateFormat.getDateInstance();
 
-    IFechasTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
+    ITorneoFechas(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;

@@ -10,7 +10,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
-public class IEquiposTorneos extends javax.swing.JInternalFrame {
+public class ITorneoEquipos extends javax.swing.JInternalFrame {
 
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
@@ -20,7 +20,7 @@ public class IEquiposTorneos extends javax.swing.JInternalFrame {
     private Club unClub = null;
     private Equipo unEquipoSeleccionado = null;
 
-    public IEquiposTorneos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
+    public ITorneoEquipos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
         IMenuPrincipalInterface.centrar(this);
         this.unJInternalFrame = unJInternalFrame;

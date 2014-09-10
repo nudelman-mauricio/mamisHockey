@@ -17,8 +17,8 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private double monto;
 
-    @OneToOne(targetEntity = TipoEstado.class)
-    private TipoEstado unTipoEstado;
+    @OneToOne(targetEntity = EstadoTipo.class)
+    private EstadoTipo unTipoEstado;
 
     @Basic
     private String concepto;
@@ -33,14 +33,13 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(targetEntity = TipoCancha.class)
-    private TipoCancha unTipoCancha;
-    // </editor-fold>
+    @OneToOne(targetEntity = CanchaTipo.class)
+    private CanchaTipo unTipoCancha;
 
     public ConceptoDeportivo() {
     }
 
-    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Frecuencia unaFrecuencia, CanchaTipo unTipoCancha, EstadoTipo unTipoEstado) {
         this.monto = monto;
         this.concepto = concepto;
         this.unaFrecuencia = unaFrecuencia;
@@ -59,11 +58,11 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.monto = monto;
     }
 
-    public TipoEstado getUnTipoEstado() {
+    public EstadoTipo getUnTipoEstado() {
         return this.unTipoEstado;
     }
 
-    public void setUnTipoEstado(TipoEstado unTipoEstado) {
+    public void setUnTipoEstado(EstadoTipo unTipoEstado) {
         this.unTipoEstado = unTipoEstado;
     }
 
@@ -99,11 +98,11 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 
-    public TipoCancha getUnTipoCancha() {
+    public CanchaTipo getUnTipoCancha() {
         return this.unTipoCancha;
     }
 
-    public void setUnTipoCancha(TipoCancha unTipoCancha) {
+    public void setUnTipoCancha(CanchaTipo unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
     // </editor-fold>

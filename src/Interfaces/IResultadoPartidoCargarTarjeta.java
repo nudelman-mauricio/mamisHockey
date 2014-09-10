@@ -4,46 +4,53 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import logicaNegocios.Gol;
 import logicaNegocios.Partido;
 import logicaNegocios.Socia;
+import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
 
-public class ICargarGol extends javax.swing.JInternalFrame {
+public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private Partido unPartido;
-    private Gol unGolSeleccionado = null;
+    private Tarjeta unaTarjetaSeleccionada = null;
 
-    public ICargarGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
+    public IResultadoPartidoCargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, String unTipo) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Gol.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
-        jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
-        jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
+        this.jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
+        this.jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         this.jComboBoxTiempo.setSelectedIndex(-1);
+        this.jComboBoxTipoTarjeta.setSelectedItem(unTipo);
+        if ("Roja".equals(unTipo)) {
+            this.jTextPaneMotivo.setText("Roja Directa");
+        }
     }
 
-    public ICargarGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, Gol unGol) {
-        this(unaControladoraGlobal, unJInternalFrame, unaSocia, unPartido);
-        this.unGolSeleccionado = unGol;
-        this.jComboBoxTiempo.setSelectedIndex(Integer.parseInt(unGol.getTiempo()) - 1);
-        this.jTextFieldMinuto.setText(unGol.getMinuto());
+    public IResultadoPartidoCargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, Tarjeta unaTarjeta) {
+        this(unaControladoraGlobal, unJInternalFrame, unaSocia, unPartido, unaTarjeta.getTipo());
+        this.unaTarjetaSeleccionada = unaTarjeta;
+        this.jComboBoxTiempo.setSelectedIndex(Integer.parseInt(unaTarjeta.getTiempo()) - 1);
+        this.jTextFieldMinuto.setText(unaTarjeta.getMinuto());
+        this.jTextPaneMotivo.setText(unaTarjeta.getMotivo());
         camposActivo(false);
         jButtonEditar.setEnabled(true);
         jButtonGuardar.setEnabled(false);
     }
 
     private void camposActivo(boolean Editable) {
+        jComboBoxTipoTarjeta.setEnabled(Editable);
         jComboBoxTiempo.setEnabled(Editable);
         jTextFieldMinuto.setEnabled(Editable);
+        jTextPaneMotivo.setEnabled(Editable);
     }
 
     private boolean camposValidar() {
@@ -53,6 +60,12 @@ public class ICargarGol extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelMinuto.setForeground(Color.black);
+        }
+        if (jComboBoxTipoTarjeta.getSelectedIndex() == -1) {
+            jLabelTarjeta.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelTarjeta.setForeground(Color.black);
         }
         if (jComboBoxTiempo.getSelectedIndex() == -1) {
             jLabelTiempo.setForeground(Color.red);
@@ -79,14 +92,18 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         jComboBoxTiempo = new javax.swing.JComboBox();
         jLabelCamiseta = new javax.swing.JLabel();
         jTextFieldCamiseta = new javax.swing.JTextField();
+        jLabelTarjeta = new javax.swing.JLabel();
+        jComboBoxTipoTarjeta = new javax.swing.JComboBox();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPaneMotivo = new javax.swing.JTextPane();
+        jLabelMotivo = new javax.swing.JLabel();
         jPanelBotones = new javax.swing.JPanel();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(500, 270));
-        setMinimumSize(new java.awt.Dimension(500, 270));
-        setPreferredSize(new java.awt.Dimension(500, 270));
+        setMaximumSize(new java.awt.Dimension(500, 392));
+        setMinimumSize(new java.awt.Dimension(500, 392));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -122,24 +139,36 @@ public class ICargarGol extends javax.swing.JInternalFrame {
 
         jTextFieldCamiseta.setEditable(false);
 
+        jLabelTarjeta.setText("Tipo Tarjeta");
+
+        jComboBoxTipoTarjeta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Verde", "Amarilla", "Roja" }));
+
+        jScrollPane3.setViewportView(jTextPaneMotivo);
+
+        jLabelMotivo.setText("Motivo");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTiempo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelMinuto, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelCamiseta, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(112, 112, 112)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelTiempo)
+                    .addComponent(jLabelNombre)
+                    .addComponent(jLabelMinuto)
+                    .addComponent(jLabelCamiseta)
+                    .addComponent(jLabelTarjeta)
+                    .addComponent(jLabelMotivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTiempo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(jTextFieldMinuto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTiempo, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE)
+                    .addComponent(jTextFieldCamiseta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTipoTarjeta, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,12 +183,20 @@ public class ICargarGol extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTarjeta)
+                    .addComponent(jComboBoxTipoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTiempo)
                     .addComponent(jComboBoxTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMinuto)
                     .addComponent(jTextFieldMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelMotivo)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -207,16 +244,16 @@ public class ICargarGol extends javax.swing.JInternalFrame {
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButtonCancelar))
                 .addGap(3, 3, 3))
         );
 
@@ -237,29 +274,19 @@ public class ICargarGol extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        this.unJInternalFrame.setVisible(true);
-    }//GEN-LAST:event_formInternalFrameClosed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.setVisible(false);
-        this.dispose();
-        this.unJInternalFrame.setVisible(true);
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
-
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            if (unGolSeleccionado == null) {
-                unaControladoraGlobal.crearGol(unaSocia, unPartido, String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+            if (unaTarjetaSeleccionada == null) {
+                unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
             } else {
-                unaControladoraGlobal.modificarGol(unGolSeleccionado, String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unGolSeleccionado.isBorradoLogico());
+                unaControladoraGlobal.modificarTarjeta(unaTarjetaSeleccionada, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unaTarjetaSeleccionada.isBorradoLogico());
             }
             this.setVisible(false);
             this.dispose();
@@ -267,26 +294,40 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+        this.dispose();
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox jComboBoxTiempo;
+    private javax.swing.JComboBox jComboBoxTipoTarjeta;
     private javax.swing.JLabel jLabelCamiseta;
     private javax.swing.JLabel jLabelMinuto;
+    private javax.swing.JLabel jLabelMotivo;
     private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelTarjeta;
     private javax.swing.JLabel jLabelTiempo;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelBotones;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextFieldCamiseta;
     private javax.swing.JTextField jTextFieldMinuto;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextPane jTextPaneMotivo;
     // End of variables declaration//GEN-END:variables
 }

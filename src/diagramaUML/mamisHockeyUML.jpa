@@ -61,7 +61,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Socia" superclass="Persona" superclassId="_1397865228592" minimized="false" id="_1397865613179">
+    <jpa:entity class="Socia" superclass="Persona" superclassId="_1397865228592" minimized="true" id="_1397865613179">
         <jpa:attributes>
             <jpa:basic name="fotoCarnet" attribute-type="String" id="_139786561840269">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -336,7 +336,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Cuota" minimized="false" id="_1397868481186">
+    <jpa:entity class="Cuota" minimized="true" id="_1397868481186">
         <jpa:attributes>
             <jpa:id name="idCuota" attribute-type="Long" id="_1397868495580190">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -459,7 +459,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="FechaTorneo" minimized="false" id="_1397869438638">
+    <jpa:entity class="FechaTorneo" minimized="true" id="_1397869438638">
         <jpa:attributes>
             <jpa:id name="idFecha" attribute-type="Long" id="_1397869445729238">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -476,7 +476,7 @@
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Partido" minimized="false" id="_1397869509238">
+    <jpa:entity class="Partido" minimized="true" id="_1397869509238">
         <jpa:attributes>
             <jpa:id name="idPartido" attribute-type="Long" id="_1397869517159241">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -722,7 +722,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PagoCuota" minimized="false" id="_1400096950412">
+    <jpa:entity class="PagoCuota" minimized="true" id="_1400096950412">
         <jpa:attributes>
             <jpa:id name="idPagoCuota" attribute-type="Long" id="_1400096982652160">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -752,7 +752,7 @@
                 <Bounds x="767.0" y="-732.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865613179" id="_1397865613179_gui">
-                <Bounds x="409.0" y="-407.0" width="147.0" height="239.0"/>
+                <Bounds x="409.0" y="-407.0" width="149.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865626096" id="_1397865626096_gui">
                 <Bounds x="326.0" y="-721.0" width="139.0" height="24.0"/>
@@ -767,7 +767,7 @@
                 <Bounds x="1213.0" y="-212.0" width="130.0" height="134.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
-                <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
+                <Bounds x="36.0" y="-168.0" width="183.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866545595" id="_1397866545595_gui">
                 <Bounds x="22.0" y="-3.0" width="171.0" height="24.0"/>
@@ -785,7 +785,7 @@
                 <Bounds x="-428.0" y="67.0" width="204.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868481186" id="_1397868481186_gui">
-                <Bounds x="-639.0" y="-47.0" width="148.0" height="189.0"/>
+                <Bounds x="-638.0" y="-53.0" width="150.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868806733" id="_1397868806733_gui">
                 <Bounds x="-470.0" y="466.0" width="190.0" height="24.0"/>
@@ -803,10 +803,10 @@
                 <Bounds x="406.0" y="466.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869438638" id="_1397869438638_gui">
-                <Bounds x="663.0" y="323.0" width="170.0" height="147.0"/>
+                <Bounds x="663.0" y="323.0" width="172.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="816.0" y="165.0" width="220.0" height="546.0"/>
+                <Bounds x="816.0" y="165.0" width="222.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
                 <Bounds x="1221.0" y="0.0" width="136.0" height="176.0"/>
@@ -833,7 +833,7 @@
                 <Bounds x="477.0" y="29.0" width="159.0" height="24.0"/>
             </shape>
             <shape elementRef="_1400096950412" id="_1400096950412_gui">
-                <Bounds x="-852.0" y="21.0" width="158.0" height="155.0"/>
+                <Bounds x="-852.0" y="21.0" width="160.0" height="24.0"/>
             </shape>
         </plane>
     </jpa:diagram>

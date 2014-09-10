@@ -1222,7 +1222,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
-        ICargarGol unIGol = new ICargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
+        IResultadoPartidoCargarGol unIGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
         unIGol.pack();
         unIGol.setVisible(true);
 
@@ -1232,7 +1232,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGolVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolVisitanteActionPerformed
         Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
-        ICargarGol unIGol = new ICargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
+        IResultadoPartidoCargarGol unIGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
         unIGol.pack();
         unIGol.setVisible(true);
 
@@ -1307,11 +1307,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             if (jTableLocal.getSelectedRow() > -1) {
                 if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
-                    ICargarTarjeta unaICargarTarjeta;
+                    IResultadoPartidoCargarTarjeta unaICargarTarjeta;
                     if (jTableLocal.getSelectedColumn() > 2) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
-                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
+                            unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
                             if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
@@ -1321,7 +1321,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                             } else if ((jTableLocal.getSelectedColumn() >= 8) && (jTableLocal.getSelectedColumn() < 10)) {
                                 unTipo = "Roja";
                             }
-                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
+                            unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
                         }
                         unaICargarTarjeta.pack();
                         unaICargarTarjeta.setVisible(true);
@@ -1386,11 +1386,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             if (jTableLocal.getSelectedRow() > -1) {
                 if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
-                    ICargarTarjeta unaICargarTarjeta;
+                    IResultadoPartidoCargarTarjeta unaICargarTarjeta;
                     if (jTableLocal.getSelectedColumn() > 2) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
-                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
+                            unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
                             if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
@@ -1400,7 +1400,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                             } else if ((jTableLocal.getSelectedColumn() >= 8) && (jTableLocal.getSelectedColumn() < 10)) {
                                 unTipo = "Roja";
                             }
-                            unaICargarTarjeta = new ICargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
+                            unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
                         }
                         unaICargarTarjeta.pack();
                         unaICargarTarjeta.setVisible(true);

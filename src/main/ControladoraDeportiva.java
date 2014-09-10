@@ -23,7 +23,7 @@ import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
-import logicaNegocios.TipoCancha;
+import logicaNegocios.CanchaTipo;
 import logicaNegocios.Torneo;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -415,12 +415,12 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Canchas">
-    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
+    public void crearCancha(Club unClub, String nombre, boolean seOcupa, CanchaTipo unTipoCancha) {
         Cancha unaCancha = new Cancha(this.entityManager, nombre, seOcupa, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
+    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, CanchaTipo unTipoCancha, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
         unaCancha.setSeOcupa(seOcupa);
         unaCancha.setUnTipoCancha(unTipoCancha);
@@ -445,7 +445,7 @@ public class ControladoraDeportiva {
     }
 
     /**
-     * Devuelve todas los TipoCancha menos los Borrados
+     * Devuelve todas los CanchaTipo menos los Borrados
      */
     public List<Cancha> getCanchasBD() {
         String unaConsulta = "SELECT C FROM Cancha C WHERE C.borradoLogico = FALSE";
@@ -467,16 +467,16 @@ public class ControladoraDeportiva {
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Canchas">
     public void crearTipoCancha(String nombre) {
-        new TipoCancha(this.entityManager, nombre);
+        new CanchaTipo(this.entityManager, nombre);
     }
 
-    public void modificarTipoCancha(TipoCancha unTipoCancha, String nombre, boolean borradoLogico) {
+    public void modificarTipoCancha(CanchaTipo unTipoCancha, String nombre, boolean borradoLogico) {
         unTipoCancha.setNombre(nombre);
         unTipoCancha.setBorradoLogico(borradoLogico);
         unTipoCancha.persistir(this.entityManager);
     }
 
-    public void eliminarTipoCancha(TipoCancha unTipoCancha) {
+    public void eliminarTipoCancha(CanchaTipo unTipoCancha) {
         unTipoCancha.setBorradoLogico(true);
         unTipoCancha.persistir(this.entityManager);
     }
@@ -484,20 +484,20 @@ public class ControladoraDeportiva {
     /**
      * Devuelve unTipoCancha por ID incluido los borrados
      */
-    public TipoCancha getTipoCanchaBD(Long id) {
-        TipoCancha resultado;
+    public CanchaTipo getTipoCanchaBD(Long id) {
+        CanchaTipo resultado;
         String unaConsulta = "SELECT A FROM TipoCancha A WHERE A.idTipoCancha = " + id;
         Query traerTipoCancha = this.entityManager.createQuery(unaConsulta);
-        resultado = (TipoCancha) traerTipoCancha.getSingleResult();
+        resultado = (CanchaTipo) traerTipoCancha.getSingleResult();
         return resultado;
     }
 
     /**
-     * Devuelve todas los TipoCancha menos los Borrados
+     * Devuelve todas los CanchaTipo menos los Borrados
      */
-    public List<TipoCancha> getTiposCanchasBD() {
+    public List<CanchaTipo> getTiposCanchasBD() {
         String unaConsulta = "SELECT C FROM TipoCancha C WHERE C.borradoLogico = FALSE";
-        List<TipoCancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        List<CanchaTipo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
     // </editor-fold>

@@ -236,7 +236,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -376,7 +376,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
-
+        ISancion unaISancion = new ISancion(this, unEquipoSeleccionado, unaControladoraGlobal);
+        unaISancion.pack();
+        unaISancion.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
@@ -388,7 +392,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        // TODO add your handling code here:
+        //falta interfaz
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlantelActionPerformed

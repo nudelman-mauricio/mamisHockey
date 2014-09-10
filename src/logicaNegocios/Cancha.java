@@ -26,14 +26,14 @@ public class Cancha implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(optional = false, targetEntity = TipoCancha.class)
-    private TipoCancha unTipoCancha;
+    @OneToOne(optional = false, targetEntity = CanchaTipo.class)
+    private CanchaTipo unTipoCancha;
 
     public Cancha() {
 
     }
 
-    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
+    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa, CanchaTipo unTipoCancha) {
         this.nombre = nombre;
         this.seOcupa = seOcupa;
         this.unTipoCancha = unTipoCancha;
@@ -74,11 +74,11 @@ public class Cancha implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 
-    public TipoCancha getUnTipoCancha() {
+    public CanchaTipo getUnTipoCancha() {
         return this.unTipoCancha;
     }
 
-    public void setUnTipoCancha(TipoCancha unTipoCancha) {
+    public void setUnTipoCancha(CanchaTipo unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
 //----------------------------- FIN GETERS Y SETERS ----------------------------

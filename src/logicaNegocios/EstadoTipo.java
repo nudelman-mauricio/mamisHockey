@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class TipoEstado implements Serializable, Comparable {
+public class EstadoTipo implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
@@ -24,11 +24,11 @@ public class TipoEstado implements Serializable, Comparable {
     private boolean borradoLogico;
     // </editor-fold>
 
-    public TipoEstado() {
+    public EstadoTipo() {
 
     }
 
-    public TipoEstado(EntityManager entityManager, String nombre) {
+    public EstadoTipo(EntityManager entityManager, String nombre) {
         this.nombre = nombre;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -78,8 +78,8 @@ public class TipoEstado implements Serializable, Comparable {
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
-        if (aux instanceof TipoEstado) {
-            TipoEstado unTipoEstado = (TipoEstado) aux;
+        if (aux instanceof EstadoTipo) {
+            EstadoTipo unTipoEstado = (EstadoTipo) aux;
             if (this.idTipoEstado > unTipoEstado.idTipoEstado) {
                 retorno = 1;
             }
