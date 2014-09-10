@@ -43,6 +43,8 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
         this.jTextFieldMinuto.setText(unaTarjeta.getMinuto());
         this.jTextPaneMotivo.setText(unaTarjeta.getMotivo());
         camposActivo(false);
+        jButtonEditar.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
     }
 
     private void camposActivo(boolean Editable) {
@@ -250,14 +252,10 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonGuardar)
-                            .addComponent(jButtonCancelar))
-                        .addGap(3, 3, 3))))
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButtonCancelar))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,6 +303,7 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
