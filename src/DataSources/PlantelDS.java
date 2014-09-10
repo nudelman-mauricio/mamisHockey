@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import logicaNegocios.Socia;
+import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -18,13 +19,14 @@ import net.sf.jasperreports.engine.JRField;
  *
  * @author Leanwit
  */
-public class PlantelDataSource implements JRDataSource {
+public class PlantelDS implements JRDataSource {
     
     private List<Socia> plantel = new ArrayList<Socia>();
     private int indiceSociaActual = -1;
+  
     
-       public PlantelDataSource (Collection unPlantel){
-        this.plantel = (List<Socia>) unPlantel;    
+       public PlantelDS (Collection unPlantel){
+        this.plantel = (List<Socia>) unPlantel;         
     }  
 
     public Object getFieldValue(JRField jrf) throws JRException
@@ -42,8 +44,7 @@ public class PlantelDataSource implements JRDataSource {
         else if ("apellido".equals(jrf.getName()))
         {
             valor = plantel.get(indiceSociaActual).getApellido();
-        }
-
+        }      
         return valor;
     }
 

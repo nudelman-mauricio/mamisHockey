@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
-import DataSources.EquipoDataSource;
-import DataSources.PlantelDataSource;
+import DataSources.EquipoDS;
+import DataSources.PlantelDS;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
@@ -367,24 +367,17 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
-        PlantelDataSource datasourcePlantel = new PlantelDataSource(unEquipoSeleccionado.getPlantel());
-        EquipoDataSource datasource = new EquipoDataSource(this.unaControladoraGlobal,unEquipoSeleccionado);
+        PlantelDS unPlantelDS = new PlantelDS(unEquipoSeleccionado.getPlantel());
+        EquipoDS unEquipoDS = new EquipoDS (unaControladoraGlobal,unEquipoSeleccionado);
         File archivo = new File("reportes/reporteEquipo.jasper");        
         JasperReport reporte;        
         try {            
             reporte = (JasperReport) JRLoader.loadObject(archivo);            
             Map parameters = new HashMap();
-            parameters.put("subreport_datasource",datasourcePlantel);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, datasource);
+            parameters.put("subreport_datasource",unPlantelDS);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, unEquipoDS);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);           
-            jasperViewer.setVisible(true);
-             //generas tu visor del reporte
-         
-            //Para exportar a pdf
-            /*JRExporter exporter = new JRPdfExporter();
-            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportes/reporteClub"));
-            exporter.exportReport();*/
+            jasperViewer.setVisible(true);       
           
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);

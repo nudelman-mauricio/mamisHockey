@@ -6,28 +6,29 @@
 	<field name="dni" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="apellido" class="java.lang.String"/>
+	<field name="deudas" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
 		<band height="6" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="-18" width="100" height="20" uuid="e7c638cf-2021-4747-81df-a05ddf6228a1"/>
-				<textElement>
+				<reportElement x="11" y="-20" width="100" height="20" uuid="e7c638cf-2021-4747-81df-a05ddf6228a1"/>
+				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DNI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="-20" width="100" height="20" uuid="836c4796-cf97-47b6-9f4b-a6c1e6232626"/>
-				<textElement>
+				<reportElement x="213" y="-20" width="100" height="20" uuid="836c4796-cf97-47b6-9f4b-a6c1e6232626"/>
+				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="-18" width="100" height="20" uuid="d0433e76-8fca-4558-97be-98688003b1c3"/>
-				<textElement>
+				<reportElement x="112" y="-20" width="100" height="20" uuid="d0433e76-8fca-4558-97be-98688003b1c3"/>
+				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apellido]]></text>
@@ -37,15 +38,24 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="100" height="20" uuid="34f4d81d-eed0-4333-bf91-6ebb31e0c0b1"/>
+				<reportElement x="12" y="0" width="100" height="20" uuid="34f4d81d-eed0-4333-bf91-6ebb31e0c0b1"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="0" width="100" height="20" uuid="f4f38bcb-9970-4332-98aa-d99240b51cd5"/>
+				<reportElement x="214" y="0" width="100" height="20" uuid="f4f38bcb-9970-4332-98aa-d99240b51cd5"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="0" width="100" height="20" uuid="21ed692a-30c3-4f36-98a2-e403f0b90a7d"/>
+				<reportElement x="113" y="0" width="100" height="20" uuid="21ed692a-30c3-4f36-98a2-e403f0b90a7d"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
 			</textField>
 		</band>

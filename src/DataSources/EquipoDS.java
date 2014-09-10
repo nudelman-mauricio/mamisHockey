@@ -17,14 +17,14 @@ import net.sf.jasperreports.engine.JRField;
  *
  * @author Leanwit
  */
-public class EquipoDataSource implements JRDataSource {
+public class EquipoDS implements JRDataSource {
    
     private Club unClub = new Club();
     private ControladoraGlobal unaControladoraGlobal;
     private int indiceEquipoActual = -1;
     private Equipo unEquipo;
     
-    public EquipoDataSource (ControladoraGlobal unaControladoraGlobal, Equipo unEquipo){
+    public EquipoDS (ControladoraGlobal unaControladoraGlobal, Equipo unEquipo){
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unEquipo = unEquipo;        
     }    
