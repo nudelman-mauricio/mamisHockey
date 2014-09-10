@@ -1,6 +1,5 @@
 package Interfaces;
 
-import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -13,8 +12,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaClub;
-    private Club unClubSeleccionado = null;
-    private DateFormat df = DateFormat.getDateInstance();
+    private Club unClubSeleccionado = null;    
 
     public IGestionClub(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -347,7 +345,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar el club: " + unClubSeleccionado.getNombre(),
+                "Desea eliminar el Club: " + unClubSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,

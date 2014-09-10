@@ -1,19 +1,19 @@
 package Interfaces;
 
+import DataSources.EquipoDS;
+import DataSources.PlantelDS;
 import java.io.File;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
-import DataSources.EquipoDS;
-import DataSources.PlantelDS;
-import java.util.HashMap;
-import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -24,56 +24,48 @@ import net.sf.jasperreports.view.JasperViewer;
 public class IGestionEquipo extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane jDesktopPane1;
     private DefaultTableModel modeloTablaEquipo;
+    private Equipo unEquipoSeleccionado = null;
 
-    public IGestionEquipo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
+    public IGestionEquipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.jDesktopPane1 = unjDesktopPanel;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
-
-        IMenuPrincipalInterface.centrar(this);
-
         this.modeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
-
-        this.SeleccionarObjetoTabla(false);
-
-        filtrarEquipo("");
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
+        this.setTitle("Gestión de Equipos");
+        IMenuPrincipalInterface.centrar(this);
     }
 
-    private void filtrarEquipo(String dato) {
-        limpiarTabla(modeloTablaEquipo);
-        List<Equipo> unaListaResultado = this.unaControladoraGlobal.getEquiposBDFiltro(dato);
-        for (Equipo unEquipo : unaListaResultado) {
-            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo), unEquipo.getUnaDelegada(), unEquipo.getUnaDelegadaSuplente(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
+    private void limpiarTabla() {
+        int filas = this.modeloTablaEquipo.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaEquipo.removeRow(0);
         }
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTablaEquipo) {
-        try {
-            int filas = modeloTablaEquipo.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaEquipo.removeRow(0);
+    private void camposCargar() {
+        if (jTableEquipo.getSelectedRow() > -1) {
+            if (jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0) != null) {
+                unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
+                camposActivo(true);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
 
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonDatos.setEnabled(estado);
-        jButtonPlantel.setEnabled(estado);
-        jButtonSancion.setEnabled(estado);
-        jButtonContabilidad.setEnabled(estado);
-        jButtonIndumentaria.setEnabled(estado);
-        jButtonImprimir.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        if (!estado) {
-            jTableEquipo.clearSelection();
+    private void camposActivo(boolean Editable) {
+        jButtonDatos.setEnabled(Editable);
+        jButtonPlantel.setEnabled(Editable);
+        jButtonSancion.setEnabled(Editable);
+        jButtonContabilidad.setEnabled(Editable);
+        jButtonIndumentaria.setEnabled(Editable);
+        jButtonEliminar.setEnabled(Editable);
+        jButtonImprimir.setEnabled(Editable);
+    }
+
+    private void cargarTabla() {
+        limpiarTabla();
+        for (Equipo unEquipo : this.unaControladoraGlobal.getEquiposBDFiltro(jTextFieldBusqueda.getText())) {
+            this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo), unEquipo.getUnaDelegada(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
 
@@ -88,6 +80,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jPanelFiltro = new javax.swing.JPanel();
         jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEquipo = new javax.swing.JTable();
@@ -112,6 +105,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +126,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -167,16 +162,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jPanelFiltro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldBusquedaFocusGained(evt);
-            }
-        });
-        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBusquedaActionPerformed(evt);
-            }
-        });
         jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldBusquedaKeyReleased(evt);
@@ -186,6 +171,8 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Filtro2.png"))); // NOI18N
         jLabel3.setText("Filtrar:");
 
+        jLabel1.setText("* por nombre");
+
         javax.swing.GroupLayout jPanelFiltroLayout = new javax.swing.GroupLayout(jPanelFiltro);
         jPanelFiltro.setLayout(jPanelFiltroLayout);
         jPanelFiltroLayout.setHorizontalGroup(
@@ -194,8 +181,12 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldBusqueda)
+                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanelFiltroLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelFiltroLayout.setVerticalGroup(
             jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +195,9 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 .addGroup(jPanelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1)
+                .addGap(0, 0, 0))
         );
 
         jTableEquipo.setModel(new javax.swing.table.DefaultTableModel(
@@ -212,25 +205,15 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "IdEquipo", "Nombre", "Club", "Delegada", "Delegada Sup.", "Director Tecnico"
+                "IdEquipo", "Nombre", "Club", "Delegada", "Director Tecnico"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        jTableEquipo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableEquipoFocusGained(evt);
-            }
-        });
-        jTableEquipo.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jTableEquipoComponentShown(evt);
             }
         });
         jScrollPane1.setViewportView(jTableEquipo);
@@ -239,6 +222,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             jTableEquipo.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableEquipo.getColumnModel().getColumn(0).setMaxWidth(0);
         }
+        jTableEquipo.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -248,13 +236,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonSancion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
         jButtonSancion.setText("Sanciones");
+        jButtonSancion.setEnabled(false);
         jButtonSancion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSancion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSancion.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +254,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
         jButtonDatos.setText("Datos");
+        jButtonDatos.setEnabled(false);
         jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +265,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonPlantel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/plantel.png"))); // NOI18N
         jButtonPlantel.setText("Plantel");
+        jButtonPlantel.setEnabled(false);
         jButtonPlantel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPlantel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonPlantel.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +276,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonContabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); // NOI18N
         jButtonContabilidad.setText("Contabilidad");
+        jButtonContabilidad.setEnabled(false);
         jButtonContabilidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonContabilidad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonContabilidad.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +287,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonIndumentaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipo.png"))); // NOI18N
         jButtonIndumentaria.setText("Indumentaria");
+        jButtonIndumentaria.setEnabled(false);
         jButtonIndumentaria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonIndumentaria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonIndumentaria.addActionListener(new java.awt.event.ActionListener() {
@@ -366,24 +359,20 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
         PlantelDS unPlantelDS = new PlantelDS(unEquipoSeleccionado.getPlantel());
-        EquipoDS unEquipoDS = new EquipoDS (unaControladoraGlobal,unEquipoSeleccionado);
-        File archivo = new File("reportes/reporteEquipo.jasper");        
-        JasperReport reporte;        
-        try {            
-            reporte = (JasperReport) JRLoader.loadObject(archivo);            
+        EquipoDS unEquipoDS = new EquipoDS(unaControladoraGlobal, unEquipoSeleccionado);
+        File archivo = new File("reportes/reporteEquipo.jasper");
+        JasperReport reporte;
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(archivo);
             Map parameters = new HashMap();
-            parameters.put("subreport_datasource",unPlantelDS);
+            parameters.put("subreport_datasource", unPlantelDS);
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, unEquipoDS);
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);           
-            jasperViewer.setVisible(true);       
-          
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
@@ -391,12 +380,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
         IEquipo unEquipo = new IEquipo(unaControladoraGlobal, this, unEquipoSeleccionado);
         unEquipo.pack();
         unEquipo.setVisible(true);
         this.setVisible(false);
-        this.jDesktopPane1.add(unEquipo);
+        IMenuPrincipalInterface.jDesktopPane.add(unEquipo);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
@@ -404,21 +392,19 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlantelActionPerformed
-        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
         IPlantel unIPlantel = new IPlantel(unaControladoraGlobal, this, unEquipoSeleccionado);
         unIPlantel.pack();
         unIPlantel.setVisible(true);
         this.setVisible(false);
-        this.jDesktopPane1.add(unIPlantel);          // TODO add your handling code here:
+        IMenuPrincipalInterface.jDesktopPane.add(unIPlantel);
     }//GEN-LAST:event_jButtonPlantelActionPerformed
 
     private void jButtonIndumentariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIndumentariaActionPerformed
-        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
         IIndumentaria unaIIndumentaria = new IIndumentaria(unaControladoraGlobal, this, unEquipoSeleccionado);
         unaIIndumentaria.pack();
         unaIIndumentaria.setVisible(true);
         this.setVisible(false);
-        this.jDesktopPane1.add(unaIIndumentaria);         // TODO add your handling code here:
+        IMenuPrincipalInterface.jDesktopPane.add(unaIIndumentaria);
     }//GEN-LAST:event_jButtonIndumentariaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -426,32 +412,17 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unEquipo.pack();
         unEquipo.setVisible(true);
         this.setVisible(false);
-        this.jDesktopPane1.add(unEquipo);
+        IMenuPrincipalInterface.jDesktopPane.add(unEquipo);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
-    private void jTextFieldBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaFocusGained
-        this.SeleccionarObjetoTabla(false);
-    }//GEN-LAST:event_jTextFieldBusquedaFocusGained
-
-    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
-
-    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
-        filtrarEquipo(jTextFieldBusqueda.getText());
-    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
-
-    private void jTableEquipoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTableEquipoComponentShown
-        filtrarEquipo("");
-    }//GEN-LAST:event_jTableEquipoComponentShown
-
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        Equipo unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0));
-
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTableEquipo.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Desea eliminar al equipo: " + unEquipoSeleccionado.getNombre(),
+                "Desea eliminar el Equipo: " + unEquipoSeleccionado.getNombre(),
                 "Eliminar",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
@@ -459,21 +430,21 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 options,
                 options)) {
             unaControladoraGlobal.eliminarEquipo(unEquipoSeleccionado);
-
             jTextFieldBusqueda.setText("");
-            filtrarEquipo("");
-            this.SeleccionarObjetoTabla(false);
+            cargarTabla();
         }
+        jTableEquipo.clearSelection();
+        unEquipoSeleccionado = null;
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    private void jTableEquipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableEquipoFocusGained
-        this.SeleccionarObjetoTabla(true);
-    }//GEN-LAST:event_jTableEquipoFocusGained
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        filtrarEquipo(jTextFieldBusqueda.getText());
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
     }//GEN-LAST:event_formComponentShown
 
+    private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
+        cargarTabla();
+    }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContabilidad;
@@ -484,6 +455,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonPlantel;
     private javax.swing.JButton jButtonSancion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelBotones2;
