@@ -23,7 +23,7 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
-        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Gol.png")));
         this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
         jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
@@ -37,6 +37,8 @@ public class ICargarGol extends javax.swing.JInternalFrame {
         this.jComboBoxTiempo.setSelectedIndex(Integer.parseInt(unGol.getTiempo()) - 1);
         this.jTextFieldMinuto.setText(unGol.getMinuto());
         camposActivo(false);
+        jButtonEditar.setEnabled(true);
+        jButtonGuardar.setEnabled(false);
     }
 
     private void camposActivo(boolean Editable) {
@@ -267,6 +269,7 @@ public class ICargarGol extends javax.swing.JInternalFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(true);
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 

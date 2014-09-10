@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -18,7 +19,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaLocalidad = (DefaultTableModel) jTableLocalidad.getModel();
-        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png"))); 
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Localidad.png"))); 
         this.setTitle("Localidades");
         IMenuPrincipalInterface.centrar(this);
         cargarTabla();

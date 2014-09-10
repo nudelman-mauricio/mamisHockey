@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -19,15 +20,12 @@ public class ICategoria extends javax.swing.JInternalFrame {
 
     public ICategoria(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
         this.modeloTablaCategoria = (DefaultTableModel) jTableCategoria.getModel();
-        this.unaControladoraGlobal = unaControladoraGlobal;
-        cargarTabla();
-
-        //Icono de la ventana HAY QUE AGREGAR UN ICONO PARA LOCALIDAD
-        //setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/localidad.png")));
+        this.unaControladoraGlobal = unaControladoraGlobal;        
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));
         IMenuPrincipalInterface.centrar(this);
         camposActivo(jPanelDetalles, false);
+        cargarTabla();
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {

@@ -38,7 +38,6 @@ public class ICargarTarjeta extends javax.swing.JInternalFrame {
     public ICargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, Tarjeta unaTarjeta) {
         this(unaControladoraGlobal, unJInternalFrame, unaSocia, unPartido, unaTarjeta.getTipo());
         this.unaTarjetaSeleccionada = unaTarjeta;
-
         this.jComboBoxTiempo.setSelectedIndex(Integer.parseInt(unaTarjeta.getTiempo()) - 1);
         this.jTextFieldMinuto.setText(unaTarjeta.getMinuto());
         this.jTextPaneMotivo.setText(unaTarjeta.getMotivo());
