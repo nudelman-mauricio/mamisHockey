@@ -73,12 +73,16 @@ public class IPase extends javax.swing.JInternalFrame {
             if (jTablePases.getValueAt(jTablePases.getSelectedRow(), 0) != null) {
                 unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
                 jTextFieldFechaRealizacion.setText(df.format(unPaseSeleccionado.getFecha()));
-                
-                jTextFieldEquipoOrigen.setText(unPaseSeleccionado.);
-                
-                jTextFieldFechaCaducidad.setText(df.format(unaErgometriaSeleccionada.getFechaCaducidad()));
-                jCheckBoxEgometriaAprobada.setSelected(unaErgometriaSeleccionada.isAprobado());
-                jTextPaneErgometriaComentario.setText(unaErgometriaSeleccionada.getComentarios());
+                if (jTablePases.getSelectedRow() > 0) {
+                    jTextFieldEquipoOrigen.setText((String) jTablePases.getValueAt(jTablePases.getSelectedRow() - 1, 3));
+                }
+                jComboBoxEquipoDestino.setSelectedItem(unPaseSeleccionado.getUnEquipo());
+                jTextFieldMonto.setText(Double.toString(unPaseSeleccionado.getUnaDeuda().getMontoTotal()));
+                jComboBoxCuota.setSelectedIndex(unPaseSeleccionado.getUnaDeuda().getCantidadCuotas() - 1);
+                jTextFieldFechaVencimiento.setText(df.format(unPaseSeleccionado.getUnaDeuda().getPrimerVencimiento()));
+                jTextPaneDetalle.setText(unPaseSeleccionado.getObservacion());
+                jCheckBoxLibreDeudaClub.setSelected(unPaseSeleccionado.isLibreDeudaClub());
+                jCheckBoxSolicitudPase.setSelected(unPaseSeleccionado.isSolicitudPase());
 
                 jButtonEliminar.setEnabled(true);
                 jButtonImprimir.setEnabled(true);
