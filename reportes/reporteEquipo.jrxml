@@ -24,6 +24,10 @@
 		</box>
 	</style>
 	<parameter name="jugadoras" class="java.util.List"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Leanwit\\Documents\\NetBeansProjects\\mamisHockey\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subreport_datasource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="equipo" class="java.lang.String"/>
 	<field name="club" class="java.lang.String"/>
 	<field name="directorTecnico" class="java.lang.String"/>
@@ -156,11 +160,19 @@
 	</group>
 	<group name="Group2">
 		<groupHeader>
-			<band height="32">
-				<textField>
-					<reportElement x="161" y="0" width="100" height="20" uuid="5380884f-8bbe-496b-9caa-4f969cb68d70"/>
-					<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
-				</textField>
+			<band height="130">
+				<subreport>
+					<reportElement x="114" y="0" width="441" height="130" uuid="bc2b0972-bfdb-49fe-b913-156b84462147"/>
+					<dataSourceExpression><![CDATA[$P{subreport_datasource}]]></dataSourceExpression>
+					<subreportExpression><![CDATA["C:\\Users\\Leanwit\\Documents\\NetBeansProjects\\mamisHockey\\reportes\\subreporteEquipo_plantel.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="edd19179-8e97-47cb-85e3-c01fa98df553"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Plantel]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
