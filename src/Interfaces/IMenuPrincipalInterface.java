@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -412,7 +411,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItemEstadosSociaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosSociaActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
-            IEstadoTipo unTipoEstado = new IEstadoTipo(unaControladoraGlobal, jDesktopPane);
+            IEstadoTipo unTipoEstado = new IEstadoTipo(unaControladoraGlobal);
             unTipoEstado.pack();
             unTipoEstado.setVisible(true);
             this.jDesktopPane.add(unTipoEstado);

@@ -17,27 +17,24 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
 
     public ICanchaTipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();
-        jTextFieldNombre.setEditable(false);
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png")));
+        this.setTitle("Tipos de Canchas");
+        IMenuPrincipalInterface.centrar(this);
         cargarTabla();
-
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
-        this.setTitle("Tipos de Canchas"); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar       
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        int filas = modeloTabla.getRowCount();
+    private void limpiarTabla() {
+        int filas = modeloTable.getRowCount();
         for (int i = 0; i < filas; i++) {
-            modeloTabla.removeRow(0);
+            modeloTable.removeRow(0);
         }
     }
 
     //Cargar Tabla con los tipos de canchas
     private void cargarTabla() {
-        limpiarTabla(modeloTable);
+        limpiarTabla();
         for (TipoCancha unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
             this.modeloTable.addRow(new Object[]{unTipoCancha.getIdTipoCancha(), unTipoCancha.getNombre()});
         }
@@ -50,9 +47,7 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
         if (jTableTipoCancha.getSelectedRow() > -1) {
             if (jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0) != null) {
                 unTipoCanchaSeleccionado = unaControladoraGlobal.getTipoCanchaBD((Long) jTableTipoCancha.getValueAt(jTableTipoCancha.getSelectedRow(), 0));
-
                 jTextFieldNombre.setText(unTipoCanchaSeleccionado.getNombre());
-
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
             }
@@ -234,6 +229,8 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
 
         jLabelNombre.setText("Nombre");
 
+        jTextFieldNombre.setEditable(false);
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
@@ -325,10 +322,10 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             if (unTipoCanchaSeleccionado == null) {
                 unaControladoraGlobal.crearTipoCancha(jTextFieldNombre.getText());
-                JOptionPane.showMessageDialog(this, "Tipo Cancha Creada");
+                JOptionPane.showMessageDialog(this, "Tipo Cancha Guardado");
             } else {
                 unaControladoraGlobal.modificarTipoCancha(unTipoCanchaSeleccionado, jTextFieldNombre.getText(), false);
-                JOptionPane.showMessageDialog(this, "Tipo Cancha Modificada");
+                JOptionPane.showMessageDialog(this, "Tipo Cancha Modificado");
                 unTipoCanchaSeleccionado = null;
             }
             cargarTabla();
@@ -352,9 +349,7 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
-        jTableTipoCancha.setEnabled(false);
-
+        
         jTextFieldNombre.setEditable(false);
 
         Object[] options = {"OK", "Cancelar"};
@@ -367,10 +362,10 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarTipoCancha(unTipoCanchaSeleccionado);
-            unTipoCanchaSeleccionado = null;
+            unaControladoraGlobal.eliminarTipoCancha(unTipoCanchaSeleccionado);            
             cargarTabla();
         }
+        unTipoCanchaSeleccionado = null;
         jTableTipoCancha.clearSelection();
         jTableTipoCancha.setEnabled(true);
         jTextFieldNombre.setText("");

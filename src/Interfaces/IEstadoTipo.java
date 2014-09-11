@@ -14,39 +14,30 @@ import main.ControladoraGlobal;
 public class IEstadoTipo extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private JDesktopPane unjDesktopPane;
     private DefaultTableModel modeloTablePases;
     private TipoEstado unTipoEstadoSeleccionado;
+    private DateFormat df = DateFormat.getDateInstance();
 
-    public IEstadoTipo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
+    public IEstadoTipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unjDesktopPane = unjDesktopPanel;
-
+        this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));//Icono de la ventana        
         IMenuPrincipalInterface.centrar(this);//Centrar        
-        this.setTitle("Estados posibles de una Socia");//Titulo Ventana
-
-        this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
+        this.setTitle("Tipos de Estados");//Titulo Ventana
         cargarTabla();
+    }
 
-        jTableTipoEstado.clearSelection();
-
-        jTextFieldNombre.setEditable(false);
-
-        jButtonNuevo.setEnabled(true);
-        jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonEditar.setEnabled(false);
-
+    private void limpiarTabla() {
+        int filas = modeloTablePases.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablePases.removeRow(0);
+        }
     }
 
     //Cargar Tabla con los pases de la Socia
     public void cargarTabla() {
-        DateFormat df = DateFormat.getDateInstance();
-        limpiarTabla(modeloTablePases);
+        limpiarTabla();
         for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
             if (!unTipoEstado.isBorradoLogico()) {
                 this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre()});
@@ -54,13 +45,6 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
         }
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-    }
-
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        int filas = modeloTabla.getRowCount();
-        for (int i = 0; i < filas; i++) {
-            modeloTabla.removeRow(0);
-        }
     }
 
     public void camposCargar() {
@@ -242,6 +226,8 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
 
         jLabelNombre.setText("Nombre del Estado");
 
+        jTextFieldNombre.setEditable(false);
+
         javax.swing.GroupLayout jPanelDetalleLayout = new javax.swing.GroupLayout(jPanelDetalle);
         jPanelDetalle.setLayout(jPanelDetalleLayout);
         jPanelDetalleLayout.setHorizontalGroup(
@@ -301,7 +287,6 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
 
         jTextFieldNombre.setEditable(true);
         jTextFieldNombre.setText("");
-
         unTipoEstadoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -349,11 +334,8 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
         jTableTipoEstado.setEnabled(true);
-
-        jTextFieldNombre.setEditable(false);
-
+        
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -364,11 +346,12 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
                 null,
                 options,
                 options)) {
-            unaControladoraGlobal.eliminarTipoEstado(unTipoEstadoSeleccionado);
-            unTipoEstadoSeleccionado = null;
+            unaControladoraGlobal.eliminarTipoEstado(unTipoEstadoSeleccionado);            
             cargarTabla();
         }
+        unTipoEstadoSeleccionado = null;
         jTableTipoEstado.clearSelection();
+        jTextFieldNombre.setEditable(false);
         jTextFieldNombre.setText("");
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
