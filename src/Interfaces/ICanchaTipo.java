@@ -6,13 +6,13 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.CanchaTipo;
+import logicaNegocios.TipoCancha;
 import main.ControladoraGlobal;
 
 public class ICanchaTipo extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private CanchaTipo unTipoCanchaSeleccionado;
+    private TipoCancha unTipoCanchaSeleccionado;
     private DefaultTableModel modeloTable;
 
     public ICanchaTipo(ControladoraGlobal unaControladoraGlobal) {
@@ -38,7 +38,7 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
     //Cargar Tabla con los tipos de canchas
     private void cargarTabla() {
         limpiarTabla(modeloTable);
-        for (CanchaTipo unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
+        for (TipoCancha unTipoCancha : unaControladoraGlobal.getTiposCanchasBD()) {
             this.modeloTable.addRow(new Object[]{unTipoCancha.getIdTipoCancha(), unTipoCancha.getNombre()});
         }
         jButtonEditar.setEnabled(false);

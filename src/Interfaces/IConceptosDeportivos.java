@@ -14,8 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.Frecuencia;
 import logicaNegocios.Mes;
-import logicaNegocios.CanchaTipo;
-import logicaNegocios.EstadoTipo;
+import logicaNegocios.TipoCancha;
+import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class IConceptosDeportivos extends javax.swing.JInternalFrame {
@@ -33,10 +33,10 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         cargarTabla();
 
         Vector comboBoxItems = new Vector();
-        for (CanchaTipo aux : unaControladoraGlobal.getTiposCanchasBD()) {
+        for (TipoCancha aux : unaControladoraGlobal.getTiposCanchasBD()) {
             comboBoxItems.add(aux);
         }
-        for (EstadoTipo aux : unaControladoraGlobal.getTiposEstadosBD()) {
+        for (TipoEstado aux : unaControladoraGlobal.getTiposEstadosBD()) {
             comboBoxItems.add(aux);
         }
         DefaultComboBoxModel modelComboAfectados = new DefaultComboBoxModel(comboBoxItems);
@@ -672,16 +672,16 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             Frecuencia unaFrecuencia = null;
-            CanchaTipo unTipoCancha = null;
-            EstadoTipo unTipoEstado = null;
+            TipoCancha unTipoCancha = null;
+            TipoEstado unTipoEstado = null;
             if (unConceptoDeportivoSeleccionado == null) {
                 if (jCheckBoxAutoGeneracion.isSelected()) {
                     unaFrecuencia = crearFrecuencia();
-                    if (jComboBoxAfectados.getSelectedItem() instanceof CanchaTipo) {
-                        unTipoCancha = (CanchaTipo) jComboBoxAfectados.getSelectedItem();
+                    if (jComboBoxAfectados.getSelectedItem() instanceof TipoCancha) {
+                        unTipoCancha = (TipoCancha) jComboBoxAfectados.getSelectedItem();
                     }
-                    if (jComboBoxAfectados.getSelectedItem() instanceof EstadoTipo) {
-                        unTipoEstado = (EstadoTipo) jComboBoxAfectados.getSelectedItem();
+                    if (jComboBoxAfectados.getSelectedItem() instanceof TipoEstado) {
+                        unTipoEstado = (TipoEstado) jComboBoxAfectados.getSelectedItem();
                     }
                 }
                 unaControladoraGlobal.crearConceptoDeportivo(Double.valueOf(jTextFieldMonto.getText()), jTextFieldConcepto.getText(), unaFrecuencia, unTipoCancha, unTipoEstado);
@@ -694,11 +694,11 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                     } else {
                         unaControladoraGlobal.modificarFrecuencia(unaFrecuencia, (String) jComboBoxDiaGeneracion.getSelectedItem(), (String) jComboBoxDiaVencimiento.getSelectedItem(), jCheckBox1.isSelected(), jCheckBox2.isSelected(), jCheckBox3.isSelected(), jCheckBox4.isSelected(), jCheckBox5.isSelected(), jCheckBox6.isSelected(), jCheckBox7.isSelected(), jCheckBox8.isSelected(), jCheckBox9.isSelected(), jCheckBox10.isSelected(), jCheckBox11.isSelected(), jCheckBox12.isSelected(), unConceptoDeportivoSeleccionado.getUnaFrecuencia().isBorradoLogico());
                     }
-                    if (jComboBoxAfectados.getSelectedItem() instanceof CanchaTipo) {
-                        unTipoCancha = (CanchaTipo) jComboBoxAfectados.getSelectedItem();
+                    if (jComboBoxAfectados.getSelectedItem() instanceof TipoCancha) {
+                        unTipoCancha = (TipoCancha) jComboBoxAfectados.getSelectedItem();
                     }
-                    if (jComboBoxAfectados.getSelectedItem() instanceof EstadoTipo) {
-                        unTipoEstado = (EstadoTipo) jComboBoxAfectados.getSelectedItem();
+                    if (jComboBoxAfectados.getSelectedItem() instanceof TipoEstado) {
+                        unTipoEstado = (TipoEstado) jComboBoxAfectados.getSelectedItem();
                     }
                 } else {
                     if (unaFrecuencia != null) {

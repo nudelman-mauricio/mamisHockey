@@ -14,7 +14,7 @@ import logicaNegocios.Partido;
 import logicaNegocios.Pase;
 import logicaNegocios.PersonaAuxiliar;
 import logicaNegocios.Socia;
-import logicaNegocios.EstadoTipo;
+import logicaNegocios.TipoEstado;
 
 public class ControladoraEntidades {
 
@@ -353,12 +353,12 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Estados">
-    public void crearEstado(Socia unaSocia, Date fecha, EstadoTipo unTipoEstado) {
+    public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         Estado unEstado = new Estado(this.entityManager, fecha, unTipoEstado);
         unaSocia.agregarEstado(this.entityManager, unEstado);
     }
 
-    public void modificarEstado(Estado unEstado, Date fecha, EstadoTipo unTipoEstado, boolean borradoLogico) {
+    public void modificarEstado(Estado unEstado, Date fecha, TipoEstado unTipoEstado, boolean borradoLogico) {
         unEstado.setFecha(fecha);
         unEstado.setUnTipoEstado(unTipoEstado);
         unEstado.setBorradoLogico(borradoLogico);
@@ -399,16 +399,16 @@ public class ControladoraEntidades {
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
     public void crearTipoEstado(String nombre) {
-        new EstadoTipo(this.entityManager, nombre);
+        new TipoEstado(this.entityManager, nombre);
     }
 
-    public void modificarTipoEstado(EstadoTipo unTipoEstado, String nombre, boolean borradoLogico) {
+    public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
         unTipoEstado.setNombre(nombre);
         unTipoEstado.setBorradoLogico(borradoLogico);
         unTipoEstado.persistir(this.entityManager);
     }
 
-    public void eliminarTipoEstado(EstadoTipo unTipoEstado) {
+    public void eliminarTipoEstado(TipoEstado unTipoEstado) {
         unTipoEstado.setBorradoLogico(true);
         unTipoEstado.persistir(this.entityManager);
     }
@@ -416,21 +416,21 @@ public class ControladoraEntidades {
     /**
      * Devuelve unTipoEstado filtrado por ID incluido los borrados
      */
-    public EstadoTipo getTipoEstadoBD(Long id) {
-        EstadoTipo resultado;
+    public TipoEstado getTipoEstadoBD(Long id) {
+        TipoEstado resultado;
         String unaConsulta = "SELECT auxE FROM TipoEstado auxE WHERE auxE.idTipoEstado = " + id;
         Query traerTipoEstado = this.entityManager.createQuery(unaConsulta);
-        resultado = (EstadoTipo) traerTipoEstado.getSingleResult();
+        resultado = (TipoEstado) traerTipoEstado.getSingleResult();
         return resultado;
     }
 
     /**
      * Devuelve todos los TiposEstados
      */
-    public List<EstadoTipo> getTiposEstadosBD() {
+    public List<TipoEstado> getTiposEstadosBD() {
         String unaConsulta = "SELECT TE FROM TipoEstado TE WHERE TE.borradoLogico= FALSE";
         Query consulta = this.entityManager.createQuery(unaConsulta);
-        List<EstadoTipo> unaListaResultado = consulta.getResultList();
+        List<TipoEstado> unaListaResultado = consulta.getResultList();
         return unaListaResultado;
     }
     // </editor-fold>

@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.EstadoTipo;
+import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class IEstadoTipo extends javax.swing.JInternalFrame {
@@ -16,7 +16,7 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JDesktopPane unjDesktopPane;
     private DefaultTableModel modeloTablePases;
-    private EstadoTipo unTipoEstadoSeleccionado;
+    private TipoEstado unTipoEstadoSeleccionado;
 
     public IEstadoTipo(ControladoraGlobal unaControladoraGlobal, JDesktopPane unjDesktopPanel) {
         initComponents();
@@ -47,7 +47,7 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
     public void cargarTabla() {
         DateFormat df = DateFormat.getDateInstance();
         limpiarTabla(modeloTablePases);
-        for (EstadoTipo unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+        for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
             if (!unTipoEstado.isBorradoLogico()) {
                 this.modeloTablePases.addRow(new Object[]{unTipoEstado.getIdTipoEstado(), unTipoEstado.getNombre()});
             }

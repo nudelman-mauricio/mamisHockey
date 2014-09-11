@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Club;
-import logicaNegocios.CanchaTipo;
+import logicaNegocios.TipoCancha;
 import main.ControladoraGlobal;
 
 public class ICancha extends javax.swing.JInternalFrame {
@@ -413,10 +413,10 @@ public class ICancha extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             if (unaCanchaSeleccionada == null) {
-                unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (CanchaTipo) jComboBoxTipo.getSelectedItem());
+                unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
                 JOptionPane.showMessageDialog(this, "Cancha Guardada");
             } else {
-                unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (CanchaTipo) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
+                unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Cancha Modificada");
                 unaCanchaSeleccionada = null;
             }

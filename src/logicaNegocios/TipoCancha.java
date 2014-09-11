@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class CanchaTipo implements Serializable, Comparable {
+public class TipoCancha implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
@@ -24,11 +24,11 @@ public class CanchaTipo implements Serializable, Comparable {
     private boolean borradoLogico;
     // </editor-fold>
 
-    public CanchaTipo() {
+    public TipoCancha() {
 
     }
 
-    public CanchaTipo(EntityManager entityManager, String nombre) {
+    public TipoCancha(EntityManager entityManager, String nombre) {
         this.nombre = nombre;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -63,8 +63,8 @@ public class CanchaTipo implements Serializable, Comparable {
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
-        if (aux instanceof CanchaTipo) {
-            CanchaTipo unTipoCancha = (CanchaTipo) aux;
+        if (aux instanceof TipoCancha) {
+            TipoCancha unTipoCancha = (TipoCancha) aux;
             if (this.idTipoCancha > unTipoCancha.idTipoCancha) {
                 retorno = 1;
             }

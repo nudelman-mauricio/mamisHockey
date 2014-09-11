@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import logicaNegocios.Partido;
 import logicaNegocios.Socia;
-import logicaNegocios.EstadoTipo;
+import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 import main.ImagenFondo;
 
@@ -503,15 +503,15 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
 //Si no hay tipoEstadoSocia, lo crea
-        EstadoTipo unTipoEstadoSocia = null;
-        for (EstadoTipo unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+        TipoEstado unTipoEstadoSocia = null;
+        for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
             if ("Socia".equals(unTipoEstado.getNombre())) {
                 unTipoEstadoSocia = unTipoEstado;
             }
         }
         if (unTipoEstadoSocia == null) {
             unaControladoraGlobal.crearTipoEstado("Socia");
-            for (EstadoTipo unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+            for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
                 if ("Socia".equals(unTipoEstado.getNombre())) {
                     unTipoEstadoSocia = unTipoEstado;
                 }

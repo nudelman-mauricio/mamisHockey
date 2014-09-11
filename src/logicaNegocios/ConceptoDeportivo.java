@@ -17,8 +17,8 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private double monto;
 
-    @OneToOne(targetEntity = EstadoTipo.class)
-    private EstadoTipo unTipoEstado;
+    @OneToOne(targetEntity = TipoEstado.class)
+    private TipoEstado unTipoEstado;
 
     @Basic
     private String concepto;
@@ -33,13 +33,13 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(targetEntity = CanchaTipo.class)
-    private CanchaTipo unTipoCancha;
+    @OneToOne(targetEntity = TipoCancha.class)
+    private TipoCancha unTipoCancha;
 
     public ConceptoDeportivo() {
     }
 
-    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Frecuencia unaFrecuencia, CanchaTipo unTipoCancha, EstadoTipo unTipoEstado) {
+    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
         this.monto = monto;
         this.concepto = concepto;
         this.unaFrecuencia = unaFrecuencia;
@@ -58,11 +58,11 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.monto = monto;
     }
 
-    public EstadoTipo getUnTipoEstado() {
+    public TipoEstado getUnTipoEstado() {
         return this.unTipoEstado;
     }
 
-    public void setUnTipoEstado(EstadoTipo unTipoEstado) {
+    public void setUnTipoEstado(TipoEstado unTipoEstado) {
         this.unTipoEstado = unTipoEstado;
     }
 
@@ -98,11 +98,11 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         this.borradoLogico = borradoLogico;
     }
 
-    public CanchaTipo getUnTipoCancha() {
+    public TipoCancha getUnTipoCancha() {
         return this.unTipoCancha;
     }
 
-    public void setUnTipoCancha(CanchaTipo unTipoCancha) {
+    public void setUnTipoCancha(TipoCancha unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
     // </editor-fold>
