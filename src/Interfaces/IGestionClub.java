@@ -408,6 +408,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         jTextFieldBusqueda.setText("");
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

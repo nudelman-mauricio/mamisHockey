@@ -1,7 +1,6 @@
 package Interfaces;
 
 import java.text.DateFormat;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -11,12 +10,12 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class IGestionTorneo extends javax.swing.JInternalFrame {
-
+    
     private DefaultTableModel modeloTablaTorneo;
     private ControladoraGlobal unaControladoraGlobal;
     private Torneo unTorneoSeleccionado = null;
     DateFormat df = DateFormat.getDateInstance();
-
+    
     public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -25,14 +24,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Torneos");
         IMenuPrincipalInterface.centrar(this);
     }
-
+    
     private void limpiarTabla() {
         int filas = modeloTablaTorneo.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTorneo.removeRow(0);
         }
     }
-
+    
     private void camposCargar() {
         if (jTableTorneo.getSelectedRow() > -1) {
             if (jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0) != null) {
@@ -41,22 +40,22 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     private void camposActivo(boolean Editable) {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
-        jButtonTorneo.setEnabled(Editable);
+        jButtonDatos.setEnabled(Editable);
         jButtonEquipos.setEnabled(Editable);
         jButtonFechas.setEnabled(Editable);
     }
-
+    
     private void cargarTabla() {
         limpiarTabla();
         for (Torneo unTorneo : this.unaControladoraGlobal.getTorneosBDFiltro(jTextFieldBusqueda.getText())) {
             this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,7 +73,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jPanelBotones2 = new javax.swing.JPanel();
         jButtonEquipos = new javax.swing.JButton();
         jButtonFechas = new javax.swing.JButton();
-        jButtonTorneo = new javax.swing.JButton();
+        jButtonDatos = new javax.swing.JButton();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 544));
@@ -241,14 +240,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonTorneo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
-        jButtonTorneo.setText("Torneo");
-        jButtonTorneo.setEnabled(false);
-        jButtonTorneo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonTorneo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonTorneo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Datos.png"))); // NOI18N
+        jButtonDatos.setText("Datos");
+        jButtonDatos.setEnabled(false);
+        jButtonDatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTorneoActionPerformed(evt);
+                jButtonDatosActionPerformed(evt);
             }
         });
 
@@ -258,7 +257,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotones2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jButtonTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -272,7 +271,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 .addGroup(jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonTorneo, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(3, 3, 3))
         );
 
@@ -328,13 +327,13 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.jDesktopPane.add(unaFechaTorneo);
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
-    private void jButtonTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTorneoActionPerformed
+    private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
         ITorneo unTorneo = new ITorneo(unaControladoraGlobal, this, unTorneoSeleccionado);
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unTorneo);
-    }//GEN-LAST:event_jButtonTorneoActionPerformed
+    }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         ITorneo unTorneo = new ITorneo(unaControladoraGlobal, this);
@@ -373,16 +372,17 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         jTextFieldBusqueda.setText("");
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEquipos;
     private javax.swing.JButton jButtonFechas;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonTorneo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelBotones2;

@@ -348,6 +348,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jRadioButtonTodos.setSelected(true);
         jTextFieldBusqueda.setText("");
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased

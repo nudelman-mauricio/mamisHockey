@@ -22,11 +22,11 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class IGestionEquipo extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaEquipo;
     private Equipo unEquipoSeleccionado = null;
-
+    
     public IGestionEquipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -35,14 +35,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Equipos");
         IMenuPrincipalInterface.centrar(this);
     }
-
+    
     private void limpiarTabla() {
         int filas = this.modeloTablaEquipo.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaEquipo.removeRow(0);
         }
     }
-
+    
     private void camposCargar() {
         if (jTableEquipo.getSelectedRow() > -1) {
             if (jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0) != null) {
@@ -51,7 +51,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     private void camposActivo(boolean Editable) {
         jButtonDatos.setEnabled(Editable);
         jButtonPlantel.setEnabled(Editable);
@@ -61,14 +61,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
     }
-
+    
     private void cargarTabla() {
         limpiarTabla();
         for (Equipo unEquipo : this.unaControladoraGlobal.getEquiposBDFiltro(jTextFieldBusqueda.getText())) {
             this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo), unEquipo.getUnaDelegada(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -444,6 +444,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         jTextFieldBusqueda.setText("");
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased

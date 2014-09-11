@@ -5,16 +5,15 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IGestionSocias extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaSocia;
     private Socia unaSociaSeleccionada = null;
-
+    
     public IGestionSocias(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -23,14 +22,14 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Socias");
         IMenuPrincipalInterface.centrar(this);
     }
-
+    
     private void limpiarTabla() {
         int filas = modeloTablaSocia.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaSocia.removeRow(0);
         }
     }
-
+    
     private void camposCargar() {
         if (jTableSocias.getSelectedRow() > -1) {
             if (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0) != null) {
@@ -39,7 +38,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     private void camposActivo(boolean Editable) {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
@@ -51,7 +50,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonEstado.setEnabled(Editable);
         jButtonContabilidad.setEnabled(Editable);
     }
-
+    
     private void cargarTabla() {
         limpiarTabla();
         String ultimoEstado;
@@ -403,7 +402,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
-
+    
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
         IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal, this, unaSociaSeleccionada);
@@ -452,6 +451,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         jTextFieldBusqueda.setText("");
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
