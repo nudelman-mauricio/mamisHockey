@@ -1,7 +1,7 @@
 package Interfaces;
 
 import DataSources.EquipoDS;
-import DataSources.PlantelDS;
+import DataSources.Equipo_PlantelDS;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -359,7 +359,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        PlantelDS unPlantelDS = new PlantelDS(unEquipoSeleccionado.getPlantel());
+        Equipo_PlantelDS unPlantelDS = new Equipo_PlantelDS(unEquipoSeleccionado.getPlantel());
         EquipoDS unEquipoDS = new EquipoDS(unaControladoraGlobal, unEquipoSeleccionado);
         File archivo = new File("reportes/reporteEquipo.jasper");
         JasperReport reporte;

@@ -1,5 +1,13 @@
 package Interfaces;
 
+import DataSources.ClubDS;
+import DataSources.Club_CanchaDS;
+import DataSources.Club_EquipoDS;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -7,6 +15,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
 import main.ControladoraGlobal;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class IGestionClub extends javax.swing.JInternalFrame {
 
@@ -314,7 +328,22 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+        Club_EquipoDS unEquipoDS = new Club_EquipoDS(unClubSeleccionado.getEquipos());
+        Club_CanchaDS unaCanchaDS = new Club_CanchaDS(unClubSeleccionado);        
+        ClubDS unClubDS = new ClubDS(unClubSeleccionado);
+        File archivo = new File("reportes/reporteClub.jasper");
+        JasperReport reporte;
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(archivo);
+            Map parameters = new HashMap();
+            parameters.put("subreport_datasource_Equipo", unEquipoDS);
+            parameters.put("subreport_datasource_Cancha", unaCanchaDS);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, unClubDS);
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed

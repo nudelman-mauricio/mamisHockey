@@ -19,13 +19,13 @@ import net.sf.jasperreports.engine.JRField;
  *
  * @author Leanwit
  */
-public class PlantelDS implements JRDataSource {
+public class Equipo_PlantelDS implements JRDataSource {
     
     private List<Socia> plantel = new ArrayList<Socia>();
     private int indiceSociaActual = -1;
   
     
-       public PlantelDS (Collection unPlantel){
+       public Equipo_PlantelDS (Collection unPlantel){
         this.plantel = (List<Socia>) unPlantel;         
     }  
 
@@ -39,7 +39,7 @@ public class PlantelDS implements JRDataSource {
         }
         else if ("nombre".equals(jrf.getName()))
         {
-            valor = plantel.get(indiceSociaActual).getNombre();
+            valor = plantel.get(indiceSociaActual).getNombre();            
         }
         else if ("apellido".equals(jrf.getName()))
         {
