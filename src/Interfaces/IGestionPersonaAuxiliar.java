@@ -10,11 +10,11 @@ import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
 public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaPersonaAuxiliar;
     private PersonaAuxiliar unaPersonaAuxiliarSeleccionado = null;
-    
+
     public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -23,14 +23,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Auxiliares");
         IMenuPrincipalInterface.centrar(this);
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTablaPersonaAuxiliar.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaPersonaAuxiliar.removeRow(0);
         }
     }
-    
+
     private void camposCargar() {
         if (jTablePersonaAuxiliar.getSelectedRow() > -1) {
             if (jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0) != null) {
@@ -39,13 +39,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     private void camposActivo(boolean Editable) {
         jButtonDatos.setEnabled(Editable);
+        jButtonSancion.setEnabled(Editable);
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
     }
-    
+
     private void cargarTabla() {
         limpiarTabla();
         List<PersonaAuxiliar> lista = null;
@@ -63,7 +64,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         }
         camposActivo(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,6 +86,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTablePersonaAuxiliar = new javax.swing.JTable();
         jPanelBotones2 = new javax.swing.JPanel();
         jButtonDatos = new javax.swing.JButton();
+        jButtonSancion = new javax.swing.JButton();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -263,7 +265,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -279,6 +281,17 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonSancion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png"))); // NOI18N
+        jButtonSancion.setText("Sanciones");
+        jButtonSancion.setEnabled(false);
+        jButtonSancion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSancion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonSancion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSancionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
@@ -286,14 +299,21 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             .addGroup(jPanelBotones2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotones2Layout.setVerticalGroup(
             jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotones2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jButtonDatos)
-                .addGap(3, 3, 3))
+                .addGroup(jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelBotones2Layout.createSequentialGroup()
+                        .addComponent(jButtonSancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3))
+                    .addGroup(jPanelBotones2Layout.createSequentialGroup()
+                        .addComponent(jButtonDatos)
+                        .addGap(3, 3, 3))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -390,12 +410,21 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         cargarTabla();
     }//GEN-LAST:event_jRadioButtonTecnicosActionPerformed
 
+    private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
+        ISancion unaISancion = new ISancion(this, unaPersonaAuxiliarSeleccionado, unaControladoraGlobal);
+        unaISancion.pack();
+        unaISancion.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
+    }//GEN-LAST:event_jButtonSancionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonSancion;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanelBotones;
