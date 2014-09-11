@@ -130,10 +130,9 @@ public class ControladoraGlobal {
 
     // <editor-fold defaultstate="collapsed" desc="Pases">
     public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
-        String observacionDeuda;
-        //no necesariamente es el primer pase. tambien pude una socia vieja pasar al vacio y luego a otro equipo
+        String observacionDeuda;        
         if (unaSocia.getEquipoActual() == null) {
-            observacionDeuda = "Primer pase de la socia al Equipo: " + unEquipoNuevo.getNombre();
+            observacionDeuda = "Pase de Equipo: Sin Equipo a Equipo : " + unEquipoNuevo.getNombre();
         } else {
             observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
         }

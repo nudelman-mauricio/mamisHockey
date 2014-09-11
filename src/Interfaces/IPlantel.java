@@ -1,9 +1,6 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -15,145 +12,110 @@ import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IPlantel extends javax.swing.JInternalFrame {
-
+    
     private JInternalFrame unJInternalFrame;
     private Equipo unEquipo;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaPlantel;
-    private Socia unaSocia;
-
+    private Socia unaSociaSeleccionada;
+    
     public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
-        this.unaControladoraGlobal = unaControladoraGlobal;
-
-        //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
-
-        IMenuPrincipalInterface.centrar(this);
-
-        camposActivo(false);
-        jButtonCancelar.setEnabled(false);
-        camposLimpiar();
         this.modeloTablaPlantel = (DefaultTableModel) jTablePlantel.getModel();
-        obtenerPlantel();
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
+        this.setTitle("Plantel de Equipo: " + unEquipo.getNombre());
+        IMenuPrincipalInterface.centrar(this);
+        cargarTabla();
     }
-
-    private void obtenerPlantel() {
-        String deudas = "", puesto = "";
-        limpiarTabla(modeloTablaPlantel);
-
+    
+    private void limpiarTabla() {
+        int filas = modeloTablaPlantel.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaPlantel.removeRow(0);
+        }
+    }
+    
+    private void cargarTabla() {
+        limpiarTabla();
         for (Socia unaSocia : unEquipo.getPlantel()) {
-
-            if (unaSocia.isAlDia(unaControladoraGlobal.fechaSistema())) {
-                deudas = "No";
-            } else {
-                deudas = "Si";
-            }
-            puesto = "Jugadora";
-            if (unEquipo.getUnaCapitana() != null) {
-                if (unaSocia.getDni() == unEquipo.getUnaCapitana().getDni()) {
-                    puesto = "Capitana";
-                }
-            }
-            if (unEquipo.getUnaCapitanaSuplente() != null) {
-                if (unaSocia.getDni() == unEquipo.getUnaCapitanaSuplente().getDni()) {
-                    puesto = "Capitana Suplente";
-                }
-            }
-            if (unEquipo.getUnaDelegada() != null) {
-                if (unaSocia.getDni() == unEquipo.getUnaDelegada().getDni()) {
-                    puesto = "Delegada";
-                }
-            }
-            if (unEquipo.getUnaDelegadaSuplente() != null) {
-                if (unaSocia.getDni() == unEquipo.getUnaDelegadaSuplente().getDni()) {
-                    puesto = "Delegada Suplente";
-                }
-            }
-
             this.modeloTablaPlantel.addRow(
                     new Object[]{
                         unaSocia.getDni(),
                         unaSocia.getNumeroCamiseta(),
                         unaSocia.getApellido() + ", " + unaSocia.getNombre(),
                         unaSocia.getUltimoEstado().getUnTipoEstado().getNombre(),
-                        puesto,
-                        deudas,
+                        puesto(unaSocia),
+                        debe(unaSocia),
                         unaSocia.isErgometriaAprobada_y_Vigente(unaControladoraGlobal.fechaSistema())
                     }
             );
         }
+        jButtonEditar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
     }
-
-    private void limpiarTabla(DefaultTableModel modeloTablaPlantel) {
-        try {
-            int filas = modeloTablaPlantel.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTablaPlantel.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+    
+    private String debe(Socia unaSocia) {
+        if (unaSocia.isAlDia(unaControladoraGlobal.fechaSistema())) {
+            return "No";
         }
+        return "Si";
     }
-
+    
+    private String puesto(Socia unaSocia) {
+        if (unaSocia == unEquipo.getUnaCapitana()) {
+            return "Capitana";
+        }
+        if (unaSocia == unEquipo.getUnaCapitanaSuplente()) {
+            return "Capitana Suplente";
+        }
+        if (unaSocia == unEquipo.getUnaDelegada()) {
+            return "Delegada";
+        }
+        if (unaSocia == unEquipo.getUnaDelegadaSuplente()) {
+            return "Delegada Suplente";
+        }
+        return "Jugadora";
+    }
+    
     private void camposLimpiar() {
         jTextFieldNroCamiseta.setText("");
         jTextFieldApellido.setText("");
         jTextFieldNombre.setText("");
     }
 
-    private void camposActivo(boolean Editable) {
-        jTextFieldNroCamiseta.setEditable(Editable);
-
-        jButtonGuardar.setEnabled(Editable);
-        jButtonCancelar.setEnabled(Editable);
-        jButtonEditar.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
-        jButtonImprimir.setEnabled(!Editable);
-    }
-
-    private void SeleccionarObjetoTabla(boolean estado) {
-        jButtonGuardar.setEnabled(estado);
-        jButtonCancelar.setEnabled(estado);
-        jButtonEditar.setEnabled(estado);
-        jButtonEliminar.setEnabled(estado);
-        jButtonImprimir.setEnabled(!estado);
-        if (!estado) {
-            jTablePlantel.clearSelection();
-        }
-    }
-
     //actualizar campos al seleccionar en la tabla
     private void camposCargar() {
         if (jTablePlantel.getSelectedRow() > -1) {
             if (jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0) != null) {
-                Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
-
-                camposLimpiar();
-
+                unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
                 jTextFieldNombre.setText(unaSociaSeleccionada.getNombre());
                 jTextFieldApellido.setText(unaSociaSeleccionada.getApellido());
                 jTextFieldNroCamiseta.setText(unaSociaSeleccionada.getNumeroCamiseta());
-
-                camposActivo(false);
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
             }
         }
     }
-
+    
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNroCamiseta.getText().isEmpty()) {
             jLabelNroCamiseta.setForeground(Color.red);
-            bandera = false;
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+            return false;
         } else {
             jLabelNroCamiseta.setForeground(Color.black);
         }
-        if (!bandera) {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+        for (Socia unaSocia : unEquipo.getPlantel()) {
+            if ((unaSocia != unaSociaSeleccionada) && (unaSocia.getNumeroCamiseta().equals(jTextFieldNroCamiseta.getText()))) {
+                JOptionPane.showMessageDialog(this, "Ya existe una jugadora en el equipo con el mismo número de camiseta");
+                return false;
+            }
         }
         return bandera;
     }
@@ -181,9 +143,9 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setResizable(true);
-        setMaximumSize(new java.awt.Dimension(650, 431));
-        setMinimumSize(new java.awt.Dimension(650, 431));
-        setPreferredSize(new java.awt.Dimension(650, 431));
+        setMaximumSize(new java.awt.Dimension(650, 417));
+        setMinimumSize(new java.awt.Dimension(650, 417));
+        setPreferredSize(new java.awt.Dimension(650, 417));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -206,6 +168,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -216,11 +179,13 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +196,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +207,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -303,11 +270,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTablePlantel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTablePlantelFocusGained(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTablePlantel);
         if (jTablePlantel.getColumnModel().getColumnCount() > 0) {
             jTablePlantel.getColumnModel().getColumn(0).setMinWidth(0);
@@ -337,7 +299,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,6 +317,8 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jTextFieldApellido.setEditable(false);
 
+        jTextFieldNroCamiseta.setEditable(false);
+
         jTextFieldNombre.setEditable(false);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
@@ -367,7 +331,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                         .addGap(156, 156, 156)
                         .addComponent(jLabelFechaMonto))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(205, 205, 205)
+                        .addGap(157, 157, 157)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelNroCamiseta)
@@ -378,7 +342,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jTextFieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jTextFieldNroCamiseta))))
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,7 +363,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDestino))
-                .addGap(25, 25, 25))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -434,35 +398,31 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        this.unaSocia = unaControladoraGlobal.getSociaBD((Long) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0));
-        camposActivo(true);
         jButtonEditar.setEnabled(false);
-        jTextFieldNroCamiseta.setText(unaSocia.getNumeroCamiseta());
-        jTextFieldNombre.setText(unaSocia.getNombre());
-        jTextFieldApellido.setText(unaSocia.getApellido());
+        jButtonGuardar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+        
+        jTablePlantel.setEnabled(false);
+        
+        jTextFieldNroCamiseta.setEditable(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
-    private void jTablePlantelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTablePlantelFocusGained
-
-    }//GEN-LAST:event_jTablePlantelFocusGained
-
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        boolean control = true;
-        for (Socia SociasDelPlantel : unEquipo.getPlantel()) {
-            if ((SociasDelPlantel.getDni() != unaSocia.getDni()) && (SociasDelPlantel.getNumeroCamiseta() == unaSocia.getNumeroCamiseta())) {
-                control = false;
-            }
-        }
-        if (control) {
-            if (camposValidar()) {
-                unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldNroCamiseta.getText());
-                JOptionPane.showMessageDialog(this, "Numero de camiseta modificado exitosamente");
-                camposActivo(false);
-                camposLimpiar();
-                obtenerPlantel();
-            } else {
-                JOptionPane.showMessageDialog(this, "Ya existe una jugadora en el equipo con ese numero de camiseta");
-            }
+        if (camposValidar()) {
+            unaControladoraGlobal.modificarNumeroCamiseta(unaSociaSeleccionada, jTextFieldNroCamiseta.getText());
+            JOptionPane.showMessageDialog(this, "Número de camiseta Modificado");
+            unaSociaSeleccionada = null;            
+            cargarTabla();            
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
+            jTablePlantel.setEnabled(true);
+            jTextFieldNroCamiseta.setEditable(false);
+            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

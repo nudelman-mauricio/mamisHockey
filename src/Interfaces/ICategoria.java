@@ -136,7 +136,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
         jLabelMaximoMenores = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Categorias");
+        setTitle("Categorías");
         setEnabled(false);
         setMaximumSize(new java.awt.Dimension(650, 443));
         setMinimumSize(new java.awt.Dimension(650, 443));

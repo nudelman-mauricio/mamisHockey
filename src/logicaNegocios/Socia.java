@@ -184,6 +184,7 @@ public class Socia extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="Pases">
     public void agregarPase(EntityManager entityManager, Pase unPase) {
         this.getPases().add(unPase);
+        this.numeroCamiseta = "";
         this.persistir(entityManager);
     }
 
