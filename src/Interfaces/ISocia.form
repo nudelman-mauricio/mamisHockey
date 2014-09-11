@@ -186,51 +186,43 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabelNombres" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelDomicilio" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaNacimiento" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelExJugadora" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelEmail" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelTelefonoFijo" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelTelefonoCelular" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jCheckBoxExJugadora" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldFechaIngreso" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldTelFijo" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldTelCelular" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxLocalidad" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldNombres" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldDomicilio" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldEmail" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldFechaNacimiento" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabelDni" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelApellido" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextFieldApellido" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldDNI" min="-2" pref="160" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelNombres" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelLocalidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelDomicilio" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaNacimiento" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaIngreso" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelExJugadora" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelEmail" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelTelefonoFijo" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelTelefonoCelular" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jCheckBoxExJugadora" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFechaIngreso" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldTelFijo" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldTelCelular" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jComboBoxLocalidad" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldNombres" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldDomicilio" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldEmail" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFechaNacimiento" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabelDni" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelApellido" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jTextFieldApellido" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldDNI" min="-2" pref="160" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="53" max="32767" attributes="0"/>
@@ -295,8 +287,7 @@
                       <Component id="jLabelExJugadora" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxExJugadora" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -304,22 +295,22 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabelDni">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DNI *"/>
+            <Property name="text" type="java.lang.String" value="DNI"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelApellido">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apellido *"/>
+            <Property name="text" type="java.lang.String" value="Apellido"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelNombres">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombres *"/>
+            <Property name="text" type="java.lang.String" value="Nombres"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelLocalidad">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Localidad *"/>
+            <Property name="text" type="java.lang.String" value="Localidad"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxLocalidad">
@@ -337,19 +328,19 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelDomicilio">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Domicilio *"/>
+            <Property name="text" type="java.lang.String" value="Domicilio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldDomicilio">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaNacimiento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fecha de Nacimiento *"/>
+            <Property name="text" type="java.lang.String" value="Fecha de Nacimiento"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaIngreso">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fecha Ingreso *"/>
+            <Property name="text" type="java.lang.String" value="Fecha Ingreso"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelExJugadora">
@@ -372,22 +363,17 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelefonoFijo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Telefono Fijo"/>
+            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Fijo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelFijo">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelefonoCelular">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Telefono Celular"/>
+            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Celular"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelCelular">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="* Campos Obligatorios"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

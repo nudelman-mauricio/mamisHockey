@@ -31,8 +31,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana
 
-        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
-        jComboBoxLocalidad.setSelectedIndex(-1);
+        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));        
         
         camposLimpiar();
         camposActivo(jPanelDetalles, true);
@@ -147,7 +146,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
             return bandera;
         }
         if (!jCheckBoxEsArbitro.isSelected() && !jCheckBoxEsCuerpoTecnico.isSelected() && bandera) {
-            JOptionPane.showMessageDialog(this, "Por favor, defina si es Arbitro, Cuerpo Tecnico o ambos");
+            JOptionPane.showMessageDialog(this, "Por favor especifique si es Árbitro, Cuerpo Técnico o ambos");
             bandera = false;
         }
         return bandera;
@@ -309,17 +308,17 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jLabelFechaIngreso.setText("Fecha Ingreso");
 
-        jLabelTelFijo.setText("Telefono Fijo");
+        jLabelTelFijo.setText("Teléfono Fijo");
 
-        jLabelTelCelular.setText("Telefono Celular");
+        jLabelTelCelular.setText("Teléfono Celular");
 
         jLabelFotocopiaDni.setText("Fotocopia de DNI");
 
         jButtonExaminarFotocopia.setText("...");
 
-        jLabelArbitro.setText("¿Es Arbitro?");
+        jLabelArbitro.setText("¿Es Árbitro?");
 
-        jLabelTecnico.setText("¿Es Cuerpo Tecnico?");
+        jLabelTecnico.setText("¿Es Cuerpo Técnico?");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -494,10 +493,11 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                     );
                     JOptionPane.showMessageDialog(this, "Persona Auxiliar Modificada");
                 }
+                this.dispose();
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese el DNI sin '.'");
+                JOptionPane.showMessageDialog(this, "Por favor ingrese el DNI sin '.'");
             }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed

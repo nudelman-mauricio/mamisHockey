@@ -366,14 +366,14 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelFijo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Telefono Fijo"/>
+            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Fijo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelFijo">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelCelular">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Telefono Celular"/>
+            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Celular"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelCelular">
@@ -392,14 +392,14 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelArbitro">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xbf;Es Arbitro?"/>
+            <Property name="text" type="java.lang.String" value="&#xbf;Es &#xc1;rbitro?"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxEsArbitro">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTecnico">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xbf;Es Cuerpo Tecnico?"/>
+            <Property name="text" type="java.lang.String" value="&#xbf;Es Cuerpo T&#xe9;cnico?"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxEsCuerpoTecnico">
