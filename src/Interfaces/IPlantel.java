@@ -12,13 +12,13 @@ import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IPlantel extends javax.swing.JInternalFrame {
-    
+
     private JInternalFrame unJInternalFrame;
     private Equipo unEquipo;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaPlantel;
     private Socia unaSociaSeleccionada;
-    
+
     public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -30,14 +30,14 @@ public class IPlantel extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
         cargarTabla();
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTablaPlantel.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaPlantel.removeRow(0);
         }
     }
-    
+
     private void cargarTabla() {
         limpiarTabla();
         for (Socia unaSocia : unEquipo.getPlantel()) {
@@ -57,14 +57,14 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
     }
-    
+
     private String debe(Socia unaSocia) {
         if (unaSocia.isAlDia(unaControladoraGlobal.fechaSistema())) {
             return "No";
         }
         return "Si";
     }
-    
+
     private String puesto(Socia unaSocia) {
         if (unaSocia == unEquipo.getUnaCapitana()) {
             return "Capitana";
@@ -80,7 +80,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         }
         return "Jugadora";
     }
-    
+
     private void camposLimpiar() {
         jTextFieldNroCamiseta.setText("");
         jTextFieldApellido.setText("");
@@ -101,7 +101,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldNroCamiseta.getText().isEmpty()) {
@@ -403,9 +403,9 @@ public class IPlantel extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
-        
+
         jTablePlantel.setEnabled(false);
-        
+
         jTextFieldNroCamiseta.setEditable(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -413,8 +413,8 @@ public class IPlantel extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             unaControladoraGlobal.modificarNumeroCamiseta(unaSociaSeleccionada, jTextFieldNroCamiseta.getText());
             JOptionPane.showMessageDialog(this, "Número de camiseta Modificado");
-            unaSociaSeleccionada = null;            
-            cargarTabla();            
+            unaSociaSeleccionada = null;
+            cargarTabla();
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
@@ -427,8 +427,15 @@ public class IPlantel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.jTablePlantel.clearSelection();
-        this.camposActivo(false);
+        jButtonEditar.setEnabled(false);
+        jButtonGuardar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+
+        jTablePlantel.setEnabled(true);
+        jTablePlantel.clearSelection();
+        jTextFieldNroCamiseta.setEditable(false);
         this.camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
