@@ -225,6 +225,15 @@ public class ControladoraEntidades {
     public List<Socia> getSociasBDFiltro(String dato) {
         String unaConsulta = "SELECT S FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')and(S.borradoLogico = FALSE)";
         List<Socia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        String otraConsulta = "SELECT E FROM Equipo E WHERE (E.nombre LIKE " + "'%" +dato+"%')and(E.borradoLogico = FALSE)";
+        List<Equipo> unaListaEquipos = this.entityManager.createQuery(otraConsulta).getResultList();
+        if(unaListaEquipos != null){
+            for(Equipo unEquipo : unaListaEquipos){                
+                for(Socia unaSocia : unEquipo.getPlantel()){
+                    unaListaResultado.add(unaSocia);
+                }
+            }
+        }
         return unaListaResultado;
     }
     // </editor-fold>
