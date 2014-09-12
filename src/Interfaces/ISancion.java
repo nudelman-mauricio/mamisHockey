@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -57,7 +58,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     public ISancion(JInternalFrame unJInternalFrame, Socia unaSocia, ControladoraGlobal unaControladoraGlobal) {
         this(unJInternalFrame, unaControladoraGlobal);
         this.unaSocia = unaSocia;
-        this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
+        this.setTitle("Socia: " + unaSocia.getApellido() + ", " + unaSocia.getNombre());
         cargarTabla();
     }
 
@@ -65,7 +66,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     public ISancion(JInternalFrame unJInternalFrame, PersonaAuxiliar unaPersonaAuxiliar, ControladoraGlobal unaControladoraGlobal) {
         this(unJInternalFrame, unaControladoraGlobal);
         this.unaPersonaAuxiliar = unaPersonaAuxiliar;
-        this.setTitle("Auxiliar: " + unaPersonaAuxiliar.getApellido() + " " + unaPersonaAuxiliar.getNombre());
+        this.setTitle("Auxiliar: " + unaPersonaAuxiliar.getApellido() + ", " + unaPersonaAuxiliar.getNombre());
         cargarTabla();
     }
 
@@ -265,6 +266,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +277,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
         jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -295,11 +298,13 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setEnabled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -310,6 +315,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -399,10 +405,17 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jLabelDetalle.setText("Detalle");
 
+        jTextFieldFecha.setEditable(false);
+
         jLabel1NumResolucion.setText("N° de Resolución");
+
+        jTextFieldNumResolucion.setEditable(false);
 
         jLabelMotivo.setText("Motivo");
 
+        jTextFieldMotivo.setEditable(false);
+
+        jTextPaneDetalle.setEnabled(false);
         jScrollPane3.setViewportView(jTextPaneDetalle);
 
         jPanelPenalizacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Penalización", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -460,6 +473,10 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addComponent(jTextFieldFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jTextFieldPartido.setEditable(false);
+
+        jTextFieldTarjeta.setEditable(false);
 
         jLabel2.setText("Partido");
 
