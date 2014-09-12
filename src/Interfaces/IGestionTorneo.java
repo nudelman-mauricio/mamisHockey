@@ -74,6 +74,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonEquipos = new javax.swing.JButton();
         jButtonFechas = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
+        jButtonEstadisticas = new javax.swing.JButton();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 544));
@@ -251,6 +252,17 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png"))); // NOI18N
+        jButtonEstadisticas.setText("Torneo");
+        jButtonEstadisticas.setEnabled(false);
+        jButtonEstadisticas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEstadisticas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEstadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEstadisticasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
@@ -262,6 +274,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotones2Layout.setVerticalGroup(
@@ -271,7 +285,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 .addGroup(jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonEstadisticas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -375,11 +390,20 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         camposActivo(false);
     }//GEN-LAST:event_formComponentShown
 
+    private void jButtonEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadisticasActionPerformed
+        IEstadisticas unIEstadistica = new IEstadisticas(unaControladoraGlobal, this,unTorneoSeleccionado);
+        unIEstadistica.pack();
+        unIEstadistica.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIEstadistica);
+    }//GEN-LAST:event_jButtonEstadisticasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEquipos;
+    private javax.swing.JButton jButtonEstadisticas;
     private javax.swing.JButton jButtonFechas;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
