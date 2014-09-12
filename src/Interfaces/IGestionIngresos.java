@@ -96,6 +96,11 @@ public class IGestionIngresos extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setEditable(Editable);
         jComboBoxConceptoIngreso.setEnabled(Editable);
         jButtonNuevoIngreso.setEnabled(Editable);
+        if (Editable) {
+            jTextPaneDetalle.setBackground(Color.WHITE);
+        } else {
+            jTextPaneDetalle.setBackground(new Color(228, 231, 237));
+        }
     }
 
     //blanquea componentes editables

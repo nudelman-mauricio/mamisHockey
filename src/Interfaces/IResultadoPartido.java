@@ -224,6 +224,12 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jButtonGolLocal.setEnabled(Editable);
         jButtonGolVisitante.setEnabled(Editable);
+
+        if (Editable) {
+            jTextAreaObservacion.setBackground(Color.WHITE);
+        } else {
+            jTextAreaObservacion.setBackground(new Color(228, 231, 237));
+        }
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {

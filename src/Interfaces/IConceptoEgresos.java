@@ -61,6 +61,11 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     private void camposActivo(boolean Editable) {
         jTextFieldNombre.setEditable(Editable);
         jTextPaneDetalle.setEditable(Editable);
+        if (Editable) {
+            jTextPaneDetalle.setBackground(Color.WHITE);
+        } else {
+            jTextPaneDetalle.setBackground(new Color(228, 231, 237));
+        }
     }
 
     //blanquea componentes editables

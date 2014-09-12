@@ -51,6 +51,11 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
         jComboBoxTiempo.setEnabled(Editable);
         jTextFieldMinuto.setEnabled(Editable);
         jTextPaneMotivo.setEnabled(Editable);
+        if (Editable) {
+            jTextPaneMotivo.setBackground(Color.WHITE);
+        } else {
+            jTextPaneMotivo.setBackground(new Color(228, 231, 237));
+        }
     }
 
     private boolean camposValidar() {

@@ -52,8 +52,12 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setEnabled(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
-
         jButtonCalcularMonto.setEnabled(Editable);
+        if (Editable) {
+            jTextPaneDetalle.setBackground(Color.WHITE);
+        } else {
+            jTextPaneDetalle.setBackground(new Color(228, 231, 237));
+        }
     }
 
     public void camposLimpiar() {

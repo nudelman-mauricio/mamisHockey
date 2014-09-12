@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -126,6 +127,13 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             components[i].setEnabled(bandera);
             if (components[i] instanceof JTextField) {
                 ((JTextField) components[i]).setEditable(bandera);
+            }
+            if (components[i] instanceof JTextPane) {
+                if (bandera) {
+                    components[i].setBackground(Color.WHITE);
+                } else {                    
+                    components[i].setBackground(new Color(228, 231, 237));
+                }
             }
             if (components[i] instanceof Container) {
                 camposActivo((Container) components[i], bandera);

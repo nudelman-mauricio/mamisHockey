@@ -253,7 +253,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         });
 
         jButtonEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png"))); // NOI18N
-        jButtonEstadisticas.setText("Torneo");
+        jButtonEstadisticas.setText("Estadísticas");
         jButtonEstadisticas.setEnabled(false);
         jButtonEstadisticas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEstadisticas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

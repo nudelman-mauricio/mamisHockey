@@ -86,6 +86,13 @@ public class ISancion extends javax.swing.JInternalFrame {
             if (components[i] instanceof JTextField) {
                 ((JTextField) components[i]).setEditable(bandera);
             }
+            if (components[i] instanceof JTextPane) {
+                if (bandera) {
+                    components[i].setBackground(Color.WHITE);
+                } else {                    
+                    components[i].setBackground(new Color(228, 231, 237));
+                }
+            }
             if (components[i] instanceof Container) {
                 camposActivo((Container) components[i], bandera);
             }

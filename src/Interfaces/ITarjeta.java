@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -14,19 +15,16 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
-
+    
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
-
-    private DefaultTableModel modeloTableTarjetas;
-
     String roja = "", amarilla = "", verde = "";
-
+    
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -35,9 +33,9 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
-
+        
         jButtonImprimir.setEnabled(false);
-
+        
         this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
 
         //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"
@@ -46,19 +44,9 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         VTorneo.addAll(unaControladoraGlobal.getTorneosBD());
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel(VTorneo);
         this.jComboBoxTorneos.setModel(modelCombo);
+        this.jTextPaneMotivo.setBackground(new Color(228, 231, 237));
     }
-
-    public void camposActivo(boolean Editable) {
-        jTextFieldFecha.setEditable(Editable);
-        jTextFieldTipoTarjeta.setEditable(Editable);
-        jTextFieldTorneo.setEditable(Editable);
-        jTextFieldPartido.setEditable(Editable);
-        jTextPaneMotivo.setEditable(Editable);
-        jTextFieldCantFechasSuspendidas.setEditable(Editable);
-        jTextFieldCantFechasCumplidas.setEditable(Editable);
-        jTextFieldSuspendidaHastaLaFecha.setEditable(Editable);
-    }
-
+    
     public void camposLimpiar() {
         jTextFieldFecha.setText("");
         jTextFieldTipoTarjeta.setText("");
@@ -69,7 +57,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldCantFechasCumplidas.setText("");
         jTextFieldSuspendidaHastaLaFecha.setText("");
     }
-
+    
     public void camposCargar(Tarjeta unaTarjeta) {
         DateFormat df = DateFormat.getDateInstance();
         Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
@@ -78,18 +66,18 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta).getNombre());
         jTextFieldPartido.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         jTextPaneMotivo.setText(unaTarjeta.getMotivo());
-
+        
         jTextFieldCantFechasSuspendidas.setText("asd");
         jTextFieldCantFechasCumplidas.setText("asd");
         jTextFieldSuspendidaHastaLaFecha.setText("asd");
-
+        
         jButtonImprimir.setEnabled(true);
     }
-
+    
     public void cargarCamposTabla(Torneo unTorneo) {
         limpiarTabla(modeloTablaTarjetas);
         DateFormat df = DateFormat.getDateInstance();
-
+        
         if (unTorneo == null) {
             for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
                 Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
@@ -102,10 +90,10 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-
+            
         }
     }
-
+    
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         try {
             int filas = modeloTabla.getRowCount();
@@ -116,7 +104,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -387,6 +375,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jLabelFecha.setText("Fecha");
 
+        jTextPaneMotivo.setBackground(new java.awt.Color(228, 231, 237));
         jScrollPane3.setViewportView(jTextPaneMotivo);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
@@ -498,8 +487,8 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             roja = "";
             amarilla = "";
             verde = "";
-            cargarCamposTabla((Torneo)jComboBoxTorneos.getSelectedItem());
-        }else{
+            cargarCamposTabla((Torneo) jComboBoxTorneos.getSelectedItem());
+        } else {
             roja = "";
             amarilla = "";
             verde = "";
