@@ -583,6 +583,14 @@ public class ControladoraGlobal {
     public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, borradoLogico);
     }
+    
+    public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
+        this.unaControladoraDeportiva.modificarPartidoPlantelLocal(unPartido, unPlantel);
+    }
+    
+    public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
+        this.unaControladoraDeportiva.modificarPartidoPlantelVisitante(unPartido, unPlantel);
+    }
 
     public void eliminarPartido(Partido unPartido) {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);

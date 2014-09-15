@@ -2,6 +2,7 @@ package Interfaces;
 
 import java.awt.Color;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -52,24 +53,26 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
         cargarCampos();
+        camposActivo(false);
 
         //Botones
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
+        //El Partido anterior fue Jugado
         if (unaControladoraGlobal.isPartidoAnteriorJugado(unPartido)) {
             jButtonImprimir.setEnabled(true);
-            jButtonEditar.setEnabled(true);
         } else {
             jButtonImprimir.setEnabled(false);
-            jButtonEditar.setEnabled(false);
-
         }
-
-        if (unPartido.getNombreVeedor() != null) { //El partido se jugo
-            jButtonActualizar.setEnabled(false);
-        } else {
+        //El partido fue jugado y 
+        if (isPartidoFueJugado()) {
+            jButtonEditar.setEnabled(true);
             jButtonActualizar.setEnabled(true);
+        } else {
+            jButtonEditar.setEnabled(false);
+            jButtonActualizar.setEnabled(false);
         }
+
     }
 
     public void cargarCampos() {
@@ -271,7 +274,12 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     public void cargarGoles(DefaultTableModel modeloTable, Collection<Socia> unPlantel) {
         limpiarTabla(modeloTable);
         for (Gol unGol : unPartido.getGoles()) {
+            System.out.println(unGol);
+            if (unPlantel != null) {
+                System.out.println("el plantel no es null");
+            }
             for (Socia unaSocia : unPlantel) {
+                System.out.println(unaSocia);
                 if ((unaSocia.getGoles().contains(unGol)) && (!unGol.isBorradoLogico())) {
                     modeloTable.addRow(new Object[]{unaSocia.getApellido(), unGol});
                 }
@@ -314,6 +322,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
+    }
+
+    private boolean isPartidoFueJugado() {
+        boolean resultado = false;
+        if ((unPartido.getPlantelLocal() != null) && (unPartido.getPlantelVisitante() != null) && (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha()))) {
+            resultado = true;
+        }
+        return resultado;
     }
 
     @SuppressWarnings("unchecked")
@@ -1202,22 +1218,24 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         //Guarda el plantel e imprime la planilla de resultados de partido
         //if (unPartido.getPlantelLocal() == null) {
-        Collection<Socia> unPlantelLocal = null;
+        Collection<Socia> unPlantelLocal = new ArrayList();
+
         for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-            unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
+            unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(i, 0)));
         }
-        unPartido.setPlantelLocal(unPlantelLocal);
+        unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, unPlantelLocal);
         //}
 
         //if (unPartido.getPlantelVisitante() == null) {
         Collection<Socia> unPlantelVisitante = null;
-        for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-            unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0)));
+        for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
+            unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(i, 0)));
         }
-        unPartido.setPlantelVisitante(unPlantelVisitante);
+        unaControladoraGlobal.modificarPartidoPlantelVisitante(unPartido, unPlantelVisitante);
         //}
 
         //Genera el reporte de la planilla de partido
+        System.out.println("Se mostro el informe de Planilla de Partido");
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed

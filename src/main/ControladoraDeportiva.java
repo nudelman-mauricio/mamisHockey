@@ -679,6 +679,16 @@ public class ControladoraDeportiva {
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.persistir(this.entityManager);
     }
+    
+    public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
+        unPartido.setPlantelLocal(unPlantel);
+        unPartido.persistir(this.entityManager);
+    }
+    
+    public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
+        unPartido.setPlantelVisitante(unPlantel);
+        unPartido.persistir(this.entityManager);
+    }
 
     public void eliminarPartido(Partido unPartido) {
         unPartido.setBorradoLogico(true);
