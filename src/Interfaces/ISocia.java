@@ -29,7 +29,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
 
-        this.setTitle("Panel de Nueva Socia");//titulo de la ventana
+        this.setTitle("Nueva Socia");//titulo de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));//Icono de la ventana
         IMenuPrincipalInterface.centrar(this);//centrar ventana
 

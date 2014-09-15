@@ -28,13 +28,13 @@ public class IEquipo extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
-
-        camposLimpiar();
+        
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
 
         cargarCombosBox();
+        camposLimpiar();
     }
 
     //LLAMADO MOSTRANDO UN EQUIPO
@@ -59,8 +59,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombosBox() {
-        jComboBoxClub.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
-
+        jComboBoxClub.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));        
         jComboBoxDT.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosBD()));
         jComboBoxPF.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosBD()));
         jComboBoxAC.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosBD()));

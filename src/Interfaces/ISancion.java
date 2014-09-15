@@ -89,7 +89,7 @@ public class ISancion extends javax.swing.JInternalFrame {
             if (components[i] instanceof JTextPane) {
                 if (bandera) {
                     components[i].setBackground(Color.WHITE);
-                } else {                    
+                } else {
                     components[i].setBackground(new Color(228, 231, 237));
                 }
             }
@@ -137,7 +137,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     }
 
     private void cargarTabla() {
-        limpiarTabla(modeloTableSancion);
+        limpiarTabla();
         Collection<SancionTribunal> sanciones = null;
         if (unaSocia != null) {
             sanciones = unaSocia.getSancionesTribunal();
@@ -148,9 +148,10 @@ public class ISancion extends javax.swing.JInternalFrame {
         if (unEquipo != null) {
             sanciones = unEquipo.getSancionesTribunal();
         }
+        String penalizacion;
         for (SancionTribunal unaSancion : sanciones) {
-            String penalizacion = "-";
             if (!unaSancion.isBorradoLogico()) {
+                penalizacion = "-";
                 if (unaSancion.getCantFechas() != 0) {
                     penalizacion = Integer.toString(unaSancion.getCantFechas());
                 }
@@ -165,14 +166,10 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(false);
     }
 
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+    private void limpiarTabla() {
+        int filas = modeloTableSancion.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTableSancion.removeRow(0);
         }
     }
 
@@ -587,9 +584,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        if (unJInternalFrame != null) {
-            this.unJInternalFrame.setVisible(true);
-        }
+        this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -649,21 +644,21 @@ public class ISancion extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "La Socia " + unaSocia.getApellido() + ", " + unaSocia.getNombre() + "tiene uno o más partidos por jugar." + enter + "Es MUY NECESARIO actualizar las planillas de los siguientes partidos para que se refleje la Penalización: " + enter + partidos);
                     }
                 }
+
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+
+                jTableSancion.setEnabled(true);
+
+                camposActivo(jPanelDetalles, false);
+                camposLimpiar();
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
-
-            jButtonNuevo.setEnabled(true);
-            jButtonEditar.setEnabled(false);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
-
-            jTableSancion.setEnabled(true);
-
-            camposActivo(jPanelDetalles, false);
-            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
