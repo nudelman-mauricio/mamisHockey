@@ -14,7 +14,7 @@ public class TableCellRendererColor extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         componente = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.      
-        if (column == 2) {
+        if ((column == 2)){
             componente.setHorizontalAlignment(LEFT);
         } else {
             componente.setHorizontalAlignment(CENTER);

@@ -641,6 +641,13 @@ public class ControladoraGlobal {
     public int getGolesVisitante(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
+    
+    public int getCantGolesSociaPartido(Socia unaSocia, Partido unPartido) {
+        System.out.println("Falta la Funcion: -getCantGolesSociaPartido-");
+        return 0;
+    }
+    
+    
     // </editor-fold>
 // </editor-fold>
 

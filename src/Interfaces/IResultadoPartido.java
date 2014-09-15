@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -155,7 +156,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // </editor-fold>
 
         //Cargar Goles Visitante
-        cargarGoles(unPartido.getUnEquipoLocal(), modeloTableLocal);
+        cargarGoles(modeloTableGolLocal, unPartido.getPlantelLocal());
     }
 
     public void cargarInformacionVisitante() {
@@ -208,7 +209,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // </editor-fold>
 
         //Cargar Goles Visitante
-        cargarGoles(unPartido.getUnEquipoVisitante(), modeloTableVisitante);
+        cargarGoles(modeloTableGolVisitante, unPartido.getPlantelVisitante());
     }
 
     public void camposActivo(boolean Editable) {
@@ -221,9 +222,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTableGolLocal.setEnabled(Editable);
         jTableVisitante.setEnabled(Editable);
         jTableGolVisitante.setEnabled(Editable);
-
-        jButtonGolLocal.setEnabled(Editable);
-        jButtonGolVisitante.setEnabled(Editable);
 
         if (Editable) {
             jTextAreaObservacion.setBackground(Color.WHITE);
@@ -267,14 +265,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 }
             }
         }
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v3, a1, a2, ra, rd});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getCantGolesSociaPartido(unaSocia, unPartido)});
     }
 
-    public void cargarGoles(Equipo unEquipo, DefaultTableModel modeloTable) {
+    public void cargarGoles(DefaultTableModel modeloTable, Collection<Socia> unPlantel) {
+        limpiarTabla(modeloTable);
         for (Gol unGol : unPartido.getGoles()) {
-            for (Socia unaSocia : unEquipo.getPlantel()) {
-                if (unaSocia.getGoles().contains(unaControladoraGlobal.getGolBD(unGol.getIdGol()))) {
-                    modeloTable.addRow(new Object[]{unaSocia.getNumeroCamiseta(), unGol.getTiempo(), unGol.getMinuto()});
+            for (Socia unaSocia : unPlantel) {
+                if ((unaSocia.getGoles().contains(unGol)) && (!unGol.isBorradoLogico())) {
+                    modeloTable.addRow(new Object[]{unaSocia.getApellido(), unGol});
                 }
             }
         }
@@ -375,16 +374,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableGolLocal = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        jButtonGolLocal = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableVisitante = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabelEquipoVisitante = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
         jTableGolVisitante = new javax.swing.JTable();
-        jLabel24 = new javax.swing.JLabel();
-        jButtonGolVisitante = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -563,7 +560,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(81, 81, 81)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14)
@@ -573,7 +570,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldArbitro3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldArbitro2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldArbitro1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel16)
                     .addComponent(jLabelVeedor))
@@ -581,7 +578,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldCancha)
                     .addComponent(jTextFieldVeedor, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                .addGap(50, 50, 50))
+                .addGap(63, 63, 63))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -798,38 +795,38 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD", "Gol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -847,9 +844,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         });
         jTableLocal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTableLocalKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTableLocalKeyTyped(evt);
             }
@@ -884,10 +878,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableLocal.getColumnModel().getColumn(9).setMinWidth(40);
             jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(40);
             jTableLocal.getColumnModel().getColumn(9).setMaxWidth(40);
+            jTableLocal.getColumnModel().getColumn(10).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(10).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(10).setMaxWidth(35);
         }
         jTableLocal.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                jButtonGolLocal.setEnabled(true);
+                //jButtonGolLocal.setEnabled(true);
             }
         });
 
@@ -899,27 +896,37 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableGolLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, ""},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, ""},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Cam", "T", "Min"
+                "Jugadora", "Gol"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableGolLocal.setEnabled(false);
+        jTableGolLocal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTableGolLocalKeyTyped(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTableGolLocal);
         if (jTableGolLocal.getColumnModel().getColumnCount() > 0) {
-            jTableGolLocal.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(1).setMinWidth(20);
-            jTableGolLocal.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jTableGolLocal.getColumnModel().getColumn(1).setMaxWidth(20);
-            jTableGolLocal.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableGolLocal.getColumnModel().getColumn(2).setMaxWidth(35);
+            jTableGolLocal.getColumnModel().getColumn(0).setMinWidth(80);
+            jTableGolLocal.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTableGolLocal.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTableGolLocal.getColumnModel().getColumn(1).setMinWidth(40);
+            jTableGolLocal.getColumnModel().getColumn(1).setPreferredWidth(40);
+            jTableGolLocal.getColumnModel().getColumn(1).setMaxWidth(40);
         }
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -927,91 +934,77 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jLabel10.setText("Goles");
         jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButtonGolLocal.setText("Agregar Gol");
-        jButtonGolLocal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGolLocalActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEquipoLocal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelEquipoLocal)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButtonGolLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabelEquipoLocal))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelEquipoLocal)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonGolLocal)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane4))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Equipo Local", jPanel5);
 
         jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD", "Gol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true, true, true, true, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1063,10 +1056,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableVisitante.getColumnModel().getColumn(9).setMinWidth(40);
             jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(40);
             jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(40);
+            jTableVisitante.getColumnModel().getColumn(10).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(10).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(10).setMaxWidth(35);
         }
         jTableVisitante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                jButtonGolVisitante.setEnabled(true);
+                //
             }
         });
 
@@ -1078,78 +1074,78 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableGolVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, ""},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, ""},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Cam", "T", "Min"
+                "Jugadora", "Gol"
             }
-        ));
-        jTableGolVisitante.setEnabled(false);
-        jScrollPane8.setViewportView(jTableGolVisitante);
-        if (jTableGolVisitante.getColumnModel().getColumnCount() > 0) {
-            jTableGolVisitante.getColumnModel().getColumn(0).setMinWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(1).setMinWidth(20);
-            jTableGolVisitante.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jTableGolVisitante.getColumnModel().getColumn(1).setMaxWidth(20);
-            jTableGolVisitante.getColumnModel().getColumn(2).setMinWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(2).setPreferredWidth(35);
-            jTableGolVisitante.getColumnModel().getColumn(2).setMaxWidth(35);
-        }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Goles");
-        jLabel24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jButtonGolVisitante.setText("Agregar Gol");
-        jButtonGolVisitante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGolVisitanteActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jTableGolVisitante.setEnabled(false);
+        jTableGolVisitante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTableGolVisitanteKeyTyped(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTableGolVisitante);
+        if (jTableGolVisitante.getColumnModel().getColumnCount() > 0) {
+            jTableGolVisitante.getColumnModel().getColumn(0).setMinWidth(80);
+            jTableGolVisitante.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTableGolVisitante.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTableGolVisitante.getColumnModel().getColumn(1).setMinWidth(40);
+            jTableGolVisitante.getColumnModel().getColumn(1).setPreferredWidth(40);
+            jTableGolVisitante.getColumnModel().getColumn(1).setMaxWidth(40);
+        }
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Goles");
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEquipoVisitante)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                            .addComponent(jButtonGolVisitante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(13, 13, 13))
+                        .addComponent(jLabelEquipoVisitante)))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelEquipoVisitante)
-                    .addComponent(jLabel24))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonGolVisitante)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabelEquipoVisitante))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Equipo Visitante", jPanel7);
@@ -1161,9 +1157,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1225,26 +1219,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         //Genera el reporte de la planilla de partido
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-
-    private void jButtonGolLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolLocalActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
-        IResultadoPartidoCargarGol unIGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
-        unIGol.pack();
-        unIGol.setVisible(true);
-
-        this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIGol);
-    }//GEN-LAST:event_jButtonGolLocalActionPerformed
-
-    private void jButtonGolVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGolVisitanteActionPerformed
-        Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
-        IResultadoPartidoCargarGol unIGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, unJInternalFrame, unaSociaSeleccionada, unPartido);
-        unIGol.pack();
-        unIGol.setVisible(true);
-
-        this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIGol);
-    }//GEN-LAST:event_jButtonGolVisitanteActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonCancelar.setEnabled(false);
@@ -1314,7 +1288,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
                     IResultadoPartidoCargarTarjeta unaICargarTarjeta;
-                    if (jTableLocal.getSelectedColumn() > 2) {
+                    if ((jTableLocal.getSelectedColumn() > 2) && (jTableLocal.getSelectedColumn() < 10)) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
@@ -1333,6 +1307,12 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
                         IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
+                    } else if (jTableLocal.getSelectedColumn() == 10) {
+                        IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
+                        unaICargarGol.pack();
+                        unaICargarGol.setVisible(true);
+                        this.setVisible(false);
+                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarGol);
                     }
                 }
             }
@@ -1358,16 +1338,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 }
             }
         }
-
     }//GEN-LAST:event_jTableLocalKeyTyped
-
-    private void jTableLocalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableLocalKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableLocalKeyPressed
 
     private void jTableVisitanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableVisitanteKeyTyped
         if (evt.getKeyChar() == 127) {
-            Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
+            Tarjeta unaTarjeta = (Tarjeta) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.getSelectedColumn());
             if (unaTarjeta != null) {
                 Object[] options = {"OK", "Cancelar"};
                 if (0 == JOptionPane.showOptionDialog(
@@ -1389,21 +1364,21 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jTableVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVisitanteMouseClicked
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
             evt.consume();
-            if (jTableLocal.getSelectedRow() > -1) {
-                if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
-                    Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
+            if (jTableVisitante.getSelectedRow() > -1) {
+                if (jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0) != null) {
+                    Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
                     IResultadoPartidoCargarTarjeta unaICargarTarjeta;
-                    if (jTableLocal.getSelectedColumn() > 2) {
-                        Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
+                    if ((jTableVisitante.getSelectedColumn() > 2) && (jTableVisitante.getSelectedColumn() < 10)) {
+                        Tarjeta unaTarjeta = (Tarjeta) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
-                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
+                            if ((jTableVisitante.getSelectedColumn() >= 3) && (jTableVisitante.getSelectedColumn() < 5)) {
                                 unTipo = "Verde";
-                            } else if ((jTableLocal.getSelectedColumn() >= 6) && (jTableLocal.getSelectedColumn() < 8)) {
+                            } else if ((jTableVisitante.getSelectedColumn() >= 6) && (jTableVisitante.getSelectedColumn() < 8)) {
                                 unTipo = "Amarilla";
-                            } else if ((jTableLocal.getSelectedColumn() >= 8) && (jTableLocal.getSelectedColumn() < 10)) {
+                            } else if ((jTableVisitante.getSelectedColumn() >= 8) && (jTableVisitante.getSelectedColumn() < 10)) {
                                 unTipo = "Roja";
                             }
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
@@ -1412,22 +1387,69 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
                         IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
+                    } else if (jTableVisitante.getSelectedColumn() == 10) {
+                        IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
+                        unaICargarGol.pack();
+                        unaICargarGol.setVisible(true);
+                        this.setVisible(false);
+                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarGol);
                     }
                 }
             }
         }
     }//GEN-LAST:event_jTableVisitanteMouseClicked
 
+    private void jTableGolLocalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableGolLocalKeyTyped
+        if (evt.getKeyChar() == 127) {
+            Gol unGol = (Gol) jTableLocal.getValueAt(jTableGolLocal.getSelectedRow(), 1);
+            if (unGol != null) {
+                Object[] options = {"OK", "Cancelar"};
+                if (0 == JOptionPane.showOptionDialog(
+                        this,
+                        "¿Esta seguro que desea eliminar el Gol",
+                        "Modificar",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        options,
+                        options)) {
+                    unaControladoraGlobal.eliminarGol(unGol);
+                    cargarCampos();
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableGolLocalKeyTyped
+
+    private void jTableGolVisitanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableGolVisitanteKeyTyped
+        if (evt.getKeyChar() == 127) {
+            Gol unGol = (Gol) jTableGolVisitante.getValueAt(jTableGolVisitante.getSelectedRow(), 1);
+            if (unGol != null) {
+                Object[] options = {"OK", "Cancelar"};
+                if (0 == JOptionPane.showOptionDialog(
+                        this,
+                        "¿Esta seguro que desea eliminar el Gol",
+                        "Modificar",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        options,
+                        options)) {
+                    unaControladoraGlobal.eliminarGol(unGol);
+                    cargarCampos();
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableGolVisitanteKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonGolLocal;
-    private javax.swing.JButton jButtonGolVisitante;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1437,7 +1459,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelAML;
@@ -1463,7 +1484,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableGolLocal;
     private javax.swing.JTable jTableGolVisitante;

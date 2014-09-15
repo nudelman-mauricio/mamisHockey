@@ -37,7 +37,7 @@ public class Gol implements Serializable, Comparable {
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getMinuto() {
         return this.minuto;
@@ -72,6 +72,10 @@ public class Gol implements Serializable, Comparable {
     }
     // </editor-fold>
 
+    public String toString() {
+        return tiempo + "T " + minuto + "'";
+    }
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

@@ -112,8 +112,13 @@ public class Torneo implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-    // </editor-fold>
 
+    // </editor-fold>
+    @Override
+    public String toString() {
+        return  nombre;
+    }
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
