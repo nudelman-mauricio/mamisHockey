@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Tarjeta implements Serializable, Comparable {
@@ -94,8 +95,8 @@ public class Tarjeta implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
     // </editor-fold>
+
     @Override
     public String toString() {
         return tiempo + "T " + minuto + "'";
@@ -106,13 +107,19 @@ public class Tarjeta implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Tarjeta) {
             Tarjeta unaTarjeta = (Tarjeta) aux;
-            if (this.idTarjeta > unaTarjeta.idTarjeta) {
+            if (Integer.parseInt(this.tiempo) > Integer.parseInt(unaTarjeta.getTiempo())) {
                 retorno = 1;
+            } else {
+                if (Integer.parseInt(this.tiempo) == Integer.parseInt(unaTarjeta.getTiempo())) {
+                    if (Integer.parseInt(this.minuto) > Integer.parseInt(unaTarjeta.getMinuto())) {
+                        retorno = 1;
+                    }
+                }
             }
         }
         return retorno;
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
@@ -121,8 +128,7 @@ public class Tarjeta implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Tarjeta" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

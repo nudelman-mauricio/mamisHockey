@@ -12,10 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class PagoCuota implements Serializable, Comparable {
-    
+
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +47,7 @@ public class PagoCuota implements Serializable, Comparable {
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Long getIdPagoCuota() {
         return this.idPagoCuota;
@@ -95,9 +96,7 @@ public class PagoCuota implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof PagoCuota) {
             PagoCuota unPagoCuota = (PagoCuota) aux;
-            if (this.idPagoCuota > unPagoCuota.idPagoCuota) {
-                retorno = 1;
-            }
+            retorno = this.fechaPago.compareTo(unPagoCuota.getFechaPago());
         }
         return retorno;
     }
@@ -110,8 +109,7 @@ public class PagoCuota implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir PagoCuota" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

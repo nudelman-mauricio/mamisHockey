@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class SancionTribunal implements Serializable, Comparable {
@@ -161,9 +162,7 @@ public class SancionTribunal implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof SancionTribunal) {
             SancionTribunal sancionTribunal = (SancionTribunal) aux;
-            if (this.idSancionTribunal > sancionTribunal.idSancionTribunal) {
-                retorno = 1;
-            }
+            retorno = this.fecha.compareTo(sancionTribunal.getFecha());
         }
         return retorno;
     }
@@ -176,8 +175,7 @@ public class SancionTribunal implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir SancionTribunal" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
@@ -198,7 +196,7 @@ public class SancionTribunal implements Serializable, Comparable {
                 resultado = true;
             } else {
                 if ((this.cantFechas == 0) && (this.vencimiento != null)) {
-                    if(this.vencimiento.before(unaFecha)){
+                    if (this.vencimiento.before(unaFecha)) {
                         resultado = true;
                     }
                 }
@@ -206,8 +204,8 @@ public class SancionTribunal implements Serializable, Comparable {
         }
         return resultado;
     }
-    
-    public void sumarFechaCumplida(){
+
+    public void sumarFechaCumplida() {
         this.cantFechasCumplidas++;
     }
 }

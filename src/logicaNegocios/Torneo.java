@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Torneo implements Serializable, Comparable {
@@ -112,8 +113,8 @@ public class Torneo implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
     // </editor-fold>
+
     @Override
     public String toString() {
         return nombre;
@@ -124,9 +125,7 @@ public class Torneo implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Torneo) {
             Torneo torneo = (Torneo) aux;
-            if (this.idTorneo > torneo.idTorneo) {
-                retorno = 1;
-            }
+            retorno = this.fechaInicio.compareTo(torneo.getFechaInicio());
         }
         return retorno;
     }
@@ -139,8 +138,7 @@ public class Torneo implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Torneo" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

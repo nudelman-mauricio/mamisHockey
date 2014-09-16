@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Club implements Serializable, Comparable {
@@ -134,7 +135,7 @@ public class Club implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return nombre + ", de " + unaLocalidad ;
+        return nombre + ", de " + unaLocalidad;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
@@ -145,8 +146,7 @@ public class Club implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error de Persistir Club" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

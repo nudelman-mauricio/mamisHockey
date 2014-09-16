@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Ergometria implements Serializable, Comparable {
@@ -105,9 +106,7 @@ public class Ergometria implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Ergometria) {
             Ergometria ergometria = (Ergometria) aux;
-            if (this.idErgometria > ergometria.idErgometria) {
-                retorno = 1;
-            }
+            retorno = this.fechaRealizacion.compareTo(ergometria.getFechaRealizacion());
         }
         return retorno;
     }
@@ -120,8 +119,7 @@ public class Ergometria implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Ergometria" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

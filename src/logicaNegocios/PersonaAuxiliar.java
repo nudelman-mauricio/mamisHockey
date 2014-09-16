@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 @Entity
 public class PersonaAuxiliar extends Persona implements Serializable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private boolean arbitro;
 
@@ -20,6 +21,7 @@ public class PersonaAuxiliar extends Persona implements Serializable {
 
     @Basic
     private boolean cuerpoTecnicoActivo;
+    // </editor-fold>
 
     public PersonaAuxiliar() {
 
@@ -32,7 +34,7 @@ public class PersonaAuxiliar extends Persona implements Serializable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public boolean isArbitro() {
         return this.arbitro;
     }
@@ -64,5 +66,5 @@ public class PersonaAuxiliar extends Persona implements Serializable {
     public void setCuerpoTecnicoActivo(boolean cuerpoTecnicoActivo) {
         this.cuerpoTecnicoActivo = cuerpoTecnicoActivo;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 }

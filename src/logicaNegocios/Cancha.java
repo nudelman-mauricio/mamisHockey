@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 @Entity
 public class Cancha implements Serializable, Comparable {
-    
+
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private String nombre;
@@ -85,10 +85,10 @@ public class Cancha implements Serializable, Comparable {
         this.unTipoCancha = unTipoCancha;
     }
     // </editor-fold>
-    
+
     @Override
-     public String toString() {
-        return nombre+", "+this.getUnTipoCancha();
+    public String toString() {
+        return nombre + ", " + this.getUnTipoCancha();
     }
 
     @Override
@@ -111,7 +111,7 @@ public class Cancha implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico."+System.getProperty("line.separator")+"LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
