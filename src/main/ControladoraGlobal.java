@@ -710,6 +710,10 @@ public class ControladoraGlobal {
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
+    
+     public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
+        return this.unaControladoraContabilidad.getDeudaoEntreFechas(desde, hasta);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Cuotas">

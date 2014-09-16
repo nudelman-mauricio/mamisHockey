@@ -108,6 +108,12 @@ public class ControladoraContabilidad {
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+     public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
+       String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha<'" + hasta + "' ORDER BY A.fecha ASC";
+       List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+       return unaListaResultado;
+     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Cuotas">

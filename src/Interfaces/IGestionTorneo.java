@@ -47,6 +47,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonDatos.setEnabled(Editable);
         jButtonEquipos.setEnabled(Editable);
         jButtonFechas.setEnabled(Editable);
+        jButtonEstadisticas.setEnabled(Editable);
     }
     
     private void cargarTabla() {

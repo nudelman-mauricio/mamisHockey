@@ -1,14 +1,24 @@
 package Interfaces;
 
-import static java.awt.Frame.MAXIMIZED_BOTH;
+import DataSources.BalanceMensualDS;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import logicaNegocios.Egreso;
+import logicaNegocios.IngresoOtro;
 import main.ControladoraGlobal;
-import net.sf.jasperreports.view.JRViewer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 class IBalanceMensual extends javax.swing.JInternalFrame {
 
@@ -229,13 +239,20 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
             try {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
-                //-----desde acá
-                JFrame frame = new JFrame();
-                frame.getContentPane().add(new JRViewer(unaControladoraGlobal.generarReporteClub()));
-                frame.pack();
-                frame.setExtendedState(MAXIMIZED_BOTH);
-                frame.setVisible(true);
-                //-----hasta acá
+                List<Egreso> egresos = unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta);
+                List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos);
+                File archivo = new File("reportes/reporteBalanceMensual.jasper");
+                JasperReport reporte;
+                try {
+                    reporte = (JasperReport) JRLoader.loadObject(archivo);                    
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, unBalanceMensualDS);
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                } catch (JRException ex) {
+                    Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
             }
