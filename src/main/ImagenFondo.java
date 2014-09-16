@@ -18,7 +18,7 @@ public class ImagenFondo implements Border{
         try {
             URL imagePath = new URL(getClass().getResource("../Iconos Nuevos/Fondo Mamis.png").toString());
             back = ImageIO.read(imagePath);
-        } catch (IOException ex) {            
+        } catch (IOException ex) {
         }
     }
 

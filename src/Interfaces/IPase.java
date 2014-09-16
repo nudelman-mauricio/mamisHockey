@@ -78,7 +78,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
                 jTextFieldFechaRealizacion.setText(df.format(unPaseSeleccionado.getFecha()));
                 if (jTablePases.getSelectedRow() > 0) {
-                    jTextFieldEquipoOrigen.setText((String) jTablePases.getValueAt(jTablePases.getSelectedRow() - 1, 3));
+                    jTextFieldEquipoOrigen.setText(jTablePases.getValueAt(jTablePases.getSelectedRow() - 1, 3).toString());
                 }
                 jComboBoxEquipoDestino.setSelectedItem(unPaseSeleccionado.getUnEquipo());
                 jTextFieldMonto.setText(Double.toString(unPaseSeleccionado.getUnaDeuda().getMontoTotal()));

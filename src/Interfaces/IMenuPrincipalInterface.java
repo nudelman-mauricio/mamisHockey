@@ -72,7 +72,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemLocalidades = new javax.swing.JMenuItem();
         jMenuItemCategoria = new javax.swing.JMenuItem();
         jMenuItemTipoCancha = new javax.swing.JMenuItem();
-        jMenuItemSkin = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -278,14 +277,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItemTipoCancha);
 
-        jMenuItemSkin.setText("Skin");
-        jMenuItemSkin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemSkinActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItemSkin);
-
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Asistentes de Carga DB");
@@ -382,14 +373,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-
-    private void jMenuItemSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSkinActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            skin unaSkin = new skin(this);
-            jDesktopPane.add(unaSkin);
-            unaSkin.setVisible(true);
-        }// TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemSkinActionPerformed
 
     private void jMenuItemLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocalidadesActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
@@ -597,7 +580,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemLocalidades;
-    private javax.swing.JMenuItem jMenuItemSkin;
     private javax.swing.JMenuItem jMenuItemTipoCancha;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;

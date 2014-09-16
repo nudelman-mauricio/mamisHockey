@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Cancha implements Serializable, Comparable {
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private String nombre;
 
@@ -28,6 +30,7 @@ public class Cancha implements Serializable, Comparable {
 
     @OneToOne(optional = false, targetEntity = TipoCancha.class)
     private TipoCancha unTipoCancha;
+    // </editor-fold>
 
     public Cancha() {
 
@@ -41,7 +44,7 @@ public class Cancha implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getNombre() {
         return this.nombre;
     }
@@ -81,11 +84,13 @@ public class Cancha implements Serializable, Comparable {
     public void setUnTipoCancha(TipoCancha unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
+    
     @Override
      public String toString() {
         return nombre+", "+this.getUnTipoCancha();
-    }  
+    }
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -98,7 +103,7 @@ public class Cancha implements Serializable, Comparable {
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -106,10 +111,9 @@ public class Cancha implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Cancha" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico."+System.getProperty("line.separator")+"LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 }
