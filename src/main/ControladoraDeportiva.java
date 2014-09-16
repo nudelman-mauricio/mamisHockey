@@ -808,16 +808,6 @@ public class ControladoraDeportiva {
         unGol.persistir(this.entityManager);
     }
 
-    public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
-        unaAutoraActual.quitarGol(entityManager, unGol);
-        unaAutoraNueva.agregarGol(entityManager, unGol);
-    }
-
-    public void cambiarPartidoGol(Gol unGol, Partido unPartidoActual, Partido unPartidoNuevo) {
-        unPartidoActual.quitarGol(this.entityManager, unGol);
-        unPartidoNuevo.agregarGol(this.entityManager, unGol);
-    }
-
     public void eliminarGol(Gol unGol) {
         unGol.setBorradoLogico(true);
         unGol.persistir(this.entityManager);
@@ -865,6 +855,16 @@ public class ControladoraDeportiva {
                         cantidadGoles++;
                     }
                 }
+            }
+        }
+        return cantidadGoles;
+    }
+
+    public int getGolesSocia(Partido unPartido, Socia unaSocia) {
+        int cantidadGoles = 0;
+        for (Gol unGol : unPartido.getGoles()) {
+            if ((!unGol.isBorradoLogico()) && (unaSocia.getGoles().contains(unGol))) {
+                cantidadGoles++;
             }
         }
         return cantidadGoles;

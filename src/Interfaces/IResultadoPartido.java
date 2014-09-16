@@ -4,18 +4,14 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Equipo;
 import logicaNegocios.Gol;
 import logicaNegocios.Partido;
-import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
@@ -268,7 +264,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 }
             }
         }
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.getApellido() + ", " + unaSocia.getNombre(), v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getCantGolesSociaPartido(unaSocia, unPartido)});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.toString(), v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
     }
 
     public void cargarGoles(DefaultTableModel modeloTable, Collection<Socia> unPlantel) {

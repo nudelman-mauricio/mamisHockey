@@ -621,14 +621,6 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarGol(unGol, tiempo, minuto, borradoLogico);
     }
 
-    public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
-        this.unaControladoraDeportiva.cambiarAutoraGol(unGol, unaAutoraActual, unaAutoraNueva);
-    }
-
-    public void cambiarPartidoGol(Gol unGol, Partido unPartidoActual, Partido unPartidoNuevo) {
-        this.unaControladoraDeportiva.cambiarPartidoGol(unGol, unPartidoActual, unPartidoNuevo);
-    }
-
     public void eliminarGol(Gol unGol) {
         this.unaControladoraDeportiva.eliminarGol(unGol);
     }
@@ -648,14 +640,19 @@ public class ControladoraGlobal {
     public int getGolesVisitante(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
-
-    public int getCantGolesSociaPartido(Socia unaSocia, Partido unPartido) {
-        System.out.println("Falta la Funcion: -getCantGolesSociaPartido-");
-        return 0;
+    
+    /**
+     * Devuelve Cantidad de goles que hizo una Socia en un Partido pasados por parametro.
+     * @param unPartido
+     * @param unaSocia
+     * @return 
+     */
+    public int getGolesSocia(Partido unPartido, Socia unaSocia) {
+        return this.unaControladoraDeportiva.getGolesSocia(unPartido, unaSocia);
     }
-
-    // </editor-fold>
+    // </editor-fold>    
 // </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
     public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
