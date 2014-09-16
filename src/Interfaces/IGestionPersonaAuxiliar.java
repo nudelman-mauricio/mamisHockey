@@ -31,22 +31,6 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         }
     }
 
-    private void camposCargar() {
-        if (jTablePersonaAuxiliar.getSelectedRow() > -1) {
-            if (jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0) != null) {
-                unaPersonaAuxiliarSeleccionado = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0));
-                camposActivo(true);
-            }
-        }
-    }
-
-    private void camposActivo(boolean Editable) {
-        jButtonDatos.setEnabled(Editable);
-        jButtonSancion.setEnabled(Editable);
-        jButtonEliminar.setEnabled(Editable);
-        jButtonImprimir.setEnabled(Editable);
-    }
-
     private void cargarTabla() {
         limpiarTabla();
         List<PersonaAuxiliar> lista = null;
@@ -63,6 +47,22 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
         }
         camposActivo(false);
+    }
+
+    private void camposCargar() {
+        if (jTablePersonaAuxiliar.getSelectedRow() > -1) {
+            if (jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0) != null) {
+                unaPersonaAuxiliarSeleccionado = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(jTablePersonaAuxiliar.getSelectedRow(), 0));
+                camposActivo(true);
+            }
+        }
+    }
+
+    private void camposActivo(boolean Editable) {
+        jButtonDatos.setEnabled(Editable);
+        jButtonSancion.setEnabled(Editable);
+        jButtonEliminar.setEnabled(Editable);
+        jButtonImprimir.setEnabled(Editable);
     }
 
     @SuppressWarnings("unchecked")

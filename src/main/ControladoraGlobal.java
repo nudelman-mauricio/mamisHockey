@@ -325,6 +325,10 @@ public class ControladoraGlobal {
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
+    
+    public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
+        return unaControladoraDeportiva.getSancionTarjeta(unaTarjeta);
+    }
 
     public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
         return unaControladoraDeportiva.getTarjetaSociaPartido(unPartido, unaSocia);

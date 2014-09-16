@@ -170,6 +170,16 @@ public class ControladoraDeportiva {
     }
 
     /**
+     * Devuelve la Sancion si hay de una tarjeta
+     */
+    public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
+        String unaConsulta = "SELECT P FROM SancionTribunal P WHERE P.unaTarjeta = " + unaTarjeta;
+        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
+        SancionTribunal unaSancionTribunal = (SancionTribunal) traerSancionTribunal.getSingleResult();
+        return unaSancionTribunal;
+    }
+
+    /**
      * Devuelve las tarjetas de una Socia y un Partido
      */
     public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {

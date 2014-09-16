@@ -1,114 +1,119 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Partido;
+import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
-    
+
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
-    String roja = "", amarilla = "", verde = "";
-    
+    private Tarjeta unaTarjetaSeleccionada = null;
+    private DateFormat df = DateFormat.getDateInstance();
+
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
+        this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         IMenuPrincipalInterface.centrar(this);
-        
-        jButtonImprimir.setEnabled(false);
-        
-        this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
 
         //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"
         Vector VTorneo = new Vector();
         VTorneo.add("Todos los Torneos");
+        //FALTA CARGAR SOLO LOS TORNEOS EN LOS QUE PARTICIPO LA SOCIA
+        aca estoy trabajando
         VTorneo.addAll(unaControladoraGlobal.getTorneosBD());
-        DefaultComboBoxModel modelCombo = new DefaultComboBoxModel(VTorneo);
-        this.jComboBoxTorneos.setModel(modelCombo);
+        this.jComboBoxTorneos.setModel(new DefaultComboBoxModel(VTorneo));
         this.jTextPaneMotivo.setBackground(new Color(228, 231, 237));
     }
-    
+
+    private void limpiarTabla() {
+        int filas = modeloTablaTarjetas.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTablaTarjetas.removeRow(0);
+        }
+    }
+
+    public void cargarTabla() {
+        limpiarTabla();
+        Partido unPartido;
+        Torneo unTorneo;
+        for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+            if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Rojas") && jCheckBoxRojas.isSelected())) {
+                unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
+                unTorneo = unaControladoraGlobal.getTorneoTarjeta(unaTarjeta);
+                if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unTorneo.equals(jComboBoxTorneos.getSelectedItem()))) {
+                    this.modeloTablaTarjetas.addRow(new Object[]{
+                        df.format(unPartido.getFecha()),
+                        unaTarjeta.getTipo(),
+                        unTorneo.getNombre(),
+                        unPartido.toString()});
+                }
+            }
+        }
+    }
+
+    public void camposCargar() {
+        if (jTableTarjeta.getSelectedRow() > -1) {
+            if (jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0) != null) {
+                unaTarjetaSeleccionada = unaControladoraGlobal.getTarjetaBD((Long) jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0));
+                Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada);
+                jTextFieldFecha.setText(df.format(unPartido.getFecha()));
+                jTextFieldTipoTarjeta.setText(unaTarjetaSeleccionada.getTipo());
+                jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjetaSeleccionada).getNombre());
+                jTextFieldPartido.setText(unPartido.toString());
+                jTextPaneMotivo.setText(unaTarjetaSeleccionada.getMotivo());
+                SancionTribunal unaSancionTribunal = unaControladoraGlobal.getSancionTarjeta(unaTarjetaSeleccionada);
+                if (unaSancionTribunal.getVencimiento() != null) {
+                    this.jTextFieldPenalizacion.setText(df.format(unaSancionTribunal.getVencimiento()));
+                    this.jRadioButtonHasta.setSelected(true);
+                }
+                if (unaSancionTribunal.getCantFechas() != 0) {
+                    this.jTextFieldPenalizacion.setText(Integer.toString(unaSancionTribunal.getCantFechas()));
+                    this.jRadioButtonCantFechas.setSelected(true);
+                }
+                this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionTribunal.getCantFechasCumplidas()));
+                jButtonImprimir.setEnabled(true);
+            }
+        }
+    }
+
     public void camposLimpiar() {
         jTextFieldFecha.setText("");
         jTextFieldTipoTarjeta.setText("");
         jTextFieldTorneo.setText("");
         jTextFieldPartido.setText("");
         jTextPaneMotivo.setText("");
-        jTextFieldCantFechasSuspendidas.setText("");
-        jTextFieldCantFechasCumplidas.setText("");
-        jTextFieldSuspendidaHastaLaFecha.setText("");
+        buttonGroup1.clearSelection();
+        jTextFieldPenalizacion.setText("");
+        jTextFieldFechasCumplidas.setText("");
     }
-    
-    public void camposCargar(Tarjeta unaTarjeta) {
-        DateFormat df = DateFormat.getDateInstance();
-        Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
-        jTextFieldFecha.setText(df.format(unPartido.getFecha()));
-        jTextFieldTipoTarjeta.setText(unaTarjeta.getTipo());
-        jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta).getNombre());
-        jTextFieldPartido.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        jTextPaneMotivo.setText(unaTarjeta.getMotivo());
-        
-        jTextFieldCantFechasSuspendidas.setText("asd");
-        jTextFieldCantFechasCumplidas.setText("asd");
-        jTextFieldSuspendidaHastaLaFecha.setText("asd");
-        
-        jButtonImprimir.setEnabled(true);
-    }
-    
-    public void cargarCamposTabla(Torneo unTorneo) {
-        limpiarTabla(modeloTablaTarjetas);
-        DateFormat df = DateFormat.getDateInstance();
-        
-        if (unTorneo == null) {
-            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-                Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
-                if (unaTarjeta.getTipo().equals(roja) || unaTarjeta.getTipo().equals(amarilla) || unaTarjeta.getTipo().equals(verde)) {
-                    this.modeloTablaTarjetas.addRow(new Object[]{
-                        df.format(unPartido.getFecha()),
-                        unaTarjeta.getTipo(),
-                        unaControladoraGlobal.getTorneoPartido(unPartido).getNombre(),
-                        unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre()});
-                }
-            }
-        } else {
-            
-        }
-    }
-    
-    private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-    }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jPanelFiltro = new javax.swing.JPanel();
@@ -123,13 +128,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTarjeta = new javax.swing.JTable();
         jPanelDetalles = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jTextFieldCantFechasSuspendidas = new javax.swing.JTextField();
-        jLabelCantFechasSuspendida = new javax.swing.JLabel();
-        jTextFieldCantFechasCumplidas = new javax.swing.JTextField();
-        jLabelCantFechasCumplidas = new javax.swing.JLabel();
-        jLabelSuspendidaHastaLaFecha = new javax.swing.JLabel();
-        jTextFieldSuspendidaHastaLaFecha = new javax.swing.JTextField();
         jLabelMotivo = new javax.swing.JLabel();
         jLabelPartido = new javax.swing.JLabel();
         jTextFieldPartido = new javax.swing.JTextField();
@@ -141,6 +139,12 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jLabelFecha = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPaneMotivo = new javax.swing.JTextPane();
+        jPanelPenalizacion = new javax.swing.JPanel();
+        jRadioButtonCantFechas = new javax.swing.JRadioButton();
+        jRadioButtonHasta = new javax.swing.JRadioButton();
+        jTextFieldPenalizacion = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldFechasCumplidas = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 630));
@@ -169,6 +173,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -210,18 +215,8 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jCheckBoxVerdes.setText("Verdes");
 
         jCheckBoxAmarillas.setText("Amarillas");
-        jCheckBoxAmarillas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxAmarillasActionPerformed(evt);
-            }
-        });
 
         jCheckBoxRojas.setText("Rojas");
-        jCheckBoxRojas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxRojasActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Tarjetas:");
 
@@ -300,62 +295,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanelDetalles.setName(""); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sanción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-
-        jTextFieldCantFechasSuspendidas.setEditable(false);
-
-        jLabelCantFechasSuspendida.setText("Cantidad de Fechas Suspendida");
-
-        jTextFieldCantFechasCumplidas.setEditable(false);
-
-        jLabelCantFechasCumplidas.setText("Cantidad de Fechas Cumplidas");
-
-        jLabelSuspendidaHastaLaFecha.setText("Suspendida hasta la Fecha");
-
-        jTextFieldSuspendidaHastaLaFecha.setEditable(false);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jTextFieldCantFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelCantFechasSuspendida))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jTextFieldCantFechasSuspendidas, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelCantFechasCumplidas)))
-                        .addComponent(jTextFieldSuspendidaHastaLaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelSuspendidaHastaLaFecha)))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabelCantFechasSuspendida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCantFechasSuspendidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelCantFechasCumplidas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCantFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelSuspendidaHastaLaFecha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldSuspendidaHastaLaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jLabelMotivo.setText("Motivo");
 
         jLabelPartido.setText("Partido");
@@ -378,6 +317,52 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextPaneMotivo.setBackground(new java.awt.Color(228, 231, 237));
         jScrollPane3.setViewportView(jTextPaneMotivo);
 
+        jPanelPenalizacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sanción", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
+        buttonGroup1.add(jRadioButtonCantFechas);
+        jRadioButtonCantFechas.setText("Cant. Fechas");
+
+        buttonGroup1.add(jRadioButtonHasta);
+        jRadioButtonHasta.setText("Hasta");
+
+        jTextFieldPenalizacion.setEditable(false);
+
+        jLabel4.setText("Fechas Cumplidas");
+
+        jTextFieldFechasCumplidas.setEditable(false);
+
+        javax.swing.GroupLayout jPanelPenalizacionLayout = new javax.swing.GroupLayout(jPanelPenalizacion);
+        jPanelPenalizacion.setLayout(jPanelPenalizacionLayout);
+        jPanelPenalizacionLayout.setHorizontalGroup(
+            jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonCantFechas)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonHasta))
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelPenalizacionLayout.setVerticalGroup(
+            jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonCantFechas)
+                    .addComponent(jRadioButtonHasta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
@@ -398,18 +383,18 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldTorneo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                        .addContainerGap(12, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelFecha)
                             .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -430,7 +415,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                                 .addComponent(jLabelMotivo)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3))))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -474,29 +459,14 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jCheckBoxRojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxRojasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxRojasActionPerformed
-
-    private void jCheckBoxAmarillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAmarillasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxAmarillasActionPerformed
-
     private void jComboBoxTorneosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTorneosItemStateChanged
-        if (jComboBoxTorneos.getSelectedIndex() != 0) {
-            roja = "";
-            amarilla = "";
-            verde = "";
-            cargarCamposTabla((Torneo) jComboBoxTorneos.getSelectedItem());
-        } else {
-            roja = "";
-            amarilla = "";
-            verde = "";
-            cargarCamposTabla(null);
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            cargarTabla();
         }
     }//GEN-LAST:event_jComboBoxTorneosItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JCheckBox jCheckBoxAmarillas;
     private javax.swing.JCheckBox jCheckBoxRojas;
@@ -505,27 +475,26 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelCantFechasCumplidas;
-    private javax.swing.JLabel jLabelCantFechasSuspendida;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelMotivo;
     private javax.swing.JLabel jLabelPartido;
-    private javax.swing.JLabel jLabelSuspendidaHastaLaFecha;
     private javax.swing.JLabel jLabelTipoTarjeta;
     private javax.swing.JLabel jLabelTorneo;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelFiltro;
+    private javax.swing.JPanel jPanelPenalizacion;
     private javax.swing.JPanel jPanelTable;
+    private javax.swing.JRadioButton jRadioButtonCantFechas;
+    private javax.swing.JRadioButton jRadioButtonHasta;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableTarjeta;
-    private javax.swing.JTextField jTextFieldCantFechasCumplidas;
-    private javax.swing.JTextField jTextFieldCantFechasSuspendidas;
     private javax.swing.JTextField jTextFieldFecha;
+    private javax.swing.JTextField jTextFieldFechasCumplidas;
     private javax.swing.JTextField jTextFieldPartido;
-    private javax.swing.JTextField jTextFieldSuspendidaHastaLaFecha;
+    private javax.swing.JTextField jTextFieldPenalizacion;
     private javax.swing.JTextField jTextFieldTipoTarjeta;
     private javax.swing.JTextField jTextFieldTorneo;
     private javax.swing.JTextPane jTextPaneMotivo;

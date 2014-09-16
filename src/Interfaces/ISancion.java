@@ -1,8 +1,6 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Collection;
@@ -10,8 +8,6 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +41,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
         IMenuPrincipalInterface.centrar(this);
 
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
@@ -79,33 +75,30 @@ public class ISancion extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    private void camposActivo(Container c, boolean bandera) {
-        Component[] components = c.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            components[i].setEnabled(bandera);
-            if (components[i] instanceof JTextField) {
-                ((JTextField) components[i]).setEditable(bandera);
-            }
-            if (components[i] instanceof JTextPane) {
-                if (bandera) {
-                    components[i].setBackground(Color.WHITE);
-                } else {
-                    components[i].setBackground(new Color(228, 231, 237));
-                }
-            }
-            if (components[i] instanceof Container) {
-                camposActivo((Container) components[i], bandera);
-            }
+    private void camposActivo(boolean bandera) {
+        if (bandera) {
+            jTextPaneDetalle.setBackground(new Color(228, 231, 237));
+        } else {
+            jTextPaneDetalle.setBackground(Color.WHITE);
         }
+        this.jTextFieldFecha.setEditable(bandera);
+        this.jTextFieldNumResolucion.setEditable(bandera);
+        this.jTextFieldMotivo.setEditable(bandera);
+        this.jTextPaneDetalle.setEditable(bandera);
+        this.jRadioButtonCantFechas.setEnabled(bandera);
+        this.jRadioButtonHasta.setEnabled(bandera);
+        this.jTextFieldPartido.setEditable(bandera);
+        this.jTextFieldTarjeta.setEditable(bandera);
     }
 
     private void camposLimpiar() {
         this.jTextFieldFecha.setText("");
         this.jTextFieldNumResolucion.setText("");
-        this.jTextFieldPenalizacion.setText("");
-        this.buttonGroup1.clearSelection();
         this.jTextFieldMotivo.setText("");
         this.jTextPaneDetalle.setText("");
+        this.buttonGroup1.clearSelection();
+        this.jTextFieldPenalizacion.setText("");
+        this.jTextFieldFechasCumplidas.setText("");
         this.jTextFieldPartido.setText("");
         this.jTextFieldTarjeta.setText("");
     }
@@ -126,6 +119,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                     this.jTextFieldPenalizacion.setText(Integer.toString(unaSancionSeleccionada.getCantFechas()));
                     this.jRadioButtonCantFechas.setSelected(true);
                 }
+                this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionSeleccionada.getCantFechasCumplidas()));
                 this.jTextFieldPartido.setText(unaSancionSeleccionada.getUnPartido().toString());
                 this.jTextFieldTarjeta.setText(unaSancionSeleccionada.getUnaTarjeta().getTipo());
 
@@ -597,7 +591,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setEnabled(false);
 
-        camposActivo(jPanelDetalles, true);
+        camposActivo(true);
         camposLimpiar();
         unaSancionSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -654,7 +648,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
                 jTableSancion.setEnabled(true);
 
-                camposActivo(jPanelDetalles, false);
+                camposActivo(false);
                 camposLimpiar();
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
@@ -672,7 +666,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setEnabled(false);
 
-        camposActivo(jPanelDetalles, true);
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -685,7 +679,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setEnabled(true);
 
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -699,7 +693,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jTableSancion.setEnabled(true);
 
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(

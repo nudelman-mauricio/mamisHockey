@@ -34,7 +34,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);//centrar ventana
 
         this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
-
+        
         camposLimpiar();
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
@@ -505,7 +505,6 @@ public class ISocia extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Socia Modificada");
                 }
                 this.dispose();
-
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
