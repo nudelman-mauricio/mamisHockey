@@ -274,17 +274,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
-        jButtonNuevo.setEnabled(false);
-        jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);
-        jButtonPagar.setEnabled(false);
-        jTabbedPane1.setEnabledAt(0, false);
 
-        jTableCuotas.setEnabled(false);
-
-        camposActivo(jPanelDetalleCuotas, true);
-        camposLimpiarCuotas();
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
 
