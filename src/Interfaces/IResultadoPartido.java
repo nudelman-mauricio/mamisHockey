@@ -97,7 +97,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTextFieldCancha.setText(unPartido.getUnaCancha().getNombre());
         //Veedor
         jTextFieldVeedor.setText(unPartido.getNombreVeedor());
-        jTextAreaObservacion.setText(unPartido.getObservaciones());
+        jTextPaneObservacion.setText(unPartido.getObservaciones());
         // </editor-fold> 
 
         cargarInformacionLocal();
@@ -215,7 +215,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTextFieldVeedor.setEditable(Editable);
         jTextFieldAyudanteDeMesaLocal.setEditable(Editable);
         jTextFieldAyudanteDeMesaVisitante.setEditable(Editable);
-        jTextAreaObservacion.setEditable(Editable);
+        jTextPaneObservacion.setEditable(Editable);
 
         jTableLocal.setEnabled(Editable);
         jTableGolLocal.setEnabled(Editable);
@@ -223,9 +223,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTableGolVisitante.setEnabled(Editable);
 
         if (Editable) {
-            jTextAreaObservacion.setBackground(Color.WHITE);
+            jTextPaneObservacion.setBackground(Color.WHITE);
         } else {
-            jTextAreaObservacion.setBackground(new Color(228, 231, 237));
+            jTextPaneObservacion.setBackground(new Color(228, 231, 237));
         }
     }
 
@@ -357,9 +357,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jTextFieldVeedor = new javax.swing.JTextField();
         jLabelVeedor = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaObservacion = new javax.swing.JTextArea();
         jLabelObservacion = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPaneObservacion = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldDTLocal = new javax.swing.JTextField();
@@ -617,11 +617,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jTextAreaObservacion.setColumns(20);
-        jTextAreaObservacion.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaObservacion);
-
         jLabelObservacion.setText("Observación");
+
+        jScrollPane2.setViewportView(jTextPaneObservacion);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -630,10 +628,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabelObservacion)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -641,8 +639,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelObservacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1198,7 +1196,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 unaControladoraGlobal.descontarSancion(unPartido.getPlantelLocal(), unPartido.getFecha());
                 unaControladoraGlobal.descontarSancion(unPartido.getPlantelVisitante(), unPartido.getFecha());
             }
-            unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextAreaObservacion.getText(), unPartido.isBorradoLogico());
+            unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
 
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
@@ -1495,7 +1493,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTitulo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -1504,7 +1502,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableGolVisitante;
     private javax.swing.JTable jTableLocal;
     private javax.swing.JTable jTableVisitante;
-    private javax.swing.JTextArea jTextAreaObservacion;
     private javax.swing.JTextField jTextFieldArbitro1;
     private javax.swing.JTextField jTextFieldArbitro2;
     private javax.swing.JTextField jTextFieldArbitro3;
@@ -1518,5 +1515,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldPreparadorFisicoLocal;
     private javax.swing.JTextField jTextFieldPreparadorFisicoVisitante;
     private javax.swing.JTextField jTextFieldVeedor;
+    private javax.swing.JTextPane jTextPaneObservacion;
     // End of variables declaration//GEN-END:variables
 }
