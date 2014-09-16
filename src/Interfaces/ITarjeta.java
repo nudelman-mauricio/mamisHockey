@@ -16,17 +16,17 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
-
+    
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
     private Tarjeta unaTarjetaSeleccionada = null;
     private DateFormat df = DateFormat.getDateInstance();
-
+    
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -39,21 +39,19 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"
         Vector VTorneo = new Vector();
-        VTorneo.add("Todos los Torneos");
-        //FALTA CARGAR SOLO LOS TORNEOS EN LOS QUE PARTICIPO LA SOCIA
-        aca estoy trabajando
-        VTorneo.addAll(unaControladoraGlobal.getTorneosBD());
+        VTorneo.add("Todos los Torneos");        
+        VTorneo.addAll(unaControladoraGlobal.getTorneoParticipoSocia(unaSocia));
         this.jComboBoxTorneos.setModel(new DefaultComboBoxModel(VTorneo));
         this.jTextPaneMotivo.setBackground(new Color(228, 231, 237));
     }
-
+    
     private void limpiarTabla() {
         int filas = modeloTablaTarjetas.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTarjetas.removeRow(0);
         }
     }
-
+    
     public void cargarTabla() {
         limpiarTabla();
         Partido unPartido;
@@ -72,7 +70,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     public void camposCargar() {
         if (jTableTarjeta.getSelectedRow() > -1) {
             if (jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0) != null) {
@@ -97,7 +95,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     public void camposLimpiar() {
         jTextFieldFecha.setText("");
         jTextFieldTipoTarjeta.setText("");
@@ -108,7 +106,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldPenalizacion.setText("");
         jTextFieldFechasCumplidas.setText("");
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

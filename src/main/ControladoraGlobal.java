@@ -539,9 +539,13 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
+    
+    public List<Torneo> getTorneoParticipoSocia(Socia unaSocia) {
+        return this.unaControladoraDeportiva.getTorneoParticipoSocia(unaSocia);
+    }
 
-    public Torneo getTorneoPartido(Partido unaPartido) {
-        return this.unaControladoraDeportiva.getTorneoPartido(unaPartido);
+    public Torneo getTorneoPartido(Partido unPartido) {
+        return this.unaControladoraDeportiva.getTorneoPartido(unPartido);
     }
     // </editor-fold>
 

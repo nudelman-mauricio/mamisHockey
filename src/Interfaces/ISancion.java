@@ -630,7 +630,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 if (unaSocia != null) {
                     String partidos = "", enter = System.getProperty("line.separator");
                     for (Partido aux : unaControladoraGlobal.getPartidosConPlantelNoJugadosBD(fecha)) {
-                        if (aux.isJugadoraInscripta(unaSocia)) {
+                        if (aux.isSociaParticipo(unaSocia)) {
                             partidos += (aux.toString() + enter);
                         }
                     }

@@ -599,7 +599,7 @@ public class ControladoraDeportiva {
     }
 
     /**
-     * Devuelve los Clubes filtrado por Nombre
+     * Devuelve los Torneos filtrado por Nombre
      */
     public List<Torneo> getTorneosBDFiltro(String dato) {
         String unaConsulta = "SELECT T FROM Torneo T WHERE (T.nombre LIKE '%" + dato + "%' OR T.unaCategoria.nombre LIKE '%" + dato + "%') and(T.borradoLogico = FALSE)";
@@ -608,10 +608,23 @@ public class ControladoraDeportiva {
     }
 
     /**
+     * Devuelve los Torneos en los que participo una socia
+     */
+    public List<Torneo> getTorneoParticipoSocia(Socia unaSocia) {
+        List<Torneo> resultado = new ArrayList(this.getTorneosBD());
+        for (Torneo unTorneo : this.getTorneosBD()) {
+            if (!unTorneo.isSociaParticipo(unaSocia)) {
+                resultado.remove(unTorneo);
+            }
+        }
+        return resultado;
+    }
+
+    /**
      * Devuelve el Torneo de un Partido
      */
-    public Torneo getTorneoPartido(Partido unaPartido) {
-        String unaConsulta = "SELECT T FROM Torneo T WHERE T.fechasTorneo.partidos.tarjetas.idPartido = " + unaPartido.getIdPartido();
+    public Torneo getTorneoPartido(Partido unPartido) {
+        String unaConsulta = "SELECT T FROM Torneo T WHERE T.fechasTorneo.partidos.tarjetas.idPartido = " + unPartido.getIdPartido();
         Query traerTorneo = this.entityManager.createQuery(unaConsulta);
         Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
         return unTorneo;
@@ -689,12 +702,12 @@ public class ControladoraDeportiva {
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.persistir(this.entityManager);
     }
-    
+
     public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
         unPartido.setPlantelLocal(unPlantel);
         unPartido.persistir(this.entityManager);
     }
-    
+
     public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
         unPartido.setPlantelVisitante(unPlantel);
         unPartido.persistir(this.entityManager);

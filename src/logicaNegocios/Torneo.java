@@ -116,9 +116,9 @@ public class Torneo implements Serializable, Comparable {
     // </editor-fold>
     @Override
     public String toString() {
-        return  nombre;
+        return nombre;
     }
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -175,6 +175,25 @@ public class Torneo implements Serializable, Comparable {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Socias Inscriptas">
+    /**
+     * Devuelve true si la socia jugó ya un partido en el torneo
+     *
+     * @param unaSocia
+     * @return
+     */
+    public boolean isSociaParticipo(Socia unaSocia) {
+        for (FechaTorneo unaFechaTorneo : this.fechasTorneo) {
+            for (Partido unPartido : unaFechaTorneo.getPartidos()) {
+                if (unPartido.isSociaParticipo(unaSocia)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneos">
     public void agregarFechaTorneo(EntityManager entityManager, FechaTorneo unaFechaTorneo) {
         this.fechasTorneo.add(unaFechaTorneo);
@@ -195,23 +214,23 @@ public class Torneo implements Serializable, Comparable {
         }
         return cantidadFechas;
     }
-    
-    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual){
+
+    public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual) {
         boolean bandera = false;
-        for(FechaTorneo aux: this.fechasTorneo){
-            if(bandera){
+        for (FechaTorneo aux : this.fechasTorneo) {
+            if (bandera) {
                 return aux;
             }
-            if(aux.getNumeroFecha() == fechaActual.getNumeroFecha() && !aux.isBorradoLogico()){
-                bandera=true;
+            if (aux.getNumeroFecha() == fechaActual.getNumeroFecha() && !aux.isBorradoLogico()) {
+                bandera = true;
             }
         }
         return null;
     }
-    
-    public FechaTorneo getUnaFecha(int numeroFecha){
-        for(FechaTorneo aux: this.fechasTorneo){
-            if(aux.getNumeroFecha() == numeroFecha && !aux.isBorradoLogico() ){
+
+    public FechaTorneo getUnaFecha(int numeroFecha) {
+        for (FechaTorneo aux : this.fechasTorneo) {
+            if (aux.getNumeroFecha() == numeroFecha && !aux.isBorradoLogico()) {
                 return aux;
             }
         }

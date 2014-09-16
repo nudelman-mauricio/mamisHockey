@@ -359,15 +359,14 @@ public class Partido implements Serializable, Comparable {
      * @param unaSocia
      * @return
      */
-    public boolean isJugadoraInscripta(Socia unaSocia) {
-        boolean resultado = false;
+    public boolean isSociaParticipo(Socia unaSocia) {
         if (this.plantelLocal.contains(unaSocia)) {
-            resultado = true;
+            return true;
         }
         if (this.plantelVisitante.contains(unaSocia)) {
-            resultado = true;
+            return true;
         }
-        return resultado;
+        return false;
     }
     // </editor-fold>   
 }
