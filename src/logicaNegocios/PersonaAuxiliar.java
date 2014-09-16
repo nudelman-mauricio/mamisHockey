@@ -64,7 +64,7 @@ public class PersonaAuxiliar extends Persona implements Serializable {
     }
 
     public void setCuerpoTecnicoActivo(boolean cuerpoTecnicoActivo) {
-        this.cuerpoTecnicoActivo = cuerpoTecnicoActivo;
+        this.cuerpoTecnicoActivo = cuerpoTecnicoActivo;        
     }
     // </editor-fold>
 }

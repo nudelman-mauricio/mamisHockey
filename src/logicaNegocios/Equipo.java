@@ -65,9 +65,15 @@ public class Equipo implements Serializable, Comparable {
 
     }
 
-    public Equipo(EntityManager entityManager, String nombre, PersonaAuxiliar unDT) {
+    public Equipo(EntityManager entityManager, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
         this.nombre = nombre;
         this.unDT = unDT;
+        this.unaCapitana = unaCapitana;
+        this.unaCapitanaSuplente = unaCapitanaSup;
+        this.unaDelegada = unaDelegada;
+        this.unaDelegadaSuplente = unaDelegadaSup;
+        this.unPreparadorFisico = unPF;
+        this.unAyudanteCampo = unAC;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }

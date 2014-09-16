@@ -191,8 +191,8 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Equipos">
-    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
-        Equipo unEquipo = new Equipo(this.entityManager, nombre, unDT);
+    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
+        Equipo unEquipo = new Equipo(this.entityManager, nombre, unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
         unClub.agregarEquipo(this.entityManager, unEquipo);
         return unEquipo;
     }
