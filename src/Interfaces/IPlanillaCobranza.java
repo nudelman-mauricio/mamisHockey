@@ -31,7 +31,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePlanillaCobranza = new javax.swing.JTable();
-        jButtonPagar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldTotal = new javax.swing.JTextField();
         jTextFieldSubTotal = new javax.swing.JTextField();
@@ -39,7 +38,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButtonPagar1 = new javax.swing.JButton();
+        jButtonPagar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jLabelIdPlanilla = new javax.swing.JLabel();
@@ -133,12 +132,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0))
         );
 
-        jButtonPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Pagar.png"))); // NOI18N
-        jButtonPagar.setText("Pagar");
-        jButtonPagar.setEnabled(false);
-        jButtonPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         jTextFieldCostoCancha.setEditable(false);
         jTextFieldCostoCancha.setText("Bloqueado");
 
@@ -148,14 +141,14 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Cancha:");
 
-        jButtonPagar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Pagar.png"))); // NOI18N
-        jButtonPagar1.setText("Pagar");
-        jButtonPagar1.setEnabled(false);
-        jButtonPagar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPagar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonPagar1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Pagar.png"))); // NOI18N
+        jButtonPagar.setText("Pagar");
+        jButtonPagar.setEnabled(false);
+        jButtonPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPagar1ActionPerformed(evt);
+                jButtonPagarActionPerformed(evt);
             }
         });
 
@@ -179,7 +172,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonPagar1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,7 +180,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonPagar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,10 +252,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(352, 352, 352)
-                .addComponent(jButtonPagar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,15 +262,10 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jButtonPagar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -289,7 +273,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonPagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagar1ActionPerformed
+    private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -301,12 +285,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         camposActivo(jPanelDetalleCuotas, true);
         camposLimpiarCuotas();
-    }//GEN-LAST:event_jButtonPagar1ActionPerformed
+    }//GEN-LAST:event_jButtonPagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPagar;
-    private javax.swing.JButton jButtonPagar1;
     private javax.swing.JComboBox jComboBoxDelegadas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
