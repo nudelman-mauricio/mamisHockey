@@ -30,6 +30,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
+        this.setTitle("Nuevo Torneo");
         this.jComboBoxCategoria.setModel(new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getCategoriasBD()));
 
         camposLimpiar();
