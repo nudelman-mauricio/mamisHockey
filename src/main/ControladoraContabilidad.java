@@ -113,7 +113,8 @@ public class ControladoraContabilidad {
        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion<'" + hasta + "' ORDER BY A.fechaGeneracion ASC";
        List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
        return unaListaResultado;
-     }
+     }     
+     
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Cuotas">

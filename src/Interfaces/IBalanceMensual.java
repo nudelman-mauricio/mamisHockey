@@ -243,7 +243,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 List<Egreso> egresos = unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta);
                 List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
                 List<Deuda> deudas = unaControladoraGlobal.getDeudaoEntreFechas(fechaDesde, fechaHasta);
-                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, deudas);
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, deudas, unaControladoraGlobal);
                 File archivo = new File("reportes/reporteBalanceMensual.jasper");
                 JasperReport reporte;
                 try {
