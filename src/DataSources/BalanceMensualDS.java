@@ -7,11 +7,11 @@ package DataSources;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
+import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -27,7 +27,7 @@ public class BalanceMensualDS implements JRDataSource {
     Object[] arreglo;
     DateFormat df = DateFormat.getDateInstance();
 
-    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<Deuda> deudas) {
+    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<Deuda> deudas, ControladoraGlobal unaControladoraGlobal) {
         double auxiliarPase = 0;
         Deuda deudaAnterior = deudas.get(0);
         for (Deuda unaDeuda : deudas) {
@@ -36,8 +36,8 @@ public class BalanceMensualDS implements JRDataSource {
                     if (deudaAnterior.getFechaGeneracion().getMonth() != unaDeuda.getFechaGeneracion().getMonth()) {
                         auxiliarPase += unaDeuda.getMontoTotal();
                         System.out.println("Entro: " + unaDeuda.getMontoTotal() + "-" + auxiliarPase);
-                        balance.add(new Object[]{"Autogenerado mensualmente", "Por Pase", auxiliarPase, 0});
-                        auxiliarPase = unaDeuda.getMontoTotal();
+                        balance.add(new Object[]{"Mes "+unaControladoraGlobal.getMesDB(unaDeuda.getFechaGeneracion().getMonth()).getNombre(), "Por Pase", auxiliarPase, 0});
+                        auxiliarPase = 0;
                     } else {
                         auxiliarPase += unaDeuda.getMontoTotal();
                     }

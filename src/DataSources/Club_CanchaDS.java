@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package DataSources;
 
 import java.util.List;
@@ -16,26 +17,31 @@ import net.sf.jasperreports.engine.JRField;
  *  * @author Leanwit
  */
 public class Club_CanchaDS implements JRDataSource {
-
     private List<Cancha> canchas;
     private int indiceCanchaActual = -1;
+  
+    
+       public Club_CanchaDS (Club unClubSeleccionado){
+        this.canchas = (List<Cancha>) unClubSeleccionado.getCanchas();         
+    }  
 
-    public Club_CanchaDS(Club unClubSeleccionado) {
-        this.canchas = (List<Cancha>) unClubSeleccionado.getCanchas();
-    }
-
-    public Object getFieldValue(JRField jrf) throws JRException {
+    public Object getFieldValue(JRField jrf) throws JRException
+    {
         Object valor = null;
 
-        if ("Tipo".equals(jrf.getName())) {
-            valor = canchas.get(indiceCanchaActual).getUnTipoCancha().getNombre();
-        } else if ("Nombre".equals(jrf.getName())) {
-            valor = canchas.get(indiceCanchaActual).getNombre();
+        if ("Tipo".equals(jrf.getName()))
+        {
+            valor = canchas.get(indiceCanchaActual).getUnTipoCancha().getNombre();            
         }
+        else if ("Nombre".equals(jrf.getName()))
+        {
+            valor = canchas.get(indiceCanchaActual).getNombre();           
+        }       
         return valor;
     }
 
-    public boolean next() throws JRException {
+    public boolean next() throws JRException
+    {
         return ++indiceCanchaActual < canchas.size();
-    }
+    }   
 }
