@@ -1,8 +1,6 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,8 +9,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -46,9 +42,11 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         DefaultComboBoxModel modelComboConcepto = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getConceptosDeportivosBD());
         this.jComboBoxConcepto.setModel(modelComboConcepto);
+        this.jComboBoxConcepto.setSelectedIndex(-1);
 
         jTabbedPane1.setEnabledAt(1, false);// deshabilita la pestaña de cuotas
-        camposActivo(jPanelDetalleDeudas, false);
+        camposActivoDeudas(false);
+        camposActivoCuotas(false);
 
         cargarTablaDeudas();
     }
@@ -62,6 +60,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             }
         }
         jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+        jButtonPagar.setEnabled(false);
     }
 
     //Cargar Tabla con las Cuotas de la Deuda
@@ -73,6 +73,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             }
         }
         jButtonEliminar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
+        jButtonPagar.setEnabled(false);
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -88,9 +90,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             if (jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0) != null) {
                 unaDeudaSeleccionada = unaControladoraGlobal.getDeudaBD((Long) jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0));
 
-                DateFormat df = DateFormat.getDateInstance();
                 jTextFieldFechaRealizacion.setText(df.format(unaDeudaSeleccionada.getFechaGeneracion()));
-                jComboBoxConcepto.setSelectedItem(unaDeudaSeleccionada);
+                jComboBoxConcepto.setSelectedItem(unaDeudaSeleccionada.getUnConceptoDeportivo());
                 jTextFieldFechaVencimiento.setText(df.format(unaDeudaSeleccionada.getPrimerVencimiento()));
                 jTextFieldMontoTotalDeuda.setText(Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 jComboBoxCantidadCuotas.setSelectedIndex(unaDeudaSeleccionada.getCantidadCuotas() - 1);
@@ -98,6 +99,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 jTextPaneObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
 
                 jButtonEliminar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
             }
         }
     }
@@ -107,37 +109,40 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         if (jTableCuotas.getSelectedRow() > -1) {
             if (jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0) != null) {
                 unaCuotaSeleccionada = unaControladoraGlobal.getCuotaBD((Long) jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0));
-
-                DateFormat df = DateFormat.getDateInstance();
-                if (unaCuotaSeleccionada.getFechaPago() != null) {
+                if (unaCuotaSeleccionada.getUnPagoCuota() != null) {
                     jTextFieldFechaPagoCuota.setText(df.format(unaCuotaSeleccionada.getFechaPago()));
+                    jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMontoPago()));
+                    jTextPaneObservacionPago.setText(unaCuotaSeleccionada.getUnPagoCuota().getObservacion());
+                } else {
+                    jButtonPagar.setEnabled(true);
                 }
-                jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMontoPago()));
-                jTextPaneObservacionPago.setText(unaCuotaSeleccionada.getUnPagoCuota().getObservacion());
-
-                jButtonPagar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
             }
         }
     }
 
-    //deshabilitar todo lo de un contenedor
-    private void camposActivo(Container c, boolean bandera) {
-        Component[] components = c.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            components[i].setEnabled(bandera);
-            if (components[i] instanceof JTextField) {
-                ((JTextField) components[i]).setEditable(bandera);
-            }
-            if (components[i] instanceof JTextPane) {
-                if (bandera) {
-                    components[i].setBackground(Color.WHITE);
-                } else {                    
-                    components[i].setBackground(new Color(228, 231, 237));
-                }
-            }
-            if (components[i] instanceof Container) {
-                camposActivo((Container) components[i], bandera);
-            }
+    private void camposActivoDeudas(boolean bandera) {
+        jTextFieldFechaRealizacion.setEditable(bandera);
+        jComboBoxConcepto.setEnabled(bandera);
+        jTextFieldFechaVencimiento.setEditable(bandera);
+        jTextFieldMontoTotalDeuda.setEditable(bandera);
+        jComboBoxCantidadCuotas.setEnabled(bandera);
+        jTextPaneObservacionDeuda.setEditable(bandera);
+        if (bandera) {
+            jTextPaneObservacionDeuda.setBackground(Color.WHITE);
+        } else {
+            jTextPaneObservacionDeuda.setBackground(new Color(228, 231, 237));
+        }
+    }
+
+    private void camposActivoCuotas(boolean bandera) {
+        jTextFieldFechaPagoCuota.setEditable(bandera);
+        jTextFieldMontoCuotaAbonado.setEditable(bandera);
+        jTextPaneObservacionPago.setEditable(bandera);
+        if (bandera) {
+            jTextPaneObservacionPago.setBackground(Color.WHITE);
+        } else {
+            jTextPaneObservacionPago.setBackground(new Color(228, 231, 237));
         }
     }
 
@@ -204,7 +209,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelFieldMontoCuotaAbonado.setForeground(Color.black);
-        }        
+        }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
         }
@@ -442,22 +447,32 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion.setText("Fecha");
 
+        jTextFieldFechaRealizacion.setEditable(false);
+
         jLabelConcepto.setText("Concepto");
 
+        jTextFieldFechaVencimiento.setEditable(false);
+
         jLabelFechaVencimiento.setText("Primer Vencimiento");
+
+        jComboBoxConcepto.setEnabled(false);
 
         jLabelFechaRealizacion3.setText("Observación");
 
         jLabelMontoTotalDeuda.setText("Monto ($)");
+
+        jTextFieldMontoTotalDeuda.setEditable(false);
 
         jLabelFechaRealizacion5.setText("Cuotas");
 
         jTextFieldMontoCuota.setEditable(false);
 
         jComboBoxCantidadCuotas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBoxCantidadCuotas.setEnabled(false);
 
         jLabel1.setText("X ($)");
 
+        jTextPaneObservacionDeuda.setEditable(false);
         jScrollPane3.setViewportView(jTextPaneObservacionDeuda);
 
         javax.swing.GroupLayout jPanelDetalleDeudasLayout = new javax.swing.GroupLayout(jPanelDetalleDeudas);
@@ -597,10 +612,15 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jLabelFechaPagoCuota.setText("Fecha de Pago");
 
+        jTextFieldFechaPagoCuota.setEditable(false);
+
         jLabelFieldMontoCuotaAbonado.setText("Monto Abonado ($)");
+
+        jTextFieldMontoCuotaAbonado.setEditable(false);
 
         jLabelFechaRealizacion8.setText("Observación");
 
+        jTextPaneObservacionPago.setEditable(false);
         jScrollPane4.setViewportView(jTextPaneObservacionPago);
 
         javax.swing.GroupLayout jPanelDetalleCuotasLayout = new javax.swing.GroupLayout(jPanelDetalleCuotas);
@@ -708,7 +728,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jTableDeudas.setEnabled(false);
 
-        camposActivo(jPanelDetalleDeudas, true);
+        camposActivoDeudas(true);
         camposLimpiarDeuda();
         unaDeudaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -729,10 +749,13 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     jButtonGuardar.setEnabled(false);
                     jButtonCancelar.setEnabled(false);
                     jButtonEliminar.setEnabled(false);
+                    jButtonImprimir.setEnabled(false);
 
                     jTableDeudas.setEnabled(true);
+                    jTableDeudas.clearSelection();
+                    unaDeudaSeleccionada = null;
 
-                    camposActivo(jPanelDetalleDeudas, false);
+                    camposActivoDeudas(false);
                     camposLimpiarDeuda();
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
@@ -740,32 +763,31 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             }
         } else {
             if (jTabbedPane1.getSelectedIndex() == 1) {
-                if (unaCuotaSeleccionada.getUnPagoCuota() == null) {
-                    if (camposValidarCuotas()) {
-                        try {
-                            Date fechaPago = new java.sql.Date(df.parse(jTextFieldFechaPagoCuota.getText()).getTime());
-                            unaControladoraGlobal.crearPagoCuota(unaCuotaSeleccionada, Double.valueOf(jTextFieldMontoCuotaAbonado.getText()), fechaPago, title);
-                            JOptionPane.showMessageDialog(this, "Pago generado exitosamente");
+                if (camposValidarCuotas()) {
+                    try {
+                        Date fechaPago = new java.sql.Date(df.parse(jTextFieldFechaPagoCuota.getText()).getTime());
+                        unaControladoraGlobal.crearPagoCuota(unaCuotaSeleccionada, Double.valueOf(jTextFieldMontoCuotaAbonado.getText()), fechaPago, jTextPaneObservacionPago.getText());
+                        JOptionPane.showMessageDialog(this, "Pago generado exitosamente");
 
-                            cargarTablaCuotas();
+                        cargarTablaCuotas();
 
-                            jButtonNuevo.setEnabled(false);
-                            jButtonGuardar.setEnabled(false);
-                            jButtonCancelar.setEnabled(false);
-                            jButtonEliminar.setEnabled(false);
-                            jButtonPagar.setEnabled(false);
-                            jTabbedPane1.setEnabledAt(0, true);
+                        jButtonNuevo.setEnabled(false);
+                        jButtonGuardar.setEnabled(false);
+                        jButtonCancelar.setEnabled(false);
+                        jButtonEliminar.setEnabled(false);
+                        jButtonPagar.setEnabled(false);
+                        jButtonImprimir.setEnabled(false);
+                        jTabbedPane1.setEnabledAt(0, true);
 
-                            jTableCuotas.setEnabled(true);
+                        jTableCuotas.setEnabled(true);
+                        jTableCuotas.clearSelection();
+                        unaCuotaSeleccionada = null;
 
-                            camposActivo(jPanelDetalleCuotas, false);
-                            camposLimpiarCuotas();
-                        } catch (ParseException ex) {
-                            JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-                        }
+                        camposActivoCuotas(false);
+                        camposLimpiarCuotas();
+                    } catch (ParseException ex) {
+                        JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "La cuota ya posee un pago. No se admite un nuevo pago.");
                 }
             }
         }
@@ -778,10 +800,13 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
 
             jTableDeudas.setEnabled(true);
+            jTableDeudas.clearSelection();
+            unaDeudaSeleccionada = null;
 
-            camposActivo(jPanelDetalleDeudas, false);
+            camposActivoDeudas(false);
             camposLimpiarDeuda();
         } else {
             if (jTabbedPane1.getSelectedIndex() == 1) {
@@ -789,10 +814,14 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonEliminar.setEnabled(false);
+                jButtonPagar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
 
                 jTableCuotas.setEnabled(true);
+                jTableCuotas.clearSelection();
+                unaCuotaSeleccionada = null;
 
-                camposActivo(jPanelDetalleCuotas, false);
+                camposActivoCuotas(false);
                 camposLimpiarCuotas();
                 jTabbedPane1.setEnabledAt(0, true);
             }
@@ -805,10 +834,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
 
-            jTableDeudas.setEnabled(true);
-
-            camposActivo(jPanelDetalleDeudas, false);
+            camposActivoDeudas(false);
 
             Object[] options = {"OK", "Cancelar"};
             if (0 == JOptionPane.showOptionDialog(
@@ -825,19 +853,31 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     options,
                     options)) {
                 unaControladoraGlobal.eliminarDeuda(unaDeudaSeleccionada);
-                unaDeudaSeleccionada = null;
                 cargarTablaDeudas();
             }
+            unaDeudaSeleccionada = null;
             jTableDeudas.clearSelection();
             camposLimpiarDeuda();
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTableDeudasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDeudasMouseClicked
-        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+        if ((evt.getClickCount() == 2 && !evt.isConsumed()) && (jTableDeudas.isEnabled())) {
             evt.consume();
             jTabbedPane1.setSelectedIndex(1);
             cargarTablaCuotas();
+            jButtonNuevo.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonPagar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
+            jTableCuotas.clearSelection();
+            jTableDeudas.clearSelection();
+            unaCuotaSeleccionada = null;
+            unaDeudaSeleccionada = null;
+            camposLimpiarCuotas();
+            camposLimpiarDeuda();
         }
     }//GEN-LAST:event_jTableDeudasMouseClicked
 
@@ -847,17 +887,30 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
         jButtonPagar.setEnabled(false);
+        jButtonImprimir.setEnabled(false);
         jTabbedPane1.setEnabledAt(0, false);
 
         jTableCuotas.setEnabled(false);
 
-        camposActivo(jPanelDetalleCuotas, true);
+        camposActivoCuotas(true);
         camposLimpiarCuotas();
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         if (jTabbedPane1.getSelectedIndex() == 0 && jTabbedPane1.getComponentCount() == 2) {
             jTabbedPane1.setEnabledAt(1, false);
+            jButtonNuevo.setEnabled(true);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonPagar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
+            jTableCuotas.clearSelection();
+            jTableDeudas.clearSelection();
+            unaCuotaSeleccionada = null;
+            unaDeudaSeleccionada = null;
+            camposLimpiarCuotas();
+            camposLimpiarDeuda();
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
