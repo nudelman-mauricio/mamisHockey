@@ -36,11 +36,7 @@ public class Club_CanchaDS implements JRDataSource {
         else if ("Nombre".equals(jrf.getName()))
         {
             valor = canchas.get(indiceCanchaActual).getNombre();           
-        }
-        else if ("SeOcupa".equals(jrf.getName()))
-        {
-            valor = canchas.get(indiceCanchaActual).isSeOcupa();            
-        }      
+        }       
         return valor;
     }
 

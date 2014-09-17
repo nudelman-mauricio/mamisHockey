@@ -429,16 +429,29 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Canchas">
-    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
-        this.unaControladoraDeportiva.crearCancha(unClub, nombre, seOcupa, unTipoCancha);
+    public void crearCancha(Club unClub, String nombre, TipoCancha unTipoCancha) {
+        this.unaControladoraDeportiva.crearCancha(unClub, nombre, unTipoCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, seOcupa, unTipoCancha, borradoLogico);
+    public void modificarCancha(Cancha unaCancha, String nombre, TipoCancha unTipoCancha, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, unTipoCancha, borradoLogico);
     }
 
     public void eliminarCancha(Cancha unaCancha) {
         this.unaControladoraDeportiva.eliminarCancha(unaCancha);
+    }
+
+    /**
+     * Devuelve la cantidad de veces que se ocupó una cancha en un mes
+     * determinado. Toma en cuenta solo partidos ya jugados dentro del mes/anio
+     * pasado como parámetro.
+     *
+     * @param unaCancha
+     * @param mes
+     * @return
+     */
+    public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
+        return this.unaControladoraDeportiva.getCantCanchaOcupadaEnMes(unaCancha, mes, anio);
     }
 
     public Cancha getCanchaBD(Long id) {
@@ -640,12 +653,14 @@ public class ControladoraGlobal {
     public int getGolesVisitante(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
-    
+
     /**
-     * Devuelve Cantidad de goles que hizo una Socia en un Partido pasados por parametro.
+     * Devuelve Cantidad de goles que hizo una Socia en un Partido pasados por
+     * parametro.
+     *
      * @param unPartido
      * @param unaSocia
-     * @return 
+     * @return
      */
     public int getGolesSocia(Partido unPartido, Socia unaSocia) {
         return this.unaControladoraDeportiva.getGolesSocia(unPartido, unaSocia);
@@ -958,9 +973,7 @@ public class ControladoraGlobal {
         try {
             DateFormat df = DateFormat.getDateInstance();
             Calendar FechaSO = Calendar.getInstance();
-
             fechaSO = new java.sql.Date(df.parse(df.format(FechaSO.getTime())).getTime());
-
         } catch (ParseException ex) {
         }
         return fechaSO;

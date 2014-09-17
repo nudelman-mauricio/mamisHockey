@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.text.DateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     private Club unClub;
     private Cancha unaCanchaSeleccionada;
     private DefaultTableModel modeloTable;
+    private DateFormat df = DateFormat.getDateInstance();
 
     public ICancha(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         initComponents();
@@ -49,9 +51,10 @@ public class ICancha extends javax.swing.JInternalFrame {
     //Cargar Tabla con las Canchas del Club
     private void cargarTabla() {
         limpiarTabla();
+        String[] fechaDividida = df.format(unaControladoraGlobal.fechaSistema()).split("/");
         for (Cancha unaCancha : unClub.getCanchas()) {
             if (!unaCancha.isBorradoLogico()) {
-                this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaCancha.isSeOcupa()});
+                this.modeloTable.addRow(new Object[]{unaCancha.getIdCancha(), unaCancha.getUnTipoCancha().getNombre(), unaCancha.getNombre(), unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, Integer.parseInt(fechaDividida[1]), Integer.parseInt(fechaDividida[2]))});
             }
         }
         jButtonEditar.setEnabled(false);
@@ -64,7 +67,6 @@ public class ICancha extends javax.swing.JInternalFrame {
             if (jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0) != null) {
                 unaCanchaSeleccionada = unaControladoraGlobal.getCanchaBD((Long) jTableCancha.getValueAt(jTableCancha.getSelectedRow(), 0));
                 jTextFieldNombre.setText(unaCanchaSeleccionada.getNombre());
-                jCheckBoxSeOcupa.setSelected(unaCanchaSeleccionada.isSeOcupa());
                 jComboBoxTipo.setSelectedItem(unaCanchaSeleccionada.getUnTipoCancha());
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
@@ -89,7 +91,7 @@ public class ICancha extends javax.swing.JInternalFrame {
     //blanqueda componentes editables
     private void camposLimpiar() {
         jTextFieldNombre.setText("");
-        jCheckBoxSeOcupa.setSelected(false);
+        jComboBoxTipo.setSelectedIndex(-1);
     }
 
     private boolean camposValidar() {
@@ -130,11 +132,12 @@ public class ICancha extends javax.swing.JInternalFrame {
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelTipo = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
-        jCheckBoxSeOcupa = new javax.swing.JCheckBox();
-        jLabelTipo1 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Canchas - Nombre Club");
+        setMaximumSize(new java.awt.Dimension(650, 409));
+        setMinimumSize(new java.awt.Dimension(650, 409));
+        setPreferredSize(new java.awt.Dimension(650, 409));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -245,11 +248,11 @@ public class ICancha extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Tipo", "Nombre", "Se ocupa"
+                "id", "Tipo", "Nombre", "Cant Ocupada en Mes Actual"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -268,9 +271,6 @@ public class ICancha extends javax.swing.JInternalFrame {
             jTableCancha.getColumnModel().getColumn(0).setMinWidth(0);
             jTableCancha.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableCancha.getColumnModel().getColumn(0).setMaxWidth(0);
-            jTableCancha.getColumnModel().getColumn(3).setMinWidth(150);
-            jTableCancha.getColumnModel().getColumn(3).setPreferredWidth(150);
-            jTableCancha.getColumnModel().getColumn(3).setMaxWidth(150);
         }
         jTableCancha.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -300,24 +300,20 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jComboBoxTipo.setEnabled(false);
 
-        jLabelTipo1.setText("Se Ocupa");
-
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                .addGap(194, 194, 194)
+                .addGap(203, 203, 203)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNombre)
-                    .addComponent(jLabelTipo)
-                    .addComponent(jLabelTipo1))
+                    .addComponent(jLabelTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxSeOcupa)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,10 +326,6 @@ public class ICancha extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipo)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTipo1)
-                    .addComponent(jCheckBoxSeOcupa))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -410,10 +402,10 @@ public class ICancha extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             if (unaCanchaSeleccionada == null) {
-                unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem());
+                unaControladoraGlobal.crearCancha(unClub, jTextFieldNombre.getText(), (TipoCancha) jComboBoxTipo.getSelectedItem());
                 JOptionPane.showMessageDialog(this, "Cancha Guardada");
             } else {
-                unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), jCheckBoxSeOcupa.isSelected(), (TipoCancha) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
+                unaControladoraGlobal.modificarCancha(unaCanchaSeleccionada, jTextFieldNombre.getText(), (TipoCancha) jComboBoxTipo.getSelectedItem(), unaCanchaSeleccionada.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Cancha Modificada");
                 unaCanchaSeleccionada = null;
             }
@@ -464,11 +456,9 @@ public class ICancha extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JCheckBox jCheckBoxSeOcupa;
     private javax.swing.JComboBox jComboBoxTipo;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelTipo;
-    private javax.swing.JLabel jLabelTipo1;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelTabla;

@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -425,14 +426,13 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Canchas">
-    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
-        Cancha unaCancha = new Cancha(this.entityManager, nombre, seOcupa, unTipoCancha);
+    public void crearCancha(Club unClub, String nombre, TipoCancha unTipoCancha) {
+        Cancha unaCancha = new Cancha(this.entityManager, nombre, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
+    public void modificarCancha(Cancha unaCancha, String nombre, TipoCancha unTipoCancha, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
-        unaCancha.setSeOcupa(seOcupa);
         unaCancha.setUnTipoCancha(unTipoCancha);
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(this.entityManager);
@@ -441,6 +441,22 @@ public class ControladoraDeportiva {
     public void eliminarCancha(Cancha unaCancha) {
         unaCancha.setBorradoLogico(true);
         unaCancha.persistir(this.entityManager);
+    }
+
+    public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
+        List<Partido> unaListaResultado = this.entityManager.createQuery("SELECT P FROM Partido P WHERE P.borradoLogico = FALSE AND P.unaCancha = " + unaCancha).getResultList();
+        DateFormat df = DateFormat.getDateInstance();
+        String[] fechaDividida;
+        int resultado = 0;
+        for (Partido unPartido : unaListaResultado) {
+            if (!unPartido.getNombreVeedor().isEmpty()) {
+                fechaDividida = df.format(unPartido.getFecha()).split("/");
+                if ((Integer.parseInt(fechaDividida[2]) == anio) && (Integer.parseInt(fechaDividida[1]) == mes)) {
+                    resultado++;
+                }
+            }
+        }
+        return resultado;
     }
 
     /**
