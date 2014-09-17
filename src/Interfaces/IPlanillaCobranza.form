@@ -51,7 +51,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="1100" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="801" max="32767" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -77,23 +77,17 @@
             <Component class="javax.swing.JTable" name="jTablePlanillaCobranza">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="11" rowCount="17">
-                    <Column editable="true" title="Pago" type="java.lang.Boolean"/>
-                    <Column editable="true" title="DNI" type="java.lang.Object"/>
-                    <Column editable="true" title="Apellido y Nombre" type="java.lang.Object"/>
-                    <Column editable="true" title="Inscripci&#xf3;n" type="java.lang.Object"/>
-                    <Column editable="true" title="Re-Inscripci&#xf3;n" type="java.lang.Object"/>
-                    <Column editable="true" title="Fichaje" type="java.lang.Object"/>
-                    <Column editable="true" title="Re-Fichaje" type="java.lang.Object"/>
-                    <Column editable="true" title="Cuota Mensual" type="java.lang.Object"/>
-                    <Column editable="true" title="Pase" type="java.lang.Object"/>
-                    <Column editable="true" title="Otros" type="java.lang.Object"/>
-                    <Column editable="true" title="SubTotal" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="17">
+                    <Column editable="true" title="Pagar" type="java.lang.Object"/>
+                    <Column editable="true" title="Fecha" type="java.lang.Object"/>
+                    <Column editable="true" title="Concepto" type="java.lang.Object"/>
+                    <Column editable="true" title="Observaci&#xf3;n" type="java.lang.Object"/>
+                    <Column editable="true" title="Monto" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
+                    <Column maxWidth="40" minWidth="40" prefWidth="40" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -103,47 +97,17 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="170" minWidth="170" prefWidth="170" resizable="true">
+                    <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                    <Column maxWidth="400" minWidth="400" prefWidth="400" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -278,17 +242,20 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelTitulo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelTitulo" alignment="0" pref="777" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabelFechaHoy" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabelIdPlanilla" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jComboBoxPlantel" min="-2" pref="180" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabelDelegadas" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jComboBoxDelegadas" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -309,6 +276,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelDelegadas" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxDelegadas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxPlantel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -355,6 +324,21 @@
               </StringArray>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mostrar deudas de:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxPlantel">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxPlantelActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
