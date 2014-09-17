@@ -106,14 +106,8 @@ public class Deuda implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-
     // </editor-fold>
-    @Override
-    public String toString() {
-        return unConceptoDeportivo.getConcepto();
-    }
 
-        
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

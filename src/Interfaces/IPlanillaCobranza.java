@@ -135,50 +135,74 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabelFechaHoy = new javax.swing.JLabel();
         jLabelDelegadas = new javax.swing.JLabel();
         jComboBoxDelegadas = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBoxPlantel = new javax.swing.JComboBox();
 
         jTablePlanillaCobranza.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Pagar", "Fecha", "Concepto", "Observación", "Monto"
+                "Pago", "DNI", "Apellido y Nombre", "Inscripción", "Re-Inscripción", "Fichaje", "Re-Fichaje", "Cuota Mensual", "Pase", "Otros", "SubTotal"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTablePlanillaCobranza);
         if (jTablePlanillaCobranza.getColumnModel().getColumnCount() > 0) {
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMinWidth(40);
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setPreferredWidth(40);
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMinWidth(50);
+            jTablePlanillaCobranza.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMaxWidth(50);
             jTablePlanillaCobranza.getColumnModel().getColumn(1).setMinWidth(80);
             jTablePlanillaCobranza.getColumnModel().getColumn(1).setPreferredWidth(80);
             jTablePlanillaCobranza.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setMinWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setPreferredWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setMaxWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMinWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setPreferredWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMaxWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(4).setMinWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(4).setPreferredWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(2).setMinWidth(170);
+            jTablePlanillaCobranza.getColumnModel().getColumn(2).setPreferredWidth(170);
+            jTablePlanillaCobranza.getColumnModel().getColumn(2).setMaxWidth(170);
+            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(4).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(4).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(5).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(5).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(6).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(6).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(6).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(7).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(7).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(7).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(8).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(8).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(8).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(9).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(9).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(9).setMaxWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(10).setMinWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(10).setPreferredWidth(100);
+            jTablePlanillaCobranza.getColumnModel().getColumn(10).setMaxWidth(100);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -187,7 +211,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
@@ -280,14 +304,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         jComboBoxDelegadas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delegada", "Sub-Delegada" }));
 
-        jLabel4.setText("Mostrar deudas de:");
-
-        jComboBoxPlantel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxPlantelActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -295,19 +311,16 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabelFechaHoy)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelIdPlanilla))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelDelegadas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -322,9 +335,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDelegadas)
-                    .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBoxPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -358,19 +369,13 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
-    private void jComboBoxPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPlantelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxPlantelActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JComboBox jComboBoxDelegadas;
-    private javax.swing.JComboBox jComboBoxPlantel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelDelegadas;
     private javax.swing.JLabel jLabelFechaHoy;
     private javax.swing.JLabel jLabelIdPlanilla;

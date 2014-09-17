@@ -27,6 +27,14 @@
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="72a10179-e8f5-40d3-b1a0-38667ce860c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[¿Se ocupa?]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -46,6 +54,14 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="210" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="df191b42-4def-4bae-ac67-00a6f6cd4fef"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SeOcupa}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
