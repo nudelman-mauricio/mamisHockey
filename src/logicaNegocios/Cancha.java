@@ -72,7 +72,7 @@ public class Cancha implements Serializable, Comparable {
     public void setUnTipoCancha(TipoCancha unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
-    // </editor-fold>
+// </editor-fold>
 
     @Override
     public String toString() {
@@ -99,7 +99,7 @@ public class Cancha implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃ©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

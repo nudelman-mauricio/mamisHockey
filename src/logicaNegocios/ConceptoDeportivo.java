@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.swing.JOptionPane;
 
@@ -18,33 +20,39 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private double monto;
 
-    @OneToOne(targetEntity = TipoEstado.class)
+
+    @OneToOne(targetEntity=TipoEstado.class)
     private TipoEstado unTipoEstado;
+
+
+    @OneToMany(targetEntity=Mes.class)
+    private Collection<Mes> meses;
+
 
     @Basic
     private String concepto;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idConceptoDeportivo;
 
-    @OneToOne(targetEntity = Frecuencia.class)
-    private Frecuencia unaFrecuencia;
 
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(targetEntity = TipoCancha.class)
+
+    @OneToOne(targetEntity=TipoCancha.class)
     private TipoCancha unTipoCancha;
-    // </editor-fold>
+// </editor-fold>
 
     public ConceptoDeportivo() {
     }
 
-    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+    public ConceptoDeportivo(EntityManager entityManager, double monto, String concepto, Collection<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
         this.monto = monto;
         this.concepto = concepto;
-        this.unaFrecuencia = unaFrecuencia;
+        this.meses = meses;
         this.unTipoCancha = unTipoCancha;
         this.unTipoEstado = unTipoEstado;
         this.borradoLogico = false;
@@ -52,62 +60,81 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
-    public double getMonto() {
+   public double getMonto() {
         return this.monto;
     }
 
-    public void setMonto(double monto) {
+
+  public void setMonto (double monto) {
         this.monto = monto;
     }
 
-    public TipoEstado getUnTipoEstado() {
+
+
+   public TipoEstado getUnTipoEstado() {
         return this.unTipoEstado;
     }
 
-    public void setUnTipoEstado(TipoEstado unTipoEstado) {
+
+  public void setUnTipoEstado (TipoEstado unTipoEstado) {
         this.unTipoEstado = unTipoEstado;
     }
 
-    public String getConcepto() {
+
+
+   public Collection<Mes> getMeses() {
+        return this.meses;
+    }
+
+
+  public void setMeses (Collection<Mes> meses) {
+        this.meses = meses;
+    }
+
+
+
+   public String getConcepto() {
         return this.concepto;
     }
 
-    public void setConcepto(String concepto) {
+
+  public void setConcepto (String concepto) {
         this.concepto = concepto;
     }
 
-    public Long getIdConceptoDeportivo() {
+
+
+   public Long getIdConceptoDeportivo() {
         return this.idConceptoDeportivo;
     }
 
-    public void setIdConceptoDeportivo(Long idConceptoDeportivo) {
+
+  public void setIdConceptoDeportivo (Long idConceptoDeportivo) {
         this.idConceptoDeportivo = idConceptoDeportivo;
     }
 
-    public Frecuencia getUnaFrecuencia() {
-        return this.unaFrecuencia;
-    }
 
-    public void setUnaFrecuencia(Frecuencia unaFrecuencia) {
-        this.unaFrecuencia = unaFrecuencia;
-    }
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-    public void setBorradoLogico(boolean borradoLogico) {
+
+  public void setBorradoLogico (boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
-    public TipoCancha getUnTipoCancha() {
+
+
+   public TipoCancha getUnTipoCancha() {
         return this.unTipoCancha;
     }
 
-    public void setUnTipoCancha(TipoCancha unTipoCancha) {
+
+  public void setUnTipoCancha (TipoCancha unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
-    // </editor-fold>
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
@@ -117,12 +144,12 @@ public class ConceptoDeportivo implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃ©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
-
     // </editor-fold>
+    
     @Override
     public String toString() {
         return concepto;

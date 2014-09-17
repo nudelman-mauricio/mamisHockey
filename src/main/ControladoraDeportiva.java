@@ -444,7 +444,7 @@ public class ControladoraDeportiva {
     }
 
     public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
-        List<Partido> unaListaResultado = this.entityManager.createQuery("SELECT P FROM Partido P WHERE P.borradoLogico = FALSE AND P.unaCancha = " + unaCancha).getResultList();
+        List<Partido> unaListaResultado = this.entityManager.createQuery("SELECT P FROM Partido P WHERE P.borradoLogico = FALSE AND P.unaCancha.idCancha = " + unaCancha.getIdCancha()).getResultList();
         DateFormat df = DateFormat.getDateInstance();
         String[] fechaDividida;
         int resultado = 0;
@@ -720,13 +720,21 @@ public class ControladoraDeportiva {
     }
 
     public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
-        unPartido.setPlantelLocal(unPlantel);
+        unPartido.setUnPlantelLocal(unPlantel);
         unPartido.persistir(this.entityManager);
     }
 
+    public void limpiarPlantelLocal(Partido unPartido) {
+        unPartido.limpiarPlantelLocal(this.entityManager);
+    }
+
     public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
-        unPartido.setPlantelVisitante(unPlantel);
+        unPartido.setUnPlantelVisitante(unPlantel);
         unPartido.persistir(this.entityManager);
+    }
+
+    public void limpiarPlantelVisitante(Partido unPartido) {
+        unPartido.limpiarPlantelVisitante(this.entityManager);
     }
 
     public void eliminarPartido(Partido unPartido) {
@@ -852,7 +860,7 @@ public class ControladoraDeportiva {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
             if (!unGol.isBorradoLogico()) {
-                for (Socia unaSociaAutoraGol : unPartido.getPlantelLocal()) {
+                for (Socia unaSociaAutoraGol : unPartido.getUnPlantelLocal()) {
                     if (unaSociaAutoraGol.getGoles().contains(unGol)) {
                         cantidadGoles++;
                     }
@@ -866,7 +874,7 @@ public class ControladoraDeportiva {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
             if (!unGol.isBorradoLogico()) {
-                for (Socia unaSociaAutoraGol : unPartido.getPlantelVisitante()) {
+                for (Socia unaSociaAutoraGol : unPartido.getUnPlantelVisitante()) {
                     if (unaSociaAutoraGol.getGoles().contains(unGol)) {
                         cantidadGoles++;
                     }

@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -22,8 +21,8 @@ import javax.swing.JOptionPane;
 public class Partido implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    @ElementCollection
-    private Collection<Socia> plantelLocal;
+    @OneToMany(targetEntity = Socia.class)
+    private Collection<Socia> unPlantelLocal;
 
     @Basic
     private PersonaAuxiliar unAyudanteCampoLocal;
@@ -39,6 +38,9 @@ public class Partido implements Serializable, Comparable {
 
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
+
+    @OneToMany(targetEntity = Socia.class)
+    private Collection<Socia> unPlantelVisitante;
 
     @Basic
     private PersonaAuxiliar unAyudanteCampoVisitante;
@@ -77,9 +79,6 @@ public class Partido implements Serializable, Comparable {
     @Basic
     private String observaciones;
 
-    @ElementCollection
-    private Collection<Socia> plantelVisitante;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPartido;
@@ -111,12 +110,12 @@ public class Partido implements Serializable, Comparable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
-    public Collection<Socia> getPlantelLocal() {
-        return this.plantelLocal;
+    public Collection<Socia> getUnPlantelLocal() {
+        return this.unPlantelLocal;
     }
 
-    public void setPlantelLocal(Collection<Socia> plantelLocal) {
-        this.plantelLocal = plantelLocal;
+    public void setUnPlantelLocal(Collection<Socia> unPlantelLocal) {
+        this.unPlantelLocal = unPlantelLocal;
     }
 
     public PersonaAuxiliar getUnAyudanteCampoLocal() {
@@ -157,6 +156,14 @@ public class Partido implements Serializable, Comparable {
 
     public void setGoles(Collection<Gol> goles) {
         this.goles = goles;
+    }
+
+    public Collection<Socia> getUnPlantelVisitante() {
+        return this.unPlantelVisitante;
+    }
+
+    public void setUnPlantelVisitante(Collection<Socia> unPlantelVisitante) {
+        this.unPlantelVisitante = unPlantelVisitante;
     }
 
     public PersonaAuxiliar getUnAyudanteCampoVisitante() {
@@ -255,14 +262,6 @@ public class Partido implements Serializable, Comparable {
         this.observaciones = observaciones;
     }
 
-    public Collection<Socia> getPlantelVisitante() {
-        return this.plantelVisitante;
-    }
-
-    public void setPlantelVisitante(Collection<Socia> plantelVisitante) {
-        this.plantelVisitante = plantelVisitante;
-    }
-
     public Long getIdPartido() {
         return this.idPartido;
     }
@@ -319,7 +318,7 @@ public class Partido implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃ©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
@@ -350,6 +349,16 @@ public class Partido implements Serializable, Comparable {
     // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Planteles">
+    public void limpiarPlantelLocal(EntityManager entityManager) {
+        this.unPlantelLocal.clear();
+        this.persistir(entityManager);
+    }
+    
+    public void limpiarPlantelVisitante(EntityManager entityManager) {
+        this.unPlantelVisitante.clear();
+        this.persistir(entityManager);
+    }
+    
     /**
      * Devuelve TRUE si la jugadora que se pasa esta en el plantel local o
      * visitante
@@ -358,10 +367,10 @@ public class Partido implements Serializable, Comparable {
      * @return
      */
     public boolean isSociaParticipo(Socia unaSocia) {
-        if (this.plantelLocal.contains(unaSocia)) {
+        if (this.unPlantelLocal.contains(unaSocia)) {
             return true;
         }
-        if (this.plantelVisitante.contains(unaSocia)) {
+        if (this.unPlantelVisitante.contains(unaSocia)) {
             return true;
         }
         return false;

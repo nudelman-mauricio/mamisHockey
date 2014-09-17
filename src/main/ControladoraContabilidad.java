@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -12,7 +13,6 @@ import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.Equipo;
-import logicaNegocios.Frecuencia;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.Mes;
 import logicaNegocios.PagoCuota;
@@ -30,14 +30,14 @@ public class ControladoraContabilidad {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
-        return new ConceptoDeportivo(this.entityManager, monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+        return new ConceptoDeportivo(this.entityManager, monto, concepto, meses, unTipoCancha, unTipoEstado);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
         unConceptoDeportivo.setMonto(monto);
         unConceptoDeportivo.setConcepto(concepto);
-        unConceptoDeportivo.setUnaFrecuencia(unaFrecuencia);
+        unConceptoDeportivo.setMeses(meses);
         unConceptoDeportivo.setUnTipoCancha(unTipoCancha);
         unConceptoDeportivo.setUnTipoEstado(unTipoEstado);
         unConceptoDeportivo.setBorradoLogico(borradoLogico);
@@ -435,48 +435,6 @@ public class ControladoraContabilidad {
         String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
         Query traerMes = this.entityManager.createQuery(unaConsulta);
         return ((Mes) traerMes.getSingleResult());
-    }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Frecuencia"> 
-    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento) {
-        return new Frecuencia(this.entityManager, diaGeneracion, diaVencimiento);
-    }
-
-    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean borradoLogico) {
-        unaFrecuencia.setDiaGeneracion(diaGeneracion);
-        unaFrecuencia.setDiaVencimiento(diaVencimiento);
-        unaFrecuencia.setBorradoLogico(borradoLogico);
-        unaFrecuencia.quitarTodosMeses(this.entityManager);
-        unaFrecuencia.persistir(this.entityManager);
-    }
-
-    public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
-        unaFrecuencia.setBorradoLogico(true);
-        unaFrecuencia.persistir(this.entityManager);
-    }
-
-    public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
-        unaFrecuencia.agregarMes(this.entityManager, unMes);
-    }
-
-    /**
-     * Devuelve unaFrecuencia por ID incluido los borrados
-     */
-    public Frecuencia getFrecuenciaBD(Long id) {
-        Frecuencia resultado;
-        Query traerFrecuencia = this.entityManager.createQuery("SELECT auxE FROM Frecuencia auxE WHERE auxE.idFrecuencia = " + id);
-        resultado = (Frecuencia) traerFrecuencia.getSingleResult();
-        return resultado;
-    }
-
-    /**
-     * Devuelve todos las Frecuencias menos los borrados
-     */
-    public List<Frecuencia> getFrecuenciasBD() {
-        String unaConsulta = "SELECT A FROM Frecuencia A WHERE A.borradoLogico = FALSE";
-        List<Frecuencia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        return unaListaResultado;
     }
     // </editor-fold>
 }

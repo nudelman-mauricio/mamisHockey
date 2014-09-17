@@ -2,6 +2,7 @@ package main;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -670,12 +671,12 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
-    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
-        return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado);
+    public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
+        return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, meses, unTipoCancha, unTipoEstado);
     }
 
-    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, Frecuencia unaFrecuencia, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, unaFrecuencia, unTipoCancha, unTipoEstado, borradoLogico);
+    public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
+        this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, meses, unTipoCancha, unTipoEstado, borradoLogico);
     }
 
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
@@ -715,9 +716,9 @@ public class ControladoraGlobal {
     public List<Deuda> getDeudasEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getDeudaoEntreFechas(desde, hasta);
     }
-    
-    public List<Deuda> getDeudasMesSocias (Date fecha, Socia unaSocia){
-        
+
+    public List<Deuda> getDeudasMesSocias(Date fecha, Socia unaSocia) {
+
         return null;
     }
     // </editor-fold>
@@ -866,106 +867,7 @@ public class ControladoraGlobal {
     public Mes getMesDB(int numeroMes) {
         return this.unaControladoraContabilidad.getMesDB(numeroMes);
     }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Frecuencia"> 
-    public Frecuencia crearFrecuencia(String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre) {
-        Frecuencia nuevaFrecuencia = this.unaControladoraContabilidad.crearFrecuencia(diaGeneracion, diaVencimiento);
-        if (enero) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(1));
-        }
-        if (febrero) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(2));
-        }
-        if (marzo) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(3));
-        }
-        if (abril) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(4));
-        }
-        if (mayo) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(5));
-        }
-        if (junio) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(6));
-        }
-        if (julio) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(7));
-        }
-        if (agosto) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(8));
-        }
-        if (septiembre) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(9));
-        }
-        if (octubre) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(10));
-        }
-        if (noviembre) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(11));
-        }
-        if (diciembre) {
-            this.agregarMesFrecuencia(nuevaFrecuencia, this.getMesDB(12));
-        }
-        return nuevaFrecuencia;
-    }
-
-    public void modificarFrecuencia(Frecuencia unaFrecuencia, String diaGeneracion, String diaVencimiento, boolean enero, boolean febrero, boolean marzo, boolean abril, boolean mayo, boolean junio, boolean julio, boolean agosto, boolean septiembre, boolean octubre, boolean noviembre, boolean diciembre, boolean borradoLogico) {
-        this.unaControladoraContabilidad.modificarFrecuencia(unaFrecuencia, diaGeneracion, diaVencimiento, borradoLogico);
-        if (enero) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(1));
-        }
-        if (febrero) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(2));
-        }
-        if (marzo) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(3));
-        }
-        if (abril) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(4));
-        }
-        if (mayo) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(5));
-        }
-        if (junio) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(6));
-        }
-        if (julio) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(7));
-        }
-        if (agosto) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(8));
-        }
-        if (septiembre) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(9));
-        }
-        if (octubre) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(10));
-        }
-        if (noviembre) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(11));
-        }
-        if (diciembre) {
-            this.agregarMesFrecuencia(unaFrecuencia, this.getMesDB(12));
-        }
-    }
-
-    public void eliminarFrecuencia(Frecuencia unaFrecuencia) {
-        this.unaControladoraContabilidad.eliminarFrecuencia(unaFrecuencia);
-    }
-
-    public void agregarMesFrecuencia(Frecuencia unaFrecuencia, Mes unMes) {
-        this.unaControladoraContabilidad.agregarMesFrecuencia(unaFrecuencia, unMes);
-    }
-
-    public Frecuencia getFrecuenciaBD(Long id) {
-        return this.unaControladoraContabilidad.getFrecuenciaBD(id);
-    }
-
-    public List<Frecuencia> getFrecuenciasBD() {
-        return this.unaControladoraContabilidad.getFrecuenciasBD();
-    }
-    // </editor-fold>
+    // </editor-fold>    
 // </editor-fold>
 
     public Date fechaSistema() {
