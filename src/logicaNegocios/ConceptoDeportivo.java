@@ -121,8 +121,13 @@ public class ConceptoDeportivo implements Serializable, Comparable {
             tx.rollback();
         }
     }
-    // </editor-fold>
 
+    // </editor-fold>
+    @Override
+    public String toString() {
+        return concepto;
+    }
+    
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

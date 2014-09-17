@@ -143,7 +143,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Fecha de Creación", "Vencimiento", "Mes al que Corresponde", "¿Pagodo?"
+                "Fecha de Creación", "Vencimiento", "Mes al que Corresponde", "Pagado"
             }
         ) {
             Class[] types = new Class [] {

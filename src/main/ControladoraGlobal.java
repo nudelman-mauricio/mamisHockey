@@ -697,8 +697,13 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
 
-    public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
+    public List<Deuda> getDeudasEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getDeudaoEntreFechas(desde, hasta);
+    }
+    
+    public List<Deuda> getDeudasMesSocias (Date fecha, Socia unaSocia){
+        
+        return null;
     }
     // </editor-fold>
 
