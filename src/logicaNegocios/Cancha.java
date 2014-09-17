@@ -23,9 +23,6 @@ public class Cancha implements Serializable, Comparable {
     private Long idCancha;
 
     @Basic
-    private boolean seOcupa;
-
-    @Basic
     private boolean borradoLogico;
 
     @OneToOne(optional = false, targetEntity = TipoCancha.class)
@@ -36,9 +33,8 @@ public class Cancha implements Serializable, Comparable {
 
     }
 
-    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
+    public Cancha(EntityManager entityManager, String nombre, TipoCancha unTipoCancha) {
         this.nombre = nombre;
-        this.seOcupa = seOcupa;
         this.unTipoCancha = unTipoCancha;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -59,14 +55,6 @@ public class Cancha implements Serializable, Comparable {
 
     public void setIdCancha(Long idCancha) {
         this.idCancha = idCancha;
-    }
-
-    public boolean isSeOcupa() {
-        return this.seOcupa;
-    }
-
-    public void setSeOcupa(boolean seOcupa) {
-        this.seOcupa = seOcupa;
     }
 
     public boolean isBorradoLogico() {
