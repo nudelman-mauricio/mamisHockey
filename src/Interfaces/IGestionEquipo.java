@@ -58,6 +58,8 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonSancion.setEnabled(Editable);
         jButtonContabilidad.setEnabled(Editable);
         jButtonIndumentaria.setEnabled(Editable);
+        jButtonPlanillaPagos.setEnabled(Editable);
+        jButtonHistorialPagos.setEnabled(Editable);
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
     }
@@ -90,11 +92,13 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonPlantel = new javax.swing.JButton();
         jButtonContabilidad = new javax.swing.JButton();
         jButtonIndumentaria = new javax.swing.JButton();
+        jButtonPlanillaPagos = new javax.swing.JButton();
+        jButtonHistorialPagos = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(726, 544));
-        setMinimumSize(new java.awt.Dimension(726, 544));
-        setPreferredSize(new java.awt.Dimension(726, 544));
+        setMaximumSize(new java.awt.Dimension(900, 700));
+        setMinimumSize(new java.awt.Dimension(900, 700));
+        setPreferredSize(new java.awt.Dimension(900, 700));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -181,7 +185,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addComponent(jTextFieldBusqueda)
                 .addContainerGap())
             .addGroup(jPanelFiltroLayout.createSequentialGroup()
                 .addGap(79, 79, 79)
@@ -232,11 +236,13 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGroup(jPanelTablaLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -275,7 +281,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         });
 
         jButtonContabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); // NOI18N
-        jButtonContabilidad.setText("Contabilidad");
+        jButtonContabilidad.setText("Deudas");
         jButtonContabilidad.setEnabled(false);
         jButtonContabilidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonContabilidad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -296,22 +302,48 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonPlanillaPagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PanillaPagos.png"))); // NOI18N
+        jButtonPlanillaPagos.setText("Planilla Pagos");
+        jButtonPlanillaPagos.setEnabled(false);
+        jButtonPlanillaPagos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPlanillaPagos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPlanillaPagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlanillaPagosActionPerformed(evt);
+            }
+        });
+
+        jButtonHistorialPagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/HistorialPagos.png"))); // NOI18N
+        jButtonHistorialPagos.setText("Historico Pagos");
+        jButtonHistorialPagos.setEnabled(false);
+        jButtonHistorialPagos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonHistorialPagos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonHistorialPagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHistorialPagosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
             jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotones2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonContabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addComponent(jButtonContabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonPlanillaPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonHistorialPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(178, 178, 178))
         );
         jPanelBotones2Layout.setVerticalGroup(
             jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +354,9 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                     .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonPlantel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonContabilidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonIndumentaria))
+                    .addComponent(jButtonIndumentaria)
+                    .addComponent(jButtonPlanillaPagos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonHistorialPagos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -332,14 +366,15 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelBotones2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelBotones2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jPanelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,13 +486,23 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         cargarTabla();
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
+    private void jButtonPlanillaPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlanillaPagosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPlanillaPagosActionPerformed
+
+    private void jButtonHistorialPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorialPagosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonHistorialPagosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContabilidad;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonHistorialPagos;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonIndumentaria;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonPlanillaPagos;
     private javax.swing.JButton jButtonPlantel;
     private javax.swing.JButton jButtonSancion;
     private javax.swing.JLabel jLabel1;
