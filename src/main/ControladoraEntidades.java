@@ -52,6 +52,11 @@ public class ControladoraEntidades {
         unaPersonaAuxiliar.persistir(this.entityManager);
     }
 
+    public void marcarCuerpoTecnicoActivo(PersonaAuxiliar unaPersonaAuxiliar, boolean activo) {
+        unaPersonaAuxiliar.setCuerpoTecnicoActivo(activo);
+        unaPersonaAuxiliar.persistir(this.entityManager);
+    }
+
     public List<PersonaAuxiliar> getPersonasAuxiliarBDFiltro(String dato) {
         String unaConsulta = "SELECT PA FROM PersonaAuxiliar PA WHERE (PA.nombre LIKE " + "'%" + dato + "%' OR PA.apellido LIKE " + "'%" + dato + "%' OR PA.dni LIKE " + "'%" + dato + "%')and(PA.borradoLogico = FALSE)";
 
@@ -167,8 +172,8 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Socias">
-    public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
-        new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
+    public Socia crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
+        return new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
     }
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
@@ -225,11 +230,11 @@ public class ControladoraEntidades {
     public List<Socia> getSociasBDFiltro(String dato) {
         String unaConsulta = "SELECT S FROM Socia S WHERE (S.nombre LIKE " + "'%" + dato + "%' OR S.apellido LIKE " + "'%" + dato + "%' OR S.dni LIKE " + "'%" + dato + "%')and(S.borradoLogico = FALSE)";
         List<Socia> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-        String otraConsulta = "SELECT E FROM Equipo E WHERE (E.nombre LIKE " + "'%" +dato+"%')and(E.borradoLogico = FALSE)";
+        String otraConsulta = "SELECT E FROM Equipo E WHERE (E.nombre LIKE " + "'%" + dato + "%')and(E.borradoLogico = FALSE)";
         List<Equipo> unaListaEquipos = this.entityManager.createQuery(otraConsulta).getResultList();
-        if(unaListaEquipos != null){
-            for(Equipo unEquipo : unaListaEquipos){                
-                for(Socia unaSocia : unEquipo.getPlantel()){
+        if (unaListaEquipos != null) {
+            for (Equipo unEquipo : unaListaEquipos) {
+                for (Socia unaSocia : unEquipo.getPlantel()) {
                     unaListaResultado.add(unaSocia);
                 }
             }
@@ -374,11 +379,6 @@ public class ControladoraEntidades {
         unEstado.persistir(this.entityManager);
     }
 
-    public void cambiarEstadoDeSocia(Estado unEstado, Socia unaSociaActual, Socia unaSociaNueva) {
-        unaSociaActual.quitarEstado(this.entityManager, unEstado);
-        unaSociaNueva.agregarEstado(this.entityManager, unEstado);
-    }
-
     public void eliminarEstado(Estado unEstado) {
         unEstado.setBorradoLogico(true);
         unEstado.persistir(this.entityManager);
@@ -407,8 +407,8 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
-    public void crearTipoEstado(String nombre) {
-        new TipoEstado(this.entityManager, nombre);
+    public TipoEstado crearTipoEstado(String nombre) {
+        return new TipoEstado(this.entityManager, nombre);
     }
 
     public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
@@ -420,6 +420,14 @@ public class ControladoraEntidades {
     public void eliminarTipoEstado(TipoEstado unTipoEstado) {
         unTipoEstado.setBorradoLogico(true);
         unTipoEstado.persistir(this.entityManager);
+    }
+
+    /**
+     * Devuelve unTipoEstado filtrado por tipo
+     */
+    public TipoEstado getTipoEstadoBD(String tipo) {
+        Query traerTipoEstado = this.entityManager.createQuery("SELECT te FROM TipoEstado te WHERE te.nombre = " + tipo);
+        return (TipoEstado) traerTipoEstado.getSingleResult();
     }
 
     /**

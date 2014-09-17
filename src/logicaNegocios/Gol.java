@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Gol implements Serializable, Comparable {
@@ -37,7 +38,7 @@ public class Gol implements Serializable, Comparable {
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getMinuto() {
         return this.minuto;
@@ -75,14 +76,20 @@ public class Gol implements Serializable, Comparable {
     public String toString() {
         return tiempo + "T " + minuto + "'";
     }
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
         if (aux instanceof Gol) {
             Gol gol = (Gol) aux;
-            if (this.idGol > gol.idGol) {
+            if (Integer.parseInt(this.tiempo) > Integer.parseInt(gol.getTiempo())) {
                 retorno = 1;
+            } else {
+                if (Integer.parseInt(this.tiempo) == Integer.parseInt(gol.getTiempo())) {
+                    if (Integer.parseInt(this.minuto) > Integer.parseInt(gol.getMinuto())) {
+                        retorno = 1;
+                    }
+                }
             }
         }
         return retorno;
@@ -96,8 +103,7 @@ public class Gol implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Gol" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

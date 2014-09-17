@@ -65,9 +65,15 @@ public class Equipo implements Serializable, Comparable {
 
     }
 
-    public Equipo(EntityManager entityManager, String nombre, PersonaAuxiliar unDT) {
+    public Equipo(EntityManager entityManager, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
         this.nombre = nombre;
         this.unDT = unDT;
+        this.unaCapitana = unaCapitana;
+        this.unaCapitanaSuplente = unaCapitanaSup;
+        this.unaDelegada = unaDelegada;
+        this.unaDelegadaSuplente = unaDelegadaSup;
+        this.unPreparadorFisico = unPF;
+        this.unAyudanteCampo = unAC;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -187,8 +193,7 @@ public class Equipo implements Serializable, Comparable {
     // </editor-fold>
 
     @Override
-    public int compareTo(Object aux
-    ) {
+    public int compareTo(Object aux) {
         int retorno = -1;
         if (aux instanceof Equipo) {
             Equipo equipo = (Equipo) aux;
@@ -202,7 +207,7 @@ public class Equipo implements Serializable, Comparable {
     @Override
     public String toString() {
         return nombre;
-    }   
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
@@ -212,8 +217,7 @@ public class Equipo implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSION FINAL -----------------------------------
-            System.out.println("Error de Persistir Equipo" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
@@ -296,7 +300,7 @@ public class Equipo implements Serializable, Comparable {
     private int contarMenores(int edadParametro) {
         int cantidadMenores = 0;
         for (Socia aux : this.plantel) {
-            if (aux.getEdadCalendario() < edadParametro){
+            if (aux.getEdadCalendario() < edadParametro) {
                 cantidadMenores++;
             }
         }

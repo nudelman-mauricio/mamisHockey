@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 @Entity
 public class Cancha implements Serializable, Comparable {
-    
+
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private String nombre;
@@ -21,9 +21,6 @@ public class Cancha implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCancha;
-
-    @Basic
-    private boolean seOcupa;
 
     @Basic
     private boolean borradoLogico;
@@ -36,9 +33,8 @@ public class Cancha implements Serializable, Comparable {
 
     }
 
-    public Cancha(EntityManager entityManager, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
+    public Cancha(EntityManager entityManager, String nombre, TipoCancha unTipoCancha) {
         this.nombre = nombre;
-        this.seOcupa = seOcupa;
         this.unTipoCancha = unTipoCancha;
         this.borradoLogico = false;
         this.persistir(entityManager);
@@ -61,14 +57,6 @@ public class Cancha implements Serializable, Comparable {
         this.idCancha = idCancha;
     }
 
-    public boolean isSeOcupa() {
-        return this.seOcupa;
-    }
-
-    public void setSeOcupa(boolean seOcupa) {
-        this.seOcupa = seOcupa;
-    }
-
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
@@ -85,10 +73,10 @@ public class Cancha implements Serializable, Comparable {
         this.unTipoCancha = unTipoCancha;
     }
     // </editor-fold>
-    
+
     @Override
-     public String toString() {
-        return nombre+", "+this.getUnTipoCancha();
+    public String toString() {
+        return nombre + ", " + this.getUnTipoCancha();
     }
 
     @Override
@@ -111,7 +99,7 @@ public class Cancha implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico."+System.getProperty("line.separator")+"LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

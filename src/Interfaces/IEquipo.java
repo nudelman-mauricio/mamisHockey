@@ -28,7 +28,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
-        
+
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -45,7 +45,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         cargarCombosBox();
         camposCargar(unEquipo);
         camposActivo(jPanelDetalles, false);
-       
+
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(true);
@@ -59,10 +59,10 @@ public class IEquipo extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombosBox() {
-        jComboBoxClub.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));        
-        jComboBoxDT.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosBD()));
-        jComboBoxPF.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosBD()));
-        jComboBoxAC.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosBD()));
+        jComboBoxClub.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
+        jComboBoxDT.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosDesocupadosBD()));
+        jComboBoxPF.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosDesocupadosBD()));
+        jComboBoxAC.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosDesocupadosBD()));
 
         if (this.unEquipo != null) {
             jComboBoxDelegada.setModel(new DefaultComboBoxModel((Vector) unEquipo.getPlantel()));
@@ -105,40 +105,45 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
     private void camposCargar(Equipo unEquipo) {
         camposLimpiar();
+        jComboBoxDT.setEditable(true);
+        jComboBoxAC.setEditable(true);
+        jComboBoxPF.setEditable(true);
         jTextFieldNombre.setText(unEquipo.getNombre());
         jComboBoxClub.setSelectedItem(unaControladoraGlobal.getClubBD(unEquipo));
         jComboBoxDT.setSelectedItem(unEquipo.getUnDT());
         if (unEquipo.getUnPreparadorFisico() != null) {
             jComboBoxPF.setSelectedItem(unEquipo.getUnPreparadorFisico());
-            System.out.println(unEquipo.getUnPreparadorFisico().getApellido());
-        }else{
+        } else {
             jComboBoxPF.setSelectedIndex(-1);
         }
         if (unEquipo.getUnAyudanteCampo() != null) {
             jComboBoxAC.setSelectedItem(unEquipo.getUnAyudanteCampo());
-        }else{
+        } else {
             jComboBoxAC.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaDelegada() != null) {
             jComboBoxDelegada.setSelectedItem(unEquipo.getUnaDelegada());
-        }else{
+        } else {
             jComboBoxDelegada.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaDelegadaSuplente() != null) {
             jComboBoxDelegadaSup.setSelectedItem(unEquipo.getUnaDelegadaSuplente());
-        }else{
+        } else {
             jComboBoxDelegadaSup.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaCapitana() != null) {
             jComboBoxCapitana.setSelectedItem(unEquipo.getUnaCapitana());
-        }else{
+        } else {
             jComboBoxCapitana.setSelectedIndex(-1);
         }
         if (unEquipo.getUnaCapitanaSuplente() != null) {
             jComboBoxCapitanaSup.setSelectedItem(unEquipo.getUnaCapitanaSuplente());
-        }else{
+        } else {
             jComboBoxCapitanaSup.setSelectedIndex(-1);
         }
+        jComboBoxDT.setEditable(false);
+        jComboBoxAC.setEditable(false);
+        jComboBoxPF.setEditable(false);
     }
 
     private boolean camposValidar() {
@@ -415,7 +420,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             Socia unaCapitana = null, unaCapitanaSup = null, unaDelegada = null, unaDelegadaSup = null;
-            PersonaAuxiliar unPF = null, unAC = null;
+            PersonaAuxiliar unDT = null, unPF = null, unAC = null;
             if (jComboBoxCapitana.getSelectedIndex() != -1) {
                 unaCapitana = (Socia) jComboBoxCapitana.getSelectedItem();
             }
@@ -430,16 +435,19 @@ public class IEquipo extends javax.swing.JInternalFrame {
             }
             if (jComboBoxPF.getSelectedIndex() != -1) {
                 unPF = (PersonaAuxiliar) jComboBoxPF.getSelectedItem();
+                unaControladoraGlobal.marcarCuerpoTecnicoActivo(unPF, true);
             }
             if (jComboBoxAC.getSelectedIndex() != -1) {
                 unAC = (PersonaAuxiliar) jComboBoxAC.getSelectedItem();
+                unaControladoraGlobal.marcarCuerpoTecnicoActivo(unAC, true);
             }
+            unDT = (PersonaAuxiliar) jComboBoxDT.getSelectedItem();
+            unaControladoraGlobal.marcarCuerpoTecnicoActivo(unDT, true);
             if (this.unEquipo == null) {
-                unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getText(), (PersonaAuxiliar) jComboBoxDT.getSelectedItem());
-                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getText(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, (PersonaAuxiliar) jComboBoxDT.getSelectedItem(), unPF, unAC, unEquipo.isBorradoLogico());
+                unEquipo = unaControladoraGlobal.crearEquipo((Club) jComboBoxClub.getSelectedItem(), jTextFieldNombre.getText(), unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
                 JOptionPane.showMessageDialog(this, "Equipo Guardado");
             } else {
-                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getText(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, (PersonaAuxiliar) jComboBoxDT.getSelectedItem(), unPF, unAC, unEquipo.isBorradoLogico());
+                unaControladoraGlobal.modificarEquipo(unEquipo, jTextFieldNombre.getText(), unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unDT, unPF, unAC, unEquipo.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Equipo Modificado");
             }
             this.dispose();

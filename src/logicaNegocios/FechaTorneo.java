@@ -10,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.swing.JOptionPane;
 
 @Entity
 public class FechaTorneo implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private int numeroFecha;
 
@@ -26,6 +28,7 @@ public class FechaTorneo implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public FechaTorneo() {
 
@@ -37,7 +40,7 @@ public class FechaTorneo implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public int getNumeroFecha() {
         return this.numeroFecha;
     }
@@ -69,21 +72,21 @@ public class FechaTorneo implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
         if (aux instanceof FechaTorneo) {
             FechaTorneo fechaTorneo = (FechaTorneo) aux;
-            if (this.idFecha > fechaTorneo.idFecha) {
+            if (this.numeroFecha > fechaTorneo.getNumeroFecha()) {
                 retorno = 1;
             }
         }
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -91,17 +94,16 @@ public class FechaTorneo implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir FechaTorneo" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
-//-----------------------------------PARTIDOS-----------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Partidos">
     public void agregarPartido(EntityManager entityManager, Partido unPartido) {
         this.partidos.add(unPartido);
         this.persistir(entityManager);
     }
-//---------------------------------FIN PARTIDOS---------------------------------
+    // </editor-fold>
 }

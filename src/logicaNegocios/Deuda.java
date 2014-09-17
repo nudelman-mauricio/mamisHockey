@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Deuda implements Serializable, Comparable {
@@ -112,9 +113,7 @@ public class Deuda implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Deuda) {
             Deuda unaDeuda = (Deuda) aux;
-            if (this.idDeuda > unaDeuda.idDeuda) {
-                retorno = 1;
-            }
+            retorno = this.fechaGeneracion.compareTo(unaDeuda.getFechaGeneracion());
         }
         return retorno;
     }
@@ -127,8 +126,7 @@ public class Deuda implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Deuda" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -191,8 +192,8 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Equipos">
-    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
-        Equipo unEquipo = new Equipo(this.entityManager, nombre, unDT);
+    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
+        Equipo unEquipo = new Equipo(this.entityManager, nombre, unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
         unClub.agregarEquipo(this.entityManager, unEquipo);
         return unEquipo;
     }
@@ -425,14 +426,13 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Canchas">
-    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
-        Cancha unaCancha = new Cancha(this.entityManager, nombre, seOcupa, unTipoCancha);
+    public void crearCancha(Club unClub, String nombre, TipoCancha unTipoCancha) {
+        Cancha unaCancha = new Cancha(this.entityManager, nombre, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
+    public void modificarCancha(Cancha unaCancha, String nombre, TipoCancha unTipoCancha, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
-        unaCancha.setSeOcupa(seOcupa);
         unaCancha.setUnTipoCancha(unTipoCancha);
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(this.entityManager);
@@ -441,6 +441,22 @@ public class ControladoraDeportiva {
     public void eliminarCancha(Cancha unaCancha) {
         unaCancha.setBorradoLogico(true);
         unaCancha.persistir(this.entityManager);
+    }
+
+    public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
+        List<Partido> unaListaResultado = this.entityManager.createQuery("SELECT P FROM Partido P WHERE P.borradoLogico = FALSE AND P.unaCancha = " + unaCancha).getResultList();
+        DateFormat df = DateFormat.getDateInstance();
+        String[] fechaDividida;
+        int resultado = 0;
+        for (Partido unPartido : unaListaResultado) {
+            if (!unPartido.getNombreVeedor().isEmpty()) {
+                fechaDividida = df.format(unPartido.getFecha()).split("/");
+                if ((Integer.parseInt(fechaDividida[2]) == anio) && (Integer.parseInt(fechaDividida[1]) == mes)) {
+                    resultado++;
+                }
+            }
+        }
+        return resultado;
     }
 
     /**
@@ -808,16 +824,6 @@ public class ControladoraDeportiva {
         unGol.persistir(this.entityManager);
     }
 
-    public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
-        unaAutoraActual.quitarGol(entityManager, unGol);
-        unaAutoraNueva.agregarGol(entityManager, unGol);
-    }
-
-    public void cambiarPartidoGol(Gol unGol, Partido unPartidoActual, Partido unPartidoNuevo) {
-        unPartidoActual.quitarGol(this.entityManager, unGol);
-        unPartidoNuevo.agregarGol(this.entityManager, unGol);
-    }
-
     public void eliminarGol(Gol unGol) {
         unGol.setBorradoLogico(true);
         unGol.persistir(this.entityManager);
@@ -865,6 +871,16 @@ public class ControladoraDeportiva {
                         cantidadGoles++;
                     }
                 }
+            }
+        }
+        return cantidadGoles;
+    }
+
+    public int getGolesSocia(Partido unPartido, Socia unaSocia) {
+        int cantidadGoles = 0;
+        for (Gol unGol : unPartido.getGoles()) {
+            if ((!unGol.isBorradoLogico()) && (unaSocia.getGoles().contains(unGol))) {
+                cantidadGoles++;
             }
         }
         return cantidadGoles;

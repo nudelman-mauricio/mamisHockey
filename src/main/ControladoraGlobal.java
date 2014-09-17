@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.swing.JOptionPane;
 import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -33,8 +32,8 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, borradoLogico);
     }
 
-    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta) {
-        this.unaControladoraEntidades.modificarNumeroCamiseta(unaSocia, numeroCamiseta);
+    public void marcarCuerpoTecnicoActivo(PersonaAuxiliar unaPersonaAuxiliar, boolean activo) {
+        this.unaControladoraEntidades.marcarCuerpoTecnicoActivo(unaPersonaAuxiliar, activo);
     }
 
     public void eliminarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar) {
@@ -88,27 +87,20 @@ public class ControladoraGlobal {
 
     // <editor-fold defaultstate="collapsed" desc="Socias">
     public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
-        this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
-        Socia unSocia = this.getSociaBD(dni);
-        TipoEstado unTipoEstadoSocia = null;
-        for (TipoEstado unTipoEstado : this.getTiposEstadosBD()) {
-            if ("Socia".equals(unTipoEstado.getNombre())) {
-                unTipoEstadoSocia = unTipoEstado;
-            }
-        }
+        Socia unSocia = this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
+        TipoEstado unTipoEstadoSocia = this.getTipoEstadoBD("Socia");
         if (unTipoEstadoSocia == null) {
-            this.crearTipoEstado("Socia");
-            for (TipoEstado unTipoEstado : this.getTiposEstadosBD()) {
-                if ("Socia".equals(unTipoEstado.getNombre())) {
-                    unTipoEstadoSocia = unTipoEstado;
-                }
-            }
+            unTipoEstadoSocia = this.crearTipoEstado("Socia");
         }
         this.crearEstado(unSocia, fechaIngreso, unTipoEstadoSocia);
     }
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
         this.unaControladoraEntidades.modificarSocia(unaSocia, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotoCarnet, exJugadora);
+    }
+
+    public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta) {
+        this.unaControladoraEntidades.modificarNumeroCamiseta(unaSocia, numeroCamiseta);
     }
 
     public void eliminarSocia(Socia unaSocia) {
@@ -130,7 +122,7 @@ public class ControladoraGlobal {
 
     // <editor-fold defaultstate="collapsed" desc="Pases">
     public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
-        String observacionDeuda;        
+        String observacionDeuda;
         if (unaSocia.getEquipoActual() == null) {
             observacionDeuda = "Pase de Equipo: Sin Equipo a Equipo : " + unEquipoNuevo.getNombre();
         } else {
@@ -222,11 +214,6 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.modificarEstado(unEstado, fecha, unTipoEstado, borradoLogico);
     }
 
-    //Me Parese que esta no tiene NINGUN sentido
-    public void cambiarEstadoDeSocia(Estado unEstado, Socia unaSociaActual, Socia unaSociaNueva) {
-        this.unaControladoraEntidades.cambiarEstadoDeSocia(unEstado, unaSociaActual, unaSociaNueva);
-    }
-
     public void eliminarEstado(Estado unEstado) {
         this.unaControladoraEntidades.eliminarEstado(unEstado);
     }
@@ -244,8 +231,8 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
-    public void crearTipoEstado(String nombre) {
-        this.unaControladoraEntidades.crearTipoEstado(nombre);
+    public TipoEstado crearTipoEstado(String nombre) {
+        return this.unaControladoraEntidades.crearTipoEstado(nombre);
     }
 
     public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
@@ -254,6 +241,10 @@ public class ControladoraGlobal {
 
     public void eliminarTipoEstado(TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.eliminarTipoEstado(unTipoEstado);
+    }
+
+    public TipoEstado getTipoEstadoBD(String tipo) {
+        return this.unaControladoraEntidades.getTipoEstadoBD(tipo);
     }
 
     public TipoEstado getTipoEstadoBD(Long id) {
@@ -325,7 +316,7 @@ public class ControladoraGlobal {
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
-    
+
     public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getSancionTarjeta(unaTarjeta);
     }
@@ -336,8 +327,8 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Equipos">
-    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT) {
-        return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT);
+    public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
+        return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
     }
 
     public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
@@ -438,16 +429,29 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Canchas">
-    public void crearCancha(Club unClub, String nombre, boolean seOcupa, TipoCancha unTipoCancha) {
-        this.unaControladoraDeportiva.crearCancha(unClub, nombre, seOcupa, unTipoCancha);
+    public void crearCancha(Club unClub, String nombre, TipoCancha unTipoCancha) {
+        this.unaControladoraDeportiva.crearCancha(unClub, nombre, unTipoCancha);
     }
 
-    public void modificarCancha(Cancha unaCancha, String nombre, boolean seOcupa, TipoCancha unTipoCancha, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, seOcupa, unTipoCancha, borradoLogico);
+    public void modificarCancha(Cancha unaCancha, String nombre, TipoCancha unTipoCancha, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, unTipoCancha, borradoLogico);
     }
 
     public void eliminarCancha(Cancha unaCancha) {
         this.unaControladoraDeportiva.eliminarCancha(unaCancha);
+    }
+
+    /**
+     * Devuelve la cantidad de veces que se ocupó una cancha en un mes
+     * determinado. Toma en cuenta solo partidos ya jugados dentro del mes/anio
+     * pasado como parámetro.
+     *
+     * @param unaCancha
+     * @param mes
+     * @return
+     */
+    public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
+        return this.unaControladoraDeportiva.getCantCanchaOcupadaEnMes(unaCancha, mes, anio);
     }
 
     public Cancha getCanchaBD(Long id) {
@@ -539,7 +543,7 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
-    
+
     public List<Torneo> getTorneoParticipoSocia(Socia unaSocia) {
         return this.unaControladoraDeportiva.getTorneoParticipoSocia(unaSocia);
     }
@@ -591,11 +595,11 @@ public class ControladoraGlobal {
     public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, borradoLogico);
     }
-    
+
     public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
         this.unaControladoraDeportiva.modificarPartidoPlantelLocal(unPartido, unPlantel);
     }
-    
+
     public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
         this.unaControladoraDeportiva.modificarPartidoPlantelVisitante(unPartido, unPlantel);
     }
@@ -630,14 +634,6 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarGol(unGol, tiempo, minuto, borradoLogico);
     }
 
-    public void cambiarAutoraGol(Gol unGol, Socia unaAutoraActual, Socia unaAutoraNueva) {
-        this.unaControladoraDeportiva.cambiarAutoraGol(unGol, unaAutoraActual, unaAutoraNueva);
-    }
-
-    public void cambiarPartidoGol(Gol unGol, Partido unPartidoActual, Partido unPartidoNuevo) {
-        this.unaControladoraDeportiva.cambiarPartidoGol(unGol, unPartidoActual, unPartidoNuevo);
-    }
-
     public void eliminarGol(Gol unGol) {
         this.unaControladoraDeportiva.eliminarGol(unGol);
     }
@@ -657,14 +653,19 @@ public class ControladoraGlobal {
     public int getGolesVisitante(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
-    
-    public int getCantGolesSociaPartido(Socia unaSocia, Partido unPartido) {
-        System.out.println("Falta la Funcion: -getCantGolesSociaPartido-");
-        return 0;
+
+    /**
+     * Devuelve Cantidad de goles que hizo una Socia en un Partido pasados por
+     * parametro.
+     *
+     * @param unPartido
+     * @param unaSocia
+     * @return
+     */
+    public int getGolesSocia(Partido unPartido, Socia unaSocia) {
+        return this.unaControladoraDeportiva.getGolesSocia(unPartido, unaSocia);
     }
-    
-    
-    // </editor-fold>
+    // </editor-fold>    
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
@@ -710,9 +711,14 @@ public class ControladoraGlobal {
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
-    
-     public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
+
+    public List<Deuda> getDeudasEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getDeudaoEntreFechas(desde, hasta);
+    }
+    
+    public List<Deuda> getDeudasMesSocias (Date fecha, Socia unaSocia){
+        
+        return null;
     }
     // </editor-fold>
 
@@ -967,9 +973,7 @@ public class ControladoraGlobal {
         try {
             DateFormat df = DateFormat.getDateInstance();
             Calendar FechaSO = Calendar.getInstance();
-
             fechaSO = new java.sql.Date(df.parse(df.format(FechaSO.getTime())).getTime());
-
         } catch (ParseException ex) {
         }
         return fechaSO;

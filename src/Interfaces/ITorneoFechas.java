@@ -257,9 +257,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jButtonFinal = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(850, 513));
-        setMinimumSize(new java.awt.Dimension(850, 513));
-        setPreferredSize(new java.awt.Dimension(850, 513));
+        setMaximumSize(new java.awt.Dimension(858, 527));
+        setMinimumSize(new java.awt.Dimension(858, 527));
+        setPreferredSize(new java.awt.Dimension(858, 527));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -370,7 +370,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonResultadoPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,7 +476,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanelDetalles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles Partido"));
 
         jComboBoxEquipoLocal.setEnabled(false);
 

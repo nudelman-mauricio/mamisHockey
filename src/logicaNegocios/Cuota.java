@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Cuota implements Serializable, Comparable {
@@ -111,9 +112,7 @@ public class Cuota implements Serializable, Comparable {
         int retorno = -1;
         if (aux instanceof Cuota) {
             Cuota unaCuota = (Cuota) aux;
-            if (this.idCuota > unaCuota.idCuota) {
-                retorno = 1;
-            }
+            retorno = this.fechaVencimiento.compareTo(unaCuota.getFechaVencimiento());
         }
         return retorno;
     }
@@ -126,8 +125,7 @@ public class Cuota implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Cuota" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }

@@ -6,12 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Id;
+import javax.swing.JOptionPane;
 
 @Entity
 public class Mes implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     private String nombre;
+    // </editor-fold>
 
     public Mes() {
 
@@ -22,7 +25,7 @@ public class Mes implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//------------------------------ GETERS Y SETERS -------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public String getNombre() {
         return this.nombre;
     }
@@ -30,22 +33,19 @@ public class Mes implements Serializable, Comparable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
         if (aux instanceof Mes) {
             Mes unMes = (Mes) aux;
-            if (this.nombre.compareTo(unMes.getNombre()) > 1) {//Por poner algo nomas
-                retorno = 1;
-            } else {
-            }
+            retorno = this.nombre.compareTo(unMes.getNombre());
         }
         return retorno;
     }
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistir">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -53,10 +53,9 @@ public class Mes implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Mes" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 }

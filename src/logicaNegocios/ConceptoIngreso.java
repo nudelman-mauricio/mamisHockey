@@ -8,10 +8,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.swing.JOptionPane;
 
 @Entity
 public class ConceptoIngreso implements Serializable, Comparable {
 
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
      Long idConceptoIngreso;
@@ -24,6 +26,7 @@ public class ConceptoIngreso implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
+    // </editor-fold>
 
     public ConceptoIngreso() {
 
@@ -36,7 +39,7 @@ public class ConceptoIngreso implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-//---------------------------- GETERS Y SETERS ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
     public Long getIdConceptoIngreso() {
         return this.idConceptoIngreso;
     }
@@ -68,9 +71,9 @@ public class ConceptoIngreso implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-//----------------------------- FIN GETERS Y SETERS ----------------------------
+    // </editor-fold>
 
-//----------------------------------PERSISTENCIA--------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
@@ -78,12 +81,11 @@ public class ConceptoIngreso implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            //-------------------------- TEMPORAL BORRAR VERSIONA FINAL -----------------------------------
-            System.out.println("Error de Persistir Concepto Ingreso" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Técnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
-//------------------------------FIN PERSISTENCIA--------------------------------
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
