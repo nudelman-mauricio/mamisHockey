@@ -148,11 +148,10 @@ public class Deuda implements Serializable, Comparable {
             double montoPrimeraCuota = (montoCuotas + (montoTotal - (montoCuotas * cantCuotas)));
             //Se crea la primer cuota conteniendo el resto de la division
             this.cuotas.add(new Cuota(entityManager, montoPrimeraCuota, vencimiento, ("1/" + Integer.toString(cantCuotas))));
-            //Se crean el resto de las cuotas si corresponde
+            //Se crean el resto de las cuotas si corresponde            
             for (int i = 1; i < cantCuotas; i++) {
-                vencimiento.setMonth(vencimiento.getMonth() + 1);
-                Cuota unaCuota = new Cuota(entityManager, montoCuotas, vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
-                if(!this.cuotas.add(unaCuota)){
+                vencimiento.setMonth(vencimiento.getMonth() + 1);                
+                if (!this.cuotas.add(new Cuota(entityManager, montoCuotas, vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas))))) {
                     JOptionPane.showMessageDialog(null, "TERRRIIIIIBLEEEEE ERRRROOOOORRRRRRRRR EN AGREGAR UNA CUOTA A LA DEUDA");
                 }
             }
@@ -196,13 +195,14 @@ public class Deuda implements Serializable, Comparable {
      * @return Date
      */
     public Date getPrimerVencimiento() {
-        //inicializar con dia de hoy
-        DateFormat df = DateFormat.getDateInstance();
-        Calendar FechaSO = Calendar.getInstance();
-        Date primerVencimiento = FechaSO.getTime();
-        for (Cuota aux : this.cuotas) {
-            if ((!aux.isBorradoLogico()) && (primerVencimiento.after(aux.getFechaVencimiento()))) {
-                primerVencimiento = aux.getFechaVencimiento();
+        //inicializar con dia de hoy        
+        Date primerVencimiento = null;
+        for (Cuota unaCuota : this.cuotas) {
+            if ((!unaCuota.isBorradoLogico()) && (primerVencimiento == null)) {
+                primerVencimiento = unaCuota.getFechaVencimiento();
+            }
+            if ((!unaCuota.isBorradoLogico()) && (primerVencimiento.after(unaCuota.getFechaVencimiento()))) {
+                primerVencimiento = unaCuota.getFechaVencimiento();
             }
         }
         return primerVencimiento;

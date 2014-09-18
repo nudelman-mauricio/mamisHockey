@@ -115,7 +115,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         if (jTableCuotas.getSelectedRow() > -1) {
             if (jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0) != null) {
                 unaCuotaSeleccionada = unaControladoraGlobal.getCuotaBD((Long) jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0));
-                jLabelTituloCuotas.setText("Deuda: " + unaDeudaSeleccionada.getUnConceptoDeportivo().toString() + " - Fecha: " + df.format(unaDeudaSeleccionada.getFechaGeneracion()) + " - Monto: " + Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 if (unaCuotaSeleccionada.getUnPagoCuota() != null) {
                     jTextFieldFechaPagoCuota.setText(df.format(unaCuotaSeleccionada.getFechaPago()));
                     jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMontoPago()));
@@ -881,7 +880,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonImprimir.setEnabled(false);
             jTableCuotas.clearSelection();
             jTableDeudas.clearSelection();
+            jLabelTituloCuotas.setText("Deuda: " + unaDeudaSeleccionada.getUnConceptoDeportivo().toString() + " - Fecha: " + df.format(unaDeudaSeleccionada.getFechaGeneracion()) + " - Monto: " + Double.toString(unaDeudaSeleccionada.getMontoTotal()));
             unaCuotaSeleccionada = null;
+            unaDeudaSeleccionada = null;
             camposLimpiarCuotas();
             camposLimpiarDeuda();
         }
