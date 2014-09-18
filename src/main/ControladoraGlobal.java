@@ -718,7 +718,7 @@ public class ControladoraGlobal {
     }
 
     public List<Deuda> getDeudasMesSocias(Date fecha, Socia unaSocia) {
-
+        
         return null;
     }
     // </editor-fold>

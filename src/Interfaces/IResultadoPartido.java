@@ -272,7 +272,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         for (Gol unGol : unPartido.getGoles()) {
             System.out.println(unGol);
             if (unPlantel != null) {
-                System.out.println("el plantel no es null");
+                System.out.println("el plantel no es null " + unPlantel.size());
             }
             for (Socia unaSocia : unPlantel) {
                 System.out.println(unaSocia);
@@ -1211,22 +1211,22 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
 
         //Guarda el plantel e imprime la planilla de resultados de partido
-        //if (unPartido.getPlantelLocal() == null) {
+        
+        //if (unPartido.getUnPlantelLocal() == null) {
         Collection<Socia> unPlantelLocal = new ArrayList();
-
         for (int i = 0; i < jTableLocal.getRowCount(); i++) {
             unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(i, 0)));
         }
         unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, unPlantelLocal);
         //}
 
-        //if (unPartido.getPlantelVisitante() == null) {
+        if (unPartido.getUnPlantelVisitante() == null) {
         Collection<Socia> unPlantelVisitante = null;
         for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
             unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(i, 0)));
         }
         unaControladoraGlobal.modificarPartidoPlantelVisitante(unPartido, unPlantelVisitante);
-        //}
+        }
 
         //Genera el reporte de la planilla de partido
         System.out.println("Se mostro el informe de Planilla de Partido");
