@@ -359,6 +359,16 @@ public class Partido implements Serializable, Comparable {
         this.persistir(entityManager);
     }
     
+    public void agregarPlantelLocal(EntityManager entityManager, Socia unaSocia) {
+        this.unPlantelLocal.add(unaSocia);
+        this.persistir(entityManager);
+    }
+    
+    public void agregarPlantelVisitante(EntityManager entityManager, Socia unaSocia) {
+        this.unPlantelVisitante.add(unaSocia);
+        this.persistir(entityManager);
+    }
+    
     /**
      * Devuelve TRUE si la jugadora que se pasa esta en el plantel local o
      * visitante

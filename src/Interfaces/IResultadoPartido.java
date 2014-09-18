@@ -264,7 +264,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 }
             }
         }
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia.toString(), v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia, v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
     }
 
     public void cargarGoles(DefaultTableModel modeloTable, Collection<Socia> unPlantel) {
@@ -1213,20 +1213,19 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //Guarda el plantel e imprime la planilla de resultados de partido
         
         //if (unPartido.getUnPlantelLocal() == null) {
-        Collection<Socia> unPlantelLocal = new ArrayList();
         for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-            unPlantelLocal.add(unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(i, 0)));
+            unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, (Socia) jTableLocal.getValueAt(i, 2));
+            //unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(i, 0)));
         }
-        unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, unPlantelLocal);
         //}
 
-        if (unPartido.getUnPlantelVisitante() == null) {
-        Collection<Socia> unPlantelVisitante = null;
-        for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
-            unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(i, 0)));
-        }
-        unaControladoraGlobal.modificarPartidoPlantelVisitante(unPartido, unPlantelVisitante);
-        }
+//        if (unPartido.getUnPlantelVisitante() == null) {
+//        Collection<Socia> unPlantelVisitante = null;
+//        for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
+//            unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(i, 0)));
+//        }
+//        unaControladoraGlobal.modificarPartidoPlantelVisitante(unPartido, unPlantelVisitante);
+//        }
 
         //Genera el reporte de la planilla de partido
         System.out.println("Se mostro el informe de Planilla de Partido");

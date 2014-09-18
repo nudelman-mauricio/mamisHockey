@@ -597,8 +597,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, borradoLogico);
     }
 
-    public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
-        this.unaControladoraDeportiva.modificarPartidoPlantelLocal(unPartido, unPlantel);
+    public void modificarPartidoPlantelLocal(Partido unPartido, Socia unaSocia) {
+        this.unaControladoraDeportiva.modificarPartidoPlantelLocal(unPartido, unaSocia);
     }
 
     public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {

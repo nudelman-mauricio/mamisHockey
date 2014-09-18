@@ -719,9 +719,8 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void modificarPartidoPlantelLocal(Partido unPartido, Collection<Socia> unPlantel) {
-        unPartido.setUnPlantelLocal(unPlantel);
-        unPartido.persistir(this.entityManager);
+    public void modificarPartidoPlantelLocal(Partido unPartido, Socia unaSocia) {
+        unPartido.agregarPlantelLocal(this.entityManager, unaSocia);
     }
 
     public void limpiarPlantelLocal(Partido unPartido) {
