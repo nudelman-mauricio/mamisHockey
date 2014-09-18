@@ -108,12 +108,12 @@ public class ControladoraContabilidad {
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
-     public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
-       String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion<'" + hasta + "' ORDER BY A.fechaGeneracion ASC";
-       List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
-       return unaListaResultado;
-     }
+
+    public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
+        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion<'" + hasta + "' ORDER BY A.fechaGeneracion ASC";
+        List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Cuotas">
@@ -160,6 +160,12 @@ public class ControladoraContabilidad {
      */
     public List<PagoCuota> getPagosCuotasBD() {
         String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE";
+        List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        return unaListaResultado;
+    }
+
+    public List<PagoCuota> getPagosCuotasEntreFechasBD(Date desde, Date hasta) {
+        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago<'" + hasta + "' ORDER BY A.fechaPago ASC";
         List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
