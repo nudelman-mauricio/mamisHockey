@@ -114,6 +114,23 @@ public class ControladoraContabilidad {
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+     public Deuda getDeudaPagoCuota(PagoCuota unPago){
+        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE";
+        List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();   
+        List<Cuota> cuotas;
+        for(Deuda unaDeuda: unaListaResultado){
+             cuotas = (List<Cuota>) unaDeuda.getCuotas();
+             for(Cuota unaCuota: cuotas){
+                 if(unaCuota.getUnPagoCuota() != null){
+                     if(unaCuota.getUnPagoCuota().compareTo(unPago) == 0){
+                         return unaDeuda;
+                     }
+                 }
+             }
+        }
+        return null;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Cuotas">
@@ -169,6 +186,8 @@ public class ControladoraContabilidad {
         List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
+    
+   
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Concepto Ingreso">

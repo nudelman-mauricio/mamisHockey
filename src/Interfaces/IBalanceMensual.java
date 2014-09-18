@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
+import logicaNegocios.PagoCuota;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -242,9 +243,9 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
                 List<Egreso> egresos = unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta);
                 List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
-                
-                List<Deuda> deudas = unaControladoraGlobal.getDeudasEntreFechas(fechaDesde, fechaHasta);
-                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, deudas, unaControladoraGlobal);
+                List<PagoCuota> pagoCuotas = unaControladoraGlobal.getPagosCuotasEntreFechasBD(fechaDesde, fechaHasta);
+               
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal);
 
       
 

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
-import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
+import logicaNegocios.PagoCuota;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -28,8 +28,9 @@ public class BalanceMensualDS implements JRDataSource {
     Object[] arreglo;
     List<Object[]> balanceFinal = new ArrayList();
     DateFormat df = DateFormat.getDateInstance();
-    TreeSet<Balance> unBalance = new TreeSet();
+    TreeSet<Balance> unBalance = new TreeSet();    
 
+    // <editor-fold defaultstate="collapsed" desc="ClaseBalance">
     private class Balance implements Comparable{
 
         Date fecha;
@@ -87,32 +88,32 @@ public class BalanceMensualDS implements JRDataSource {
             this.montoEgreso = montoEgreso;
         }
     }
-
-    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<Deuda> deudas, ControladoraGlobal unaControladoraGlobal) {
+    // </editor-fold>
+    
+    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal) {
         int mesEvaluado = 0;
         double montoPase = 0;        
         
-        for (Deuda unaDeuda : deudas) {
-            if (unaDeuda.getUnConceptoDeportivo().getConcepto().equals("Por Pase")) {
-                if (unaDeuda.getMontoTotal() != 0) {
+        for (PagoCuota unPagoCuota : pagoCuotas) {           
+            if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals("Por Pase")) {
+                if (unPagoCuota.getMonto() != 0) {
                     if (mesEvaluado == 0) {
-                        mesEvaluado = unaDeuda.getFechaGeneracion().getMonth();
+                        mesEvaluado = unPagoCuota.getFechaPago().getMonth();
                     }
-                    if (unaDeuda.getFechaGeneracion().getMonth() != mesEvaluado) {
-                        Balance unaBalanza = new Balance (unaDeuda.getFechaGeneracion(),"Por pase",montoPase,0);
+                    if (unPagoCuota.getFechaPago().getMonth() != mesEvaluado) {
+                        Balance unaBalanza = new Balance (unPagoCuota.getFechaPago(),"Por pase",montoPase,0);
                         unBalance.add(unaBalanza);
-                        mesEvaluado = unaDeuda.getFechaGeneracion().getMonth();
+                        mesEvaluado = unPagoCuota.getFechaPago().getMonth();
                         montoPase = 0;
                     }
-                    montoPase += unaDeuda.getMontoTotal();
-                    if (deudas.indexOf(unaDeuda) == (deudas.size() - 1)) {
-                       Balance unaBalanza = new Balance (unaDeuda.getFechaGeneracion(),"Por pase",montoPase,0);
+                    montoPase += unPagoCuota.getMonto();
+                    if (pagoCuotas.indexOf(unPagoCuota) == (pagoCuotas.size() - 1)) {
+                       Balance unaBalanza = new Balance (unPagoCuota.getFechaPago(),"Por pase",montoPase,0);
                        unBalance.add(unaBalanza);
                     }
                 }
             }
-        }
-        
+        }        
         for (Egreso unEgreso : egresos) {           
             Balance unaBalanza = new Balance (unEgreso.getFecha(),unEgreso.getUnConceptoEgreso().getNombre(),0,unEgreso.getMonto());
             unBalance.add(unaBalanza);            

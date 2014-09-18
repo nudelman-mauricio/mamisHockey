@@ -726,6 +726,10 @@ public class ControladoraGlobal {
     public Cuota getCuotaBD(Long id) {
         return this.unaControladoraContabilidad.getCuotaBD(id);
     }
+    
+    public Deuda getDeudaPagoCuota(PagoCuota unPago){
+        return this.unaControladoraContabilidad.getDeudaPagoCuota(unPago);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Pago Cuotas">
