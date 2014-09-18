@@ -67,9 +67,15 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     //Cargar Tabla con las Cuotas de la Deuda
     private void cargarTablaCuotas() {
         limpiarTabla(modeloTableCuotas);
+        String pagoCuota;
         for (Cuota unaCuota : unaDeudaSeleccionada.getCuotas()) {
             if (!unaCuota.isBorradoLogico()) {
-                this.modeloTableCuotas.addRow(new Object[]{unaCuota.getIdCuota(), unaCuota.getNumero(), df.format(unaCuota.getFechaVencimiento()), unaCuota.getMonto(), df.format(unaCuota.getFechaPago()), unaCuota.getMontoPago()});
+                if (unaCuota.getFechaPago() != null) {
+                    pagoCuota = df.format(unaCuota.getFechaPago());
+                } else {
+                    pagoCuota = "-";
+                }
+                this.modeloTableCuotas.addRow(new Object[]{unaCuota.getIdCuota(), unaCuota.getNumero(), df.format(unaCuota.getFechaVencimiento()), unaCuota.getMonto(), pagoCuota, unaCuota.getMontoPago()});
             }
         }
         jButtonEliminar.setEnabled(false);
@@ -109,6 +115,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         if (jTableCuotas.getSelectedRow() > -1) {
             if (jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0) != null) {
                 unaCuotaSeleccionada = unaControladoraGlobal.getCuotaBD((Long) jTableCuotas.getValueAt(jTableCuotas.getSelectedRow(), 0));
+                jLabelTituloCuotas.setText("Deuda: " + unaDeudaSeleccionada.getUnConceptoDeportivo().toString() + " - Fecha: " + df.format(unaDeudaSeleccionada.getFechaGeneracion()) + " - Monto: " + Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 if (unaCuotaSeleccionada.getUnPagoCuota() != null) {
                     jTextFieldFechaPagoCuota.setText(df.format(unaCuotaSeleccionada.getFechaPago()));
                     jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMontoPago()));
@@ -260,7 +267,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion8 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextPaneObservacionPago = new javax.swing.JTextPane();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelTituloCuotas = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 534));
@@ -667,8 +674,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Deuda: ConceptoDeuda - Fecha: FechaCreacion - Monto: MontoTotalDeuda");
+        jLabelTituloCuotas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelTituloCuotas.setText("Deuda: ConceptoDeuda - Fecha: FechaCreacion - Monto: MontoTotalDeuda");
 
         javax.swing.GroupLayout jPanelCuotasLayout = new javax.swing.GroupLayout(jPanelCuotas);
         jPanelCuotas.setLayout(jPanelCuotasLayout);
@@ -679,14 +686,14 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 .addGroup(jPanelCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelTablaCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDetalleCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelTituloCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelCuotasLayout.setVerticalGroup(
             jPanelCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCuotasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelTituloCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTablaCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -875,7 +882,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jTableCuotas.clearSelection();
             jTableDeudas.clearSelection();
             unaCuotaSeleccionada = null;
-            unaDeudaSeleccionada = null;
             camposLimpiarCuotas();
             camposLimpiarDeuda();
         }
@@ -929,7 +935,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxCantidadCuotas;
     private javax.swing.JComboBox jComboBoxConcepto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelConcepto;
     private javax.swing.JLabel jLabelFechaPagoCuota;
     private javax.swing.JLabel jLabelFechaRealizacion;
@@ -939,6 +944,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelFechaVencimiento;
     private javax.swing.JLabel jLabelFieldMontoCuotaAbonado;
     private javax.swing.JLabel jLabelMontoTotalDeuda;
+    private javax.swing.JLabel jLabelTituloCuotas;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelCuotas;
     private javax.swing.JPanel jPanelDetalleCuotas;

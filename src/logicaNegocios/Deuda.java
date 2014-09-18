@@ -2,10 +2,10 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.TreeSet;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -53,7 +53,7 @@ public class Deuda implements Serializable, Comparable {
         this.unConceptoDeportivo = unConceptoDeportivo;
         this.observacion = observacion;
         this.borradoLogico = false;
-        this.cuotas = new TreeSet();
+        this.cuotas = new ArrayList();
         this.crearCuotas(entityManager, montoTotal, cantCuotas, primerVencimiento);
         this.persistir(entityManager);
     }
@@ -113,7 +113,6 @@ public class Deuda implements Serializable, Comparable {
         return unConceptoDeportivo.getConcepto();
     }
 
-        
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
@@ -153,7 +152,9 @@ public class Deuda implements Serializable, Comparable {
             for (int i = 1; i < cantCuotas; i++) {
                 vencimiento.setMonth(vencimiento.getMonth() + 1);
                 Cuota unaCuota = new Cuota(entityManager, montoCuotas, vencimiento, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas)));
-                this.cuotas.add(unaCuota);
+                if(!this.cuotas.add(unaCuota)){
+                    JOptionPane.showMessageDialog(null, "TERRRIIIIIBLEEEEE ERRRROOOOORRRRRRRRR EN AGREGAR UNA CUOTA A LA DEUDA");
+                }
             }
         }
     }
