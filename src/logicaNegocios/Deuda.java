@@ -146,27 +146,20 @@ public class Deuda implements Serializable, Comparable {
         } else {
             double montoCuotas = (int) (montoTotal / cantCuotas);
             double montoPrimeraCuota = (montoCuotas + (montoTotal - (montoCuotas * cantCuotas)));
-
-            Date vencimientoCuotas = new Date();
-            vencimientoCuotas.setDate(vencimiento.getDate());
-            vencimientoCuotas.setMonth(vencimiento.getMonth());
-            vencimientoCuotas.setYear(vencimiento.getYear());
-
-            //Se crea la primer cuota conteniendo el resto de la division
-            this.cuotas.add(new Cuota(entityManager, montoPrimeraCuota, vencimientoCuotas, ("1/" + Integer.toString(cantCuotas))));
-
-            //Se crean el resto de las cuotas si corresponde
-            for (int i = 1; i < cantCuotas; i++) {
-                vencimiento.setMonth(vencimiento.getMonth() + 1);
-
+            Date vencimientoCuotas;
+            for (int i = 0; i < cantCuotas; i++) {
                 vencimientoCuotas = new Date();
                 vencimientoCuotas.setDate(vencimiento.getDate());
                 vencimientoCuotas.setMonth(vencimiento.getMonth());
                 vencimientoCuotas.setYear(vencimiento.getYear());
-
-                if (!this.cuotas.add(new Cuota(entityManager, montoCuotas, vencimientoCuotas, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas))))) {
-                    JOptionPane.showMessageDialog(null, "TERRRIIIIIBLEEEEE ERRRROOOOORRRRRRRRR EN AGREGAR UNA CUOTA A LA DEUDA");
+                if (i == 0) {
+                    //Se crea la primer cuota conteniendo el resto de la division
+                    this.cuotas.add(new Cuota(entityManager, montoPrimeraCuota, vencimientoCuotas, ("1/" + Integer.toString(cantCuotas))));
+                } else {
+                    //Se crea el resto de las cuotas
+                    this.cuotas.add(new Cuota(entityManager, montoCuotas, vencimientoCuotas, (Integer.toString(i + 1) + "/" + Integer.toString(cantCuotas))));
                 }
+                vencimiento.setMonth(vencimiento.getMonth() + 1);
             }
         }
     }

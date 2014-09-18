@@ -868,6 +868,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTableDeudasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDeudasMouseClicked
+        //esta pasando del panel de deudas a cuotas
         if ((evt.getClickCount() == 2 && !evt.isConsumed()) && (jTableDeudas.isEnabled())) {
             evt.consume();
             jTabbedPane1.setSelectedIndex(1);
@@ -882,7 +883,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jTableDeudas.clearSelection();
             jLabelTituloCuotas.setText("Deuda: " + unaDeudaSeleccionada.getUnConceptoDeportivo().toString() + " - Fecha: " + df.format(unaDeudaSeleccionada.getFechaGeneracion()) + " - Monto: " + Double.toString(unaDeudaSeleccionada.getMontoTotal()));
             unaCuotaSeleccionada = null;
-            unaDeudaSeleccionada = null;
             camposLimpiarCuotas();
             camposLimpiarDeuda();
         }
@@ -904,6 +904,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        //esta pasando del panel de cuotas a deudas
         if (jTabbedPane1.getSelectedIndex() == 0 && jTabbedPane1.getComponentCount() == 2) {
             jTabbedPane1.setEnabledAt(1, false);
             jButtonNuevo.setEnabled(true);
@@ -918,6 +919,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             unaDeudaSeleccionada = null;
             camposLimpiarCuotas();
             camposLimpiarDeuda();
+            cargarTablaDeudas();
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
