@@ -28,22 +28,36 @@ public class BalanceMensualDS implements JRDataSource {
     DateFormat df = DateFormat.getDateInstance();
 
     public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<Deuda> deudas, ControladoraGlobal unaControladoraGlobal) {
+        String fecha, fechaAux;
+        String[] fechaDividida, fechaDivididaAux;
+        Deuda deudaAux = deudas.get(0);
+        deudas.remove(0);
+        fechaAux = df.format(deudaAux.getFechaGeneracion());
+        fechaDivididaAux = fechaAux.split("/");
         double auxiliarPase = 0;
-        Deuda deudaAnterior = deudas.get(0);
         for (Deuda unaDeuda : deudas) {
-            if (unaDeuda.getMontoTotal() > 0) {
-                if ("Por Pase".equals(unaDeuda.getUnConceptoDeportivo().getConcepto())) {
-                    if (deudaAnterior.getFechaGeneracion().getMonth() != unaDeuda.getFechaGeneracion().getMonth()) {
-                        auxiliarPase += unaDeuda.getMontoTotal();
-                        System.out.println("Entro: " + unaDeuda.getMontoTotal() + "-" + auxiliarPase);
-                        balance.add(new Object[]{"Mes "+unaControladoraGlobal.getMesDB(unaDeuda.getFechaGeneracion().getMonth()).getNombre(), "Por Pase", auxiliarPase, 0});
+            if (deudaAux.getMontoTotal() > 0) {
+                if ("Por Pase".equals(deudaAux.getUnConceptoDeportivo().getConcepto())) {
+                    fecha = df.format(unaDeuda.getFechaGeneracion());
+                    fechaDividida = fecha.split("/");
+                    auxiliarPase = deudaAux.getMontoTotal() + auxiliarPase;
+                    if (!(fechaDividida[1].equals(fechaDivididaAux[1]))) {
+                        balance.add(new Object[]{fechaDivididaAux[1] + "/" + fechaDivididaAux[2], "Por Pase", auxiliarPase, 0});
+                        System.out.println(auxiliarPase);
                         auxiliarPase = 0;
-                    } else {
-                        auxiliarPase += unaDeuda.getMontoTotal();
                     }
-                    deudaAnterior = unaDeuda;
+
                 }
+
             }
+            deudaAux = unaDeuda;
+            fechaAux = df.format(deudaAux.getFechaGeneracion());
+            fechaDivididaAux = fechaAux.split("/");
+        }
+        if ("Por Pase".equals(deudaAux.getUnConceptoDeportivo().getConcepto())) {
+            balance.add(new Object[]{fechaDivididaAux[1] + "/" + fechaDivididaAux[2], "Por Pase", auxiliarPase, 0});
+            System.out.println(auxiliarPase);
+            auxiliarPase = 0;
         }
         for (Egreso unEgreso : egresos) {
             balance.add(new Object[]{df.format(unEgreso.getFecha()), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto()});
