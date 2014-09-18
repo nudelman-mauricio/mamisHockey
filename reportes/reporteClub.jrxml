@@ -42,25 +42,25 @@
 					<text><![CDATA[Datos del Club]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="114" y="0" width="100" height="20" uuid="f3d5765d-5be6-42f1-b8a9-ace1a83a2020"/>
+					<reportElement x="132" y="0" width="65" height="20" uuid="f3d5765d-5be6-42f1-b8a9-ace1a83a2020"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Presidente]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="337" y="0" width="100" height="20" uuid="99e4cf32-dac4-49ac-a26e-043b3c2be207"/>
+					<reportElement x="316" y="0" width="66" height="20" uuid="99e4cf32-dac4-49ac-a26e-043b3c2be207"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Localidad:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="214" y="0" width="100" height="20" uuid="24d86ca0-8c2f-4759-b5da-08922e0752a2"/>
+					<reportElement x="197" y="0" width="100" height="20" uuid="24d86ca0-8c2f-4759-b5da-08922e0752a2"/>
 					<textFieldExpression><![CDATA[$F{presidente}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="437" y="0" width="100" height="20" uuid="431a1c58-5165-45ef-a645-d80b681369fb"/>
+					<reportElement x="382" y="0" width="100" height="20" uuid="431a1c58-5165-45ef-a645-d80b681369fb"/>
 					<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
 				</textField>
 				<line>
