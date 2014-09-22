@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,9 +22,6 @@ import javax.swing.JOptionPane;
 public class Partido implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    @OneToMany(targetEntity = Socia.class)
-    private Collection<Socia> unPlantelLocal;
-
     @Basic
     private PersonaAuxiliar unAyudanteCampoLocal;
 
@@ -38,9 +36,6 @@ public class Partido implements Serializable, Comparable {
 
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
-
-    @OneToMany(targetEntity = Socia.class)
-    private Collection<Socia> unPlantelVisitante;
 
     @Basic
     private PersonaAuxiliar unAyudanteCampoVisitante;
@@ -86,6 +81,9 @@ public class Partido implements Serializable, Comparable {
     @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoLocal;
 
+    @ElementCollection
+    private Collection<Integrante> integrantes;
+
     @Basic
     private String nombreAyudanteMesaVisitante;
 
@@ -110,14 +108,6 @@ public class Partido implements Serializable, Comparable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
-    public Collection<Socia> getUnPlantelLocal() {
-        return this.unPlantelLocal;
-    }
-
-    public void setUnPlantelLocal(Collection<Socia> unPlantelLocal) {
-        this.unPlantelLocal = unPlantelLocal;
-    }
-
     public PersonaAuxiliar getUnAyudanteCampoLocal() {
         return this.unAyudanteCampoLocal;
     }
@@ -156,14 +146,6 @@ public class Partido implements Serializable, Comparable {
 
     public void setGoles(Collection<Gol> goles) {
         this.goles = goles;
-    }
-
-    public Collection<Socia> getUnPlantelVisitante() {
-        return this.unPlantelVisitante;
-    }
-
-    public void setUnPlantelVisitante(Collection<Socia> unPlantelVisitante) {
-        this.unPlantelVisitante = unPlantelVisitante;
     }
 
     public PersonaAuxiliar getUnAyudanteCampoVisitante() {
@@ -278,6 +260,14 @@ public class Partido implements Serializable, Comparable {
         this.unEquipoLocal = unEquipoLocal;
     }
 
+    public Collection<Integrante> getIntegrantes() {
+        return this.integrantes;
+    }
+
+    public void setIntegrantes(Collection<Integrante> integrantes) {
+        this.integrantes = integrantes;
+    }
+
     public String getNombreAyudanteMesaVisitante() {
         return this.nombreAyudanteMesaVisitante;
     }
@@ -318,7 +308,7 @@ public class Partido implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃ©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃƒÂ©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
@@ -348,27 +338,15 @@ public class Partido implements Serializable, Comparable {
     }
     // </editor-fold>    
 
-    // <editor-fold defaultstate="collapsed" desc="Planteles">
-    public void limpiarPlantelLocal(EntityManager entityManager) {
-        this.unPlantelLocal.clear();
-        this.persistir(entityManager);
+    // <editor-fold defaultstate="collapsed" desc="Integrantes">
+    public void vaciarIntegrantes() {
+        this.integrantes.clear();
     }
-    
-    public void limpiarPlantelVisitante(EntityManager entityManager) {
-        this.unPlantelVisitante.clear();
-        this.persistir(entityManager);
+
+    public void agregarIntegrante(EntityManager entityManager, Socia unaSocia, String camiseta, boolean local) {
+        this.integrantes.add(new Integrante(entityManager, unaSocia, camiseta, local));
     }
-    
-    public void agregarPlantelLocal(EntityManager entityManager, Socia unaSocia) {
-        this.unPlantelLocal.add(unaSocia);
-        this.persistir(entityManager);
-    }
-    
-    public void agregarPlantelVisitante(EntityManager entityManager, Socia unaSocia) {
-        this.unPlantelVisitante.add(unaSocia);
-        this.persistir(entityManager);
-    }
-    
+
     /**
      * Devuelve TRUE si la jugadora que se pasa esta en el plantel local o
      * visitante
@@ -377,11 +355,10 @@ public class Partido implements Serializable, Comparable {
      * @return
      */
     public boolean isSociaParticipo(Socia unaSocia) {
-        if (this.unPlantelLocal.contains(unaSocia)) {
-            return true;
-        }
-        if (this.unPlantelVisitante.contains(unaSocia)) {
-            return true;
+        for (Integrante unIntegrante : this.integrantes) {
+            if (unIntegrante.getUnaSocia() == unaSocia) {
+                return true;
+            }
         }
         return false;
     }

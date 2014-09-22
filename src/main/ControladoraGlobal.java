@@ -272,8 +272,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
 
-    public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro) {
-        this.unaControladoraDeportiva.descontarSancion(unPlantel, unaFechaParametro);
+    public void descontarSancion(Collection<Integrante> integrantes, Date unaFechaParametro) {
+        this.unaControladoraDeportiva.descontarSancion(integrantes, unaFechaParametro);
     }
 
     public SancionTribunal getSancionTribunalBD(Long id) {
@@ -342,10 +342,6 @@ public class ControladoraGlobal {
 
     public void eliminarEquipo(Equipo unEquipo) {
         this.unaControladoraDeportiva.eliminarEquipo(unEquipo);
-    }
-
-    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha) {
-        return this.unaControladoraDeportiva.getJugadorasHabilitadas(unEquipo, unaFecha);
     }
 
     public Equipo getEquipoBD(Long id) {
@@ -597,12 +593,12 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, borradoLogico);
     }
 
-    public void modificarPartidoPlantelLocal(Partido unPartido, Socia unaSocia) {
-        this.unaControladoraDeportiva.modificarPartidoPlantelLocal(unPartido, unaSocia);
+    public void agregarIntegrante(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
+        this.unaControladoraDeportiva.agregarIntegrante(unPartido, unaSocia, camiseta, local);
     }
 
-    public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
-        this.unaControladoraDeportiva.modificarPartidoPlantelVisitante(unPartido, unPlantel);
+    public void vaciarIntegrantes(Partido unPartido) {
+        this.unaControladoraDeportiva.vaciarIntegrantes(unPartido);
     }
 
     public void eliminarPartido(Partido unPartido) {
@@ -645,6 +641,10 @@ public class ControladoraGlobal {
 
     public List<Gol> getGolesBD() {
         return this.unaControladoraDeportiva.getGolesBD();
+    }
+
+    public Integrante getAutoraGol(Partido unPartido, Gol unGol) {
+        return this.unaControladoraDeportiva.getAutoraGol(unPartido, unGol);
     }
 
     public int getGolesLocal(Partido unPartido) {
@@ -726,8 +726,8 @@ public class ControladoraGlobal {
     public Cuota getCuotaBD(Long id) {
         return this.unaControladoraContabilidad.getCuotaBD(id);
     }
-    
-    public Deuda getDeudaPagoCuota(PagoCuota unPago){
+
+    public Deuda getDeudaPagoCuota(PagoCuota unPago) {
         return this.unaControladoraContabilidad.getDeudaPagoCuota(unPago);
     }
     // </editor-fold>
@@ -752,7 +752,7 @@ public class ControladoraGlobal {
     public List<PagoCuota> getPagosCuotasBD() {
         return this.unaControladoraContabilidad.getPagosCuotasBD();
     }
-    
+
     public List<PagoCuota> getPagosCuotasEntreFechasBD(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getPagosCuotasEntreFechasBD(desde, hasta);
     }

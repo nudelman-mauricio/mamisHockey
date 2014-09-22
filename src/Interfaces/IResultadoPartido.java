@@ -2,8 +2,6 @@ package Interfaces;
 
 import java.awt.Color;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -11,6 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Gol;
+import logicaNegocios.Integrante;
 import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
@@ -19,9 +18,10 @@ import main.TableCellRendererColor;
 
 public class IResultadoPartido extends javax.swing.JInternalFrame {
 
-    ControladoraGlobal unaControladoraGlobal;
-    JInternalFrame unJInternalFrame;
-    Partido unPartido;
+    private ControladoraGlobal unaControladoraGlobal;
+    private JInternalFrame unJInternalFrame;
+    private Partido unPartido;
+    private DateFormat df = DateFormat.getDateInstance();
 
     private DefaultTableModel modeloTableLocal;
     private DefaultTableModel modeloTableGolLocal;
@@ -47,10 +47,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));
         this.setTitle(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         IMenuPrincipalInterface.centrar(this);
-
+        
         cargarCampos();
-        camposActivo(false);
-
+        camposActivo(false);        
+        
         //Botones
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
@@ -67,8 +67,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jButtonEditar.setEnabled(false);
             jButtonActualizar.setEnabled(false);
-        }
-
+        }        
     }
 
     public void cargarCampos() {
@@ -80,7 +79,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jLabelResultado.setText("- a -");
         }
-        DateFormat df = DateFormat.getDateInstance();
         jLabelFechaPartido.setText(df.format(unPartido.getFecha()));
         // </editor-fold>
 
@@ -101,114 +99,133 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // </editor-fold> 
 
         cargarInformacionLocal();
-
         cargarInformacionVisitante();
-
+        if (unPartido.getIntegrantes().isEmpty()) {
+            cargarPlanteles();
+        } else {
+            cargarIntegrantes();
+        }
+        cargarGoles();
     }
 
-    public void cargarInformacionLocal() {
+    private void cargarInformacionLocal() {
+        // <editor-fold defaultstate="collapsed" desc="Equipo - Local">
         jLabelEquipoLocal.setText(unPartido.getUnEquipoLocal().getNombre());
-
-        // <editor-fold defaultstate="collapsed" desc="Informacion Cuerpos Tecnicos Local">
-        //DT
+        // </editor-fold>        
+        // <editor-fold defaultstate="collapsed" desc="Director Tecnico - Local">
         if (unPartido.getUnDTLocal() == null) {
-            jTextFieldDTLocal.setText(unPartido.getUnEquipoLocal().getUnDT().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnDT().getNombre());
+            jTextFieldDTLocal.setText(unPartido.getUnEquipoLocal().getUnDT().toString());
         } else {
-            jTextFieldDTLocal.setText(unPartido.getUnDTLocal().getApellido() + ", " + unPartido.getUnDTLocal().getNombre());
+            jTextFieldDTLocal.setText(unPartido.getUnDTLocal().toString());
         }
-        //AC
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Ayudante de Campo - Local">
         if (unPartido.getUnAyudanteCampoLocal() == null) {
             if (unPartido.getUnEquipoLocal().getUnAyudanteCampo() != null) {
-                jTextFieldAyudanteCampoLocal.setText(unPartido.getUnEquipoLocal().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnAyudanteCampo().getNombre());
+                jTextFieldAyudanteCampoLocal.setText(unPartido.getUnEquipoLocal().toString());
             } else {
                 jTextFieldAyudanteCampoLocal.setText("-");
             }
         } else {
-            jTextFieldAyudanteCampoLocal.setText(unPartido.getUnAyudanteCampoLocal().getApellido() + ", " + unPartido.getUnAyudanteCampoLocal().getNombre());
+            jTextFieldAyudanteCampoLocal.setText(unPartido.getUnAyudanteCampoLocal().toString());
         }
-        //PF
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Preparador Fisico - Local">
         if (unPartido.getUnPreparadorFisicoLocal() == null) {
             if (unPartido.getUnEquipoLocal().getUnPreparadorFisico() != null) {
-                jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnEquipoLocal().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoLocal().getUnPreparadorFisico().getNombre());
+                jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnEquipoLocal().getUnPreparadorFisico().toString());
             } else {
                 jTextFieldPreparadorFisicoLocal.setText("-");
             }
         } else {
-            jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().getApellido() + ", " + unPartido.getUnPreparadorFisicoLocal().getNombre());
+            jTextFieldPreparadorFisicoLocal.setText(unPartido.getUnPreparadorFisicoLocal().toString());
         }
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Local">
         jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
         // </editor-fold>
-
-        // <editor-fold defaultstate="collapsed" desc="Cargar Tabla Local">
-        limpiarTabla(modeloTableLocal);
-        if (unPartido.getUnPlantelLocal() != null) {
-            if (unPartido.getUnPlantelLocal().isEmpty()) {
-                for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
-                    cargarCamposTablaControlando(unaSocia, modeloTableLocal);
-                }
-            } else {
-                for (Socia unaSocia : unPartido.getUnPlantelLocal()) {
-                    cargarCamposTablaControlando(unaSocia, modeloTableLocal);
-                }
-            }
-        }
-        // </editor-fold>
-
-        //Cargar Goles Visitante
-        cargarGoles(modeloTableGolLocal, unPartido.getUnPlantelLocal());
     }
 
-    public void cargarInformacionVisitante() {
+    private void cargarInformacionVisitante() {
+        // <editor-fold defaultstate="collapsed" desc="Equipo - Visitante">
         jLabelEquipoVisitante.setText(unPartido.getUnEquipoVisitante().getNombre());
-
-        // <editor-fold defaultstate="collapsed" desc="Informacion Cuerpos Tecnicos Visitante">
-        //DT
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Director Tecnico - Visitante">
         if (unPartido.getUnDTVisitante() == null) {
-            jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnDT().getNombre());
+            jTextFieldDTVisitante.setText(unPartido.getUnEquipoVisitante().getUnDT().toString());
         } else {
-            jTextFieldDTVisitante.setText(unPartido.getUnDTVisitante().getApellido() + ", " + unPartido.getUnDTVisitante().getNombre());
+            jTextFieldDTVisitante.setText(unPartido.getUnDTVisitante().toString());
         }
-        //AC
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Ayudante de Campo - Visitante">
         if (unPartido.getUnAyudanteCampoVisitante() == null) {
             if (unPartido.getUnEquipoVisitante().getUnAyudanteCampo() != null) {
-                jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnAyudanteCampo().getNombre());
+                jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnEquipoVisitante().getUnAyudanteCampo().toString());
 
             } else {
                 jTextFieldAyudanteCampoVisitante.setText("-");
             }
         } else {
-            jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnAyudanteCampoVisitante().getApellido() + ", " + unPartido.getUnAyudanteCampoVisitante().getNombre());
+            jTextFieldAyudanteCampoVisitante.setText(unPartido.getUnAyudanteCampoVisitante().toString());
         }
-        //PF
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Preparador Fisico - Visitante">
         if (unPartido.getUnPreparadorFisicoVisitante() == null) {
             if (unPartido.getUnEquipoVisitante().getUnPreparadorFisico() != null) {
-                jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getApellido() + ", " + unPartido.getUnEquipoVisitante().getUnPreparadorFisico().getNombre());
+                jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnEquipoVisitante().getUnPreparadorFisico().toString());
             } else {
                 jTextFieldPreparadorFisicoVisitante.setText("-");
             }
         } else {
-            jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().getApellido() + ", " + unPartido.getUnPreparadorFisicoVisitante().getNombre());
+            jTextFieldPreparadorFisicoVisitante.setText(unPartido.getUnPreparadorFisicoVisitante().toString());
         }
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Visitante">
         jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
         // </editor-fold>
+    }
 
-        // <editor-fold defaultstate="collapsed" desc="Cargar Tabla Visitante">
-        limpiarTabla(modeloTableVisitante);
-        if (unPartido.getUnPlantelVisitante() != null) {
-            if (unPartido.getUnPlantelVisitante().isEmpty()) {
-                for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
-                    cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
-                }
-            } else {
-                for (Socia unaSocia : unPartido.getUnPlantelVisitante()) {
-                    cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
+    private void cargarGoles() {
+        limpiarTabla(modeloTableGolLocal);
+        limpiarTabla(modeloTableGolVisitante);
+        Integrante autoraGol = null;
+        for (Gol unGol : unPartido.getGoles()) {
+            autoraGol = unaControladoraGlobal.getAutoraGol(unPartido, unGol);
+            if (autoraGol != null) {
+                if (autoraGol.isLocal()) {
+                    modeloTableGolLocal.addRow(new Object[]{autoraGol.getUnaSocia().getApellido(), unGol});
+                } else {
+                    modeloTableGolVisitante.addRow(new Object[]{autoraGol.getUnaSocia().getApellido(), unGol});
                 }
             }
         }
-        // </editor-fold>
+    }
 
-        //Cargar Goles Visitante
-        cargarGoles(modeloTableGolVisitante, unPartido.getUnPlantelVisitante());
+    private void cargarIntegrantes() {
+        limpiarTabla(modeloTableLocal);
+        limpiarTabla(modeloTableVisitante);
+        for (Integrante unIntegrante : unPartido.getIntegrantes()) {
+            if (unIntegrante.isLocal()) {
+                cargarCamposTablaControlando(unIntegrante.getUnaSocia(), modeloTableLocal);
+            } else {
+                cargarCamposTablaControlando(unIntegrante.getUnaSocia(), modeloTableVisitante);
+            }
+        }
+    }
+
+    private void cargarPlanteles() {
+        limpiarTabla(modeloTableLocal);
+        limpiarTabla(modeloTableVisitante);        
+        for (Socia unaSocia : unPartido.getUnEquipoLocal().getPlantel()) {
+            if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
+                cargarCamposTablaControlando(unaSocia, modeloTableLocal);
+            }
+        }
+        for (Socia unaSocia : unPartido.getUnEquipoVisitante().getPlantel()) {
+            if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
+                cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
+            }
+        }
     }
 
     public void camposActivo(boolean Editable) {
@@ -231,56 +248,36 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
         Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
-        for (Tarjeta unTarjeta : unPartido.getTarjetas()) {
-            for (Tarjeta unTarjetaSocia : unaSocia.getTarjetas()) {
-                if ((unTarjeta == unTarjetaSocia) && (!unTarjeta.isBorradoLogico())) {
-                    if ("Verde".equals(unTarjeta.getTipo())) {
-                        if (v1 == null) {
-                            v1 = unTarjeta;
+        for (Tarjeta unaTarjeta : unPartido.getTarjetas()) {
+            if ((!unaTarjeta.isBorradoLogico()) && (unaSocia.isAutoraTarjeta(unaTarjeta))) {
+                if ("Verde".equals(unaTarjeta.getTipo())) {
+                    if (v1 == null) {
+                        v1 = unaTarjeta;
+                    } else {
+                        if (v2 == null) {
+                            v2 = unaTarjeta;
                         } else {
-                            if (v2 == null) {
-                                v2 = unTarjeta;
-                            } else {
-                                if (v3 == null) {
-                                    v3 = unTarjeta;
-                                }
-                            }
+                            v3 = unaTarjeta;
                         }
-                    }
-                    if ("Amarilla".equals(unTarjeta.getTipo())) {
-                        if (a1 == null) {
-                            a1 = unTarjeta;
-                        } else {
-                            a2 = unTarjeta;
-                        }
-                    }
-                    if ("Roja".equals(unTarjeta.getTipo())) {
-                        rd = unTarjeta;
                     }
                 }
-                if ((a1 == null) && (a2 == null)) {
+                if ("Amarilla".equals(unaTarjeta.getTipo())) {
+                    if (a1 == null) {
+                        a1 = unaTarjeta;
+                    } else {
+                        a2 = unaTarjeta;
+                    }
+                }
+                if ("Roja".equals(unaTarjeta.getTipo())) {
+                    rd = unaTarjeta;
+                }
+                if ((a1 != null) && (a2 != null)) {
                     ra = rd;
                     rd = null;
                 }
             }
         }
         modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia, v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
-    }
-
-    public void cargarGoles(DefaultTableModel modeloTable, Collection<Socia> unPlantel) {
-        limpiarTabla(modeloTable);
-        for (Gol unGol : unPartido.getGoles()) {
-            System.out.println(unGol);
-            if (unPlantel != null) {
-                System.out.println("el plantel no es null " + unPlantel.size());
-            }
-            for (Socia unaSocia : unPlantel) {
-                System.out.println(unaSocia);
-                if ((unaSocia.getGoles().contains(unGol)) && (!unGol.isBorradoLogico())) {
-                    modeloTable.addRow(new Object[]{unaSocia.getApellido(), unGol});
-                }
-            }
-        }
     }
 
     private boolean camposValidar() {
@@ -310,19 +307,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
-        try {
-            int filas = modeloTabla.getRowCount();
-            for (int i = 0; i < filas; i++) {
-                modeloTabla.removeRow(0);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        int filas = modeloTabla.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            modeloTabla.removeRow(0);
         }
     }
 
     private boolean isPartidoFueJugado() {
         boolean resultado = false;
-        if ((unPartido.getUnPlantelLocal() != null) && (unPartido.getUnPlantelVisitante() != null) && (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha()))) {
+        if ((!unPartido.getIntegrantes().isEmpty()) && (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha()))) {
             resultado = true;
         }
         return resultado;
@@ -411,11 +404,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-            }
-        });
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
             }
         });
 
@@ -1193,8 +1181,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
         if (camposValidar()) {
             if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
-                unaControladoraGlobal.descontarSancion(unPartido.getUnPlantelLocal(), unPartido.getFecha());
-                unaControladoraGlobal.descontarSancion(unPartido.getUnPlantelVisitante(), unPartido.getFecha());
+                unaControladoraGlobal.descontarSancion(unPartido.getIntegrantes(), unPartido.getFecha());
             }
             unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
 
@@ -1209,24 +1196,15 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-
-        //Guarda el plantel e imprime la planilla de resultados de partido
-        
-        //if (unPartido.getUnPlantelLocal() == null) {
-        for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-            unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, (Socia) jTableLocal.getValueAt(i, 2));
-            //unaControladoraGlobal.modificarPartidoPlantelLocal(unPartido, unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(i, 0)));
+        //Guarda el plantel e imprime la planilla de resultados de partido        
+        if (unPartido.getIntegrantes() == null) {
+            for (int i = 0; i < jTableLocal.getRowCount(); i++) {
+                unaControladoraGlobal.agregarIntegrante(unPartido, (Socia) jTableLocal.getValueAt(i, 2), (String) jTableLocal.getValueAt(i, 1), true);
+            }
+            for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
+                unaControladoraGlobal.agregarIntegrante(unPartido, (Socia) jTableVisitante.getValueAt(i, 2), (String) jTableVisitante.getValueAt(i, 1), false);
+            }
         }
-        //}
-
-//        if (unPartido.getUnPlantelVisitante() == null) {
-//        Collection<Socia> unPlantelVisitante = null;
-//        for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
-//            unPlantelVisitante.add(unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(i, 0)));
-//        }
-//        unaControladoraGlobal.modificarPartidoPlantelVisitante(unPartido, unPlantelVisitante);
-//        }
-
         //Genera el reporte de la planilla de partido
         System.out.println("Se mostro el informe de Planilla de Partido");
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -1251,38 +1229,16 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        cargarCampos();
-    }//GEN-LAST:event_formComponentShown
-
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         //Carga la tabla con las socias habilitadas para jugar. ok
         //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido) FALTA
         //-Habilitado siempre y cuando no se haya jugado el partido. ok
 
-        if (unPartido.getNombreVeedor() == null) {//Siempre y cuando el partodo no se haya jugado
-            //Local
-            if (unPartido.getUnPlantelLocal() != null) {
+        if (unPartido.getNombreVeedor() == null) {//Siempre y cuando el partodo no se haya jugado            
+            if (unPartido.getIntegrantes() != null) {
                 Object[] options = {"OK", "Cancelar"};
-                if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el plantel Local", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
-                    //Cargar Tabla Local
-                    limpiarTabla(modeloTableLocal);
-
-                    for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoLocal(), unPartido.getFecha())) {
-                        cargarCamposTablaControlando(unaSocia, modeloTableLocal);
-                    }
-                }
-            }
-
-            //Visitante
-            if (unPartido.getUnPlantelVisitante() != null) {
-                Object[] options = {"OK", "Cancelar"};
-                if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar el Plantel Visitante", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
-                    //Cargar Tabla Visitante
-                    limpiarTabla(modeloTableVisitante);
-                    for (Socia unaSocia : unaControladoraGlobal.getJugadorasHabilitadas(unPartido.getUnEquipoVisitante(), unPartido.getFecha())) {
-                        cargarCamposTablaControlando(unaSocia, modeloTableVisitante);
-                    }
+                if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar los planteles?", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
+                    cargarPlanteles();
                 }
             }
         }

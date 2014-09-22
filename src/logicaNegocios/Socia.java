@@ -126,6 +126,19 @@ public class Socia extends Persona implements Serializable {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Habilitada Para Jugar">
+    public boolean isHabilitadaParaJugar(Date unaFecha) {
+        if ((this.ergometrias != null) && (this.estados != null)) {
+            if ((!this.isAlDia(unaFecha)) || (!this.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Socia")) || (!this.isErgometriaAprobada_y_Vigente(unaFecha)) || (this.isSancionada(unaFecha))) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Ergometria">
     public void agregarErgometria(EntityManager entityManager, Ergometria unaErgometria) {
         this.getErgometrias().add(unaErgometria);
@@ -179,6 +192,13 @@ public class Socia extends Persona implements Serializable {
         this.getTarjetas().remove(unaTarjeta);
         this.persistir(entityManager);
     }
+
+    public boolean isAutoraTarjeta(Tarjeta unaTarjeta) {
+        if (this.tarjetas.contains(unaTarjeta)) {
+            return true;
+        }
+        return false;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Pases">
@@ -210,13 +230,23 @@ public class Socia extends Persona implements Serializable {
      * Devuelve el Equipo Actual de la Socia
      */
     public Equipo getEquipoActual() {
-        Equipo resultado = null;
-        for (Pase aux : getPases()) {
-            if (!aux.isBorradoLogico()) {
-                resultado = aux.getUnEquipo();
+        Pase ultimoPase = null;
+        for (Pase unPase : this.pases) {
+            if (!unPase.isBorradoLogico()) {
+                if (ultimoPase != null) {
+                    if (unPase.getFecha().after(ultimoPase.getFecha())) {
+                        ultimoPase = unPase;
+                    }
+                } else {
+                    ultimoPase = unPase;
+                }
             }
         }
-        return resultado;
+        if (ultimoPase != null) {
+            return ultimoPase.getUnEquipo();
+        } else {
+            return null;
+        }
     }
     // </editor-fold>
 
@@ -253,6 +283,13 @@ public class Socia extends Persona implements Serializable {
     public void quitarGol(EntityManager entityManager, Gol unGol) {
         this.getGoles().remove(unGol);
         this.persistir(entityManager);
+    }
+
+    public boolean isAutoraGol(Gol unGol) {
+        if (this.goles.contains(unGol)) {
+            return true;
+        }
+        return false;
     }
     // </editor-fold>
 

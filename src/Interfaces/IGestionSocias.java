@@ -58,7 +58,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             if (unaSocia.getUltimoEstado() != null) {
                 ultimoEstado = unaSocia.getUltimoEstado().getUnTipoEstado().getNombre();
             } else {
-                ultimoEstado = "";
+                ultimoEstado = "-";
             }
             this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), ultimoEstado, unaSocia.getEquipoActual()});
         }

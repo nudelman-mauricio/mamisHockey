@@ -17,6 +17,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Gol;
 import logicaNegocios.Indumentaria;
+import logicaNegocios.Integrante;
 import logicaNegocios.Localidad;
 import logicaNegocios.Partido;
 import logicaNegocios.Persona;
@@ -71,9 +72,9 @@ public class ControladoraDeportiva {
         unaSancionTribunal.persistir(this.entityManager);
     }
 
-    public void descontarSancion(Collection<Socia> unPlantel, Date unaFechaParametro) {
-        for (Socia unaSocia : unPlantel) {
-            for (SancionTribunal unaSancionTribunal : unaSocia.getSancionesVigentes(unaFechaParametro)) {
+    public void descontarSancion(Collection<Integrante> integrantes, Date unaFechaParametro) {
+        for (Integrante unIntegrante : integrantes) {
+            for (SancionTribunal unaSancionTribunal : unIntegrante.getUnaSocia().getSancionesVigentes(unaFechaParametro)) {
                 unaSancionTribunal.sumarFechaCumplida();
                 unaSancionTribunal.persistir(this.entityManager);
             }
@@ -219,31 +220,6 @@ public class ControladoraDeportiva {
     public void eliminarEquipo(Equipo unEquipo) {
         unEquipo.setBorradoLogico(true);
         unEquipo.persistir(this.entityManager);
-    }
-
-    /**
-     * Devuelve una lista con el plantel del equipo pasado por parametro menos
-     * aquellas jugadoras que no puedan jugar por alguno de los siguientes
-     * motivos: que la socia este al dia con los pagos. que tenga la ergometria
-     * aprobada y en vigencia. que figuren en la lista de buena fe. que sean
-     * socias jugadoras activas. que no posean tarjetas rojas ni sanciones.
-     *
-     * @param unEquipo
-     * @param unaFecha
-     * @return
-     */
-    public List<Socia> getJugadorasHabilitadas(Equipo unEquipo, Date unaFecha) {
-        List<Socia> listaHabilitadas = new ArrayList(unEquipo.getPlantel());
-        for (Socia unaSocia : unEquipo.getPlantel()) {
-            if ((unaSocia.getErgometrias() != null) && (unaSocia.getEstados() != null)) {
-                if ((!unaSocia.isAlDia(unaFecha)) || (!unaSocia.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Socia")) || (!unaSocia.isErgometriaAprobada_y_Vigente(unaFecha)) || (unaSocia.isSancionada(unaFecha))) {
-                    listaHabilitadas.remove(unaSocia);
-                }
-            } else {
-                listaHabilitadas.remove(unaSocia);
-            }
-        }
-        return listaHabilitadas;
     }
 
     /**
@@ -719,21 +695,14 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void modificarPartidoPlantelLocal(Partido unPartido, Socia unaSocia) {
-        unPartido.agregarPlantelLocal(this.entityManager, unaSocia);
-    }
-
-    public void limpiarPlantelLocal(Partido unPartido) {
-        unPartido.limpiarPlantelLocal(this.entityManager);
-    }
-
-    public void modificarPartidoPlantelVisitante(Partido unPartido, Collection<Socia> unPlantel) {
-        unPartido.setUnPlantelVisitante(unPlantel);
+    public void agregarIntegrante(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
+        unPartido.agregarIntegrante(entityManager, unaSocia, camiseta, local);
         unPartido.persistir(this.entityManager);
     }
 
-    public void limpiarPlantelVisitante(Partido unPartido) {
-        unPartido.limpiarPlantelVisitante(this.entityManager);
+    public void vaciarIntegrantes(Partido unPartido) {
+        unPartido.vaciarIntegrantes();
+        unPartido.persistir(this.entityManager);
     }
 
     public void eliminarPartido(Partido unPartido) {
@@ -855,15 +824,20 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
 
+    public Integrante getAutoraGol(Partido unPartido, Gol unGol) {
+        for (Integrante unIntegrante : unPartido.getIntegrantes()) {
+            if (unIntegrante.getUnaSocia().isAutoraGol(unGol)) {
+                return unIntegrante;
+            }
+        }
+        return null;
+    }
+
     public int getGolesLocal(Partido unPartido) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
-            if (!unGol.isBorradoLogico()) {
-                for (Socia unaSociaAutoraGol : unPartido.getUnPlantelLocal()) {
-                    if (unaSociaAutoraGol.getGoles().contains(unGol)) {
-                        cantidadGoles++;
-                    }
-                }
+            if ((!unGol.isBorradoLogico()) && (this.getAutoraGol(unPartido, unGol).isLocal())) {
+                cantidadGoles++;
             }
         }
         return cantidadGoles;
@@ -872,12 +846,8 @@ public class ControladoraDeportiva {
     public int getGolesVisitante(Partido unPartido) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
-            if (!unGol.isBorradoLogico()) {
-                for (Socia unaSociaAutoraGol : unPartido.getUnPlantelVisitante()) {
-                    if (unaSociaAutoraGol.getGoles().contains(unGol)) {
-                        cantidadGoles++;
-                    }
-                }
+            if ((!unGol.isBorradoLogico()) && (!this.getAutoraGol(unPartido, unGol).isLocal())) {
+                cantidadGoles++;
             }
         }
         return cantidadGoles;
@@ -886,7 +856,7 @@ public class ControladoraDeportiva {
     public int getGolesSocia(Partido unPartido, Socia unaSocia) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
-            if ((!unGol.isBorradoLogico()) && (unaSocia.getGoles().contains(unGol))) {
+            if ((!unGol.isBorradoLogico()) && (unaSocia.isAutoraGol(unGol))) {
                 cantidadGoles++;
             }
         }
