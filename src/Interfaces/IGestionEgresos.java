@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -692,19 +693,27 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jComboBoxDesdeMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeMesItemStateChanged
-        cargarTabla();
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            cargarTabla();
+        }
     }//GEN-LAST:event_jComboBoxDesdeMesItemStateChanged
 
     private void jComboBoxDesdeAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeAñoItemStateChanged
-        cargarTabla();
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            cargarTabla();
+        }
     }//GEN-LAST:event_jComboBoxDesdeAñoItemStateChanged
 
     private void jComboBoxHastaMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxHastaMesItemStateChanged
-        cargarTabla();
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            cargarTabla();
+        }
     }//GEN-LAST:event_jComboBoxHastaMesItemStateChanged
 
     private void jComboBoxHastaAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxHastaAñoItemStateChanged
-        cargarTabla();
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            cargarTabla();
+        }
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
 
 
