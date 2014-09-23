@@ -522,6 +522,9 @@
             <jpa:one-to-many name="tarjetas" target-entity="Tarjeta" collection-type="java.util.Collection" connected-entity-id="_1397869941400" visibile="true" id="_1398055930082532">
                 <jpa:join-table/>
             </jpa:one-to-many>
+            <jpa:one-to-many name="jugadoras" target-entity="Jugadora" collection-type="java.util.Collection" connected-entity-id="_1411450659164" visibile="true" id="_141145091134389">
+                <jpa:join-table/>
+            </jpa:one-to-many>
             <jpa:one-to-one name="unEquipoLocal" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" visibile="true" id="_1397869605249244">
                 <jpa:join-table/>
             </jpa:one-to-one>
@@ -540,9 +543,6 @@
             <jpa:one-to-one name="unArbitro3" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_140070277076188">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:element-collection name="integrantes" target-class="Integrante" collection-type="java.util.Collection" connected-class-id="_1411085510237" visibile="true" id="_1411085633485186">
-                <jpa:collection-table/>
-            </jpa:element-collection>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity class="Tarjeta" visibile="true" minimized="true" id="_1397869941400">
@@ -717,19 +717,19 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:embeddable class="Integrante" visibile="true" minimized="true" id="_1411085510237">
+    <jpa:entity class="Jugadora" visibile="true" minimized="false" id="_1411450659164">
         <jpa:attributes>
-            <jpa:basic name="camiseta" attribute-type="String" visibile="true" id="_1411085528328183">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            <jpa:basic name="camiseta" attribute-type="String" visibile="true" id="_141145072240986">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="local" attribute-type="boolean" visibile="true" id="_1411085530338184">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            <jpa:basic name="local" attribute-type="boolean" visibile="true" id="_141145072496187">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unaSocia" target-entity="Socia" optional="false" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1411085541255185">
+            <jpa:one-to-one name="unaSocia" target-entity="Socia" optional="true" primaryKey="true" connected-entity-id="_1397865613179" visibile="true" id="_141147707193187">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
-    </jpa:embeddable>
+    </jpa:entity>
     <jpa:diagram id="_139786521181047">
         <plane elementRef="_139786521181046" id="_139786521181048_p">
             <shape elementRef="_1397865386057" id="_1397865386057_gui">
@@ -816,11 +816,11 @@
             <shape elementRef="_1400096950412" id="_1400096950412_gui">
                 <Bounds x="-852.0" y="21.0" width="158.0" height="24.0"/>
             </shape>
+            <shape elementRef="_1411450659164" id="_1411450659164_gui">
+                <Bounds x="44.0" y="253.0" width="150.0" height="113.0"/>
+            </shape>
             <shape elementRef="_1397865228592" id="_1397865228592_gui">
                 <Bounds x="1213.0" y="-782.0" width="144.0" height="24.0"/>
-            </shape>
-            <shape elementRef="_1411085510237" id="_1411085510237_gui">
-                <Bounds x="121.0" y="369.0" width="160.0" height="24.0"/>
             </shape>
         </plane>
     </jpa:diagram>

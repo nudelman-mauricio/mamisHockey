@@ -9,7 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Gol;
-import logicaNegocios.Integrante;
+import logicaNegocios.Jugadora;
 import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
@@ -100,10 +100,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         cargarInformacionLocal();
         cargarInformacionVisitante();
-        if (unPartido.getIntegrantes().isEmpty()) {
+        if (unPartido.getJugadoras().isEmpty()) {
             cargarPlanteles();
         } else {
-            cargarIntegrantes();
+            cargarJugadoras();
         }
         cargarGoles();
     }
@@ -188,7 +188,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void cargarGoles() {
         limpiarTabla(modeloTableGolLocal);
         limpiarTabla(modeloTableGolVisitante);
-        Integrante autoraGol = null;
+        Jugadora autoraGol = null;
         for (Gol unGol : unPartido.getGoles()) {
             autoraGol = unaControladoraGlobal.getAutoraGol(unPartido, unGol);
             if (autoraGol != null) {
@@ -201,14 +201,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
     }
 
-    private void cargarIntegrantes() {
+    private void cargarJugadoras() {
         limpiarTabla(modeloTableLocal);
         limpiarTabla(modeloTableVisitante);
-        for (Integrante unIntegrante : unPartido.getIntegrantes()) {
-            if (unIntegrante.isLocal()) {
-                cargarCamposTablaControlando(unIntegrante.getUnaSocia(), modeloTableLocal);
+        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
+            if (unaJugadora.isLocal()) {
+                cargarCamposTablaControlando(unaJugadora.getUnaSocia(), modeloTableLocal);
             } else {
-                cargarCamposTablaControlando(unIntegrante.getUnaSocia(), modeloTableVisitante);
+                cargarCamposTablaControlando(unaJugadora.getUnaSocia(), modeloTableVisitante);
             }
         }
     }
@@ -315,7 +315,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private boolean isPartidoFueJugado() {
         boolean resultado = false;
-        if ((!unPartido.getIntegrantes().isEmpty()) && (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha()))) {
+        if ((!unPartido.getJugadoras().isEmpty()) && (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha()))) {
             resultado = true;
         }
         return resultado;
@@ -1181,7 +1181,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
         if (camposValidar()) {
             if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
-                unaControladoraGlobal.descontarSancion(unPartido.getIntegrantes(), unPartido.getFecha());
+                unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
             }
             unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
 
@@ -1197,12 +1197,12 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         //Guarda el plantel e imprime la planilla de resultados de partido        
-        if (unPartido.getIntegrantes() == null) {
+        if (unPartido.getJugadoras().isEmpty()) {
             for (int i = 0; i < jTableLocal.getRowCount(); i++) {
-                unaControladoraGlobal.agregarIntegrante(unPartido, (Socia) jTableLocal.getValueAt(i, 2), (String) jTableLocal.getValueAt(i, 1), true);
+                unaControladoraGlobal.agregarJugadora(unPartido, (Socia) jTableLocal.getValueAt(i, 2), (String) jTableLocal.getValueAt(i, 1), true);
             }
             for (int i = 0; i < jTableVisitante.getRowCount(); i++) {
-                unaControladoraGlobal.agregarIntegrante(unPartido, (Socia) jTableVisitante.getValueAt(i, 2), (String) jTableVisitante.getValueAt(i, 1), false);
+                unaControladoraGlobal.agregarJugadora(unPartido, (Socia) jTableVisitante.getValueAt(i, 2), (String) jTableVisitante.getValueAt(i, 1), false);
             }
         }
         //Genera el reporte de la planilla de partido
@@ -1235,7 +1235,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //-Habilitado siempre y cuando no se haya jugado el partido. ok
 
         if (unPartido.getNombreVeedor() == null) {//Siempre y cuando el partodo no se haya jugado            
-            if (unPartido.getIntegrantes() != null) {
+            if (unPartido.getJugadoras() != null) {
                 Object[] options = {"OK", "Cancelar"};
                 if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar los planteles?", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
                     cargarPlanteles();

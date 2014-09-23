@@ -2,10 +2,10 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -24,6 +24,9 @@ public class Partido implements Serializable, Comparable {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private PersonaAuxiliar unAyudanteCampoLocal;
+
+    @OneToMany(targetEntity = Jugadora.class)
+    private Collection<Jugadora> jugadoras;
 
     @Basic
     private String nombreVeedor;
@@ -81,9 +84,6 @@ public class Partido implements Serializable, Comparable {
     @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoLocal;
 
-    @ElementCollection
-    private Collection<Integrante> integrantes;
-
     @Basic
     private String nombreAyudanteMesaVisitante;
 
@@ -114,6 +114,14 @@ public class Partido implements Serializable, Comparable {
 
     public void setUnAyudanteCampoLocal(PersonaAuxiliar unAyudanteCampoLocal) {
         this.unAyudanteCampoLocal = unAyudanteCampoLocal;
+    }
+
+    public Collection<Jugadora> getJugadoras() {
+        return this.jugadoras;
+    }
+
+    public void setJugadoras(Collection<Jugadora> jugadoras) {
+        this.jugadoras = jugadoras;
     }
 
     public String getNombreVeedor() {
@@ -260,14 +268,6 @@ public class Partido implements Serializable, Comparable {
         this.unEquipoLocal = unEquipoLocal;
     }
 
-    public Collection<Integrante> getIntegrantes() {
-        return this.integrantes;
-    }
-
-    public void setIntegrantes(Collection<Integrante> integrantes) {
-        this.integrantes = integrantes;
-    }
-
     public String getNombreAyudanteMesaVisitante() {
         return this.nombreAyudanteMesaVisitante;
     }
@@ -283,7 +283,7 @@ public class Partido implements Serializable, Comparable {
     public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
-// </editor-fold>
+    // </editor-fold>
 
     @Override
     public int compareTo(Object aux) {
@@ -308,7 +308,7 @@ public class Partido implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃƒÂ©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Tecnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
@@ -339,12 +339,12 @@ public class Partido implements Serializable, Comparable {
     // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Integrantes">
-    public void vaciarIntegrantes() {
-        this.integrantes.clear();
+    public void vaciarJugadoras() {
+        this.jugadoras.clear();
     }
 
-    public void agregarIntegrante(EntityManager entityManager, Socia unaSocia, String camiseta, boolean local) {
-        this.integrantes.add(new Integrante(entityManager, unaSocia, camiseta, local));
+    public void agregarJugadora(EntityManager entityManager, Socia unaSocia, String camiseta, boolean local) {
+        this.jugadoras.add(new Jugadora(entityManager, unaSocia, camiseta, local));
     }
 
     /**
@@ -355,8 +355,8 @@ public class Partido implements Serializable, Comparable {
      * @return
      */
     public boolean isSociaParticipo(Socia unaSocia) {
-        for (Integrante unIntegrante : this.integrantes) {
-            if (unIntegrante.getUnaSocia() == unaSocia) {
+        for (Jugadora unaJugadora : this.jugadoras) {
+            if (unaJugadora.getUnaSocia() == unaSocia) {
                 return true;
             }
         }

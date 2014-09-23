@@ -3,17 +3,21 @@ package logicaNegocios;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.swing.JOptionPane;
 
-@Embeddable
-public class Integrante implements Serializable {
+@Entity
+@Table
+public class Jugadora implements Serializable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
-    @OneToOne(optional = false, targetEntity = Socia.class)
+    @Id
+    @OneToOne(targetEntity = Socia.class)
     private Socia unaSocia;
 
     @Basic
@@ -23,11 +27,11 @@ public class Integrante implements Serializable {
     private boolean local;
     // </editor-fold>
 
-    public Integrante() {
+    public Jugadora() {
 
     }
 
-    public Integrante(EntityManager entityManager, Socia unaSocia, String camiseta, boolean local) {
+    public Jugadora(EntityManager entityManager, Socia unaSocia, String camiseta, boolean local) {
         this.unaSocia = unaSocia;
         this.camiseta = camiseta;
         this.local = local;

@@ -272,8 +272,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
 
-    public void descontarSancion(Collection<Integrante> integrantes, Date unaFechaParametro) {
-        this.unaControladoraDeportiva.descontarSancion(integrantes, unaFechaParametro);
+    public void descontarSancion(Collection<Jugadora> jugadoras, Date unaFechaParametro) {
+        this.unaControladoraDeportiva.descontarSancion(jugadoras, unaFechaParametro);
     }
 
     public SancionTribunal getSancionTribunalBD(Long id) {
@@ -593,12 +593,12 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, borradoLogico);
     }
 
-    public void agregarIntegrante(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
-        this.unaControladoraDeportiva.agregarIntegrante(unPartido, unaSocia, camiseta, local);
+    public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
+        this.unaControladoraDeportiva.agregarJugadora(unPartido, unaSocia, camiseta, local);
     }
 
-    public void vaciarIntegrantes(Partido unPartido) {
-        this.unaControladoraDeportiva.vaciarIntegrantes(unPartido);
+    public void vaciarJugadoras(Partido unPartido) {
+        this.unaControladoraDeportiva.vaciarJugadoras(unPartido);
     }
 
     public void eliminarPartido(Partido unPartido) {
@@ -643,7 +643,7 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getGolesBD();
     }
 
-    public Integrante getAutoraGol(Partido unPartido, Gol unGol) {
+    public Jugadora getAutoraGol(Partido unPartido, Gol unGol) {
         return this.unaControladoraDeportiva.getAutoraGol(unPartido, unGol);
     }
 

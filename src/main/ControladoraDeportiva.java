@@ -17,7 +17,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Gol;
 import logicaNegocios.Indumentaria;
-import logicaNegocios.Integrante;
+import logicaNegocios.Jugadora;
 import logicaNegocios.Localidad;
 import logicaNegocios.Partido;
 import logicaNegocios.Persona;
@@ -57,12 +57,9 @@ public class ControladoraDeportiva {
         unaSancionTribunal.setFecha(fecha);
         unaSancionTribunal.setMotivo(motivo);
         unaSancionTribunal.setDetalles(detalles);
-        unaSancionTribunal.setNumeroResolucion(numeroResolucion);
-        //unaSancionTribunal.setUnPartido(unPartido);
-        //unaSancionTribunal.setUnaTarjeta(unaTarjeta);        
+        unaSancionTribunal.setNumeroResolucion(numeroResolucion);      
         unaSancionTribunal.setVencimiento(vencimiento);
         unaSancionTribunal.setCantFechas(cantFechas);
-        //unaSancionTribunal.setCantFechasCumplidas(cantFechasCumplidas);
         unaSancionTribunal.setBorradoLogico(borradoLogico);
         unaSancionTribunal.persistir(this.entityManager);
     }
@@ -72,9 +69,9 @@ public class ControladoraDeportiva {
         unaSancionTribunal.persistir(this.entityManager);
     }
 
-    public void descontarSancion(Collection<Integrante> integrantes, Date unaFechaParametro) {
-        for (Integrante unIntegrante : integrantes) {
-            for (SancionTribunal unaSancionTribunal : unIntegrante.getUnaSocia().getSancionesVigentes(unaFechaParametro)) {
+    public void descontarSancion(Collection<Jugadora> jugadoras, Date unaFechaParametro) {
+        for (Jugadora unaJugadora : jugadoras) {
+            for (SancionTribunal unaSancionTribunal : unaJugadora.getUnaSocia().getSancionesVigentes(unaFechaParametro)) {
                 unaSancionTribunal.sumarFechaCumplida();
                 unaSancionTribunal.persistir(this.entityManager);
             }
@@ -695,13 +692,13 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void agregarIntegrante(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
-        unPartido.agregarIntegrante(entityManager, unaSocia, camiseta, local);
+    public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
+        unPartido.agregarJugadora(entityManager, unaSocia, camiseta, local);
         unPartido.persistir(this.entityManager);
     }
 
-    public void vaciarIntegrantes(Partido unPartido) {
-        unPartido.vaciarIntegrantes();
+    public void vaciarJugadoras(Partido unPartido) {
+        unPartido.vaciarJugadoras();
         unPartido.persistir(this.entityManager);
     }
 
@@ -824,8 +821,8 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
 
-    public Integrante getAutoraGol(Partido unPartido, Gol unGol) {
-        for (Integrante unIntegrante : unPartido.getIntegrantes()) {
+    public Jugadora getAutoraGol(Partido unPartido, Gol unGol) {
+        for (Jugadora unIntegrante : unPartido.getJugadoras()) {
             if (unIntegrante.getUnaSocia().isAutoraGol(unGol)) {
                 return unIntegrante;
             }
