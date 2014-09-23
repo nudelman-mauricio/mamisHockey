@@ -272,8 +272,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
 
-    public void descontarSancion(Collection<Jugadora> jugadoras, Date unaFechaParametro) {
-        this.unaControladoraDeportiva.descontarSancion(jugadoras, unaFechaParametro);
+    public void descontarSancion(Collection<Jugadora> integrantes, Date unaFechaParametro) {
+        this.unaControladoraDeportiva.descontarSancion(integrantes, unaFechaParametro);
     }
 
     public SancionTribunal getSancionTribunalBD(Long id) {

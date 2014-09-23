@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -25,7 +26,7 @@ public class Partido implements Serializable, Comparable {
     @Basic
     private PersonaAuxiliar unAyudanteCampoLocal;
 
-    @OneToMany(targetEntity = Jugadora.class)
+    @ElementCollection
     private Collection<Jugadora> jugadoras;
 
     @Basic
@@ -308,7 +309,7 @@ public class Partido implements Serializable, Comparable {
             entityManager.persist(this);
             tx.commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio Tecnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
+            JOptionPane.showMessageDialog(null, "Error en la Base de Datos. Avisar al Servicio TÃƒÆ’Ã‚Â©cnico." + System.getProperty("line.separator") + "LMLSOLUCIONESINFORMATICAS@GMAIL.COM");
             tx.rollback();
         }
     }
@@ -338,13 +339,13 @@ public class Partido implements Serializable, Comparable {
     }
     // </editor-fold>    
 
-    // <editor-fold defaultstate="collapsed" desc="Integrantes">
+    // <editor-fold defaultstate="collapsed" desc="Jugadoras">
     public void vaciarJugadoras() {
-        this.jugadoras.clear();
+        this.jugadoras.clear();        
     }
 
-    public void agregarJugadora(EntityManager entityManager, Socia unaSocia, String camiseta, boolean local) {
-        this.jugadoras.add(new Jugadora(entityManager, unaSocia, camiseta, local));
+    public void agregarJugadora(Socia unaSocia, String camiseta, boolean local) {
+        this.jugadoras.add(new Jugadora(unaSocia, camiseta, local));
     }
 
     /**

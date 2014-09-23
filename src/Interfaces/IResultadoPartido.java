@@ -47,10 +47,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));
         this.setTitle(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         IMenuPrincipalInterface.centrar(this);
-        
+
         cargarCampos();
-        camposActivo(false);        
-        
+        camposActivo(false);
+
         //Botones
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
@@ -67,7 +67,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jButtonEditar.setEnabled(false);
             jButtonActualizar.setEnabled(false);
-        }        
+        }
     }
 
     public void cargarCampos() {
@@ -204,18 +204,18 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void cargarJugadoras() {
         limpiarTabla(modeloTableLocal);
         limpiarTabla(modeloTableVisitante);
-        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
-            if (unaJugadora.isLocal()) {
-                cargarCamposTablaControlando(unaJugadora.getUnaSocia(), modeloTableLocal);
+        for (Jugadora unIntegrante : unPartido.getJugadoras()) {
+            if (unIntegrante.isLocal()) {
+                cargarCamposTablaControlando(unIntegrante.getUnaSocia(), modeloTableLocal);
             } else {
-                cargarCamposTablaControlando(unaJugadora.getUnaSocia(), modeloTableVisitante);
+                cargarCamposTablaControlando(unIntegrante.getUnaSocia(), modeloTableVisitante);
             }
         }
     }
 
     private void cargarPlanteles() {
         limpiarTabla(modeloTableLocal);
-        limpiarTabla(modeloTableVisitante);        
+        limpiarTabla(modeloTableVisitante);
         for (Socia unaSocia : unPartido.getUnEquipoLocal().getPlantel()) {
             if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
                 cargarCamposTablaControlando(unaSocia, modeloTableLocal);

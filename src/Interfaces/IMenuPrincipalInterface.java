@@ -56,7 +56,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jMenuItemConceptoIngreso = new javax.swing.JMenuItem();
         jMenuItemConceptosDeportivos = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuFormularios = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -67,15 +67,16 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuConfiguracion = new javax.swing.JMenu();
         jMenuItemEstadosSocia = new javax.swing.JMenuItem();
         jMenuItemLocalidades = new javax.swing.JMenuItem();
         jMenuItemCategoria = new javax.swing.JMenuItem();
         jMenuItemTipoCancha = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuCargaDB = new javax.swing.JMenu();
+        jMenuItemEstados = new javax.swing.JMenuItem();
+        jMenuItemEquipos = new javax.swing.JMenuItem();
+        jMenuItemErgometrias = new javax.swing.JMenuItem();
+        jMenuItemLos3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,17 +198,17 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuContabilidad);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PlantillasPredeterminadas.png"))); // NOI18N
-        jMenu1.setText("Formularios");
-        jMenu1.setMaximumSize(new java.awt.Dimension(129, 32767));
-        jMenu1.setPreferredSize(new java.awt.Dimension(111, 19));
+        jMenuFormularios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PlantillasPredeterminadas.png"))); // NOI18N
+        jMenuFormularios.setText("Formularios");
+        jMenuFormularios.setMaximumSize(new java.awt.Dimension(129, 32767));
+        jMenuFormularios.setPreferredSize(new java.awt.Dimension(111, 19));
 
         jMenuItem1.setText("Formulario de Pase");
-        jMenu1.add(jMenuItem1);
+        jMenuFormularios.add(jMenuItem1);
 
         jMenuItem4.setText("Formulario Cambio de Estado");
-        jMenu1.add(jMenuItem4);
-        jMenu1.add(jSeparator2);
+        jMenuFormularios.add(jMenuItem4);
+        jMenuFormularios.add(jSeparator2);
 
         jMenu5.setText("Formulario Nuevo/a");
 
@@ -237,13 +238,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem9.setText("Equipo");
         jMenu5.add(jMenuItem9);
 
-        jMenu1.add(jMenu5);
+        jMenuFormularios.add(jMenu5);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuFormularios);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Config.png"))); // NOI18N
-        jMenu4.setText("Configuración");
-        jMenu4.setMaximumSize(new java.awt.Dimension(129, 32767));
+        jMenuConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Config.png"))); // NOI18N
+        jMenuConfiguracion.setText("Configuración");
+        jMenuConfiguracion.setMaximumSize(new java.awt.Dimension(129, 32767));
 
         jMenuItemEstadosSocia.setText("Estados de una Socia");
         jMenuItemEstadosSocia.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +252,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 jMenuItemEstadosSociaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItemEstadosSocia);
+        jMenuConfiguracion.add(jMenuItemEstadosSocia);
 
         jMenuItemLocalidades.setText("Localidades");
         jMenuItemLocalidades.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +260,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 jMenuItemLocalidadesActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItemLocalidades);
+        jMenuConfiguracion.add(jMenuItemLocalidades);
 
         jMenuItemCategoria.setText("Categorias");
         jMenuItemCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +268,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 jMenuItemCategoriaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItemCategoria);
+        jMenuConfiguracion.add(jMenuItemCategoria);
 
         jMenuItemTipoCancha.setText("Tipos de Canchas");
         jMenuItemTipoCancha.addActionListener(new java.awt.event.ActionListener() {
@@ -275,37 +276,45 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 jMenuItemTipoCanchaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItemTipoCancha);
+        jMenuConfiguracion.add(jMenuItemTipoCancha);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jMenuConfiguracion);
 
-        jMenu2.setText("Asistentes de Carga DB");
+        jMenuCargaDB.setText("Asistentes de Carga DB");
 
-        jMenuItem2.setText("Estado\"Socia\"ASocias");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEstados.setText("setEstadoSocia()");
+        jMenuItemEstados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemEstadosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenuCargaDB.add(jMenuItemEstados);
 
-        jMenuItem3.setText("Asingar Equipo Aleatorio");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEquipos.setText("setEquipoAleatorio()");
+        jMenuItemEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItemEquiposActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenuCargaDB.add(jMenuItemEquipos);
 
-        jMenuItem6.setText("Asignar Ergometrias");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemErgometrias.setText("setErgometrias()");
+        jMenuItemErgometrias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItemErgometriasActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenuCargaDB.add(jMenuItemErgometrias);
 
-        jMenuBar1.add(jMenu2);
+        jMenuItemLos3.setText("Los tres juntos");
+        jMenuItemLos3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLos3ActionPerformed(evt);
+            }
+        });
+        jMenuCargaDB.add(jMenuItemLos3);
+
+        jMenuBar1.add(jMenuCargaDB);
 
         jMenuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Salir.png"))); // NOI18N
         jMenuSalir.setText("Salir");
@@ -482,9 +491,26 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuTorneoMouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosActionPerformed
+        setEstadoSocia();
+    }//GEN-LAST:event_jMenuItemEstadosActionPerformed
 
-//Si no hay tipoEstadoSocia, lo crea
+    private void jMenuItemEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEquiposActionPerformed
+        setEquipoAleatorio();
+    }//GEN-LAST:event_jMenuItemEquiposActionPerformed
+
+    private void jMenuItemErgometriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemErgometriasActionPerformed
+        setErgometrias();
+    }//GEN-LAST:event_jMenuItemErgometriasActionPerformed
+
+    private void jMenuItemLos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLos3ActionPerformed
+        setEstadoSocia();
+        setEquipoAleatorio();
+        setErgometrias();
+    }//GEN-LAST:event_jMenuItemLos3ActionPerformed
+
+    private void setEstadoSocia() {
+        //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;
         for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
             if ("Socia".equals(unTipoEstado.getNombre())) {
@@ -492,12 +518,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         }
         if (unTipoEstadoSocia == null) {
-            unaControladoraGlobal.crearTipoEstado("Socia");
-            for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
-                if ("Socia".equals(unTipoEstado.getNombre())) {
-                    unTipoEstadoSocia = unTipoEstado;
-                }
-            }
+            unTipoEstadoSocia = unaControladoraGlobal.crearTipoEstado("Socia");
         }
         //A todas las socias que no tienen un estado, le asigna uno
         for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
@@ -505,14 +526,12 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 unaControladoraGlobal.crearEstado(unaSocia, unaSocia.getFechaIngreso(), unTipoEstadoSocia);
             }
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
+    private void setEquipoAleatorio() {
         int Max = (unaControladoraGlobal.getEquiposBD().size()) + 1;
         int Min = 1;
         int aux;
-
         for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
             aux = ((int) (Math.random() * (Max - Min)) + Min);
             unaControladoraGlobal.crearPase(unaSocia,
@@ -520,9 +539,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                     unaSocia.getFechaIngreso(),
                     unaControladoraGlobal.getEquipoBD(Long.valueOf(String.valueOf(aux))), true, false, "");
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void setErgometrias() {
         int Max = (10) + 1;
         int Min = 1;
         int aux;
@@ -537,12 +556,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 } else {
                     unaControladoraGlobal.crearErgometria(unaSocia, fechaVencimiento, unaSocia.getFechaIngreso(), true, "");
                 }
-
             }
         } catch (ParseException ex) {
             Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }
 
     public static void centrar(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -552,22 +570,19 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenuAuxiliares;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCargaDB;
     private javax.swing.JMenu jMenuClub;
+    private javax.swing.JMenu jMenuConfiguracion;
     private javax.swing.JMenu jMenuContabilidad;
     private javax.swing.JMenu jMenuEquipo;
+    private javax.swing.JMenu jMenuFormularios;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
@@ -576,10 +591,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
     private javax.swing.JMenuItem jMenuItemConceptosDeportivos;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
+    private javax.swing.JMenuItem jMenuItemEquipos;
+    private javax.swing.JMenuItem jMenuItemErgometrias;
+    private javax.swing.JMenuItem jMenuItemEstados;
     private javax.swing.JMenuItem jMenuItemEstadosSocia;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
     private javax.swing.JMenuItem jMenuItemLocalidades;
+    private javax.swing.JMenuItem jMenuItemLos3;
     private javax.swing.JMenuItem jMenuItemTipoCancha;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;

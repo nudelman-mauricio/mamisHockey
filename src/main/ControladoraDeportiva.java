@@ -57,9 +57,12 @@ public class ControladoraDeportiva {
         unaSancionTribunal.setFecha(fecha);
         unaSancionTribunal.setMotivo(motivo);
         unaSancionTribunal.setDetalles(detalles);
-        unaSancionTribunal.setNumeroResolucion(numeroResolucion);      
+        unaSancionTribunal.setNumeroResolucion(numeroResolucion);
+        //unaSancionTribunal.setUnPartido(unPartido);
+        //unaSancionTribunal.setUnaTarjeta(unaTarjeta);        
         unaSancionTribunal.setVencimiento(vencimiento);
         unaSancionTribunal.setCantFechas(cantFechas);
+        //unaSancionTribunal.setCantFechasCumplidas(cantFechasCumplidas);
         unaSancionTribunal.setBorradoLogico(borradoLogico);
         unaSancionTribunal.persistir(this.entityManager);
     }
@@ -693,7 +696,7 @@ public class ControladoraDeportiva {
     }
 
     public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
-        unPartido.agregarJugadora(entityManager, unaSocia, camiseta, local);
+        unPartido.agregarJugadora(unaSocia, camiseta, local);
         unPartido.persistir(this.entityManager);
     }
 
@@ -822,9 +825,9 @@ public class ControladoraDeportiva {
     }
 
     public Jugadora getAutoraGol(Partido unPartido, Gol unGol) {
-        for (Jugadora unIntegrante : unPartido.getJugadoras()) {
-            if (unIntegrante.getUnaSocia().isAutoraGol(unGol)) {
-                return unIntegrante;
+        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
+            if (unaJugadora.getUnaSocia().isAutoraGol(unGol)) {
+                return unaJugadora;
             }
         }
         return null;
