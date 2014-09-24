@@ -22,6 +22,7 @@ public class ControladoraEntidades {
 
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.construirTiposEstados();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
@@ -407,6 +408,24 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tipo Estados">
+    private void construirTiposEstados() {
+        if (getTipoEstadoBD("Socia") == null) {
+            this.crearTipoEstado("Socia");
+        }
+        if (getTipoEstadoBD("Jugadora") == null) {
+            this.crearTipoEstado("Jugadora");
+        }
+        if (getTipoEstadoBD("Licencia") == null) {
+            this.crearTipoEstado("Licencia");
+        }
+        if (getTipoEstadoBD("Baja") == null) {
+            this.crearTipoEstado("Baja");
+        }
+        if (getTipoEstadoBD("Baja por Mora") == null) {
+            this.crearTipoEstado("Baja por Mora");
+        }
+    }
+
     public TipoEstado crearTipoEstado(String nombre) {
         return new TipoEstado(this.entityManager, nombre);
     }
@@ -426,8 +445,13 @@ public class ControladoraEntidades {
      * Devuelve unTipoEstado filtrado por tipo
      */
     public TipoEstado getTipoEstadoBD(String tipo) {
-        Query traerTipoEstado = this.entityManager.createQuery("SELECT te FROM TipoEstado te WHERE te.nombre = " + tipo);
-        return (TipoEstado) traerTipoEstado.getSingleResult();
+        Query traerTipoEstado = this.entityManager.createQuery("SELECT te FROM TipoEstado te WHERE te.borradoLogico = FALSE AND te.nombre LIKE '" + tipo + "'");
+        List<TipoEstado> unaListaResultado = traerTipoEstado.getResultList();
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
+        }
     }
 
     /**

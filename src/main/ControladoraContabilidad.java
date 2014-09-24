@@ -58,6 +58,18 @@ public class ControladoraContabilidad {
     }
 
     /**
+     * Devuelve unConceptoDeportivo por CONCEPTO
+     */
+    public ConceptoDeportivo getConceptoDeportivoBD(String concepto) {
+        List<ConceptoDeportivo> unaListaResultado = this.entityManager.createQuery("SELECT cd FROM ConceptoDeportivo cd WHERE cd.borradoLogico = FALSE AND cd.concepto LIKE '" + concepto + "'").getResultList();
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
+        }
+    }
+
+    /**
      * Devuelve todos los ConceptosDeportivos menos los borrados
      *
      * @return List(ConceptoDeportivo)
@@ -184,12 +196,12 @@ public class ControladoraContabilidad {
     }
 
     public List<PagoCuota> getPagosCuotasEntreFechasBD(Date desde, Date hasta) {
-        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago<'" + hasta + "' AND A.monto > 0 ORDER BY A.fechaPago ASC";       
-        List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
+        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago<'" + hasta + "' AND A.monto > 0 ORDER BY A.fechaPago ASC";
+        List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
     // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Concepto Ingreso">
     public void crearConceptoIngreso(String nombre, String detalle) {
         new ConceptoIngreso(this.entityManager, nombre, detalle);
@@ -388,19 +400,18 @@ public class ControladoraContabilidad {
     private void construirMeses() {
         Query tablaMesVacia = entityManager.createQuery("SELECT A FROM Mes A");
         if (tablaMesVacia.getResultList().isEmpty()) {
-            Mes unMes;
-            unMes = new Mes(entityManager, "Enero");
-            unMes = new Mes(entityManager, "Febrero");
-            unMes = new Mes(entityManager, "Marzo");
-            unMes = new Mes(entityManager, "Abril");
-            unMes = new Mes(entityManager, "Mayo");
-            unMes = new Mes(entityManager, "Junio");
-            unMes = new Mes(entityManager, "Julio");
-            unMes = new Mes(entityManager, "Agosto");
-            unMes = new Mes(entityManager, "Septiembre");
-            unMes = new Mes(entityManager, "Octubre");
-            unMes = new Mes(entityManager, "Nobiembre");
-            unMes = new Mes(entityManager, "Diciembre");
+            new Mes(entityManager, "Enero");
+            new Mes(entityManager, "Febrero");
+            new Mes(entityManager, "Marzo");
+            new Mes(entityManager, "Abril");
+            new Mes(entityManager, "Mayo");
+            new Mes(entityManager, "Junio");
+            new Mes(entityManager, "Julio");
+            new Mes(entityManager, "Agosto");
+            new Mes(entityManager, "Septiembre");
+            new Mes(entityManager, "Octubre");
+            new Mes(entityManager, "Nobiembre");
+            new Mes(entityManager, "Diciembre");
         }
     }
 

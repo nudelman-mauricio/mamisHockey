@@ -5,12 +5,14 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Mes;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -508,7 +510,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         setEquipoAleatorio();
         setErgometrias();
     }//GEN-LAST:event_jMenuItemLos3ActionPerformed
-
+    
     private void setEstadoSocia() {
         //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;

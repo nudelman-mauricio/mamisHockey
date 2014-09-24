@@ -139,6 +139,7 @@
               <Image iconType="3" name="/Iconos Nuevos/add2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -318,6 +319,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldConcepto">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMonto">
         </Component>
