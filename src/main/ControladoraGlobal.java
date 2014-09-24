@@ -126,22 +126,12 @@ public class ControladoraGlobal {
     public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
         String observacionDeuda;
         if (unaSocia.getEquipoActual() == null) {
-            observacionDeuda = "Pase de Equipo: Sin Equipo a Equipo : " + unEquipoNuevo.getNombre();
+            observacionDeuda = "Pase de Equipo: ---- a Equipo : " + unEquipoNuevo.getNombre();
         } else {
             observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
         }
 
-        ConceptoDeportivo porPase = null;
-        for (ConceptoDeportivo aux : this.getConceptosDeportivosBD()) {
-            if ((!aux.isBorradoLogico()) && (aux.getConcepto().compareToIgnoreCase("Por Pase") == 0)) {
-                porPase = aux;
-            }
-        }
-        if (porPase == null) {
-            porPase = this.crearConceptoDeportivo(0.0, "Por Pase", null, null, null);
-        }
-
-        Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, porPase, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
+        Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, this.getConceptoDeportivoBD("Pase"), observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
@@ -689,10 +679,10 @@ public class ControladoraGlobal {
 
     private void construirConceptosDeportivos() {
         if (this.getConceptoDeportivoBD("Cuota Socia") == null) {
-            this.crearConceptoDeportivo(50, "Cuota Socia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Socia"));
+            this.crearConceptoDeportivo(70, "Cuota Socia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Socia"));
         }
         if (this.getConceptoDeportivoBD("Cuota Jugadora") == null) {
-            this.crearConceptoDeportivo(160, "Cuota Jugadora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Jugadora"));
+            this.crearConceptoDeportivo(130, "Cuota Jugadora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Jugadora"));
         }
         if (this.getConceptoDeportivoBD("Cuota Licencia") == null) {
             this.crearConceptoDeportivo(70, "Cuota Licencia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Licencia"));
@@ -701,16 +691,19 @@ public class ControladoraGlobal {
             this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
         }
         if (this.getConceptoDeportivoBD("Fichaje") == null) {
-            this.crearConceptoDeportivo(90, "Fichaje", null, null, null);
+            this.crearConceptoDeportivo(120, "Fichaje", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Re-Fichaje") == null) {
-            this.crearConceptoDeportivo(60, "Re-Fichaje", null, null, null);
+            this.crearConceptoDeportivo(75, "Re-Fichaje", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Insscripción") == null) {
-            this.crearConceptoDeportivo(100, "Insscripción", null, null, null);
+            this.crearConceptoDeportivo(135, "Insscripción", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Re-Inscripción") == null) {
-            this.crearConceptoDeportivo(80, "Re-Inscripción", null, null, null);
+            this.crearConceptoDeportivo(200, "Re-Inscripción", null, null, null);
+        }
+        if (this.getConceptoDeportivoBD("Pase") == null) {
+            this.crearConceptoDeportivo(200, "Pase", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Otro") == null) {
             this.crearConceptoDeportivo(0, "Otro", null, null, null);

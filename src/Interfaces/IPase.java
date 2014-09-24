@@ -49,7 +49,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldMonto.setEditable(Editable);
         jComboBoxCuota.setEnabled(Editable);
         jTextFieldFechaVencimiento.setEditable(Editable);
-        jTextPaneDetalle.setEnabled(Editable);
+        jTextPaneDetalle.setEditable(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
         jButtonCalcularMonto.setEnabled(Editable);
