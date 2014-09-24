@@ -511,7 +511,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldMontoCuota))
+                            .addComponent(jTextFieldMontoCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jTextFieldMontoTotalDeuda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -550,7 +550,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                             .addComponent(jTextFieldMontoCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addGap(0, 12, Short.MAX_VALUE))
+                        .addGap(0, 8, Short.MAX_VALUE))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -941,7 +941,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (unaDeudaSeleccionada == null) {
                 ConceptoDeportivo unConceptoDeportivoSeleccionado = (ConceptoDeportivo) jComboBoxConcepto.getSelectedItem();
-                jTextFieldMontoTotalDeuda.setText(Double.toString(unConceptoDeportivoSeleccionado.getMonto()));
+                jTextFieldMontoTotalDeuda.setText(Double.toString(unConceptoDeportivoSeleccionado.getMonto()));                
+                jComboBoxCantidadCuotas.setSelectedIndex(1);//para que tome el cambio
                 jComboBoxCantidadCuotas.setSelectedIndex(0);
                 if (unConceptoDeportivoSeleccionado.getMonto() != 0.0) {
                     jComboBoxCantidadCuotas.setEnabled(true);
@@ -954,7 +955,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
     private void jComboBoxCantidadCuotasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCantidadCuotasItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            jTextFieldMontoCuota.setText(jComboBoxCantidadCuotas.getSelectedItem().toString());
+            jTextFieldMontoCuota.setText(Double.toString(Math.round(Double.parseDouble(jTextFieldMontoTotalDeuda.getText()) / Integer.parseInt(jComboBoxCantidadCuotas.getSelectedItem().toString()) * Math.pow(10, 2)) / Math.pow(10, 2)));
         }
     }//GEN-LAST:event_jComboBoxCantidadCuotasItemStateChanged
 
