@@ -132,12 +132,12 @@ public class ControladoraGlobal {
 
         ConceptoDeportivo porPase = null;
         for (ConceptoDeportivo aux : this.getConceptosDeportivosBD()) {
-            if ((!aux.isBorradoLogico()) && (aux.getConcepto().compareToIgnoreCase("Por Pase") == 0)) {
+            if ((!aux.isBorradoLogico()) && (aux.getConcepto().compareToIgnoreCase("Pase") == 0)) {
                 porPase = aux;
             }
         }
         if (porPase == null) {
-            porPase = this.crearConceptoDeportivo(0.0, "Por Pase", null, null, null);
+            porPase = this.crearConceptoDeportivo(0.0, "Pase", null, null, null);
         }
 
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, porPase, observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
