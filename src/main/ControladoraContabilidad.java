@@ -114,20 +114,22 @@ public class ControladoraContabilidad {
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-    
-     public Deuda getDeudaPagoCuota(PagoCuota unPago){
+
+    public Deuda getDeudaPagoCuota(PagoCuota unPago) {
         String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE";
-        List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();   
+        List<Deuda> unaListaResultado = this.entityManager.createQuery("SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE").getResultList();
         List<Cuota> cuotas;
-        for(Deuda unaDeuda: unaListaResultado){
-             cuotas = (List<Cuota>) unaDeuda.getCuotas();
-             for(Cuota unaCuota: cuotas){
-                 if(unaCuota.getUnPagoCuota() != null){
-                     if(unaCuota.getUnPagoCuota().compareTo(unPago) == 0){
-                         return unaDeuda;
-                     }
-                 }
-             }
+        for (Deuda unaDeuda : unaListaResultado) {
+            if (unaDeuda.getMontoTotal() > 0) {
+                cuotas = (List<Cuota>) unaDeuda.getCuotas();
+                for (Cuota unaCuota : cuotas) {
+                    if (unaCuota.getUnPagoCuota() != null) {
+                        if (unaCuota.getUnPagoCuota() == unPago) {
+                            return unaDeuda;
+                        }
+                    }
+                }
+            }
         }
         return null;
     }
@@ -182,14 +184,12 @@ public class ControladoraContabilidad {
     }
 
     public List<PagoCuota> getPagosCuotasEntreFechasBD(Date desde, Date hasta) {
-        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago<'" + hasta + "' ORDER BY A.fechaPago ASC";
-        List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago<'" + hasta + "' AND A.monto > 0 ORDER BY A.fechaPago ASC";       
+        List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();        
         return unaListaResultado;
     }
-    
-   
-    // </editor-fold>
 
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Concepto Ingreso">
     public void crearConceptoIngreso(String nombre, String detalle) {
         new ConceptoIngreso(this.entityManager, nombre, detalle);
