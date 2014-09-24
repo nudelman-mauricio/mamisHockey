@@ -15,8 +15,8 @@
 	<variable name="TotalE" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{MontoE}]]></variableExpression>
 	</variable>
-	<variable name="Total" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$V{TotalE}-$V{TotalI}]]></variableExpression>
+	<variable name="Total" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{TotalI}-$V{TotalE}]]></variableExpression>
 	</variable>
 	<group name="Group1">
 		<groupFooter>

@@ -26,13 +26,17 @@ import net.sf.jasperreports.engine.JRField;
 public class BalanceMensualDS implements JRDataSource {
 
     private int indiceBalance = -1;
-    Object[] arreglo;    
+    Object[] arreglo;
     DateFormat df = DateFormat.getDateInstance();
     ArrayList<Balance> unBalance = new ArrayList();
     Balance unaBalanza;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
+    Date fechaEvaluadaPase = null;
+    double montoPase = 0;
 
     // <editor-fold defaultstate="collapsed" desc="ClaseBalance">
-    private class Balance implements Comparable {       
+    private class Balance implements Comparable {
+
         Date fecha;
         String unConcepto;
         double montoIngreso;
@@ -46,8 +50,8 @@ public class BalanceMensualDS implements JRDataSource {
         public void setFechaBalance(String fechaBalance) {
             this.fechaBalance = fechaBalance;
         }
-        
-        public Balance(Date fecha, String unConcepto, double montoIngreso, double montoEgreso, String fechaBalance) {           
+
+        public Balance(Date fecha, String unConcepto, double montoIngreso, double montoEgreso, String fechaBalance) {
             this.fecha = fecha;
             this.unConcepto = unConcepto;
             this.montoIngreso = montoIngreso;
@@ -100,33 +104,10 @@ public class BalanceMensualDS implements JRDataSource {
     // </editor-fold>
 
     public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");     
-        Date fechaEvaluadaPase = null;
-        double montoPase = 0;        
         for (PagoCuota unPagoCuota : pagoCuotas) {
             if (unPagoCuota.getMonto() != 0) {
                 if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals("Por Pase")) {
-                    if (fechaEvaluadaPase == null) {
-                        fechaEvaluadaPase = unPagoCuota.getFechaPago();
-                        System.out.println("Entro 1: " + unPagoCuota.getMonto());
-                    }
-                    if (unPagoCuota.getFechaPago().getMonth() != fechaEvaluadaPase.getMonth()) {
-                        unaBalanza = new Balance(fechaEvaluadaPase, "Por pase", montoPase, 0, dateFormat.format(fechaEvaluadaPase));
-                        unBalance.add(unaBalanza);
-                        System.out.println("Entro 2: " + montoPase + " Fecha: "+fechaEvaluadaPase);
-                        fechaEvaluadaPase = unPagoCuota.getFechaPago();
-                        montoPase = 0;                        
-                    }
-                    System.out.println("Sumo:"+montoPase+"-"+unPagoCuota.getMonto());
-                    montoPase += unPagoCuota.getMonto();                   
-                    if (pagoCuotas.indexOf(unPagoCuota) == (pagoCuotas.size() - 1)) {
-                        unaBalanza = new Balance(unPagoCuota.getFechaPago(), "Por pase", montoPase, 0, dateFormat.format(unPagoCuota.getFechaPago()));
-                        if (!unBalance.contains(unaBalanza)) {
-                            unBalance.add(unaBalanza);
-                            System.out.println("Entro 3: " + montoPase + " Fecha: "+unPagoCuota.getFechaPago());
-                        }
-
-                    }
+                    insertarPase(unPagoCuota, pagoCuotas);
                 }
             }
         }
@@ -137,13 +118,30 @@ public class BalanceMensualDS implements JRDataSource {
         for (IngresoOtro unIngreso : ingresos) {
             unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
             unBalance.add(unaBalanza);
-        }        
-        Collections.sort(unBalance, (Balance o1, Balance o2) -> ((Integer)o1.getFecha().getMonth()).compareTo((Integer)o2.getFecha().getMonth()));    
-        for(Balance aux: unBalance){            
-            System.out.println(aux.fecha);
+        }
+        Collections.sort(unBalance, (Balance o1, Balance o2) -> ((Integer) o1.getFecha().getMonth()).compareTo((Integer) o2.getFecha().getMonth()));
+    }
+
+    private void insertarPase(PagoCuota unPagoCuota, List pagoCuotas) {
+        if (fechaEvaluadaPase == null) {
+            fechaEvaluadaPase = unPagoCuota.getFechaPago();
+        }
+        if (unPagoCuota.getFechaPago().getMonth() != fechaEvaluadaPase.getMonth()) {
+            unaBalanza = new Balance(fechaEvaluadaPase, "Por pase", montoPase, 0, dateFormat.format(fechaEvaluadaPase));
+            unBalance.add(unaBalanza);
+            fechaEvaluadaPase = unPagoCuota.getFechaPago();
+            montoPase = 0;
+        }
+        montoPase += unPagoCuota.getMonto();
+        if (pagoCuotas.indexOf(unPagoCuota) == (pagoCuotas.size() - 1)) {
+            unaBalanza = new Balance(unPagoCuota.getFechaPago(), "Por pase", montoPase, 0, dateFormat.format(unPagoCuota.getFechaPago()));
+            if (!unBalance.contains(unaBalanza)) {
+                unBalance.add(unaBalanza);
+            }
         }
     }
 
+    //Sector de la impresion del datasource
     @Override
 
     public boolean next() throws JRException {
@@ -151,18 +149,18 @@ public class BalanceMensualDS implements JRDataSource {
     }
 
     @Override
-    public Object getFieldValue(JRField jrf) throws JRException {          
+    public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
         if ("Fecha".equals(jrf.getName())) {
-            if (!unBalance.isEmpty()) {                
-                    valor  =  unBalance.get(indiceBalance).getFechaBalance(); 
+            if (!unBalance.isEmpty()) {
+                valor = unBalance.get(indiceBalance).getFechaBalance();
             }
         } else if ("Concepto".equals(jrf.getName())) {
-            valor = unBalance.get(indiceBalance).getUnConcepto();   
+            valor = unBalance.get(indiceBalance).getUnConcepto();
         } else if ("MontoI".equals(jrf.getName())) {
-            valor = unBalance.get(indiceBalance).getMontoIngreso();           
+            valor = unBalance.get(indiceBalance).getMontoIngreso();
         } else if ("MontoE".equals(jrf.getName())) {
-            valor = unBalance.get(indiceBalance).getMontoEgreso();            
+            valor = unBalance.get(indiceBalance).getMontoEgreso();
         }
         return valor;
     }
