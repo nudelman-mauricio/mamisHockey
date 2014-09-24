@@ -178,7 +178,7 @@ public class ControladoraContabilidad {
      * Devuelve todos los PagoCuota menos las borradas
      */
     public List<PagoCuota> getPagosCuotasBD() {
-        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE";
+        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE ORDER BY A.fechaPago ASC";
         List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
