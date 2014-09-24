@@ -5,12 +5,14 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import logicaNegocios.Mes;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -76,6 +78,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemEstados = new javax.swing.JMenuItem();
         jMenuItemEquipos = new javax.swing.JMenuItem();
         jMenuItemErgometrias = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemLos3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -306,6 +309,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuCargaDB.add(jMenuItemErgometrias);
 
+        jMenuItem2.setText("setConceptosDeportivos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuCargaDB.add(jMenuItem2);
+
         jMenuItemLos3.setText("Los tres juntos");
         jMenuItemLos3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -507,8 +518,48 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         setEstadoSocia();
         setEquipoAleatorio();
         setErgometrias();
+        setConceptosDeportivos();
     }//GEN-LAST:event_jMenuItemLos3ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        setConceptosDeportivos();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void setConceptosDeportivos(){
+        ArrayList<Mes> meses = new ArrayList();
+        meses.add(unaControladoraGlobal.getMesDB(3));
+        meses.add(unaControladoraGlobal.getMesDB(4));
+        meses.add(unaControladoraGlobal.getMesDB(5));
+        meses.add(unaControladoraGlobal.getMesDB(6));
+        meses.add(unaControladoraGlobal.getMesDB(7));
+        meses.add(unaControladoraGlobal.getMesDB(8));
+        meses.add(unaControladoraGlobal.getMesDB(9));
+        meses.add(unaControladoraGlobal.getMesDB(10));
+        meses.add(unaControladoraGlobal.getMesDB(11));
+        meses.add(unaControladoraGlobal.getMesDB(12));
+        
+        for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
+            if ("Socia".equals(unTipoEstado.getNombre())) {
+                unaControladoraGlobal.crearConceptoDeportivo(50, "Cuota Socia", meses, null, unTipoEstado);
+            }
+            if ("Jugadora".equals(unTipoEstado.getNombre())) {
+                unaControladoraGlobal.crearConceptoDeportivo(160, "Cuota Jugadora", meses, null, unTipoEstado);
+            }
+            if ("Licencia".equals(unTipoEstado.getNombre())) {
+                unaControladoraGlobal.crearConceptoDeportivo(70, "Cuota Licencia", meses, null, unTipoEstado);
+            }
+            if ("Baja por Mora".equals(unTipoEstado.getNombre())) {
+                unaControladoraGlobal.crearConceptoDeportivo(20, "Cuota Baja por Mora", meses, null, unTipoEstado);
+            }
+        }
+        
+        unaControladoraGlobal.crearConceptoDeportivo(90, "Fichaje", null, null, null);
+        unaControladoraGlobal.crearConceptoDeportivo(60, "Re-Fichaje", null, null, null);
+        unaControladoraGlobal.crearConceptoDeportivo(100, "Insscripción", null, null, null);
+        unaControladoraGlobal.crearConceptoDeportivo(80, "Re-Inscripción", null, null, null);
+        unaControladoraGlobal.crearConceptoDeportivo(0, "Otro", null, null, null);
+    }
+    
     private void setEstadoSocia() {
         //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;
@@ -581,6 +632,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFormularios;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;

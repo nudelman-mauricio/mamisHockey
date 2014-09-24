@@ -74,7 +74,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
         jLabelTitulo.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
         //Resultados
-        if (unPartido.getNombreVeedor() == null) { //El partido se jugo
+        if (unPartido.getNombreVeedor() != null) { //El partido se jugo
             jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
         } else {
             jLabelResultado.setText("- a -");
@@ -404,6 +404,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
             }
         });
 
@@ -1407,6 +1412,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jTableGolVisitanteKeyTyped
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        cargarPlanteles();
+        cargarGoles();
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualizar;
