@@ -1,9 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;

@@ -21,6 +21,7 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
         this.unaControladoraEntidades = new ControladoraEntidades(entityManager);
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
+        this.construirConceptosDeportivos();
     }
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
@@ -671,6 +672,51 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Contabilidad">
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">
+    private ArrayList<Mes> crearMesesParaConceptoDeportivo() {
+        ArrayList<Mes> meses = new ArrayList();
+        meses.add(this.getMesDB(3));
+        meses.add(this.getMesDB(4));
+        meses.add(this.getMesDB(5));
+        meses.add(this.getMesDB(6));
+        meses.add(this.getMesDB(7));
+        meses.add(this.getMesDB(8));
+        meses.add(this.getMesDB(9));
+        meses.add(this.getMesDB(10));
+        meses.add(this.getMesDB(11));
+        meses.add(this.getMesDB(12));
+        return meses;
+    }
+
+    private void construirConceptosDeportivos() {
+        if (this.getConceptoDeportivoBD("Cuota Socia") == null) {
+            this.crearConceptoDeportivo(50, "Cuota Socia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Socia"));
+        }
+        if (this.getConceptoDeportivoBD("Cuota Jugadora") == null) {
+            this.crearConceptoDeportivo(160, "Cuota Jugadora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Jugadora"));
+        }
+        if (this.getConceptoDeportivoBD("Cuota Licencia") == null) {
+            this.crearConceptoDeportivo(70, "Cuota Licencia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Licencia"));
+        }
+        if (this.getConceptoDeportivoBD("Cuota Baja por Mora") == null) {
+            this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
+        }
+        if (this.getConceptoDeportivoBD("Fichaje") == null) {
+            this.crearConceptoDeportivo(90, "Fichaje", null, null, null);
+        }
+        if (this.getConceptoDeportivoBD("Re-Fichaje") == null) {
+            this.crearConceptoDeportivo(60, "Re-Fichaje", null, null, null);
+        }
+        if (this.getConceptoDeportivoBD("Insscripción") == null) {
+            this.crearConceptoDeportivo(100, "Insscripción", null, null, null);
+        }
+        if (this.getConceptoDeportivoBD("Re-Inscripción") == null) {
+            this.crearConceptoDeportivo(80, "Re-Inscripción", null, null, null);
+        }
+        if (this.getConceptoDeportivoBD("Otro") == null) {
+            this.crearConceptoDeportivo(0, "Otro", null, null, null);
+        }
+    }
+
     public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
         return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, meses, unTipoCancha, unTipoEstado);
     }
@@ -685,6 +731,10 @@ public class ControladoraGlobal {
 
     public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(id);
+    }
+
+    public ConceptoDeportivo getConceptoDeportivoBD(String concepto) {
+        return this.unaControladoraContabilidad.getConceptoDeportivoBD(concepto);
     }
 
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {

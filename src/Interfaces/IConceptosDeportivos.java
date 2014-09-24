@@ -70,7 +70,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
             unAfectado = "No Especificado";
         }
         jButtonEditar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
+        //jButtonEliminar.setEnabled(false);
     }
 
     //deshabilitar todo lo de un contenedor
@@ -215,7 +215,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
                     jComboBoxAfectados.setSelectedItem(unConceptoDeportivoSeleccionado.getUnTipoEstado());
                 }
 
-                if (unConceptoDeportivoSeleccionado.getMeses() != null) {
+                if (!unConceptoDeportivoSeleccionado.getMeses().isEmpty()) {
                     jCheckBoxAutoGeneracion.setSelected(true);
                     setMeses();
                 }
