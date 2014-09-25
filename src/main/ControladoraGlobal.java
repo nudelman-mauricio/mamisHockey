@@ -701,15 +701,18 @@ public class ControladoraGlobal {
         }
         if (this.getConceptoDeportivoBD("Cuota Baja por Mora") == null) {
             this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
-        }
+        }        
+        if (this.getConceptoDeportivoBD("Cancha") == null) {
+            this.crearConceptoDeportivo(0, "Cancha", null, null, null);
+        }        
         if (this.getConceptoDeportivoBD("Fichaje") == null) {
             this.crearConceptoDeportivo(120, "Fichaje", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Re-Fichaje") == null) {
             this.crearConceptoDeportivo(75, "Re-Fichaje", null, null, null);
         }
-        if (this.getConceptoDeportivoBD("Insscripción") == null) {
-            this.crearConceptoDeportivo(135, "Insscripción", null, null, null);
+        if (this.getConceptoDeportivoBD("Inscripción") == null) {
+            this.crearConceptoDeportivo(135, "Inscripción", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Re-Inscripción") == null) {
             this.crearConceptoDeportivo(200, "Re-Inscripción", null, null, null);

@@ -52,7 +52,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setEditable(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
-        jButtonCalcularMonto.setEnabled(Editable);
         if (Editable) {
             jTextPaneDetalle.setBackground(Color.WHITE);
         } else {
@@ -76,9 +75,12 @@ public class IPase extends javax.swing.JInternalFrame {
         if (jTablePases.getSelectedRow() > -1) {
             if (jTablePases.getValueAt(jTablePases.getSelectedRow(), 0) != null) {
                 unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
+                jLabelNumeroPase.setText(Integer.toString((int) jTablePases.getValueAt(jTablePases.getSelectedRow(), 1)));
                 jTextFieldFechaRealizacion.setText(df.format(unPaseSeleccionado.getFecha()));
                 if (jTablePases.getSelectedRow() > 0) {
                     jTextFieldEquipoOrigen.setText(jTablePases.getValueAt(jTablePases.getSelectedRow() - 1, 3).toString());
+                } else {
+                    jTextFieldEquipoOrigen.setText("----");
                 }
                 jComboBoxEquipoDestino.setSelectedItem(unPaseSeleccionado.getUnEquipo());
                 jTextFieldMonto.setText(Double.toString(unPaseSeleccionado.getUnaDeuda().getMontoTotal()));
@@ -102,8 +104,6 @@ public class IPase extends javax.swing.JInternalFrame {
             this.modeloTablePases.addRow(new Object[]{unPase.getIdPase(), nPase, df.format(unPase.getFecha()), unPase.getUnEquipo(), "$ " + unPase.getUnaDeuda().getMontoTotal()});
             nPase++;
         }
-        nPase--;//porque el pase cero no debería contarse. Si no daria un resultado mayor en calculo monto
-        jLabelNumeroPase.setText(String.valueOf(nPase));
     }
 
     private void limpiarTabla() {
@@ -183,7 +183,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelMonto = new javax.swing.JLabel();
         jTextFieldMonto = new javax.swing.JTextField();
-        jButtonCalcularMonto = new javax.swing.JButton();
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
         jComboBoxCuota = new javax.swing.JComboBox();
         jLabelFechaVencimiento = new javax.swing.JLabel();
@@ -366,14 +365,6 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jTextFieldMonto.setEditable(false);
 
-        jButtonCalcularMonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Calc.PNG"))); // NOI18N
-        jButtonCalcularMonto.setEnabled(false);
-        jButtonCalcularMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCalcularMontoActionPerformed(evt);
-            }
-        });
-
         jLabelFechaRealizacion5.setText("Cuotas");
 
         jComboBoxCuota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
@@ -397,12 +388,9 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextFieldMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCalcularMonto))
                     .addComponent(jTextFieldFechaVencimiento)
-                    .addComponent(jComboBoxCuota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxCuota, 0, 168, Short.MAX_VALUE)
+                    .addComponent(jTextFieldMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(22, 22, 22))
@@ -410,12 +398,10 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelMonto))
-                    .addComponent(jButtonCalcularMonto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaRealizacion5)
@@ -553,7 +539,7 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelPaseNumero))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -592,22 +578,21 @@ public class IPase extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jButtonCalcularMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcularMontoActionPerformed
-        int nPase = Integer.parseInt(jLabelNumeroPase.getText());
-        jTextFieldMonto.setText(String.valueOf(nPase * 250 + nPase * 0.25));
-    }//GEN-LAST:event_jButtonCalcularMontoActionPerformed
-
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        jTablePases.clearSelection();
-        jTablePases.setEnabled(false);
-        camposActivo(true);
+        //Cargar campos
         camposLimpiar();
-        unPaseSeleccionado = null;
-
+        jLabelNumeroPase.setText(Integer.toString(unaSocia.getPasesValidos().size()));
+        int nPase = unaSocia.getPasesValidos().size();
+        Double montoPaseCero = unaControladoraGlobal.getConceptoDeportivoBD("Pase").getMonto();
+        if (nPase == 1) {
+            jTextFieldMonto.setText(String.valueOf(montoPaseCero));
+        } else {
+            jTextFieldMonto.setText(String.valueOf(nPase * (montoPaseCero + (montoPaseCero * 0.25))));
+        }
         jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
         jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
         if (unaSocia.getEquipoActual() != null) {
@@ -615,13 +600,18 @@ public class IPase extends javax.swing.JInternalFrame {
         }
         jComboBoxCuota.setSelectedIndex(0);
 
+        //Comportamiento Campos
+        jTablePases.clearSelection();
+        jTablePases.setEnabled(false);
+        camposActivo(true);
+        unPaseSeleccionado = null;
+
         //Comportamiento Botones
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
-        jButtonCalcularMonto.setEnabled(true);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -638,7 +628,6 @@ public class IPase extends javax.swing.JInternalFrame {
                 jButtonCancelar.setEnabled(false);
                 jButtonEliminar.setEnabled(false);
                 jButtonImprimir.setEnabled(false);
-                jButtonCalcularMonto.setEnabled(false);
 
                 camposLimpiar();
                 camposActivo(false);
@@ -660,7 +649,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(false);
-        jButtonCalcularMonto.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -689,7 +677,6 @@ public class IPase extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCalcularMonto;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;

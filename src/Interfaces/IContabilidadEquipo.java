@@ -126,14 +126,14 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Fecha", "Concepto", "Cant. Cuotas", "Vencimiento", "Monto", "Deuda Saldada"
+                "id", "Fecha", "Concepto", "Vencimiento", "Monto", "Deuda Saldada"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

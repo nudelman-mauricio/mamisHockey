@@ -264,7 +264,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuConfiguracion.add(jMenuItemLocalidades);
 
-        jMenuItemCategoria.setText("Categorias");
+        jMenuItemCategoria.setText("Categorías");
         jMenuItemCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCategoriaActionPerformed(evt);
