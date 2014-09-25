@@ -11,14 +11,14 @@ import net.sf.jasperreports.engine.JRField;
  *
  * @author Lucas
  */
-public class PlanillaPartido_DS implements JRDataSource {
+public class PlanillaPartidoDS implements JRDataSource {
 
     private int indicePantel = -1;
 
     private Partido unPartido;
     private ControladoraGlobal unaControladoraGlobal;
 
-    public PlanillaPartido_DS(ControladoraGlobal unaControladoraGlobal, Partido unPartido) {
+    public PlanillaPartidoDS(ControladoraGlobal unaControladoraGlobal, Partido unPartido) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unPartido = unPartido;
     }
