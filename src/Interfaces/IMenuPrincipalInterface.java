@@ -5,14 +5,12 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import logicaNegocios.Mes;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -218,11 +216,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenu5.add(jMenuItem5);
 
         jMenuItem7.setText("Arbitros");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
         jMenu5.add(jMenuItem7);
 
         jMenuItem8.setText("Cuerpo Tecnico");
@@ -230,11 +223,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenu5.add(jSeparator3);
 
         jMenuItem10.setText("Club");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
         jMenu5.add(jMenuItem10);
 
         jMenuItem9.setText("Equipo");
@@ -376,15 +364,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
-
     private void jMenuItemLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocalidadesActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
             ILocalidad unLocalidad = new ILocalidad(unaControladoraGlobal);
@@ -449,48 +428,48 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemBalanceMensualActionPerformed
 
     private void jMenuSociasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSociasMouseClicked
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal);
-            unaGestionSocias.pack();
-            unaGestionSocias.setVisible(true);
-            this.jDesktopPane.add(unaGestionSocias);
-        }
+        //if (jDesktopPane.getComponentCount() == 0) {
+        IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal);
+        unaGestionSocias.pack();
+        unaGestionSocias.setVisible(true);
+        this.jDesktopPane.add(unaGestionSocias);
+        //}
     }//GEN-LAST:event_jMenuSociasMouseClicked
 
     private void jMenuAuxiliaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAuxiliaresMouseClicked
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionPersonaAuxiliar unaIGestionAuxiliares = new IGestionPersonaAuxiliar(unaControladoraGlobal);
-            unaIGestionAuxiliares.pack();
-            unaIGestionAuxiliares.setVisible(true);
-            this.jDesktopPane.add(unaIGestionAuxiliares);
-        }
+        //if (jDesktopPane.getComponentCount() == 0) {
+        IGestionPersonaAuxiliar unaIGestionAuxiliares = new IGestionPersonaAuxiliar(unaControladoraGlobal);
+        unaIGestionAuxiliares.pack();
+        unaIGestionAuxiliares.setVisible(true);
+        this.jDesktopPane.add(unaIGestionAuxiliares);
+        //}
     }//GEN-LAST:event_jMenuAuxiliaresMouseClicked
 
     private void jMenuClubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClubMouseClicked
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal);
-            unaGestionClub.pack();
-            unaGestionClub.setVisible(true);
-            this.jDesktopPane.add(unaGestionClub);
-        }
+        //if (jDesktopPane.getComponentCount() == 0) {
+        IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal);
+        unaGestionClub.pack();
+        unaGestionClub.setVisible(true);
+        this.jDesktopPane.add(unaGestionClub);
+        //}
     }//GEN-LAST:event_jMenuClubMouseClicked
 
     private void jMenuEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEquipoMouseClicked
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionEquipo unaGestionEquipo = new IGestionEquipo(this.unaControladoraGlobal);
-            unaGestionEquipo.pack();
-            unaGestionEquipo.setVisible(true);
-            this.jDesktopPane.add(unaGestionEquipo);
-        }
+        //if (jDesktopPane.getComponentCount() == 0) {
+        IGestionEquipo unaGestionEquipo = new IGestionEquipo(this.unaControladoraGlobal);
+        unaGestionEquipo.pack();
+        unaGestionEquipo.setVisible(true);
+        this.jDesktopPane.add(unaGestionEquipo);
+        //}
     }//GEN-LAST:event_jMenuEquipoMouseClicked
 
     private void jMenuTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTorneoMouseClicked
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal);
-            unGestionTorneo.pack();
-            unGestionTorneo.setVisible(true);
-            this.jDesktopPane.add(unGestionTorneo);
-        }
+        //if (jDesktopPane.getComponentCount() == 0) {
+        IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal);
+        unGestionTorneo.pack();
+        unGestionTorneo.setVisible(true);
+        this.jDesktopPane.add(unGestionTorneo);
+        //}
     }//GEN-LAST:event_jMenuTorneoMouseClicked
 
     private void jMenuItemEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosActionPerformed
@@ -510,7 +489,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         setEquipoAleatorio();
         setErgometrias();
     }//GEN-LAST:event_jMenuItemLos3ActionPerformed
-    
+
     private void setEstadoSocia() {
         //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;

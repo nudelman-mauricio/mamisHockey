@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -736,13 +737,21 @@ public class ControladoraGlobal {
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         this.unaControladoraContabilidad.eliminarConceptoDeportivo(unConceptoDeportivo);
     }
-
+    
     public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(id);
     }
 
     public ConceptoDeportivo getConceptoDeportivoBD(String concepto) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(concepto);
+    }
+    
+    public Vector<ConceptoDeportivo> getConceptosDeportivosAutomaticosBD() {
+        return this.unaControladoraContabilidad.getConceptosDeportivosAutomaticosBD();
+    }
+    
+    public Vector<ConceptoDeportivo> getConceptosDeportivosManualesBD() {
+        return this.unaControladoraContabilidad.getConceptosDeportivosManualesBD();
     }
 
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {

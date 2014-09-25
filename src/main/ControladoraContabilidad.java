@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
@@ -67,6 +68,26 @@ public class ControladoraContabilidad {
         } else {
             return unaListaResultado.get(0);
         }
+    }
+
+    public Vector<ConceptoDeportivo> getConceptosDeportivosAutomaticosBD() {
+        Vector<ConceptoDeportivo> unaListaResultado = new Vector<ConceptoDeportivo>();
+        unaListaResultado.add(this.getConceptoDeportivoBD("Cuota Socia"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Cuota Jugadora"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Cuota Licencia"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Cuota Baja por Mora"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Pase"));
+        return unaListaResultado;
+    }
+
+    public Vector<ConceptoDeportivo> getConceptosDeportivosManualesBD() {
+        Vector<ConceptoDeportivo> unaListaResultado = new Vector<ConceptoDeportivo>();
+        unaListaResultado.add(this.getConceptoDeportivoBD("Fichaje"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Re-Fichaje"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Inscripción"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Re-Inscripción"));
+        unaListaResultado.add(this.getConceptoDeportivoBD("Otro"));
+        return unaListaResultado;
     }
 
     /**

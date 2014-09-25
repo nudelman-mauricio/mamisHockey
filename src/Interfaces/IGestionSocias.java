@@ -88,9 +88,9 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Gestión de Socias");
-        setMaximumSize(new java.awt.Dimension(726, 544));
-        setMinimumSize(new java.awt.Dimension(726, 544));
-        setPreferredSize(new java.awt.Dimension(726, 544));
+        setMaximumSize(new java.awt.Dimension(845, 660));
+        setMinimumSize(new java.awt.Dimension(845, 660));
+        setPreferredSize(new java.awt.Dimension(845, 660));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -229,7 +229,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());

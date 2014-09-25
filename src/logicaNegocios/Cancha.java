@@ -76,7 +76,7 @@ public class Cancha implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return nombre + ", " + this.getUnTipoCancha();
+        return nombre + " (" + this.getUnTipoCancha() + ")";
     }
 
     @Override

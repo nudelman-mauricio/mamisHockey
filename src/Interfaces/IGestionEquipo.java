@@ -22,11 +22,11 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class IGestionEquipo extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaEquipo;
     private Equipo unEquipoSeleccionado = null;
-    
+
     public IGestionEquipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -35,14 +35,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Equipos");
         IMenuPrincipalInterface.centrar(this);
     }
-    
+
     private void limpiarTabla() {
         int filas = this.modeloTablaEquipo.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaEquipo.removeRow(0);
         }
     }
-    
+
     private void camposCargar() {
         if (jTableEquipo.getSelectedRow() > -1) {
             if (jTableEquipo.getValueAt(jTableEquipo.getSelectedRow(), 0) != null) {
@@ -51,7 +51,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     private void camposActivo(boolean Editable) {
         jButtonDatos.setEnabled(Editable);
         jButtonPlantel.setEnabled(Editable);
@@ -63,14 +63,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
     }
-    
+
     private void cargarTabla() {
         limpiarTabla();
         for (Equipo unEquipo : this.unaControladoraGlobal.getEquiposBDFiltro(jTextFieldBusqueda.getText())) {
             this.modeloTablaEquipo.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo), unEquipo.getUnaDelegada(), unEquipo.getUnDT().getApellido() + ", " + unEquipo.getUnDT().getNombre()});
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,9 +96,9 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonHistorialPagos = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(900, 700));
-        setMinimumSize(new java.awt.Dimension(900, 700));
-        setPreferredSize(new java.awt.Dimension(900, 700));
+        setMaximumSize(new java.awt.Dimension(845, 660));
+        setMinimumSize(new java.awt.Dimension(845, 660));
+        setPreferredSize(new java.awt.Dimension(845, 660));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -236,13 +236,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jPanelTabla.setLayout(jPanelTablaLayout);
         jPanelTablaLayout.setHorizontalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTablaLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -343,7 +341,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonPlanillaPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonHistorialPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(178, 178, 178))
+                .addGap(3, 3, 3))
         );
         jPanelBotones2Layout.setVerticalGroup(
             jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,15 +364,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelBotones2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jPanelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(10, 10, 10))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelBotones2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +424,11 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
-        //falta interfaz
+        IContabilidadEquipo unaIContabilidadEquipo = new IContabilidadEquipo(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unaIContabilidadEquipo.pack();
+        unaIContabilidadEquipo.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadEquipo);
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlantelActionPerformed
