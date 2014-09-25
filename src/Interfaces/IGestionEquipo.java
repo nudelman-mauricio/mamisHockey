@@ -488,11 +488,19 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonPlanillaPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlanillaPagosActionPerformed
-        // TODO add your handling code here:
+        IPlanillaCobranza unaIPlanillaCobranza = new IPlanillaCobranza(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unaIPlanillaCobranza.pack();
+        unaIPlanillaCobranza.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaIPlanillaCobranza);
     }//GEN-LAST:event_jButtonPlanillaPagosActionPerformed
 
     private void jButtonHistorialPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorialPagosActionPerformed
-        // TODO add your handling code here:
+        IHistoricoPagos unaIHistoricoPagos = new IHistoricoPagos(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unaIHistoricoPagos.pack();
+        unaIHistoricoPagos.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaIHistoricoPagos);        
     }//GEN-LAST:event_jButtonHistorialPagosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,12 +13,11 @@ import main.ControladoraGlobal;
 
 public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
-    ControladoraGlobal unaControladoraGlobal;
-    JInternalFrame unJInternalFrame;
-    Equipo unEquipo;
-
+    private ControladoraGlobal unaControladoraGlobal;
+    private JInternalFrame unJInternalFrame;
+    private Equipo unEquipo;
     private DefaultTableModel modeloPlanillaCobranza;
-    DateFormat df = DateFormat.getDateInstance();
+    private DateFormat df = DateFormat.getDateInstance();
 
     public IPlanillaCobranza(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -30,8 +29,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         this.modeloPlanillaCobranza = (DefaultTableModel) jTablePlanillaCobranza.getModel();
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.setTitle(unEquipo.getNombre());
+        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
+        this.setTitle("Planilla de Pagos Mensuales de: " + unEquipo.getNombre());
         IMenuPrincipalInterface.centrar(this);
 
         cargarCampos();
@@ -135,6 +134,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabelFechaHoy = new javax.swing.JLabel();
         jLabelDelegadas = new javax.swing.JLabel();
         jComboBoxDelegadas = new javax.swing.JComboBox();
+
+        setClosable(true);
 
         jTablePlanillaCobranza.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
