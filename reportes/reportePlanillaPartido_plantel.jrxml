@@ -45,46 +45,17 @@
 	</style>
 	<subDataset name="Table Dataset 1" uuid="3232ad6f-dd0b-4bfe-8b1e-6bda22f9eab0"/>
 	<subDataset name="Table Dataset 2" uuid="d1d47c9f-b3b5-4c66-8fcb-4e5c2bc13282"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
+	<field name="cam" class="java.lang.String"/>
+	<field name="apellidoyNombre" class="java.lang.String"/>
+	<field name="field1" class="java.lang.String"/>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="183" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="5" y="0" width="545" height="100" uuid="2ac5e0bc-f71c-43db-a5e9-0ff80291b2bc"/>
+				<reportElement key="table 1" style="table 1" x="5" y="0" width="471" height="100" uuid="2ac5e0bc-f71c-43db-a5e9-0ff80291b2bc"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="680d95f1-7542-43d3-b4b5-09a6519009be">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="40" uuid="b60a652b-f36e-4909-9930-753e49c184a4">
-						<jr:tableHeader style="table 1_TH" height="17" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="40" height="17" uuid="5e6b6968-15a9-494e-a8c3-9c0ce7bdbe21"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8" isBold="true" isUnderline="false"/>
-								</textElement>
-								<text><![CDATA[DNI]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table 1_TD" height="12" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="40" height="12" uuid="71814eca-cd6e-4af4-bd67-e7a9f082b6aa"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<text><![CDATA[34826274]]></text>
-							</staticText>
-						</jr:detailCell>
-					</jr:column>
 					<jr:column width="25" uuid="e93c0871-b93c-4d6e-a7ed-5872af6d1bf0">
 						<jr:tableHeader style="table 1_TH" height="17" rowSpan="1">
 							<staticText>
@@ -109,15 +80,7 @@
 								<text><![CDATA[Apellido y Nombre]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 1_TD" height="12" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="150" height="12" uuid="cf7fcead-1825-4e91-ae3a-7588859a24e8"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<text><![CDATA[PORTILLO, Ramona Alejandra Ermelinda]]></text>
-							</staticText>
-						</jr:detailCell>
+						<jr:detailCell style="table 1_TD" height="12" rowSpan="1"/>
 					</jr:column>
 					<jr:column width="69" uuid="06d4ce6f-69ca-4952-90d3-43eda853e58d">
 						<jr:tableHeader style="table 1_TH" height="17" rowSpan="1">
@@ -212,15 +175,22 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<textField>
+				<reportElement x="5" y="132" width="100" height="20" uuid="68acf079-95ac-44a5-9f80-dbf61e9bc43b"/>
+				<textFieldExpression><![CDATA[$F{cam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="112" width="100" height="20" uuid="045c05aa-5fca-4684-b454-9456bf01ae3c"/>
+				<text><![CDATA[cam]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="132" width="100" height="20" uuid="753237a3-5d32-42a1-a3f3-98ebaba8b439"/>
+				<textFieldExpression><![CDATA[$F{apellidoyNombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="118" y="112" width="100" height="20" uuid="6512d9cb-d754-4f85-9073-5eb3f88cdc8b"/>
+				<text><![CDATA[apellidoyNombre]]></text>
+			</staticText>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

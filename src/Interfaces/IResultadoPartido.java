@@ -1,7 +1,15 @@
 package Interfaces;
 
+import DataSources.PlanillaPartidoDS;
+import DataSources.PlanillaPartidoDS_Plantel;
 import java.awt.Color;
+import java.io.File;
 import java.text.DateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +23,12 @@ import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
 import main.TableCellRendererColor;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class IResultadoPartido extends javax.swing.JInternalFrame {
 
@@ -1212,6 +1226,27 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         //Genera el reporte de la planilla de partido
         System.out.println("Se mostro el informe de Planilla de Partido");
+        
+        //Reporte
+        PlanillaPartidoDS unaPlanillaPartidoDS = new PlanillaPartidoDS(unaControladoraGlobal, unPartido);
+        PlanillaPartidoDS_Plantel unPlantelLocalDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, (List<Socia>) unPartido.getUnEquipoLocal().getPlantel());
+        PlanillaPartidoDS_Plantel unPlantelVisitanteDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, (List<Socia>) unPartido.getUnEquipoVisitante().getPlantel());
+
+        File archivo = new File("reportes/reportePlanillaPartido.jasper");
+        JasperReport reporte;
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(archivo);
+            Map parameters = new HashMap();
+            parameters.put("subreport_datasource_plantelLocal", unPlantelLocalDS);
+            parameters.put("subreport_datasource_plantelVisitante", unPlantelVisitanteDS);
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, unaPlanillaPartidoDS);
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed

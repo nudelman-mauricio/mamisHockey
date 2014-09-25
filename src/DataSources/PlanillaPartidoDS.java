@@ -13,7 +13,7 @@ import net.sf.jasperreports.engine.JRField;
  */
 public class PlanillaPartidoDS implements JRDataSource {
 
-    private int indicePantel = -1;
+    private int indice = -1;
 
     private Partido unPartido;
     private ControladoraGlobal unaControladoraGlobal;
@@ -25,20 +25,19 @@ public class PlanillaPartidoDS implements JRDataSource {
 
     //Sector de la impresion del datasource
     @Override
-
     public boolean next() throws JRException {
-        //return ++indicePantel < unBalance.size();
-        return false;
+        return ++indice < 1;
     }
 
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
         //General
-        if ("Fecha".equals(jrf.getName())) {
+        if ("fechaPartido".equals(jrf.getName())) {
             valor = unPartido.getFecha();
-        } else if ("idPartido".equals(jrf.getName())) {
-            valor = unPartido.getIdPartido();
+        } else if ("nombreTorneo".equals(jrf.getName())) {
+            //valor = unaControladoraGlobal.getTorneoPartido(unPartido).getNombre();
+            valor = "FALTA";
         } else if ("Arbitro1".equals(jrf.getName())) {
             valor = unPartido.getUnArbitro1();
         } else if ("Arbitro2".equals(jrf.getName())) {
@@ -47,6 +46,8 @@ public class PlanillaPartidoDS implements JRDataSource {
             valor = unPartido.getUnArbitro3();
         } else if ("Cancha".equals(jrf.getName())) {
             valor = unPartido.getUnaCancha();
+        } else if ("fechaN".equals(jrf.getName())) {
+            valor = "Falta";
         } else 
 
         //Equipo Local    
@@ -62,8 +63,7 @@ public class PlanillaPartidoDS implements JRDataSource {
             valor = unPartido.getUnEquipoLocal().getUnaCapitana();
         } else if ("capitanaSuplenteLocal".equals(jrf.getName())) {
             valor = unPartido.getUnEquipoLocal().getUnaCapitanaSuplente();
-        } else 
-        //PlantelLocal    
+        } else   
         
 
         //Equipo Visitante   
@@ -79,8 +79,7 @@ public class PlanillaPartidoDS implements JRDataSource {
             valor = unPartido.getUnEquipoVisitante().getUnaCapitana();
         } else if ("capitanaSuplenteVisitante".equals(jrf.getName())) {
             valor = unPartido.getUnEquipoVisitante().getUnaCapitanaSuplente();
-        } //else 
-        //PlantelVisitante
+        }
 
         return valor;
     }

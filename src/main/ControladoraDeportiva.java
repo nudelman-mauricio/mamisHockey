@@ -616,7 +616,7 @@ public class ControladoraDeportiva {
      * Devuelve el Torneo de un Partido
      */
     public Torneo getTorneoPartido(Partido unPartido) {
-        String unaConsulta = "SELECT T FROM Torneo T WHERE T.fechasTorneo.partidos.tarjetas.idPartido = " + unPartido.getIdPartido();
+        String unaConsulta = "SELECT T FROM Torneo T WHERE T.fechasTorneo.partidos.idPartido = " + unPartido.getIdPartido().longValue();
         Query traerTorneo = this.entityManager.createQuery(unaConsulta);
         Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
         return unTorneo;
