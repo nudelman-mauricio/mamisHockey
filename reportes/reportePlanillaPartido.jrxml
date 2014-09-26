@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePlanillaPartido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="189"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -125,7 +125,7 @@
 			<textField>
 				<reportElement x="0" y="28" width="140" height="13" uuid="35124811-d901-47cc-9af5-308c67bb1bd6"/>
 				<textElement verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA["Torneo:" + $F{nombreTorneo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Torneo: " + $F{nombreTorneo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="207" y="26" width="140" height="15" uuid="9dd12cfc-4691-41c6-94cb-1d774334b9a1"/>
@@ -135,7 +135,7 @@
 			<textField>
 				<reportElement x="415" y="26" width="140" height="15" uuid="b11026aa-cb36-40a3-bfed-ed8503175db1"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA["Fecha n°:" + $F{fechaN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Fecha n° " + $F{fechaN}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="427" y="-15" width="128" height="15" forecolor="#FFFFFF" uuid="f4639b16-c04a-4e91-a74c-9ac78f803a4e"/>
@@ -184,12 +184,12 @@
 				</graphicElement>
 			</line>
 			<subreport>
-				<reportElement x="2" y="27" width="475" height="100" uuid="e6b529e0-253e-44cb-8446-17da94b1d780"/>
+				<reportElement x="2" y="27" width="475" height="264" uuid="e6b529e0-253e-44cb-8446-17da94b1d780"/>
 				<dataSourceExpression><![CDATA[$P{subreport_datasource_plantelLocal}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["C:\\Users\\Lucas\\Documents\\GitHub\\mamisHockey\\reportes\\reportePlanillaPartido_unPlanel.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="2" y="351" width="475" height="100" uuid="b13cc3e6-e347-4350-9063-d91765c633ed"/>
+				<reportElement x="2" y="351" width="475" height="264" uuid="b13cc3e6-e347-4350-9063-d91765c633ed"/>
 				<dataSourceExpression><![CDATA[$P{subreport_datasource_plantelVisitante}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["C:\\Users\\Lucas\\Documents\\GitHub\\mamisHockey\\reportes\\reportePlanillaPartido_unPlanel.jasper"]]></subreportExpression>
 			</subreport>
@@ -236,44 +236,44 @@
 				<text><![CDATA[Ayudante Local:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="385" y="639" width="170" height="11" uuid="fbb1d1b4-177c-4d4d-bc87-9468d5668f76"/>
+				<reportElement x="385" y="637" width="170" height="12" uuid="fbb1d1b4-177c-4d4d-bc87-9468d5668f76"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Ayudante Visitante:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="627" width="170" height="11" uuid="17bd7c98-ec0a-4507-bd53-a8a89fc7c7e3"/>
+				<reportElement x="0" y="624" width="170" height="12" uuid="17bd7c98-ec0a-4507-bd53-a8a89fc7c7e3"/>
 				<textElement>
-					<font size="8"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Director Técnico: " + $F{dtVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="639" width="170" height="11" uuid="2323ac78-b87f-496b-803a-62242ac79817"/>
+				<reportElement x="385" y="624" width="170" height="12" uuid="2323ac78-b87f-496b-803a-62242ac79817"/>
 				<textElement>
-					<font size="8"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Ayudante de Campo: " + $F{acVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="627" width="170" height="11" uuid="5397f929-300f-4b64-be7c-a3911dc85dc5"/>
+				<reportElement x="192" y="624" width="170" height="12" uuid="5397f929-300f-4b64-be7c-a3911dc85dc5"/>
 				<textElement>
-					<font size="8"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Preparador Físico: " + $F{pfVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="385" y="627" width="170" height="11" uuid="3dc67170-8324-4002-af27-3532291d42c1"/>
+				<reportElement x="192" y="637" width="170" height="12" uuid="3dc67170-8324-4002-af27-3532291d42c1"/>
 				<textElement>
-					<font size="8"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Capitana Suplente: " + $F{capitanaSuplenteVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="639" width="170" height="11" uuid="6e6ff569-e8ac-48d8-a835-a3ab387685e7"/>
+				<reportElement x="0" y="637" width="170" height="12" uuid="6e6ff569-e8ac-48d8-a835-a3ab387685e7"/>
 				<textElement>
-					<font size="8"/>
+					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Capitana: " + $F{capitanaVisitante}]]></textFieldExpression>
 			</textField>
@@ -856,7 +856,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<line>
-				<reportElement x="453" y="649" width="102" height="1" uuid="ff78bbaf-efba-42f1-ae3c-a02b051fa90f"/>
+				<reportElement x="463" y="648" width="92" height="1" uuid="ff78bbaf-efba-42f1-ae3c-a02b051fa90f"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dashed"/>
 				</graphicElement>

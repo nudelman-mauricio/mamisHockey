@@ -553,8 +553,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTorneoParticipoSocia(unaSocia);
     }
 
-    public Torneo getTorneoPartido(Partido unPartido) {
-        return this.unaControladoraDeportiva.getTorneoPartido(unPartido);
+    public Torneo getTorneoDePartido(Partido unPartido) {
+        return this.unaControladoraDeportiva.getTorneoDePartido(unPartido);
     }
     // </editor-fold>
 
@@ -631,6 +631,10 @@ public class ControladoraGlobal {
     
     public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
         return unaControladoraDeportiva.getCamisetaPartido(unPartido, unaSocia);
+    }
+    
+    public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
+        return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
     }
     // </editor-fold>
 

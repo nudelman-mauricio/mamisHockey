@@ -38,9 +38,10 @@ public class PlanillaPartidoDS implements JRDataSource {
         if ("fechaPartido".equals(jrf.getName())) {
             valor = dateFormat.format(unPartido.getFecha());
         } else if ("nombreTorneo".equals(jrf.getName())) {
-            //valor = unaControladoraGlobal.getTorneoPartido(unPartido).getNombre();
-            valor = "FALTA";
-        } else if ("Arbitro1".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.getTorneoDePartido(unPartido).getNombre();
+        } else if ("categoriaTorneo".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.getTorneoDePartido(unPartido).getUnaCategoria().getNombre();
+        }else if ("Arbitro1".equals(jrf.getName())) {
             valor = unPartido.getUnArbitro1();
         } else if ("Arbitro2".equals(jrf.getName())) {
             valor = unPartido.getUnArbitro2();
@@ -49,10 +50,8 @@ public class PlanillaPartidoDS implements JRDataSource {
         } else if ("Cancha".equals(jrf.getName())) {
             valor = unPartido.getUnaCancha();
         } else if ("fechaN".equals(jrf.getName())) {
-            valor = "Falta";
-        } else 
-
-        //Equipo Local    
+            valor = unaControladoraGlobal.getFechaTorneoDePartido(unPartido).getNumeroFecha();
+        } else //Equipo Local    
         if ("equipoLocal".equals(jrf.getName())) {
             valor = unPartido.getUnEquipoLocal().getNombre();
         } else if ("dtLocal".equals(jrf.getName())) {
@@ -65,10 +64,7 @@ public class PlanillaPartidoDS implements JRDataSource {
             valor = unPartido.getUnEquipoLocal().getUnaCapitana();
         } else if ("capitanaSuplenteLocal".equals(jrf.getName())) {
             valor = unPartido.getUnEquipoLocal().getUnaCapitanaSuplente();
-        } else   
-        
-
-        //Equipo Visitante   
+        } else //Equipo Visitante   
         if ("equipoVisitante".equals(jrf.getName())) {
             valor = unPartido.getUnEquipoVisitante().getNombre();
         } else if ("dtVisitante".equals(jrf.getName())) {
@@ -83,6 +79,9 @@ public class PlanillaPartidoDS implements JRDataSource {
             valor = unPartido.getUnEquipoVisitante().getUnaCapitanaSuplente();
         }
 
+        if (valor == null) {
+            valor = "-";
+        }
         return valor;
     }
 }

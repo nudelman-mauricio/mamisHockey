@@ -1168,8 +1168,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         //Reporte
         PlanillaPartidoDS unaPlanillaPartidoDS = new PlanillaPartidoDS(unaControladoraGlobal, unPartido);
-        PlanillaPartidoDS_Plantel unPlantelLocalDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, (List<Socia>) unPartido.getUnEquipoLocal().getPlantel());
-        PlanillaPartidoDS_Plantel unPlantelVisitanteDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, (List<Socia>) unPartido.getUnEquipoVisitante().getPlantel());
+        PlanillaPartidoDS_Plantel unPlantelLocalDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, unPartido, unPartido.getJugadorasLocales());
+        PlanillaPartidoDS_Plantel unPlantelVisitanteDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, unPartido, unPartido.getJugadorasVisitantes());
 
         File archivo = new File("reportes/reportePlanillaPartido.jasper");
         JasperReport reporte;

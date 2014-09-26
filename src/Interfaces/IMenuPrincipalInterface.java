@@ -76,6 +76,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemEstados = new javax.swing.JMenuItem();
         jMenuItemEquipos = new javax.swing.JMenuItem();
         jMenuItemErgometrias = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemLos3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -296,6 +297,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuCargaDB.add(jMenuItemErgometrias);
 
+        jMenuItem2.setText("setCamSocia() ");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuCargaDB.add(jMenuItem2);
+
         jMenuItemLos3.setText("Los tres juntos");
         jMenuItemLos3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,8 +497,23 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         setEstadoSocia();
         setEquipoAleatorio();
         setErgometrias();
+        setCamSocia();
     }//GEN-LAST:event_jMenuItemLos3ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        setCamSocia();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void setCamSocia() {
+        int Max = 99;
+        int Min = 1;
+        int aux;
+        for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
+            aux = ((int) (Math.random() * (Max - Min)) + Min);
+            unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, String.valueOf(aux));
+        }
+    }
+    
     private void setEstadoSocia() {
         //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;
@@ -562,6 +586,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFormularios;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
