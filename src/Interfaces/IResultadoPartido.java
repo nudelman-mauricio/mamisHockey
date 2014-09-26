@@ -1137,19 +1137,31 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //----------- ACA SE DESCUENTA LA SANCION DE UN FECHA DE LA JUGADORA --------------
-        if (camposValidar()) {
-            if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
-                unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
+        Object[] options = {"OK", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "¿Esta seguro que desea guardar los datos?" + System.getProperty("line.separator") + "Una vez que guarde éstos datos ya no se podrán deshacer los cambios ni agregar nuevos." + System.getProperty("line.separator") + System.getProperty("line.separator") + "PIÉNSELO DE NUEVO POR FAVOR.",
+                "Advertencia Guardar",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+
+            if (camposValidar()) {
+                if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
+                    unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
+                }
+                unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
+
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEditar.setEnabled(true);
+                jButtonImprimir.setEnabled(true);
+                jButtonActualizar.setEnabled(false);
+
+                camposActivo(false);
             }
-            unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
-
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEditar.setEnabled(true);
-            jButtonImprimir.setEnabled(true);
-            jButtonActualizar.setEnabled(false);
-
-            camposActivo(false);
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
