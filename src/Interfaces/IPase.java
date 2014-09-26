@@ -36,9 +36,11 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unaSocia = unaSocia;
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana                
-        this.setTitle("Pases de : " + unaSocia.getApellido() + " " + unaSocia.getNombre()); //Titulo Ventana
+        this.setTitle("Pases de: " + unaSocia.toString()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         this.jComboBoxEquipoDestino.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposBD()));
+        this.jComboBoxEquipoDestino.setSelectedIndex(-1);
+        this.jComboBoxCuota.setSelectedIndex(-1);
         cargarTabla();
     }
 
@@ -46,6 +48,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldFechaRealizacion.setEditable(Editable);
         jTextFieldEquipoOrigen.setEditable(Editable);
         jComboBoxEquipoDestino.setEnabled(Editable);
+        jTextFieldCamiseta.setEditable(Editable);
         jTextFieldMonto.setEditable(Editable);
         jComboBoxCuota.setEnabled(Editable);
         jTextFieldFechaVencimiento.setEditable(Editable);
@@ -63,6 +66,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldFechaRealizacion.setText("");
         jTextFieldEquipoOrigen.setText("");
         jComboBoxEquipoDestino.setSelectedIndex(-1);
+        jTextFieldCamiseta.setText("");
         jTextFieldMonto.setText("");
         jComboBoxCuota.setSelectedIndex(-1);
         jTextFieldFechaVencimiento.setText("");
@@ -126,6 +130,12 @@ public class IPase extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelDestino.setForeground(Color.black);
+        }
+        if (jTextFieldCamiseta.getText().isEmpty()) {
+            jLabelCamiseta.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelCamiseta.setForeground(Color.black);
         }
         if (jTextFieldMonto.getText().isEmpty()) {
             jLabelMonto.setForeground(Color.red);
@@ -195,6 +205,8 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldEquipoOrigen = new javax.swing.JTextField();
         jLabelDestino = new javax.swing.JLabel();
         jComboBoxEquipoDestino = new javax.swing.JComboBox();
+        jTextFieldCamiseta = new javax.swing.JTextField();
+        jLabelCamiseta = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabelDestino1 = new javax.swing.JLabel();
         jLabelDestino2 = new javax.swing.JLabel();
@@ -204,9 +216,9 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle = new javax.swing.JTextPane();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 656));
-        setMinimumSize(new java.awt.Dimension(650, 656));
-        setPreferredSize(new java.awt.Dimension(650, 656));
+        setMaximumSize(new java.awt.Dimension(650, 664));
+        setMinimumSize(new java.awt.Dimension(650, 664));
+        setPreferredSize(new java.awt.Dimension(650, 664));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -359,7 +371,7 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelNumeroPase.setText("nn");
 
-        jLabel3.setText("* Los proximos vencimiento, en el caso de ser en mas de una cuota se genera para el mismo dia del mes siguiente");
+        jLabel3.setText("* En caso de seleccionar más de una cuota, los vencimientos serán el mismo día, uno por mes.");
 
         jLabelMonto.setText("Monto");
 
@@ -398,7 +410,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMonto))
@@ -420,11 +432,15 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelOrigen.setText("Equipo Origen");
 
-        jTextFieldEquipoOrigen.setEnabled(false);
+        jTextFieldEquipoOrigen.setEditable(false);
 
         jLabelDestino.setText("Equipo Destino");
 
         jComboBoxEquipoDestino.setEnabled(false);
+
+        jTextFieldCamiseta.setEditable(false);
+
+        jLabelCamiseta.setText("Nº Camiseta");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -435,12 +451,14 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelOrigen)
                     .addComponent(jLabelFechaRealizacion)
-                    .addComponent(jLabelDestino))
+                    .addComponent(jLabelDestino)
+                    .addComponent(jLabelCamiseta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldEquipoOrigen)
                     .addComponent(jComboBoxEquipoDestino, 0, 168, Short.MAX_VALUE)
-                    .addComponent(jTextFieldFechaRealizacion))
+                    .addComponent(jTextFieldFechaRealizacion)
+                    .addComponent(jTextFieldCamiseta))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -458,7 +476,11 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxEquipoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDestino))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCamiseta)
+                    .addComponent(jTextFieldCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jLabelDestino1.setText("Observación");
@@ -515,14 +537,14 @@ public class IPase extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelPaseNumero)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelNumeroPase))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                                 .addGap(306, 306, 306)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -534,13 +556,14 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNumeroPase)
-                    .addComponent(jLabelPaseNumero))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelNumeroPase)
+                            .addComponent(jLabelPaseNumero))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -620,6 +643,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
                 unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
                 JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
 
                 //Comportamientos Extras
@@ -688,6 +712,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxEquipoDestino;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelCamiseta;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelDestino1;
     private javax.swing.JLabel jLabelDestino2;
@@ -707,6 +732,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTablePases;
+    private javax.swing.JTextField jTextFieldCamiseta;
     private javax.swing.JTextField jTextFieldEquipoOrigen;
     private javax.swing.JTextField jTextFieldFechaRealizacion;
     private javax.swing.JTextField jTextFieldFechaVencimiento;
