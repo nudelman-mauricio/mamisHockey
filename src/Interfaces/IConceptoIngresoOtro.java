@@ -1,7 +1,6 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -11,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoIngreso;
 import main.ControladoraGlobal;
 
-public class IConceptoIngresos extends javax.swing.JInternalFrame {
+public class IConceptoIngresoOtro extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaConceptoIngresos;
@@ -19,11 +18,11 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame = null;
 
     //LLAMADO PARA GESTION CONCEPTOS
-    public IConceptoIngresos(ControladoraGlobal unaControladoraGlobal) {
+    public IConceptoIngresoOtro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         IMenuPrincipalInterface.centrar(this);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.setTitle("Gestión de Conceptos Ingreso");
+        this.setTitle("Gestión de Conceptos Ingreso Otro");
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaConceptoIngresos = (DefaultTableModel) jTableConceptoIngreso.getModel();
         cargarTabla();
@@ -35,7 +34,7 @@ public class IConceptoIngresos extends javax.swing.JInternalFrame {
     }
 
     //LLAMDO PARA NUEVO CONCEPTO
-    public IConceptoIngresos(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
+    public IConceptoIngresoOtro(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         this(unaControladoraGlobal);
         this.unJInternalFrame = unJInternalFrame;
         jTableConceptoIngreso.setEnabled(false);

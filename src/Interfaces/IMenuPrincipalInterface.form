@@ -100,7 +100,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionarIngresos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Ingresos"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Ingresos Otro"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionarIngresosActionPerformed"/>
@@ -124,17 +124,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConceptosEgresos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Conceptos Egresos"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConceptosEgresosActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConceptoIngreso">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Conceptos Ingreso"/>
+                <Property name="text" type="java.lang.String" value="Conceptos Ingreso Otro"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConceptoIngresoActionPerformed"/>
@@ -142,10 +134,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConceptosDeportivos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Conceptos Deportivos"/>
+                <Property name="text" type="java.lang.String" value="Conceptos Ingreso Deportivo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConceptosDeportivosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemConceptosEgresos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Conceptos Egresos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemConceptosEgresosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -18,13 +18,13 @@ import logicaNegocios.TipoCancha;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
-public class IConceptosDeportivos extends javax.swing.JInternalFrame {
+public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
     
     private ControladoraGlobal unaControladoraGlobal;
     private ConceptoDeportivo unConceptoDeportivoSeleccionado;
     private DefaultTableModel modeloTable;
     
-    public IConceptosDeportivos(ControladoraGlobal unaControladoraGlobal) {
+    public IConceptoIngresoDeportivo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -43,7 +43,7 @@ public class IConceptosDeportivos extends javax.swing.JInternalFrame {
         this.jComboBoxAfectados.setModel(modelComboAfectados);
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
-        this.setTitle("Conceptos Deportivos"); //Titulo Ventana
+        this.setTitle("Gestión Conceptos Ingreso Deportivo"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         camposLimpiar();
     }

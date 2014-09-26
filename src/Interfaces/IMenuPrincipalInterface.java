@@ -53,9 +53,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemGestionarEgresos = new javax.swing.JMenuItem();
         jMenuItemBalanceMensual = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jMenuItemConceptoIngreso = new javax.swing.JMenuItem();
         jMenuItemConceptosDeportivos = new javax.swing.JMenuItem();
+        jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jMenuFormularios = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -147,7 +147,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.setText("Contabilidad");
         jMenuContabilidad.setMaximumSize(new java.awt.Dimension(129, 32767));
 
-        jMenuItemGestionarIngresos.setText("Gestión Ingresos");
+        jMenuItemGestionarIngresos.setText("Gestión Ingresos Otro");
         jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemGestionarIngresosActionPerformed(evt);
@@ -172,15 +172,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.add(jMenuItemBalanceMensual);
         jMenuContabilidad.add(jSeparator1);
 
-        jMenuItemConceptosEgresos.setText("Conceptos Egresos");
-        jMenuItemConceptosEgresos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConceptosEgresosActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItemConceptosEgresos);
-
-        jMenuItemConceptoIngreso.setText("Conceptos Ingreso");
+        jMenuItemConceptoIngreso.setText("Conceptos Ingreso Otro");
         jMenuItemConceptoIngreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemConceptoIngresoActionPerformed(evt);
@@ -188,13 +180,21 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuContabilidad.add(jMenuItemConceptoIngreso);
 
-        jMenuItemConceptosDeportivos.setText("Conceptos Deportivos");
+        jMenuItemConceptosDeportivos.setText("Conceptos Ingreso Deportivo");
         jMenuItemConceptosDeportivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemConceptosDeportivosActionPerformed(evt);
             }
         });
         jMenuContabilidad.add(jMenuItemConceptosDeportivos);
+
+        jMenuItemConceptosEgresos.setText("Conceptos Egresos");
+        jMenuItemConceptosEgresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConceptosEgresosActionPerformed(evt);
+            }
+        });
+        jMenuContabilidad.add(jMenuItemConceptosEgresos);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -343,7 +343,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
-            IConceptoIngresos unConceptoIngresos = new IConceptoIngresos(unaControladoraGlobal);
+            IConceptoIngresoOtro unConceptoIngresos = new IConceptoIngresoOtro(unaControladoraGlobal);
             unConceptoIngresos.pack();
             unConceptoIngresos.setVisible(true);
             this.jDesktopPane.add(unConceptoIngresos);
@@ -402,7 +402,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItemConceptosDeportivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosDeportivosActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
-            IConceptosDeportivos unaVentanaConceptosDeportivos = new IConceptosDeportivos(unaControladoraGlobal);
+            IConceptoIngresoDeportivo unaVentanaConceptosDeportivos = new IConceptoIngresoDeportivo(unaControladoraGlobal);
             unaVentanaConceptosDeportivos.pack();
             unaVentanaConceptosDeportivos.setVisible(true);
             this.jDesktopPane.add(unaVentanaConceptosDeportivos);
@@ -411,7 +411,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItemGestionarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarIngresosActionPerformed
         if (jDesktopPane.getComponentCount() == 0) {
-            IGestionIngresos unaGestionIngresos = new IGestionIngresos(unaControladoraGlobal);
+            IGestionIngresosOtro unaGestionIngresos = new IGestionIngresosOtro(unaControladoraGlobal);
             unaGestionIngresos.pack();
             unaGestionIngresos.setVisible(true);
             this.jDesktopPane.add(unaGestionIngresos);
