@@ -305,6 +305,10 @@ public class ControladoraGlobal {
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
+    
+    public void computarTarjeta(Tarjeta unaTarjeta) {
+        this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
+    }
 
     public Tarjeta getTarjetaBD(Long id) {
         return this.unaControladoraDeportiva.getTarjetaBD(id);

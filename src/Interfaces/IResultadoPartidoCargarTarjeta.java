@@ -290,7 +290,11 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             if (unaTarjetaSeleccionada == null) {
-                unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+                if (jComboBoxTipoTarjeta.getSelectedItem().toString().equals("Roja")) {
+                    unaControladoraGlobal.crearTarjetaRoja(unaControladoraGlobal.crearSancionTribunal(null, unaSocia, unPartido.getFecha(), "Tarjeta Roja", "Partido: " + unPartido.toString()), unaSocia, unPartido, jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+                } else {
+                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+                }
             } else {
                 unaControladoraGlobal.modificarTarjeta(unaTarjetaSeleccionada, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unaTarjetaSeleccionada.isBorradoLogico());
             }
