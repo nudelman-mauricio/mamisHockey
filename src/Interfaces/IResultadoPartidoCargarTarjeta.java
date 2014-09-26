@@ -33,6 +33,7 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
         if ("Roja".equals(unTipo)) {
             this.jTextPaneMotivo.setText("Roja Directa");
         }
+        jComboBoxTipoTarjeta.setEnabled(false);
     }
 
     public IResultadoPartidoCargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, Tarjeta unaTarjeta) {
@@ -47,7 +48,7 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
     }
 
     private void camposActivo(boolean Editable) {
-        jComboBoxTipoTarjeta.setEnabled(Editable);
+        jComboBoxTipoTarjeta.setEnabled(false);
         jComboBoxTiempo.setEnabled(Editable);
         jTextFieldMinuto.setEnabled(Editable);
         jTextPaneMotivo.setEnabled(Editable);
