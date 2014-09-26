@@ -4,13 +4,13 @@ import DataSources.BalanceMensualDS;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import logicaNegocios.Deuda;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.PagoCuota;
@@ -26,6 +26,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DateFormat df = DateFormat.getDateInstance();
+    SimpleDateFormat dateFormatSinDias = new SimpleDateFormat("MM/YYYY");
 
     public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -240,12 +241,12 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
             String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedIndex() + 2010);
             try {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
-                Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+                Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());    
                 List<Egreso> egresos = unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta);
                 List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
                 List<PagoCuota> pagoCuotas = unaControladoraGlobal.getPagosCuotasEntreFechasBD(fechaDesde, fechaHasta);
                
-                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal);
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta));
 
       
 
@@ -265,7 +266,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-
+   
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
         this.dispose();

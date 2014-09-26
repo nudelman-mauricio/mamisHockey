@@ -33,6 +33,7 @@ public class BalanceMensualDS implements JRDataSource {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
     Date fechaEvaluadaPase = null;
     double montoPase = 0;
+    String desde, hasta;
 
     // <editor-fold defaultstate="collapsed" desc="ClaseBalance">
     private class Balance implements Comparable {
@@ -103,7 +104,8 @@ public class BalanceMensualDS implements JRDataSource {
     }
     // </editor-fold>
 
-    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal) {
+    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal, String desde, String hasta) {
+        this.desde = desde; this.hasta = hasta;
         for (PagoCuota unPagoCuota : pagoCuotas) {
             if (unPagoCuota.getMonto() != 0) {
                 if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals("Pase")) {
@@ -161,6 +163,10 @@ public class BalanceMensualDS implements JRDataSource {
             valor = unBalance.get(indiceBalance).getMontoIngreso();
         } else if ("MontoE".equals(jrf.getName())) {
             valor = unBalance.get(indiceBalance).getMontoEgreso();
+        } else if ("desde".equals(jrf.getName())) {
+            valor = desde;
+        } else if ("hasta".equals(jrf.getName())) {
+            valor = hasta;
         }
         return valor;
     }
