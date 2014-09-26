@@ -44,14 +44,14 @@
 				<staticText>
 					<reportElement x="132" y="0" width="65" height="20" uuid="f3d5765d-5be6-42f1-b8a9-ace1a83a2020"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Presidente]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="316" y="0" width="66" height="20" uuid="99e4cf32-dac4-49ac-a26e-043b3c2be207"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Localidad:]]></text>
 				</staticText>
