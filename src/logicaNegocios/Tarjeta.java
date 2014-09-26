@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -31,6 +32,9 @@ public class Tarjeta implements Serializable, Comparable {
     private String minuto;
 
     @Basic
+    private boolean computado;
+
+    @Basic
     private boolean borradoLogico;
     // </editor-fold>
 
@@ -43,7 +47,8 @@ public class Tarjeta implements Serializable, Comparable {
         this.motivo = motivo;
         this.tiempo = tiempo;
         this.minuto = minuto;
-        this.borradoLogico = false;
+        this.computado = false;
+        this.borradoLogico = false;        
         this.persistir(entityManager);
     }
 
@@ -88,6 +93,14 @@ public class Tarjeta implements Serializable, Comparable {
         this.minuto = minuto;
     }
 
+    public boolean isComputado() {
+        return this.computado;
+    }
+
+    public void setComputado(boolean computado) {
+        this.computado = computado;
+    }
+
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
@@ -100,7 +113,7 @@ public class Tarjeta implements Serializable, Comparable {
     @Override
     public String toString() {
         return tiempo + "T " + minuto + "'";
-    }
+}
 
     @Override
     public int compareTo(Object aux) {
