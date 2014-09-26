@@ -23,6 +23,7 @@ public class ControladoraEntidades {
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
         this.construirTiposEstados();
+        this.construirLocalidades();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
@@ -292,6 +293,180 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Localidad">
+    private void construirLocalidades() {
+        if (this.getConceptoDeportivoBD("2 de Mayo") == null) {
+            this.crearLocalidad("2 de Mayo", "3364");
+        }
+        if (this.getConceptoDeportivoBD("25 de Mayo") == null) {
+            this.crearLocalidad("25 de Mayo", "3363");
+        }
+        if (this.getConceptoDeportivoBD("9 de Julio") == null) {
+            this.crearLocalidad("9 de Julio", "3363");
+        }
+        if (this.getConceptoDeportivoBD("Alba Posse") == null) {
+            this.crearLocalidad("Alba Posse", "3363");
+        }
+        if (this.getConceptoDeportivoBD("Apóstoles") == null) {
+            this.crearLocalidad("Apóstoles", "3350");
+        }
+        if (this.getConceptoDeportivoBD("Aristóbulo del Valle") == null) {
+            this.crearLocalidad("Aristóbulo del Valle", "3364");
+        }
+        if (this.getConceptoDeportivoBD("Bernardo de Irigoyen") == null) {
+            this.crearLocalidad("Bernardo de Irigoyen", "3366");
+        }
+        if (this.getConceptoDeportivoBD("Bonpland") == null) {
+            this.crearLocalidad("Bonpland", "3317");
+        }
+        if (this.getConceptoDeportivoBD("Campo Grande") == null) {
+            this.crearLocalidad("Campo Grande", "3362");
+        }
+        if (this.getConceptoDeportivoBD("Campo Viera") == null) {
+            this.crearLocalidad("Campo Viera", "3362");
+        }
+        if (this.getConceptoDeportivoBD("Candelaria") == null) {
+            this.crearLocalidad("Candelaria", "3308");
+        }
+        if (this.getConceptoDeportivoBD("Capioví") == null) {
+            this.crearLocalidad("Capioví", "3332");
+        }
+        if (this.getConceptoDeportivoBD("Cerro Azul") == null) {
+            this.crearLocalidad("Cerro Azul", "3313");
+        }
+        if (this.getConceptoDeportivoBD("Cerro Corá") == null) {
+            this.crearLocalidad("Cerro Corá", "3309");
+        }
+        if (this.getConceptoDeportivoBD("Colonia Alberdi") == null) {
+            this.crearLocalidad("Colonia Alberdi", "3311");
+        }
+        if (this.getConceptoDeportivoBD("Colonia Aurora") == null) {
+            this.crearLocalidad("Colonia Aurora", "3363");
+        }
+        if (this.getConceptoDeportivoBD("Caraguatay") == null) {
+            this.crearLocalidad("Caraguatay", "3386");
+        }
+        if (this.getConceptoDeportivoBD("Colonia Delicia") == null) {
+            this.crearLocalidad("Colonia Delicia", "3382");
+        }
+        if (this.getConceptoDeportivoBD("Colonia Polana") == null) {
+            this.crearLocalidad("Colonia Polana", "3326");
+        }
+        if (this.getConceptoDeportivoBD("Concepción de la Sierra") == null) {
+            this.crearLocalidad("Concepción de la Sierra", "3355");
+        }
+        if (this.getConceptoDeportivoBD("Corpus") == null) {
+            this.crearLocalidad("Corpus", "3327");
+        }
+        if (this.getConceptoDeportivoBD("Comandante Andresito") == null) {
+            this.crearLocalidad("Comandante Andresito", "3364");
+        }
+        if (this.getConceptoDeportivoBD("Dos Arroyos") == null) {
+            this.crearLocalidad("Dos Arroyos", "3315");
+        }
+        if (this.getConceptoDeportivoBD("El Alcázar") == null) {
+            this.crearLocalidad("El Alcázar", "3384");
+        }
+        if (this.getConceptoDeportivoBD("El Soberbio") == null) {
+            this.crearLocalidad("El Soberbio", "3364");
+        }
+        if (this.getConceptoDeportivoBD("El Dorado") == null) {
+            this.crearLocalidad("El Dorado", "3382");
+        }
+        if (this.getConceptoDeportivoBD("Garuhapé") == null) {
+            this.crearLocalidad("Garuhapé", "3334");
+        }
+        if (this.getConceptoDeportivoBD("Garupá") == null) {
+            this.crearLocalidad("Garupá", "3304");
+        }
+        if (this.getConceptoDeportivoBD("Gobernador Roca") == null) {
+            this.crearLocalidad("Gobernador Roca", "3324");
+        }
+        if (this.getConceptoDeportivoBD("Guaraní") == null) {
+            this.crearLocalidad("Guaraní", "3361");
+        }
+        if (this.getConceptoDeportivoBD("Itacaruaré") == null) {
+            this.crearLocalidad("Itacaruaré", "3353");
+        }
+        if (this.getConceptoDeportivoBD("Jardín América") == null) {
+            this.crearLocalidad("Jardín América", "3328");
+        }
+        if (this.getConceptoDeportivoBD("Leandro N Alem") == null) {
+            this.crearLocalidad("Leandro N Alem", "3315");
+        }
+        if (this.getConceptoDeportivoBD("Loreto") == null) {
+            this.crearLocalidad("Loreto", "3316");
+        }
+        if (this.getConceptoDeportivoBD("Miguel Lanús") == null) {
+            this.crearLocalidad("Miguel Lanús", "3304");
+        }
+        if (this.getConceptoDeportivoBD("Mojón Grande") == null) {
+            this.crearLocalidad("Mojón Grande", "3315");
+        }
+        if (this.getConceptoDeportivoBD("Montecarlo") == null) {
+            this.crearLocalidad("Montecarlo", "3384");
+        }
+        if (this.getConceptoDeportivoBD("Oberá") == null) {
+            this.crearLocalidad("Oberá", "3360");
+        }
+        if (this.getConceptoDeportivoBD("Panambí") == null) {
+            this.crearLocalidad("Panambí", "3361");
+        }
+        if (this.getConceptoDeportivoBD("Posadas") == null) {
+            this.crearLocalidad("Posadas", "3300");
+        }
+        if (this.getConceptoDeportivoBD("Puerto Esperanza") == null) {
+            this.crearLocalidad("Puerto Esperanza", "3378");
+        }
+        if (this.getConceptoDeportivoBD("Puerto Iguazú") == null) {
+            this.crearLocalidad("Puerto Iguazú", "3370");
+        }
+        if (this.getConceptoDeportivoBD("Puerto Libertad") == null) {
+            this.crearLocalidad("Puerto Libertad", "3370");
+        }
+        if (this.getConceptoDeportivoBD("Puerto Piray") == null) {
+            this.crearLocalidad("Puerto Piray", "3381");
+        }
+        if (this.getConceptoDeportivoBD("Puerto Rico") == null) {
+            this.crearLocalidad("Puerto Rico", "3334");
+        }
+        if (this.getConceptoDeportivoBD("Ruiz de Montoya") == null) {
+            this.crearLocalidad("Ruiz de Montoya", "3334");
+        }
+        if (this.getConceptoDeportivoBD("San Antonio") == null) {
+            this.crearLocalidad("San Antonio", "3366");
+        }
+        if (this.getConceptoDeportivoBD("San Ignacio") == null) {
+            this.crearLocalidad("San Ignacio", "3322");
+        }
+        if (this.getConceptoDeportivoBD("San Javier") == null) {
+            this.crearLocalidad("San Javier", "3357");
+        }
+        if (this.getConceptoDeportivoBD("San José") == null) {
+            this.crearLocalidad("San José", "3306");
+        }
+        if (this.getConceptoDeportivoBD("San Pedro") == null) {
+            this.crearLocalidad("San Pedro", "3364");
+        }
+        if (this.getConceptoDeportivoBD("San Vicente") == null) {
+            this.crearLocalidad("San Vicente", "3364");
+        }
+        if (this.getConceptoDeportivoBD("Santa Ana") == null) {
+            this.crearLocalidad("Santa Ana", "3316");
+        }
+        if (this.getConceptoDeportivoBD("Santa Rita") == null) {
+            this.crearLocalidad("Santa Rita", "3363");
+        }
+        if (this.getConceptoDeportivoBD("Santo Pipó") == null) {
+            this.crearLocalidad("Santo Pipó", "3326");
+        }
+        if (this.getConceptoDeportivoBD("Salto Encantado") == null) {
+            this.crearLocalidad("Salto Encantado", "3364");
+        }
+        if (this.getConceptoDeportivoBD("Wanda") == null) {
+            this.crearLocalidad("Wanda", "3376");
+        }
+    }
+
     public void crearLocalidad(String nombre, String codPostal) {
         new Localidad(this.entityManager, nombre, codPostal);
     }
@@ -317,6 +492,18 @@ public class ControladoraEntidades {
         Query traerLocalidad = this.entityManager.createQuery(unaConsulta);
         resultado = (Localidad) traerLocalidad.getSingleResult();
         return resultado;
+    }
+
+    /**
+     * Devuelve unConceptoDeportivo por CONCEPTO
+     */
+    public Localidad getConceptoDeportivoBD(String nombre) {
+        List<Localidad> unaListaResultado = this.entityManager.createQuery("SELECT l FROM Localidad l WHERE l.nombre LIKE '" + nombre + "'").getResultList();
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
+        }
     }
 
     /**

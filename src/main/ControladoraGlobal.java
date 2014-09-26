@@ -165,43 +165,7 @@ public class ControladoraGlobal {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Localidad">
-    private void construirLocalidades(){
-        if (this.getConceptoDeportivoBD("Cuota Socia") == null) {
-            this.crearConceptoDeportivo(70, "Cuota Socia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Socia"));
-        }
-        if (this.getConceptoDeportivoBD("Cuota Jugadora") == null) {
-            this.crearConceptoDeportivo(130, "Cuota Jugadora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Jugadora"));
-        }
-        if (this.getConceptoDeportivoBD("Cuota Licencia") == null) {
-            this.crearConceptoDeportivo(70, "Cuota Licencia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Licencia"));
-        }
-        if (this.getConceptoDeportivoBD("Cuota Baja por Mora") == null) {
-            this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
-        }        
-        if (this.getConceptoDeportivoBD("Cancha") == null) {
-            this.crearConceptoDeportivo(0, "Cancha", null, null, null);
-        }        
-        if (this.getConceptoDeportivoBD("Fichaje") == null) {
-            this.crearConceptoDeportivo(120, "Fichaje", null, null, null);
-        }
-        if (this.getConceptoDeportivoBD("Re-Fichaje") == null) {
-            this.crearConceptoDeportivo(75, "Re-Fichaje", null, null, null);
-        }
-        if (this.getConceptoDeportivoBD("Inscripción") == null) {
-            this.crearConceptoDeportivo(135, "Inscripción", null, null, null);
-        }
-        if (this.getConceptoDeportivoBD("Re-Inscripción") == null) {
-            this.crearConceptoDeportivo(200, "Re-Inscripción", null, null, null);
-        }
-        if (this.getConceptoDeportivoBD("Pase") == null) {
-            this.crearConceptoDeportivo(200, "Pase", null, null, null);
-        }
-        if (this.getConceptoDeportivoBD("Otro") == null) {
-            this.crearConceptoDeportivo(0, "Otro", null, null, null);
-        }
-    }
-    
+    // <editor-fold defaultstate="collapsed" desc="Localidad">    
     public void crearLocalidad(String nombre, String codPostal) {
         this.unaControladoraEntidades.crearLocalidad(nombre, codPostal);
     }
