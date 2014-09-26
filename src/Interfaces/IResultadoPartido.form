@@ -753,7 +753,7 @@
                 <Component class="javax.swing.JTable" name="jTableLocal">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="11" rowCount="22">
+                      <Table columnCount="10" rowCount="0">
                         <Column editable="false" title="DNI" type="java.lang.Long"/>
                         <Column editable="false" title="Cam" type="java.lang.Object"/>
                         <Column editable="false" title="Apellido y Nombre" type="java.lang.Object"/>
@@ -762,8 +762,7 @@
                         <Column editable="false" title="3&#xb0; V" type="java.lang.Object"/>
                         <Column editable="false" title="1&#xb0; A" type="java.lang.Object"/>
                         <Column editable="false" title="2&#xb0; A" type="java.lang.Object"/>
-                        <Column editable="false" title="RA" type="java.lang.Object"/>
-                        <Column editable="false" title="RD" type="java.lang.Object"/>
+                        <Column editable="false" title="Roja" type="java.lang.Object"/>
                         <Column editable="false" title="Gol" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -780,11 +779,6 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="40" minWidth="40" prefWidth="40" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -864,14 +858,9 @@
                 <Component class="javax.swing.JTable" name="jTableGolLocal">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="4">
+                      <Table columnCount="2" rowCount="0">
                         <Column editable="true" title="Jugadora" type="java.lang.Object"/>
-                        <Column editable="false" title="Gol" type="java.lang.Object">
-                          <Data value=""/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
+                        <Column editable="false" title="Gol" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -946,20 +935,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelEquipoVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelEquipoVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jScrollPane6" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
@@ -977,7 +961,7 @@
                 <Component class="javax.swing.JTable" name="jTableVisitante">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="11" rowCount="22">
+                      <Table columnCount="10" rowCount="0">
                         <Column editable="false" title="DNI" type="java.lang.String"/>
                         <Column editable="false" title="Cam" type="java.lang.String"/>
                         <Column editable="false" title="Apellido y Nombre" type="java.lang.String"/>
@@ -986,8 +970,7 @@
                         <Column editable="false" title="3&#xb0; V" type="java.lang.String"/>
                         <Column editable="false" title="1&#xb0; A" type="java.lang.String"/>
                         <Column editable="false" title="2&#xb0; A" type="java.lang.String"/>
-                        <Column editable="false" title="RA" type="java.lang.String"/>
-                        <Column editable="false" title="RD" type="java.lang.String"/>
+                        <Column editable="false" title="Roja" type="java.lang.String"/>
                         <Column editable="false" title="Gol" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -1004,11 +987,6 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="40" minWidth="40" prefWidth="40" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1088,14 +1066,9 @@
                 <Component class="javax.swing.JTable" name="jTableGolVisitante">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="4">
+                      <Table columnCount="2" rowCount="0">
                         <Column editable="true" title="Jugadora" type="java.lang.Object"/>
-                        <Column editable="false" title="Gol" type="java.lang.Object">
-                          <Data value=""/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
+                        <Column editable="false" title="Gol" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

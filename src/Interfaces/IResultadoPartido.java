@@ -261,7 +261,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     public void cargarCamposTablaControlando(Socia unaSocia, DefaultTableModel modeloTable) {
-        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, ra = null, rd = null;
+        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, roja = null;
         for (Tarjeta unaTarjeta : unPartido.getTarjetas()) {
             if ((!unaTarjeta.isBorradoLogico()) && (unaSocia.isAutoraTarjeta(unaTarjeta))) {
                 if ("Verde".equals(unaTarjeta.getTipo())) {
@@ -283,15 +283,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     }
                 }
                 if ("Roja".equals(unaTarjeta.getTipo())) {
-                    rd = unaTarjeta;
-                }
-                if ((a1 != null) && (a2 != null)) {
-                    ra = rd;
-                    rd = null;
+                    roja = unaTarjeta;
                 }
             }
         }
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia, v1, v2, v3, a1, a2, ra, rd, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), unaSocia.getNumeroCamiseta(), unaSocia, v1, v2, v3, a1, a2, roja, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
     }
 
     private boolean camposValidar() {
@@ -812,38 +808,17 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD", "Gol"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "Roja", "Gol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -892,12 +867,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableLocal.getColumnModel().getColumn(8).setMinWidth(40);
             jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(40);
             jTableLocal.getColumnModel().getColumn(8).setMaxWidth(40);
-            jTableLocal.getColumnModel().getColumn(9).setMinWidth(40);
-            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(40);
-            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(40);
-            jTableLocal.getColumnModel().getColumn(10).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(10).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(10).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(9).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(35);
         }
         jTableLocal.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -913,10 +885,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableGolLocal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, ""},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Jugadora", "Gol"
@@ -990,38 +959,17 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "RA", "RD", "Gol"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "Roja", "Gol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1070,12 +1018,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableVisitante.getColumnModel().getColumn(8).setMinWidth(40);
             jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(40);
             jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(40);
-            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(40);
-            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(40);
-            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(40);
-            jTableVisitante.getColumnModel().getColumn(10).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(10).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(10).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(35);
         }
         jTableVisitante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -1091,10 +1036,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
         jTableGolVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, ""},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Jugadora", "Gol"
@@ -1151,17 +1093,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane6))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabelEquipoVisitante))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelEquipoVisitante)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane5))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -1226,7 +1165,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         //Genera el reporte de la planilla de partido
         System.out.println("Se mostro el informe de Planilla de Partido");
-        
+
         //Reporte
         PlanillaPartidoDS unaPlanillaPartidoDS = new PlanillaPartidoDS(unaControladoraGlobal, unPartido);
         PlanillaPartidoDS_Plantel unPlantelLocalDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, (List<Socia>) unPartido.getUnEquipoLocal().getPlantel());
@@ -1239,14 +1178,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             Map parameters = new HashMap();
             parameters.put("subreport_datasource_plantelLocal", unPlantelLocalDS);
             parameters.put("subreport_datasource_plantelVisitante", unPlantelVisitanteDS);
-            
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, unaPlanillaPartidoDS);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -1264,22 +1203,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
 
         camposActivo(false);
-
-        //¿Aca un Actualizar?
-        //camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        //Carga la tabla con las socias habilitadas para jugar. ok
-        //-Avisar si existe algun cambio, si es que hay un plantel guardado (Se imprimio la planilla de partido) FALTA
-        //-Habilitado siempre y cuando no se haya jugado el partido. ok
-
-        if (unPartido.getNombreVeedor() == null) {//Siempre y cuando el partodo no se haya jugado            
-            if (unPartido.getJugadoras() != null) {
-                Object[] options = {"OK", "Cancelar"};
-                if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar los planteles?", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
-                    cargarPlanteles();
-                }
+        if (unPartido.getNombreVeedor() == null) {//-Habilitado siempre y cuando no se haya jugado el partido.
+            Object[] options = {"OK", "Cancelar"};
+            if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar los planteles?", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
+                //Carga la tabla con las socias habilitadas para jugar.
+                cargarPlanteles();
             }
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
@@ -1301,11 +1232,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
-                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
+                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 6)) {
                                 unTipo = "Verde";
                             } else if ((jTableLocal.getSelectedColumn() >= 6) && (jTableLocal.getSelectedColumn() < 8)) {
                                 unTipo = "Amarilla";
-                            } else if ((jTableLocal.getSelectedColumn() >= 8) && (jTableLocal.getSelectedColumn() < 10)) {
+                            } else if (jTableLocal.getSelectedColumn() == 8) {
                                 unTipo = "Roja";
                             }
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
@@ -1381,11 +1312,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
-                            if ((jTableVisitante.getSelectedColumn() >= 3) && (jTableVisitante.getSelectedColumn() < 5)) {
+                            if ((jTableVisitante.getSelectedColumn() >= 3) && (jTableVisitante.getSelectedColumn() < 6)) {
                                 unTipo = "Verde";
                             } else if ((jTableVisitante.getSelectedColumn() >= 6) && (jTableVisitante.getSelectedColumn() < 8)) {
                                 unTipo = "Amarilla";
-                            } else if ((jTableVisitante.getSelectedColumn() >= 8) && (jTableVisitante.getSelectedColumn() < 10)) {
+                            } else if (jTableVisitante.getSelectedColumn() == 8) {
                                 unTipo = "Roja";
                             }
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
