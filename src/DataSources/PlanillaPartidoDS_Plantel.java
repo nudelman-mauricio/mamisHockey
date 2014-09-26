@@ -25,8 +25,9 @@ public class PlanillaPartidoDS_Plantel  implements JRDataSource {
 
     private ControladoraGlobal unaControladoraGlobal;
     private List<Socia> unaSocia;
+    private Partido unPartido;
 
-    public PlanillaPartidoDS_Plantel(ControladoraGlobal unaControladoraGlobal, List<Socia> unaSocia) {
+    public PlanillaPartidoDS_Plantel(ControladoraGlobal unaControladoraGlobal, Partido unPartido, List<Socia> unaSocia) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
     }
@@ -42,7 +43,7 @@ public class PlanillaPartidoDS_Plantel  implements JRDataSource {
         Object valor = null;
         //General
         if ("cam".equals(jrf.getName())) {
-            valor = unaSocia.get(indiceSocia).getNumeroCamiseta();
+            valor = unaControladoraGlobal.getCamisetaPartido(this.unPartido, unaSocia.get(indiceSocia));
         } else if ("apellidoyNombre".equals(jrf.getName())) {
             valor = unaSocia.get(indiceSocia);
         }

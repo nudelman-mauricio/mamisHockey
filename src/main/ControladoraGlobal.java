@@ -628,6 +628,10 @@ public class ControladoraGlobal {
     public List<Partido> getPartidosBD() {
         return this.unaControladoraDeportiva.getPartidosBD();
     }
+    
+    public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
+        return unaControladoraDeportiva.getCamisetaPartido(unPartido, unaSocia);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Gol">

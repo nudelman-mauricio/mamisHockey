@@ -790,6 +790,20 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
     // </editor-fold>
+    
+    /**
+     * Devuelve el numero de camiseta de la jugadora en un partido
+     */
+    public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
+        String resultado = "-";
+            for (Jugadora unaJugadora :  unPartido.getJugadoras()){
+                if (unaJugadora.getUnaSocia().getDni() == unaSocia.getDni()) {
+                    resultado = unaJugadora.getCamiseta();
+                }
+            }
+            return resultado;
+    }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Gol">
     public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, String minuto) {
