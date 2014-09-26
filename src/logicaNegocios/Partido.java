@@ -2,6 +2,7 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.ArrayList;
 
 import java.util.Collection;
 import java.util.Date;
@@ -341,11 +342,31 @@ public class Partido implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Jugadoras">
     public void vaciarJugadoras() {
-        this.jugadoras.clear();        
+        this.jugadoras.clear();
     }
 
     public void agregarJugadora(Socia unaSocia, String camiseta, boolean local) {
         this.jugadoras.add(new Jugadora(unaSocia, camiseta, local));
+    }
+
+    public ArrayList<Jugadora> getJugadorasLocales() {
+        ArrayList<Jugadora> jugadorasLocales = new ArrayList();
+        for (Jugadora unaJugadora : this.getJugadoras()) {
+            if (unaJugadora.isLocal()) {
+                jugadorasLocales.add(unaJugadora);
+            }
+        }
+        return jugadorasLocales;
+    }
+
+    public ArrayList<Jugadora> getJugadorasVisitantes() {
+        ArrayList<Jugadora> jugadorasVisitantes = new ArrayList();
+        for (Jugadora unaJugadora : this.getJugadoras()) {
+            if (!unaJugadora.isLocal()) {
+                jugadorasVisitantes.add(unaJugadora);
+            }
+        }
+        return jugadorasVisitantes;
     }
 
     /**
