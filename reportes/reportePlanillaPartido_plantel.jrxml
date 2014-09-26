@@ -95,7 +95,7 @@
 						</jr:tableHeader>
 						<jr:detailCell style="table 1_TD" height="12" rowSpan="1"/>
 					</jr:column>
-					<jr:column width="37" uuid="bbb323d2-e431-4d27-8c6b-5482b6f12c22">
+					<jr:column width="44" uuid="bbb323d2-e431-4d27-8c6b-5482b6f12c22">
 						<jr:tableHeader style="table 1_TH" height="17" rowSpan="1">
 							<staticText>
 								<reportElement mode="Transparent" x="0" y="0" width="37" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="e09ab17b-4b14-40ba-9795-c8634ac72535"/>

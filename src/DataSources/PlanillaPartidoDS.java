@@ -1,5 +1,6 @@
 package DataSources;
 
+import java.text.SimpleDateFormat;
 import logicaNegocios.Equipo;
 import logicaNegocios.Partido;
 import main.ControladoraGlobal;
@@ -17,6 +18,7 @@ public class PlanillaPartidoDS implements JRDataSource {
 
     private Partido unPartido;
     private ControladoraGlobal unaControladoraGlobal;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
 
     public PlanillaPartidoDS(ControladoraGlobal unaControladoraGlobal, Partido unPartido) {
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -34,7 +36,7 @@ public class PlanillaPartidoDS implements JRDataSource {
         Object valor = null;
         //General
         if ("fechaPartido".equals(jrf.getName())) {
-            valor = unPartido.getFecha();
+            valor = dateFormat.format(unPartido.getFecha());
         } else if ("nombreTorneo".equals(jrf.getName())) {
             //valor = unaControladoraGlobal.getTorneoPartido(unPartido).getNombre();
             valor = "FALTA";
