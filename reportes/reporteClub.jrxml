@@ -31,6 +31,7 @@
 	<field name="club" class="java.lang.String"/>
 	<field name="presidente" class="java.lang.String"/>
 	<field name="localidad" class="java.lang.String"/>
+	<field name="ruta" class="java.lang.String"/>
 	<group name="Group1">
 		<groupHeader>
 			<band height="35">
@@ -85,7 +86,7 @@
 				<subreport>
 					<reportElement x="114" y="0" width="441" height="55" uuid="836b9a29-45ab-4a03-a435-f7f10325e9b6"/>
 					<dataSourceExpression><![CDATA[$P{subreport_datasource_Equipo}]]></dataSourceExpression>
-					<subreportExpression><![CDATA["C:\\Users\\Leanwit\\Documents\\NetBeansProjects\\mamisHockey\\reportes\\reporteClub_equipo.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteClub_equipo.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupHeader>
@@ -106,7 +107,7 @@
 				<subreport>
 					<reportElement x="114" y="1" width="441" height="37" uuid="9a8a2e09-6ffc-4813-b547-38cd78f2c862"/>
 					<dataSourceExpression><![CDATA[$P{subreport_datasource_Cancha}]]></dataSourceExpression>
-					<subreportExpression><![CDATA["C:\\Users\\Leanwit\\Documents\\NetBeansProjects\\mamisHockey\\reportes\\reporteClub_cancha.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteClub_cancha.jasper"]]></subreportExpression>
 				</subreport>
 				<line>
 					<reportElement x="0" y="0" width="575" height="1" uuid="e4034038-1db4-4946-87f0-a7a3f887d0d1"/>

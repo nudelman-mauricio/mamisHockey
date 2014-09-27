@@ -34,6 +34,7 @@ public class BalanceMensualDS implements JRDataSource {
     Date fechaEvaluadaPase = null;
     double montoPase = 0;
     String desde, hasta;
+    ControladoraGlobal unaControladoraGlobal;
 
     // <editor-fold defaultstate="collapsed" desc="ClaseBalance">
     private class Balance implements Comparable {
@@ -105,6 +106,7 @@ public class BalanceMensualDS implements JRDataSource {
     // </editor-fold>
 
     public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal, String desde, String hasta) {
+        this.unaControladoraGlobal = unaControladoraGlobal;
         this.desde = desde; this.hasta = hasta;
         for (PagoCuota unPagoCuota : pagoCuotas) {
             if (unPagoCuota.getMonto() != 0) {
@@ -153,7 +155,9 @@ public class BalanceMensualDS implements JRDataSource {
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
-        if ("Fecha".equals(jrf.getName())) {
+        if ("ruta".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.rutaSistema();
+        } else if ("Fecha".equals(jrf.getName())) {
             if (!unBalance.isEmpty()) {
                 valor = unBalance.get(indiceBalance).getFechaBalance();
             }

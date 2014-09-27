@@ -40,7 +40,6 @@ public class PlanillaPartidoDS implements JRDataSource {
         
         if ("ruta".equals(jrf.getName())) {
             valor = unaControladoraGlobal.rutaSistema();
-            //valor = unaControladoraGlobal.rutaSistema() + "\\reportes\\Imagenes Reportes\\Logo Verde.png";
         } else if ("fechaPartido".equals(jrf.getName())) {
             valor = dateFormat.format(unPartido.getFecha());
         } else if ("nombreTorneo".equals(jrf.getName())) {

@@ -330,7 +330,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         Club_EquipoDS unEquipoDS = new Club_EquipoDS(unClubSeleccionado.getEquipos());
         Club_CanchaDS unaCanchaDS = new Club_CanchaDS(unClubSeleccionado);        
-        ClubDS unClubDS = new ClubDS(unClubSeleccionado);
+        ClubDS unClubDS = new ClubDS(unClubSeleccionado, unaControladoraGlobal);
         File archivo = new File("reportes/reporteClub.jasper");
         JasperReport reporte;
         try {

@@ -7,6 +7,7 @@
 package DataSources;
 
 import logicaNegocios.Club;
+import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -18,10 +19,12 @@ import net.sf.jasperreports.engine.JRField;
 public class ClubDS implements JRDataSource {
     private Club unClub;  
     private int indiceEquipoActual = -1;
+    private ControladoraGlobal unaControladoraGlobal;
     
     
-    public ClubDS(Club unClub){
+    public ClubDS(Club unClub, ControladoraGlobal unaControladoraGlobal){
         this.unClub = unClub;
+        this.unaControladoraGlobal = unaControladoraGlobal;
     }
     
     @Override
@@ -32,7 +35,9 @@ public class ClubDS implements JRDataSource {
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;        
-        if ("club".equals(jrf.getName())) {
+        if ("ruta".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.rutaSistema();
+        } else if ("club".equals(jrf.getName())) {
             valor = unClub.getNombre();        
         } else if ("presidente".equals(jrf.getName())) {
             valor = unClub.getNombrePresidente();

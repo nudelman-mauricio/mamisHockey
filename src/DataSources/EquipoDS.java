@@ -33,7 +33,9 @@ public class EquipoDS implements JRDataSource {
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;        
-        if ("equipo".equals(jrf.getName())) {
+        if ("ruta".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.rutaSistema();
+        } else if ("equipo".equals(jrf.getName())) {
             valor = unEquipo.getNombre();        
         } else if ("directorTecnico".equals(jrf.getName())) {
             valor = unEquipo.getUnDT();
