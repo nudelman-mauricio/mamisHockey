@@ -49,7 +49,11 @@ public class PlanillaPartidoDS_Plantel  implements JRDataSource {
         } else if ("apellidoyNombre".equals(jrf.getName())) {
             valor = unaJugadora.get(indiceSocia).getUnaSocia();
         }else if ("exJugadora".equals(jrf.getName())) {
-            valor = unaJugadora.get(indiceSocia).getUnaSocia().isExJugadora();
+            if (unaJugadora.get(indiceSocia).getUnaSocia().isExJugadora()){
+                valor = "true";
+            }else{
+                valor ="false";
+            }
         }
         return valor;
     }    

@@ -4,6 +4,7 @@ import DataSources.PlanillaPartidoDS;
 import DataSources.PlanillaPartidoDS_Plantel;
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -1188,6 +1189,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         try {
             reporte = (JasperReport) JRLoader.loadObject(archivo);
             Map parameters = new HashMap();
+            String path = new File(".").getCanonicalPath();
+            System.out.println(path);
             parameters.put("subreport_datasource_plantelLocal", unPlantelLocalDS);
             parameters.put("subreport_datasource_plantelVisitante", unPlantelVisitanteDS);
 
@@ -1196,6 +1199,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(IResultadoPartido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
