@@ -1,5 +1,7 @@
 package main;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -965,5 +969,16 @@ public class ControladoraGlobal {
         } catch (ParseException ex) {
         }
         return fechaSO;
+    }
+    
+    public String rutaSistema(){
+        String path  = "";
+            try {
+                //Esto nos trae hasta mamisHocjey
+                path = new File(".").getCanonicalPath();
+            } catch (IOException ex) {
+                Logger.getLogger(ControladoraGlobal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return path;
     }
 }

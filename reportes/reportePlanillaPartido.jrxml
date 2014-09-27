@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePlanillaPartido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1027"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -68,6 +68,7 @@
 	<field name="pfVisitante" class="java.lang.String"/>
 	<field name="acVisitante" class="java.lang.String"/>
 	<field name="dtVisitante" class="java.lang.String"/>
+	<field name="ruta" class="java.lang.String"/>
 	<group name="Group1">
 		<groupFooter>
 			<band/>
@@ -97,7 +98,7 @@
 				<reportElement mode="Opaque" x="-21" y="-21" width="596" height="92" backcolor="#2C8A0E" uuid="dd0496e0-c490-4360-aed7-8b8f42b8b6c1"/>
 				<image>
 					<reportElement x="0" y="14" width="109" height="69" uuid="8b440598-8a3f-4917-88af-626d8eaf5d17"/>
-					<imageExpression><![CDATA[]]></imageExpression>
+					<imageExpression><![CDATA[$F{ruta} + "\\reportes\\Imagenes Reportes\\Logo Verde.png"]]></imageExpression>
 				</image>
 				<staticText>
 					<reportElement x="100" y="20" width="395" height="27" forecolor="#FFFFFF" uuid="ac2aa69c-0623-4c7a-8937-5197a6caa736"/>
@@ -186,12 +187,12 @@
 			<subreport>
 				<reportElement x="2" y="27" width="475" height="264" uuid="e6b529e0-253e-44cb-8446-17da94b1d780"/>
 				<dataSourceExpression><![CDATA[$P{subreport_datasource_plantelLocal}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["C:\\Users\\Lucas\\Documents\\GitHub\\mamisHockey\\reportes\\reportePlanillaPartido_unPlanel.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reportePlanillaPartido_unPlanel.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="2" y="351" width="475" height="264" uuid="b13cc3e6-e347-4350-9063-d91765c633ed"/>
 				<dataSourceExpression><![CDATA[$P{subreport_datasource_plantelVisitante}]]></dataSourceExpression>
-				<subreportExpression><![CDATA["C:\\Users\\Lucas\\Documents\\GitHub\\mamisHockey\\reportes\\reportePlanillaPartido_unPlanel.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reportePlanillaPartido_unPlanel.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
 				<reportElement x="0" y="296" width="170" height="12" uuid="49a4b5f8-4274-4568-9bb6-6e89a838e5b6"/>

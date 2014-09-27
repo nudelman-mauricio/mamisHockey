@@ -1,5 +1,7 @@
 package DataSources;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import logicaNegocios.Equipo;
 import logicaNegocios.Partido;
@@ -20,7 +22,7 @@ public class PlanillaPartidoDS implements JRDataSource {
     private ControladoraGlobal unaControladoraGlobal;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
 
-    public PlanillaPartidoDS(ControladoraGlobal unaControladoraGlobal, Partido unPartido) {
+    public PlanillaPartidoDS(ControladoraGlobal unaControladoraGlobal, Partido unPartido){
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unPartido = unPartido;
     }
@@ -35,7 +37,11 @@ public class PlanillaPartidoDS implements JRDataSource {
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
         //General
-        if ("fechaPartido".equals(jrf.getName())) {
+        
+        if ("ruta".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.rutaSistema();
+            //valor = unaControladoraGlobal.rutaSistema() + "\\reportes\\Imagenes Reportes\\Logo Verde.png";
+        } else if ("fechaPartido".equals(jrf.getName())) {
             valor = dateFormat.format(unPartido.getFecha());
         } else if ("nombreTorneo".equals(jrf.getName())) {
             valor = unaControladoraGlobal.getTorneoDePartido(unPartido).getNombre();
