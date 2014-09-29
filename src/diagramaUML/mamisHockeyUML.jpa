@@ -793,10 +793,10 @@
                 <Bounds x="663.0" y="323.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="816.0" y="165.0" width="222.0" height="24.0"/>
+                <Bounds x="816.0" y="165.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
-                <Bounds x="1221.0" y="0.0" width="138.0" height="24.0"/>
+                <Bounds x="1221.0" y="0.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870308298" id="_1397870308298_gui">
                 <Bounds x="1195.0" y="311.0" width="188.0" height="24.0"/>

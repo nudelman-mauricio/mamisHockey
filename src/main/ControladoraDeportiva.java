@@ -43,8 +43,8 @@ public class ControladoraDeportiva {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Sanciones">
-    public SancionTribunal crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
-        SancionTribunal unaSancion = new SancionTribunal(this.entityManager, fecha, motivo, detalles);
+    public SancionTribunal crearSancionTribunal(Partido unPartido, Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
+        SancionTribunal unaSancion = new SancionTribunal(this.entityManager, unPartido, fecha, motivo, detalles);
         if (unEquipo == null) {
             unaPersona.agregarSancionTribunal(entityManager, unaSancion);
         } else {

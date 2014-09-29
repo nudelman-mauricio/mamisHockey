@@ -268,8 +268,8 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Deportiva">
     // <editor-fold defaultstate="collapsed" desc="Sanciones">
-    public SancionTribunal crearSancionTribunal(Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
-        return this.unaControladoraDeportiva.crearSancionTribunal(unEquipo, unaPersona, fecha, motivo, detalles);
+    public SancionTribunal crearSancionTribunal(Partido unPartido, Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
+        return this.unaControladoraDeportiva.crearSancionTribunal(unPartido, unEquipo, unaPersona, fecha, motivo, detalles);
     }
 
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, boolean borradoLogico) {

@@ -59,7 +59,8 @@ public class SancionTribunal implements Serializable, Comparable {
 
     }
 
-    public SancionTribunal(EntityManager entityManager, Date fecha, String motivo, String detalles) {
+    public SancionTribunal(EntityManager entityManager, Partido unPartido, Date fecha, String motivo, String detalles) {
+        this.unPartido = unPartido;
         this.fecha = fecha;
         this.motivo = motivo;
         this.detalles = detalles;

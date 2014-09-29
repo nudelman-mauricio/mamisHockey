@@ -611,13 +611,13 @@ public class ISancion extends javax.swing.JInternalFrame {
                 if (unaSancionSeleccionada == null) {
                     SancionTribunal unaNuevaSancion = null;
                     if (unaSocia != null) {
-                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
+                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
                     }
                     if (unaPersonaAuxiliar != null) {
-                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, unaPersonaAuxiliar, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
+                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, null, unaPersonaAuxiliar, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
                     }
                     if (unEquipo != null) {
-                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(unEquipo, null, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
+                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, unEquipo, null, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
                     }
                     unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaNuevaSancion.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Sanción Guardada");

@@ -291,7 +291,7 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             if (unaTarjetaSeleccionada == null) {
                 if (jComboBoxTipoTarjeta.getSelectedItem().toString().equals("Roja")) {
-                    unaControladoraGlobal.crearTarjetaRoja(unaControladoraGlobal.crearSancionTribunal(null, unaSocia, unPartido.getFecha(), "Tarjeta Roja", "Partido: " + unPartido.toString()), unaSocia, unPartido, jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+                    unaControladoraGlobal.crearTarjetaRoja(unaControladoraGlobal.crearSancionTribunal(unPartido, null, unaSocia, unPartido.getFecha(), "Tarjeta Roja", "Partido: " + unPartido.toString()), unaSocia, unPartido, jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
                 } else {
                     unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
                 }
