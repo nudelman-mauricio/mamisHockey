@@ -1,15 +1,27 @@
 package Interfaces;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JViewport;
+import static javax.swing.SwingConstants.CENTER;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
+
+import tame.*;
 
 public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
@@ -18,6 +30,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private Equipo unEquipo;
     private DefaultTableModel modeloPlanillaCobranza;
     private DateFormat df = DateFormat.getDateInstance();
+    
+    //JTable jTablePlanillaCobranza;
+    MultiSpanCellTable fixedTable;
 
     public IPlanillaCobranza(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -363,4 +378,20 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldSubTotal;
     private javax.swing.JTextField jTextFieldTotal;
     // End of variables declaration//GEN-END:variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
