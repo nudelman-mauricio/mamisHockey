@@ -4,10 +4,8 @@ import DataSources.PlanillaPartidoDS;
 import DataSources.PlanillaPartidoDS_Plantel;
 import java.awt.Color;
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1176,9 +1174,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 unaControladoraGlobal.agregarJugadora(unPartido, (Socia) jTableVisitante.getValueAt(i, 2), (String) jTableVisitante.getValueAt(i, 1), false);
             }
         }
+        
         //Genera el reporte de la planilla de partido
-        System.out.println("Se mostro el informe de Planilla de Partido");
-
         //Reporte
         PlanillaPartidoDS unaPlanillaPartidoDS = new PlanillaPartidoDS(unaControladoraGlobal, unPartido);
         PlanillaPartidoDS_Plantel unPlantelLocalDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, unPartido, unPartido.getJugadorasLocales());
@@ -1239,7 +1236,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
                     IResultadoPartidoCargarTarjeta unaICargarTarjeta;
-                    if ((jTableLocal.getSelectedColumn() > 2) && (jTableLocal.getSelectedColumn() < 10)) {
+                    if ((jTableLocal.getSelectedColumn() > 2) && (jTableLocal.getSelectedColumn() < 9)) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
@@ -1258,7 +1255,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
                         IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
-                    } else if (jTableLocal.getSelectedColumn() == 10) {
+                    } else if (jTableLocal.getSelectedColumn() == 9) {
                         IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
                         unaICargarGol.pack();
                         unaICargarGol.setVisible(true);
@@ -1319,7 +1316,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 if (jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
                     IResultadoPartidoCargarTarjeta unaICargarTarjeta;
-                    if ((jTableVisitante.getSelectedColumn() > 2) && (jTableVisitante.getSelectedColumn() < 10)) {
+                    if ((jTableVisitante.getSelectedColumn() > 2) && (jTableVisitante.getSelectedColumn() < 9)) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
@@ -1338,7 +1335,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
                         IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
-                    } else if (jTableVisitante.getSelectedColumn() == 10) {
+                    } else if (jTableVisitante.getSelectedColumn() == 9) {
                         IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
                         unaICargarGol.pack();
                         unaICargarGol.setVisible(true);
