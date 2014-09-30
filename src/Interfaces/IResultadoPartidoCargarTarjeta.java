@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Partido;
+import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
@@ -291,7 +292,9 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             if (unaTarjetaSeleccionada == null) {
                 if (jComboBoxTipoTarjeta.getSelectedItem().toString().equals("Roja")) {
-                    unaControladoraGlobal.crearTarjetaRoja(unaControladoraGlobal.crearSancionTribunal(unPartido, null, unaSocia, unPartido.getFecha(), "Tarjeta Roja", "Partido: " + unPartido.toString()), unaSocia, unPartido, jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+                    SancionTribunal unaSancionParaRoja = unaControladoraGlobal.crearSancionTribunal(unPartido, null, unaSocia, unPartido.getFecha(), "Tarjeta Roja", "Partido: " + unPartido.toString());
+                    unaControladoraGlobal.modificarSancionTribunal(unaSancionParaRoja, unaSancionParaRoja.getFecha(), unaSancionParaRoja.getMotivo(), unaSancionParaRoja.getDetalles(), unaSancionParaRoja.getNumeroResolucion(), unaSancionParaRoja.getVencimiento(), 1, unaSancionParaRoja.isBorradoLogico());
+                    unaControladoraGlobal.crearTarjetaRoja(unaSancionParaRoja, unaSocia, unPartido, jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
                 } else {
                     unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
                 }

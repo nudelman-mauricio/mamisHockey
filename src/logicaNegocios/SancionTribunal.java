@@ -197,7 +197,7 @@ public class SancionTribunal implements Serializable, Comparable {
                 resultado = true;
             } else {
                 if ((this.cantFechas == 0) && (this.vencimiento != null)) {
-                    if (this.vencimiento.before(unaFecha)) {
+                    if (this.vencimiento.after(unaFecha)) {
                         resultado = true;
                     }
                 }

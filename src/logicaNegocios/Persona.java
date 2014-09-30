@@ -2,6 +2,7 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -222,8 +223,8 @@ public abstract class Persona implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-    public Collection<SancionTribunal> getSancionesVigentes(Date unaFecha) {
-        Collection<SancionTribunal> resultado = new TreeSet();
+    public ArrayList<SancionTribunal> getSancionesVigentes(Date unaFecha) {
+        ArrayList<SancionTribunal> resultado = new ArrayList();
         for (SancionTribunal unaSancionTribunal : this.getSancionesTribunal()) {
             if (unaSancionTribunal.isVigente(unaFecha)) {
                 resultado.add(unaSancionTribunal);
