@@ -135,6 +135,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePlanillaCobranza = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldTotal = new javax.swing.JTextField();
         jTextFieldSubTotal = new javax.swing.JTextField();
@@ -157,19 +160,12 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Pagar", "Fecha", "Concepto", "Observación", "Monto"
+                "Fecha", "Concepto", "Observación", "Monto"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -177,22 +173,51 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTablePlanillaCobranza);
         if (jTablePlanillaCobranza.getColumnModel().getColumnCount() > 0) {
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMinWidth(40);
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setPreferredWidth(40);
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMaxWidth(40);
-            jTablePlanillaCobranza.getColumnModel().getColumn(1).setMinWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(1).setPreferredWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setMinWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setPreferredWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setMaxWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMinWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setPreferredWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMaxWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(4).setMinWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(4).setPreferredWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMinWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(1).setMinWidth(200);
+            jTablePlanillaCobranza.getColumnModel().getColumn(1).setPreferredWidth(200);
+            jTablePlanillaCobranza.getColumnModel().getColumn(1).setMaxWidth(200);
+            jTablePlanillaCobranza.getColumnModel().getColumn(2).setPreferredWidth(400);
+            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMinWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMaxWidth(80);
         }
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Pagar", "DNI", "Apellido y Nombre", "Sub-Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(40);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
+
+        jLabel4.setText("Detalles");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -200,15 +225,22 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel4)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTextFieldTotal.setEditable(false);
@@ -343,7 +375,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -365,6 +397,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelDelegadas;
     private javax.swing.JLabel jLabelFechaHoy;
     private javax.swing.JLabel jLabelIdPlanilla;
@@ -373,6 +406,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTablePlanillaCobranza;
     private javax.swing.JTextField jTextFieldCostoCancha;
     private javax.swing.JTextField jTextFieldSubTotal;
