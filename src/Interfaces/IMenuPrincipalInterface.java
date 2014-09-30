@@ -1,20 +1,27 @@
 package Interfaces;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.border.Border;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
-import main.ImagenFondo;
 
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
@@ -36,6 +43,37 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         //FONDO jDesktopPane
         jDesktopPane.setBorder(new ImagenFondo());
     }
+
+    // <editor-fold defaultstate="collapsed" desc="CLASE Imagen Fondo">
+    public class ImagenFondo implements Border {
+
+        public BufferedImage back;
+
+        public ImagenFondo() {
+            try {
+                URL imagePath = new URL(getClass().getResource("../Iconos Nuevos/Fondo Mamis.png").toString());
+                back = ImageIO.read(imagePath);
+            } catch (IOException ex) {
+            }
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawImage(back, (x + (width - back.getWidth()) / 2), (y + (height - back.getHeight()) / 2), null);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(0, 0, 0, 0);
+        }
+
+        @Override
+        public boolean isBorderOpaque() {
+            return false;
+        }
+
+    }
+    // </editor-fold>
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -513,7 +551,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, String.valueOf(aux));
         }
     }
-    
+
     private void setEstadoSocia() {
         //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;
