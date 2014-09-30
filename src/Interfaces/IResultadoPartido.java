@@ -3,6 +3,7 @@ package Interfaces;
 import DataSources.PlanillaPartidoDS;
 import DataSources.PlanillaPartidoDS_Plantel;
 import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.HashMap;
@@ -11,9 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import static javax.swing.SwingConstants.CENTER;
+import static javax.swing.SwingConstants.LEFT;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Gol;
 import logicaNegocios.Jugadora;
@@ -21,7 +27,6 @@ import logicaNegocios.Partido;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
-import main.TableCellRendererColor;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -82,6 +87,46 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
     }
+
+    // <editor-fold defaultstate="collapsed" desc="CLASS Renderización de la tabla para aplicar color">
+    public class TableCellRendererColor extends DefaultTableCellRenderer {
+
+        private JLabel componente;
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            componente = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.      
+            if ((column == 2)) {
+                componente.setHorizontalAlignment(LEFT);
+            } else {
+                componente.setHorizontalAlignment(CENTER);
+            }
+
+            if (value instanceof Tarjeta) {
+                if ((column >= 3) && (column < 5)) {
+                    componente.setBackground(Color.green);
+                } else if ((column >= 6) && (column < 8)) {
+                    componente.setBackground(Color.yellow);
+                } else if ((column >= 8) && (column < 10)) {
+                    componente.setBackground(Color.red);
+                }
+                if (isSelected) {
+                    componente.setForeground(Color.black);
+                }
+            } else {
+                if (isSelected) {
+                    componente.setBackground(Color.GRAY);
+                } else {
+                    componente.setBackground(Color.white);
+                }
+            }
+
+            return componente;
+
+        }
+
+    }
+    // </editor-fold>
 
     public void cargarCampos() {
         // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
