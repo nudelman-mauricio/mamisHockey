@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.io.File;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -85,7 +86,17 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public void metodoParaRecorrerUnaCarpeta() {
+        File directorio = new File("reportes/"); //Directorio donde queres que recorra para buscar los archivos
+        String[] listaDirectorio = directorio.list();
+        if (listaDirectorio == null) {
+            System.out.println("No hay ficheros en el directorio especificado");
+        } else {
+            for (int x = 0; x < listaDirectorio.length; x++) {
+                System.out.println(listaDirectorio[x]);
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
