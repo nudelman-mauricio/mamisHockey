@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.DateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -13,11 +14,15 @@ import javax.swing.JTable;
 import javax.swing.JViewport;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
+import logicaNegocios.Jugadora_;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
@@ -28,11 +33,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Equipo unEquipo;
-    private DefaultTableModel modeloPlanillaCobranza;
+    private DefaultTableModel modeloPlantel;
+    private DefaultTableModel modeloDeudas;
     private DateFormat df = DateFormat.getDateInstance();
-    
-    //JTable jTablePlanillaCobranza;
-    MultiSpanCellTable fixedTable;
 
     public IPlanillaCobranza(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -41,7 +44,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
 
-        this.modeloPlanillaCobranza = (DefaultTableModel) jTablePlanillaCobranza.getModel();
+        this.modeloPlantel = (DefaultTableModel) jTablePlantel.getModel();
+        this.modeloDeudas = (DefaultTableModel) jTableDeudas.getModel();
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
@@ -50,57 +54,123 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         cargarCampos();
 
-        jLabelFechaHoy.setText("Fecha:" + df.format(unaControladoraGlobal.fechaSistema()));
+        jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));
+        
+        // <editor-fold defaultstate="collapsed" desc="Mes">
+        String mes = "";
+        switch (unaControladoraGlobal.fechaSistema().getMonth()) {
+            case 1:
+                mes = "Enero";
+                break;
+            case 2:
+                mes = "Febrero";
+                break;
+            case 3:
+                mes = "Marzo";
+                break;
+            case 4:
+                mes = "Abril";
+                break;
+            case 5:
+                mes = "Mayo";
+                break;
+            case 6:
+                mes = "Junio";
+                break;
+            case 7:
+                mes = "Julio";
+                break;
+            case 8:
+                mes = "Agosto";
+                break;
+            case 9:
+                mes = "Septiembre";
+                break;
+            case 10:
+                mes = "Octubre";
+                break;
+            case 11:
+                mes = "Noviembre";
+                break;
+            case 12:
+                mes = "Diciembre";
+                break;
+        }
+        // </editor-fold>
+        jLabelTitulo.setText("Planilla Mensual " + unEquipo.getNombre() + " - " + mes);
 
     }
 
     public void cargarCampos() {
-
-        cargarPlanilla(modeloPlanillaCobranza);
-
-        //Costo cancha
-        //jTextFieldSubTotal.setText(SUMATORIA DE totales Socia);
-        //Total
-        jTextFieldTotal.setText(String.valueOf(Double.parseDouble((jTextFieldSubTotal.getText()) + Double.parseDouble(jTextFieldCostoCancha.getText()))));
-
+        cargarTablaPlantel();
+        calcularCostos();
     }
 
-    public void cargarPlanilla(DefaultTableModel modeloTable) {
-        limpiarTabla(modeloTable);
+    public void cargarTablaPlantel() {
+        limpiarTabla(this.modeloPlantel);
+        double SubTotalxSocia;
+        for (Socia unaSocia : unEquipo.getPlantel()) {
+            SubTotalxSocia = 0;
 
-        for (Socia unSocia : unEquipo.getPlantel()) {
-            Object[] unaLinea = new Object[11];
-            for (Deuda unaDeuda : unaControladoraGlobal.getDeudasMesSocias(null, unSocia)) {
-                switch (unaDeuda.getUnConceptoDeportivo().getConcepto()) {
-                    case "Inscripción":
-                        unaLinea[3] = unaDeuda;
-                        break;
-                    case "Re-Inscripción":
-                        unaLinea[4] = unaDeuda;
-                        break;
-                    case "Fichaje":
-                        unaLinea[5] = unaDeuda;
-                        break;
-                    case "Re-Fichaje":
-                        unaLinea[6] = unaDeuda;
-                        break;
-                    case "Cuota Mensual":
-                        unaLinea[7] = unaDeuda;
-                        break;
-                    case "Pase":
-                        unaLinea[8] = unaDeuda;
-                        break;
-                    case "Otro":
-                        //Arrglar el problema que puede haber mas de una deuda en concepto de OTRO
-                        unaLinea[9] = unaDeuda;
-                        break;
-                    default:
-                        //Por ahora pasa nada
-                        break;
+            //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
+            Date fechaHasta = unaControladoraGlobal.fechaSistema();
+            fechaHasta.setMonth(fechaHasta.getMonth() + 1);
+            fechaHasta.setDate(8);
+
+            for (Deuda unaDeuda : unaSocia.getDeudas()) {
+                if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
+                    for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                        if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                            SubTotalxSocia += unaCuota.getMonto();
+                        }
+                    }
                 }
-                modeloTable.addRow(unaLinea);
+            }
+
+            this.modeloPlantel.addRow(new Object[]{true, unaSocia.getDni(), unaSocia, unaSocia.getUltimoEstado().getUnTipoEstado().getNombre(), SubTotalxSocia});
+        }
+    }
+
+    public void cargarDeudas(Socia unaSocia) {
+        limpiarTabla(this.modeloDeudas);
+
+        //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
+        Date fechaHasta = unaControladoraGlobal.fechaSistema();
+        fechaHasta.setMonth(fechaHasta.getMonth() + 1);
+        fechaHasta.setDate(8);
+
+        for (Deuda unaDeuda : unaSocia.getDeudas()) {
+            if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
+                for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                    if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                        this.modeloDeudas.addRow(new Object[]{df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getUnConceptoDeportivo(), unaCuota.getNumero(), df.format(unaCuota.getFechaVencimiento()), unaDeuda.getObservacion(), unaCuota.getMonto()});
+                    }
+                }
             }
         }
+    }
+
+    private void calcularCostos() {
+        //SubTotal:
+        double subTotalSocia = 0.0;
+        for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
+            if ((boolean) jTablePlantel.getValueAt(i, 0)) {
+                subTotalSocia += (double) jTablePlantel.getValueAt(i, 4);
+            }
+        }
+        jTextFieldSubTotal.setText(String.valueOf(subTotalSocia));
+
+        //Costo cancha
+        double costoCancha = 0.0;
+        for (Deuda unaDeuda : unEquipo.getDeudas()) {
+            if (!unaDeuda.isSaldado()) {
+                costoCancha += unaDeuda.getMontoTotal();
+            }
+        }
+        jTextFieldCostoCancha.setText(String.valueOf(costoCancha));
+
+        //Total
+        jTextFieldTotal.setText(String.valueOf(costoCancha + subTotalSocia));
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -134,10 +204,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablePlanillaCobranza = new javax.swing.JTable();
+        jTableDeudas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablePlantel = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldTotal = new javax.swing.JTextField();
         jTextFieldSubTotal = new javax.swing.JTextField();
@@ -154,70 +225,134 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jComboBoxDelegadas = new javax.swing.JComboBox();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
-        jTablePlanillaCobranza.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDeudas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha", "Concepto", "Observación", "Monto"
+                "Fecha", "Concepto", "Cuota", "Vencimiento", "Observación", "Monto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTablePlanillaCobranza);
-        if (jTablePlanillaCobranza.getColumnModel().getColumnCount() > 0) {
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMinWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setPreferredWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(1).setMinWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(1).setMaxWidth(200);
-            jTablePlanillaCobranza.getColumnModel().getColumn(2).setPreferredWidth(400);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMinWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setPreferredWidth(80);
-            jTablePlanillaCobranza.getColumnModel().getColumn(3).setMaxWidth(80);
+        jScrollPane1.setViewportView(jTableDeudas);
+        if (jTableDeudas.getColumnModel().getColumnCount() > 0) {
+            jTableDeudas.getColumnModel().getColumn(0).setMinWidth(80);
+            jTableDeudas.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTableDeudas.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTableDeudas.getColumnModel().getColumn(1).setMinWidth(110);
+            jTableDeudas.getColumnModel().getColumn(1).setPreferredWidth(110);
+            jTableDeudas.getColumnModel().getColumn(1).setMaxWidth(110);
+            jTableDeudas.getColumnModel().getColumn(2).setMinWidth(50);
+            jTableDeudas.getColumnModel().getColumn(2).setPreferredWidth(50);
+            jTableDeudas.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTableDeudas.getColumnModel().getColumn(3).setMinWidth(80);
+            jTableDeudas.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jTableDeudas.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTableDeudas.getColumnModel().getColumn(4).setPreferredWidth(400);
+            jTableDeudas.getColumnModel().getColumn(5).setMinWidth(80);
+            jTableDeudas.getColumnModel().getColumn(5).setPreferredWidth(80);
+            jTableDeudas.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePlantel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Pagar", "DNI", "Apellido y Nombre", "Sub-Total"
+                "Pagar", "DNI", "Apellido y Nombre", "Estado", "Sub-Total"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(40);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(80);
+        jScrollPane2.setViewportView(jTablePlantel);
+        if (jTablePlantel.getColumnModel().getColumnCount() > 0) {
+            jTablePlantel.getColumnModel().getColumn(0).setMinWidth(40);
+            jTablePlantel.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTablePlantel.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTablePlantel.getColumnModel().getColumn(1).setMinWidth(60);
+            jTablePlantel.getColumnModel().getColumn(1).setPreferredWidth(60);
+            jTablePlantel.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTablePlantel.getColumnModel().getColumn(3).setMinWidth(120);
+            jTablePlantel.getColumnModel().getColumn(3).setPreferredWidth(120);
+            jTablePlantel.getColumnModel().getColumn(3).setMaxWidth(120);
+            jTablePlantel.getColumnModel().getColumn(4).setMinWidth(80);
+            jTablePlantel.getColumnModel().getColumn(4).setPreferredWidth(80);
+            jTablePlantel.getColumnModel().getColumn(4).setMaxWidth(80);
         }
+        jTablePlantel.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                if (jTablePlantel.getSelectedRow() > -1) {
+                    if (jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(), 0) != null) {
+                        cargarDeudas((Socia) jTablePlantel.getValueAt(jTablePlantel.getSelectedRow(),2));
+                    }
+                }
+                calcularCostos();
+            }
+        });
 
-        jLabel4.setText("Detalles");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Detalles:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Plantel:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -226,17 +361,21 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(3, 3, 3)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(3, 3, 3)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,7 +471,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabelFechaHoy)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -387,8 +526,40 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
+        if (camposValidar()) {
+            Socia unaSocia;
+            //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
+            Date fechaHasta = unaControladoraGlobal.fechaSistema();
+            fechaHasta.setMonth(fechaHasta.getMonth() + 1);
+            fechaHasta.setDate(8);
 
+            for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
+                if ((boolean) jTablePlantel.getValueAt(i, 0)) {
+                    unaSocia = (Socia) jTablePlantel.getValueAt(i, 2);
+
+                    //Recorrido de las deudas para pagar
+                    for (Deuda unaDeuda : unaSocia.getDeudas()) {
+                        if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
+                            for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                                if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                                    unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            //Generar Informe de PAGO.
+        }
     }//GEN-LAST:event_jButtonPagarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        if (unJInternalFrame != null) {
+            this.unJInternalFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -398,6 +569,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDelegadas;
     private javax.swing.JLabel jLabelFechaHoy;
     private javax.swing.JLabel jLabelIdPlanilla;
@@ -407,26 +579,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTablePlanillaCobranza;
+    private javax.swing.JTable jTableDeudas;
+    private javax.swing.JTable jTablePlantel;
     private javax.swing.JTextField jTextFieldCostoCancha;
     private javax.swing.JTextField jTextFieldSubTotal;
     private javax.swing.JTextField jTextFieldTotal;
     // End of variables declaration//GEN-END:variables
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
