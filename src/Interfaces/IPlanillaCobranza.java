@@ -1,10 +1,13 @@
 package Interfaces;
 
+import DataSources.PlanilladePagoDS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -25,6 +28,9 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Jugadora_;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 import tame.*;
 
@@ -55,7 +61,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         cargarCampos();
 
         jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));
-        
+
         // <editor-fold defaultstate="collapsed" desc="Mes">
         String mes = "";
         switch (unaControladoraGlobal.fechaSistema().getMonth()) {
@@ -97,7 +103,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 break;
         }
         // </editor-fold>
-        jLabelTitulo.setText("Planilla Mensual " + unEquipo.getNombre() + " - " + mes);
+        jLabelTitulo.setText("Planilla Mensual " + unEquipo.getNombre() + " - " + mes + "/" + unaControladoraGlobal.fechaSistema().getYear());
 
     }
 
@@ -527,6 +533,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
         if (camposValidar()) {
+            //Reporte
+                        
+            List<Socia> SociaPagaron = null;
+            
+            // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
             Socia unaSocia;
             //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
             Date fechaHasta = unaControladoraGlobal.fechaSistema();
@@ -536,7 +547,10 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
                 if ((boolean) jTablePlantel.getValueAt(i, 0)) {
                     unaSocia = (Socia) jTablePlantel.getValueAt(i, 2);
-
+                    
+                    //Lista para el Reporte
+                    SociaPagaron.add(unaSocia);
+                    
                     //Recorrido de las deudas para pagar
                     for (Deuda unaDeuda : unaSocia.getDeudas()) {
                         if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
@@ -550,8 +564,19 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
                 }
             }
+            // </editor-fold>
+            
+            // <editor-fold defaultstate="collapsed" desc="Pago Deudas Cancha">
+            for (Deuda unaDeuda : unEquipo.getDeudas()) {
+                if (!unaDeuda.isSaldado()) {
+                    System.out.println("FALTA FUNCION PAGAR DEUDA CANCHA");
+                }
+            }
+            // </editor-fold>
 
-            //Generar Informe de PAGO.
+            PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "idPlanilla", "nombrePago", jTextFieldCostoCancha.getText(),jTextFieldSubTotal.getText(), jTextFieldTotal.getText());
+            PlanilladePagoDS.ejecutarReporte(SociaPagaron);
+        
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
 

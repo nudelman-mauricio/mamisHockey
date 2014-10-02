@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePlanillaPagos_unPlantel_unaDeuda" language="groovy" pageWidth="525" pageHeight="802" columnWidth="525" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="17b3249e-e4bd-464d-8d6b-823b806746b0">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="933"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idCuota" class="java.lang.String"/>
+	<field name="fechaCreacion" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="fechaVencimiento" class="java.lang.String"/>
+	<field name="numeroCuota" class="java.lang.String"/>
+	<field name="observacion" class="java.lang.String"/>
+	<field name="monto" class="java.lang.String"/>
+	<variable name="SubTotal" class="java.lang.String"/>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="13" uuid="68b458c7-e2c8-4a9d-acb3-a0816a8af55e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{idCuota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="61" height="13" uuid="80dc9251-1e3a-4a70-842c-072541fb3863"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fechaCreacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="100" height="13" uuid="3d5ac6a1-6651-4174-8366-5a231a153855"/>
+				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="0" width="34" height="13" uuid="78ad55a4-a312-45b4-b460-7431ef09dac6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{numeroCuota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="0" width="61" height="13" uuid="90e38939-88e2-410b-999a-4fa3d25da52e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="60" height="13" uuid="ceb07e91-1089-4589-8634-6633427b1a74"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="452" y="0" width="13" height="13" uuid="83e37cff-f71f-405d-b592-ee33078e828d"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="452" y="0" width="73" height="13" uuid="7fd83455-0809-458f-b328-c13632b3d1f6"/>
+				<textFieldExpression><![CDATA[$V{SubTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

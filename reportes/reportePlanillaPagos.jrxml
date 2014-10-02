@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePlanillaPagos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="d5982e50-dc36-4d51-a5de-0cdfafb59392"/>
+	<subDataset name="Table Dataset 2" uuid="64d804de-6719-45f9-ba17-1928d60aaa8c"/>
+	<parameter name="subreport_datasource_unPlantel" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="ruta" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="idPlanilla" class="java.lang.String"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="nombrePago" class="java.lang.String"/>
+	<field name="costoCancha" class="java.lang.String"/>
+	<field name="subTotal" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<group name="Group1">
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group3">
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group4">
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="-21" width="596" height="92" backcolor="#2C8A0E" uuid="dd0496e0-c490-4360-aed7-8b8f42b8b6c1"/>
+				<image>
+					<reportElement x="0" y="14" width="109" height="69" uuid="8b440598-8a3f-4917-88af-626d8eaf5d17"/>
+					<imageExpression><![CDATA[$F{ruta} + "\\reportes\\Imagenes Reportes\\Logo Verde.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="100" y="20" width="395" height="27" forecolor="#FFFFFF" uuid="ac2aa69c-0623-4c7a-8937-5197a6caa736"/>
+					<textElement textAlignment="Center">
+						<font size="20" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Asociacion Misionera de Mamis's Hockey]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="148" y="47" width="298" height="16" forecolor="#FFFFFF" uuid="169eb4a4-416f-49b8-b52a-cda0774a65e1"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fundada 2002 - Persona Jurídica N° A 2277]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="194" y="63" width="207" height="13" forecolor="#FFFFFF" uuid="9e803af1-a6d5-4a1b-96e6-afefff15e69e"/>
+					<text><![CDATA[E-Mail: info@mamishockeymisiones.com.ar]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41">
+			<textField>
+				<reportElement x="0" y="28" width="140" height="13" uuid="35124811-d901-47cc-9af5-308c67bb1bd6"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["N° de Planilla: " + $F{idPlanilla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="26" width="140" height="15" uuid="b11026aa-cb36-40a3-bfed-ed8503175db1"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Pago efectuado por: " + $F{nombrePago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="-15" width="128" height="15" forecolor="#FFFFFF" uuid="f4639b16-c04a-4e91-a74c-9ac78f803a4e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="132" y="4" width="291" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="95">
+			<line>
+				<reportElement x="0" y="1" width="554" height="1" uuid="68467c3b-01e5-40d4-97f6-69b0bef2988f"/>
+				<graphicElement>
+					<pen lineWidth="1.25" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<subreport>
+				<reportElement x="2" y="12" width="550" height="44" uuid="76deb50f-6d2e-4e9d-98ed-e381749be621"/>
+				<dataSourceExpression><![CDATA[$P{subreport_datasource_unPlantel}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reportePlanillaPartido_unPlantel.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26">
+			<textField>
+				<reportElement x="426" y="8" width="84" height="13" uuid="dadf672f-faa8-4b9a-a463-a2c83077759a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="8" width="40" height="13" uuid="61ab94aa-167f-4208-a261-bcdcf1b322ee"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="61">
+			<textField>
+				<reportElement x="452" y="40" width="100" height="20" uuid="b9e2dc82-63d9-4201-8c46-c2dd04bb6070"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="0" width="100" height="20" uuid="4f170127-b4de-4d9e-8c0b-1243ad90c8ac"/>
+				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="20" width="100" height="20" uuid="e5c74d41-7cb1-4348-8206-7295c35eea54"/>
+				<textFieldExpression><![CDATA[$F{costoCancha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

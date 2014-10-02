@@ -1224,7 +1224,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IResultadoPartido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
