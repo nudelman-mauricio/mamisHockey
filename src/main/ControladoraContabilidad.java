@@ -149,18 +149,21 @@ public class ControladoraContabilidad {
     }
 
     public Deuda getDeudaPagoCuota(PagoCuota unPago) {
-        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE";
-        List<Deuda> unaListaResultado = this.entityManager.createQuery("SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE").getResultList();
-        List<Cuota> cuotas;
-        for (Deuda unaDeuda : unaListaResultado) {
-            if (unaDeuda.getMontoTotal() > 0) {
-                cuotas = (List<Cuota>) unaDeuda.getCuotas();
-                for (Cuota unaCuota : cuotas) {
-                    if (unaCuota.getUnPagoCuota() != null) {
-                        if (unaCuota.getUnPagoCuota() == unPago) {
-                            return unaDeuda;
-                        }
-                    }
+        for (Deuda unaDeuda : this.getDeudaBD()) {
+            for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                if (unaCuota.getUnPagoCuota() == unPago) {
+                    return unaDeuda;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Deuda getDeudaDeCuota(Cuota unaCuotaParametro) {
+        for (Deuda unaDeuda : this.getDeudaBD()) {
+            for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                if (unaCuota == unaCuotaParametro) {
+                    return unaDeuda;
                 }
             }
         }

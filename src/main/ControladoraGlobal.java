@@ -145,8 +145,6 @@ public class ControladoraGlobal {
             porPase = this.crearConceptoDeportivo(0.0, "Pase", null, null, null);
         }
 
-       
-
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, this.getConceptoDeportivoBD("Pase"), observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
 
         this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
@@ -309,11 +307,10 @@ public class ControladoraGlobal {
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
-    
-    public void computarTarjeta(Tarjeta unaTarjeta) {
-        this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
-    }
 
+//    public void computarTarjeta(Tarjeta unaTarjeta) {
+//        this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
+//    }
     public Tarjeta getTarjetaBD(Long id) {
         return this.unaControladoraDeportiva.getTarjetaBD(id);
     }
@@ -632,11 +629,11 @@ public class ControladoraGlobal {
     public List<Partido> getPartidosBD() {
         return this.unaControladoraDeportiva.getPartidosBD();
     }
-    
+
     public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
         return unaControladoraDeportiva.getCamisetaPartido(unPartido, unaSocia);
     }
-    
+
     public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
         return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
     }
@@ -718,10 +715,10 @@ public class ControladoraGlobal {
         }
         if (this.getConceptoDeportivoBD("Cuota Baja por Mora") == null) {
             this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
-        }        
+        }
         if (this.getConceptoDeportivoBD("Cancha") == null) {
             this.crearConceptoDeportivo(0, "Cancha", null, null, null);
-        }        
+        }
         if (this.getConceptoDeportivoBD("Fichaje") == null) {
             this.crearConceptoDeportivo(120, "Fichaje", null, null, null);
         }
@@ -753,7 +750,7 @@ public class ControladoraGlobal {
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         this.unaControladoraContabilidad.eliminarConceptoDeportivo(unConceptoDeportivo);
     }
-    
+
     public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(id);
     }
@@ -761,11 +758,11 @@ public class ControladoraGlobal {
     public ConceptoDeportivo getConceptoDeportivoBD(String concepto) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(concepto);
     }
-    
+
     public Vector<ConceptoDeportivo> getConceptosDeportivosAutomaticosBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosAutomaticosBD();
     }
-    
+
     public Vector<ConceptoDeportivo> getConceptosDeportivosManualesBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosManualesBD();
     }
@@ -800,6 +797,14 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.getDeudaoEntreFechas(desde, hasta);
     }
 
+    public Deuda getDeudaPagoCuota(PagoCuota unPago) {
+        return this.unaControladoraContabilidad.getDeudaPagoCuota(unPago);
+    }
+
+    public Deuda getDeudaDeCuota(Cuota unaCuota) {
+        return this.unaControladoraContabilidad.getDeudaDeCuota(unaCuota);
+    }
+
     public List<Deuda> getDeudasMesSocias(Date fecha, Socia unaSocia) {
         return null;
     }
@@ -808,10 +813,6 @@ public class ControladoraGlobal {
     // <editor-fold defaultstate="collapsed" desc="Cuotas">
     public Cuota getCuotaBD(Long id) {
         return this.unaControladoraContabilidad.getCuotaBD(id);
-    }
-
-    public Deuda getDeudaPagoCuota(PagoCuota unPago) {
-        return this.unaControladoraContabilidad.getDeudaPagoCuota(unPago);
     }
     // </editor-fold>
 
@@ -970,15 +971,15 @@ public class ControladoraGlobal {
         }
         return fechaSO;
     }
-    
-    public String rutaSistema(){
-        String path  = "";
-            try {
-                //Esto nos trae hasta mamisHocjey
-                path = new File(".").getCanonicalPath();
-            } catch (IOException ex) {
-                Logger.getLogger(ControladoraGlobal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+    public String rutaSistema() {
+        String path = "";
+        try {
+            //Esto nos trae hasta mamisHocjey
+            path = new File(".").getCanonicalPath();
+        } catch (IOException ex) {
+            Logger.getLogger(ControladoraGlobal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return path;
     }
 }

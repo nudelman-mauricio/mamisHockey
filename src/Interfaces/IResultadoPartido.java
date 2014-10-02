@@ -225,7 +225,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Datos Planteles">
         if (unPartido.getJugadoras().isEmpty()) {
-
             cargarPlanteles();
         } else {
             cargarJugadoras();
@@ -351,7 +350,23 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
+            return false;
         }
+        return bandera;
+    }
+
+    /**
+     * Verifica que si hay 3 verdes exista si o si una amarilla. Si no hay avisa
+     * con cartel y no guarda.
+     *
+     * Ademas marca con "Computada" a las tarjetas que corresponde. Ej: 3 verdes
+     * y una amarilla, Computa las 3 verdes.
+     *
+     * @return
+     */
+    private boolean tarjetasValidar() {
+        boolean bandera = true;
+        
         return bandera;
     }
 
