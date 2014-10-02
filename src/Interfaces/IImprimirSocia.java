@@ -76,6 +76,23 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         setMaximumSize(new java.awt.Dimension(545, 387));
         setMinimumSize(new java.awt.Dimension(545, 387));
         setPreferredSize(new java.awt.Dimension(545, 387));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabelNombreJugadora.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelNombreJugadora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -353,6 +370,10 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

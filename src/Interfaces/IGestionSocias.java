@@ -9,11 +9,11 @@ import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IGestionSocias extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaSocia;
     private Socia unaSociaSeleccionada = null;
-    
+
     public IGestionSocias(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -22,14 +22,14 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Socias");
         IMenuPrincipalInterface.centrar(this);
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTablaSocia.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaSocia.removeRow(0);
         }
     }
-    
+
     private void camposCargar() {
         if (jTableSocias.getSelectedRow() > -1) {
             if (jTableSocias.getValueAt(jTableSocias.getSelectedRow(), 0) != null) {
@@ -38,7 +38,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     private void camposActivo(boolean Editable) {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
@@ -50,7 +50,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonEstado.setEnabled(Editable);
         jButtonContabilidad.setEnabled(Editable);
     }
-    
+
     private void cargarTabla() {
         limpiarTabla();
         String ultimoEstado;
@@ -60,7 +60,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             } else {
                 ultimoEstado = "-";
             }
-            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.getApellido(), unaSocia.getNombre(), unaSocia.isExJugadora(), ultimoEstado, unaSocia.getEquipoActual()});
+            this.modeloTablaSocia.addRow(new Object[]{unaSocia.getDni(), unaSocia.toString(), unaSocia.isExJugadora(), ultimoEstado, unaSocia.getEquipoActual()});
         }
     }
 
@@ -71,6 +71,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
+        jButtonImprimir1 = new javax.swing.JButton();
         jPanelFiltro = new javax.swing.JPanel();
         jTextFieldBusqueda = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -88,9 +89,9 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Gestión de Socias");
-        setMaximumSize(new java.awt.Dimension(845, 660));
-        setMinimumSize(new java.awt.Dimension(845, 660));
-        setPreferredSize(new java.awt.Dimension(845, 660));
+        setMaximumSize(new java.awt.Dimension(900, 660));
+        setMinimumSize(new java.awt.Dimension(900, 660));
+        setPreferredSize(new java.awt.Dimension(900, 660));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -131,6 +132,12 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
+        jButtonImprimir1.setText("Imprimir Lista");
+        jButtonImprimir1.setEnabled(false);
+        jButtonImprimir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
         jPanelBotonesLayout.setHorizontalGroup(
@@ -142,6 +149,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonImprimir1)
                 .addGap(3, 3, 3))
         );
         jPanelBotonesLayout.setVerticalGroup(
@@ -151,7 +160,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -193,14 +203,14 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "DNI", "Apellido", "Nombre", "Ex-Jugadora", "Estado", "Equipo"
+                "DNI", "Apellido, Nombres", "Ex-Jugadora", "Estado", "Equipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -216,9 +226,12 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             jTableSocias.getColumnModel().getColumn(0).setMinWidth(60);
             jTableSocias.getColumnModel().getColumn(0).setPreferredWidth(60);
             jTableSocias.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTableSocias.getColumnModel().getColumn(3).setMinWidth(80);
-            jTableSocias.getColumnModel().getColumn(3).setPreferredWidth(80);
-            jTableSocias.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTableSocias.getColumnModel().getColumn(2).setMinWidth(80);
+            jTableSocias.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTableSocias.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTableSocias.getColumnModel().getColumn(3).setMinWidth(120);
+            jTableSocias.getColumnModel().getColumn(3).setPreferredWidth(120);
+            jTableSocias.getColumnModel().getColumn(3).setMaxWidth(120);
         }
         jTableSocias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -362,7 +375,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                     .addComponent(jPanelBotones2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -407,7 +420,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
-    
+
 
     private void jButtonErgometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonErgometriaActionPerformed
         IErgometria unaIErgometria = new IErgometria(unaControladoraGlobal, this, unaSociaSeleccionada);
@@ -496,6 +509,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonErgometria;
     private javax.swing.JButton jButtonEstado;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JButton jButtonImprimir1;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonPases;
     private javax.swing.JButton jButtonSancion;
