@@ -12,6 +12,7 @@
 	<field name="desde" class="java.lang.String"/>
 	<field name="hasta" class="java.lang.String"/>
 	<field name="ruta" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
 	<variable name="TotalI" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{MontoI}]]></variableExpression>
 	</variable>
@@ -47,25 +48,34 @@
 	<title>
 		<band height="74">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="596" height="92" backcolor="#2C8A0E" uuid="35001143-f26f-45ca-9bb9-1af4334f991d"/>
+				<reportElement mode="Opaque" x="-22" y="-20" width="597" height="94" backcolor="#2C8A0E" uuid="b1fa6fda-45f1-43c0-8e1d-1ae9ad910725"/>
+				<image>
+					<reportElement x="0" y="14" width="109" height="69" uuid="728556f2-4407-406a-a4cf-7f899794aa1b"/>
+					<imageExpression><![CDATA[$F{ruta} + "\\reportes\\Imagenes Reportes\\Logo Verde.png"]]></imageExpression>
+				</image>
 				<staticText>
-					<reportElement x="100" y="20" width="395" height="27" forecolor="#FFFFFF" uuid="2d40ae47-e213-4e27-9901-cb34809e5318"/>
+					<reportElement x="100" y="20" width="395" height="27" forecolor="#FFFFFF" uuid="4c88a6ee-ef97-4c1c-836d-ee02e516d145"/>
 					<textElement textAlignment="Center">
 						<font size="20" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Asociacion Misionera de Mamis's Hockey]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="148" y="47" width="298" height="16" forecolor="#FFFFFF" uuid="e7571af5-485d-4736-a680-e4f757786f76"/>
+					<reportElement x="148" y="47" width="298" height="16" forecolor="#FFFFFF" uuid="2401f7b8-cdb7-420b-8b02-da58277b5ad7"/>
 					<textElement textAlignment="Center">
 						<font size="12" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Fundada 2002 - Persona Jurídica N° A 2277]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="194" y="63" width="207" height="13" forecolor="#FFFFFF" uuid="fc16980c-ae4f-4336-a56a-4cf58291fb8a"/>
+					<reportElement x="194" y="63" width="207" height="13" forecolor="#FFFFFF" uuid="b062c1df-086e-4467-827b-d964d9125c27"/>
 					<text><![CDATA[E-Mail: info@mamishockeymisiones.com.ar]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="446" y="79" width="128" height="15" forecolor="#FFFFFF" uuid="584bba84-5a94-4ffb-90d9-14d0ba1d7b03"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>

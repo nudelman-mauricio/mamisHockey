@@ -171,6 +171,8 @@ public class BalanceMensualDS implements JRDataSource {
             valor = desde;
         } else if ("hasta".equals(jrf.getName())) {
             valor = hasta;
+        } else if ("fecha".equals(jrf.getName())) {
+            valor = df.format(unaControladoraGlobal.fechaSistema());
         }
         return valor;
     }

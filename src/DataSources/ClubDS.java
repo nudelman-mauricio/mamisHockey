@@ -6,6 +6,7 @@
 
 package DataSources;
 
+import java.text.DateFormat;
 import logicaNegocios.Club;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -20,6 +21,7 @@ public class ClubDS implements JRDataSource {
     private Club unClub;  
     private int indiceEquipoActual = -1;
     private ControladoraGlobal unaControladoraGlobal;
+    private DateFormat df = DateFormat.getDateInstance();
     
     
     public ClubDS(Club unClub, ControladoraGlobal unaControladoraGlobal){
@@ -43,6 +45,8 @@ public class ClubDS implements JRDataSource {
             valor = unClub.getNombrePresidente();
         } else if ("localidad".equals(jrf.getName())) {
             valor = unClub.getUnaLocalidad();
+        } else if ("fecha".equals(jrf.getName())) {
+            valor = df.format(unaControladoraGlobal.fechaSistema());
         } 
         return valor;    
     }

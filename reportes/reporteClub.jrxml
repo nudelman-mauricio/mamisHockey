@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteClub" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9f180319-66dc-4f22-830d-fc8faaf9c450">
-	<property name="ireport.zoom" value="1.3660269107301415"/>
+	<property name="ireport.zoom" value="2.000000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -32,9 +32,10 @@
 	<field name="presidente" class="java.lang.String"/>
 	<field name="localidad" class="java.lang.String"/>
 	<field name="ruta" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
 	<group name="Group1">
 		<groupHeader>
-			<band height="35">
+			<band height="33">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="114" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="3fad9ffe-a9f6-4475-8aff-d68cb5f7db26"/>
 					<textElement>
@@ -43,25 +44,31 @@
 					<text><![CDATA[Datos del Club]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="132" y="0" width="65" height="20" uuid="f3d5765d-5be6-42f1-b8a9-ace1a83a2020"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement x="136" y="0" width="77" height="20" uuid="f3d5765d-5be6-42f1-b8a9-ace1a83a2020"/>
+					<textElement textAlignment="Right">
+						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Presidente]]></text>
+					<text><![CDATA[Presidente:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="316" y="0" width="66" height="20" uuid="99e4cf32-dac4-49ac-a26e-043b3c2be207"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement x="332" y="0" width="63" height="20" uuid="99e4cf32-dac4-49ac-a26e-043b3c2be207"/>
+					<textElement textAlignment="Right">
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Localidad:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="197" y="0" width="100" height="20" uuid="24d86ca0-8c2f-4759-b5da-08922e0752a2"/>
+					<reportElement x="221" y="0" width="94" height="20" uuid="24d86ca0-8c2f-4759-b5da-08922e0752a2"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{presidente}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="382" y="0" width="100" height="20" uuid="431a1c58-5165-45ef-a645-d80b681369fb"/>
+					<reportElement x="401" y="0" width="94" height="20" uuid="431a1c58-5165-45ef-a645-d80b681369fb"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
 				</textField>
 				<line>
@@ -75,7 +82,7 @@
 	</group>
 	<group name="Group2">
 		<groupHeader>
-			<band height="56">
+			<band height="55">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="114" height="55" forecolor="#666666" backcolor="#E6E6E6" uuid="edd19179-8e97-47cb-85e3-c01fa98df553"/>
 					<textElement>
@@ -129,20 +136,48 @@
 	<title>
 		<band height="72">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="98dd6519-98e7-45ef-b06e-48ede1b46bdc"/>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="20" y="20" width="416" height="54" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="0a24f009-0a7c-4c61-84cc-a2f0cc70dfe1"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="SansSerif" size="34" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
+				<reportElement mode="Opaque" x="-22" y="-22" width="597" height="94" backcolor="#2C8A0E" uuid="764e3ea0-3100-4429-8759-ecbc228d4b79"/>
+				<image>
+					<reportElement x="0" y="14" width="109" height="69" uuid="fdbb4674-9acf-4414-b7fb-645b298c7364"/>
+					<imageExpression><![CDATA[$F{ruta} + "\\reportes\\Imagenes Reportes\\Logo Verde.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="100" y="20" width="395" height="27" forecolor="#FFFFFF" uuid="50a9fb8b-2898-45bf-afde-27a662150b95"/>
+					<textElement textAlignment="Center">
+						<font size="20" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{club}]]></textFieldExpression>
+					<text><![CDATA[Asociacion Misionera de Mamis's Hockey]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="148" y="47" width="298" height="16" forecolor="#FFFFFF" uuid="4cec8e69-49b9-4e72-ae00-f00ec8195bc2"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fundada 2002 - Persona Jurídica N° A 2277]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="194" y="63" width="207" height="13" forecolor="#FFFFFF" uuid="4d698bf5-1e5b-4d47-8a30-321da0e80383"/>
+					<text><![CDATA[E-Mail: info@mamishockeymisiones.com.ar]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="449" y="79" width="128" height="15" forecolor="#FFFFFF" uuid="b641c6ad-1c22-4f61-aaaa-9145b11ed605"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band height="37">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="86a9cb74-19c9-4170-bde9-fcd8f405dc52"/>
+				<textElement verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Club:  "+ $F{club}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnFooter>
 		<band/>
