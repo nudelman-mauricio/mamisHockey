@@ -192,6 +192,12 @@
             <jpa:one-to-many name="sancionesTribunal" target-entity="SancionTribunal" collection-type="java.util.Collection" connected-entity-id="_1397870308298" visibile="true" id="_139880564807679">
                 <jpa:join-table/>
             </jpa:one-to-many>
+            <jpa:one-to-many name="planillasPagos" target-entity="PlanillaPago" collection-type="java.util.Collection" connected-entity-id="_1412270930951" visibile="true" id="_1412271412943177">
+                <jpa:join-table/>
+            </jpa:one-to-many>
+            <jpa:one-to-many name="deudas" target-entity="Deuda" collection-type="java.util.Collection" connected-entity-id="_1397868049586" visibile="true" id="_1412272281999265">
+                <jpa:join-table/>
+            </jpa:one-to-many>
             <jpa:one-to-one name="unDT" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_1397871100087289">
                 <jpa:join-table/>
             </jpa:one-to-one>
@@ -720,6 +726,30 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
+    <jpa:entity class="PlanillaPago" visibile="true" minimized="true" id="_1412270930951">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_1412270961429170">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="nroRecibo" attribute-type="long" visibile="true" id="_1412270972863171">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="rutaPDF" attribute-type="String" visibile="true" id="_1412270973077172">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1412270973707174">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="fechaPago" attribute-type="java.util.Date" visibile="true" id="_1412270974197175">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:one-to-one name="responsablePago" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1412271305459176">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
     <jpa:embeddable class="Jugadora" visibile="true" minimized="true" id="_1411085510237">
         <jpa:attributes>
             <jpa:basic name="camiseta" attribute-type="String" visibile="true" id="_1411085528328183">
@@ -754,7 +784,7 @@
                 <Bounds x="1213.0" y="-212.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
-                <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
+                <Bounds x="36.0" y="-168.0" width="183.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866545595" id="_1397866545595_gui">
                 <Bounds x="22.0" y="-3.0" width="171.0" height="24.0"/>
@@ -818,6 +848,9 @@
             </shape>
             <shape elementRef="_1400096950412" id="_1400096950412_gui">
                 <Bounds x="-852.0" y="21.0" width="158.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1412270930951" id="_1412270930951_gui">
+                <Bounds x="940.0" y="327.0" width="166.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865228592" id="_1397865228592_gui">
                 <Bounds x="1213.0" y="-782.0" width="144.0" height="24.0"/>

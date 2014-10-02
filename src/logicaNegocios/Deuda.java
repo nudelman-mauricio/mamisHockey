@@ -40,7 +40,7 @@ public class Deuda implements Serializable, Comparable {
 
     @Basic
     private boolean borradoLogico;
-// </editor-fold>
+    // </editor-fold>
 
     public Deuda() {
 

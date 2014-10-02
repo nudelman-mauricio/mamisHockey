@@ -21,31 +21,34 @@ public class Equipo implements Serializable, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEquipo;
 
-    @OneToOne(optional = false, targetEntity = Socia.class)
+    @OneToOne(targetEntity = Socia.class)
     private Socia unaDelegadaSuplente;
+
+    @OneToMany(targetEntity = PlanillaPago.class)
+    private Collection<PlanillaPago> planillasPagos;
 
     @OneToMany(targetEntity = Deuda.class)
     private Collection<Deuda> deudas;
 
-    @OneToOne(optional = false, targetEntity = Socia.class)
+    @OneToOne(targetEntity = Socia.class)
     private Socia unaCapitanaSuplente;
 
     @OneToMany(targetEntity = Indumentaria.class)
     private Collection<Indumentaria> indumentarias;
 
-    @OneToOne(optional = false, targetEntity = Socia.class)
+    @OneToOne(targetEntity = Socia.class)
     private Socia unaDelegada;
 
     @Basic
     private String nombre;
 
-    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unAyudanteCampo;
 
-    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unPreparadorFisico;
 
-    @OneToOne(optional = false, targetEntity = Socia.class)
+    @OneToOne(targetEntity = Socia.class)
     private Socia unaCapitana;
 
     @OneToMany(targetEntity = SancionTribunal.class)
@@ -57,7 +60,7 @@ public class Equipo implements Serializable, Comparable {
     @Basic
     private boolean borradoLogico;
 
-    @OneToOne(optional = false, targetEntity = PersonaAuxiliar.class)
+    @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unDT;
     // </editor-fold>
 
@@ -93,6 +96,14 @@ public class Equipo implements Serializable, Comparable {
 
     public void setUnaDelegadaSuplente(Socia unaDelegadaSuplente) {
         this.unaDelegadaSuplente = unaDelegadaSuplente;
+    }
+
+    public Collection<PlanillaPago> getPlanillasPagos() {
+        return this.planillasPagos;
+    }
+
+    public void setPlanillasPagos(Collection<PlanillaPago> planillasPagos) {
+        this.planillasPagos = planillasPagos;
     }
 
     public Collection<Deuda> getDeudas() {
@@ -230,6 +241,13 @@ public class Equipo implements Serializable, Comparable {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="PlanillasPagos">
+    public void agregarPlanillaPago(EntityManager entityManager, PlanillaPago unaPlanillaPago) {
+        this.planillasPagos.add(unaPlanillaPago);
+        this.persistir(entityManager);
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Indumentaria">
     public void agregarIndumentaria(EntityManager entityManager, Indumentaria unaIndumentaria) {
         this.indumentarias.add(unaIndumentaria);
@@ -283,7 +301,7 @@ public class Equipo implements Serializable, Comparable {
 
     private void cartelAdvertencia(String auxiliar) {
         //CARTEL ADVERTENCIA DE ELIMINAR A UNA SOCIA QUE ES CAPITANA O DELEGADA
-        JOptionPane.showMessageDialog(null, "La operación que realizó dejó sin " + auxiliar + " al Equipo " + this.getNombre(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "La operaciÃ³n que realizÃ³ dejÃ³ sin " + auxiliar + " al Equipo " + this.getNombre(), "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
     // </editor-fold>
 
