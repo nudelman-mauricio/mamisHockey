@@ -143,9 +143,9 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setResizable(true);
-        setMaximumSize(new java.awt.Dimension(650, 417));
-        setMinimumSize(new java.awt.Dimension(650, 417));
-        setPreferredSize(new java.awt.Dimension(650, 417));
+        setMaximumSize(new java.awt.Dimension(650, 546));
+        setMinimumSize(new java.awt.Dimension(650, 546));
+        setPreferredSize(new java.awt.Dimension(650, 546));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -303,7 +303,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
 
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -349,7 +349,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabelFechaMonto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
