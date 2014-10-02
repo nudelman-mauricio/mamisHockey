@@ -391,6 +391,16 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+//        DEBERIA SER LA VENTANA!!!
+
+//        IImprimirEquipo unIImprimirEquipo = new IImprimirEquipo(unaControladoraGlobal, this, unEquipoSeleccionado);
+//        unIImprimirEquipo.pack();
+//        unIImprimirEquipo.setVisible(true);
+//        this.setVisible(false);
+//        IMenuPrincipalInterface.jDesktopPane.add(unIImprimirEquipo);
+//
+//          NO BORRAR LO ANTERIOR
+//        
         Equipo_PlantelDS unPlantelDS = new Equipo_PlantelDS(unEquipoSeleccionado.getPlantel());
         EquipoDS unEquipoDS = new EquipoDS(unaControladoraGlobal, unEquipoSeleccionado);
         File archivo = new File("reportes/reporteEquipo.jasper");
@@ -500,7 +510,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaIHistoricoPagos.pack();
         unaIHistoricoPagos.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIHistoricoPagos);        
+        IMenuPrincipalInterface.jDesktopPane.add(unaIHistoricoPagos);
     }//GEN-LAST:event_jButtonHistorialPagosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

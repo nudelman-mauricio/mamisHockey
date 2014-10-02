@@ -6,31 +6,31 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import logicaNegocios.Socia;
+import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
 
-public class IImprimirSocia extends javax.swing.JInternalFrame {
+public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
-    private Socia unaSociaSeleccionada = null;
+    private Equipo unEquipoSeleccionado = null;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public IImprimirSocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
+    public IImprimirEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
-        this.unaSociaSeleccionada = unaSocia;
+        this.unEquipoSeleccionado = unEquipo;
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/printer.png"))); //Icono Ventana
-        this.setTitle("Reportes para Imrimir de: " + unaSocia.toString()); //Titulo Ventana
+        this.setTitle("Reportes para Imrimir de: " + unEquipoSeleccionado.toString()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
-        jLabelNombreJugadora.setText(unaSocia.toString());
+        jLabelNombreEquipo.setText(unEquipoSeleccionado.toString());
     }
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (!jRadioButtonDatosPersonales.isSelected() && !jRadioButtonTarjetas.isSelected() && !jRadioButtonPases.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonErgometrias.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonEstados.isSelected()) {
+        if (!jRadioButtonDatos.isSelected() && !jRadioButtonPlantel.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonIndumentaria.isSelected() && !jRadioButtonContabilidad.isSelected()&& !jRadioButtonPagos.isSelected()) {
             bandera = false;
         }
         if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {
@@ -48,18 +48,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabelNombreJugadora = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jRadioButtonDatosPersonales = new javax.swing.JRadioButton();
-        jRadioButtonTarjetas = new javax.swing.JRadioButton();
-        jRadioButtonPases = new javax.swing.JRadioButton();
-        jRadioButtonSanciones = new javax.swing.JRadioButton();
-        jRadioButtonErgometrias = new javax.swing.JRadioButton();
-        jRadioButtonContabilidad = new javax.swing.JRadioButton();
-        jRadioButtonEstados = new javax.swing.JRadioButton();
-        jPanelBotones = new javax.swing.JPanel();
-        jButtonImprimir = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
+        jLabelNombreEquipo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -71,120 +60,24 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
+        jPanel4 = new javax.swing.JPanel();
+        jRadioButtonDatos = new javax.swing.JRadioButton();
+        jRadioButtonPlantel = new javax.swing.JRadioButton();
+        jRadioButtonSanciones = new javax.swing.JRadioButton();
+        jRadioButtonIndumentaria = new javax.swing.JRadioButton();
+        jRadioButtonContabilidad = new javax.swing.JRadioButton();
+        jRadioButtonPagos = new javax.swing.JRadioButton();
+        jPanelBotones = new javax.swing.JPanel();
+        jButtonImprimir = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
 
-        setClosable(true);
-        setMaximumSize(new java.awt.Dimension(545, 387));
-        setMinimumSize(new java.awt.Dimension(545, 387));
-        setPreferredSize(new java.awt.Dimension(545, 387));
+        setMaximumSize(new java.awt.Dimension(545, 361));
+        setMinimumSize(new java.awt.Dimension(545, 361));
+        setPreferredSize(new java.awt.Dimension(545, 361));
 
-        jLabelNombreJugadora.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelNombreJugadora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelNombreJugadora.setText("María Antonieta de las Nieves como la Chilindrina");
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle a Imprimir", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        jPanel4.setName(""); // NOI18N
-
-        buttonGroup1.add(jRadioButtonDatosPersonales);
-        jRadioButtonDatosPersonales.setText("Datos Personales");
-
-        buttonGroup1.add(jRadioButtonTarjetas);
-        jRadioButtonTarjetas.setText("Historial Tarjetas");
-
-        buttonGroup1.add(jRadioButtonPases);
-        jRadioButtonPases.setText("Historial Pases");
-
-        buttonGroup1.add(jRadioButtonSanciones);
-        jRadioButtonSanciones.setText("Historial Sanciones");
-
-        buttonGroup1.add(jRadioButtonErgometrias);
-        jRadioButtonErgometrias.setText("Historial Ergometrías");
-
-        buttonGroup1.add(jRadioButtonContabilidad);
-        jRadioButtonContabilidad.setText("Historial Contable");
-
-        buttonGroup1.add(jRadioButtonEstados);
-        jRadioButtonEstados.setText("Historial Estados");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonDatosPersonales)
-                    .addComponent(jRadioButtonTarjetas)
-                    .addComponent(jRadioButtonPases)
-                    .addComponent(jRadioButtonSanciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonErgometrias)
-                    .addComponent(jRadioButtonContabilidad)
-                    .addComponent(jRadioButtonEstados))
-                .addGap(57, 57, 57))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonDatosPersonales)
-                    .addComponent(jRadioButtonErgometrias))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonTarjetas)
-                    .addComponent(jRadioButtonContabilidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonPases)
-                    .addComponent(jRadioButtonEstados))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButtonSanciones)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImprimirActionPerformed(evt);
-            }
-        });
-
-        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
-        jPanelBotones.setLayout(jPanelBotonesLayout);
-        jPanelBotonesLayout.setHorizontalGroup(
-            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelBotonesLayout.setVerticalGroup(
-            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonImprimir))
-                .addGap(3, 3, 3))
-        );
+        jLabelNombreEquipo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelNombreEquipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelNombreEquipo.setText("Equipo Nombre Equipo del Nombre del Equipo");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -283,6 +176,105 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle a Imprimir", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        jPanel4.setName(""); // NOI18N
+
+        buttonGroup1.add(jRadioButtonDatos);
+        jRadioButtonDatos.setText("Datos");
+
+        buttonGroup1.add(jRadioButtonPlantel);
+        jRadioButtonPlantel.setText("Plantel");
+
+        buttonGroup1.add(jRadioButtonSanciones);
+        jRadioButtonSanciones.setText("Sanciones del Equipo");
+
+        buttonGroup1.add(jRadioButtonIndumentaria);
+        jRadioButtonIndumentaria.setText("Indumentaria");
+
+        buttonGroup1.add(jRadioButtonContabilidad);
+        jRadioButtonContabilidad.setText("Historial Contable");
+
+        buttonGroup1.add(jRadioButtonPagos);
+        jRadioButtonPagos.setText("Historial Pagos");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonDatos)
+                    .addComponent(jRadioButtonPlantel)
+                    .addComponent(jRadioButtonSanciones))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonContabilidad)
+                    .addComponent(jRadioButtonPagos)
+                    .addComponent(jRadioButtonIndumentaria))
+                .addGap(71, 71, 71))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonDatos)
+                    .addComponent(jRadioButtonIndumentaria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonPlantel)
+                    .addComponent(jRadioButtonContabilidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonSanciones)
+                    .addComponent(jRadioButtonPagos))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/cancel.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
+        jPanelBotones.setLayout(jPanelBotonesLayout);
+        jPanelBotonesLayout.setHorizontalGroup(
+            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotonesLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelBotonesLayout.setVerticalGroup(
+            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotonesLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonImprimir))
+                .addGap(3, 3, 3))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -290,7 +282,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelNombreJugadora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNombreEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -300,24 +292,18 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelNombreJugadora)
+                .addComponent(jLabelNombreEquipo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.setVisible(false);
-        this.dispose();
-        this.unJInternalFrame.setVisible(true);
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         if (camposValidar()) {
@@ -327,25 +313,22 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
 
-                if (jRadioButtonDatosPersonales.isSelected()) {
+                if (jRadioButtonDatos.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonTarjetas.isSelected()) {
+                if (jRadioButtonPlantel.isSelected()) {
                     //llamar reporte
-                }
-                if (jRadioButtonPases.isSelected()) {
-                    //llamar reporte
-                }
+                }                
                 if (jRadioButtonSanciones.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonErgometrias.isSelected()) {
+                if (jRadioButtonIndumentaria.isSelected()) {
                     //llamar reporte
                 }
                 if (jRadioButtonContabilidad.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonEstados.isSelected()) {
+                if (jRadioButtonPagos.isSelected()) {
                     //llamar reporte
                 }
             } catch (ParseException ex) {
@@ -353,6 +336,13 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+        this.dispose();
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -366,18 +356,17 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabelNombreJugadora;
+    private javax.swing.JLabel jLabelNombreEquipo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JRadioButton jRadioButtonContabilidad;
-    private javax.swing.JRadioButton jRadioButtonDatosPersonales;
-    private javax.swing.JRadioButton jRadioButtonErgometrias;
-    private javax.swing.JRadioButton jRadioButtonEstados;
-    private javax.swing.JRadioButton jRadioButtonPases;
+    private javax.swing.JRadioButton jRadioButtonDatos;
+    private javax.swing.JRadioButton jRadioButtonIndumentaria;
+    private javax.swing.JRadioButton jRadioButtonPagos;
+    private javax.swing.JRadioButton jRadioButtonPlantel;
     private javax.swing.JRadioButton jRadioButtonSanciones;
-    private javax.swing.JRadioButton jRadioButtonTarjetas;
     // End of variables declaration//GEN-END:variables
 }

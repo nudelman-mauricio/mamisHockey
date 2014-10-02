@@ -482,7 +482,11 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+        IImprimirSocia unIImprimirSocia = new IImprimirSocia(unaControladoraGlobal, this, unaSociaSeleccionada);
+        unIImprimirSocia.pack();
+        unIImprimirSocia.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unIImprimirSocia);
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
