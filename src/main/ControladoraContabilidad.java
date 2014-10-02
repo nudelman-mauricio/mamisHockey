@@ -17,6 +17,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.Mes;
 import logicaNegocios.PagoCuota;
+import logicaNegocios.PlanillaPago;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoCancha;
 import logicaNegocios.TipoEstado;
@@ -495,6 +496,31 @@ public class ControladoraContabilidad {
         String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
         Query traerMes = this.entityManager.createQuery(unaConsulta);
         return ((Mes) traerMes.getSingleResult());
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
+    public PlanillaPago crearPlanillaPago(Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+        return new PlanillaPago(this.entityManager, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+    }
+
+    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+        unaPlanillaPago.setFechaPago(fechaPago);
+        unaPlanillaPago.setMonto(monto);
+        unaPlanillaPago.setNroRecibo(nroRecibo);
+        unaPlanillaPago.setResponsablePago(responsablePago);
+        unaPlanillaPago.setRutaPDF(rutaPDF);
+        unaPlanillaPago.persistir(this.entityManager);
+    }
+
+    public PlanillaPago getPlanillaPagoBD(Long id) {
+        Query traerPlanillaPago = this.entityManager.createQuery("SELECT aux FROM PlanillaPago aux WHERE aux.id = " + id);
+        return ((PlanillaPago) traerPlanillaPago.getSingleResult());
+    }
+
+    public List<PlanillaPago> getPlanillasPagosBD() {
+        List<PlanillaPago> unaListaResultado = this.entityManager.createQuery("SELECT aux FROM PlanillaPago aux ORDER BY aux.fechaPago ASC").getResultList();
+        return unaListaResultado;
     }
     // </editor-fold>
 }

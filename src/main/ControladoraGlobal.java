@@ -958,7 +958,25 @@ public class ControladoraGlobal {
     public Mes getMesDB(int numeroMes) {
         return this.unaControladoraContabilidad.getMesDB(numeroMes);
     }
-    // </editor-fold>    
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
+    public PlanillaPago crearPlanillaPago(Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+        return this.unaControladoraContabilidad.crearPlanillaPago(fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+    }
+
+    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+        this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+    }
+
+    public PlanillaPago getPlanillaPagoBD(Long id) {
+        return this.unaControladoraContabilidad.getPlanillaPagoBD(id);
+    }
+
+    public List<PlanillaPago> getPlanillasPagosBD() {
+        return this.unaControladoraContabilidad.getPlanillasPagosBD();
+    }
+    // </editor-fold>  
 // </editor-fold>
 
     public Date fechaSistema() {
