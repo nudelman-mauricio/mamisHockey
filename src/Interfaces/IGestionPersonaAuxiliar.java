@@ -1,5 +1,7 @@
 package Interfaces;
 
+import DataSources.ListaPersonaAuxiliarDS;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -141,9 +143,13 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jButtonImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir1.setText("Imprimir Lista");
-        jButtonImprimir1.setEnabled(false);
         jButtonImprimir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimir1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
@@ -424,6 +430,28 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
+
+    private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
+       List<PersonaAuxiliar> personasAuxiliares = new ArrayList();
+       PersonaAuxiliar unaPersonaAux; 
+       int filas = this.modeloTablaPersonaAuxiliar.getRowCount();        
+        for (int i = 0; i < filas; i++) {           
+            unaPersonaAux = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(i, 0));            
+            personasAuxiliares.add(unaPersonaAux);
+        }
+        String opcion ;
+        if(jRadioButtonArbitros.isSelected()){
+            opcion = "Arbitros";
+        } else {
+            if(jRadioButtonTecnicos.isSelected()){
+                opcion = "Tecnicos";
+            } else {
+                opcion = "Personas Auxiliares";
+            }
+        }        
+        ListaPersonaAuxiliarDS unaListaPersonaAuxiliarDS = new ListaPersonaAuxiliarDS(unaControladoraGlobal, personasAuxiliares, opcion );
+        unaListaPersonaAuxiliarDS.verReporte(false);
+    }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

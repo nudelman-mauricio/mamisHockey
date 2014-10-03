@@ -2,8 +2,11 @@ package Interfaces;
 
 import DataSources.EquipoDS;
 import DataSources.Equipo_PlantelDS;
+import DataSources.ListaEquiposDS;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -142,9 +145,13 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
         jButtonImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir1.setText("Imprimir Lista");
-        jButtonImprimir1.setEnabled(false);
         jButtonImprimir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimir1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
@@ -524,6 +531,18 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaIHistoricoPagos);
     }//GEN-LAST:event_jButtonHistorialPagosActionPerformed
+
+    private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
+        List<Equipo> equipos = new ArrayList();
+        int filas = this.modeloTablaEquipo.getRowCount();        
+        for (int i = 0; i < filas; i++) {           
+            unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(i, 0));            
+            equipos.add(unEquipoSeleccionado);
+        }
+        ListaEquiposDS unaListaEquipoDS = new ListaEquiposDS(unaControladoraGlobal, equipos);
+        unaListaEquipoDS.verReporte(false);
+        
+    }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContabilidad;
