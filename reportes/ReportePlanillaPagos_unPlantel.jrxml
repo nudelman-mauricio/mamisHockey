@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePlanillaPagos_unPlantel" language="groovy" pageWidth="550" pageHeight="842" columnWidth="550" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6fe9edd1-58b4-43d8-aa58-84a5f54e9fa3">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -11,50 +11,74 @@
 	<field name="ruta" class="java.lang.String"/>
 	<field name="subReporte" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<columnHeader>
-		<band height="22">
+		<band height="19">
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="15" uuid="f1405cd2-9e27-4776-b713-8824135ab2c3"/>
-				<textElement>
-					<font size="11" isBold="true"/>
+				<reportElement x="100" y="2" width="61" height="13" uuid="8c6380a8-ca1a-4ec6-a085-67f15659a427"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[DNI]]></text>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="0" width="200" height="15" uuid="cc49e606-2859-4b35-bf68-45871c41dd5e"/>
-				<textElement>
-					<font size="11" isBold="true"/>
+				<reportElement x="485" y="2" width="65" height="13" uuid="562bae44-03ae-492a-91f1-7607a1c2a441"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Apellido y Nombre]]></text>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="2" width="68" height="13" uuid="13ed7856-182d-428d-ae09-97b106c2327d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="2" width="34" height="13" uuid="f22025e8-bfb1-4b63-b25c-897496e41763"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="2" width="61" height="13" uuid="da0cdc99-e9c5-4786-9321-9c43e62e46c2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vencimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="2" width="100" height="13" uuid="93faac42-7244-4c1e-88cc-b793248164dd"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="16" width="550" height="1" uuid="387f7ddf-3f61-4b80-bf64-90ceed346f79"/>
-				<graphicElement>
-					<pen lineWidth="1.0" lineStyle="Double"/>
-				</graphicElement>
+				<reportElement x="0" y="14" width="550" height="1" uuid="1f0387d0-2e9e-483a-b0d4-8c7bbbc19f91"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="17" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="100" height="15" uuid="921d37f6-861e-4778-9d3b-c19763514970"/>
-				<textElement>
-					<font size="11"/>
+				<reportElement x="0" y="0" width="550" height="12" uuid="53d98c7d-3e26-4d88-8f38-3f59231b34de"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="0" width="200" height="15" uuid="53d98c7d-3e26-4d88-8f38-3f59231b34de"/>
-				<textElement>
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{apellidoNombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dni} + "   " +  $F{apellidoNombre}]]></textFieldExpression>
 			</textField>
 			<subreport>
 				<reportElement x="10" y="15" width="540" height="0" uuid="1f86e462-23a5-4cb7-9b14-1deaf452670d"/>
 				<dataSourceExpression><![CDATA[$F{subReporte}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\ReportePlanillaPagos_unPlantel_unaDeuda.jasper"]]></subreportExpression>
 			</subreport>
+			<line>
+				<reportElement x="0" y="12" width="550" height="1" uuid="05dbb494-e580-4225-a83e-e9db7f8a26db"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
 		</band>
 	</detail>
 </jasperReport>

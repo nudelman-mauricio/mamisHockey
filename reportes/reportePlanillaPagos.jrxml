@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePlanillaPagos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="2.253944402704733"/>
+	<property name="ireport.x" value="52"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -54,6 +54,7 @@
 	<field name="subTotal" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
 	<field name="subReporte" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="idRecibo" class="java.lang.String"/>
 	<group name="Group1">
 		<groupFooter>
 			<band/>
@@ -100,26 +101,16 @@
 					<reportElement x="194" y="63" width="207" height="13" forecolor="#FFFFFF" uuid="9e803af1-a6d5-4a1b-96e6-afefff15e69e"/>
 					<text><![CDATA[E-Mail: info@mamishockeymisiones.com.ar]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="448" y="77" width="128" height="15" forecolor="#FFFFFF" uuid="f4639b16-c04a-4e91-a74c-9ac78f803a4e"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="41">
-			<textField>
-				<reportElement x="0" y="28" width="140" height="13" uuid="35124811-d901-47cc-9af5-308c67bb1bd6"/>
-				<textElement verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA["N° de Planilla: " + $F{idPlanilla}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="415" y="26" width="140" height="15" uuid="b11026aa-cb36-40a3-bfed-ed8503175db1"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA["Pago efectuado por: " + $F{nombrePago}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="427" y="-15" width="128" height="15" forecolor="#FFFFFF" uuid="f4639b16-c04a-4e91-a74c-9ac78f803a4e"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
-			</textField>
+		<band height="30">
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="2" y="4" width="552" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
@@ -134,15 +125,9 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="95">
-			<line>
-				<reportElement x="0" y="1" width="554" height="1" uuid="68467c3b-01e5-40d4-97f6-69b0bef2988f"/>
-				<graphicElement>
-					<pen lineWidth="1.25" lineColor="#000000"/>
-				</graphicElement>
-			</line>
+		<band height="50">
 			<subreport>
-				<reportElement x="2" y="12" width="550" height="44" uuid="76deb50f-6d2e-4e9d-98ed-e381749be621"/>
+				<reportElement x="2" y="4" width="550" height="44" uuid="76deb50f-6d2e-4e9d-98ed-e381749be621"/>
 				<dataSourceExpression><![CDATA[$F{subReporte}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reportePlanillaPagos_unPlantel.jasper"]]></subreportExpression>
 			</subreport>
@@ -152,7 +137,7 @@
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="26">
+		<band height="23">
 			<textField>
 				<reportElement x="426" y="8" width="84" height="13" uuid="dadf672f-faa8-4b9a-a463-a2c83077759a"/>
 				<textElement textAlignment="Right"/>
@@ -165,18 +150,71 @@
 		</band>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="61">
+		<band height="51">
+			<rectangle radius="10">
+				<reportElement mode="Transparent" x="393" y="0" width="162" height="51" uuid="1bebbf31-dfce-483c-b7e1-965964e457ce"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement mode="Transparent" x="0" y="0" width="390" height="51" uuid="5039fc0b-dd89-4147-ab6c-0d4643c725c5"/>
+			</rectangle>
 			<textField>
-				<reportElement x="452" y="40" width="100" height="20" uuid="b9e2dc82-63d9-4201-8c46-c2dd04bb6070"/>
+				<reportElement x="7" y="20" width="253" height="13" uuid="b11026aa-cb36-40a3-bfed-ed8503175db1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Pago efectuado por: " + $F{nombrePago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="496" y="36" width="50" height="13" uuid="b9e2dc82-63d9-4201-8c46-c2dd04bb6070"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="452" y="0" width="100" height="20" uuid="4f170127-b4de-4d9e-8c0b-1243ad90c8ac"/>
+				<reportElement x="496" y="4" width="50" height="13" uuid="4f170127-b4de-4d9e-8c0b-1243ad90c8ac"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="452" y="20" width="100" height="20" uuid="e5c74d41-7cb1-4348-8206-7295c35eea54"/>
+				<reportElement x="496" y="20" width="50" height="13" uuid="e5c74d41-7cb1-4348-8206-7295c35eea54"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{costoCancha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="483" y="4" width="13" height="13" uuid="f48865fd-0d4c-4be2-8635-9db109c01a42"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="4" width="86" height="13" uuid="acf2545e-e931-4c5d-9c81-4f85cb17704e"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Sub Total Socias:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="20" width="13" height="13" uuid="299ebbac-2f71-4763-8b21-45f36f843730"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="20" width="86" height="13" uuid="b4e28733-f630-4688-b987-cf63bb190c34"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Costo Cancha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="36" width="13" height="13" uuid="e748b85c-0aad-4a43-a734-4a1febc208aa"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="36" width="86" height="13" uuid="86fe85a3-c2c2-4cad-87db-fd394d901bc7"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="7" y="36" width="329" height="13" uuid="81ee447a-41c4-4395-ba35-4da154224807"/>
+				<textFieldExpression><![CDATA["EMITIDO RECIBO OFICIAL DE LA ASOCIACIÓN Nro. " + $F{idRecibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="4" width="151" height="13" uuid="35124811-d901-47cc-9af5-308c67bb1bd6"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["N° de Planilla: " + $F{idPlanilla}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>

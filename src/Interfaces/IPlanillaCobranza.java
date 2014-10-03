@@ -1,53 +1,24 @@
 package Interfaces;
 
-import DataSources.PlanillaPartidoDS;
-import DataSources.PlanillaPartidoDS_Plantel;
 import DataSources.PlanilladePagoDS;
-import DataSources.PlanilladePagoDS_unPlantel;
-import DataSources.PlanilladePagoDS_unPlantel_unaDeuda;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JViewport;
-import static javax.swing.SwingConstants.CENTER;
-import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
-import logicaNegocios.Jugadora_;
+import logicaNegocios.PlanillaPago;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
-
-import tame.*;
 
 public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
@@ -68,8 +39,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         this.modeloPlantel = (DefaultTableModel) jTablePlantel.getModel();
         this.modeloDeudas = (DefaultTableModel) jTableDeudas.getModel();
-        
-        
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
@@ -79,6 +48,10 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         cargarCampos();
 
         jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));
+        jComboBoxDelegadas.removeAllItems();
+        jComboBoxDelegadas.addItem(unEquipo.getUnaDelegada());
+        jComboBoxDelegadas.addItem(unEquipo.getUnaDelegadaSuplente());
+        jComboBoxDelegadas.setSelectedIndex(-1);
 
         // <editor-fold defaultstate="collapsed" desc="Mes">
         String mes = "";
@@ -121,7 +94,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 break;
         }
         // </editor-fold>
-        jLabelTitulo.setText("Planilla Mensual " + unEquipo.getNombre() + " - " + mes + "/" + dateFormatYear.format(unaControladoraGlobal.fechaSistema()));
+        jLabelTitulo.setText("Planilla de Pago Mensual de " + unEquipo.getNombre() + " - " + mes + "/" + dateFormatYear.format(unaControladoraGlobal.fechaSistema()));
 
     }
 
@@ -150,8 +123,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     }
                 }
             }
-
-            this.modeloPlantel.addRow(new Object[]{true, unaSocia.getDni(), unaSocia, unaSocia.getUltimoEstado().getUnTipoEstado().getNombre(), SubTotalxSocia});
+            boolean pagar = true;
+            if (SubTotalxSocia == 0.0) {
+                pagar = false;
+            }
+            this.modeloPlantel.addRow(new Object[]{pagar, unaSocia.getDni(), unaSocia, unaSocia.getUltimoEstado().getUnTipoEstado().getNombre(), SubTotalxSocia});
         }
     }
 
@@ -210,11 +186,17 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (jComboBoxDelegadas.getSelectedIndex() == -1) {
-            jLabelDelegadas.setForeground(Color.red);
+//        if (jComboBoxDelegadas.getSelectedIndex() == -1) {
+//            jLabelDelegadas.setForeground(Color.red);
+//            bandera = false;
+//        } else {
+//            jLabelDelegadas.setForeground(Color.black);
+//        }
+        if (jTextFieldIdRecibo.getText().isEmpty()) {
+            jLabelIdRecibo.setForeground(Color.red);
             bandera = false;
         } else {
-            jLabelDelegadas.setForeground(Color.black);
+            jLabelIdRecibo.setForeground(Color.black);
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
@@ -241,13 +223,13 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButtonPagar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabelTitulo = new javax.swing.JLabel();
-        jLabelIdPlanilla = new javax.swing.JLabel();
-        jLabelFechaHoy = new javax.swing.JLabel();
+        jTextFieldIdRecibo = new javax.swing.JTextField();
+        jLabelIdRecibo = new javax.swing.JLabel();
         jLabelDelegadas = new javax.swing.JLabel();
         jComboBoxDelegadas = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelFechaHoy = new javax.swing.JLabel();
 
         setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -429,34 +411,42 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel6.setText("agregar el campo para ingresar nro recibo");
+        jLabelIdRecibo.setText("Numero de Recibo:");
+
+        jLabelDelegadas.setText("Pagado por:");
+
+        jComboBoxDelegadas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delegada", "Sub-Delegada" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 493, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelIdRecibo)
+                            .addComponent(jLabelDelegadas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxDelegadas, 0, 180, Short.MAX_VALUE)
+                            .addComponent(jTextFieldIdRecibo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldCostoCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldCostoCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -470,12 +460,15 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jTextFieldIdRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelIdRecibo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldCostoCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel6))
+                            .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelDelegadas))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -489,15 +482,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Planilla Mensual \"Equipo\" - \"Mes\"");
 
-        jLabelIdPlanilla.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabelIdPlanilla.setText("ID Planilla de Pago");
-
         jLabelFechaHoy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelFechaHoy.setText("Fecha: dd/MM/aaaa");
-
-        jLabelDelegadas.setText("Pagado por:");
-
-        jComboBoxDelegadas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delegada", "Sub-Delegada" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -509,29 +495,17 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabelFechaHoy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelIdPlanilla))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelDelegadas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIdPlanilla)
-                    .addComponent(jLabelFechaHoy))
+                .addComponent(jLabelFechaHoy)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDelegadas)
-                    .addComponent(jComboBoxDelegadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -562,10 +536,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
         if (camposValidar()) {
-            //Reporte
-                        
-            List<Socia> SociaPagaron = new ArrayList();
-            
+            List<Socia> sociaPagaron = new ArrayList();
+            List<Cuota> cuotasPagaron = new ArrayList();
+
             // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
             Socia unaSocia;
             //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
@@ -576,17 +549,17 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
                 if ((boolean) jTablePlantel.getValueAt(i, 0)) {
                     unaSocia = (Socia) jTablePlantel.getValueAt(i, 2);
-                    
+
                     //Lista para el Reporte
-                    SociaPagaron.add(unaSocia);
-                    
+                    sociaPagaron.add(unaSocia);
+
                     //Recorrido de las deudas para pagar
                     for (Deuda unaDeuda : unaSocia.getDeudas()) {
                         if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
                             for (Cuota unaCuota : unaDeuda.getCuotas()) {
                                 if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                                    cuotasPagaron.add(unaCuota);
                                     //unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
-                                    //System.out.println(unaCuota.getIdCuota());
                                 }
                             }
                         }
@@ -595,37 +568,25 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 }
             }
             // </editor-fold>
-            
+
             // <editor-fold defaultstate="collapsed" desc="Pago Deudas Cancha">
             for (Deuda unaDeuda : unEquipo.getDeudas()) {
                 if (!unaDeuda.isSaldado()) {
-                    for (Cuota unaCuota : unaDeuda.getCuotas()){
+                    for (Cuota unaCuota : unaDeuda.getCuotas()) {
                         //unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
                     }
                 }
             }
             // </editor-fold>
-                     
-            PlanilladePagoDS_unPlantel unPlantelDS = new PlanilladePagoDS_unPlantel(unaControladoraGlobal, SociaPagaron);
-            
-            PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "idPlanilla", "nombrePago", jTextFieldCostoCancha.getText(),jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), unPlantelDS);
-            File archivo = new File("reportes/reportePlanillaPagos.jasper");
-            JasperReport reporte;
-            
-            
-        
-            try {
-            reporte = (JasperReport) JRLoader.loadObject(archivo);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, PlanilladePagoDS);
+            //Guardar Reporte
+            PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) unaControladoraGlobal.getSociaBD(Long.valueOf(10534228)), "");
 
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-            jasperViewer.setVisible(true);
-        } catch (JRException ex) {
-            Logger.getLogger(IPlanillaCobranza.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            //Reporte
+            PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+            PlanilladePagoDS.verReporte(dateFormat.format(unaControladoraGlobal.fechaSistema())  + " - " + unaPlanillaPago.getId()+ " - " + unEquipo.getNombre());
 
-        
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
@@ -644,10 +605,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelDelegadas;
     private javax.swing.JLabel jLabelFechaHoy;
-    private javax.swing.JLabel jLabelIdPlanilla;
+    private javax.swing.JLabel jLabelIdRecibo;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -657,6 +617,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableDeudas;
     private javax.swing.JTable jTablePlantel;
     private javax.swing.JTextField jTextFieldCostoCancha;
+    private javax.swing.JTextField jTextFieldIdRecibo;
     private javax.swing.JTextField jTextFieldSubTotal;
     private javax.swing.JTextField jTextFieldTotal;
     // End of variables declaration//GEN-END:variables

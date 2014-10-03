@@ -7,12 +7,7 @@ package DataSources;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import logicaNegocios.Cancha;
 import logicaNegocios.Cuota;
-import logicaNegocios.Partido;
-import logicaNegocios.Equipo;
-import logicaNegocios.Jugadora;
-import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;

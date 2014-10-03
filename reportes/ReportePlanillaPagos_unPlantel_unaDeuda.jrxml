@@ -13,115 +13,84 @@
 	<variable name="SubTotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{monto}]]></variableExpression>
 	</variable>
-	<columnHeader>
-		<band height="15">
-			<staticText>
-				<reportElement x="0" y="0" width="68" height="13" uuid="0e8c5c71-ddc2-459d-a601-b621d104cd7f"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[ID Cuota]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="80" y="0" width="61" height="13" uuid="41d7e8db-a408-412b-bd2b-9e633694fd19"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fecha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="154" y="0" width="100" height="13" uuid="0586fcd0-f2f6-4496-a099-85d3c973d74e"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Concepto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="279" y="0" width="61" height="13" uuid="d7c16cd5-cb52-466a-98c0-827b24753f86"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Vencimiento]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="366" y="0" width="34" height="13" uuid="c89ce74f-2fe7-4e70-819a-a25e701542c1"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[N°]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="475" y="0" width="65" height="13" uuid="02fc1515-b7f8-41ba-addc-ce2b89dc4bf5"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Monto]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
 	<detail>
-		<band height="13" splitType="Stretch">
+		<band height="12" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="68" height="13" uuid="68b458c7-e2c8-4a9d-acb3-a0816a8af55e"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="0" y="0" width="68" height="12" uuid="68b458c7-e2c8-4a9d-acb3-a0816a8af55e"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{idCuota}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="0" width="61" height="13" uuid="80dc9251-1e3a-4a70-842c-072541fb3863"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="90" y="0" width="61" height="12" uuid="80dc9251-1e3a-4a70-842c-072541fb3863"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaCreacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="154" y="0" width="100" height="13" uuid="3d5ac6a1-6651-4174-8366-5a231a153855"/>
+				<reportElement x="170" y="0" width="100" height="12" uuid="3d5ac6a1-6651-4174-8366-5a231a153855"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="366" y="0" width="34" height="13" uuid="78ad55a4-a312-45b4-b460-7431ef09dac6"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="380" y="0" width="34" height="12" uuid="78ad55a4-a312-45b4-b460-7431ef09dac6"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{numeroCuota}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="279" y="0" width="61" height="13" uuid="90e38939-88e2-410b-999a-4fa3d25da52e"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="290" y="0" width="61" height="12" uuid="90e38939-88e2-410b-999a-4fa3d25da52e"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="0" width="50" height="13" uuid="ceb07e91-1089-4589-8634-6633427b1a74"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="490" y="0" width="50" height="12" uuid="ceb07e91-1089-4589-8634-6633427b1a74"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="475" y="0" width="13" height="13" uuid="83e37cff-f71f-405d-b592-ee33078e828d"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="475" y="0" width="13" height="12" uuid="83e37cff-f71f-405d-b592-ee33078e828d"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[$]]></text>
 			</staticText>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="18" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="490" y="1" width="50" height="13" uuid="7fd83455-0809-458f-b328-c13632b3d1f6"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="490" y="1" width="50" height="12" uuid="7fd83455-0809-458f-b328-c13632b3d1f6"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{SubTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="475" y="1" width="13" height="13" uuid="12698808-ea63-4567-9236-36d95cfe461c"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="475" y="1" width="13" height="12" uuid="12698808-ea63-4567-9236-36d95cfe461c"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="1" width="58" height="13" uuid="c789b39f-e36f-4e3c-a65b-2f513c34ab7e"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="417" y="1" width="58" height="12" uuid="c789b39f-e36f-4e3c-a65b-2f513c34ab7e"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[Sub Total:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="475" y="0" width="65" height="1" uuid="293b6808-ebff-4362-abe3-bfbc0ebb15ea"/>
-			</line>
-			<line>
-				<reportElement x="0" y="16" width="540" height="1" uuid="ea7f51ba-6b27-460e-b26c-fdc469c48727"/>
-				<graphicElement>
-					<pen lineStyle="Dashed"/>
-				</graphicElement>
 			</line>
 		</band>
 	</pageFooter>
