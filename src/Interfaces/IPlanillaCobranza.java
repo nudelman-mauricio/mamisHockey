@@ -112,7 +112,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
             Date fechaHasta = unaControladoraGlobal.fechaSistema();
             fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-            fechaHasta.setDate(8);
+            fechaHasta.setDate(10);
 
             for (Deuda unaDeuda : unaSocia.getDeudas()) {
                 if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
@@ -137,7 +137,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
         Date fechaHasta = unaControladoraGlobal.fechaSistema();
         fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-        fechaHasta.setDate(8);
+        fechaHasta.setDate(10);
 
         for (Deuda unaDeuda : unaSocia.getDeudas()) {
             if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
@@ -544,7 +544,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
             Date fechaHasta = unaControladoraGlobal.fechaSistema();
             fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-            fechaHasta.setDate(8);
+            fechaHasta.setDate(10);
 
             for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
                 if ((boolean) jTablePlantel.getValueAt(i, 0)) {
