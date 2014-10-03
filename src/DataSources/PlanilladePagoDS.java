@@ -34,9 +34,11 @@ public class PlanilladePagoDS implements JRDataSource{
     private ControladoraGlobal unaControladoraGlobal;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
     private String titulo, idPlanilla, nombrePago, costoCancha, subTotal, total;
+    
+    PlanilladePagoDS_unPlantel unPlantelDS;
 
 
-    public PlanilladePagoDS(ControladoraGlobal unaControladoraGlobal, String titulo, String idPlanilla, String nombrePago, String costoCancha, String subTotal, String total) {
+    public PlanilladePagoDS(ControladoraGlobal unaControladoraGlobal, String titulo, String idPlanilla, String nombrePago, String costoCancha, String subTotal, String total, PlanilladePagoDS_unPlantel unPlantelDS) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.titulo = titulo;
         this.idPlanilla = idPlanilla;
@@ -44,24 +46,8 @@ public class PlanilladePagoDS implements JRDataSource{
         this.costoCancha = costoCancha;
         this.subTotal = subTotal;
         this.total = total;
-    }
-
-    public void ejecutarReporte (List<Socia> SociaPagaron){
-        PlanilladePagoDS_unPlantel unPlantelDS = new PlanilladePagoDS_unPlantel(unaControladoraGlobal, SociaPagaron);
-
-        File archivo = new File("reportes/reportePlanillaPagos.jasper");
-        JasperReport reporte;
-        try {
-            reporte = (JasperReport) JRLoader.loadObject(archivo);
-            Map parameters = new HashMap();
-            parameters.put("subreport_datasource_unPlantel", unPlantelDS);
-            
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, this);
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-            jasperViewer.setVisible(true);
-        } catch (JRException ex) {
-            Logger.getLogger(PlanilladePagoDS.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        this.unPlantelDS = unPlantelDS;
     }
     
     //Sector de la impresion del datasource
@@ -91,6 +77,8 @@ public class PlanilladePagoDS implements JRDataSource{
             valor = this.subTotal;
         } else if ("total".equals(jrf.getName())) {
             valor = this.total;
+        }   else if ("subReporte".equals(jrf.getName())) {
+            valor = unPlantelDS;
         }
         if ((valor == null) || ("".equals(valor))) {
             valor = "Falta";

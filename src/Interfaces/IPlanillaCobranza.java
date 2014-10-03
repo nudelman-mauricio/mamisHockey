@@ -1,13 +1,25 @@
 package Interfaces;
 
+import DataSources.PlanillaPartidoDS;
+import DataSources.PlanillaPartidoDS_Plantel;
 import DataSources.PlanilladePagoDS;
+import DataSources.PlanilladePagoDS_unPlantel;
+import DataSources.PlanilladePagoDS_unPlantel_unaDeuda;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.AbstractCollection;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -28,8 +40,11 @@ import logicaNegocios.Equipo;
 import logicaNegocios.Jugadora_;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import tame.*;
@@ -42,6 +57,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloPlantel;
     private DefaultTableModel modeloDeudas;
     private DateFormat df = DateFormat.getDateInstance();
+    private SimpleDateFormat dateFormatYear = new SimpleDateFormat("YYYY");
 
     public IPlanillaCobranza(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -52,6 +68,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         this.modeloPlantel = (DefaultTableModel) jTablePlantel.getModel();
         this.modeloDeudas = (DefaultTableModel) jTableDeudas.getModel();
+        
+        
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
@@ -103,7 +121,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 break;
         }
         // </editor-fold>
-        jLabelTitulo.setText("Planilla Mensual " + unEquipo.getNombre() + " - " + mes + "/" + unaControladoraGlobal.fechaSistema().getYear());
+        jLabelTitulo.setText("Planilla Mensual " + unEquipo.getNombre() + " - " + mes + "/" + dateFormatYear.format(unaControladoraGlobal.fechaSistema()));
 
     }
 
@@ -546,7 +564,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             //Reporte
                         
-            List<Socia> SociaPagaron = null;
+            List<Socia> SociaPagaron = new ArrayList();
             
             // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
             Socia unaSocia;
@@ -567,7 +585,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                         if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
                             for (Cuota unaCuota : unaDeuda.getCuotas()) {
                                 if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
-                                    unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                                    //unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                                    //System.out.println(unaCuota.getIdCuota());
                                 }
                             }
                         }
@@ -580,13 +599,32 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             // <editor-fold defaultstate="collapsed" desc="Pago Deudas Cancha">
             for (Deuda unaDeuda : unEquipo.getDeudas()) {
                 if (!unaDeuda.isSaldado()) {
-                    System.out.println("FALTA FUNCION PAGAR DEUDA CANCHA");
+                    for (Cuota unaCuota : unaDeuda.getCuotas()){
+                        //unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                    }
                 }
             }
             // </editor-fold>
+                     
+            PlanilladePagoDS_unPlantel unPlantelDS = new PlanilladePagoDS_unPlantel(unaControladoraGlobal, SociaPagaron);
+            
+            PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "idPlanilla", "nombrePago", jTextFieldCostoCancha.getText(),jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), unPlantelDS);
+            File archivo = new File("reportes/reportePlanillaPagos.jasper");
+            JasperReport reporte;
+            
+            
+        
+            try {
+            reporte = (JasperReport) JRLoader.loadObject(archivo);
 
-            PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "idPlanilla", "nombrePago", jTextFieldCostoCancha.getText(),jTextFieldSubTotal.getText(), jTextFieldTotal.getText());
-            PlanilladePagoDS.ejecutarReporte(SociaPagaron);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, PlanilladePagoDS);
+
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(IPlanillaCobranza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
