@@ -5,6 +5,7 @@
  */
 package DataSources;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import logicaNegocios.Cancha;
 import logicaNegocios.Cuota;
@@ -27,6 +28,7 @@ public class PlanilladePagoDS_unPlantel_unaDeuda implements JRDataSource {
 
     private ControladoraGlobal unaControladoraGlobal;
     private List<Cuota> unaCuota;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
 
     public PlanilladePagoDS_unPlantel_unaDeuda(ControladoraGlobal unaControladoraGlobal, List<Cuota> unaCuota) {
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -46,11 +48,11 @@ public class PlanilladePagoDS_unPlantel_unaDeuda implements JRDataSource {
         if ("idCuota".equals(jrf.getName())) {
             valor = unaCuota.get(indiceCuota).getIdCuota();
         } else if ("fechaCreacion".equals(jrf.getName())) {
-            valor = "";
+            valor = dateFormat.format(unaControladoraGlobal.getDeudaDeCuota(unaCuota.get(indiceCuota)).getFechaGeneracion());
         } else if ("concepto".equals(jrf.getName())) {
-            valor = "";
+            valor = unaControladoraGlobal.getDeudaDeCuota(unaCuota.get(indiceCuota)).getUnConceptoDeportivo().getConcepto();
         } else if ("fechaVencimiento".equals(jrf.getName())) {
-            valor = unaCuota.get(indiceCuota).getFechaVencimiento();
+            valor = dateFormat.format(unaCuota.get(indiceCuota).getFechaVencimiento());
         } else if ("numeroCuota".equals(jrf.getName())) {
             valor = unaCuota.get(indiceCuota).getNumero();
         } else if ("monto".equals(jrf.getName())) {
