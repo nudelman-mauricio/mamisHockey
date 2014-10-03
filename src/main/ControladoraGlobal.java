@@ -966,14 +966,14 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
-    public PlanillaPago crearPlanillaPago(Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
-        return this.unaControladoraContabilidad.crearPlanillaPago(fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsable, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+        return this.unaControladoraContabilidad.crearPlanillaPago(unEquipoResponsable, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
     }
 
     public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
         this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
     }
-
+    
     public PlanillaPago getPlanillaPagoBD(Long id) {
         return this.unaControladoraContabilidad.getPlanillaPagoBD(id);
     }

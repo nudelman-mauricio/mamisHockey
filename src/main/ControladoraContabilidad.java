@@ -500,8 +500,11 @@ public class ControladoraContabilidad {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
-    public PlanillaPago crearPlanillaPago(Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
-        return new PlanillaPago(this.entityManager, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsasble, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+        PlanillaPago unaPlanillaPago = new PlanillaPago(this.entityManager, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+        unEquipoResponsasble.agregarPlanillaPago(this.entityManager, unaPlanillaPago);
+        return unaPlanillaPago;
+
     }
 
     public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
