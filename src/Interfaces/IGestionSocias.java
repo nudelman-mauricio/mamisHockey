@@ -1,5 +1,8 @@
 package Interfaces;
 
+import DataSources.ListaSociasDS;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -134,9 +137,13 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jButtonImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir1.setText("Imprimir Lista");
-        jButtonImprimir1.setEnabled(false);
         jButtonImprimir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimir1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
@@ -501,6 +508,17 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unIImprimirSocia);
     }//GEN-LAST:event_jButtonImprimirActionPerformed
+
+    private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
+        List<Socia> socias = new ArrayList();
+        int filas = this.modeloTablaSocia.getRowCount();        
+        for (int i = 0; i < filas; i++) {           
+            unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(i, 0));            
+            socias.add(unaSociaSeleccionada);
+        }
+        ListaSociasDS unaListaSociasDS = new ListaSociasDS(unaControladoraGlobal, socias);
+        unaListaSociasDS.verReporte(); // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContabilidad;

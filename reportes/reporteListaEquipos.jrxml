@@ -120,7 +120,7 @@
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="15" y="0" width="125" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="d66015d3-cd1f-413c-b2ef-5c60553cacfe"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>
@@ -134,7 +134,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="140" y="0" width="138" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="f8ca19a8-23ea-49a6-852e-45d26486bb51"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>
@@ -148,7 +148,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{club}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="278" y="0" width="129" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="0cbf9c37-1e26-4381-86a7-78d1eae372d1"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>
@@ -162,7 +162,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{delegada}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="407" y="0" width="147" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="448564b7-d2c8-400a-b7ac-14cb4f193003"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0"/>

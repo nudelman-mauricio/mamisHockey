@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteListaSocias" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1432deff-99fc-417e-9da8-966ff10c7421">
+	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="0"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="ruta" class="java.lang.String"/>
+	<field name="dni" class="java.lang.String"/>
+	<field name="apellidoynombre" class="java.lang.String"/>
+	<field name="exJugadora" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="equipo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="-20" width="597" height="94" backcolor="#2C8A0E" uuid="fbaa1449-6497-4b7b-855b-8ccf89d908af"/>
+				<image>
+					<reportElement x="0" y="14" width="109" height="69" uuid="efcae6a7-9663-458f-9fcf-52434936fe92"/>
+					<imageExpression><![CDATA[$F{ruta} + "\\reportes\\Imagenes Reportes\\Logo Verde.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="100" y="20" width="395" height="27" forecolor="#FFFFFF" uuid="a328fc37-9c1f-4e32-989e-539fdb3d8376"/>
+					<textElement textAlignment="Center">
+						<font size="20" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Asociacion Misionera de Mamis's Hockey]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="148" y="47" width="298" height="16" forecolor="#FFFFFF" uuid="c7888dc6-48c9-48ac-a9ab-a22f8fed3d70"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fundada 2002 - Persona Jurídica N° A 2277]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="194" y="63" width="207" height="13" forecolor="#FFFFFF" uuid="17c2c379-40d2-4335-bad9-c07c5a5cf3cf"/>
+					<text><![CDATA[E-Mail: info@mamishockeymisiones.com.ar]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="446" y="79" width="128" height="15" forecolor="#FFFFFF" uuid="009f642c-3d3e-4b9d-b31a-204fcef4bf7a"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="-1" y="-35" width="554" height="30" forecolor="#006699" backcolor="#FFFFFF" uuid="17830a36-962f-4927-9eb7-595a7ab6539a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Lista de Socias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="1" width="77" height="20" uuid="7cdb8398-42af-407b-b4ab-c769625ff431"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dni]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="1" width="144" height="20" uuid="db3bf6a5-26a6-4a7b-92d0-0a6fb0a45654"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido, Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="1" width="72" height="20" uuid="2f8ebe82-bc2d-4971-8c28-f6ef540f6f1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ex Jugadora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="1" width="106" height="20" uuid="73262020-96ff-470a-8249-d0230ae53885"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="1" width="111" height="20" uuid="482e72fd-6549-44f2-98e0-9693aebd7a98"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="23" y="0" width="77" height="20" uuid="fa9b36ed-9b7c-4d6a-977e-ca44af2d8823"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="100" y="0" width="144" height="20" uuid="519bb9a5-4728-4ff3-a4dc-415038dfdebb"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellidoynombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="244" y="0" width="72" height="20" uuid="8d8cc2e3-aaa5-46a0-ae4d-2f3ad13d2db8"/>
+				<box leftPadding="0">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exJugadora}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="316" y="0" width="106" height="20" uuid="2cc94bce-5e61-416d-8450-0bf4be1c5dd0"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="422" y="0" width="111" height="20" uuid="9e6a658a-3628-48c6-bcae-ab677694f313"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="522" y="10" width="40" height="13" backcolor="#FFFFFF" uuid="124bc0ef-86da-4bcf-a173-f95da9165871"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="7" y="10" width="515" height="13" backcolor="#FFFFFF" uuid="a49fdfae-5caa-41bb-9394-f8a0ddabc06c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
