@@ -308,9 +308,14 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
 
-//    public void computarTarjeta(Tarjeta unaTarjeta) {
-//        this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
-//    }
+    public void computarTarjeta(Tarjeta unaTarjeta) {
+        this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
+    }
+    
+    public void computarTarjetasAcumuladasEnUnPartido(Partido unPartido){
+        this.unaControladoraDeportiva.computarTarjetasAcumuladasEnUnPartido(unPartido);
+    }
+    
     public Tarjeta getTarjetaBD(Long id) {
         return this.unaControladoraDeportiva.getTarjetaBD(id);
     }

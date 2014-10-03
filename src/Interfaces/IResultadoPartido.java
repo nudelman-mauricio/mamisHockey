@@ -1200,7 +1200,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
                 }
                 unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
-
+                    
+                unaControladoraGlobal.computarTarjetasAcumuladasEnUnPartido(unPartido);
+                //ahora computar las acumuladas en el torneo. pero recien ahora.
+                
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonEditar.setEnabled(true);

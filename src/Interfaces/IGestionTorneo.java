@@ -392,11 +392,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadisticasActionPerformed
-        IEstadisticas unIEstadistica = new IEstadisticas(unaControladoraGlobal, this,unTorneoSeleccionado);
-        unIEstadistica.pack();
-        unIEstadistica.setVisible(true);
-        this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIEstadistica);
+        
     }//GEN-LAST:event_jButtonEstadisticasActionPerformed
 
 
