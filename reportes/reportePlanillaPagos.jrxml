@@ -45,7 +45,6 @@
 	</style>
 	<subDataset name="Table Dataset 1" uuid="d5982e50-dc36-4d51-a5de-0cdfafb59392"/>
 	<subDataset name="Table Dataset 2" uuid="64d804de-6719-45f9-ba17-1928d60aaa8c"/>
-	<parameter name="subreport_datasource_unPlantel" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="ruta" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
 	<field name="idPlanilla" class="java.lang.String"/>
@@ -54,6 +53,7 @@
 	<field name="costoCancha" class="java.lang.String"/>
 	<field name="subTotal" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
+	<field name="subReporte" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<group name="Group1">
 		<groupFooter>
 			<band/>
@@ -121,7 +121,7 @@
 				<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="132" y="4" width="291" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
+				<reportElement mode="Transparent" x="2" y="4" width="552" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -143,8 +143,8 @@
 			</line>
 			<subreport>
 				<reportElement x="2" y="12" width="550" height="44" uuid="76deb50f-6d2e-4e9d-98ed-e381749be621"/>
-				<dataSourceExpression><![CDATA[$P{subreport_datasource_unPlantel}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reportePlanillaPartido_unPlantel.jasper"]]></subreportExpression>
+				<dataSourceExpression><![CDATA[$F{subReporte}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reportePlanillaPagos_unPlantel.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

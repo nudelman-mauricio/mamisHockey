@@ -1,5 +1,6 @@
 package DataSources;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,35 +37,10 @@ public class PlanilladePagoDS_unPlantel implements JRDataSource {
         this.unPlantel = unPlantel;
     }
 
-    private void Reporte() {
-        List<Cuota> Cuotas = null;
-
-        //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
-        Date fechaHasta = unaControladoraGlobal.fechaSistema();
-        fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-        fechaHasta.setDate(8);
-
-        //Recorrido de las deudas para pagar
-        for (Deuda unaDeuda : unaSocia.getDeudas()) {
-            if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
-                for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                    if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
-                        Cuotas.add(unaCuota);
-                    }
-                }
-            }
-        }
-        
-        
-        PlanilladePagoDS_unPlantel_unaDeuda unaDeudaDS = new PlanilladePagoDS_unPlantel_unaDeuda(unaControladoraGlobal, Cuotas);
-
-        Map parameters = new HashMap();
-        parameters.put("subreport_datasource_unPlantel_unaDeuda", unaDeudaDS);
-    }
-
     //Sector de la impresion del datasource
     @Override
     public boolean next() throws JRException {
+
         return ++indiceSocia < unPlantel.size();
     }
 
@@ -72,11 +48,28 @@ public class PlanilladePagoDS_unPlantel implements JRDataSource {
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
         //General
-        if ("dni".equals(jrf.getName())) {
+        if ("ruta".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.rutaSistema();
+        } else if ("dni".equals(jrf.getName())) {
             valor = unPlantel.get(indiceSocia).getDni();
         } else if ("apellidoNombre".equals(jrf.getName())) {
             valor = unPlantel.get(indiceSocia);
+        } else if ("subReporte".equals(jrf.getName())) {
+            valor = subReporte(unPlantel.get(indiceSocia));
         }
         return valor;
+    }
+
+    private PlanilladePagoDS_unPlantel_unaDeuda subReporte(Socia unaSocia) {
+        List<Cuota> CuotasPagadas = new ArrayList();
+        if (unaSocia.getDni() == 13013763) {
+            CuotasPagadas.add(unaControladoraGlobal.getCuotaBD((long) 2951));
+            CuotasPagadas.add(unaControladoraGlobal.getCuotaBD((long) 2953));
+        }
+        if (unaSocia.getDni() == 27800068) {
+            CuotasPagadas.add(unaControladoraGlobal.getCuotaBD((long) 2955));
+        }
+        PlanilladePagoDS_unPlantel_unaDeuda unaDeudas = new PlanilladePagoDS_unPlantel_unaDeuda(unaControladoraGlobal, CuotasPagadas);
+        return unaDeudas;
     }
 }
