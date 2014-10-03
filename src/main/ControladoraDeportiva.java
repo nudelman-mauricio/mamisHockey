@@ -135,45 +135,7 @@ public class ControladoraDeportiva {
     public void computarTarjeta(Tarjeta unaTarjeta) {
         unaTarjeta.setComputado(true);
         unaTarjeta.persistir(this.entityManager);
-    }
-
-    public void computarTarjetasAcumuladas(Partido unPartido) {
-        Tarjeta verde1, verde2, verde3, amarilla1, amarilla2;
-        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
-            verde1 = null;
-            verde2 = null;
-            verde3 = null;
-            amarilla1 = null;
-            amarilla2 = null;
-            for (Tarjeta unaTarjeta : this.getTarjetaSociaPartido(unPartido, unaJugadora.getUnaSocia())) {
-                if(unaTarjeta.getTipo().equals("Verde")){
-                    if(verde1==null){
-                        verde1=unaTarjeta;
-                    }else{
-                        if(verde2==null){
-                            verde2=unaTarjeta;
-                        }else{
-                            this.computarTarjeta(verde1);
-                            this.computarTarjeta(verde2);
-                            this.computarTarjeta(unaTarjeta);
-                            this.crearTarjeta(unaJugadora.getUnaSocia(), null, "Amarilla", "Acumulacion de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
-                        }
-                    }
-                }
-                if (unaTarjeta.getTipo().equals("Amarilla")) {
-                    if (amarilla1 == null) {
-                        amarilla1 = unaTarjeta;
-                    } else {
-                        amarilla2 = unaTarjeta;
-                    }
-                }
-            }
-            if (amarilla2 != null) {
-                this.computarTarjeta(amarilla1);
-                this.computarTarjeta(amarilla2);
-            }
-        }
-    }
+    }    
 
     /**
      * Devuelve una tarjeta buscada por ID incluidas las borradas
@@ -385,21 +347,25 @@ public class ControladoraDeportiva {
 
     public JasperPrint generarReporteClub() {
         entityManager.getTransaction().begin();
-        java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class);
+        java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class
+        );
         File fichero = new File("reportes/reporteClubesMisiones.jasper");
         JasperPrint jasperPrint = null;
+
         try {
             JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
             jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
         } catch (JRException ex) {
             Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
         }
-        entityManager.getTransaction().commit();
+
+        entityManager.getTransaction()
+                .commit();
         return jasperPrint;
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Indumentarias">
+// <editor-fold defaultstate="collapsed" desc="Indumentarias">
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         Indumentaria unaIndumentaria = new Indumentaria(this.entityManager, camiseta, media, pollera);
         unEquipo.agregarIndumentaria(this.entityManager, unaIndumentaria);

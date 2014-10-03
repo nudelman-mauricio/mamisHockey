@@ -311,11 +311,53 @@ public class ControladoraGlobal {
     public void computarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
     }
-    
-    public void computarTarjetasAcumuladas(Partido unPartido){
-        this.unaControladoraDeportiva.computarTarjetasAcumuladas(unPartido);
+
+    public void computarTarjetasAcumuladas(Partido unPartido) {
+        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
+            while (computarTarjetaSocia(unaJugadora.getUnaSocia()));
+        }
     }
-    
+
+    /**
+     * NO TOCAR NO USAR NO BORRAR
+     *
+     * @param unaSocia
+     * @return
+     */
+    private boolean computarTarjetaSocia(Socia unaSocia) {
+        Tarjeta verde1 = null, verde2 = null, amarilla1 = null;
+        for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+            if (unaTarjeta.getTipo().equals("Verde")) {
+                if (verde1 == null) {
+                    verde1 = unaTarjeta;
+                } else {
+                    if (verde2 == null) {
+                        verde2 = unaTarjeta;
+                    } else {
+                        this.computarTarjeta(verde1);
+                        this.computarTarjeta(verde2);
+                        this.computarTarjeta(unaTarjeta);
+                        this.crearTarjeta(unaSocia, null, "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
+                        return true;
+                    }
+                }
+            }
+            if (unaTarjeta.getTipo().equals("Amarilla")) {
+                if (amarilla1 == null) {
+                    amarilla1 = unaTarjeta;
+                } else {
+                    this.computarTarjeta(amarilla1);
+                    this.computarTarjeta(unaTarjeta);
+                    SancionTribunal unaSancionParaRoja = this.crearSancionTribunal(null, null, unaSocia, this.fechaSistema(), "Tarjeta Roja Acumulada", "Tarjeta por acumulación");
+                    this.modificarSancionTribunal(unaSancionParaRoja, unaSancionParaRoja.getFecha(), unaSancionParaRoja.getMotivo(), unaSancionParaRoja.getDetalles(), unaSancionParaRoja.getNumeroResolucion(), unaSancionParaRoja.getVencimiento(), 1, unaSancionParaRoja.isBorradoLogico());
+                    this.crearTarjetaRoja(unaSancionParaRoja, unaSocia, null, "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Tarjeta getTarjetaBD(Long id) {
         return this.unaControladoraDeportiva.getTarjetaBD(id);
     }
@@ -973,7 +1015,7 @@ public class ControladoraGlobal {
     public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
         this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
     }
-    
+
     public PlanillaPago getPlanillaPagoBD(Long id) {
         return this.unaControladoraContabilidad.getPlanillaPagoBD(id);
     }
