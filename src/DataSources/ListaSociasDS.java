@@ -32,7 +32,7 @@ public class ListaSociasDS implements JRDataSource {
     List<Socia> socias;
     int indiceSocias = -1;
 
-    private DateFormat df = DateFormat.getDateInstance();
+    private final DateFormat df = DateFormat.getDateInstance();
 
     public ListaSociasDS(ControladoraGlobal unaControladoraGlobal, List<Socia> socias) {
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -40,10 +40,12 @@ public class ListaSociasDS implements JRDataSource {
 
     }
 
+    @Override
     public boolean next() throws JRException {
         return ++indiceSocias < socias.size();
     }
 
+    @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
 
