@@ -355,21 +355,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         return bandera;
     }
 
-    /**
-     * Verifica que si hay 3 verdes exista si o si una amarilla. Si no hay avisa
-     * con cartel y no guarda.
-     *
-     * Ademas marca con "Computada" a las tarjetas que corresponde. Ej: 3 verdes
-     * y una amarilla, Computa las 3 verdes.
-     *
-     * @return
-     */
-    private boolean tarjetasValidar() {
-        boolean bandera = true;
-        
-        return bandera;
-    }
-
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         int filas = modeloTabla.getRowCount();
         for (int i = 0; i < filas; i++) {
@@ -1202,6 +1187,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
                     
                 unaControladoraGlobal.computarTarjetasAcumuladasEnUnPartido(unPartido);
+                
                 //ahora computar las acumuladas en el torneo. pero recien ahora.
                 
                 jButtonGuardar.setEnabled(false);

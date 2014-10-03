@@ -312,8 +312,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
     }
     
-    public void computarTarjetasAcumuladasEnUnPartido(Partido unPartido){
-        this.unaControladoraDeportiva.computarTarjetasAcumuladasEnUnPartido(unPartido);
+    public void computarTarjetasAcumuladas(Partido unPartido){
+        this.unaControladoraDeportiva.computarTarjetasAcumuladas(unPartido);
     }
     
     public Tarjeta getTarjetaBD(Long id) {
