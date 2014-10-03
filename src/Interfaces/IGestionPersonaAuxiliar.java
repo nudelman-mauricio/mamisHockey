@@ -441,10 +441,10 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         }
         String opcion ;
         if(jRadioButtonArbitros.isSelected()){
-            opcion = "Arbitros";
+            opcion = "Árbitros";
         } else {
             if(jRadioButtonTecnicos.isSelected()){
-                opcion = "Tecnicos";
+                opcion = "Técnicos";
             } else {
                 opcion = "Personas Auxiliares";
             }

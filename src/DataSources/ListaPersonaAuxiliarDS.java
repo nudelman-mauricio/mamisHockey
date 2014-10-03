@@ -68,8 +68,17 @@ public class ListaPersonaAuxiliarDS implements JRDataSource {
             valor = personasAuxiliares.get(indicePersonaAuxiliar).getDomicilio();
         } else if ("fechaNacimiento".equals(jrf.getName())) {
             valor = df.format(personasAuxiliares.get(indicePersonaAuxiliar).getFechaNacimiento());
-        } else if ("fechaIngreso".equals(jrf.getName())) {
-            valor = df.format(personasAuxiliares.get(indicePersonaAuxiliar).getFechaIngreso());
+        }  else if ("email".equals(jrf.getName())) {
+            valor = personasAuxiliares.get(indicePersonaAuxiliar).getEmail();
+        } else if ("telefono".equals(jrf.getName())) {
+            if(personasAuxiliares.get(indicePersonaAuxiliar).getTelCelular() != null){
+            valor = personasAuxiliares.get(indicePersonaAuxiliar).getTelCelular();} else{
+                if(personasAuxiliares.get(indicePersonaAuxiliar).getTelFijo()!= null){
+                    valor = personasAuxiliares.get(indicePersonaAuxiliar).getTelFijo();
+                } else {
+                    valor = "";
+                }
+            }           
         }
         return valor;
     }
