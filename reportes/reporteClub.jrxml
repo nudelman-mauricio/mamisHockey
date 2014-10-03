@@ -111,14 +111,14 @@
 					</textElement>
 					<text><![CDATA[Canchas]]></text>
 				</staticText>
-				<subreport>
-					<reportElement x="114" y="1" width="441" height="37" uuid="9a8a2e09-6ffc-4813-b547-38cd78f2c862"/>
-					<dataSourceExpression><![CDATA[$P{subreport_datasource_Cancha}]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteClub_cancha.jasper"]]></subreportExpression>
-				</subreport>
 				<line>
 					<reportElement x="0" y="0" width="575" height="1" uuid="e4034038-1db4-4946-87f0-a7a3f887d0d1"/>
 				</line>
+				<subreport>
+					<reportElement x="114" y="0" width="441" height="37" uuid="9a8a2e09-6ffc-4813-b547-38cd78f2c862"/>
+					<dataSourceExpression><![CDATA[$P{subreport_datasource_Cancha}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteClub_cancha.jasper"]]></subreportExpression>
+				</subreport>
 			</band>
 		</groupHeader>
 		<groupFooter>
