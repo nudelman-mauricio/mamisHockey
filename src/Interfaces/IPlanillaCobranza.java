@@ -578,15 +578,17 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 }
             }
             // </editor-fold>
-
+           
             //Guardar Reporte
             PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) unaControladoraGlobal.getSociaBD(Long.valueOf(10534228)), "");
 
             //Reporte
             PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-            PlanilladePagoDS.verReporte(dateFormat.format(unaControladoraGlobal.fechaSistema())  + " - " + unaPlanillaPago.getId()+ " - " + unEquipo.getNombre());
-
+            String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema())  + " - " + unaPlanillaPago.getId()+ " - " + unEquipo.getNombre();
+            PlanilladePagoDS.verReporte(nombrePDF);
+            
+            unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, unaPlanillaPago.getFechaPago(), unaPlanillaPago.getMonto(), unaPlanillaPago.getNroRecibo(), unaPlanillaPago.getResponsablePago(), "Planillas de Pago/" + nombrePDF + ".pdf");
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
 

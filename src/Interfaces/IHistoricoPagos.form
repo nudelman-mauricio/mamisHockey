@@ -43,7 +43,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="716" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="546" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -52,7 +52,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="271" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="235" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -69,15 +69,28 @@
             <Component class="javax.swing.JTable" name="jTableHistorico">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="4">
-                    <Column editable="true" title="ID Planilla" type="java.lang.Object"/>
-                    <Column editable="true" title="Fecha de Pago" type="java.lang.Object"/>
-                    <Column editable="true" title="Monto" type="java.lang.Object"/>
+                  <Table columnCount="6" rowCount="0">
+                    <Column editable="false" title="ID Planilla" type="java.lang.Object"/>
+                    <Column editable="false" title="rutaPDF" type="java.lang.Object"/>
+                    <Column editable="false" title="Fecha de Pago" type="java.lang.Object"/>
+                    <Column editable="false" title="Pagado por" type="java.lang.Object"/>
+                    <Column editable="false" title="Nro Recibo" type="java.lang.Object"/>
+                    <Column editable="false" title="Monto" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -87,7 +100,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -95,9 +113,12 @@
                   </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                  <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableHistoricoMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -1,11 +1,14 @@
 package Interfaces;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
+import logicaNegocios.PlanillaPago;
 import main.ControladoraGlobal;
 
 public class IHistoricoPagos extends javax.swing.JInternalFrame {
@@ -27,6 +30,11 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/HistorialPagos.png")));
         this.setTitle("Historial de Pagos Mensuales de: " + unEquipo.getNombre());
         IMenuPrincipalInterface.centrar(this);
+
+        for (PlanillaPago unaPlanillaPago : unEquipo.getPlanillasPagos()) {
+            this.modeloTable.addRow(new Object[]{unaPlanillaPago.getId(), unaPlanillaPago.getRutaPDF(), df.format(unaPlanillaPago.getFechaPago()), unaPlanillaPago.getResponsablePago(), unaPlanillaPago.getNroRecibo(), unaPlanillaPago.getMonto()});
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -41,16 +49,44 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
 
         jTableHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "ID Planilla", "Fecha de Pago", "Monto"
+                "ID Planilla", "rutaPDF", "Fecha de Pago", "Pagado por", "Nro Recibo", "Monto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableHistorico.getTableHeader().setReorderingAllowed(false);
+        jTableHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableHistoricoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableHistorico);
+        if (jTableHistorico.getColumnModel().getColumnCount() > 0) {
+            jTableHistorico.getColumnModel().getColumn(0).setMinWidth(90);
+            jTableHistorico.getColumnModel().getColumn(0).setPreferredWidth(90);
+            jTableHistorico.getColumnModel().getColumn(0).setMaxWidth(90);
+            jTableHistorico.getColumnModel().getColumn(1).setMinWidth(0);
+            jTableHistorico.getColumnModel().getColumn(1).setPreferredWidth(0);
+            jTableHistorico.getColumnModel().getColumn(1).setMaxWidth(0);
+            jTableHistorico.getColumnModel().getColumn(2).setMinWidth(90);
+            jTableHistorico.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTableHistorico.getColumnModel().getColumn(2).setMaxWidth(90);
+            jTableHistorico.getColumnModel().getColumn(4).setMinWidth(90);
+            jTableHistorico.getColumnModel().getColumn(4).setPreferredWidth(90);
+            jTableHistorico.getColumnModel().getColumn(4).setMaxWidth(90);
+            jTableHistorico.getColumnModel().getColumn(5).setMinWidth(90);
+            jTableHistorico.getColumnModel().getColumn(5).setPreferredWidth(90);
+            jTableHistorico.getColumnModel().getColumn(5).setMaxWidth(90);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -58,14 +94,14 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -85,6 +121,23 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHistoricoMouseClicked
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            evt.consume();
+            if (jTableHistorico.getSelectedRow() > -1) {
+                if (jTableHistorico.getValueAt(jTableHistorico.getSelectedRow(), 1) != null) {
+                    String unPDF = (String) jTableHistorico.getValueAt(jTableHistorico.getSelectedRow(), 1);
+                    try {
+                        File path = new File(unPDF);
+                        Desktop.getDesktop().open(path);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableHistoricoMouseClicked
 
     public void metodoParaRecorrerUnaCarpeta() {
         File directorio = new File("reportes/"); //Directorio donde queres que recorra para buscar los archivos
