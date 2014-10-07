@@ -135,7 +135,7 @@ public class ControladoraDeportiva {
     public void computarTarjeta(Tarjeta unaTarjeta) {
         unaTarjeta.setComputado(true);
         unaTarjeta.persistir(this.entityManager);
-    }    
+    }
 
     /**
      * Devuelve una tarjeta buscada por ID incluidas las borradas
@@ -863,8 +863,10 @@ public class ControladoraDeportiva {
     public int getGolesLocal(Partido unPartido) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
-            if ((!unGol.isBorradoLogico()) && (this.getAutoraGol(unPartido, unGol).isLocal())) {
-                cantidadGoles++;
+            if (this.getAutoraGol(unPartido, unGol) != null) {
+                if ((!unGol.isBorradoLogico()) && (this.getAutoraGol(unPartido, unGol).isLocal())) {
+                    cantidadGoles++;
+                }
             }
         }
         return cantidadGoles;
@@ -873,8 +875,10 @@ public class ControladoraDeportiva {
     public int getGolesVisitante(Partido unPartido) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
-            if ((!unGol.isBorradoLogico()) && (!this.getAutoraGol(unPartido, unGol).isLocal())) {
-                cantidadGoles++;
+            if (this.getAutoraGol(unPartido, unGol) != null) {
+                if ((!unGol.isBorradoLogico()) && (!this.getAutoraGol(unPartido, unGol).isLocal())) {
+                    cantidadGoles++;
+                }
             }
         }
         return cantidadGoles;

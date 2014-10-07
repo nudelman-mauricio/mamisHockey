@@ -741,10 +741,11 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
 
         jTableDeudas.setEnabled(false);
-
+       
         camposActivoDeudas(true);
         camposLimpiarDeuda();
         unaDeudaSeleccionada = null;
+        this.jTextFieldFechaRealizacion.setText(df.format(unaControladoraGlobal.fechaSistema()));
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
