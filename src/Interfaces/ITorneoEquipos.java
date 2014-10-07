@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.EquiposTorneoDS;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.event.ListSelectionEvent;
@@ -255,7 +256,8 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+        EquiposTorneoDS unEquipoTorneoDS = new EquiposTorneoDS(unaControladoraGlobal,unTorneo);
+        unEquipoTorneoDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed

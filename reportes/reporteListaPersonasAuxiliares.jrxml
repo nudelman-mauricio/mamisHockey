@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteListaPersonasAuxiliares" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aeb32a91-55c6-440b-ac24-57e8eefc43ec">
-	<property name="ireport.zoom" value="1.8660295208389353"/>
-	<property name="ireport.x" value="106"/>
+	<property name="ireport.zoom" value="1.5421731577181281"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="ruta" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>

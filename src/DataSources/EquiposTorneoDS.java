@@ -12,16 +12,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logicaNegocios.Equipo;
+import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -29,62 +27,58 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Leanwit
  */
-public class ListaEquiposDS implements JRDataSource {
+public class EquiposTorneoDS implements JRDataSource {
 
     ControladoraGlobal unaControladoraGlobal;
+    Torneo unTorneo;
+    int indiceEquipos = -1;
     List<Equipo> equipos;
-    int indiceEquipo = -1;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public ListaEquiposDS(ControladoraGlobal unaControladoraGlobal, List<Equipo> equipos) {
+    public EquiposTorneoDS(ControladoraGlobal unaControladoraGlobal, Torneo unTorneo) {
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.equipos = equipos;
+        this.unTorneo = unTorneo;
+        this.equipos = (List<Equipo>) unTorneo.getEquiposInscriptos();
     }
 
     @Override
     public boolean next() throws JRException {
-        return ++indiceEquipo < equipos.size();
+        return ++indiceEquipos < equipos.size();
     }
 
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
-
         if ("fecha".equals(jrf.getName())) {
             valor = df.format(unaControladoraGlobal.fechaSistema());
-        } else if ("nombre".equals(jrf.getName())) {
-            valor = equipos.get(indiceEquipo).getNombre();
+        } else if ("torneo".equals(jrf.getName())) {
+            valor = unTorneo.getNombre();
+        } else if ("categoria".equals(jrf.getName())) {
+            valor = unTorneo.getUnaCategoria();
+        } else if ("equipo".equals(jrf.getName())) {
+            valor = equipos.get(indiceEquipos).getNombre();
         } else if ("club".equals(jrf.getName())) {
-            valor = unaControladoraGlobal.getClubBD(equipos.get(indiceEquipo)).getNombre();
+            valor = unaControladoraGlobal.getClubBD(equipos.get(indiceEquipos)).getNombre();
+        } else if ("dt".equals(jrf.getName())) {
+            valor = equipos.get(indiceEquipos).getUnDT();
         } else if ("delegada".equals(jrf.getName())) {
-            valor = equipos.get(indiceEquipo).getUnaDelegada();
-        } else if ("directorTecnico".equals(jrf.getName())) {
-            valor = equipos.get(indiceEquipo).getUnDT();
+            valor = equipos.get(indiceEquipos).getUnaDelegada();
         } else if ("ruta".equals(jrf.getName())) {
             valor = unaControladoraGlobal.rutaSistema();
         }
         return valor;
     }
 
-    public String verReporte(boolean crearPDF) {
-        File archivo = new File("reportes/reporteListaEquipos.jasper");
+    public void verReporte() {
+        File archivo = new File("reportes/reporteEquiposTorneo.jasper");
         JasperReport reporte;
         try {
             reporte = (JasperReport) JRLoader.loadObject(archivo);
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, this);
-            if (crearPDF) {
-                JRExporter exporter = new JRPdfExporter();
-                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("listaEquipos.pdf"));
-                exporter.exportReport();
-            } else {
-                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-                jasperViewer.setVisible(true);
-            }
-
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "listaEquipos.pdf";
     }
 }
