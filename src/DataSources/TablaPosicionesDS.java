@@ -54,8 +54,8 @@ public class TablaPosicionesDS implements JRDataSource {
     }
 
     @Override
-    public boolean next() throws JRException {       
-                        
+    public boolean next() throws JRException {
+
         return ++indiceEquipos < equipos.size(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -66,19 +66,19 @@ public class TablaPosicionesDS implements JRDataSource {
             valor = df.format(unaControladoraGlobal.fechaSistema());
         } else if ("ruta".equals(jrf.getName())) {
             valor = unaControladoraGlobal.rutaSistema();
-        } else if ("equipo".equals(jrf.getName())) {  
+        } else if ("equipo".equals(jrf.getName())) {
             cantidadPartidosJugados = 0;
             cantidadPartidosGanados = 0;
             cantidadGoles = 0;
             cantidadGolesContrario = 0;
             cantidadPartidosEmpatados = 0;
             cantidadPartidosPerdidos = 0;
-            puntos = 0;            
+            puntos = 0;
             calcularTablaPosiciones(equipos.get(indiceEquipos));
             valor = equipos.get(indiceEquipos).getNombre();
         } else if ("pj".equals(jrf.getName())) {
             valor = cantidadPartidosJugados;
-            
+
         } else if ("pg".equals(jrf.getName())) {
             valor = cantidadPartidosGanados;
         } else if ("pe".equals(jrf.getName())) {
@@ -100,35 +100,38 @@ public class TablaPosicionesDS implements JRDataSource {
     private void calcularTablaPosiciones(Equipo unEquipo) {
         for (FechaTorneo unaFechaTorneo : fechasTorneo) {
             for (Partido unPartido : unaFechaTorneo.getPartidos()) {
-                if (unPartido.getUnEquipoLocal().equals(unEquipo)) {
-                    cantidadPartidosJugados++;
-                    if (unPartido.getGoles() != null) {
-                        cantidadGoles += unaControladoraGlobal.getGolesLocal(unPartido);
-                        cantidadGolesContrario += unaControladoraGlobal.getGolesVisitante(unPartido);
-                        if (unaControladoraGlobal.getGolesLocal(unPartido) > unaControladoraGlobal.getGolesVisitante(unPartido)) {
-                            cantidadPartidosGanados++;
-                        } else {
-                            if (unaControladoraGlobal.getGolesLocal(unPartido) == unaControladoraGlobal.getGolesVisitante(unPartido)) {
-                                cantidadPartidosEmpatados++;
+                if (unPartido.getNombreVeedor() != null) {
+                    if (unPartido.getUnEquipoLocal().equals(unEquipo)) {
 
-                            } else {
-                                cantidadPartidosPerdidos++;
-                            }
-                        }
-                    }
-                } else {
-                    if (unPartido.getUnEquipoVisitante().equals(unEquipo)) {
                         cantidadPartidosJugados++;
                         if (unPartido.getGoles() != null) {
-                            cantidadGoles += unaControladoraGlobal.getGolesVisitante(unPartido);
-                            cantidadGolesContrario += unaControladoraGlobal.getGolesLocal(unPartido);
-                            if (unaControladoraGlobal.getGolesLocal(unPartido) < unaControladoraGlobal.getGolesVisitante(unPartido)) {
+                            cantidadGoles += unaControladoraGlobal.getGolesLocal(unPartido);
+                            cantidadGolesContrario += unaControladoraGlobal.getGolesVisitante(unPartido);
+                            if (unaControladoraGlobal.getGolesLocal(unPartido) > unaControladoraGlobal.getGolesVisitante(unPartido)) {
                                 cantidadPartidosGanados++;
                             } else {
                                 if (unaControladoraGlobal.getGolesLocal(unPartido) == unaControladoraGlobal.getGolesVisitante(unPartido)) {
                                     cantidadPartidosEmpatados++;
+
                                 } else {
                                     cantidadPartidosPerdidos++;
+                                }
+                            }
+                        }
+                    } else {
+                        if (unPartido.getUnEquipoVisitante().equals(unEquipo)) {
+                            cantidadPartidosJugados++;
+                            if (unPartido.getGoles() != null) {
+                                cantidadGoles += unaControladoraGlobal.getGolesVisitante(unPartido);
+                                cantidadGolesContrario += unaControladoraGlobal.getGolesLocal(unPartido);
+                                if (unaControladoraGlobal.getGolesLocal(unPartido) < unaControladoraGlobal.getGolesVisitante(unPartido)) {
+                                    cantidadPartidosGanados++;
+                                } else {
+                                    if (unaControladoraGlobal.getGolesLocal(unPartido) == unaControladoraGlobal.getGolesVisitante(unPartido)) {
+                                        cantidadPartidosEmpatados++;
+                                    } else {
+                                        cantidadPartidosPerdidos++;
+                                    }
                                 }
                             }
                         }
@@ -136,7 +139,7 @@ public class TablaPosicionesDS implements JRDataSource {
                 }
             }
         }
-        System.out.println(unEquipo.getNombre()+cantidadGoles);
+        System.out.println(unEquipo.getNombre() + cantidadGoles);
     }
 
     public void verReporte() {
@@ -149,6 +152,6 @@ public class TablaPosicionesDS implements JRDataSource {
             jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }
     }
 }
