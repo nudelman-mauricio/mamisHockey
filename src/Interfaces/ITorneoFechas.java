@@ -98,7 +98,11 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTable);
         for (Partido unPartido : unaFechaTorneoSeleccionada.getPartidos()) {
             if (!unPartido.isBorradoLogico()) {
-                this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                if(unPartido.getNombreVeedor() == null){
+                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                } else {
+                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                 }
             }
         }
         jButtonEditar.setEnabled(false);
@@ -275,6 +279,11 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
             }
         });
 
@@ -916,6 +925,11 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             IMenuPrincipalInterface.jDesktopPane.add(unIResultadoPartido);
         }
     }//GEN-LAST:event_jTableFechasTorneoMouseClicked
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        limpiarTabla(modeloTable);
+        cargarTabla();
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgregarFecha;

@@ -18,13 +18,10 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -57,7 +54,8 @@ public class TablaPosicionesDS implements JRDataSource {
     }
 
     @Override
-    public boolean next() throws JRException {
+    public boolean next() throws JRException {       
+                        
         return ++indiceEquipos < equipos.size(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -68,18 +66,19 @@ public class TablaPosicionesDS implements JRDataSource {
             valor = df.format(unaControladoraGlobal.fechaSistema());
         } else if ("ruta".equals(jrf.getName())) {
             valor = unaControladoraGlobal.rutaSistema();
-        } else if ("equipo".equals(jrf.getName())) {
+        } else if ("equipo".equals(jrf.getName())) {  
             cantidadPartidosJugados = 0;
             cantidadPartidosGanados = 0;
             cantidadGoles = 0;
             cantidadGolesContrario = 0;
             cantidadPartidosEmpatados = 0;
             cantidadPartidosPerdidos = 0;
-            puntos = 0;
+            puntos = 0;            
             calcularTablaPosiciones(equipos.get(indiceEquipos));
             valor = equipos.get(indiceEquipos).getNombre();
         } else if ("pj".equals(jrf.getName())) {
             valor = cantidadPartidosJugados;
+            
         } else if ("pg".equals(jrf.getName())) {
             valor = cantidadPartidosGanados;
         } else if ("pe".equals(jrf.getName())) {
@@ -101,7 +100,7 @@ public class TablaPosicionesDS implements JRDataSource {
     private void calcularTablaPosiciones(Equipo unEquipo) {
         for (FechaTorneo unaFechaTorneo : fechasTorneo) {
             for (Partido unPartido : unaFechaTorneo.getPartidos()) {
-                if (unPartido.getUnEquipoLocal().equals(equipos.get(indiceEquipos))) {
+                if (unPartido.getUnEquipoLocal().equals(unEquipo)) {
                     cantidadPartidosJugados++;
                     if (unPartido.getGoles() != null) {
                         cantidadGoles += unaControladoraGlobal.getGolesLocal(unPartido);
@@ -118,7 +117,7 @@ public class TablaPosicionesDS implements JRDataSource {
                         }
                     }
                 } else {
-                    if (unPartido.getUnEquipoVisitante().equals(equipos.get(indiceEquipos))) {
+                    if (unPartido.getUnEquipoVisitante().equals(unEquipo)) {
                         cantidadPartidosJugados++;
                         if (unPartido.getGoles() != null) {
                             cantidadGoles += unaControladoraGlobal.getGolesVisitante(unPartido);
@@ -137,6 +136,7 @@ public class TablaPosicionesDS implements JRDataSource {
                 }
             }
         }
+        System.out.println(unEquipo.getNombre()+cantidadGoles);
     }
 
     public void verReporte() {
