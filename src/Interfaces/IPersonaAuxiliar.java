@@ -94,6 +94,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldFechaIngreso.setText(df.format(unaPersonaAuxiliar.getFechaIngreso()));
         jTextFieldTelFijo.setText(unaPersonaAuxiliar.getTelFijo());
         jTextFieldTelCelular.setText(unaPersonaAuxiliar.getTelCelular());
+        jCheckBoxEsArbitro.setSelected(unaPersonaAuxiliar.isArbitro());
+        jCheckBoxEsCuerpoTecnico.setSelected(unaPersonaAuxiliar.isCuerpoTecnico());
     }
     
     private boolean camposValidar() {

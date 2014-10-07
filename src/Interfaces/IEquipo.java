@@ -3,6 +3,11 @@ package Interfaces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -60,11 +65,28 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
     private void cargarCombosBox() {
         jComboBoxClub.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
-        jComboBoxDT.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosDesocupadosBD()));
-        jComboBoxPF.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosDesocupadosBD()));
-        jComboBoxAC.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCuerposTecnicosDesocupadosBD()));
 
-        if (this.unEquipo != null) {
+        Collection<PersonaAuxiliar> unaListaPersonaAuxiliar = new ArrayList();
+
+        if (this.unEquipo == null) {
+            unaListaPersonaAuxiliar.addAll(unaControladoraGlobal.getCuerposTecnicosDesocupadosBD());
+        } else {
+            for (PersonaAuxiliar unCuerpoTecnico : unaControladoraGlobal.getCuerposTecnicosBD()) {
+                if ((!unCuerpoTecnico.isCuerpoTecnicoActivo())
+                        || (Objects.equals(this.unEquipo.getUnDT(), unCuerpoTecnico))
+                        || (Objects.equals(this.unEquipo.getUnAyudanteCampo(), unCuerpoTecnico))
+                        || (Objects.equals(this.unEquipo.getUnPreparadorFisico(), unCuerpoTecnico))) {
+                    unaListaPersonaAuxiliar.add(unCuerpoTecnico);
+                }
+            }
+        }
+
+        jComboBoxDT.setModel(new DefaultComboBoxModel(unaListaPersonaAuxiliar.toArray()));
+        jComboBoxPF.setModel(new DefaultComboBoxModel(unaListaPersonaAuxiliar.toArray()));
+        jComboBoxAC.setModel(new DefaultComboBoxModel(unaListaPersonaAuxiliar.toArray()));
+
+        if (this.unEquipo
+                != null) {
             jComboBoxDelegada.setModel(new DefaultComboBoxModel((Vector) unEquipo.getPlantel()));
             jComboBoxDelegadaSup.setModel(new DefaultComboBoxModel((Vector) unEquipo.getPlantel()));
             jComboBoxCapitana.setModel(new DefaultComboBoxModel((Vector) unEquipo.getPlantel()));
@@ -77,7 +99,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         }
     }
 
-    //deshabilitar todo lo de un contenedor
+//deshabilitar todo lo de un contenedor
     private void camposActivo(Container c, boolean bandera) {
         Component[] components = c.getComponents();
         for (int i = 0; i < components.length; i++) {
