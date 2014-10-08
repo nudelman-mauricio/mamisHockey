@@ -30,7 +30,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (!jRadioButtonDatosPersonales.isSelected() && !jRadioButtonTarjetas.isSelected() && !jRadioButtonPases.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonErgometrias.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonEstados.isSelected()) {
+        if (!jRadioButtonTarjetas.isSelected() && !jRadioButtonPases.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonErgometrias.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonEstados.isSelected()) {
             bandera = false;
         }
         if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {
@@ -50,7 +50,6 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabelNombreJugadora = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jRadioButtonDatosPersonales = new javax.swing.JRadioButton();
         jRadioButtonTarjetas = new javax.swing.JRadioButton();
         jRadioButtonPases = new javax.swing.JRadioButton();
         jRadioButtonSanciones = new javax.swing.JRadioButton();
@@ -101,9 +100,6 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle a Imprimir", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel4.setName(""); // NOI18N
 
-        buttonGroup1.add(jRadioButtonDatosPersonales);
-        jRadioButtonDatosPersonales.setText("Datos Personales");
-
         buttonGroup1.add(jRadioButtonTarjetas);
         jRadioButtonTarjetas.setText("Historial Tarjetas");
 
@@ -129,11 +125,10 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonDatosPersonales)
                     .addComponent(jRadioButtonTarjetas)
                     .addComponent(jRadioButtonPases)
                     .addComponent(jRadioButtonSanciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonErgometrias)
                     .addComponent(jRadioButtonContabilidad)
@@ -144,20 +139,20 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonDatosPersonales)
-                    .addComponent(jRadioButtonErgometrias))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonTarjetas)
-                    .addComponent(jRadioButtonContabilidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonPases)
-                    .addComponent(jRadioButtonEstados))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButtonSanciones)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jRadioButtonTarjetas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonPases)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonSanciones))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jRadioButtonErgometrias)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonContabilidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonEstados)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -344,9 +339,6 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
 
-                if (jRadioButtonDatosPersonales.isSelected()) {
-                    //llamar reporte
-                }
                 if (jRadioButtonTarjetas.isSelected()) {
                     //llamar reporte
                 }
@@ -394,7 +386,6 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JRadioButton jRadioButtonContabilidad;
-    private javax.swing.JRadioButton jRadioButtonDatosPersonales;
     private javax.swing.JRadioButton jRadioButtonErgometrias;
     private javax.swing.JRadioButton jRadioButtonEstados;
     private javax.swing.JRadioButton jRadioButtonPases;
