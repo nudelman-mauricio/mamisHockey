@@ -80,6 +80,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jButtonActualizar.setEnabled(false);
         }
+        System.out.println("borrame");        
         if (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha())) {
             jButtonEditar.setEnabled(true);
         } else {
