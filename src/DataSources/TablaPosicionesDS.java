@@ -55,7 +55,6 @@ public class TablaPosicionesDS implements JRDataSource {
 
     @Override
     public boolean next() throws JRException {
-
         return ++indiceEquipos < equipos.size(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -91,7 +90,7 @@ public class TablaPosicionesDS implements JRDataSource {
             valor = cantidadGolesContrario;
         } else if ("dg".equals(jrf.getName())) {
             valor = cantidadGoles - cantidadGolesContrario;
-        } else if ("ptos".equals(jrf.getName())) {
+        } else if ("pts".equals(jrf.getName())) {
             valor = (cantidadPartidosGanados * 3 + cantidadPartidosEmpatados);
         }
         return valor;//To change body of generated methods, choose Tools | Templates.
@@ -102,7 +101,6 @@ public class TablaPosicionesDS implements JRDataSource {
             for (Partido unPartido : unaFechaTorneo.getPartidos()) {
                 if (unPartido.getNombreVeedor() != null) {
                     if (unPartido.getUnEquipoLocal().equals(unEquipo)) {
-
                         cantidadPartidosJugados++;
                         if (unPartido.getGoles() != null) {
                             cantidadGoles += unaControladoraGlobal.getGolesLocal(unPartido);
@@ -139,7 +137,7 @@ public class TablaPosicionesDS implements JRDataSource {
                 }
             }
         }
-        System.out.println(unEquipo.getNombre() + cantidadGoles);
+       
     }
 
     public void verReporte() {

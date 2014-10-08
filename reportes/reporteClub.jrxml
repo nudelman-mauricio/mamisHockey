@@ -35,9 +35,9 @@
 	<field name="fecha" class="java.lang.String"/>
 	<group name="Group1">
 		<groupHeader>
-			<band height="33">
+			<band height="28">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="114" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="3fad9ffe-a9f6-4475-8aff-d68cb5f7db26"/>
+					<reportElement mode="Opaque" x="0" y="0" width="114" height="28" forecolor="#666666" backcolor="#E6E6E6" uuid="3fad9ffe-a9f6-4475-8aff-d68cb5f7db26"/>
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
@@ -72,7 +72,7 @@
 					<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement x="0" y="32" width="555" height="1" uuid="3fee85d4-8090-432a-83ac-9af3bc093d57"/>
+					<reportElement x="0" y="27" width="555" height="1" uuid="3fee85d4-8090-432a-83ac-9af3bc093d57"/>
 				</line>
 			</band>
 		</groupHeader>
@@ -82,16 +82,16 @@
 	</group>
 	<group name="Group2">
 		<groupHeader>
-			<band height="55">
+			<band height="21">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="114" height="55" forecolor="#666666" backcolor="#E6E6E6" uuid="edd19179-8e97-47cb-85e3-c01fa98df553"/>
+					<reportElement mode="Opaque" x="0" y="0" width="114" height="21" forecolor="#666666" backcolor="#E6E6E6" uuid="edd19179-8e97-47cb-85e3-c01fa98df553"/>
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Equipos]]></text>
 				</staticText>
 				<subreport>
-					<reportElement x="114" y="0" width="441" height="55" uuid="836b9a29-45ab-4a03-a435-f7f10325e9b6"/>
+					<reportElement x="114" y="0" width="441" height="21" uuid="836b9a29-45ab-4a03-a435-f7f10325e9b6"/>
 					<dataSourceExpression><![CDATA[$P{subreport_datasource_Equipo}]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteClub_equipo.jasper"]]></subreportExpression>
 				</subreport>
@@ -103,19 +103,19 @@
 	</group>
 	<group name="Group3">
 		<groupHeader>
-			<band height="46">
+			<band height="20">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="114" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="a9b2aff5-caf8-4c33-aa7c-ce8d2dcde2e5"/>
+					<reportElement mode="Opaque" x="0" y="1" width="114" height="19" forecolor="#666666" backcolor="#E6E6E6" uuid="a9b2aff5-caf8-4c33-aa7c-ce8d2dcde2e5"/>
 					<textElement>
 						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Canchas]]></text>
 				</staticText>
 				<line>
-					<reportElement x="0" y="0" width="575" height="1" uuid="e4034038-1db4-4946-87f0-a7a3f887d0d1"/>
+					<reportElement x="0" y="0" width="555" height="1" uuid="e4034038-1db4-4946-87f0-a7a3f887d0d1"/>
 				</line>
 				<subreport>
-					<reportElement x="114" y="0" width="441" height="37" uuid="9a8a2e09-6ffc-4813-b547-38cd78f2c862"/>
+					<reportElement x="114" y="0" width="441" height="20" uuid="9a8a2e09-6ffc-4813-b547-38cd78f2c862"/>
 					<dataSourceExpression><![CDATA[$P{subreport_datasource_Cancha}]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteClub_cancha.jasper"]]></subreportExpression>
 				</subreport>
