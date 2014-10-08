@@ -8,7 +8,7 @@
 	<field name="torneo" class="java.lang.String"/>
 	<field name="partido" class="java.lang.String"/>
 	<columnHeader>
-		<band height="35" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<staticText>
 				<reportElement x="405" y="18" width="150" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
 				<textElement textAlignment="Center">
@@ -81,4 +81,7 @@
 			</textField>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="25"/>
+	</lastPageFooter>
 </jasperReport>

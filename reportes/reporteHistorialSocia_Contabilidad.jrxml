@@ -12,9 +12,9 @@
 	<field name="saldada" class="java.lang.String"/>
 	<field name="subReporte" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<columnHeader>
-		<band height="18" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="145" height="16" uuid="8c0ff28d-ffee-4589-aa70-266cd70dce57"/>
+				<reportElement x="0" y="14" width="145" height="16" uuid="8c0ff28d-ffee-4589-aa70-266cd70dce57"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
