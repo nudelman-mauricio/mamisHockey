@@ -38,7 +38,7 @@
 				<text><![CDATA[Cuota]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="12" width="555" height="1" uuid="f9d96b57-2eda-4734-876a-5f0ae83d9b51"/>
+				<reportElement x="0" y="12" width="530" height="1" uuid="f9d96b57-2eda-4734-876a-5f0ae83d9b51"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -54,21 +54,21 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cuota}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="###0.00">
 				<reportElement x="231" y="0" width="150" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="###0.00">
 				<reportElement x="381" y="0" width="149" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaPago}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="###0.00">
 				<reportElement x="81" y="0" width="150" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
@@ -77,4 +77,7 @@
 			</textField>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="10"/>
+	</lastPageFooter>
 </jasperReport>

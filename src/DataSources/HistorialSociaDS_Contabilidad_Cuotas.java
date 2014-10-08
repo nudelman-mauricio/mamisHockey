@@ -40,7 +40,11 @@ public class HistorialSociaDS_Contabilidad_Cuotas implements JRDataSource {
                     valor = cuotasImprimir.get(indiceCuota).getMonto();
                     break;
                 case "fechaPago":
-                    valor = dateFormat.format(cuotasImprimir.get(indiceCuota).getFechaPago());
+                    if (cuotasImprimir.get(indiceCuota).getFechaPago() == null) {
+                        valor = "-";
+                    }else{
+                        valor = dateFormat.format(cuotasImprimir.get(indiceCuota).getFechaPago());
+                    }
                     break;
             }
         }

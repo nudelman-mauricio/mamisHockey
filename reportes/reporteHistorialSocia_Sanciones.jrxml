@@ -82,6 +82,6 @@
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="26"/>
+		<band height="20"/>
 	</lastPageFooter>
 </jasperReport>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteHistorialSocia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="23"/>
+	<property name="ireport.y" value="22"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -63,25 +63,83 @@
 	<field name="Sanciones" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="Tarjetas" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="Contabilidad" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<group name="Group1">
+	<group name="Estados">
+		<groupHeader>
+			<band height="1">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="0" uuid="aeae4ef7-841c-49b0-a3e5-50d656a35d93"/>
+					<dataSourceExpression><![CDATA[$F{Estados}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Estados.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
 		<groupFooter>
 			<band/>
 		</groupFooter>
 	</group>
-	<group name="Group2">
+	<group name="Ergometrias">
+		<groupHeader>
+			<band height="1">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="0" uuid="30de4aab-1ed1-444d-9218-0ab0cbcfbd3d"/>
+					<dataSourceExpression><![CDATA[$F{Ergometrias}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Ergometrias.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
 		<groupFooter>
 			<band/>
 		</groupFooter>
 	</group>
-	<group name="Group3">
+	<group name="Sanciones">
+		<groupHeader>
+			<band height="1">
+				<subreport>
+					<reportElement x="1" y="0" width="555" height="0" uuid="2931234f-6bf3-459f-88f4-dffecde470ca"/>
+					<dataSourceExpression><![CDATA[$F{Sanciones}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Sanciones.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
 		<groupFooter>
 			<band/>
 		</groupFooter>
 	</group>
-	<group name="Group4">
+	<group name="Tarjetas">
+		<groupHeader>
+			<band height="1">
+				<subreport>
+					<reportElement x="0" y="0" width="555" height="0" uuid="a2900b4f-8c16-4035-9e0c-ae84096e203c"/>
+					<dataSourceExpression><![CDATA[$F{Tarjetas}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Tarjetas.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
 		<groupFooter>
 			<band/>
 		</groupFooter>
+	</group>
+	<group name="Pases">
+		<groupHeader>
+			<band height="1">
+				<subreport>
+					<reportElement x="1" y="0" width="555" height="0" uuid="e6b529e0-253e-44cb-8446-17da94b1d780"/>
+					<dataSourceExpression><![CDATA[$F{Pases}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Pases.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Contabilidad">
+		<groupHeader>
+			<band height="1">
+				<subreport>
+					<reportElement x="1" y="0" width="555" height="0" uuid="6345e109-01df-4f91-a2d1-207587db738a"/>
+					<dataSourceExpression><![CDATA[$F{Contabilidad}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Contabilidad.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
 	</group>
 	<title>
 		<band height="72">
@@ -113,216 +171,193 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="34">
+		<band height="106">
+			<rectangle radius="10">
+				<reportElement x="1" y="35" width="554" height="60" uuid="d159b363-4e4a-41bc-a4f4-15602fff81ee"/>
+			</rectangle>
 			<textField>
 				<reportElement x="427" y="-15" width="128" height="15" forecolor="#FFFFFF" uuid="f4639b16-c04a-4e91-a74c-9ac78f803a4e"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Fecha: " + $F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="132" y="4" width="291" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
+				<reportElement mode="Transparent" x="132" y="6" width="291" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Historial" + $F{socia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Historial " + $F{socia}]]></textFieldExpression>
 			</textField>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band/>
-	</columnHeader>
-	<detail>
-		<band height="148">
-			<rectangle radius="10">
-				<reportElement x="0" y="7" width="554" height="60" uuid="d159b363-4e4a-41bc-a4f4-15602fff81ee"/>
-			</rectangle>
-			<line>
-				<reportElement x="0" y="1" width="554" height="1" uuid="68467c3b-01e5-40d4-97f6-69b0bef2988f"/>
-				<graphicElement>
-					<pen lineWidth="1.25" lineColor="#000000"/>
-				</graphicElement>
-			</line>
-			<subreport>
-				<reportElement x="0" y="106" width="555" height="10" uuid="e6b529e0-253e-44cb-8446-17da94b1d780"/>
-				<dataSourceExpression><![CDATA[$F{Pases}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Pases.jasper"]]></subreportExpression>
-			</subreport>
 			<staticText>
-				<reportElement x="10" y="19" width="81" height="12" uuid="7cac642a-d93d-4a8e-ae9a-d1e272c54016"/>
+				<reportElement x="10" y="47" width="81" height="12" uuid="7cac642a-d93d-4a8e-ae9a-d1e272c54016"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Apellido y Nombre:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="91" y="19" width="137" height="12" uuid="33321801-52d2-4a6c-909e-2c23e78e75cb"/>
+				<reportElement x="91" y="47" width="137" height="12" uuid="33321801-52d2-4a6c-909e-2c23e78e75cb"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{socia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="7" width="20" height="12" uuid="8e1d2bf2-b058-4516-8b26-5162f0d386c9"/>
+				<reportElement x="10" y="35" width="20" height="12" uuid="8e1d2bf2-b058-4516-8b26-5162f0d386c9"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[DNI:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="30" y="7" width="198" height="12" uuid="77002c35-0940-4b51-886b-cb86b2fe0258"/>
+				<reportElement x="30" y="35" width="198" height="12" uuid="77002c35-0940-4b51-886b-cb86b2fe0258"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="9" y="43" width="46" height="12" uuid="2f74658d-12d5-4bcd-8d3a-8c72ff22c3cf"/>
+				<reportElement x="9" y="71" width="46" height="12" uuid="2f74658d-12d5-4bcd-8d3a-8c72ff22c3cf"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Localidad:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="55" y="43" width="173" height="12" uuid="e1d9e852-7f7c-4ce4-8083-c06170755f84"/>
+				<reportElement x="55" y="71" width="173" height="12" uuid="e1d9e852-7f7c-4ce4-8083-c06170755f84"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="31" width="43" height="12" uuid="a9667aad-238a-4cc4-9fe9-d89e7c83be89"/>
+				<reportElement x="10" y="59" width="43" height="12" uuid="a9667aad-238a-4cc4-9fe9-d89e7c83be89"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Domicilio:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="53" y="31" width="175" height="12" uuid="305d742b-a87d-4226-ba51-1b3d944efee0"/>
+				<reportElement x="53" y="59" width="175" height="12" uuid="305d742b-a87d-4226-ba51-1b3d944efee0"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{domicilio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="349" y="31" width="31" height="12" uuid="73c3dc7d-c6d9-4fbd-9c54-17a3ca632dcb"/>
+				<reportElement x="349" y="59" width="31" height="12" uuid="73c3dc7d-c6d9-4fbd-9c54-17a3ca632dcb"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[E-mail:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="380" y="31" width="160" height="12" uuid="583d7615-e5f5-450b-8b0d-3efc46710a81"/>
+				<reportElement x="380" y="59" width="160" height="12" uuid="583d7615-e5f5-450b-8b0d-3efc46710a81"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="349" y="19" width="94" height="12" uuid="b01a880e-da80-400f-b30e-28e9db9485bf"/>
+				<reportElement x="349" y="47" width="94" height="12" uuid="b01a880e-da80-400f-b30e-28e9db9485bf"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Fecha de Nacimiento:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="443" y="19" width="97" height="12" uuid="06d133b6-dabd-4ab1-ac96-142e1d5537a2"/>
+				<reportElement x="443" y="47" width="97" height="12" uuid="06d133b6-dabd-4ab1-ac96-142e1d5537a2"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaNacimiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="349" y="7" width="79" height="12" uuid="f46f9662-bba0-4f7b-9937-001cc9fcd76b"/>
+				<reportElement x="349" y="35" width="79" height="12" uuid="f46f9662-bba0-4f7b-9937-001cc9fcd76b"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Fecha de Ingreso:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="428" y="7" width="112" height="12" uuid="11c18a76-db04-460b-98ba-8ffbd7c6744a"/>
+				<reportElement x="428" y="35" width="112" height="12" uuid="11c18a76-db04-460b-98ba-8ffbd7c6744a"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaIngreso}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="349" y="43" width="39" height="12" uuid="2593c4d6-8abd-4c0e-a4bd-c0c2a213b26d"/>
+				<reportElement x="349" y="71" width="39" height="12" uuid="2593c4d6-8abd-4c0e-a4bd-c0c2a213b26d"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Tel. Fijo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="388" y="43" width="152" height="12" uuid="9a264bf7-5307-4815-b17d-3e39d6757237"/>
+				<reportElement x="388" y="71" width="152" height="12" uuid="9a264bf7-5307-4815-b17d-3e39d6757237"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telFijo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="349" y="55" width="54" height="12" uuid="738525ac-007a-4e1c-ad04-fe01353f6263"/>
+				<reportElement x="349" y="83" width="54" height="12" uuid="738525ac-007a-4e1c-ad04-fe01353f6263"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Tel. Celular:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="403" y="55" width="137" height="12" uuid="e4ed884a-0f6d-4bf6-a32a-82cb4e6ba325"/>
+				<reportElement x="403" y="83" width="137" height="12" uuid="e4ed884a-0f6d-4bf6-a32a-82cb4e6ba325"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telCel}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="55" width="58" height="12" uuid="5a7c4e9e-d186-4280-a860-e4d7f36a3ce5"/>
+				<reportElement x="10" y="83" width="58" height="12" uuid="5a7c4e9e-d186-4280-a860-e4d7f36a3ce5"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Ex-Jugadora:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="68" y="55" width="160" height="12" uuid="df80ca50-511e-4305-9826-fbd60afb817d"/>
+				<reportElement x="68" y="83" width="160" height="12" uuid="df80ca50-511e-4305-9826-fbd60afb817d"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ex-Jugadora}]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement x="0" y="86" width="555" height="10" uuid="aeae4ef7-841c-49b0-a3e5-50d656a35d93"/>
-				<dataSourceExpression><![CDATA[$F{Estados}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Estados.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="137" width="555" height="10" uuid="2931234f-6bf3-459f-88f4-dffecde470ca"/>
-				<dataSourceExpression><![CDATA[$F{Sanciones}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Sanciones.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="126" width="555" height="10" uuid="a2900b4f-8c16-4035-9e0c-ae84096e203c"/>
-				<dataSourceExpression><![CDATA[$F{Tarjetas}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Tarjetas.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="96" width="555" height="10" uuid="30de4aab-1ed1-444d-9218-0ab0cbcfbd3d"/>
-				<dataSourceExpression><![CDATA[$F{Ergometrias}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Ergometrias.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="116" width="555" height="10" uuid="6345e109-01df-4f91-a2d1-207587db738a"/>
-				<dataSourceExpression><![CDATA[$F{Contabilidad}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Contabilidad.jasper"]]></subreportExpression>
-			</subreport>
+			<line>
+				<reportElement x="0" y="102" width="555" height="1" uuid="61493d51-05eb-4a86-b339-699b9e9b7c43"/>
+			</line>
 		</band>
-	</detail>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
 	<columnFooter>
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="42">
+		<band height="15">
 			<line>
 				<reportElement x="0" y="0" width="555" height="1" uuid="2c544c39-d9d1-4021-a2c4-a29a4d007276"/>
 			</line>
+			<textField>
+				<reportElement x="434" y="3" width="80" height="11" uuid="b5e180ac-3674-4ef4-a097-8d4564d51ccf"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="3" width="40" height="11" uuid="34f7f454-27d2-4271-b835-b71368ff0cea"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>

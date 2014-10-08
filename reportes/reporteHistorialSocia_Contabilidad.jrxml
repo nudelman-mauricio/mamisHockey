@@ -14,83 +14,86 @@
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="14" width="145" height="16" uuid="8c0ff28d-ffee-4589-aa70-266cd70dce57"/>
+				<reportElement x="0" y="0" width="145" height="16" uuid="8c0ff28d-ffee-4589-aa70-266cd70dce57"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Historico de Contabilidad:]]></text>
 			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="40" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="29" y="2" width="58" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
+				<reportElement x="29" y="18" width="58" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="491" y="2" width="50" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
+				<reportElement x="491" y="18" width="50" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{saldada}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="13" width="555" height="1" uuid="8023a2f9-fcaf-4d7f-8092-070d2749f2c9"/>
+				<reportElement x="0" y="29" width="555" height="1" uuid="8023a2f9-fcaf-4d7f-8092-070d2749f2c9"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</line>
-			<subreport>
-				<reportElement x="25" y="14" width="530" height="26" uuid="fc0f6d31-6d07-42e2-a753-56beb84936c6"/>
-				<dataSourceExpression><![CDATA[$F{subReporte}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteHistorialSocia_Contabilidad_Cuotas.jasper"]]></subreportExpression>
-			</subreport>
 			<staticText>
-				<reportElement x="0" y="2" width="27" height="11" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
+				<reportElement x="0" y="18" width="27" height="11" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="119" y="2" width="41" height="11" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
+				<reportElement x="119" y="18" width="41" height="11" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concepto: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="162" y="2" width="80" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
+				<reportElement x="162" y="18" width="80" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="274" y="2" width="48" height="11" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
+				<reportElement x="274" y="18" width="48" height="11" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto Total: ]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.00">
-				<reportElement x="324" y="2" width="74" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
+				<reportElement x="324" y="18" width="74" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{montoTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="428" y="2" width="61" height="11" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
+				<reportElement x="428" y="18" width="61" height="11" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Deuda Saldada: ]]></text>
 			</staticText>
 		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<subreport>
+				<reportElement x="25" y="1" width="530" height="11" uuid="fc0f6d31-6d07-42e2-a753-56beb84936c6"/>
+				<dataSourceExpression><![CDATA[$F{subReporte}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteHistorialSocia_Contabilidad_Cuotas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="20"/>
+	</lastPageFooter>
 </jasperReport>

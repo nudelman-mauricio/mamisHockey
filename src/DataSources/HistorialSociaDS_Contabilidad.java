@@ -37,7 +37,7 @@ public class HistorialSociaDS_Contabilidad implements JRDataSource {
         if (null != jrf.getName()) //General
         {
             switch (jrf.getName()) {
-                case "facha":
+                case "fecha":
                     valor = dateFormat.format(deudasImprimir.get(indiceDeuda).getFechaGeneracion());
                     break;
                 case "concepto":
