@@ -32,7 +32,7 @@ public class PlanilladePagoDS_unPlantel implements JRDataSource {
         for (Cuota unaCuota : this.cuotasPagaron) {
             if (unaSocia.getDeudas().contains(unaControladoraGlobal.getDeudaDeCuota(unaCuota))) {
                 CuotasPagadasSocia.add(unaCuota);
-                //this.cuotasPagaron.remove(unaCuota);
+                //this.cuotasPagaron.remove(unaCuota); (creo q mejora si qda esto) VER PORQ NO RECUERDO BIEN
             }
         }
         PlanilladePagoDS_unPlantel_unaDeuda unaDeudas = new PlanilladePagoDS_unPlantel_unaDeuda(unaControladoraGlobal, CuotasPagadasSocia);

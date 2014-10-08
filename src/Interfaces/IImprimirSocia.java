@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.HistorialSociaDS;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -357,9 +358,14 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 if (jRadioButtonEstados.isSelected()) {
                     //llamar reporte
                 }
+
+                HistorialSociaDS unHistorialSociaDS = new HistorialSociaDS(unaControladoraGlobal, fechaDesde, fechaHasta, unaSociaSeleccionada);
+                unHistorialSociaDS.verReporte();
+                
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
             }
+
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
