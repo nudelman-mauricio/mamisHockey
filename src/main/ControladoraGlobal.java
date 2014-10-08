@@ -327,7 +327,7 @@ public class ControladoraGlobal {
     private boolean computarTarjetaSocia(Socia unaSocia) {
         Tarjeta verde1 = null, verde2 = null, amarilla1 = null;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-            if (unaTarjeta.getTipo().equals("Verde")) {
+            if ((unaTarjeta.getTipo().equals("Verde")) && (!unaTarjeta.isComputado())) {
                 if (verde1 == null) {
                     verde1 = unaTarjeta;
                 } else {
@@ -342,7 +342,7 @@ public class ControladoraGlobal {
                     }
                 }
             }
-            if (unaTarjeta.getTipo().equals("Amarilla")) {
+            if ((unaTarjeta.getTipo().equals("Amarilla")) && (!unaTarjeta.isComputado())) {
                 if (amarilla1 == null) {
                     amarilla1 = unaTarjeta;
                 } else {

@@ -1185,7 +1185,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
                 }
                 unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
-                                
+                
                 unaControladoraGlobal.computarTarjetasAcumuladas(unPartido);
                 
                 jButtonGuardar.setEnabled(false);
