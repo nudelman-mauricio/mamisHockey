@@ -80,8 +80,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jButtonActualizar.setEnabled(false);
         }
-        System.out.println("borrame");        
-        if (unaControladoraGlobal.fechaSistema().after(unPartido.getFecha())) {
+        if ((unaControladoraGlobal.fechaSistema().after(unPartido.getFecha())) || (unaControladoraGlobal.fechaSistema().equals(unPartido.getFecha()))) {
             jButtonEditar.setEnabled(true);
         } else {
             jButtonEditar.setEnabled(false);
@@ -106,9 +105,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             if (value instanceof Tarjeta) {
                 if ((column >= 3) && (column < 5)) {
                     componente.setBackground(Color.green);
-                } else if ((column >= 6) && (column < 8)) {
+                } else if ((column >= 5) && (column < 7)) {
                     componente.setBackground(Color.yellow);
-                } else if ((column >= 8) && (column < 10)) {
+                } else if (column == 7) {
                     componente.setBackground(Color.red);
                 }
                 if (isSelected) {
@@ -132,7 +131,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     public void cargarCampos() {
         // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
         jLabelTitulo.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        if (unPartido.getNombreVeedor() != null) { //El partido se jugo
+        if ((unPartido.getNombreVeedor() != null) || (unPartido.getGoles() == null)) { //El partido se jugo
             jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
         } else {
             jLabelResultado.setText("- a -");
@@ -299,18 +298,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
     private void cargarCamposTablaControlando(DefaultTableModel modeloTable, Socia unaSocia, String camiseta) {
         // <editor-fold defaultstate="collapsed" desc="Control Tarjetas">        
-        Tarjeta v1 = null, v2 = null, v3 = null, a1 = null, a2 = null, roja = null;
+        Tarjeta v1 = null, v2 = null, a1 = null, a2 = null, roja = null;
         for (Tarjeta unaTarjeta : unPartido.getTarjetas()) {
             if ((!unaTarjeta.isBorradoLogico()) && (unaSocia.isAutoraTarjeta(unaTarjeta))) {
                 if ("Verde".equals(unaTarjeta.getTipo())) {
                     if (v1 == null) {
                         v1 = unaTarjeta;
                     } else {
-                        if (v2 == null) {
-                            v2 = unaTarjeta;
-                        } else {
-                            v3 = unaTarjeta;
-                        }
+                        v2 = unaTarjeta;
                     }
                 }
                 if ("Amarilla".equals(unaTarjeta.getTipo())) {
@@ -326,7 +321,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         }
         // </editor-fold>
-        modeloTable.addRow(new Object[]{unaSocia.getDni(), camiseta, unaSocia, v1, v2, v3, a1, a2, roja, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
+        modeloTable.addRow(new Object[]{unaSocia.getDni(), camiseta, unaSocia, v1, v2, a1, a2, roja, unaControladoraGlobal.getGolesSocia(unPartido, unaSocia)});
     }
 
     private boolean camposValidar() {
@@ -337,13 +332,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jLabelVeedor.setForeground(Color.black);
         }
-        if (jTextFieldAyudanteCampoLocal.getText().isEmpty()) {
+        if (jTextFieldAyudanteDeMesaLocal.getText().isEmpty()) {
             jLabelAML.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelAML.setForeground(Color.black);
         }
-        if (jTextFieldAyudanteCampoVisitante.getText().isEmpty()) {
+        if (jTextFieldAyudanteDeMesaVisitante.getText().isEmpty()) {
             jLabelAMV.setForeground(Color.red);
             bandera = false;
         } else {
@@ -846,14 +841,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "Roja", "Gol"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "1° A", "2° A", "Roja", "Gol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -899,12 +894,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableLocal.getColumnModel().getColumn(7).setMinWidth(40);
             jTableLocal.getColumnModel().getColumn(7).setPreferredWidth(40);
             jTableLocal.getColumnModel().getColumn(7).setMaxWidth(40);
-            jTableLocal.getColumnModel().getColumn(8).setMinWidth(40);
-            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(40);
-            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(40);
-            jTableLocal.getColumnModel().getColumn(9).setMinWidth(35);
-            jTableLocal.getColumnModel().getColumn(9).setPreferredWidth(35);
-            jTableLocal.getColumnModel().getColumn(9).setMaxWidth(35);
+            jTableLocal.getColumnModel().getColumn(8).setMinWidth(35);
+            jTableLocal.getColumnModel().getColumn(8).setPreferredWidth(35);
+            jTableLocal.getColumnModel().getColumn(8).setMaxWidth(35);
         }
         jTableLocal.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -995,14 +987,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "3° V", "1° A", "2° A", "Roja", "Gol"
+                "DNI", "Cam", "Apellido y Nombre", "1° V", "2° V", "1° A", "2° A", "Roja", "Gol"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1048,12 +1040,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTableVisitante.getColumnModel().getColumn(7).setMinWidth(40);
             jTableVisitante.getColumnModel().getColumn(7).setPreferredWidth(40);
             jTableVisitante.getColumnModel().getColumn(7).setMaxWidth(40);
-            jTableVisitante.getColumnModel().getColumn(8).setMinWidth(40);
-            jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(40);
-            jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(40);
-            jTableVisitante.getColumnModel().getColumn(9).setMinWidth(35);
-            jTableVisitante.getColumnModel().getColumn(9).setPreferredWidth(35);
-            jTableVisitante.getColumnModel().getColumn(9).setMaxWidth(35);
+            jTableVisitante.getColumnModel().getColumn(8).setMinWidth(35);
+            jTableVisitante.getColumnModel().getColumn(8).setPreferredWidth(35);
+            jTableVisitante.getColumnModel().getColumn(8).setMaxWidth(35);
         }
         jTableVisitante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -1186,9 +1175,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                     unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
                 }
                 unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
-                
+
                 unaControladoraGlobal.computarTarjetasAcumuladas(unPartido);
-                
+
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonEditar.setEnabled(true);
@@ -1270,17 +1259,17 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 if (jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), 0));
                     IResultadoPartidoCargarTarjeta unaICargarTarjeta;
-                    if ((jTableLocal.getSelectedColumn() > 2) && (jTableLocal.getSelectedColumn() < 9)) {
+                    if ((jTableLocal.getSelectedColumn() > 2) && (jTableLocal.getSelectedColumn() < 8)) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableLocal.getValueAt(jTableLocal.getSelectedRow(), jTableLocal.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
-                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 6)) {
+                            if ((jTableLocal.getSelectedColumn() >= 3) && (jTableLocal.getSelectedColumn() < 5)) {
                                 unTipo = "Verde";
-                            } else if ((jTableLocal.getSelectedColumn() >= 6) && (jTableLocal.getSelectedColumn() < 8)) {
+                            } else if ((jTableLocal.getSelectedColumn() >= 5) && (jTableLocal.getSelectedColumn() < 7)) {
                                 unTipo = "Amarilla";
-                            } else if (jTableLocal.getSelectedColumn() == 8) {
+                            } else if (jTableLocal.getSelectedColumn() == 7) {
                                 unTipo = "Roja";
                             }
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
@@ -1289,7 +1278,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
                         IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
-                    } else if (jTableLocal.getSelectedColumn() == 9) {
+                    } else if (jTableLocal.getSelectedColumn() == 8) {
                         IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
                         unaICargarGol.pack();
                         unaICargarGol.setVisible(true);
@@ -1350,17 +1339,17 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 if (jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0) != null) {
                     Socia unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0));
                     IResultadoPartidoCargarTarjeta unaICargarTarjeta;
-                    if ((jTableVisitante.getSelectedColumn() > 2) && (jTableVisitante.getSelectedColumn() < 9)) {
+                    if ((jTableVisitante.getSelectedColumn() > 2) && (jTableVisitante.getSelectedColumn() < 8)) {
                         Tarjeta unaTarjeta = (Tarjeta) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.getSelectedColumn());
                         if (unaTarjeta != null) { //Abrir ventana Cargar Tarjeta Mostrando el detalle de una Tarjeta (PARA EDITAR LA MISMA TAMBIEN)
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unaTarjeta);
                         } else {//Abrir ventana Cargar Tarjeta para Crear una Tarjeta
                             String unTipo = "";
-                            if ((jTableVisitante.getSelectedColumn() >= 3) && (jTableVisitante.getSelectedColumn() < 6)) {
+                            if ((jTableVisitante.getSelectedColumn() >= 3) && (jTableVisitante.getSelectedColumn() < 5)) {
                                 unTipo = "Verde";
-                            } else if ((jTableVisitante.getSelectedColumn() >= 6) && (jTableVisitante.getSelectedColumn() < 8)) {
+                            } else if ((jTableVisitante.getSelectedColumn() >= 5) && (jTableVisitante.getSelectedColumn() < 7)) {
                                 unTipo = "Amarilla";
-                            } else if (jTableVisitante.getSelectedColumn() == 8) {
+                            } else if (jTableVisitante.getSelectedColumn() == 7) {
                                 unTipo = "Roja";
                             }
                             unaICargarTarjeta = new IResultadoPartidoCargarTarjeta(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido, unTipo);
@@ -1369,7 +1358,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
                         IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
-                    } else if (jTableVisitante.getSelectedColumn() == 9) {
+                    } else if (jTableVisitante.getSelectedColumn() == 8) {
                         IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
                         unaICargarGol.pack();
                         unaICargarGol.setVisible(true);
