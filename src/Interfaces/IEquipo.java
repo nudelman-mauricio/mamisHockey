@@ -66,19 +66,17 @@ public class IEquipo extends javax.swing.JInternalFrame {
     private void cargarCombosBox() {
         jComboBoxClub.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
 
-        Collection<PersonaAuxiliar> unaListaPersonaAuxiliar = new ArrayList();
-
-        if (this.unEquipo == null) {
-            unaListaPersonaAuxiliar.addAll(unaControladoraGlobal.getCuerposTecnicosDesocupadosBD());
-        } else {
-            for (PersonaAuxiliar unCuerpoTecnico : unaControladoraGlobal.getCuerposTecnicosBD()) {
-                if ((!unCuerpoTecnico.isCuerpoTecnicoActivo())
-                        || (Objects.equals(this.unEquipo.getUnDT(), unCuerpoTecnico))
-                        || (Objects.equals(this.unEquipo.getUnAyudanteCampo(), unCuerpoTecnico))
-                        || (Objects.equals(this.unEquipo.getUnPreparadorFisico(), unCuerpoTecnico))) {
-                    unaListaPersonaAuxiliar.add(unCuerpoTecnico);
-                }
+        Collection<PersonaAuxiliar> unaListaPersonaAuxiliar = unaControladoraGlobal.getCuerposTecnicosDesocupadosBD();
+        if (this.unEquipo != null){
+            if (unEquipo.getUnDT() != null) {
+                unaListaPersonaAuxiliar.add(unEquipo.getUnDT());
             }
+            if (unEquipo.getUnPreparadorFisico() != null) {
+               unaListaPersonaAuxiliar.add(unEquipo.getUnPreparadorFisico()); 
+            }
+            if (unEquipo.getUnAyudanteCampo() != null) {
+              unaListaPersonaAuxiliar.add(unEquipo.getUnAyudanteCampo());  
+            } 
         }
 
         jComboBoxDT.setModel(new DefaultComboBoxModel(unaListaPersonaAuxiliar.toArray()));
