@@ -32,7 +32,7 @@
 				<text><![CDATA[Equipo Origen]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="18" width="99" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
+				<reportElement x="65" y="18" width="84" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -60,7 +60,7 @@
 	<detail>
 		<band height="12" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="0" width="99" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
+				<reportElement x="65" y="0" width="84" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
