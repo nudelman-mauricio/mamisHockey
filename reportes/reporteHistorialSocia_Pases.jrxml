@@ -4,12 +4,12 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="fecha" class="java.lang.String"/>
-	<field name="Monto" class="java.lang.String"/>
-	<field name="EquipoOrigen" class="java.lang.String"/>
-	<field name="EquipoDestino" class="java.lang.String"/>
-	<field name="NPase" class="java.lang.String"/>
+	<field name="monto" class="java.lang.String"/>
+	<field name="equipoOrigen" class="java.lang.String"/>
+	<field name="equipoDestino" class="java.lang.String"/>
+	<field name="nPase" class="java.lang.String"/>
 	<columnHeader>
-		<band height="35" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<staticText>
 				<reportElement x="483" y="18" width="72" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
 				<textElement textAlignment="Center">
@@ -32,7 +32,7 @@
 				<text><![CDATA[Equipo Origen]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="18" width="99" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
+				<reportElement x="65" y="18" width="84" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -59,8 +59,8 @@
 	</columnHeader>
 	<detail>
 		<band height="12" splitType="Stretch">
-			<textField>
-				<reportElement x="50" y="0" width="99" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="65" y="0" width="84" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
@@ -71,28 +71,28 @@
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{EquipoDestino}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{equipoDestino}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="489" y="0" width="66" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="149" y="0" width="167" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{EquipoOrigen}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{equipoOrigen}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="50" height="11" uuid="fd73794c-35b2-436d-8964-0c48f9bb79a5"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NPase}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nPase}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="483" y="0" width="6" height="11" uuid="dad2f22a-bc0e-472c-bdb3-4512949d822e"/>
@@ -103,4 +103,7 @@
 			</staticText>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="20"/>
+	</lastPageFooter>
 </jasperReport>

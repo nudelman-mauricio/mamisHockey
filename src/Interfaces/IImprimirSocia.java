@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.HistorialSociaDS;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         if (!jRadioButtonTarjetas.isSelected() && !jRadioButtonPases.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonErgometrias.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonEstados.isSelected()) {
             bandera = false;
         }
-        if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {
+        if ((jComboBoxDesdeMes.getSelectedItem()== jComboBoxHastaMes.getSelectedItem() && (jComboBoxDesdeAño.getSelectedItem() == jComboBoxHastaAño.getSelectedItem()))) {
             JOptionPane.showMessageDialog(this, "Las fechas son iguales. La diferencia debe ser como mínimo un mes.");
             return false;
         }
@@ -208,7 +209,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
 
         jComboBoxDesdeMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
-        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -245,7 +246,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
 
         jComboBoxHastaMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
-        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -357,9 +358,14 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 if (jRadioButtonEstados.isSelected()) {
                     //llamar reporte
                 }
+
+                HistorialSociaDS unHistorialSociaDS = new HistorialSociaDS(unaControladoraGlobal, fechaDesde, fechaHasta, unaSociaSeleccionada);
+                unHistorialSociaDS.verReporte();
+                
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
             }
+
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 

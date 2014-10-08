@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteHistorialSocia_Tarjetas" language="groovy" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ee3fcca8-05ca-47ce-83c8-57ae3eaf99bd">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteHistorialSocia_Sanciones" language="groovy" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ee3fcca8-05ca-47ce-83c8-57ae3eaf99bd">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="fecha" class="java.lang.String"/>
-	<field name="tipoTarjeta" class="java.lang.String"/>
-	<field name="torneo" class="java.lang.String"/>
+	<field name="nResolucion" class="java.lang.String"/>
+	<field name="motivo" class="java.lang.String"/>
 	<field name="partido" class="java.lang.String"/>
 	<columnHeader>
 		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="405" y="18" width="150" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
+				<reportElement x="440" y="18" width="115" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Partido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="255" y="18" width="150" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
+				<reportElement x="96" y="18" width="100" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Torneo]]></text>
+				<text><![CDATA[N° Resolución]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="105" y="18" width="150" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
+				<reportElement x="196" y="18" width="244" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tipo Tarjeta]]></text>
+				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="18" width="105" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
+				<reportElement x="0" y="18" width="80" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -41,43 +41,43 @@
 				<reportElement x="0" y="31" width="555" height="1" uuid="f9d96b57-2eda-4734-876a-5f0ae83d9b51"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="0" width="116" height="16" uuid="8c0ff28d-ffee-4589-aa70-266cd70dce57"/>
+				<reportElement x="0" y="0" width="131" height="16" uuid="8c0ff28d-ffee-4589-aa70-266cd70dce57"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Historico de Tarjetas:]]></text>
+				<text><![CDATA[Historico de Sanciones:]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="12" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="0" width="105" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
+				<reportElement x="0" y="0" width="80" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="255" y="0" width="150" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
+				<reportElement x="96" y="0" width="100" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{torneo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nResolucion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="405" y="0" width="150" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
+				<reportElement x="440" y="0" width="115" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{partido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="105" y="0" width="150" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
+				<reportElement x="196" y="0" width="244" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipoTarjeta}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
