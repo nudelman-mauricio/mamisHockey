@@ -120,9 +120,17 @@ public class ISancion extends javax.swing.JInternalFrame {
                     this.jRadioButtonCantFechas.setSelected(true);
                 }
                 this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionSeleccionada.getCantFechasCumplidas()));
-                this.jTextFieldPartido.setText(unaSancionSeleccionada.getUnPartido().toString());
-                this.jTextFieldTarjeta.setText(unaSancionSeleccionada.getUnaTarjeta().getTipo());
-
+                if(unaSancionSeleccionada.getUnPartido()!=null){
+                    this.jTextFieldPartido.setText(unaSancionSeleccionada.getUnPartido().toString());
+                } else {
+                    this.jTextFieldPartido.setText("");
+                }
+                if(unaSancionSeleccionada.getUnaTarjeta() != null){
+                      this.jTextFieldTarjeta.setText(unaSancionSeleccionada.getUnaTarjeta().getTipo());
+                } else {
+                    this.jTextFieldTarjeta.setText("");
+                }
+              
                 jButtonEliminar.setEnabled(true);
                 jButtonEditar.setEnabled(true);
                 jButtonImprimir.setEnabled(true);
@@ -152,7 +160,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 if (unaSancion.getVencimiento() != null) {
                     penalizacion = df.format(unaSancion.getVencimiento());
                 }
-                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), df.format(unaSancion.getFecha()), unaSancion.getMotivo(), unaSancion.getNumeroResolucion(), penalizacion, unaSancion.getCantFechasCumplidas(), unaSancion.getUnPartido().toString()});
+                this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), df.format(unaSancion.getFecha()), unaSancion.getMotivo(), unaSancion.getNumeroResolucion(), penalizacion, unaSancion.getCantFechasCumplidas(), unaSancion.getUnPartido()});
             }
         }
         jButtonEliminar.setEnabled(false);
@@ -650,6 +658,7 @@ public class ISancion extends javax.swing.JInternalFrame {
 
                 camposActivo(false);
                 camposLimpiar();
+                cargarTabla();
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }

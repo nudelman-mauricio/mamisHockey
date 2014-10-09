@@ -36,8 +36,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     private void camposCargar() {
         if (jTableTorneo.getSelectedRow() > -1) {
             if (jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0) != null) {
-                unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
+                unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));                
                 camposActivo(true);
+                if(unTorneoSeleccionado.getEquiposInscriptos().size() == 0){
+                    jButtonTablaPosiciones.setEnabled(false);
+                }
             }
         }
     }

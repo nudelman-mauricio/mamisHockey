@@ -81,7 +81,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jButtonActualizar.setEnabled(false);
         }
         if ((unaControladoraGlobal.fechaSistema().after(unPartido.getFecha())) || (unaControladoraGlobal.fechaSistema().equals(unPartido.getFecha()))) {
-            jButtonEditar.setEnabled(true);
+            if (unPartido.getJugadoras().isEmpty()) {
+                jButtonEditar.setEnabled(false);
+            } else {
+                jButtonEditar.setEnabled(true);
+            }
         } else {
             jButtonEditar.setEnabled(false);
         }
@@ -145,7 +149,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             jTextFieldArbitro3.setText(unPartido.getUnArbitro3().getApellido() + ", " + unPartido.getUnArbitro3().getNombre());
         }
         jTextFieldCancha.setText(unPartido.getUnaCancha().getNombre());
-        jTextFieldVeedor.setText(unPartido.getNombreVeedor());
+        if (jTextFieldVeedor.getText().equals("")) {
+            jTextFieldVeedor.setText(unPartido.getNombreVeedor());
+        }
         jTextPaneObservacion.setText(unPartido.getObservaciones());
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Datos Local">
@@ -182,7 +188,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Local">
-        jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
+        if(jTextFieldAyudanteDeMesaLocal.getText().equals("")){
+        jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());}
         // </editor-fold>
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Datos Visitante">
@@ -220,7 +227,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Visitante">
-        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
+        if(jTextFieldAyudanteDeMesaLocal.getText().equals("")){
+        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());}
         // </editor-fold>
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Datos Planteles">
@@ -1192,6 +1200,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         //Elimina las Jugadoras guardadas anteriormente y Guarda las que esten actualmente en la planilla.
         unaControladoraGlobal.vaciarJugadoras(unPartido);
+        jButtonEditar.setEnabled(true);
         for (int i = 0; i < jTableLocal.getRowCount(); i++) {
             unaControladoraGlobal.agregarJugadora(unPartido, (Socia) jTableLocal.getValueAt(i, 2), (String) jTableLocal.getValueAt(i, 1), true);
         }
