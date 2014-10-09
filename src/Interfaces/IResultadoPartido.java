@@ -131,7 +131,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     public void cargarCampos() {
         // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
         jLabelTitulo.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        if ((unPartido.getNombreVeedor() != null) || (unPartido.getGoles() == null)) { //El partido se jugo
+        if ((unPartido.getNombreVeedor() != null) || (unPartido.getGoles() != null)) { //El partido se jugo
             jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
         } else {
             jLabelResultado.setText("- a -");
