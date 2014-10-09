@@ -57,32 +57,32 @@
 				<text><![CDATA[Fecha: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="124" y="1" width="41" height="11" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
+				<reportElement x="139" y="1" width="41" height="11" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concepto: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="167" y="1" width="80" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
+				<reportElement x="182" y="1" width="80" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="274" y="1" width="48" height="11" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
+				<reportElement x="296" y="1" width="48" height="11" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto Total: ]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00">
-				<reportElement x="329" y="1" width="69" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
+			<textField pattern="###0.00">
+				<reportElement x="344" y="1" width="76" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{montoTotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA['$'+ " " + $F{montoTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="438" y="1" width="61" height="11" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
@@ -90,13 +90,6 @@
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Deuda Saldada: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="323" y="1" width="6" height="11" uuid="40f57b2c-ee81-45bc-a78d-af74b2c89fd4"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[$]]></text>
 			</staticText>
 		</band>
 	</detail>

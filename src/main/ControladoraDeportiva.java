@@ -160,17 +160,13 @@ public class ControladoraDeportiva {
      * Devuelve el Torneo de una tarjeta
      */
     public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
-        String unaConsulta = "SELECT T FROM Torneo T WHERE T.fechasTorneo.partidos.tarjetas.idTarjeta = " + unaTarjeta.getIdTarjeta();
-        Query traerTorneo = this.entityManager.createQuery(unaConsulta);
-        Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
-        return unTorneo;
+        return this.getTorneoDePartido(this.getPartidoTarjeta(unaTarjeta));
     }
 
     /**
      * Devuelve el Partido de una tarjeta
      */
-    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
-        String unaConsulta = "SELECT P FROM Partido P WHERE P.tarjetas.idTarjeta = " + unaTarjeta.getIdTarjeta();
+    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {String unaConsulta = "SELECT P FROM Partido P WHERE P.tarjetas.idTarjeta = " + unaTarjeta.getIdTarjeta();
         Query traerPartido = this.entityManager.createQuery(unaConsulta);
         Partido unPartido = (Partido) traerPartido.getSingleResult();
         return unPartido;

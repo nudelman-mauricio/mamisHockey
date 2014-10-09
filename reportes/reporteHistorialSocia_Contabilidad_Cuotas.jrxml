@@ -59,7 +59,7 @@
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA['$'+ " " + $F{monto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
 				<reportElement x="381" y="0" width="149" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>

@@ -29,7 +29,7 @@ public class HistorialSociaDS_Estados  implements JRDataSource {
         Object valor = null;
         if (null != jrf.getName()) //General
         switch (jrf.getName()) {
-            case "facha":
+            case "fecha":
                 valor = dateFormat.format(estadosImprimir.get(indiceEstado).getFecha());
                 break;
             case "estado":

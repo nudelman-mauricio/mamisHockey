@@ -34,7 +34,7 @@ public class HistorialSociaDS_Pases implements JRDataSource {
         {
             switch (jrf.getName()) {
                 case "nPase":
-                    valor = pasesImprimir.get(indiceEstado);
+                    valor = pasesImprimir.get(indiceEstado).getIdPase();
                     break;
                 case "fecha":
                     valor = dateFormat.format(pasesImprimir.get(indiceEstado).getFecha());

@@ -17,14 +17,14 @@
 				<text><![CDATA[Partido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="96" y="18" width="100" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
+				<reportElement x="117" y="18" width="100" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[N° Resolución]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="196" y="18" width="244" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
+				<reportElement x="222" y="18" width="218" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -59,7 +59,7 @@
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="96" y="0" width="100" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
+				<reportElement x="117" y="0" width="100" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
@@ -73,7 +73,7 @@
 				<textFieldExpression><![CDATA[$F{partido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="196" y="0" width="244" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
+				<reportElement x="222" y="0" width="218" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>

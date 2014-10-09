@@ -35,19 +35,25 @@ public class HistorialSociaDS_Tarjetas implements JRDataSource {
         {
             switch (jrf.getName()) {
                 case "fecha":
-                    //valor = dateFormat.format(tarjetasImprimir.get(indiceTarjeta).assasasas);
+                    //valor = dateFormat.format(tarjetasImprimir.get(indiceTarjeta).getFecha);
                     valor = "falta";
                     break;
                 case "tipoTarjeta":
                     valor = tarjetasImprimir.get(indiceTarjeta).getTipo();
                     break;
                 case "torneo":
-                    valor = "falta";
-                    //valor = tarjetasImprimir.get(indiceTarjeta);
+                    if (unaControladoraGlobal.getTorneoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null){
+                        valor = unaControladoraGlobal.getTorneoTarjeta(tarjetasImprimir.get(indiceTarjeta));   
+                    }else{
+                        valor = "-";
+                    }
                     break;
                 case "partido":
-                    valor = "falta";
-                    //valor = tarjetasImprimir.get(indiceTarjeta);
+                    if (unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null){
+                        valor = unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta));   
+                    }else{
+                        valor = "Por Acumulación";
+                    }
                     break;
             }
         }
