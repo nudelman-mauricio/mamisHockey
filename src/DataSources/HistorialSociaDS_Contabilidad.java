@@ -41,10 +41,10 @@ public class HistorialSociaDS_Contabilidad implements JRDataSource {
                     valor = dateFormat.format(deudasImprimir.get(indiceDeuda).getFechaGeneracion());
                     break;
                 case "concepto":
-                    valor = deudasImprimir.get(indiceDeuda);
+                    valor = deudasImprimir.get(indiceDeuda).getUnConceptoDeportivo().getConcepto();
                     break;
                 case "montoTotal":
-                    valor = deudasImprimir.get(indiceDeuda);
+                    valor = deudasImprimir.get(indiceDeuda).getMontoTotal();
                     break;
                 case "saldada":
                     if (deudasImprimir.get(indiceDeuda).isSaldado()){

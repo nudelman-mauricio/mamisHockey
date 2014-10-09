@@ -31,10 +31,10 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (!jRadioButtonTarjetas.isSelected() && !jRadioButtonPases.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonErgometrias.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonEstados.isSelected()) {
+        if (!jCheckBoxTarjetas.isSelected() && !jCheckBoxPases.isSelected() && !jCheckBoxSanciones.isSelected() && !jCheckBoxErgometrias.isSelected() && !jCheckBoxContable.isSelected() && !jCheckBoxEstados.isSelected()) {
             bandera = false;
         }
-        if ((jComboBoxDesdeMes.getSelectedItem()== jComboBoxHastaMes.getSelectedItem() && (jComboBoxDesdeAño.getSelectedItem() == jComboBoxHastaAño.getSelectedItem()))) {
+        if ((jComboBoxDesdeMes.getSelectedItem() == jComboBoxHastaMes.getSelectedItem() && (jComboBoxDesdeAño.getSelectedItem() == jComboBoxHastaAño.getSelectedItem()))) {
             JOptionPane.showMessageDialog(this, "Las fechas son iguales. La diferencia debe ser como mínimo un mes.");
             return false;
         }
@@ -51,12 +51,12 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabelNombreJugadora = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jRadioButtonTarjetas = new javax.swing.JRadioButton();
-        jRadioButtonPases = new javax.swing.JRadioButton();
-        jRadioButtonSanciones = new javax.swing.JRadioButton();
-        jRadioButtonErgometrias = new javax.swing.JRadioButton();
-        jRadioButtonContabilidad = new javax.swing.JRadioButton();
-        jRadioButtonEstados = new javax.swing.JRadioButton();
+        jCheckBoxTarjetas = new javax.swing.JCheckBox();
+        jCheckBoxPases = new javax.swing.JCheckBox();
+        jCheckBoxSanciones = new javax.swing.JCheckBox();
+        jCheckBoxEstados = new javax.swing.JCheckBox();
+        jCheckBoxContable = new javax.swing.JCheckBox();
+        jCheckBoxErgometrias = new javax.swing.JCheckBox();
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
@@ -101,59 +101,51 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle a Imprimir", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel4.setName(""); // NOI18N
 
-        buttonGroup1.add(jRadioButtonTarjetas);
-        jRadioButtonTarjetas.setText("Historial Tarjetas");
+        jCheckBoxTarjetas.setText("Historial Tarjetas");
 
-        buttonGroup1.add(jRadioButtonPases);
-        jRadioButtonPases.setText("Historial Pases");
+        jCheckBoxPases.setText("Historial Pases");
 
-        buttonGroup1.add(jRadioButtonSanciones);
-        jRadioButtonSanciones.setText("Historial Sanciones");
+        jCheckBoxSanciones.setText("Historial Sanciones");
 
-        buttonGroup1.add(jRadioButtonErgometrias);
-        jRadioButtonErgometrias.setText("Historial Ergometrías");
+        jCheckBoxEstados.setText("Historial Estados");
 
-        buttonGroup1.add(jRadioButtonContabilidad);
-        jRadioButtonContabilidad.setText("Historial Contable");
+        jCheckBoxContable.setText("Historial Contable");
 
-        buttonGroup1.add(jRadioButtonEstados);
-        jRadioButtonEstados.setText("Historial Estados");
+        jCheckBoxErgometrias.setText("Historial Ergometrías");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonTarjetas)
-                    .addComponent(jRadioButtonPases)
-                    .addComponent(jRadioButtonSanciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                    .addComponent(jCheckBoxTarjetas)
+                    .addComponent(jCheckBoxSanciones)
+                    .addComponent(jCheckBoxPases))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonErgometrias)
-                    .addComponent(jRadioButtonContabilidad)
-                    .addComponent(jRadioButtonEstados))
+                    .addComponent(jCheckBoxEstados)
+                    .addComponent(jCheckBoxContable)
+                    .addComponent(jCheckBoxErgometrias))
                 .addGap(57, 57, 57))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonTarjetas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonPases)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonSanciones))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonErgometrias)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonContabilidad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonEstados)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxErgometrias)
+                    .addComponent(jCheckBoxTarjetas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxContable)
+                    .addComponent(jCheckBoxPases))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxEstados)
+                    .addComponent(jCheckBoxSanciones))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -282,7 +274,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -340,28 +332,15 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
 
-                if (jRadioButtonTarjetas.isSelected()) {
-                    //llamar reporte
-                }
-                if (jRadioButtonPases.isSelected()) {
-                    //llamar reporte
-                }
-                if (jRadioButtonSanciones.isSelected()) {
-                    //llamar reporte
-                }
-                if (jRadioButtonErgometrias.isSelected()) {
-                    //llamar reporte
-                }
-                if (jRadioButtonContabilidad.isSelected()) {
-                    //llamar reporte
-                }
-                if (jRadioButtonEstados.isSelected()) {
-                    //llamar reporte
-                }
-
-                HistorialSociaDS unHistorialSociaDS = new HistorialSociaDS(unaControladoraGlobal, fechaDesde, fechaHasta, unaSociaSeleccionada);
+                HistorialSociaDS unHistorialSociaDS = new HistorialSociaDS(unaControladoraGlobal, fechaDesde, fechaHasta, unaSociaSeleccionada,
+                        jCheckBoxTarjetas.isSelected(),
+                        jCheckBoxPases.isSelected(),
+                        jCheckBoxSanciones.isSelected(),
+                        jCheckBoxErgometrias.isSelected(),
+                        jCheckBoxContable.isSelected(),
+                        jCheckBoxEstados.isSelected());
                 unHistorialSociaDS.verReporte();
-                
+
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
             }
@@ -377,6 +356,12 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JCheckBox jCheckBoxContable;
+    private javax.swing.JCheckBox jCheckBoxErgometrias;
+    private javax.swing.JCheckBox jCheckBoxEstados;
+    private javax.swing.JCheckBox jCheckBoxPases;
+    private javax.swing.JCheckBox jCheckBoxSanciones;
+    private javax.swing.JCheckBox jCheckBoxTarjetas;
     private javax.swing.JComboBox jComboBoxDesdeAño;
     private javax.swing.JComboBox jComboBoxDesdeMes;
     private javax.swing.JComboBox jComboBoxHastaAño;
@@ -391,11 +376,5 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBotones;
-    private javax.swing.JRadioButton jRadioButtonContabilidad;
-    private javax.swing.JRadioButton jRadioButtonErgometrias;
-    private javax.swing.JRadioButton jRadioButtonEstados;
-    private javax.swing.JRadioButton jRadioButtonPases;
-    private javax.swing.JRadioButton jRadioButtonSanciones;
-    private javax.swing.JRadioButton jRadioButtonTarjetas;
     // End of variables declaration//GEN-END:variables
 }
