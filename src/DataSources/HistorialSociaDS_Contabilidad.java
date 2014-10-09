@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
+import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -14,9 +15,11 @@ public class HistorialSociaDS_Contabilidad implements JRDataSource {
 
     private final List<Deuda> deudasImprimir;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+    private final ControladoraGlobal unaControladoraGlobal;
 
-    public HistorialSociaDS_Contabilidad(List<Deuda> deudasImprimir) {
+    public HistorialSociaDS_Contabilidad(List<Deuda> deudasImprimir, ControladoraGlobal unaControladoraGlobal) {
         this.deudasImprimir = deudasImprimir;
+        this.unaControladoraGlobal = unaControladoraGlobal;
     }
 
     private HistorialSociaDS_Contabilidad_Cuotas subReporte(List<Cuota> cuotas) {
@@ -37,6 +40,9 @@ public class HistorialSociaDS_Contabilidad implements JRDataSource {
         if (null != jrf.getName()) //General
         {
             switch (jrf.getName()) {
+                case "ruta":
+                valor = unaControladoraGlobal.rutaSistema();
+                break;
                 case "fecha":
                     valor = dateFormat.format(deudasImprimir.get(indiceDeuda).getFechaGeneracion());
                     break;

@@ -11,6 +11,7 @@
 	<field name="montoTotal" class="java.lang.String"/>
 	<field name="saldada" class="java.lang.String"/>
 	<field name="subReporte" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="ruta" class="java.lang.String"/>
 	<columnHeader>
 		<band height="16" splitType="Stretch">
 			<staticText>
@@ -27,7 +28,7 @@
 			<subreport>
 				<reportElement x="25" y="15" width="530" height="11" uuid="fc0f6d31-6d07-42e2-a753-56beb84936c6"/>
 				<dataSourceExpression><![CDATA[$F{subReporte}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteHistorialSocia_Contabilidad_Cuotas.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialSocia_Contabilidad_Cuotas.jasper"]]></subreportExpression>
 			</subreport>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="29" y="1" width="58" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>

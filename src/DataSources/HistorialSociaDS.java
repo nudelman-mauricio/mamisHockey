@@ -122,7 +122,7 @@ public class HistorialSociaDS implements JRDataSource {
                 }
             }
         }
-        HistorialSociaDS_Contabilidad unaPlantelDS = new HistorialSociaDS_Contabilidad(deudaImprimir);
+        HistorialSociaDS_Contabilidad unaPlantelDS = new HistorialSociaDS_Contabilidad(deudaImprimir, this.unaControladoraGlobal);
         return unaPlantelDS;
     }
 

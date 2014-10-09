@@ -340,7 +340,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                         jCheckBoxErgometrias.isSelected(),
                         jCheckBoxContable.isSelected(),
                         jCheckBoxEstados.isSelected());
-                unHistorialSociaDS.verReporte();
+               unHistorialSociaDS.verReporte();
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
