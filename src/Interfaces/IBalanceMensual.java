@@ -237,23 +237,21 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         if (camposValidar()) {
-            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedIndex() + 2010);
-            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedIndex() + 2010);
+            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
+            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
             try {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
-                Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());    
+                Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
                 List<Egreso> egresos = unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta);
                 List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
                 List<PagoCuota> pagoCuotas = unaControladoraGlobal.getPagosCuotasEntreFechasBD(fechaDesde, fechaHasta);
-               
-                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta));
 
-      
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta));
 
                 File archivo = new File("reportes/reporteBalanceMensual.jasper");
                 JasperReport reporte;
                 try {
-                    reporte = (JasperReport) JRLoader.loadObject(archivo);                    
+                    reporte = (JasperReport) JRLoader.loadObject(archivo);
                     JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, unBalanceMensualDS);
                     JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
                     jasperViewer.setVisible(true);
@@ -266,7 +264,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
-   
+
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
         this.dispose();
