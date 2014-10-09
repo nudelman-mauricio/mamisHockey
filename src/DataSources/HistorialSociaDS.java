@@ -136,10 +136,9 @@ public class HistorialSociaDS implements JRDataSource {
         List<Tarjeta> tarjetasImprimir = new ArrayList();
         if (this.tarjetas) {
             for (Tarjeta unaTarjeta : this.unaSocia.getTarjetas()) {
-            //No puedo definir cuales son las tarjtas en determinado rango de fechas. Por las tarjetas que son acumuladas
-                //if ((unaTarjeta.get().after(fechaDesde)) && (unaTarjeta.getFecha().before(fechaHasta))) {
+                if ((unaTarjeta.getFecha().after(fechaDesde)) && (unaTarjeta.getFecha().before(fechaHasta))) {
                 tarjetasImprimir.add(unaTarjeta);
-                //}
+                }
             }
         }
         HistorialSociaDS_Tarjetas unaPlantelDS = new HistorialSociaDS_Tarjetas(tarjetasImprimir, this.unaControladoraGlobal);

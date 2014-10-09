@@ -152,13 +152,19 @@ public class ControladoraDeportiva {
      * Devuelve el Torneo de una tarjeta
      */
     public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
-        return this.getTorneoDePartido(this.getPartidoTarjeta(unaTarjeta));
+        String unaConsulta = "SELECT R FROM Torneo R, Tarjeta T WHERE T.idTarjeta = " + unaTarjeta.getIdTarjeta();
+        Query traerTorneo = this.entityManager.createQuery(unaConsulta);
+        Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
+        return unTorneo;
+        
+        //return this.getTorneoDePartido(this.getPartidoTarjeta(unaTarjeta));
     }
 
     /**
      * Devuelve el Partido de una tarjeta
      */
-    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {String unaConsulta = "SELECT P FROM Partido P WHERE P.tarjetas.idTarjeta = " + unaTarjeta.getIdTarjeta();
+    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
+        String unaConsulta = "SELECT P FROM Partido P, Tarjeta T WHERE T.idTarjeta = " + unaTarjeta.getIdTarjeta();
         Query traerPartido = this.entityManager.createQuery(unaConsulta);
         Partido unPartido = (Partido) traerPartido.getSingleResult();
         return unPartido;
@@ -168,7 +174,7 @@ public class ControladoraDeportiva {
      * Devuelve la Sancion si hay de una tarjeta
      */
     public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
-        String unaConsulta = "SELECT P FROM SancionTribunal P WHERE P.unaTarjeta = " + unaTarjeta;
+        String unaConsulta = "SELECT P FROM SancionTribunal P WHERE P.unaTarjeta.idTarjeta = " + unaTarjeta.getIdTarjeta();
         Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
         SancionTribunal unaSancionTribunal = (SancionTribunal) traerSancionTribunal.getSingleResult();
         return unaSancionTribunal;

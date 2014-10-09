@@ -296,7 +296,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLos3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Los tres juntos"/>
+                <Property name="text" type="java.lang.String" value="TODOS JUNTOS"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLos3ActionPerformed"/>

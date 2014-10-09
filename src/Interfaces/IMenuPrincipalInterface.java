@@ -343,7 +343,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         });
         jMenuCargaDB.add(jMenuItem2);
 
-        jMenuItemLos3.setText("Los tres juntos");
+        jMenuItemLos3.setText("TODOS JUNTOS");
         jMenuItemLos3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemLos3ActionPerformed(evt);
