@@ -47,8 +47,7 @@ public class HistorialSociaDS implements JRDataSource {
         this.estados = estados;
     }
 
-    public void verReporte() {    
-        
+    public void verReporte() {           
         
         File archivo = new File("reportes/reporteHistorialSocia.jasper");
         JasperReport reporte;
