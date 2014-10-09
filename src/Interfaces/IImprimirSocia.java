@@ -27,6 +27,8 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         this.setTitle("Reportes para Imrimir de: " + unaSocia.toString()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         jLabelNombreJugadora.setText(unaSocia.toString());
+        
+        System.out.println(unaSocia);
     }
 
     private boolean camposValidar() {
