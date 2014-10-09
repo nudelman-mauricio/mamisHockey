@@ -47,13 +47,7 @@ public class HistorialSociaDS implements JRDataSource {
         this.estados = estados;
     }
 
-    public void verReporte() {
-        System.out.println(this.unaSocia);
-        System.out.println(this.unaSocia.getDeudas().size());
-        System.out.println(this.unaSocia.getTarjetas().size());
-        System.out.println(this.unaSocia.getPases().size());
-        System.out.println(this.unaSocia.getEstados().size());
-        System.out.println(this.unaSocia.getErgometrias().size());
+    public void verReporte() {    
         
         
         File archivo = new File("reportes/reporteHistorialSocia.jasper");
