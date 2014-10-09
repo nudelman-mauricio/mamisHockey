@@ -30,7 +30,7 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (!jRadioButtonDatos.isSelected() && !jRadioButtonPlantel.isSelected() && !jRadioButtonSanciones.isSelected() && !jRadioButtonIndumentaria.isSelected() && !jRadioButtonContabilidad.isSelected() && !jRadioButtonPagos.isSelected()) {
+        if (!jCheckBoxDatos.isSelected() && !jCheckBoxPlantel.isSelected() && !jCheckBoxSanciones.isSelected() && !jCheckBoxIndumentaria.isSelected() && !jCheckBoxContabilidad.isSelected() && !jCheckBoxPagos.isSelected()) {
             bandera = false;
         }
         if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {
@@ -47,7 +47,6 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabelNombreEquipo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -61,12 +60,12 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
-        jRadioButtonDatos = new javax.swing.JRadioButton();
-        jRadioButtonPlantel = new javax.swing.JRadioButton();
-        jRadioButtonSanciones = new javax.swing.JRadioButton();
-        jRadioButtonIndumentaria = new javax.swing.JRadioButton();
-        jRadioButtonContabilidad = new javax.swing.JRadioButton();
-        jRadioButtonPagos = new javax.swing.JRadioButton();
+        jCheckBoxDatos = new javax.swing.JCheckBox();
+        jCheckBoxPlantel = new javax.swing.JCheckBox();
+        jCheckBoxSanciones = new javax.swing.JCheckBox();
+        jCheckBoxIndumentaria = new javax.swing.JCheckBox();
+        jCheckBoxContabilidad = new javax.swing.JCheckBox();
+        jCheckBoxPagos = new javax.swing.JCheckBox();
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
@@ -179,7 +178,7 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -196,23 +195,17 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle a Imprimir", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel4.setName(""); // NOI18N
 
-        buttonGroup1.add(jRadioButtonDatos);
-        jRadioButtonDatos.setText("Datos");
+        jCheckBoxDatos.setText("Datos");
 
-        buttonGroup1.add(jRadioButtonPlantel);
-        jRadioButtonPlantel.setText("Plantel");
+        jCheckBoxPlantel.setText("Plantel");
 
-        buttonGroup1.add(jRadioButtonSanciones);
-        jRadioButtonSanciones.setText("Sanciones del Equipo");
+        jCheckBoxSanciones.setText("Sanciones del Equipo");
 
-        buttonGroup1.add(jRadioButtonIndumentaria);
-        jRadioButtonIndumentaria.setText("Indumentaria");
+        jCheckBoxIndumentaria.setText("Indumentaria");
 
-        buttonGroup1.add(jRadioButtonContabilidad);
-        jRadioButtonContabilidad.setText("Historial Contable");
+        jCheckBoxContabilidad.setText("Historia Contable");
 
-        buttonGroup1.add(jRadioButtonPagos);
-        jRadioButtonPagos.setText("Historial Pagos");
+        jCheckBoxPagos.setText("Historial Pagos");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -221,31 +214,31 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonDatos)
-                    .addComponent(jRadioButtonPlantel)
-                    .addComponent(jRadioButtonSanciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                    .addComponent(jCheckBoxDatos)
+                    .addComponent(jCheckBoxPlantel)
+                    .addComponent(jCheckBoxSanciones))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonContabilidad)
-                    .addComponent(jRadioButtonPagos)
-                    .addComponent(jRadioButtonIndumentaria))
-                .addGap(71, 71, 71))
+                    .addComponent(jCheckBoxIndumentaria)
+                    .addComponent(jCheckBoxContabilidad)
+                    .addComponent(jCheckBoxPagos))
+                .addGap(85, 85, 85))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonDatos)
-                    .addComponent(jRadioButtonIndumentaria))
+                    .addComponent(jCheckBoxDatos)
+                    .addComponent(jCheckBoxIndumentaria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonPlantel)
-                    .addComponent(jRadioButtonContabilidad))
+                    .addComponent(jCheckBoxPlantel)
+                    .addComponent(jCheckBoxContabilidad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonSanciones)
-                    .addComponent(jRadioButtonPagos))
+                    .addComponent(jCheckBoxSanciones)
+                    .addComponent(jCheckBoxPagos))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -330,22 +323,22 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
 
-                if (jRadioButtonDatos.isSelected()) {
+                if (jCheckBoxDatos.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonPlantel.isSelected()) {
+                if (jCheckBoxPlantel.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonSanciones.isSelected()) {
+                if (jCheckBoxSanciones.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonIndumentaria.isSelected()) {
+                if (jCheckBoxIndumentaria.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonContabilidad.isSelected()) {
+                if (jCheckBoxContabilidad.isSelected()) {
                     //llamar reporte
                 }
-                if (jRadioButtonPagos.isSelected()) {
+                if (jCheckBoxPagos.isSelected()) {
                     //llamar reporte
                 }
             } catch (ParseException ex) {
@@ -366,9 +359,14 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JCheckBox jCheckBoxContabilidad;
+    private javax.swing.JCheckBox jCheckBoxDatos;
+    private javax.swing.JCheckBox jCheckBoxIndumentaria;
+    private javax.swing.JCheckBox jCheckBoxPagos;
+    private javax.swing.JCheckBox jCheckBoxPlantel;
+    private javax.swing.JCheckBox jCheckBoxSanciones;
     private javax.swing.JComboBox jComboBoxDesdeAño;
     private javax.swing.JComboBox jComboBoxDesdeMes;
     private javax.swing.JComboBox jComboBoxHastaAño;
@@ -383,11 +381,5 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBotones;
-    private javax.swing.JRadioButton jRadioButtonContabilidad;
-    private javax.swing.JRadioButton jRadioButtonDatos;
-    private javax.swing.JRadioButton jRadioButtonIndumentaria;
-    private javax.swing.JRadioButton jRadioButtonPagos;
-    private javax.swing.JRadioButton jRadioButtonPlantel;
-    private javax.swing.JRadioButton jRadioButtonSanciones;
     // End of variables declaration//GEN-END:variables
 }

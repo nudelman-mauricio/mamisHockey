@@ -48,7 +48,6 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabelNombreJugadora = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jCheckBoxTarjetas = new javax.swing.JCheckBox();
@@ -353,7 +352,6 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JCheckBox jCheckBoxContable;
