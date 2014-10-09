@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -9,12 +10,18 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.swing.JOptionPane;
 
 @Entity
 public class Tarjeta implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fecha;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTarjeta;
@@ -42,17 +49,26 @@ public class Tarjeta implements Serializable, Comparable {
 
     }
 
-    public Tarjeta(EntityManager entityManager, String tipo, String motivo, String tiempo, String minuto) {
+    public Tarjeta(EntityManager entityManager, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
         this.tipo = tipo;
         this.motivo = motivo;
         this.tiempo = tiempo;
         this.minuto = minuto;
         this.computado = false;
-        this.borradoLogico = false;        
+        this.fecha = fecha;
+        this.borradoLogico = false;
         this.persistir(entityManager);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
+    public Date getFecha() {
+        return this.fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
     public Long getIdTarjeta() {
         return this.idTarjeta;
     }
@@ -113,7 +129,7 @@ public class Tarjeta implements Serializable, Comparable {
     @Override
     public String toString() {
         return tiempo + "T " + minuto + "'";
-}
+    }
 
     @Override
     public int compareTo(Object aux) {

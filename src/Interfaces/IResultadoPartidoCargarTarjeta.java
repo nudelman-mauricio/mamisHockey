@@ -291,15 +291,9 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             if (unaTarjetaSeleccionada == null) {
-                if (jComboBoxTipoTarjeta.getSelectedItem().toString().equals("Roja")) {
-                    SancionTribunal unaSancionParaRoja = unaControladoraGlobal.crearSancionTribunal(unPartido, null, unaSocia, unPartido.getFecha(), "Tarjeta Roja", "Partido: " + unPartido.toString());
-                    unaControladoraGlobal.modificarSancionTribunal(unaSancionParaRoja, unaSancionParaRoja.getFecha(), unaSancionParaRoja.getMotivo(), unaSancionParaRoja.getDetalles(), unaSancionParaRoja.getNumeroResolucion(), unaSancionParaRoja.getVencimiento(), 1, unaSancionParaRoja.isBorradoLogico());
-                    unaControladoraGlobal.crearTarjetaRoja(unaSancionParaRoja, unaSocia, unPartido, jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
-                } else {
-                    unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
-                }
+                unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, unPartido.getFecha(), jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
             } else {
-                unaControladoraGlobal.modificarTarjeta(unaTarjetaSeleccionada, jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unaTarjetaSeleccionada.isBorradoLogico());
+                unaControladoraGlobal.modificarTarjeta(unaTarjetaSeleccionada, unPartido.getFecha(), jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unaTarjetaSeleccionada.isBorradoLogico());
             }
             this.setVisible(false);
             this.dispose();

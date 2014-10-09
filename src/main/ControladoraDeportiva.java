@@ -53,16 +53,17 @@ public class ControladoraDeportiva {
         return unaSancion;
     }
 
+    public SancionTribunal crearSancionTribunalParaTarjetaRoja(Persona unaPersona, Date fecha, String motivo, String detalles, int cantidadFechasCastigo, Tarjeta unaTarjetaRoja) {
+        return new SancionTribunal(this.entityManager, fecha, motivo, detalles, cantidadFechasCastigo, unaTarjetaRoja);
+    }
+
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, boolean borradoLogico) {
         unaSancionTribunal.setFecha(fecha);
         unaSancionTribunal.setMotivo(motivo);
         unaSancionTribunal.setDetalles(detalles);
         unaSancionTribunal.setNumeroResolucion(numeroResolucion);
-        //unaSancionTribunal.setUnPartido(unPartido);
-        //unaSancionTribunal.setUnaTarjeta(unaTarjeta);        
         unaSancionTribunal.setVencimiento(vencimiento);
         unaSancionTribunal.setCantFechas(cantFechas);
-        //unaSancionTribunal.setCantFechasCumplidas(cantFechasCumplidas);
         unaSancionTribunal.setBorradoLogico(borradoLogico);
         unaSancionTribunal.persistir(this.entityManager);
     }
@@ -101,24 +102,15 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String tiempo, String minuto) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, tipo, motivo, tiempo, minuto);
+    public Tarjeta crearTarjeta(Socia unaSocia, Partido unPartido, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
+        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, fecha, tipo, motivo, tiempo, minuto);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
         unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
+        return unaTarjeta;
     }
 
-    /**
-     * Al mismo tiempo se crea una sancion tribunal por la Roja
-     */
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String tiempo, String minuto) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, "Roja", motivo, tiempo, minuto);
-        unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
-        unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
-        unaSancionTribunal.setUnaTarjeta(unaTarjeta);
-        unaSancionTribunal.persistir(this.entityManager);
-    }
-
-    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
+    public void modificarTarjeta(Tarjeta unaTarjeta, Date fecha, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
+        unaTarjeta.setFecha(fecha);
         unaTarjeta.setTipo(tipo);
         unaTarjeta.setMotivo(motivo);
         unaTarjeta.setTiempo(tiempo);

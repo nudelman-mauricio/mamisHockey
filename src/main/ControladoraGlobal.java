@@ -292,16 +292,15 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, String tipo, String motivo, String tiempo, String minuto) {
-        this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, tipo, motivo, tiempo, minuto);
+    public void crearTarjeta(Socia unaSocia, Partido unPartido, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
+        Tarjeta unaTarjeta = this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, fecha, tipo, motivo, tiempo, minuto);
+        if (tipo.equals("Roja")) {
+            this.unaControladoraDeportiva.crearSancionTribunalParaTarjetaRoja(unaSocia, fecha, "Tarjeta Roja", "Como mínimo una fecha de penalización", 1, unaTarjeta);
+        }
     }
 
-    public void crearTarjetaRoja(SancionTribunal unaSancionTribunal, Socia unaSocia, Partido unPartido, String motivo, String tiempo, String minuto) {
-        this.unaControladoraDeportiva.crearTarjetaRoja(unaSancionTribunal, unaSocia, unPartido, motivo, tiempo, minuto);
-    }
-
-    public void modificarTarjeta(Tarjeta unaTarjeta, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, tipo, motivo, tiempo, minuto, borradoLogico);
+    public void modificarTarjeta(Tarjeta unaTarjeta, Date fecha, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, fecha, tipo, motivo, tiempo, minuto, borradoLogico);
     }
 
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
@@ -337,7 +336,7 @@ public class ControladoraGlobal {
                         this.computarTarjeta(verde1);
                         this.computarTarjeta(verde2);
                         this.computarTarjeta(unaTarjeta);
-                        this.crearTarjeta(unaSocia, null, "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
+                        this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
                         return true;
                     }
                 }
@@ -348,9 +347,7 @@ public class ControladoraGlobal {
                 } else {
                     this.computarTarjeta(amarilla1);
                     this.computarTarjeta(unaTarjeta);
-                    SancionTribunal unaSancionParaRoja = this.crearSancionTribunal(null, null, unaSocia, this.fechaSistema(), "Tarjeta Roja Acumulada", "Tarjeta por acumulación");
-                    this.modificarSancionTribunal(unaSancionParaRoja, unaSancionParaRoja.getFecha(), unaSancionParaRoja.getMotivo(), unaSancionParaRoja.getDetalles(), unaSancionParaRoja.getNumeroResolucion(), unaSancionParaRoja.getVencimiento(), 1, unaSancionParaRoja.isBorradoLogico());
-                    this.crearTarjetaRoja(unaSancionParaRoja, unaSocia, null, "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
+                    this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Roja", "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
                     return true;
                 }
             }
