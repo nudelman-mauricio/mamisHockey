@@ -142,7 +142,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
     private void camposActivoCuotas(boolean bandera) {
         jTextFieldFechaPagoCuota.setEditable(bandera);
-        jTextFieldMontoCuotaAbonado.setEditable(bandera);
         jTextPaneObservacionPago.setEditable(bandera);
         if (bandera) {
             jTextPaneObservacionPago.setBackground(Color.WHITE);
@@ -741,7 +740,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jButtonEliminar.setEnabled(false);
 
         jTableDeudas.setEnabled(false);
-       
+
         camposActivoDeudas(true);
         camposLimpiarDeuda();
         unaDeudaSeleccionada = null;
@@ -909,6 +908,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         camposActivoCuotas(true);
         camposLimpiarCuotas();
+        jTextFieldMontoCuotaAbonado.setText(Double.toString(unaCuotaSeleccionada.getMonto()));
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
