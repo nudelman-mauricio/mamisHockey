@@ -35,8 +35,7 @@ public class HistorialSociaDS_Tarjetas implements JRDataSource {
         {
             switch (jrf.getName()) {
                 case "fecha":
-                    //valor = dateFormat.format(tarjetasImprimir.get(indiceTarjeta).getFecha);
-                    valor = "falta";
+                    valor = dateFormat.format(tarjetasImprimir.get(indiceTarjeta).getFecha());
                     break;
                 case "tipoTarjeta":
                     valor = tarjetasImprimir.get(indiceTarjeta).getTipo();
