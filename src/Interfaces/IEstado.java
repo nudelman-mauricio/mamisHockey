@@ -346,6 +346,8 @@ public class IEstado extends javax.swing.JInternalFrame {
 
         jTableEstado.setEnabled(false);
         jTableEstado.clearSelection();
+        
+        jTextFieldFecha.setText(df.format(unaControladoraGlobal.fechaSistema()));
 
         camposActivo(true);
         camposLimpiar();

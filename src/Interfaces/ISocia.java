@@ -39,6 +39,8 @@ public class ISocia extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
+        
+        jTextFieldFechaIngreso.setText(df.format(unaControladoraGlobal.fechaSistema()));
     }
 
     //LLAMADO MOSTRANDO UNA SOCIA
@@ -242,6 +244,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(false);
         jButtonNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
         jButtonEditar.setText("Editar");
@@ -514,6 +521,9 @@ public class ISocia extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

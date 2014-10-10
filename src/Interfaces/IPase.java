@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.FormularioPaseDS;
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -642,7 +643,7 @@ public class IPase extends javax.swing.JInternalFrame {
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-                unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                Pase unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
                 unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
                 JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
 
@@ -657,6 +658,11 @@ public class IPase extends javax.swing.JInternalFrame {
                 camposActivo(false);
                 jTablePases.setEnabled(true);
                 cargarTabla();
+                
+                //Formulario de Pase
+                FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
+                unFormularioPase.verReporte();
+                
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }

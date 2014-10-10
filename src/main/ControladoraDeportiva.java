@@ -359,7 +359,7 @@ public class ControladoraDeportiva {
     }
     // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="Indumentarias">
+    // <editor-fold defaultstate="collapsed" desc="Indumentarias">
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         Indumentaria unaIndumentaria = new Indumentaria(this.entityManager, camiseta, media, pollera);
         unEquipo.agregarIndumentaria(this.entityManager, unaIndumentaria);
