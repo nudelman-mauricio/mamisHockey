@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.TablaGoleadorasDS;
 import DataSources.TablaPosicionesDS;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
@@ -52,6 +53,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonEquipos.setEnabled(Editable);
         jButtonFechas.setEnabled(Editable);
         jButtonTablaPosiciones.setEnabled(Editable);
+        jButtonGoleadoras.setEnabled(Editable);
     }
     
     private void cargarTabla() {
@@ -80,6 +82,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonFechas = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
         jButtonTablaPosiciones = new javax.swing.JButton();
+        jButtonGoleadoras = new javax.swing.JButton();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 544));
@@ -268,6 +271,17 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonGoleadoras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PlantillasPredeterminadas.png"))); // NOI18N
+        jButtonGoleadoras.setText("Goleadoras");
+        jButtonGoleadoras.setEnabled(false);
+        jButtonGoleadoras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGoleadoras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGoleadoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGoleadorasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
@@ -281,6 +295,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonTablaPosiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonGoleadoras, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotones2Layout.setVerticalGroup(
@@ -291,7 +307,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                     .addComponent(jButtonEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonTablaPosiciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonTablaPosiciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonGoleadoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -400,12 +417,18 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unaTablaPosicionesDS.verReporte();        
     }//GEN-LAST:event_jButtonTablaPosicionesActionPerformed
 
+    private void jButtonGoleadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoleadorasActionPerformed
+        TablaGoleadorasDS unaTablaGoleadoraDS = new TablaGoleadorasDS (unaControladoraGlobal, unTorneoSeleccionado);
+        unaTablaGoleadoraDS.verReporte();
+    }//GEN-LAST:event_jButtonGoleadorasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEquipos;
     private javax.swing.JButton jButtonFechas;
+    private javax.swing.JButton jButtonGoleadoras;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonTablaPosiciones;

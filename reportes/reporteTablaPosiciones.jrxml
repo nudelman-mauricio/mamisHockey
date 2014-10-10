@@ -14,6 +14,7 @@
 	<field name="dg" class="java.lang.String"/>
 	<field name="pts" class="java.lang.String"/>
 	<field name="pe" class="java.lang.String"/>
+	<field name="nombreTorneo" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -59,7 +60,7 @@
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Tabla de Posiciones]]></text>
+				<text><![CDATA["Tabla de Posiciones - Torneo " + $F{nombreTorneo}]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
