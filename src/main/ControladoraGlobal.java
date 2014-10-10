@@ -128,7 +128,7 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Pases">
-    public void crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
+    public Pase crearPase(Socia unaSocia, Date fechaGeneracion, double montoTotal, int cantCuotas, Date primerVencimiento, Equipo unEquipoNuevo, boolean libreDeudaClub, boolean solicitudPase, String observacionPase) {
         String observacionDeuda;
         if (unaSocia.getEquipoActual() == null) {
             observacionDeuda = "Pase de Equipo: ---- a Equipo : " + unEquipoNuevo.getNombre();
@@ -147,7 +147,7 @@ public class ControladoraGlobal {
 
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, this.getConceptoDeportivoBD("Pase"), observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
 
-        this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
+        return this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {

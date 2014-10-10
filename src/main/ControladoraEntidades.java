@@ -246,13 +246,14 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Pases">
-    public void crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
+    public Pase crearPase(Socia unaSocia, Date fechaGeneracion, Equipo unEquipoActual, Equipo unEquipoNuevo, Deuda unaDeuda, boolean libreDeudaClub, boolean solicitudPase, String observacion) {
         Pase unPase = new Pase(this.entityManager, fechaGeneracion, unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacion);
         unaSocia.agregarPase(this.entityManager, unPase);
         if (unEquipoActual != null) {//Se controla que el primer pase cero a un equipo no elimine el equipo null
             unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
         }
         unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
+        return unPase;
     }
 
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
