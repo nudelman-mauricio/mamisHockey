@@ -9,7 +9,6 @@ import Interfaces.IGestionEquipo;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -190,7 +189,6 @@ public class TablaPosicionesDS implements JRDataSource {
     List<Equipo> equipos;
     int indiceEquipos = -1;
     private DateFormat df = DateFormat.getDateInstance();
-    private equipoTablaPosiciones unEquipoTabla;
     private List<equipoTablaPosiciones> listaTablaPosiciones = new ArrayList();
 
     public TablaPosicionesDS(ControladoraGlobal unaControladoraGlobal, Torneo unTorneoSeleccionado) {
@@ -204,8 +202,7 @@ public class TablaPosicionesDS implements JRDataSource {
         Collections.sort(listaTablaPosiciones, new Comparator<equipoTablaPosiciones>() {
         @Override
         public int compare(equipoTablaPosiciones  equipo1, equipoTablaPosiciones  equipo2)
-        {
-            
+        {            
             int valor = ((Integer)equipo2.getPuntos()).compareTo((Integer)equipo1.getPuntos());
             if(valor == 0){
                 return  ((Integer)equipo2.getDiferenciaGol()).compareTo((Integer)equipo1.getDiferenciaGol());
@@ -232,7 +229,6 @@ public class TablaPosicionesDS implements JRDataSource {
             valor = listaTablaPosiciones.get(indiceEquipos).getNombreEquipo();
         } else if ("pj".equals(jrf.getName())) {
             valor = listaTablaPosiciones.get(indiceEquipos).getCantidadPartidosJugados();
-
         } else if ("pg".equals(jrf.getName())) {
             valor = listaTablaPosiciones.get(indiceEquipos).getCantidadPartidosGanados();
         } else if ("pe".equals(jrf.getName())) {
@@ -247,10 +243,13 @@ public class TablaPosicionesDS implements JRDataSource {
            valor = listaTablaPosiciones.get(indiceEquipos).getDiferenciaGol();
         } else if ("pts".equals(jrf.getName())) {
            valor = listaTablaPosiciones.get(indiceEquipos).getPuntos();
+        } else if ("nombreTorneo".equals(jrf.getName())) {
+           valor = this.unTorneo.getNombre();
         }
         return valor;//To change body of generated methods, choose Tools | Templates.
     }
 
+    // <editor-fold defaultstate="collapsed" desc="calculo de puntos">
     private void calcularTablaPosiciones(Equipo unEquipo) {
         int cantidadPartidosJugados = 0;
         int cantidadPartidosGanados = 0;
@@ -302,7 +301,8 @@ public class TablaPosicionesDS implements JRDataSource {
         listaTablaPosiciones.add(unEquipoTabla);
 
     }
-
+//</editor-fold>
+    
     public void verReporte() {
         File archivo = new File("reportes/reporteTablaPosiciones.jasper");
         JasperReport reporte;
