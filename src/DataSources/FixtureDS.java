@@ -8,6 +8,7 @@ package DataSources;
 import Interfaces.IGestionEquipo;
 import java.io.File;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +34,16 @@ public class FixtureDS implements JRDataSource {
 
     ControladoraGlobal unaControladoraGlobal;
     Torneo unTorneo;
+    FechaTorneo unaFechaTorneo;
     int indiceFecha = -1;   
     private DateFormat df = DateFormat.getDateInstance();
 
-    public FixtureDS(ControladoraGlobal unaControladoraGlobal, Torneo unTorneo) {
+    public FixtureDS(ControladoraGlobal unaControladoraGlobal, Torneo unTorneo, FechaTorneo unaFecha) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unTorneo = unTorneo;      
+        this.unaFechaTorneo = unaFecha;
     }
+ 
 
     @Override
     public boolean next() throws JRException {
@@ -62,7 +66,14 @@ public class FixtureDS implements JRDataSource {
     public void verReporte() {
         File archivo = new File("reportes/reporteFixture.jasper");
         JasperReport reporte;
-        FixtureDS_Fecha unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal, (List<FechaTorneo>) unTorneo.getFechasTorneo());    
+        FixtureDS_Fecha unaFechaDS = null;
+        if(this.unaFechaTorneo != null){
+            List<FechaTorneo> unaFecha = new ArrayList();
+            unaFecha.add(unaFechaTorneo);
+            unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal,unaFecha);    
+        } else {
+            unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal, (List<FechaTorneo>) unTorneo.getFechasTorneo());  
+        } 
         try {            
             reporte = (JasperReport) JRLoader.loadObject(archivo);
             Map parametros = new HashMap();

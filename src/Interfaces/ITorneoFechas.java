@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.FixtureDS;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -104,7 +105,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         }
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonImprimir.setEnabled(true);
         jButtonResultadoPartido.setEnabled(false);
     }
 
@@ -125,7 +126,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 jComboBoxEquipoVisitante.setSelectedItem(unPartidoSeleccionado.getUnEquipoVisitante());
 
                 jButtonEditar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);
+                //jButtonEliminar.setEnabled(true);
                 jButtonImprimir.setEnabled(true);
                 jButtonResultadoPartido.setEnabled(true);
             }
@@ -312,6 +313,11 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
 
         jButtonResultadoPartido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PanillaResultados.png"))); // NOI18N
         jButtonResultadoPartido.setText("Rtdo. Partido");
@@ -719,7 +725,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonImprimir.setEnabled(true);
         jButtonResultadoPartido.setEnabled(false);
         jButtonAgregarFecha.setEnabled(true);
 
@@ -769,7 +775,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 jButtonEditar.setEnabled(false);
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
+                jButtonEliminar.setEnabled(true);
                 jButtonImprimir.setEnabled(false);
                 jButtonResultadoPartido.setEnabled(false);
                 jButtonAgregarFecha.setEnabled(true);
@@ -921,6 +927,11 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         limpiarTabla(modeloTable);
         cargarTabla();
     }//GEN-LAST:event_formComponentShown
+
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+      FixtureDS unFixtureDS = new FixtureDS (unaControladoraGlobal, unTorneo, unaFechaTorneoSeleccionada);
+      unFixtureDS.verReporte();
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgregarFecha;

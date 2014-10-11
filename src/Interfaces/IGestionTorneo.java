@@ -440,7 +440,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGoleadorasActionPerformed
 
     private void jButtonFixturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFixturesActionPerformed
-        FixtureDS unFixtureDS = new FixtureDS (unaControladoraGlobal, unTorneoSeleccionado);
+        FixtureDS unFixtureDS = new FixtureDS (unaControladoraGlobal, unTorneoSeleccionado, null);
         unFixtureDS.verReporte();
     }//GEN-LAST:event_jButtonFixturesActionPerformed
 
