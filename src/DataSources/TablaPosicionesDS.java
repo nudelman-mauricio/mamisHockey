@@ -199,17 +199,13 @@ public class TablaPosicionesDS implements JRDataSource {
         for (Equipo unEquipo : equipos) {
             calcularTablaPosiciones(unEquipo);
         }
-        Collections.sort(listaTablaPosiciones, new Comparator<equipoTablaPosiciones>() {
-        @Override
-        public int compare(equipoTablaPosiciones  equipo1, equipoTablaPosiciones  equipo2)
-        {            
+        Collections.sort(listaTablaPosiciones, (equipoTablaPosiciones  equipo1, equipoTablaPosiciones  equipo2) -> {            
             int valor = ((Integer)equipo2.getPuntos()).compareTo((Integer)equipo1.getPuntos());
             if(valor == 0){
                 return  ((Integer)equipo2.getDiferenciaGol()).compareTo((Integer)equipo1.getDiferenciaGol());
             }
             return valor;
-        }
-    });
+        });
         //Collections.sort(listaTablaPosiciones, (equipoTablaPosiciones equipo1, equipoTablaPosiciones equipo2) -> ((Integer) equipo2.getPuntos()).compareTo((Integer) equipo1.getPuntos()));
     }
 

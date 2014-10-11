@@ -1,5 +1,6 @@
 package Interfaces;
 
+import DataSources.FixtureDS;
 import DataSources.TablaGoleadorasDS;
 import DataSources.TablaPosicionesDS;
 import java.text.DateFormat;
@@ -39,7 +40,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             if (jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0) != null) {
                 unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));                
                 camposActivo(true);
-                if(unTorneoSeleccionado.getEquiposInscriptos().size() == 0){
+                if(unTorneoSeleccionado.getEquiposInscriptos().isEmpty()){
                     jButtonTablaPosiciones.setEnabled(false);
                 }
             }
@@ -54,6 +55,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonFechas.setEnabled(Editable);
         jButtonTablaPosiciones.setEnabled(Editable);
         jButtonGoleadoras.setEnabled(Editable);
+        jButtonFixtures.setEnabled(Editable);
     }
     
     private void cargarTabla() {
@@ -83,6 +85,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonDatos = new javax.swing.JButton();
         jButtonTablaPosiciones = new javax.swing.JButton();
         jButtonGoleadoras = new javax.swing.JButton();
+        jButtonFixtures = new javax.swing.JButton();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 544));
@@ -282,6 +285,17 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonFixtures.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/PlantillasPredeterminadas.png"))); // NOI18N
+        jButtonFixtures.setText("Fixtures");
+        jButtonFixtures.setEnabled(false);
+        jButtonFixtures.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonFixtures.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonFixtures.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFixturesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
@@ -297,6 +311,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonTablaPosiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGoleadoras, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonFixtures, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotones2Layout.setVerticalGroup(
@@ -308,7 +324,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                     .addComponent(jButtonFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonTablaPosiciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonGoleadoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonGoleadoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonFixtures, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -422,12 +439,18 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unaTablaGoleadoraDS.verReporte();
     }//GEN-LAST:event_jButtonGoleadorasActionPerformed
 
+    private void jButtonFixturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFixturesActionPerformed
+        FixtureDS unFixtureDS = new FixtureDS (unaControladoraGlobal, unTorneoSeleccionado);
+        unFixtureDS.verReporte();
+    }//GEN-LAST:event_jButtonFixturesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEquipos;
     private javax.swing.JButton jButtonFechas;
+    private javax.swing.JButton jButtonFixtures;
     private javax.swing.JButton jButtonGoleadoras;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
