@@ -35,9 +35,9 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 public class ControladoraDeportiva {
-
+    
     private final EntityManager entityManager;
-
+    
     public ControladoraDeportiva(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -52,11 +52,13 @@ public class ControladoraDeportiva {
         }
         return unaSancion;
     }
-
-    public SancionTribunal crearSancionTribunalParaTarjetaRoja(Persona unaPersona, Date fecha, String motivo, String detalles, int cantidadFechasCastigo, Tarjeta unaTarjetaRoja) {
-        return new SancionTribunal(this.entityManager, fecha, motivo, detalles, cantidadFechasCastigo, unaTarjetaRoja);
+    
+    public SancionTribunal crearSancionTribunalParaTarjetaRoja(Partido unPartido, Persona unaPersona, Date fecha, String motivo, String detalles, int cantidadFechasCastigo, Tarjeta unaTarjetaRoja) {
+        SancionTribunal unaSancionTribunalParaTarjetaRoja = new SancionTribunal(this.entityManager, unPartido, fecha, motivo, detalles, cantidadFechasCastigo, unaTarjetaRoja);
+        unaPersona.agregarSancionTribunal(this.entityManager, unaSancionTribunalParaTarjetaRoja);
+        return unaSancionTribunalParaTarjetaRoja;
     }
-
+    
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, boolean borradoLogico) {
         unaSancionTribunal.setFecha(fecha);
         unaSancionTribunal.setMotivo(motivo);
@@ -67,12 +69,12 @@ public class ControladoraDeportiva {
         unaSancionTribunal.setBorradoLogico(borradoLogico);
         unaSancionTribunal.persistir(this.entityManager);
     }
-
+    
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         unaSancionTribunal.setBorradoLogico(true);
         unaSancionTribunal.persistir(this.entityManager);
     }
-
+    
     public void descontarSancion(Collection<Jugadora> jugadoras, Date unaFechaParametro) {
         for (Jugadora unaJugadora : jugadoras) {
             for (SancionTribunal unaSancionTribunal : unaJugadora.getUnaSocia().getSancionesVigentes(unaFechaParametro)) {
@@ -80,6 +82,24 @@ public class ControladoraDeportiva {
                 unaSancionTribunal.persistir(this.entityManager);
             }
         }
+    }
+
+    /**
+     * Devuelve la Sancion si hay de una tarjeta
+     */
+    public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
+        String unaConsulta = "SELECT P FROM SancionTribunal P WHERE P.unaTarjeta.idTarjeta = " + unaTarjeta.getIdTarjeta();
+        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
+        SancionTribunal unaSancionTribunal = (SancionTribunal) traerSancionTribunal.getSingleResult();
+        return unaSancionTribunal;
+    }
+
+    /**
+     * Devuelve Todos las SancionTribunal de un Partido
+     */
+    public List<SancionTribunal> getSancionesTribunalesDePartido(Partido unPartido) {
+        List<SancionTribunal> unaListaResultado = this.entityManager.createQuery("SELECT aux FROM SancionTribunal aux WHERE aux.borradoLogico = FALSE AND aux.unPartido.idPartido=" + unPartido.getIdPartido()).getResultList();
+        return unaListaResultado;
     }
 
     /**
@@ -108,7 +128,7 @@ public class ControladoraDeportiva {
         unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
         return unaTarjeta;
     }
-
+    
     public void modificarTarjeta(Tarjeta unaTarjeta, Date fecha, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
         unaTarjeta.setFecha(fecha);
         unaTarjeta.setTipo(tipo);
@@ -118,12 +138,12 @@ public class ControladoraDeportiva {
         unaTarjeta.setBorradoLogico(borradoLogico);
         unaTarjeta.persistir(this.entityManager);
     }
-
+    
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         unaTarjeta.setBorradoLogico(true);
         unaTarjeta.persistir(this.entityManager);
     }
-
+    
     public void computarTarjeta(Tarjeta unaTarjeta) {
         unaTarjeta.setComputado(true);
         unaTarjeta.persistir(this.entityManager);
@@ -154,9 +174,9 @@ public class ControladoraDeportiva {
     public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
         String unaConsulta = "SELECT R FROM Torneo R, Tarjeta T WHERE T.idTarjeta = " + unaTarjeta.getIdTarjeta();
         Query traerTorneo = this.entityManager.createQuery(unaConsulta);
-        Torneo unTorneo = (Torneo) traerTorneo.getSingleResult();
+        Torneo unTorneo = (Torneo) traerTorneo.getResultList().get(0);
         return unTorneo;
-        
+
         //return this.getTorneoDePartido(this.getPartidoTarjeta(unaTarjeta));
     }
 
@@ -166,18 +186,8 @@ public class ControladoraDeportiva {
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         String unaConsulta = "SELECT P FROM Partido P, Tarjeta T WHERE T.idTarjeta = " + unaTarjeta.getIdTarjeta();
         Query traerPartido = this.entityManager.createQuery(unaConsulta);
-        Partido unPartido = (Partido) traerPartido.getSingleResult();
+        Partido unPartido = (Partido) traerPartido.getResultList().get(0);
         return unPartido;
-    }
-
-    /**
-     * Devuelve la Sancion si hay de una tarjeta
-     */
-    public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
-        String unaConsulta = "SELECT P FROM SancionTribunal P WHERE P.unaTarjeta.idTarjeta = " + unaTarjeta.getIdTarjeta();
-        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
-        SancionTribunal unaSancionTribunal = (SancionTribunal) traerSancionTribunal.getSingleResult();
-        return unaSancionTribunal;
     }
 
     /**
@@ -197,7 +207,7 @@ public class ControladoraDeportiva {
         unClub.agregarEquipo(this.entityManager, unEquipo);
         return unEquipo;
     }
-
+    
     public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
         unEquipo.setNombre(nombre);
         unEquipo.setUnaCapitana(unaCapitana);
@@ -210,12 +220,12 @@ public class ControladoraDeportiva {
         unEquipo.setBorradoLogico(borradoLogico);
         unEquipo.persistir(this.entityManager);
     }
-
+    
     public void cambiarEquipoDeClub(Equipo unEquipo, Club unClubActual, Club unClubNuevo) {
         unClubActual.quitarEquipo(this.entityManager, unEquipo);
         unClubNuevo.agregarEquipo(this.entityManager, unEquipo);
     }
-
+    
     public void eliminarEquipo(Equipo unEquipo) {
         unEquipo.setBorradoLogico(true);
         unEquipo.persistir(this.entityManager);
@@ -262,7 +272,7 @@ public class ControladoraDeportiva {
         List<Equipo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
+    
     public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
         List<Equipo> unaListaResultado = (List<Equipo>) unTorneo.getEquiposInscriptos();
         if (unaFecha != null) {
@@ -281,7 +291,7 @@ public class ControladoraDeportiva {
     public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
         new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
-
+    
     public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setNombre(nombre);
         unClub.setLogo(logo);
@@ -290,7 +300,7 @@ public class ControladoraDeportiva {
         unClub.setBorradoLogico(borradoLogico);
         unClub.persistir(this.entityManager);
     }
-
+    
     public void eliminarClub(Club unClub) {
         unClub.setBorradoLogico(true);
         unClub.persistir(this.entityManager);
@@ -338,21 +348,21 @@ public class ControladoraDeportiva {
         List<Club> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
+    
     public JasperPrint generarReporteClub() {
         entityManager.getTransaction().begin();
         java.sql.Connection conexion = entityManager.unwrap(java.sql.Connection.class
         );
         File fichero = new File("reportes/reporteClubesMisiones.jasper");
         JasperPrint jasperPrint = null;
-
+        
         try {
             JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
             jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
         } catch (JRException ex) {
             Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         entityManager.getTransaction()
                 .commit();
         return jasperPrint;
@@ -364,7 +374,7 @@ public class ControladoraDeportiva {
         Indumentaria unaIndumentaria = new Indumentaria(this.entityManager, camiseta, media, pollera);
         unEquipo.agregarIndumentaria(this.entityManager, unaIndumentaria);
     }
-
+    
     public void modificarIndumentaria(Indumentaria unaIndumentaria, String camiseta, String media, String pollera, boolean borradoLogico) {
         unaIndumentaria.setCamiseta(camiseta);
         unaIndumentaria.setMedia(media);
@@ -372,12 +382,12 @@ public class ControladoraDeportiva {
         unaIndumentaria.setBorradoLogico(borradoLogico);
         unaIndumentaria.persistir(this.entityManager);
     }
-
+    
     public void cambiarIndumentariaDeEquipo(Indumentaria unaIndumentaria, Equipo unEquipoActual, Equipo unEquipoNuevo) {
         unEquipoActual.quitarIndumentaria(this.entityManager, unaIndumentaria);
         unEquipoNuevo.agregarIndumentaria(this.entityManager, unaIndumentaria);
     }
-
+    
     public void eliminarIndumentaria(Indumentaria unaIndumentaria) {
         unaIndumentaria.setBorradoLogico(true);
         unaIndumentaria.persistir(this.entityManager);
@@ -409,19 +419,19 @@ public class ControladoraDeportiva {
         Cancha unaCancha = new Cancha(this.entityManager, nombre, unTipoCancha);
         unClub.agregarCancha(this.entityManager, unaCancha);
     }
-
+    
     public void modificarCancha(Cancha unaCancha, String nombre, TipoCancha unTipoCancha, boolean borradoLogico) {
         unaCancha.setNombre(nombre);
         unaCancha.setUnTipoCancha(unTipoCancha);
         unaCancha.setBorradoLogico(borradoLogico);
         unaCancha.persistir(this.entityManager);
     }
-
+    
     public void eliminarCancha(Cancha unaCancha) {
         unaCancha.setBorradoLogico(true);
         unaCancha.persistir(this.entityManager);
     }
-
+    
     public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
         List<Partido> unaListaResultado = this.entityManager.createQuery("SELECT P FROM Partido P WHERE P.borradoLogico = FALSE AND P.unaCancha.idCancha = " + unaCancha.getIdCancha()).getResultList();
         DateFormat df = DateFormat.getDateInstance();
@@ -457,7 +467,7 @@ public class ControladoraDeportiva {
         List<Cancha> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
+    
     public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha) {
         String unaConsulta = "SELECT C FROM Cancha C WHERE C.borradoLogico = FALSE AND C.seOcupa = TRUE";
         List<Cancha> listaTodasLasCanchas = this.entityManager.createQuery(unaConsulta).getResultList();
@@ -474,13 +484,13 @@ public class ControladoraDeportiva {
     public void crearTipoCancha(String nombre) {
         new TipoCancha(this.entityManager, nombre);
     }
-
+    
     public void modificarTipoCancha(TipoCancha unTipoCancha, String nombre, boolean borradoLogico) {
         unTipoCancha.setNombre(nombre);
         unTipoCancha.setBorradoLogico(borradoLogico);
         unTipoCancha.persistir(this.entityManager);
     }
-
+    
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {
         unTipoCancha.setBorradoLogico(true);
         unTipoCancha.persistir(this.entityManager);
@@ -511,7 +521,7 @@ public class ControladoraDeportiva {
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         new Categoria(this.entityManager, nombre, edadParametro, cantidadMinima, cantidadMaxima);
     }
-
+    
     public void modificarCategoria(Categoria unaCategoria, String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima, boolean borradoLogico) {
         unaCategoria.setNombre(nombre);
         unaCategoria.setEdadParametro(edadParametro);
@@ -520,7 +530,7 @@ public class ControladoraDeportiva {
         unaCategoria.setBorradoLogico(borradoLogico);
         unaCategoria.persistir(this.entityManager);
     }
-
+    
     public void eliminarCategoria(Categoria unaCategoria) {
         unaCategoria.setBorradoLogico(true);
         unaCategoria.persistir(this.entityManager);
@@ -553,23 +563,23 @@ public class ControladoraDeportiva {
     public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
         new Torneo(this.entityManager, diaInicio, unaCategoria, nombre);
     }
-
+    
     public void modificarTorneo(Torneo unTorneo, Date fechaInicio, Categoria unaCategoria, String nombre) {
         unTorneo.setFechaInicio(fechaInicio);
         unTorneo.setUnaCategoria(unaCategoria);
         unTorneo.setNombre(nombre);
         unTorneo.persistir(this.entityManager);
     }
-
+    
     public void eliminarTorneo(Torneo unTorneo) {
         unTorneo.setBorradoLogico(true);
         unTorneo.persistir(this.entityManager);
     }
-
+    
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return unTorneo.agregarEquipoInscripto(this.entityManager, unEquipo);
     }
-
+    
     public int quitarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return unTorneo.quitarEquipoInscripto(this.entityManager, unEquipo);
     }
@@ -635,18 +645,18 @@ public class ControladoraDeportiva {
         FechaTorneo unaFechaTorneo = new FechaTorneo(this.entityManager, numeroFecha);
         unTorneo.agregarFechaTorneo(this.entityManager, unaFechaTorneo);
     }
-
+    
     public void modificarFechaTorneo(FechaTorneo unaFechaTorneo, int numeroFecha, boolean borradoLogico) {
         unaFechaTorneo.setNumeroFecha(numeroFecha);
         unaFechaTorneo.setBorradoLogico(borradoLogico);
         unaFechaTorneo.persistir(this.entityManager);
     }
-
+    
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
         unaFechaTorneo.setBorradoLogico(true);
         unaFechaTorneo.persistir(this.entityManager);
     }
-
+    
     public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual, Torneo unTorneo) {
         return unTorneo.getSiguienteFecha(fechaActual);
     }
@@ -669,54 +679,7 @@ public class ControladoraDeportiva {
         List<FechaTorneo> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
-    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo) {
-        return unTorneo.getUnaFecha(numeroFecha);
-    }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Partidos">
-    public void crearPartido(FechaTorneo unaFechaTorneo, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
-        Partido unPartido = new Partido(this.entityManager, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3);
-        unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
-    }
-
-    public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, boolean borradoLogico) {
-        unPartido.setFecha(fecha);
-        unPartido.setUnaCancha(unaCancha);
-        unPartido.setUnEquipoLocal(unEquipoLocal);
-        unPartido.setUnEquipoVisitante(unEquipoVisitante);
-        unPartido.setUnArbitro1(unArbitro1);
-        unPartido.setUnArbitro2(unArbitro2);
-        unPartido.setUnArbitro3(unArbitro3);
-        unPartido.setBorradoLogico(borradoLogico);
-        unPartido.persistir(this.entityManager);
-    }
-
-    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
-        unPartido.setNombreVeedor(nombreVeedor);
-        unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
-        unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
-        unPartido.setObservaciones(observaciones);
-        unPartido.setBorradoLogico(borradoLogico);
-        unPartido.persistir(this.entityManager);
-    }
-
-    public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
-        unPartido.agregarJugadora(unaSocia, camiseta, local);
-        unPartido.persistir(this.entityManager);
-    }
-
-    public void vaciarJugadoras(Partido unPartido) {
-        unPartido.vaciarJugadoras();
-        unPartido.persistir(this.entityManager);
-    }
-
-    public void eliminarPartido(Partido unPartido) {
-        unPartido.setBorradoLogico(true);
-        unPartido.persistir(this.entityManager);
-    }
-
+    
     public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
         FechaTorneo resultado = null;
         for (Torneo unTorneo : this.getTorneosBD()) {
@@ -729,7 +692,66 @@ public class ControladoraDeportiva {
         }
         return resultado;
     }
+    
+    public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo) {
+        return unTorneo.getUnaFecha(numeroFecha);
+    }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Partidos">
+    public void crearPartido(FechaTorneo unaFechaTorneo, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
+        Partido unPartido = new Partido(this.entityManager, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3);
+        unaFechaTorneo.agregarPartido(this.entityManager, unPartido);
+    }
+    
+    public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, boolean borradoLogico) {
+        //si se modifica la fecha del partido y éste tiene tarjetas, se deben modificar las fechas de tarjetas, y sanciones.-
+        if (!unPartido.getFecha().equals(fecha)) {
+            for (Tarjeta unaTarjeta : unPartido.getTarjetas()) {
+                unaTarjeta.setFecha(fecha);
+                unaTarjeta.persistir(this.entityManager);
+            }
+            for (SancionTribunal unaSancionTribunal : this.getSancionesTribunalesDePartido(unPartido)) {
+                unaSancionTribunal.setFecha(fecha);
+                unaSancionTribunal.persistir(this.entityManager);
+            }
+        }
+        
+        unPartido.setFecha(fecha);
+        unPartido.setUnaCancha(unaCancha);
+        unPartido.setUnEquipoLocal(unEquipoLocal);
+        unPartido.setUnEquipoVisitante(unEquipoVisitante);
+        unPartido.setUnArbitro1(unArbitro1);
+        unPartido.setUnArbitro2(unArbitro2);
+        unPartido.setUnArbitro3(unArbitro3);
+        unPartido.setBorradoLogico(borradoLogico);
+        unPartido.persistir(this.entityManager);
+    }
+    
+    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
+        unPartido.setNombreVeedor(nombreVeedor);
+        unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
+        unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
+        unPartido.setObservaciones(observaciones);
+        unPartido.setBorradoLogico(borradoLogico);
+        unPartido.persistir(this.entityManager);
+    }
+    
+    public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
+        unPartido.agregarJugadora(unaSocia, camiseta, local);
+        unPartido.persistir(this.entityManager);
+    }
+    
+    public void vaciarJugadoras(Partido unPartido) {
+        unPartido.vaciarJugadoras();
+        unPartido.persistir(this.entityManager);
+    }
+    
+    public void eliminarPartido(Partido unPartido) {
+        unPartido.setBorradoLogico(true);
+        unPartido.persistir(this.entityManager);
+    }
+    
     public Partido getPartidoAnterior(Partido unPartidoActual) {
         Partido resultado = null;
         FechaTorneo unaFechaTorneo = this.getFechaTorneoDePartido(unPartidoActual);
@@ -745,7 +767,7 @@ public class ControladoraDeportiva {
         }
         return resultado;
     }
-
+    
     public boolean isPartidoAnteriorJugado(Partido unPartido) {
         boolean resultado = false;
         Partido unPartidoAnterior = this.getPartidoAnterior(unPartido);
@@ -757,6 +779,19 @@ public class ControladoraDeportiva {
             }
         } else {
             resultado = true;
+        }
+        return resultado;
+    }
+
+    /**
+     * Devuelve el numero de camiseta de la jugadora en un partido
+     */
+    public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
+        String resultado = "-";
+        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
+            if (unaJugadora.getUnaSocia().getDni() == unaSocia.getDni()) {
+                resultado = unaJugadora.getCamiseta();
+            }
         }
         return resultado;
     }
@@ -793,34 +828,20 @@ public class ControladoraDeportiva {
     }
     // </editor-fold>
 
-    /**
-     * Devuelve el numero de camiseta de la jugadora en un partido
-     */
-    public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
-        String resultado = "-";
-        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
-            if (unaJugadora.getUnaSocia().getDni() == unaSocia.getDni()) {
-                resultado = unaJugadora.getCamiseta();
-            }
-        }
-        return resultado;
-    }
-    // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Gol">
     public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, String minuto) {
         Gol unGol = new Gol(this.entityManager, tiempo, minuto);
         unaSocia.agregarGol(this.entityManager, unGol);
         unPartido.agregarGol(this.entityManager, unGol);
     }
-
+    
     public void modificarGol(Gol unGol, String tiempo, String minuto, boolean borradoLogico) {
         unGol.setTiempo(tiempo);
         unGol.setMinuto(minuto);
         unGol.setBorradoLogico(borradoLogico);
         unGol.persistir(this.entityManager);
     }
-
+    
     public void eliminarGol(Gol unGol) {
         unGol.setBorradoLogico(true);
         unGol.persistir(this.entityManager);
@@ -844,7 +865,7 @@ public class ControladoraDeportiva {
         List<Gol> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
-
+    
     public Jugadora getAutoraGol(Partido unPartido, Gol unGol) {
         for (Jugadora unaJugadora : unPartido.getJugadoras()) {
             if (unaJugadora.getUnaSocia().isAutoraGol(unGol)) {
@@ -853,7 +874,7 @@ public class ControladoraDeportiva {
         }
         return null;
     }
-
+    
     public int getGolesLocal(Partido unPartido) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
@@ -865,7 +886,7 @@ public class ControladoraDeportiva {
         }
         return cantidadGoles;
     }
-
+    
     public int getGolesVisitante(Partido unPartido) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
@@ -877,7 +898,7 @@ public class ControladoraDeportiva {
         }
         return cantidadGoles;
     }
-
+    
     public int getGolesSocia(Partido unPartido, Socia unaSocia) {
         int cantidadGoles = 0;
         for (Gol unGol : unPartido.getGoles()) {
