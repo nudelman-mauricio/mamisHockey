@@ -289,13 +289,21 @@ public class ControladoraGlobal {
     public List<SancionTribunal> getSancionesTribunalesBD() {
         return this.unaControladoraDeportiva.getSancionesTribunalesBD();
     }
+
+    public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
+        return this.unaControladoraDeportiva.getSancionTarjeta(unaTarjeta);
+    }
+
+    public List<SancionTribunal> getSancionesTribunalesDePartido(Partido unPartido) {
+        return this.unaControladoraDeportiva.getSancionesTribunalesDePartido(unPartido);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
     public void crearTarjeta(Socia unaSocia, Partido unPartido, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
         Tarjeta unaTarjeta = this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, fecha, tipo, motivo, tiempo, minuto);
         if (tipo.equals("Roja")) {
-            this.unaControladoraDeportiva.crearSancionTribunalParaTarjetaRoja(unaSocia, fecha, "Tarjeta Roja", "Como mínimo una fecha de penalización", 1, unaTarjeta);
+            this.unaControladoraDeportiva.crearSancionTribunalParaTarjetaRoja(unPartido, unaSocia, fecha, "Tarjeta Roja", "Como mínimo una fecha de penalización", 1, unaTarjeta);
         }
     }
 
@@ -361,18 +369,6 @@ public class ControladoraGlobal {
 
     public List<Tarjeta> getTarjetasBD() {
         return this.unaControladoraDeportiva.getTarjetasBD();
-    }
-
-    public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
-        return unaControladoraDeportiva.getTorneoTarjeta(unaTarjeta);
-    }
-
-    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
-        return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
-    }
-
-    public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
-        return unaControladoraDeportiva.getSancionTarjeta(unaTarjeta);
     }
 
     public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
@@ -594,6 +590,10 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
 
+    public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
+        return unaControladoraDeportiva.getTorneoTarjeta(unaTarjeta);
+    }
+
     public List<Torneo> getTorneoParticipoSocia(Socia unaSocia) {
         return this.unaControladoraDeportiva.getTorneoParticipoSocia(unaSocia);
     }
@@ -630,6 +630,10 @@ public class ControladoraGlobal {
 
     public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo) {
         return this.unaControladoraDeportiva.getUnaFecha(numeroFecha, unTorneo);
+    }
+
+    public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
+        return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
     }
     // </editor-fold>
 
@@ -674,12 +678,12 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getPartidosBD();
     }
 
-    public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
-        return unaControladoraDeportiva.getCamisetaPartido(unPartido, unaSocia);
+    public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
+        return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
 
-    public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
-        return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
+    public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
+        return unaControladoraDeportiva.getCamisetaPartido(unPartido, unaSocia);
     }
     // </editor-fold>
 

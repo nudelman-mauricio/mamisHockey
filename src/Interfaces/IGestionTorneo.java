@@ -13,12 +13,12 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class IGestionTorneo extends javax.swing.JInternalFrame {
-    
+
     private DefaultTableModel modeloTablaTorneo;
     private ControladoraGlobal unaControladoraGlobal;
     private Torneo unTorneoSeleccionado = null;
-    DateFormat df = DateFormat.getDateInstance();
-    
+    private DateFormat df = DateFormat.getDateInstance();
+
     public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -27,26 +27,29 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         this.setTitle("Gestión de Torneos");
         IMenuPrincipalInterface.centrar(this);
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTablaTorneo.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTorneo.removeRow(0);
         }
     }
-    
+
     private void camposCargar() {
         if (jTableTorneo.getSelectedRow() > -1) {
             if (jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0) != null) {
-                unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));                
+                unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
                 camposActivo(true);
-                if(unTorneoSeleccionado.getEquiposInscriptos().isEmpty()){
+                if (unTorneoSeleccionado.getEquiposInscriptos().isEmpty()) {
+                    jButtonFechas.setEnabled(false);                    
                     jButtonTablaPosiciones.setEnabled(false);
+                    jButtonGoleadoras.setEnabled(false);
+                    jButtonFixtures.setEnabled(false);
                 }
             }
         }
     }
-    
+
     private void camposActivo(boolean Editable) {
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
@@ -57,14 +60,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         jButtonGoleadoras.setEnabled(Editable);
         jButtonFixtures.setEnabled(Editable);
     }
-    
+
     private void cargarTabla() {
         limpiarTabla();
         for (Torneo unTorneo : this.unaControladoraGlobal.getTorneosBDFiltro(jTextFieldBusqueda.getText())) {
             this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -431,16 +434,16 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     private void jButtonTablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTablaPosicionesActionPerformed
         TablaPosicionesDS unaTablaPosicionesDS = new TablaPosicionesDS(unaControladoraGlobal, unTorneoSeleccionado);
-        unaTablaPosicionesDS.verReporte();        
+        unaTablaPosicionesDS.verReporte();
     }//GEN-LAST:event_jButtonTablaPosicionesActionPerformed
 
     private void jButtonGoleadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoleadorasActionPerformed
-        TablaGoleadorasDS unaTablaGoleadoraDS = new TablaGoleadorasDS (unaControladoraGlobal, unTorneoSeleccionado);
+        TablaGoleadorasDS unaTablaGoleadoraDS = new TablaGoleadorasDS(unaControladoraGlobal, unTorneoSeleccionado);
         unaTablaGoleadoraDS.verReporte();
     }//GEN-LAST:event_jButtonGoleadorasActionPerformed
 
     private void jButtonFixturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFixturesActionPerformed
-        FixtureDS unFixtureDS = new FixtureDS (unaControladoraGlobal, unTorneoSeleccionado, null);
+        FixtureDS unFixtureDS = new FixtureDS(unaControladoraGlobal, unTorneoSeleccionado, null);
         unFixtureDS.verReporte();
     }//GEN-LAST:event_jButtonFixturesActionPerformed
 

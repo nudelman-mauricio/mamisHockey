@@ -68,7 +68,8 @@ public class SancionTribunal implements Serializable, Comparable {
         this.persistir(entityManager);
     }
 
-    public SancionTribunal(EntityManager entityManager, Date fecha, String motivo, String detalles, int cantidadFechasCastigo, Tarjeta unaTarjetaRoja) {
+    public SancionTribunal(EntityManager entityManager, Partido unPartido, Date fecha, String motivo, String detalles, int cantidadFechasCastigo, Tarjeta unaTarjetaRoja) {
+        this.unPartido = unPartido;
         this.fecha = fecha;
         this.motivo = motivo;
         this.detalles = detalles;

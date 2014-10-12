@@ -16,17 +16,17 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
-    
+
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
     private Tarjeta unaTarjetaSeleccionada = null;
     private DateFormat df = DateFormat.getDateInstance();
-    
+
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -39,44 +39,49 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"
         Vector VTorneo = new Vector();
-        VTorneo.add("Todos los Torneos");        
+        VTorneo.add("Todos los Torneos");
         VTorneo.addAll(unaControladoraGlobal.getTorneoParticipoSocia(unaSocia));
         this.jComboBoxTorneos.setModel(new DefaultComboBoxModel(VTorneo));
         this.jTextPaneMotivo.setBackground(new Color(228, 231, 237));
+
+        cargarTabla();
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTablaTarjetas.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTarjetas.removeRow(0);
         }
     }
-    
+
     public void cargarTabla() {
         limpiarTabla();
-        Partido unPartido;
         Torneo unTorneo;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-            if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Rojas") && jCheckBoxRojas.isSelected())) {
-                unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
-                unTorneo = unaControladoraGlobal.getTorneoTarjeta(unaTarjeta);
-                if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unTorneo.equals(jComboBoxTorneos.getSelectedItem()))) {
-                    this.modeloTablaTarjetas.addRow(new Object[]{
-                        df.format(unPartido.getFecha()),
-                        unaTarjeta.getTipo(),
-                        unTorneo.getNombre(),
-                        unPartido.toString()});
+            if (!unaTarjeta.isBorradoLogico()) {
+                if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Roja") && jCheckBoxRojas.isSelected())) {
+                    unTorneo = unaControladoraGlobal.getTorneoTarjeta(unaTarjeta);
+                    System.out.println(jComboBoxTorneos.getSelectedItem().toString());
+                    System.out.println(unTorneo.toString());
+                    System.out.println(unTorneo.equals(jComboBoxTorneos.getSelectedItem()));
+                    if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unTorneo.equals((Torneo) jComboBoxTorneos.getSelectedItem()))) {
+                        this.modeloTablaTarjetas.addRow(new Object[]{
+                            df.format(unaTarjeta.getFecha()),
+                            unaTarjeta.getTipo(),
+                            unTorneo.getNombre(),
+                            unaControladoraGlobal.getPartidoTarjeta(unaTarjeta).toString()});
+                    }
                 }
             }
         }
     }
-    
+
     public void camposCargar() {
         if (jTableTarjeta.getSelectedRow() > -1) {
             if (jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0) != null) {
                 unaTarjetaSeleccionada = unaControladoraGlobal.getTarjetaBD((Long) jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0));
                 Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada);
-                jTextFieldFecha.setText(df.format(unPartido.getFecha()));
+                jTextFieldFecha.setText(df.format(unaTarjetaSeleccionada.getFecha()));
                 jTextFieldTipoTarjeta.setText(unaTarjetaSeleccionada.getTipo());
                 jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjetaSeleccionada).getNombre());
                 jTextFieldPartido.setText(unPartido.toString());
@@ -95,7 +100,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     public void camposLimpiar() {
         jTextFieldFecha.setText("");
         jTextFieldTipoTarjeta.setText("");
@@ -106,7 +111,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldPenalizacion.setText("");
         jTextFieldFechasCumplidas.setText("");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -210,10 +215,13 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Torneos:");
 
+        jCheckBoxVerdes.setSelected(true);
         jCheckBoxVerdes.setText("Verdes");
 
+        jCheckBoxAmarillas.setSelected(true);
         jCheckBoxAmarillas.setText("Amarillas");
 
+        jCheckBoxRojas.setSelected(true);
         jCheckBoxRojas.setText("Rojas");
 
         jLabel2.setText("Tarjetas:");

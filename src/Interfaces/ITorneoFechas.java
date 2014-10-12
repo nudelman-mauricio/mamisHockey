@@ -126,7 +126,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 jComboBoxEquipoVisitante.setSelectedItem(unPartidoSeleccionado.getUnEquipoVisitante());
 
                 jButtonEditar.setEnabled(true);
-                //jButtonEliminar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
                 jButtonImprimir.setEnabled(true);
                 jButtonResultadoPartido.setEnabled(true);
             }
