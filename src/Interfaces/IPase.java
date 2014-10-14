@@ -95,8 +95,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 jCheckBoxLibreDeudaClub.setSelected(unPaseSeleccionado.isLibreDeudaClub());
                 jCheckBoxSolicitudPase.setSelected(unPaseSeleccionado.isSolicitudPase());
 
-                jButtonEliminar.setEnabled(true);
-                jButtonImprimir.setEnabled(true);
+                jButtonEliminar.setEnabled(true);               
             }
         }
     }
@@ -181,7 +180,6 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanelBotones = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jButtonImprimir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jPanelTabla = new javax.swing.JPanel();
@@ -261,17 +259,6 @@ public class IPase extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImprimirActionPerformed(evt);
-            }
-        });
-
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setEnabled(false);
@@ -307,8 +294,6 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
@@ -317,7 +302,6 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonNuevo)
-                    .addComponent(jButtonImprimir)
                     .addComponent(jButtonEliminar)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar))
@@ -598,10 +582,6 @@ public class IPase extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonImprimirActionPerformed
-
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
@@ -634,8 +614,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);        
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -651,8 +630,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 jButtonNuevo.setEnabled(true);
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                jButtonImprimir.setEnabled(false);
+                jButtonEliminar.setEnabled(false);                
 
                 camposLimpiar();
                 camposActivo(false);
@@ -677,8 +655,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);       
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -710,7 +687,6 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JCheckBox jCheckBoxLibreDeudaClub;
     private javax.swing.JCheckBox jCheckBoxSolicitudPase;

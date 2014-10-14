@@ -1,10 +1,14 @@
 package Interfaces;
 
+import DataSources.GestionEgresosDS;
+import DataSources.GestionIngresosDS;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,8 +131,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
 
                 camposActivo(false);
                 jButtonEditar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);
-                jButtonImprimir.setEnabled(true);
+                jButtonEliminar.setEnabled(true);               
             }
         }
     }
@@ -242,7 +245,6 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -577,8 +579,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);        
 
         jTableIngresos.setEnabled(false);
 
@@ -591,8 +592,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);      
 
         camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
@@ -620,8 +620,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);     
 
         jTableIngresos.setEnabled(false);
 
@@ -633,7 +632,30 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+      if (jTableIngresos.getRowCount() > 0) {
+            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
+            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
+            Date fechaHasta = null;
+            Date fechaDesde = null;
+            try {
+                fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
+                fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+
+            } catch (ParseException ex) {
+                Logger.getLogger(IGestionEgresos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<IngresoOtro> unaListaIngreso = new ArrayList();
+            IngresoOtro unIngresoOtro;
+            int filas = this.modeloTablaGestionIngresos.getRowCount();
+            for (int i = 0; i < filas; i++) {
+                unIngresoOtro = unaControladoraGlobal.getIngresoOtroBD((Long) jTableIngresos.getValueAt(i, 0));
+                unaListaIngreso.add(unIngresoOtro);
+            }          
+            GestionIngresosDS unaGestionIgresosDS = new GestionIngresosDS(unaControladoraGlobal, unaListaIngreso, fechaDesde, fechaHasta);
+            unaGestionIgresosDS.verReporte();
+        } else {
+            JOptionPane.showMessageDialog(this, "La tabla esta Vacia");
+        }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -654,8 +676,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
                 jButtonEditar.setEnabled(false);
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                jButtonImprimir.setEnabled(false);
+                jButtonEliminar.setEnabled(false);                
                 jTableIngresos.setEnabled(true);
                 camposActivo(false);
                 camposFiltroActivo(true);

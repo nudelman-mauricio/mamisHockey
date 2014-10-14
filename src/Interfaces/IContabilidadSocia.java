@@ -59,8 +59,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 this.modeloTableDeudas.addRow(new Object[]{unaDeuda.getIdDeuda(), df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getUnConceptoDeportivo().getConcepto(), unaDeuda.getCantidadCuotas(), df.format(unaDeuda.getPrimerVencimiento()), unaDeuda.getMontoTotal(), unaDeuda.isSaldado()});
             }
         }
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);        
         jButtonPagar.setEnabled(false);
     }
 
@@ -78,8 +77,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 this.modeloTableCuotas.addRow(new Object[]{unaCuota.getIdCuota(), unaCuota.getNumero(), df.format(unaCuota.getFechaVencimiento()), unaCuota.getMonto(), pagoCuota, unaCuota.getMontoPago()});
             }
         }
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);       
         jButtonPagar.setEnabled(false);
     }
 
@@ -104,8 +102,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 jTextFieldMontoCuota.setText(Double.toString(unaDeudaSeleccionada.getPrimerMonto()));
                 jTextPaneObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
 
-                jButtonEliminar.setEnabled(true);
-                jButtonImprimir.setEnabled(true);
+                jButtonEliminar.setEnabled(true);                
             }
         }
     }
@@ -121,8 +118,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     jTextPaneObservacionPago.setText(unaCuotaSeleccionada.getUnPagoCuota().getObservacion());
                 } else {
                     jButtonPagar.setEnabled(true);
-                }
-                jButtonImprimir.setEnabled(true);
+                }               
             }
         }
     }
@@ -227,7 +223,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jPanelBotones = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jButtonImprimir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonPagar = new javax.swing.JButton();
@@ -311,12 +306,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setEnabled(false);
@@ -364,8 +353,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -379,7 +366,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
         );
@@ -762,8 +748,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     jButtonNuevo.setEnabled(true);
                     jButtonGuardar.setEnabled(false);
                     jButtonCancelar.setEnabled(false);
-                    jButtonEliminar.setEnabled(false);
-                    jButtonImprimir.setEnabled(false);
+                    jButtonEliminar.setEnabled(false);                   
 
                     jTableDeudas.setEnabled(true);
                     jTableDeudas.clearSelection();
@@ -789,8 +774,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                         jButtonGuardar.setEnabled(false);
                         jButtonCancelar.setEnabled(false);
                         jButtonEliminar.setEnabled(false);
-                        jButtonPagar.setEnabled(false);
-                        jButtonImprimir.setEnabled(false);
+                        jButtonPagar.setEnabled(false);                       
                         jTabbedPane1.setEnabledAt(0, true);
 
                         jTableCuotas.setEnabled(true);
@@ -812,8 +796,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonNuevo.setEnabled(true);
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
+            jButtonEliminar.setEnabled(false);           
 
             jTableDeudas.setEnabled(true);
             jTableDeudas.clearSelection();
@@ -827,8 +810,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonEliminar.setEnabled(false);
-                jButtonPagar.setEnabled(false);
-                jButtonImprimir.setEnabled(false);
+                jButtonPagar.setEnabled(false);               
 
                 jTableCuotas.setEnabled(true);
                 jTableCuotas.clearSelection();
@@ -846,8 +828,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonNuevo.setEnabled(true);
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
+            jButtonEliminar.setEnabled(false);            
 
             camposActivoDeudas(false);
 
@@ -884,8 +865,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-            jButtonPagar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
+            jButtonPagar.setEnabled(false);            
             jTableCuotas.clearSelection();
             jTableDeudas.clearSelection();
             jLabelTituloCuotas.setText("Deuda: " + unaDeudaSeleccionada.getUnConceptoDeportivo().toString() + " - Fecha: " + df.format(unaDeudaSeleccionada.getFechaGeneracion()) + " - Monto: " + Double.toString(unaDeudaSeleccionada.getMontoTotal()));
@@ -900,8 +880,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonPagar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonPagar.setEnabled(false);        
         jTabbedPane1.setEnabledAt(0, false);
 
         jTableCuotas.setEnabled(false);
@@ -919,8 +898,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-            jButtonPagar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
+            jButtonPagar.setEnabled(false);            
             jTableCuotas.clearSelection();
             jTableDeudas.clearSelection();
             unaCuotaSeleccionada = null;
@@ -964,7 +942,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JComboBox jComboBoxCantidadCuotas;

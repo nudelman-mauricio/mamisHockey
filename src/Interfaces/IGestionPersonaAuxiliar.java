@@ -432,24 +432,24 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
-       List<PersonaAuxiliar> personasAuxiliares = new ArrayList();
-       PersonaAuxiliar unaPersonaAux; 
-       int filas = this.modeloTablaPersonaAuxiliar.getRowCount();        
-        for (int i = 0; i < filas; i++) {           
-            unaPersonaAux = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(i, 0));            
+        List<PersonaAuxiliar> personasAuxiliares = new ArrayList();
+        PersonaAuxiliar unaPersonaAux;
+        int filas = this.modeloTablaPersonaAuxiliar.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            unaPersonaAux = unaControladoraGlobal.getPersonaAuxiliarBD((Long) jTablePersonaAuxiliar.getValueAt(i, 0));
             personasAuxiliares.add(unaPersonaAux);
         }
-        String opcion ;
-        if(jRadioButtonArbitros.isSelected()){
+        String opcion;
+        if (jRadioButtonArbitros.isSelected()) {
             opcion = "Árbitros";
         } else {
-            if(jRadioButtonTecnicos.isSelected()){
+            if (jRadioButtonTecnicos.isSelected()) {
                 opcion = "Técnicos";
             } else {
                 opcion = "Personas Auxiliares";
             }
-        }        
-        ListaPersonaAuxiliarDS unaListaPersonaAuxiliarDS = new ListaPersonaAuxiliarDS(unaControladoraGlobal, personasAuxiliares, opcion );
+        }
+        ListaPersonaAuxiliarDS unaListaPersonaAuxiliarDS = new ListaPersonaAuxiliarDS(unaControladoraGlobal, personasAuxiliares, opcion);
         unaListaPersonaAuxiliarDS.verReporte(false);
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 

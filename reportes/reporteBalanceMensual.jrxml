@@ -201,14 +201,14 @@
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="15">
+		<band height="39">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="1" width="515" height="13" backcolor="#FFFFFF" uuid="92a98aac-0b29-4453-917d-3b0d6fef1652"/>
+				<reportElement mode="Opaque" x="0" y="25" width="515" height="13" backcolor="#FFFFFF" uuid="92a98aac-0b29-4453-917d-3b0d6fef1652"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="1" width="40" height="13" backcolor="#FFFFFF" uuid="8c941081-4a80-430f-8bb5-6bd2de1daf5e"/>
+				<reportElement mode="Opaque" x="515" y="25" width="40" height="13" backcolor="#FFFFFF" uuid="8c941081-4a80-430f-8bb5-6bd2de1daf5e"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
@@ -217,6 +217,48 @@
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="32" y="0" width="523" height="1" uuid="c763dd7b-329e-4242-8de9-69f31d4ca6e9"/>
 			</line>
+			<staticText>
+				<reportElement x="195" y="1" width="100" height="20" uuid="f36cce27-a98f-4267-909a-2d49dc291fee"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="295" y="1" width="121" height="20" uuid="ae451771-2bd1-47c5-94e9-8cb883878203"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="1" width="112" height="20" uuid="1c66094d-cc1e-4b9e-93bb-a3530735a9a3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
@@ -249,8 +291,17 @@
 				</textElement>
 				<text><![CDATA[       Total]]></text>
 			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="41" width="515" height="13" backcolor="#FFFFFF" uuid="54a3426a-4b37-4c10-8c50-8fb50f6f64ed"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="41" width="40" height="13" backcolor="#FFFFFF" uuid="1efb39ec-abeb-4cbe-96af-72fa5b656669"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="195" y="0" width="100" height="20" uuid="f36cce27-a98f-4267-909a-2d49dc291fee"/>
+				<reportElement x="195" y="0" width="100" height="20" uuid="eecc76a5-361f-4059-8061-1c3a04cbcbb0"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -264,7 +315,7 @@
 				<text><![CDATA[Subtotal]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="295" y="0" width="121" height="20" uuid="ae451771-2bd1-47c5-94e9-8cb883878203"/>
+				<reportElement x="295" y="0" width="121" height="20" uuid="382299b2-2f7e-4b70-8693-1f187e1443ab"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -278,7 +329,7 @@
 				<textFieldExpression><![CDATA[$V{TotalI}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="416" y="0" width="112" height="20" uuid="1c66094d-cc1e-4b9e-93bb-a3530735a9a3"/>
+				<reportElement x="416" y="0" width="112" height="20" uuid="60cc333a-0fd2-409a-a801-67af004052e7"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -290,15 +341,6 @@
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="0" y="41" width="515" height="13" backcolor="#FFFFFF" uuid="54a3426a-4b37-4c10-8c50-8fb50f6f64ed"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="41" width="40" height="13" backcolor="#FFFFFF" uuid="1efb39ec-abeb-4cbe-96af-72fa5b656669"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
