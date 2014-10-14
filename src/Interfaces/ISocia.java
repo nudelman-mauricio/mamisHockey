@@ -54,8 +54,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEditar.setEnabled(true);
-        jButtonImprimir.setEnabled(true);
+        jButtonEditar.setEnabled(true);       
     }
 
     public void camposCargar(Socia unaSocia) {
@@ -156,7 +155,6 @@ public class ISocia extends javax.swing.JInternalFrame {
         jPanelBotones = new javax.swing.JPanel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonImprimir = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jPanelDetalles = new javax.swing.JPanel();
@@ -182,9 +180,6 @@ public class ISocia extends javax.swing.JInternalFrame {
         jTextFieldTelFijo = new javax.swing.JTextField();
         jLabelTelefonoCelular = new javax.swing.JLabel();
         jTextFieldTelCelular = new javax.swing.JTextField();
-        jPanelFoto = new javax.swing.JPanel();
-        jLabelImagen = new javax.swing.JLabel();
-        jButtonExaminarImagen = new javax.swing.JButton();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -233,12 +228,6 @@ public class ISocia extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/add2.png"))); // NOI18N
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.setEnabled(false);
@@ -274,9 +263,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +274,6 @@ public class ISocia extends javax.swing.JInternalFrame {
                     .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
         );
@@ -319,7 +305,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(80, 80, 80)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +337,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,31 +389,6 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addGap(14, 14, 14))
         );
 
-        jLabelImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButtonExaminarImagen.setText("Seleccionar");
-
-        javax.swing.GroupLayout jPanelFotoLayout = new javax.swing.GroupLayout(jPanelFoto);
-        jPanelFoto.setLayout(jPanelFotoLayout);
-        jPanelFotoLayout.setHorizontalGroup(
-            jPanelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFotoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonExaminarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanelFotoLayout.setVerticalGroup(
-            jPanelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFotoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonExaminarImagen)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -436,11 +397,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -449,9 +406,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -466,8 +421,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jButtonImprimir.setEnabled(false);
+        jButtonCancelar.setEnabled(true);       
 
         camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -528,9 +482,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonExaminarImagen;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JCheckBox jCheckBoxExJugadora;
     private javax.swing.JComboBox jComboBoxLocalidad;
@@ -541,14 +493,12 @@ public class ISocia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelExJugadora;
     private javax.swing.JLabel jLabelFechaIngreso;
     private javax.swing.JLabel jLabelFechaNacimiento;
-    private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelLocalidad;
     private javax.swing.JLabel jLabelNombres;
     private javax.swing.JLabel jLabelTelefonoCelular;
     private javax.swing.JLabel jLabelTelefonoFijo;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
-    private javax.swing.JPanel jPanelFoto;
     private javax.swing.JTextField jTextFieldApellido;
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldDomicilio;

@@ -26,7 +26,7 @@
 			</staticText>
 			<textField>
 				<reportElement mode="Transparent" x="68" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9c543e07-3428-43c4-b59f-a74695926b24"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>

@@ -46,8 +46,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        jButtonEliminar.setEnabled(false);        
     }
 
     //Llamado desde Gestion SOCIA
@@ -133,7 +132,7 @@ public class ISancion extends javax.swing.JInternalFrame {
               
                 jButtonEliminar.setEnabled(true);
                 jButtonEditar.setEnabled(true);
-                jButtonImprimir.setEnabled(true);
+             
             }
         }
     }
@@ -165,7 +164,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         }
         jButtonEliminar.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        
     }
 
     private void limpiarTabla() {
@@ -219,7 +218,6 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonEditar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jButtonImprimir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jPanelTabla = new javax.swing.JPanel();
@@ -302,12 +300,6 @@ public class ISancion extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setEnabled(false);
@@ -345,9 +337,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,8 +347,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                     .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -511,7 +500,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldNumResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
@@ -595,7 +584,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        
 
         jTableSancion.setEnabled(false);
 
@@ -652,7 +641,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonEliminar.setEnabled(false);
-                jButtonImprimir.setEnabled(false);
+               
 
                 jTableSancion.setEnabled(true);
 
@@ -671,7 +660,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        
 
         jTableSancion.setEnabled(false);
 
@@ -684,7 +673,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+      
 
         jTableSancion.setEnabled(true);
 
@@ -698,7 +687,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        
 
         jTableSancion.setEnabled(true);
 
@@ -737,7 +726,6 @@ public class ISancion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1NumResolucion;

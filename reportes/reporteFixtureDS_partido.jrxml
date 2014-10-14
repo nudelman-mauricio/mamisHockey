@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteFixtureDS_partido" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="462c0ffd-8ffb-4fa2-8825-611f484bab9a">
-	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.zoom" value="1.6105100000000017"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="ruta" class="java.lang.String"/>
@@ -14,37 +14,54 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<staticText>
-				<reportElement x="267" y="1" width="12" height="20" uuid="14aec482-b48b-4049-9061-db6e8fd7bce9"/>
+				<reportElement x="267" y="0" width="12" height="17" uuid="14aec482-b48b-4049-9061-db6e8fd7bce9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[vs]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="134" y="1" width="100" height="20" uuid="dd86c556-1292-4048-9c85-a8b6fbcc8a6f"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="134" y="0" width="100" height="17" uuid="dd86c556-1292-4048-9c85-a8b6fbcc8a6f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="278" y="1" width="35" height="20" uuid="50cfee68-03b9-4e49-9e83-f811bf764a22"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="278" y="0" width="35" height="17" uuid="50cfee68-03b9-4e49-9e83-f811bf764a22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{golVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="35" y="1" width="100" height="20" uuid="13bc533e-b04e-435a-990e-7d86a7a6d34b"/>
+				<reportElement x="35" y="0" width="100" height="17" uuid="13bc533e-b04e-435a-990e-7d86a7a6d34b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaPartido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="312" y="1" width="100" height="20" uuid="6357145d-ed98-4c1a-badd-ae9b1c81dfee"/>
+				<reportElement x="312" y="0" width="100" height="17" uuid="6357145d-ed98-4c1a-badd-ae9b1c81dfee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{visitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="411" y="1" width="100" height="20" uuid="6e668bd9-9c39-4b76-a5e2-635c64483df6"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="411" y="0" width="100" height="17" uuid="6e668bd9-9c39-4b76-a5e2-635c64483df6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cancha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="233" y="1" width="35" height="20" uuid="2d8135da-1ae8-4a53-ba95-90665dc6bf31"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="233" y="0" width="35" height="17" uuid="2d8135da-1ae8-4a53-ba95-90665dc6bf31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{golLocal}]]></textFieldExpression>
 			</textField>
 		</band>

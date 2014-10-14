@@ -44,13 +44,19 @@ public class FixtureDS_Fecha_Partido implements JRDataSource {
         } else if ("fechaPartido".equals(jrf.getName())) {
             valor = df.format(partidos.get(indicePartidos).getFecha());
         } else if ("golLocal".equals(jrf.getName())) {
-            valor = unaControladoraGlobal.getGolesLocal(partidos.get(indicePartidos));           
+           valor = unaControladoraGlobal.getGolesLocal(partidos.get(indicePartidos));
+           if (partidos.get(indicePartidos).getNombreVeedor() == null) { 
+                valor = "";
+            }        
         } else if ("local".equals(jrf.getName())) {
             valor = partidos.get(indicePartidos).getUnEquipoLocal().getNombre();
         } else if ("visitante".equals(jrf.getName())) {            
             valor = partidos.get(indicePartidos).getUnEquipoVisitante().getNombre();
         } else if ("golVisitante".equals(jrf.getName())) {
-            valor = unaControladoraGlobal.getGolesVisitante(partidos.get(indicePartidos));   
+            valor = unaControladoraGlobal.getGolesVisitante(partidos.get(indicePartidos));
+            if (partidos.get(indicePartidos).getNombreVeedor() == null) { 
+                valor = "";
+            }              
         } else if ("cancha".equals(jrf.getName())) {
             valor = partidos.get(indicePartidos).getUnaCancha().getNombre();
         }
