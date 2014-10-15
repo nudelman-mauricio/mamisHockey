@@ -619,12 +619,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         //Si no hay tipoEstadoSocia, lo crea
         TipoEstado unTipoEstadoSocia = null;
         for (TipoEstado unTipoEstado : unaControladoraGlobal.getTiposEstadosBD()) {
-            if ("Socia".equals(unTipoEstado.getNombre())) {
+            if ("Jugadora".equals(unTipoEstado.getNombre())) {
                 unTipoEstadoSocia = unTipoEstado;
             }
-        }
-        if (unTipoEstadoSocia == null) {
-            unTipoEstadoSocia = unaControladoraGlobal.crearTipoEstado("Socia");
         }
         //A todas las socias que no tienen un estado, le asigna uno
         for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {

@@ -129,7 +129,7 @@ public class Socia extends Persona implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="Habilitada Para Jugar">
     public boolean isHabilitadaParaJugar(Date unaFecha) {
         if ((this.ergometrias != null) && (this.estados != null)) {
-            if ((!this.isAlDia(unaFecha)) || (!this.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Socia")) || (!this.isErgometriaAprobada_y_Vigente(unaFecha)) || (this.isSancionada(unaFecha))) {
+            if ((!this.isAlDia(unaFecha)) || (!this.getUltimoEstado().getUnTipoEstado().getNombre().equalsIgnoreCase("Jugadora")) || (!this.isErgometriaAprobada_y_Vigente(unaFecha)) || (this.isSancionada(unaFecha))) {
                 return false;
             }
         } else {
