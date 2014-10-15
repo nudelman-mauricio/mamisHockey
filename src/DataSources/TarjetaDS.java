@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logicaNegocios.IngresoOtro;
+import logicaNegocios.Socia;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -32,10 +33,14 @@ public class TarjetaDS implements JRDataSource {
     List<Torneo> torneos = new ArrayList();
     private DateFormat df = DateFormat.getDateInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY"); 
+    Socia unaSocia;
+    String tipo;
 
-    public TarjetaDS(ControladoraGlobal unaControladoraGlobal, List<Torneo> torneos) {
+    public TarjetaDS(ControladoraGlobal unaControladoraGlobal, List<Torneo> torneos, Socia unaSocia, String tipo) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.torneos = torneos;
+        this.unaSocia = unaSocia;
+        this.tipo = tipo;
     }
 
     @Override
@@ -50,9 +55,15 @@ public class TarjetaDS implements JRDataSource {
             valor = unaControladoraGlobal.rutaSistema();
         } else if ("fecha".equals(jrf.getName())) {
             valor = df.format(unaControladoraGlobal.fechaSistema());        
-        } else if ("Monto".equals(jrf.getName())) {
-            valor = listaIngresos.get(indiceTorneo).getMonto();
-        }
+        } else if ("nombre".equals(jrf.getName())) {
+            valor = unaSocia;
+        } else if ("tipo".equals(jrf.getName())) {
+            valor = this.tipo;
+        } else if ("torneo".equals(jrf.getName())) {
+            valor = torneos.get(indiceTorneo).getNombre();
+        } else if ("subreporte_torneo".equals(jrf.getName())) {
+            valor = subReporteUnTorneo(torneos.get(indiceTorneo));
+        } 
         return valor;
     }
 
@@ -67,5 +78,10 @@ public class TarjetaDS implements JRDataSource {
         } catch (JRException ex) {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private TarjetaDS_Torneo subReporteUnTorneo(Torneo unTorneo) {
+        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(unTorneo, this.unaControladoraGlobal);
+        return unTorneoDS;
     }
 }
