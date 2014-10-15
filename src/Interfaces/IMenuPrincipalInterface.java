@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import logicaNegocios.ConceptoDeportivo;
+import logicaNegocios.Deuda;
+import logicaNegocios.Estado;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
@@ -79,6 +84,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem3 = new javax.swing.JMenuItem();
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuSocias = new javax.swing.JMenu();
@@ -94,6 +100,8 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemConceptoIngreso = new javax.swing.JMenuItem();
         jMenuItemConceptosDeportivos = new javax.swing.JMenuItem();
         jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemCuotaMensual = new javax.swing.JMenuItem();
         jMenuFormularios = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -117,6 +125,8 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemLos3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Asociación de Mami's Hockey");
@@ -234,6 +244,15 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenuContabilidad.add(jMenuItemConceptosEgresos);
+        jMenuContabilidad.add(jSeparator4);
+
+        jMenuItemCuotaMensual.setText("Generar Cuota Mensual");
+        jMenuItemCuotaMensual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCuotaMensualActionPerformed(evt);
+            }
+        });
+        jMenuContabilidad.add(jMenuItemCuotaMensual);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -542,6 +561,50 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         setCamSocia();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemCuotaMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCuotaMensualActionPerformed
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
+        Object[] options = {"Generar", "Cancelar"};
+        if (0 == JOptionPane.showOptionDialog(
+                this,
+                "¿Esta seguro que desea generar las deudas correspondientes a " + dateFormat.format(unaControladoraGlobal.fechaSistema()) + "?",
+                "Generar Deudas",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options)) {
+
+            boolean bandera;
+            DateFormat df = DateFormat.getDateInstance();
+            String fechaVencimientoS = "15/" + unaControladoraGlobal.fechaSistema().getMonth() + "/" + unaControladoraGlobal.fechaSistema().getYear();
+            try {
+                for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
+                    for (ConceptoDeportivo unConceptoDeportivo : unaControladoraGlobal.getConceptosDeportivosAutomaticosBD()) {
+                        Estado unEstadoUltimo = unaSocia.getUltimoEstado();
+                        if ((unEstadoUltimo) != null) {
+                            if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {
+                                bandera = true;
+                                for (Deuda unaDeuda : unaSocia.getDeudas()) {
+                                    if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)
+                                            && (unaDeuda.getFechaGeneracion().getMonth() == unaControladoraGlobal.fechaSistema().getMonth())
+                                            && (unaDeuda.getFechaGeneracion().getYear() == unaControladoraGlobal.fechaSistema().getYear())) {
+                                        bandera = false;
+                                    }
+                                }
+                                if (bandera) {
+                                    Date fechaVencimiento = new java.sql.Date(df.parse(String.valueOf(fechaVencimientoS)).getTime());
+                                    unaControladoraGlobal.crearDeudaSocia(unaSocia, unaControladoraGlobal.fechaSistema(), unConceptoDeportivo, "", unConceptoDeportivo.getMonto(), 1, fechaVencimiento);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenuItemCuotaMensualActionPerformed
+
     private void setCamSocia() {
         int Max = 99;
         int Min = 1;
@@ -625,6 +688,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
@@ -635,6 +699,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemConceptoIngreso;
     private javax.swing.JMenuItem jMenuItemConceptosDeportivos;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
+    private javax.swing.JMenuItem jMenuItemCuotaMensual;
     private javax.swing.JMenuItem jMenuItemEquipos;
     private javax.swing.JMenuItem jMenuItemErgometrias;
     private javax.swing.JMenuItem jMenuItemEstados;
@@ -650,5 +715,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }

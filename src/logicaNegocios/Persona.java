@@ -195,7 +195,16 @@ public abstract class Persona implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return apellido + ", " + nombre;
+        String nombreM = nombre.toLowerCase();
+        char[] caracteres = nombreM.toCharArray();
+        caracteres[0] = Character.toUpperCase(caracteres[0]);
+        for (int i = 0; i < nombreM.length() - 2; i++) {
+            if (caracteres[i] == ' ') {
+                caracteres[i + 1] = Character.toUpperCase(caracteres[i + 1]);
+            }
+        }
+
+        return apellido.toUpperCase() + ", " + new String(caracteres);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
