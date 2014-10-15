@@ -635,6 +635,10 @@ public class ControladoraGlobal {
     public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
         return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
     }
+    
+    public FechaTorneo getFechaTorneoTarjeta(Tarjeta unaTarjeta) {
+        return unaControladoraDeportiva.getFechaTorneoTarjeta(unaTarjeta);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Partidos">

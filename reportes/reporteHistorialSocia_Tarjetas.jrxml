@@ -10,28 +10,28 @@
 	<columnHeader>
 		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="405" y="18" width="150" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
+				<reportElement x="332" y="18" width="223" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Partido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="255" y="18" width="150" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
+				<reportElement x="182" y="18" width="150" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Torneo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="105" y="18" width="150" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
+				<reportElement x="80" y="18" width="102" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo Tarjeta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="18" width="105" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
+				<reportElement x="0" y="18" width="80" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -52,28 +52,28 @@
 	<detail>
 		<band height="12" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="0" width="105" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
+				<reportElement x="0" y="0" width="80" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="255" y="0" width="150" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
+				<reportElement x="182" y="0" width="150" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{torneo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="405" y="0" width="150" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
+				<reportElement x="332" y="0" width="223" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{partido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="105" y="0" width="150" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
+				<reportElement x="80" y="0" width="102" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>

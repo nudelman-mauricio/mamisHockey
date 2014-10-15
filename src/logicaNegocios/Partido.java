@@ -299,7 +299,7 @@ public class Partido implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return unEquipoVisitante + " vs " + unEquipoLocal + "Fecha: " + DateFormat.getDateInstance().format(this.fecha);
+        return unEquipoVisitante + " vs " + unEquipoLocal + " Fecha: " + DateFormat.getDateInstance().format(this.fecha);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">

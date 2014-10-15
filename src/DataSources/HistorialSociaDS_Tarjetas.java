@@ -2,6 +2,7 @@ package DataSources;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
@@ -49,7 +50,8 @@ public class HistorialSociaDS_Tarjetas implements JRDataSource {
                     break;
                 case "partido":
                     if (unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null){
-                        valor = unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta));   
+                        Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta));   
+                        valor = unPartido.getUnEquipoLocal()+ " vs " + unPartido.getUnEquipoVisitante();
                     }else{
                         valor = "Por Acumulación";
                     }
