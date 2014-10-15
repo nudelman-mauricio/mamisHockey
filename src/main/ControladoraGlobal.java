@@ -334,29 +334,31 @@ public class ControladoraGlobal {
     private boolean computarTarjetaSocia(Socia unaSocia) {
         Tarjeta verde1 = null, verde2 = null, amarilla1 = null;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-            if (unaTarjeta.getTipo().equals("Verde")) {
-                if (verde1 == null) {
-                    verde1 = unaTarjeta;
-                } else {
-                    if (verde2 == null) {
-                        verde2 = unaTarjeta;
+            if (!unaTarjeta.isComputado()) {
+                if (unaTarjeta.getTipo().equals("Verde")) {
+                    if (verde1 == null) {
+                        verde1 = unaTarjeta;
                     } else {
-                        this.computarTarjeta(verde1);
-                        this.computarTarjeta(verde2);
-                        this.computarTarjeta(unaTarjeta);
-                        this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
-                        return true;
+                        if (verde2 == null) {
+                            verde2 = unaTarjeta;
+                        } else {
+                            this.computarTarjeta(verde1);
+                            this.computarTarjeta(verde2);
+                            this.computarTarjeta(unaTarjeta);
+                            this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
+                            return true;
+                        }
                     }
                 }
-            }
-            if (unaTarjeta.getTipo().equals("Amarilla")) {
-                if (amarilla1 == null) {
-                    amarilla1 = unaTarjeta;
-                } else {
-                    this.computarTarjeta(amarilla1);
-                    this.computarTarjeta(unaTarjeta);
-                    this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Roja", "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
-                    return true;
+                if (unaTarjeta.getTipo().equals("Amarilla")) {
+                    if (amarilla1 == null) {
+                        amarilla1 = unaTarjeta;
+                    } else {
+                        this.computarTarjeta(amarilla1);
+                        this.computarTarjeta(unaTarjeta);
+                        this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Roja", "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
+                        return true;
+                    }
                 }
             }
         }
@@ -635,7 +637,7 @@ public class ControladoraGlobal {
     public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
         return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
     }
-    
+
     public FechaTorneo getFechaTorneoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getFechaTorneoTarjeta(unaTarjeta);
     }

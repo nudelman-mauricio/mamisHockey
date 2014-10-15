@@ -125,7 +125,9 @@ public class ControladoraDeportiva {
     public Tarjeta crearTarjeta(Socia unaSocia, Partido unPartido, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
         Tarjeta unaTarjeta = new Tarjeta(this.entityManager, fecha, tipo, motivo, tiempo, minuto);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
-        unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
+        if (unPartido != null) {
+            unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
+        }
         return unaTarjeta;
     }
 
@@ -175,7 +177,7 @@ public class ControladoraDeportiva {
         for (Torneo unTorneo : this.getTorneosBD()) {
             for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
                 for (Partido unPartido : unaFechaTorneo.getPartidos()) {
-                    if (unPartido.getTarjetas().contains(unaTarjeta)){
+                    if (unPartido.getTarjetas().contains(unaTarjeta)) {
                         return unTorneo;
                     }
                 }
@@ -191,7 +193,7 @@ public class ControladoraDeportiva {
         for (Torneo unTorneo : this.getTorneosBD()) {
             for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
                 for (Partido unPartido : unaFechaTorneo.getPartidos()) {
-                    if (unPartido.getTarjetas().contains(unaTarjeta)){
+                    if (unPartido.getTarjetas().contains(unaTarjeta)) {
                         return unaFechaTorneo;
                     }
                 }
@@ -199,7 +201,7 @@ public class ControladoraDeportiva {
         }
         return null;
     }
-    
+
     /**
      * Devuelve el Partido de una tarjeta
      */
@@ -207,7 +209,7 @@ public class ControladoraDeportiva {
         for (Torneo unTorneo : this.getTorneosBD()) {
             for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
                 for (Partido unPartido : unaFechaTorneo.getPartidos()) {
-                    if (unPartido.getTarjetas().contains(unaTarjeta)){
+                    if (unPartido.getTarjetas().contains(unaTarjeta)) {
                         return unPartido;
                     }
                 }
