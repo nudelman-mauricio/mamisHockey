@@ -1,8 +1,11 @@
 package Interfaces;
 
+import DataSources.TarjetaDS;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -176,7 +179,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -458,7 +460,39 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-       
+        List<Torneo> listaTorneos = new ArrayList();
+        if(jComboBoxTorneos.getSelectedItem().equals("Todos los Torneos")){
+            listaTorneos = unaControladoraGlobal.getTorneosBD();
+        } else {
+            listaTorneos.add((Torneo)jComboBoxTorneos.getSelectedItem());
+        }
+        String tipo = "";
+        if(jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()){
+            tipo = "Amarillas - Rojas";
+        } else {
+             if(jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()){
+                 tipo = "Amarillas";
+             } else {
+                  if(jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()){
+                      tipo = "Amarillas - Verdes";
+                  } else {
+                       if(!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()){
+                           tipo = "Rojas";
+                       } else{
+                            if(!jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()){
+                                tipo = "Verdes";
+                            } else {
+                                 if(!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()){
+                                     tipo = "Rojas-Verdes";
+                                 }
+                            }
+                       }
+                           
+                  }
+             }
+        }  
+        TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal,listaTorneos,unaSocia,tipo);
+        unaTarjetaDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed

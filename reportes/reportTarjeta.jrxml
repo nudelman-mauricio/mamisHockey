@@ -59,25 +59,16 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="0" y="0" width="174" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="47d3aeba-4343-43c9-b1e4-139df9dac655"/>
-				<textElement verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA["Torneo " + $F{torneo}]]></text>
-			</staticText>
+		<band height="26" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="554" height="26" uuid="3ad2ba05-aeb3-47c3-8cc8-144106cb48ad"/>
+				<dataSourceExpression><![CDATA[$F{subreporte_torneo}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["C:\\Users\\Leanwit\\Documents\\NetBeansProjects\\mamisHockey\\reportes\\reporteTarjeta_Torneo.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="41" splitType="Stretch">
-			<subreport>
-				<reportElement x="1" y="0" width="554" height="40" uuid="55bc26d2-09a8-4d61-9000-5bd14bf0ae1e"/>
-				<dataSourceExpression><![CDATA[$F{subreporte_torneo}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$F{ruta}+"\\reportes\\reporteTarjetaTorneo.jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="27" splitType="Stretch"/>
 	</detail>
 	<pageFooter>
 		<band height="18" splitType="Stretch">

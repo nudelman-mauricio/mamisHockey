@@ -93,7 +93,8 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     }
 
     private void cargarTabla() {
-        limpiarTabla(modeloTable);
+        limpiarTabla(modeloTable);        
+        if(unaFechaTorneoSeleccionada != null){
         for (Partido unPartido : unaFechaTorneoSeleccionada.getPartidos()) {
             if (!unPartido.isBorradoLogico()) {
                 if (unPartido.getNombreVeedor() == null) {
@@ -102,7 +103,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                     this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
                 }
             }
-        }
+        }}
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(true);

@@ -32,7 +32,7 @@ public class TarjetaDS implements JRDataSource {
     int indiceTorneo = -1;
     List<Torneo> torneos = new ArrayList();
     private DateFormat df = DateFormat.getDateInstance();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY"); 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
     Socia unaSocia;
     String tipo;
 
@@ -54,16 +54,14 @@ public class TarjetaDS implements JRDataSource {
         if ("ruta".equals(jrf.getName())) {
             valor = unaControladoraGlobal.rutaSistema();
         } else if ("fecha".equals(jrf.getName())) {
-            valor = df.format(unaControladoraGlobal.fechaSistema());        
+            valor = df.format(unaControladoraGlobal.fechaSistema());
         } else if ("nombre".equals(jrf.getName())) {
             valor = unaSocia;
         } else if ("tipo".equals(jrf.getName())) {
             valor = this.tipo;
-        } else if ("torneo".equals(jrf.getName())) {
-            valor = torneos.get(indiceTorneo).getNombre();
-        } else if ("subreporte_torneo".equals(jrf.getName())) {
-            valor = subReporteUnTorneo(torneos.get(indiceTorneo));
-        } 
+        }  else if ("subreporte_torneo".equals(jrf.getName())) {
+            valor = subReporteUnTorneo();
+        }
         return valor;
     }
 
@@ -79,9 +77,9 @@ public class TarjetaDS implements JRDataSource {
             Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private TarjetaDS_Torneo subReporteUnTorneo(Torneo unTorneo) {
-        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(unTorneo, this.unaControladoraGlobal);
+
+    private TarjetaDS_Torneo subReporteUnTorneo() {       
+        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(this.torneos, this.unaControladoraGlobal, unaSocia);
         return unTorneoDS;
     }
 }
