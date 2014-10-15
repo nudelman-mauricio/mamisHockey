@@ -8,6 +8,9 @@ package DataSources;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import logicaNegocios.FechaTorneo;
+import logicaNegocios.Partido;
+import static logicaNegocios.SancionTribunal_.unPartido;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import logicaNegocios.Torneo;
@@ -22,17 +25,17 @@ import net.sf.jasperreports.engine.JRField;
  */
 public class TarjetaDS_Torneo_SociaTarjeta implements JRDataSource {
 
-    ControladoraGlobal unaControladoraGlobal;
-    Torneo unTorneo;
+    ControladoraGlobal unaControladoraGlobal;    
     Socia unaSocia;
     List<Tarjeta> listaTarjetas = new ArrayList();
     int indiceTarjetas = -1;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public TarjetaDS_Torneo_SociaTarjeta(Torneo unTorneo, ControladoraGlobal unaControladoraGlobal, Socia unaSocia) {
-        this.unTorneo = unTorneo;
+    public TarjetaDS_Torneo_SociaTarjeta(List<Tarjeta> listaTarjetas, ControladoraGlobal unaControladoraGlobal, Socia unaSocia) {
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
+        this.listaTarjetas = listaTarjetas;
     }
 
     @Override
@@ -52,9 +55,9 @@ public class TarjetaDS_Torneo_SociaTarjeta implements JRDataSource {
         } else if ("tipoTarjeta".equals(jrf.getName())) {
             valor = listaTarjetas.get(indiceTarjetas).getTipo();
         } else if ("partido".equals(jrf.getName())) {
-            valor = unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas));
+            valor = unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas)).getUnEquipoLocal()+" vs "+ unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas)).getUnEquipoVisitante();
         }
         return valor;
-    }
+    }  
 
 }

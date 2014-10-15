@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.Socia;
+import logicaNegocios.Tarjeta;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -29,7 +30,7 @@ public class TarjetaDS implements JRDataSource {
 
     ControladoraGlobal unaControladoraGlobal;
     List<IngresoOtro> listaIngresos = new ArrayList();
-    int indiceTorneo = -1;
+    int indice = -1;
     List<Torneo> torneos = new ArrayList();
     private DateFormat df = DateFormat.getDateInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
@@ -45,7 +46,7 @@ public class TarjetaDS implements JRDataSource {
 
     @Override
     public boolean next() throws JRException {
-        return ++indiceTorneo < torneos.size();
+        return ++indice < 1;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class TarjetaDS implements JRDataSource {
             valor = unaSocia;
         } else if ("tipo".equals(jrf.getName())) {
             valor = this.tipo;
-        }  else if ("subreporte_torneo".equals(jrf.getName())) {
+        }  else if ("subreporte_torneo".equals(jrf.getName())) {                  
             valor = subReporteUnTorneo();
         }
         return valor;
@@ -79,7 +80,7 @@ public class TarjetaDS implements JRDataSource {
     }
 
     private TarjetaDS_Torneo subReporteUnTorneo() {       
-        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(this.torneos, this.unaControladoraGlobal, unaSocia);
+        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(torneos,this.unaControladoraGlobal, unaSocia);
         return unTorneoDS;
     }
 }

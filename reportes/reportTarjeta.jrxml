@@ -58,17 +58,14 @@
 			</textField>
 		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="26" splitType="Stretch">
+	<detail>
+		<band height="27" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="554" height="26" uuid="3ad2ba05-aeb3-47c3-8cc8-144106cb48ad"/>
+				<reportElement x="1" y="0" width="554" height="27" uuid="3ad2ba05-aeb3-47c3-8cc8-144106cb48ad"/>
 				<dataSourceExpression><![CDATA[$F{subreporte_torneo}]]></dataSourceExpression>
 				<subreportExpression><![CDATA["C:\\Users\\Leanwit\\Documents\\NetBeansProjects\\mamisHockey\\reportes\\reporteTarjeta_Torneo.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-	</columnHeader>
-	<detail>
-		<band height="27" splitType="Stretch"/>
 	</detail>
 	<pageFooter>
 		<band height="18" splitType="Stretch">

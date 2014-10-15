@@ -5,7 +5,6 @@
  */
 package DataSources;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import logicaNegocios.Socia;
@@ -24,20 +23,30 @@ public class TarjetaDS_Torneo implements JRDataSource {
 
     ControladoraGlobal unaControladoraGlobal;
     Torneo unTorneo;
-    Socia unaSocia;
-    List<Torneo> listaTorneos = new ArrayList();
+    Socia unaSocia;   
+    List<Torneo> torneos = new ArrayList();
+   
     int indiceTorneo = -1;
-    private DateFormat df = DateFormat.getDateInstance();
-
-    public TarjetaDS_Torneo(List<Torneo> listaTorneos, ControladoraGlobal unaControladoraGlobal, Socia unaSocia) {
-        this.listaTorneos = listaTorneos;
+    
+    public TarjetaDS_Torneo(List<Torneo> torneos, ControladoraGlobal unaControladoraGlobal, Socia unaSocia) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
+        this.torneos = torneos;
+    }
+
+    public List obtenerTarjetas(Torneo unTorneo) {
+        List<Tarjeta> listaTarjetas = new ArrayList();
+        for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+            if (unTorneo.equals(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta))) {
+                listaTarjetas.add(unaTarjeta);
+            }
+        }       
+        return listaTarjetas;
     }
 
     @Override
     public boolean next() throws JRException {
-        return ++indiceTorneo < listaTorneos.size();
+        return ++indiceTorneo < torneos.size();
     }
 
     @Override
@@ -46,15 +55,15 @@ public class TarjetaDS_Torneo implements JRDataSource {
         if ("ruta".equals(jrf.getName())) {
             valor = unaControladoraGlobal.rutaSistema();
         } else if ("torneo".equals(jrf.getName())) {
-            valor = listaTorneos.get(indiceTorneo).getNombre();
+            valor = torneos.get(indiceTorneo).getNombre();
         } else if ("tarjeta_socia".equals(jrf.getName())) {
-            valor = subReporteUnTorneo(listaTorneos.get(indiceTorneo));
+            valor = subReporteUnTorneo(torneos.get(indiceTorneo));
         }
         return valor;
     }
-    
-     private TarjetaDS_Torneo_SociaTarjeta subReporteUnTorneo(Torneo unTorneo) {       
-        TarjetaDS_Torneo_SociaTarjeta unTorneoDS = new TarjetaDS_Torneo_SociaTarjeta(unTorneo, this.unaControladoraGlobal, unaSocia);
+
+    private TarjetaDS_Torneo_SociaTarjeta subReporteUnTorneo(Torneo unTorneo) {      
+        TarjetaDS_Torneo_SociaTarjeta unTorneoDS = new TarjetaDS_Torneo_SociaTarjeta(obtenerTarjetas(unTorneo), this.unaControladoraGlobal, unaSocia);
         return unTorneoDS;
     }
 

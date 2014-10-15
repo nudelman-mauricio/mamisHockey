@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTarjeta_Torneo_Socia" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2e2ecc7a-1ba2-4feb-942c-178ee0eb78eb">
-	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.zoom" value="1.6105100000000019"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -10,46 +10,10 @@
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<columnHeader>
-		<band height="20" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="136" y="0" width="143" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="dd6bd785-1b73-4d1b-9a1b-12f62cbe7c7e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="37" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1b6ff921-9cbc-4088-ad8f-e0eb92009a37"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Fecha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="278" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="81f1d5a8-d29c-4b02-9893-f919e6476f65"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Tarjeta ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="377" y="0" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="dd7a34e7-4f0b-4d7f-8073-a7641fd0f563"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Partido]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="136" y="0" width="143" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="70bc06f2-5ddf-405a-97cc-d48030ee36a1"/>
+				<reportElement mode="Transparent" x="99" y="0" width="143" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="70bc06f2-5ddf-405a-97cc-d48030ee36a1"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -57,7 +21,7 @@
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="37" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="84c0b66d-8626-4d6f-842f-77eaf50ac777"/>
+				<reportElement mode="Transparent" x="0" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="84c0b66d-8626-4d6f-842f-77eaf50ac777"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -65,7 +29,7 @@
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="278" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8f3ebd0d-aec1-403f-a7f9-db6d6287a14b"/>
+				<reportElement mode="Transparent" x="241" y="0" width="81" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8f3ebd0d-aec1-403f-a7f9-db6d6287a14b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -73,7 +37,7 @@
 				<textFieldExpression><![CDATA[$F{tipoTarjeta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="377" y="0" width="112" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4ae51b99-6085-45f4-b57a-38df0fc44b77"/>
+				<reportElement mode="Transparent" x="321" y="0" width="234" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4ae51b99-6085-45f4-b57a-38df0fc44b77"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>

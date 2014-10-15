@@ -64,9 +64,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             if (!unaTarjeta.isBorradoLogico()) {
                 if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Roja") && jCheckBoxRojas.isSelected())) {
                     unTorneo = unaControladoraGlobal.getTorneoTarjeta(unaTarjeta);
-                    System.out.println(jComboBoxTorneos.getSelectedItem().toString());
-                    System.out.println(unTorneo.toString());
-                    System.out.println(unTorneo.equals(jComboBoxTorneos.getSelectedItem()));
                     if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unTorneo.equals((Torneo) jComboBoxTorneos.getSelectedItem()))) {
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             df.format(unaTarjeta.getFecha()),
@@ -461,37 +458,43 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         List<Torneo> listaTorneos = new ArrayList();
-        if(jComboBoxTorneos.getSelectedItem().equals("Todos los Torneos")){
-            listaTorneos = unaControladoraGlobal.getTorneosBD();
+        if (jComboBoxTorneos.getSelectedItem().equals("Todos los Torneos")) {
+            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+                for (Torneo unTorneo : unaControladoraGlobal.getTorneosBD()) {
+                    if (unTorneo.equals(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta))) {
+                        listaTorneos.add(unTorneo);
+                    }
+                }
+            }
         } else {
-            listaTorneos.add((Torneo)jComboBoxTorneos.getSelectedItem());
+            listaTorneos.add((Torneo) jComboBoxTorneos.getSelectedItem());
         }
         String tipo = "";
-        if(jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()){
+        if (jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
             tipo = "Amarillas - Rojas";
         } else {
-             if(jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()){
-                 tipo = "Amarillas";
-             } else {
-                  if(jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()){
-                      tipo = "Amarillas - Verdes";
-                  } else {
-                       if(!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()){
-                           tipo = "Rojas";
-                       } else{
-                            if(!jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()){
-                                tipo = "Verdes";
-                            } else {
-                                 if(!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()){
-                                     tipo = "Rojas-Verdes";
-                                 }
+            if (jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
+                tipo = "Amarillas";
+            } else {
+                if (jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()) {
+                    tipo = "Amarillas - Verdes";
+                } else {
+                    if (!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
+                        tipo = "Rojas";
+                    } else {
+                        if (!jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()) {
+                            tipo = "Verdes";
+                        } else {
+                            if (!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()) {
+                                tipo = "Rojas-Verdes";
                             }
-                       }
-                           
-                  }
-             }
-        }  
-        TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal,listaTorneos,unaSocia,tipo);
+                        }
+                    }
+
+                }
+            }
+        }        
+        TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal, listaTorneos, unaSocia, tipo);
         unaTarjetaDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
