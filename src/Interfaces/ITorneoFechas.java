@@ -98,9 +98,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         for (Partido unPartido : unaFechaTorneoSeleccionada.getPartidos()) {
             if (!unPartido.isBorradoLogico()) {
                 if (unPartido.getNombreVeedor() == null) {
-                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(),df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
                 } else {
-                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(),df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
                 }
             }
         }}
@@ -455,11 +455,11 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Equipo Local", "GL", "GV", "Equipo Visitante", "Cancha", "Árbitro 1", "Árbitro 2", "Árbitro 3"
+                "id", "Fecha", "Equipo Local", "GL", "GV", "Equipo Visitante", "Cancha", "Árbitro 1", "Árbitro 2", "Árbitro 3"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, true, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -476,12 +476,12 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             jTableFechasTorneo.getColumnModel().getColumn(0).setMinWidth(0);
             jTableFechasTorneo.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableFechasTorneo.getColumnModel().getColumn(0).setMaxWidth(0);
-            jTableFechasTorneo.getColumnModel().getColumn(2).setMinWidth(40);
-            jTableFechasTorneo.getColumnModel().getColumn(2).setPreferredWidth(40);
-            jTableFechasTorneo.getColumnModel().getColumn(2).setMaxWidth(40);
             jTableFechasTorneo.getColumnModel().getColumn(3).setMinWidth(40);
             jTableFechasTorneo.getColumnModel().getColumn(3).setPreferredWidth(40);
             jTableFechasTorneo.getColumnModel().getColumn(3).setMaxWidth(40);
+            jTableFechasTorneo.getColumnModel().getColumn(4).setMinWidth(40);
+            jTableFechasTorneo.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jTableFechasTorneo.getColumnModel().getColumn(4).setMaxWidth(40);
         }
         jTableFechasTorneo.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {

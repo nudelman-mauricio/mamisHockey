@@ -95,7 +95,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 jCheckBoxLibreDeudaClub.setSelected(unPaseSeleccionado.isLibreDeudaClub());
                 jCheckBoxSolicitudPase.setSelected(unPaseSeleccionado.isSolicitudPase());
 
-                jButtonEliminar.setEnabled(true);               
+                jButtonEliminar.setEnabled(true);
             }
         }
     }
@@ -614,7 +614,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);        
+        jButtonEliminar.setEnabled(false);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -622,25 +622,29 @@ public class IPase extends javax.swing.JInternalFrame {
             try {
                 Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
                 Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-                Pase unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
-                unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
-                JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
+                if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
+                    Pase unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                    unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
+                    JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
 
-                //Comportamientos Extras
-                jButtonNuevo.setEnabled(true);
-                jButtonGuardar.setEnabled(false);
-                jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);                
+                    //Comportamientos Extras
+                    jButtonNuevo.setEnabled(true);
+                    jButtonGuardar.setEnabled(false);
+                    jButtonCancelar.setEnabled(false);
+                    jButtonEliminar.setEnabled(false);
 
-                camposLimpiar();
-                camposActivo(false);
-                jTablePases.setEnabled(true);
-                cargarTabla();
-                
-                //Formulario de Pase
-                FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
-                unFormularioPase.verReporte();
-                
+                    camposLimpiar();
+                    camposActivo(false);
+                    jTablePases.setEnabled(true);
+                    cargarTabla();
+
+                    //Formulario de Pase
+                    FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
+                    unFormularioPase.verReporte();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
+                }
+
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
@@ -655,7 +659,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(true);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);       
+        jButtonEliminar.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -682,6 +686,16 @@ public class IPase extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Únicamente se permite eliminar el último pase. Por favor seleccione el último pase.", "Seleccion Incorrecta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    public int cantidadExJugadoras(Equipo unEquipoDestino) {
+        int contador = 0;
+        for (Socia unaSocia : unEquipoDestino.getPlantel()) {
+            if (unaSocia.isExJugadora()) {
+                contador++;
+            }
+        }
+        return contador;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

@@ -54,8 +54,17 @@ public class TarjetaDS_Torneo_SociaTarjeta implements JRDataSource {
             valor = unaSocia;
         } else if ("tipoTarjeta".equals(jrf.getName())) {
             valor = listaTarjetas.get(indiceTarjetas).getTipo();
+        } else if ("fechaTorneo".equals(jrf.getName())) {
+            valor = unaControladoraGlobal.getFechaTorneoDePartido(unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas))).getNumeroFecha();
         } else if ("partido".equals(jrf.getName())) {
             valor = unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas)).getUnEquipoLocal()+" vs "+ unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas)).getUnEquipoVisitante();
+        }
+        else if ("contabilizo".equals(jrf.getName())) {
+            if(listaTarjetas.get(indiceTarjetas).isComputado()){
+                valor = "Si";
+            } else {
+                valor = "No";
+            }            
         }
         return valor;
     }  
