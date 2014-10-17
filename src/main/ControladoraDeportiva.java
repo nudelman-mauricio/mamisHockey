@@ -88,10 +88,11 @@ public class ControladoraDeportiva {
      * Devuelve la Sancion si hay de una tarjeta
      */
     public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
-        String unaConsulta = "SELECT P FROM SancionTribunal P WHERE P.unaTarjeta.idTarjeta = " + unaTarjeta.getIdTarjeta();
-        Query traerSancionTribunal = this.entityManager.createQuery(unaConsulta);
-        SancionTribunal unaSancionTribunal = (SancionTribunal) traerSancionTribunal.getSingleResult();
-        return unaSancionTribunal;
+        List<SancionTribunal> listaResultado = this.entityManager.createQuery("SELECT P FROM SancionTribunal P WHERE P.unaTarjeta.idTarjeta = " + unaTarjeta.getIdTarjeta()).getResultList();
+        if (!listaResultado.isEmpty()) {
+            return (SancionTribunal) listaResultado.get(0);
+        }
+        return null;
     }
 
     /**

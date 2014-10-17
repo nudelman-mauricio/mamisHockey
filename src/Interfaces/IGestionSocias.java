@@ -216,12 +216,30 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(jTableSocias);
+        if (jTableSocias.getColumnModel().getColumnCount() > 0) {
+            jTableSocias.getColumnModel().getColumn(0).setMinWidth(80);
+            jTableSocias.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTableSocias.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTableSocias.getColumnModel().getColumn(2).setMinWidth(80);
+            jTableSocias.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTableSocias.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTableSocias.getColumnModel().getColumn(3).setMinWidth(110);
+            jTableSocias.getColumnModel().getColumn(3).setPreferredWidth(110);
+            jTableSocias.getColumnModel().getColumn(3).setMaxWidth(110);
+        }
         jTableSocias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 camposCargar();
