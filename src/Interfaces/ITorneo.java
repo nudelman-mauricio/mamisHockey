@@ -140,9 +140,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jLabelPadre = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 220));
-        setMinimumSize(new java.awt.Dimension(650, 220));
-        setPreferredSize(new java.awt.Dimension(650, 220));
+        setMaximumSize(new java.awt.Dimension(650, 235));
+        setMinimumSize(new java.awt.Dimension(650, 235));
+        setPreferredSize(new java.awt.Dimension(650, 235));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -269,7 +269,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxPadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelPadre))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

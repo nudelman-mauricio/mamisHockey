@@ -10,6 +10,8 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
@@ -19,17 +21,17 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
-    
+
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
     private Tarjeta unaTarjetaSeleccionada = null;
     private DateFormat df = DateFormat.getDateInstance();
-    
+
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -46,61 +48,74 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         VTorneo.addAll(unaControladoraGlobal.getTorneoParticipoSocia(unaSocia));
         this.jComboBoxTorneos.setModel(new DefaultComboBoxModel(VTorneo));
         this.jTextPaneMotivo.setBackground(new Color(228, 231, 237));
-        
+
         cargarTabla();
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTablaTarjetas.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTarjetas.removeRow(0);
         }
     }
-    
+
     public void cargarTabla() {
         limpiarTabla();
+        String partido;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
             if (!unaTarjeta.isBorradoLogico()) {
                 if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Roja") && jCheckBoxRojas.isSelected())) {
                     if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unaTarjeta.getUnTorneo().equals(jComboBoxTorneos.getSelectedItem()))) {
+                        if (unaControladoraGlobal.getPartidoTarjeta(unaTarjeta) != null) {
+                            partido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta).toString();
+                        } else {
+                            partido = "ACUMULADA";
+                        }
                         this.modeloTablaTarjetas.addRow(new Object[]{
+                            unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
                             unaTarjeta.getTipo(),
                             unaTarjeta.getUnTorneo().getNombre(),
-                            unaControladoraGlobal.getPartidoTarjeta(unaTarjeta).toString(),
+                            partido,
                             unaTarjeta.isComputado()});
                     }
                 }
             }
         }
     }
-    
+
     public void camposCargar() {
         if (jTableTarjeta.getSelectedRow() > -1) {
             if (jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0) != null) {
                 unaTarjetaSeleccionada = unaControladoraGlobal.getTarjetaBD((Long) jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0));
-                Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada);
+                String partido = "ACUMULADA";
+                if (unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada) != null) {
+                    partido = unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada).toString();
+                }
                 jTextFieldFecha.setText(df.format(unaTarjetaSeleccionada.getFecha()));
                 jTextFieldTipoTarjeta.setText(unaTarjetaSeleccionada.getTipo());
                 jTextFieldTorneo.setText(unaTarjetaSeleccionada.getUnTorneo().getNombre());
-                jTextFieldPartido.setText(unPartido.toString());
+                jTextFieldPartido.setText(partido);
                 jTextPaneMotivo.setText(unaTarjetaSeleccionada.getMotivo());
+
                 SancionTribunal unaSancionTribunal = unaControladoraGlobal.getSancionTarjeta(unaTarjetaSeleccionada);
-                if (unaSancionTribunal.getVencimiento() != null) {
-                    this.jTextFieldPenalizacion.setText(df.format(unaSancionTribunal.getVencimiento()));
-                    this.jRadioButtonHasta.setSelected(true);
+                if (unaSancionTribunal != null) {
+                    if (unaSancionTribunal.getVencimiento() != null) {
+                        this.jTextFieldPenalizacion.setText(df.format(unaSancionTribunal.getVencimiento()));
+                        this.jRadioButtonHasta.setSelected(true);
+                    }
+                    if (unaSancionTribunal.getCantFechas() != 0) {
+                        this.jTextFieldPenalizacion.setText(Integer.toString(unaSancionTribunal.getCantFechas()));
+                        this.jRadioButtonCantFechas.setSelected(true);
+                    }
+                    this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionTribunal.getCantFechasCumplidas()));
                 }
-                if (unaSancionTribunal.getCantFechas() != 0) {
-                    this.jTextFieldPenalizacion.setText(Integer.toString(unaSancionTribunal.getCantFechas()));
-                    this.jRadioButtonCantFechas.setSelected(true);
-                }
-                this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionTribunal.getCantFechasCumplidas()));
                 jCheckBoxComputado.setSelected(unaTarjetaSeleccionada.isComputado());
                 jButtonImprimir.setEnabled(true);
             }
         }
     }
-    
+
     public void camposLimpiar() {
         jTextFieldFecha.setText("");
         jTextFieldTipoTarjeta.setText("");
@@ -112,7 +127,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldFechasCumplidas.setText("");
         jCheckBoxComputado.setSelected(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -290,14 +305,14 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Fecha", "Tipo de Tarjeta", "Torneo", "Partido", "Computado"
+                "id", "Fecha", "Tipo de Tarjeta", "Torneo", "Partido", "Computado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -310,10 +325,18 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableTarjeta);
         if (jTableTarjeta.getColumnModel().getColumnCount() > 0) {
-            jTableTarjeta.getColumnModel().getColumn(4).setMinWidth(80);
-            jTableTarjeta.getColumnModel().getColumn(4).setPreferredWidth(80);
-            jTableTarjeta.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableTarjeta.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableTarjeta.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableTarjeta.getColumnModel().getColumn(5).setMinWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(5).setPreferredWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(5).setMaxWidth(80);
         }
+        jTableTarjeta.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTableLayout = new javax.swing.GroupLayout(jPanelTable);
         jPanelTable.setLayout(jPanelTableLayout);
@@ -526,7 +549,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                             }
                         }
                     }
-                    
+
                 }
             }
         }
