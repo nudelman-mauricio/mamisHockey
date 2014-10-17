@@ -10,56 +10,56 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="77" splitType="Stretch">
+		<band height="86" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="43" width="555" height="34" uuid="cc88a12f-006b-42e7-be90-42ab4203311c"/>
 				<dataSourceExpression><![CDATA[$F{tarjeta_socia}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteTarjeta_Torneo_Socia.jasper"]]></subreportExpression>
 			</subreport>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="0" width="280" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b9dd5a98-bd31-4246-a42d-52fedc4a4402"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="-1" y="0" width="280" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b9dd5a98-bd31-4246-a42d-52fedc4a4402"/>
+				<textElement verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Torneo " + $F{torneo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="163" y="23" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="94e8ee9e-6bfd-4e75-8017-611286fd6221"/>
+				<reportElement mode="Transparent" x="163" y="24" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="94e8ee9e-6bfd-4e75-8017-611286fd6221"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Tarjeta ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="241" y="23" width="224" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5edd2355-0b8a-44a8-8689-abd0782d8239"/>
+				<reportElement mode="Transparent" x="241" y="24" width="224" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5edd2355-0b8a-44a8-8689-abd0782d8239"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Partido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="23" width="86" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1ccc21ba-0ed2-4d99-ae53-5ce0b62ae3d6"/>
+				<reportElement mode="Transparent" x="-1" y="24" width="86" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1ccc21ba-0ed2-4d99-ae53-5ce0b62ae3d6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="85" y="23" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="2b0855d7-7a64-47be-9dcf-d47eb46497ab"/>
+				<reportElement mode="Transparent" x="85" y="24" width="79" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="2b0855d7-7a64-47be-9dcf-d47eb46497ab"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Fecha Torneo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="464" y="23" width="91" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="79b429cc-e6bd-4b8f-b86e-2b8410492c49"/>
+				<reportElement mode="Transparent" x="464" y="24" width="91" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="79b429cc-e6bd-4b8f-b86e-2b8410492c49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Contabilizo]]></text>

@@ -494,9 +494,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
         List<Socia> socias = new ArrayList();
         int filas = this.modeloTablaSocia.getRowCount();        
-        for (int i = 0; i < filas; i++) {           
-            unaSociaSeleccionada = unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(i, 0));            
-            socias.add(unaSociaSeleccionada);
+        for (int i = 0; i < filas; i++) { 
+            socias.add(unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(i, 0)));
         }
         ListaSociasDS unaListaSociasDS = new ListaSociasDS(unaControladoraGlobal, socias);
         unaListaSociasDS.verReporte(); // TODO add your handling code here:

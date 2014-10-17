@@ -26,7 +26,7 @@ import net.sf.jasperreports.engine.JRField;
 public class TarjetaDS_Torneo_SociaTarjeta implements JRDataSource {
 
     ControladoraGlobal unaControladoraGlobal;    
-    Socia unaSocia;
+    Socia unaSocia;   
     List<Tarjeta> listaTarjetas = new ArrayList();
     int indiceTarjetas = -1;
     private DateFormat df = DateFormat.getDateInstance();
@@ -58,6 +58,8 @@ public class TarjetaDS_Torneo_SociaTarjeta implements JRDataSource {
             valor = unaControladoraGlobal.getFechaTorneoDePartido(unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas))).getNumeroFecha();
         } else if ("partido".equals(jrf.getName())) {
             valor = unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas)).getUnEquipoLocal()+" vs "+ unaControladoraGlobal.getPartidoTarjeta(listaTarjetas.get(indiceTarjetas)).getUnEquipoVisitante();
+        }else if ("minuto".equals(jrf.getName())) {
+            valor = listaTarjetas.get(indiceTarjetas).getMinuto() + "' " +listaTarjetas.get(indiceTarjetas).getTiempo()+"T";
         }
         else if ("contabilizo".equals(jrf.getName())) {
             if(listaTarjetas.get(indiceTarjetas).isComputado()){

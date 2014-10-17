@@ -31,15 +31,15 @@ public class TarjetaDS implements JRDataSource {
     ControladoraGlobal unaControladoraGlobal;
     List<IngresoOtro> listaIngresos = new ArrayList();
     int indice = -1;
-    List<Torneo> torneos = new ArrayList();
+    List<Tarjeta> listaTarjetas = new ArrayList();
     private DateFormat df = DateFormat.getDateInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
     Socia unaSocia;
     String tipo;
 
-    public TarjetaDS(ControladoraGlobal unaControladoraGlobal, List<Torneo> torneos, Socia unaSocia, String tipo) {
+    public TarjetaDS(ControladoraGlobal unaControladoraGlobal, List<Tarjeta> listaTarjetas, Socia unaSocia, String tipo) {
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.torneos = torneos;
+        this.listaTarjetas = listaTarjetas;
         this.unaSocia = unaSocia;
         this.tipo = tipo;
     }
@@ -80,7 +80,7 @@ public class TarjetaDS implements JRDataSource {
     }
 
     private TarjetaDS_Torneo subReporteUnTorneo() {       
-        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(torneos,this.unaControladoraGlobal, unaSocia);
+        TarjetaDS_Torneo unTorneoDS = new TarjetaDS_Torneo(listaTarjetas,this.unaControladoraGlobal, unaSocia);
         return unTorneoDS;
     }
 }

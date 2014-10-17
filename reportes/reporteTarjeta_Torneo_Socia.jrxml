@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTarjeta_Torneo_Socia" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2e2ecc7a-1ba2-4feb-942c-178ee0eb78eb">
-	<property name="ireport.zoom" value="2.593742460100004"/>
-	<property name="ireport.x" value="246"/>
+	<property name="ireport.zoom" value="2.3579476910000046"/>
+	<property name="ireport.x" value="204"/>
 	<property name="ireport.y" value="0"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
@@ -9,6 +9,7 @@
 	<field name="partido" class="java.lang.String"/>
 	<field name="fechaTorneo" class="java.lang.String"/>
 	<field name="contabilizo" class="java.lang.String"/>
+	<field name="minuto" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -31,7 +32,7 @@
 				<textFieldExpression><![CDATA[$F{tipoTarjeta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="241" y="0" width="225" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4ae51b99-6085-45f4-b57a-38df0fc44b77"/>
+				<reportElement mode="Transparent" x="241" y="0" width="184" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4ae51b99-6085-45f4-b57a-38df0fc44b77"/>
 				<box leftPadding="5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -48,6 +49,14 @@
 				<reportElement x="465" y="0" width="90" height="20" uuid="c2850b8f-c6b9-4dce-9a0c-29c1b3ef2c02"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contabilizo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="424" y="0" width="42" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ef3ba4b8-306d-4705-9aea-fd494dbdb728"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{minuto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

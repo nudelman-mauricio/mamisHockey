@@ -64,6 +64,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Roja") && jCheckBoxRojas.isSelected())) {
                     if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unaTarjeta.getUnTorneo().equals(jComboBoxTorneos.getSelectedItem()))) {
                         this.modeloTablaTarjetas.addRow(new Object[]{
+                            unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
                             unaTarjeta.getTipo(),
                             unaTarjeta.getUnTorneo().getNombre(),
@@ -290,14 +291,14 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Fecha", "Tipo de Tarjeta", "Torneo", "Partido", "Computado"
+                "idTarjeta", "Fecha", "Tipo de Tarjeta", "Torneo", "Partido", "Computado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -310,9 +311,12 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableTarjeta);
         if (jTableTarjeta.getColumnModel().getColumnCount() > 0) {
-            jTableTarjeta.getColumnModel().getColumn(4).setMinWidth(80);
-            jTableTarjeta.getColumnModel().getColumn(4).setPreferredWidth(80);
-            jTableTarjeta.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableTarjeta.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableTarjeta.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableTarjeta.getColumnModel().getColumn(5).setMinWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(5).setPreferredWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         javax.swing.GroupLayout jPanelTableLayout = new javax.swing.GroupLayout(jPanelTable);
@@ -493,18 +497,12 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        List<Torneo> listaTorneos = new ArrayList();
-        if (jComboBoxTorneos.getSelectedItem().equals("Todos los Torneos")) {
-            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-                for (Torneo unTorneo : unaControladoraGlobal.getTorneosBD()) {
-                    if (unTorneo.equals(unaControladoraGlobal.getTorneoTarjeta(unaTarjeta))) {
-                        listaTorneos.add(unTorneo);
-                    }
-                }
-            }
-        } else {
-            listaTorneos.add((Torneo) jComboBoxTorneos.getSelectedItem());
-        }
+        Tarjeta unaTarjetaAux;
+        List<Tarjeta> listaTarjetas = new ArrayList();       
+        int filas = this.modeloTablaTarjetas.getRowCount();        
+        for (int i = 0; i < filas; i++) {  
+            listaTarjetas.add(unaControladoraGlobal.getTarjetaBD((Long) jTableTarjeta.getValueAt(i, 0)));
+        }  
         String tipo = "";
         if (jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
             tipo = "Amarillas - Rojas";
@@ -530,7 +528,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 }
             }
         }
-        TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal, listaTorneos, unaSocia, tipo);
+        TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal, listaTarjetas, unaSocia, tipo);
         unaTarjetaDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 

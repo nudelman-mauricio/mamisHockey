@@ -105,7 +105,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="24" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<textField>
 				<reportElement x="108" y="-1" width="141" height="20" uuid="d1e55d73-1165-469a-bafb-c90322859c33"/>
 				<box leftPadding="5">
