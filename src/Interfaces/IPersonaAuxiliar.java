@@ -31,7 +31,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana
 
-        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));        
+        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
         
         camposLimpiar();
         camposActivo(jPanelDetalles, true);
@@ -79,6 +79,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldTelCelular.setText("");
         jTextFieldFotocopiaDni.setText("");
         jCheckBoxEsArbitro.setSelected(false);
+        jCheckBoxPlantaPermanente.setSelected(false);
         jCheckBoxEsCuerpoTecnico.setSelected(false);
         jComboBoxLocalidad.setSelectedIndex(-1);
     }
@@ -95,6 +96,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldTelFijo.setText(unaPersonaAuxiliar.getTelFijo());
         jTextFieldTelCelular.setText(unaPersonaAuxiliar.getTelCelular());
         jCheckBoxEsArbitro.setSelected(unaPersonaAuxiliar.isArbitro());
+        jCheckBoxPlantaPermanente.setSelected(unaPersonaAuxiliar.isPlantaPermanente());
         jCheckBoxEsCuerpoTecnico.setSelected(unaPersonaAuxiliar.isCuerpoTecnico());
     }
     
@@ -192,11 +194,13 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jCheckBoxEsArbitro = new javax.swing.JCheckBox();
         jLabelTecnico = new javax.swing.JLabel();
         jCheckBoxEsCuerpoTecnico = new javax.swing.JCheckBox();
+        jCheckBoxPlantaPermanente = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 478));
-        setMinimumSize(new java.awt.Dimension(650, 478));
-        setPreferredSize(new java.awt.Dimension(650, 478));
+        setMaximumSize(new java.awt.Dimension(650, 479));
+        setMinimumSize(new java.awt.Dimension(650, 479));
+        setPreferredSize(new java.awt.Dimension(650, 479));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -320,7 +324,15 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         jLabelArbitro.setText("¿Es Árbitro?");
 
+        jCheckBoxEsArbitro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxEsArbitroItemStateChanged(evt);
+            }
+        });
+
         jLabelTecnico.setText("¿Es Cuerpo Técnico?");
+
+        jLabel1.setText("¿Planta Permanente?");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -349,6 +361,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                             .addComponent(jLabelArbitro))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxEsCuerpoTecnico)
                     .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                             .addComponent(jTextFieldFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,8 +377,12 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                         .addComponent(jTextFieldFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBoxEsArbitro)
-                    .addComponent(jCheckBoxEsCuerpoTecnico))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(jCheckBoxEsArbitro)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxPlantaPermanente)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -419,8 +436,10 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBoxEsArbitro)
-                    .addComponent(jLabelArbitro))
-                .addGap(3, 3, 3)
+                    .addComponent(jLabelArbitro)
+                    .addComponent(jLabel1)
+                    .addComponent(jCheckBoxPlantaPermanente))
+                .addGap(4, 4, 4)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTecnico)
                     .addComponent(jCheckBoxEsCuerpoTecnico))
@@ -444,7 +463,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -473,7 +492,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                             jTextFieldTelFijo.getText(),
                             jTextFieldTelCelular.getText(),
                             jCheckBoxEsArbitro.isSelected(),
-                            jCheckBoxEsCuerpoTecnico.isSelected()
+                            jCheckBoxEsCuerpoTecnico.isSelected(),
+                            jCheckBoxPlantaPermanente.isSelected()
                     );
                     JOptionPane.showMessageDialog(this, "Persona Auxiliar Guardado");
                 } else {
@@ -491,6 +511,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                             "Fotocopia Dni",
                             jCheckBoxEsArbitro.isSelected(),
                             jCheckBoxEsCuerpoTecnico.isSelected(),
+                            jCheckBoxPlantaPermanente.isSelected(),
                             unaPersonaAuxiliar.isBorradoLogico()
                     );
                     JOptionPane.showMessageDialog(this, "Persona Auxiliar Modificada");
@@ -517,6 +538,12 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
+    private void jCheckBoxEsArbitroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxEsArbitroItemStateChanged
+        if (jCheckBoxEsArbitro.isEnabled()) {
+            jCheckBoxPlantaPermanente.setEnabled(jCheckBoxEsArbitro.isSelected());
+        }
+    }//GEN-LAST:event_jCheckBoxEsArbitroItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -527,7 +554,9 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JCheckBox jCheckBoxEsArbitro;
     private javax.swing.JCheckBox jCheckBoxEsCuerpoTecnico;
+    private javax.swing.JCheckBox jCheckBoxPlantaPermanente;
     private javax.swing.JComboBox jComboBoxLocalidad;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelArbitro;
     private javax.swing.JLabel jLabelDni;

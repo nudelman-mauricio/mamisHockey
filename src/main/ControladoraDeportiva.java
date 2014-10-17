@@ -122,8 +122,8 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
-    public Tarjeta crearTarjeta(Socia unaSocia, Partido unPartido, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
-        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, fecha, tipo, motivo, tiempo, minuto);
+    public Tarjeta crearTarjeta(Socia unaSocia, Partido unPartido, Torneo unTorneo, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
+        Tarjeta unaTarjeta = new Tarjeta(this.entityManager, unTorneo, fecha, tipo, motivo, tiempo, minuto);
         unaSocia.agregarTarjeta(this.entityManager, unaTarjeta);
         if (unPartido != null) {
             unPartido.agregarTarjeta(this.entityManager, unaTarjeta);
@@ -588,11 +588,12 @@ public class ControladoraDeportiva {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Torneos">
-    public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
-        new Torneo(this.entityManager, diaInicio, unaCategoria, nombre);
+    public void crearTorneo(Torneo unTorneoPadre, Date diaInicio, Categoria unaCategoria, String nombre) {
+        new Torneo(this.entityManager, unTorneoPadre, diaInicio, unaCategoria, nombre);
     }
 
-    public void modificarTorneo(Torneo unTorneo, Date fechaInicio, Categoria unaCategoria, String nombre) {
+    public void modificarTorneo(Torneo unTorneo, Torneo unTorneoPadre, Date fechaInicio, Categoria unaCategoria, String nombre) {
+        unTorneo.setUnTorneoPadre(unTorneoPadre);
         unTorneo.setFechaInicio(fechaInicio);
         unTorneo.setUnaCategoria(unaCategoria);
         unTorneo.setNombre(nombre);

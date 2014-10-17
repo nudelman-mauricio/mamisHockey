@@ -31,12 +31,20 @@ public class ControladoraGlobal {
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
     // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">
-    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico) {
-        this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico);
+    public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente) {
+        this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, plantaPermanente);
     }
 
-    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, borradoLogico);
+    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente, boolean borradoLogico) {
+        this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, plantaPermanente, borradoLogico);
+    }
+
+    public void agregarActaCompromiso(PersonaAuxiliar unaPersonaAuxiliar, Date unaFecha) {
+        this.unaControladoraEntidades.agregarActaCompromiso(unaPersonaAuxiliar, unaFecha);
+    }
+
+    public void quitarActaCompromiso(PersonaAuxiliar unaPersonaAuxiliar, Date unaFecha) {
+        this.unaControladoraEntidades.quitarActaCompromiso(unaPersonaAuxiliar, unaFecha);
     }
 
     public void marcarCuerpoTecnicoActivo(PersonaAuxiliar unaPersonaAuxiliar, boolean activo) {
@@ -300,8 +308,8 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Tarjetas">
-    public void crearTarjeta(Socia unaSocia, Partido unPartido, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
-        Tarjeta unaTarjeta = this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, fecha, tipo, motivo, tiempo, minuto);
+    public void crearTarjeta(Socia unaSocia, Partido unPartido, Torneo unTorneo, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
+        Tarjeta unaTarjeta = this.unaControladoraDeportiva.crearTarjeta(unaSocia, unPartido, unTorneo, fecha, tipo, motivo, tiempo, minuto);
         if (tipo.equals("Roja")) {
             this.unaControladoraDeportiva.crearSancionTribunalParaTarjetaRoja(unPartido, unaSocia, fecha, "Tarjeta Roja", "Como mínimo una fecha de penalización", 1, unaTarjeta);
         }
@@ -321,7 +329,7 @@ public class ControladoraGlobal {
 
     public void computarTarjetasAcumuladas(Partido unPartido) {
         for (Jugadora unaJugadora : unPartido.getJugadoras()) {
-            while (computarTarjetaSocia(unaJugadora.getUnaSocia()));
+            while (computarTarjetaSocia(unaJugadora.getUnaSocia(), this.getTorneoDePartido(unPartido)));
         }
     }
 
@@ -331,33 +339,35 @@ public class ControladoraGlobal {
      * @param unaSocia
      * @return
      */
-    private boolean computarTarjetaSocia(Socia unaSocia) {
+    private boolean computarTarjetaSocia(Socia unaSocia, Torneo unTorneo) {
         Tarjeta verde1 = null, verde2 = null, amarilla1 = null;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
             if (!unaTarjeta.isComputado()) {
-                if (unaTarjeta.getTipo().equals("Verde")) {
-                    if (verde1 == null) {
-                        verde1 = unaTarjeta;
-                    } else {
-                        if (verde2 == null) {
-                            verde2 = unaTarjeta;
+                if (unaTarjeta.getUnTorneo().equals(unTorneo)) {
+                    if (unaTarjeta.getTipo().equals("Verde")) {
+                        if (verde1 == null) {
+                            verde1 = unaTarjeta;
                         } else {
-                            this.computarTarjeta(verde1);
-                            this.computarTarjeta(verde2);
-                            this.computarTarjeta(unaTarjeta);
-                            this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
-                            return true;
+                            if (verde2 == null) {
+                                verde2 = unaTarjeta;
+                            } else {
+                                this.computarTarjeta(verde1);
+                                this.computarTarjeta(verde2);
+                                this.computarTarjeta(unaTarjeta);
+                                this.crearTarjeta(unaSocia, null, unTorneo, this.fechaSistema(), "Amarilla", "Acumulación de 3 Tarjetas Verdes dentro del mismo torneo", null, null);
+                                return true;
+                            }
                         }
                     }
-                }
-                if (unaTarjeta.getTipo().equals("Amarilla")) {
-                    if (amarilla1 == null) {
-                        amarilla1 = unaTarjeta;
-                    } else {
-                        this.computarTarjeta(amarilla1);
-                        this.computarTarjeta(unaTarjeta);
-                        this.crearTarjeta(unaSocia, null, this.fechaSistema(), "Roja", "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
-                        return true;
+                    if (unaTarjeta.getTipo().equals("Amarilla")) {
+                        if (amarilla1 == null) {
+                            amarilla1 = unaTarjeta;
+                        } else {
+                            this.computarTarjeta(amarilla1);
+                            this.computarTarjeta(unaTarjeta);
+                            this.crearTarjeta(unaSocia, null, unTorneo, this.fechaSistema(), "Roja", "Acumulación de 2 Tarjetas Amarillas dentro del mismo torneo", null, null);
+                            return true;
+                        }
                     }
                 }
             }
@@ -560,12 +570,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Torneos">
-    public void crearTorneo(Date diaInicio, Categoria unaCategoria, String nombre) {
-        this.unaControladoraDeportiva.crearTorneo(diaInicio, unaCategoria, nombre);
+    public void crearTorneo(Torneo unTorneoPadre, Date diaInicio, Categoria unaCategoria, String nombre) {
+        this.unaControladoraDeportiva.crearTorneo(unTorneoPadre, diaInicio, unaCategoria, nombre);
     }
 
-    public void modificarTorneo(Torneo unTorneo, Date fechaInicio, Categoria unaCategoria, String nombre) {
-        this.unaControladoraDeportiva.modificarTorneo(unTorneo, fechaInicio, unaCategoria, nombre);
+    public void modificarTorneo(Torneo unTorneo, Torneo unTorneoPadre, Date fechaInicio, Categoria unaCategoria, String nombre) {
+        this.unaControladoraDeportiva.modificarTorneo(unTorneo, unTorneoPadre, fechaInicio, unaCategoria, nombre);
     }
 
     public void eliminarTorneo(Torneo unTorneo) {

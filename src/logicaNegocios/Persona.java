@@ -220,7 +220,7 @@ public abstract class Persona implements Serializable, Comparable {
         }
     }
     // </editor-fold>
-
+            
     // <editor-fold defaultstate="collapsed" desc="Sancion Tribunal">
     public void agregarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
         this.sancionesTribunal.add(unaSancionTribunal);

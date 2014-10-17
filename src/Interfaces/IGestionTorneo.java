@@ -41,7 +41,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
                 unTorneoSeleccionado = unaControladoraGlobal.getTorneoBD((Long) jTableTorneo.getValueAt(jTableTorneo.getSelectedRow(), 0));
                 camposActivo(true);
                 if (unTorneoSeleccionado.getEquiposInscriptos().isEmpty()) {
-                    jButtonFechas.setEnabled(false);                    
+                    jButtonFechas.setEnabled(false);
                     jButtonTablaPosiciones.setEnabled(false);
                     jButtonGoleadoras.setEnabled(false);
                     jButtonFixtures.setEnabled(false);
@@ -63,8 +63,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     private void cargarTabla() {
         limpiarTabla();
+        String torneoPadre;
         for (Torneo unTorneo : this.unaControladoraGlobal.getTorneosBDFiltro(jTextFieldBusqueda.getText())) {
-            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
+            if (unTorneo.getUnTorneoPadre() == null) {
+                torneoPadre = "---";
+            } else {
+                torneoPadre = unTorneo.getUnTorneoPadre().getNombre();
+            }
+            this.modeloTablaTorneo.addRow(new Object[]{unTorneo.getIdTorneo(), df.format(unTorneo.getFechaInicio()), unTorneo.getNombre(), torneoPadre, unTorneo.getUnaCategoria().getNombre(), unTorneo.getCantidadFechas(), unTorneo.getCantidadEquiposInscriptos()});
         }
     }
 
@@ -197,11 +203,11 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Fecha de Inicio", "Nombre", "Categoria", "Cantidad de Fechas", "Cantidad de Equipos"
+                "id", "Fecha de Inicio", "Nombre", "Torneo Padre", "Categoria", "Cantidad de Fechas", "Cantidad de Equipos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

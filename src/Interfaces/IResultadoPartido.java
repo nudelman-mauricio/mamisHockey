@@ -227,7 +227,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Visitante">
-        if(jTextFieldAyudanteDeMesaLocal.getText().equals("")){
+        if(jTextFieldAyudanteDeMesaVisitante.getText().equals("")){
         jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());}
         // </editor-fold>
         // </editor-fold>

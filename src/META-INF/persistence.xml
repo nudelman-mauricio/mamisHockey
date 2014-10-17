@@ -3,11 +3,9 @@
   <persistence-unit name="mamisHockeyPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>logicaNegocios.Localidad</class>
-    <class>logicaNegocios.Arbitro</class>
     <class>logicaNegocios.Socia</class>
     <class>logicaNegocios.Cancha</class>
     <class>logicaNegocios.Club</class>
-    <class>logicaNegocios.CuerpoTecnico</class>
     <class>logicaNegocios.Gol</class>
     <class>logicaNegocios.Equipo</class>
     <class>logicaNegocios.Indumentaria</class>
@@ -15,7 +13,6 @@
     <class>logicaNegocios.Pase</class>
     <class>logicaNegocios.Deuda</class>
     <class>logicaNegocios.ConceptoDeportivo</class>
-    <class>logicaNegocios.PagoDeuda</class>
     <class>logicaNegocios.ConceptoEgreso</class>
     <class>logicaNegocios.ConceptoIngreso</class>
     <class>logicaNegocios.IngresoOtro</class>
@@ -24,15 +21,12 @@
     <class>logicaNegocios.FechaTorneo</class>
     <class>logicaNegocios.Partido</class>
     <class>logicaNegocios.Tarjeta</class>
-    <class>logicaNegocios.Sancion</class>
     <class>logicaNegocios.SancionTribunal</class>
     <class>logicaNegocios.Torneo</class>
     <class>logicaNegocios.Ergometria</class>
     <class>logicaNegocios.Mes</class>
-    <class>logicaNegocios.Frecuencia</class>
     <class>logicaNegocios.Cuota</class>
     <class>logicaNegocios.PagoCuota</class>
-    <class>logicaNegocios.Auxiliares</class>
     <class>logicaNegocios.PersonaAuxiliar</class>
     <class>logicaNegocios.TipoCancha</class>
     <class>logicaNegocios.TipoEstado</class>

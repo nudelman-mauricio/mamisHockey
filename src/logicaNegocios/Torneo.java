@@ -24,6 +24,9 @@ public class Torneo implements Serializable, Comparable {
     @OneToMany(targetEntity = Equipo.class)
     private Collection<Equipo> equiposInscriptos;
 
+    @OneToOne(targetEntity = Torneo.class)
+    private Torneo unTorneoPadre;
+
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaInicio;
@@ -31,7 +34,7 @@ public class Torneo implements Serializable, Comparable {
     @OneToMany(targetEntity = FechaTorneo.class)
     private Collection<FechaTorneo> fechasTorneo;
 
-    @OneToOne(optional = false, targetEntity = Categoria.class)
+    @OneToOne(targetEntity = Categoria.class)
     private Categoria unaCategoria;
 
     @Basic
@@ -49,7 +52,8 @@ public class Torneo implements Serializable, Comparable {
 
     }
 
-    public Torneo(EntityManager entityManager, Date diaInicio, Categoria unaCategoria, String nombre) {
+    public Torneo(EntityManager entityManager, Torneo unTorneoPadre, Date diaInicio, Categoria unaCategoria, String nombre) {
+        this.unTorneoPadre = unTorneoPadre;
         this.fechaInicio = diaInicio;
         this.unaCategoria = unaCategoria;
         this.nombre = nombre;
@@ -64,6 +68,14 @@ public class Torneo implements Serializable, Comparable {
 
     public void setEquiposInscriptos(Collection<Equipo> equiposInscriptos) {
         this.equiposInscriptos = equiposInscriptos;
+    }
+
+    public Torneo getUnTorneoPadre() {
+        return this.unTorneoPadre;
+    }
+
+    public void setUnTorneoPadre(Torneo unTorneoPadre) {
+        this.unTorneoPadre = unTorneoPadre;
     }
 
     public Date getFechaInicio() {
@@ -175,7 +187,7 @@ public class Torneo implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Socias Inscriptas">
     /**
-     * Devuelve true si la socia jugó ya un partido en el torneo
+     * Devuelve true si la socia jugÃ³ ya un partido en el torneo
      *
      * @param unaSocia
      * @return

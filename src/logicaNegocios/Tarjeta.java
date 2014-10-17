@@ -1,8 +1,8 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.swing.JOptionPane;
@@ -38,6 +39,9 @@ public class Tarjeta implements Serializable, Comparable {
     @Basic
     private String minuto;
 
+    @OneToOne(targetEntity = Torneo.class)
+    private Torneo unTorneo;
+
     @Basic
     private boolean computado;
 
@@ -49,7 +53,8 @@ public class Tarjeta implements Serializable, Comparable {
 
     }
 
-    public Tarjeta(EntityManager entityManager, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
+    public Tarjeta(EntityManager entityManager, Torneo unTorneo, Date fecha, String tipo, String motivo, String tiempo, String minuto) {
+        this.unTorneo = unTorneo;
         this.tipo = tipo;
         this.motivo = motivo;
         this.tiempo = tiempo;
@@ -107,6 +112,14 @@ public class Tarjeta implements Serializable, Comparable {
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
+    }
+
+    public Torneo getUnTorneo() {
+        return this.unTorneo;
+    }
+
+    public void setUnTorneo(Torneo unTorneo) {
+        this.unTorneo = unTorneo;
     }
 
     public boolean isComputado() {

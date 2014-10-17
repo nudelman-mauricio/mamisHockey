@@ -19,17 +19,17 @@ import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
-
+    
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
     private Tarjeta unaTarjetaSeleccionada = null;
     private DateFormat df = DateFormat.getDateInstance();
-
+    
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -46,36 +46,35 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         VTorneo.addAll(unaControladoraGlobal.getTorneoParticipoSocia(unaSocia));
         this.jComboBoxTorneos.setModel(new DefaultComboBoxModel(VTorneo));
         this.jTextPaneMotivo.setBackground(new Color(228, 231, 237));
-
+        
         cargarTabla();
     }
-
+    
     private void limpiarTabla() {
         int filas = modeloTablaTarjetas.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTablaTarjetas.removeRow(0);
         }
     }
-
+    
     public void cargarTabla() {
         limpiarTabla();
-        Torneo unTorneo;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
             if (!unaTarjeta.isBorradoLogico()) {
                 if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Roja") && jCheckBoxRojas.isSelected())) {
-                    unTorneo = unaControladoraGlobal.getTorneoTarjeta(unaTarjeta);
-                    if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unTorneo.equals((Torneo) jComboBoxTorneos.getSelectedItem()))) {
+                    if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unaTarjeta.getUnTorneo().equals(jComboBoxTorneos.getSelectedItem()))) {
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             df.format(unaTarjeta.getFecha()),
                             unaTarjeta.getTipo(),
-                            unTorneo.getNombre(),
-                            unaControladoraGlobal.getPartidoTarjeta(unaTarjeta).toString()});
+                            unaTarjeta.getUnTorneo().getNombre(),
+                            unaControladoraGlobal.getPartidoTarjeta(unaTarjeta).toString(),
+                            unaTarjeta.isComputado()});
                     }
                 }
             }
         }
     }
-
+    
     public void camposCargar() {
         if (jTableTarjeta.getSelectedRow() > -1) {
             if (jTableTarjeta.getValueAt(jTableTarjeta.getSelectedRow(), 0) != null) {
@@ -83,7 +82,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada);
                 jTextFieldFecha.setText(df.format(unaTarjetaSeleccionada.getFecha()));
                 jTextFieldTipoTarjeta.setText(unaTarjetaSeleccionada.getTipo());
-                jTextFieldTorneo.setText(unaControladoraGlobal.getTorneoTarjeta(unaTarjetaSeleccionada).getNombre());
+                jTextFieldTorneo.setText(unaTarjetaSeleccionada.getUnTorneo().getNombre());
                 jTextFieldPartido.setText(unPartido.toString());
                 jTextPaneMotivo.setText(unaTarjetaSeleccionada.getMotivo());
                 SancionTribunal unaSancionTribunal = unaControladoraGlobal.getSancionTarjeta(unaTarjetaSeleccionada);
@@ -96,11 +95,12 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                     this.jRadioButtonCantFechas.setSelected(true);
                 }
                 this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionTribunal.getCantFechasCumplidas()));
+                jCheckBoxComputado.setSelected(unaTarjetaSeleccionada.isComputado());
                 jButtonImprimir.setEnabled(true);
             }
         }
     }
-
+    
     public void camposLimpiar() {
         jTextFieldFecha.setText("");
         jTextFieldTipoTarjeta.setText("");
@@ -110,8 +110,9 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         buttonGroup1.clearSelection();
         jTextFieldPenalizacion.setText("");
         jTextFieldFechasCumplidas.setText("");
+        jCheckBoxComputado.setSelected(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -148,6 +149,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jTextFieldPenalizacion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldFechasCumplidas = new javax.swing.JTextField();
+        jCheckBoxComputado = new javax.swing.JCheckBox();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 630));
@@ -216,12 +218,27 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jCheckBoxVerdes.setSelected(true);
         jCheckBoxVerdes.setText("Verdes");
+        jCheckBoxVerdes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxVerdesItemStateChanged(evt);
+            }
+        });
 
         jCheckBoxAmarillas.setSelected(true);
         jCheckBoxAmarillas.setText("Amarillas");
+        jCheckBoxAmarillas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxAmarillasItemStateChanged(evt);
+            }
+        });
 
         jCheckBoxRojas.setSelected(true);
         jCheckBoxRojas.setText("Rojas");
+        jCheckBoxRojas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxRojasItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Tarjetas:");
 
@@ -273,18 +290,30 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Fecha", "Tipo de Tarjeta", "Torneo", "Partido"
+                "Fecha", "Tipo de Tarjeta", "Torneo", "Partido", "Computado"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTableTarjeta);
+        if (jTableTarjeta.getColumnModel().getColumnCount() > 0) {
+            jTableTarjeta.getColumnModel().getColumn(4).setMinWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(4).setPreferredWidth(80);
+            jTableTarjeta.getColumnModel().getColumn(4).setMaxWidth(80);
+        }
 
         javax.swing.GroupLayout jPanelTableLayout = new javax.swing.GroupLayout(jPanelTable);
         jPanelTable.setLayout(jPanelTableLayout);
@@ -368,6 +397,9 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jCheckBoxComputado.setText("Computado");
+        jCheckBoxComputado.setEnabled(false);
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
@@ -388,7 +420,9 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldTorneo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxComputado))
                 .addGap(95, 95, 95))
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -398,6 +432,8 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxComputado)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -490,10 +526,10 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                             }
                         }
                     }
-
+                    
                 }
             }
-        }        
+        }
         TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal, listaTorneos, unaSocia, tipo);
         unaTarjetaDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -508,10 +544,23 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jComboBoxTorneosItemStateChanged
 
+    private void jCheckBoxRojasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxRojasItemStateChanged
+        cargarTabla();
+    }//GEN-LAST:event_jCheckBoxRojasItemStateChanged
+
+    private void jCheckBoxAmarillasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxAmarillasItemStateChanged
+        cargarTabla();
+    }//GEN-LAST:event_jCheckBoxAmarillasItemStateChanged
+
+    private void jCheckBoxVerdesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxVerdesItemStateChanged
+        cargarTabla();
+    }//GEN-LAST:event_jCheckBoxVerdesItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JCheckBox jCheckBoxAmarillas;
+    private javax.swing.JCheckBox jCheckBoxComputado;
     private javax.swing.JCheckBox jCheckBoxRojas;
     private javax.swing.JCheckBox jCheckBoxVerdes;
     private javax.swing.JComboBox jComboBoxTorneos;

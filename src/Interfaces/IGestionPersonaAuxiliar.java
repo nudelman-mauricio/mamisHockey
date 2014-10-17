@@ -90,6 +90,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jPanelBotones2 = new javax.swing.JPanel();
         jButtonDatos = new javax.swing.JButton();
         jButtonSancion = new javax.swing.JButton();
+        jButtonActasConformidad = new javax.swing.JButton();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -232,7 +233,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
                         .addComponent(jRadioButtonArbitros)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButtonTecnicos)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelFiltroLayout.setVerticalGroup(
@@ -281,7 +282,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
         );
 
         jPanelBotones2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -308,6 +309,17 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonActasConformidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/categoria.png"))); // NOI18N
+        jButtonActasConformidad.setText("Actas Conf.");
+        jButtonActasConformidad.setEnabled(false);
+        jButtonActasConformidad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonActasConformidad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonActasConformidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActasConformidadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
@@ -317,15 +329,18 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
                 .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonActasConformidad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotones2Layout.setVerticalGroup(
             jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotones2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonSancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDatos))
+                .addGroup(jPanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonSancion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonActasConformidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -453,8 +468,13 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaListaPersonaAuxiliarDS.verReporte(false);
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
+    private void jButtonActasConformidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActasConformidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonActasConformidadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonActasConformidad;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonImprimir;

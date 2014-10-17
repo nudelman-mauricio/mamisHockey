@@ -291,7 +291,7 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             if (unaTarjetaSeleccionada == null) {
-                unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, unPartido.getFecha(), jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
+                unaControladoraGlobal.crearTarjeta(unaSocia, unPartido, unaControladoraGlobal.getTorneoDePartido(unPartido), unPartido.getFecha(), jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText());
             } else {
                 unaControladoraGlobal.modificarTarjeta(unaTarjetaSeleccionada, unPartido.getFecha(), jComboBoxTipoTarjeta.getSelectedItem().toString(), jTextPaneMotivo.getText(), String.valueOf(jComboBoxTiempo.getSelectedIndex() + 1), jTextFieldMinuto.getText(), unaTarjetaSeleccionada.isBorradoLogico());
             }
