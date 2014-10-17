@@ -7,6 +7,8 @@ import java.awt.Container;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -49,8 +51,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(1, unTorneo);
             cargarTabla();
         }
-        cargarCombos();        
+
         setearLabelsCantidadFechas();
+        cargarCombos();
         camposActivo(jPanelDetalles, false);
     }
 
@@ -67,14 +70,32 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     }
 
     private void cargarCombos() {
-        //combobox Local        
-        jComboBoxEquipoLocal.setModel(new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos()));
+        //combobox Local     
+        FechaTorneo unaFechaAux = unTorneo.getUnaFecha(Integer.valueOf(jTextFieldNroFecha.getText()));
+        List equiposParticipantes = new ArrayList();
+        jComboBoxEquipoLocal.removeAllItems();
+        jComboBoxEquipoVisitante.removeAllItems();
+        if (unaFechaAux != null) {
+            for (Partido unPartido : unaFechaAux.getPartidos()) {
+                equiposParticipantes.add(unPartido.getUnEquipoLocal().getNombre());
+                equiposParticipantes.add(unPartido.getUnEquipoVisitante().getNombre());
+            }
+            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+                if (!equiposParticipantes.contains(unEquipo.getNombre())) {
+                    jComboBoxEquipoLocal.addItem(unEquipo.getNombre());
+                    jComboBoxEquipoVisitante.addItem(unEquipo.getNombre());
+                }
+
+            }
+        }
+
+        //jComboBoxEquipoLocal.setModel(new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos()));
         jComboBoxEquipoLocal.setSelectedIndex(-1);
 
         //combox visitante
-        jComboBoxEquipoVisitante.setModel(new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos()));
+        //jComboBoxEquipoVisitante.setModel(new DefaultComboBoxModel((Vector) unTorneo.getEquiposInscriptos()));
         jComboBoxEquipoVisitante.setSelectedIndex(-1);
-        
+
         jComboBoxCancha.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getCanchasBD()));
         jComboBoxCancha.setSelectedIndex(-1);
         jComboBoxArbitro1.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getArbitrosBD()));
@@ -93,17 +114,18 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     }
 
     private void cargarTabla() {
-        limpiarTabla(modeloTable);        
-        if(unaFechaTorneoSeleccionada != null){
-        for (Partido unPartido : unaFechaTorneoSeleccionada.getPartidos()) {
-            if (!unPartido.isBorradoLogico()) {
-                if (unPartido.getNombreVeedor() == null) {
-                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(),df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
-                } else {
-                    this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(),df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+        limpiarTabla(modeloTable);
+        if (unaFechaTorneoSeleccionada != null) {
+            for (Partido unPartido : unaFechaTorneoSeleccionada.getPartidos()) {
+                if (!unPartido.isBorradoLogico()) {
+                    if (unPartido.getNombreVeedor() == null) {
+                        this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                    } else {
+                        this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
+                    }
                 }
             }
-        }}
+        }
         jButtonEditar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         jButtonImprimir.setEnabled(true);
@@ -591,7 +613,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
         jTextFieldNroFecha.setEditable(false);
         jTextFieldNroFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextFieldNroFecha.setText("88");
+        jTextFieldNroFecha.setText("0");
 
         jButtonSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/NextNavegacion.png"))); // NOI18N
         jButtonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -693,11 +715,12 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
         if (unTorneo.getCantidadFechas() > Integer.parseInt(jTextFieldNroFecha.getText())) {
             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(this.jTextFieldNroFecha.getText()) + 1));
-            this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);            
+            this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
             cargarTabla();
             camposLimpiar();
             camposActivo(jPanelDetalles, false);
             jLabelFecha.setText(jTextFieldNroFecha.getText());
+            cargarCombos();
         }
     }//GEN-LAST:event_jButtonSiguienteMouseClicked
 
@@ -717,6 +740,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, true);
         camposActivo(jPanelBotones2, false);
         camposLimpiar();
+        cargarCombos();
         unPartidoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -736,6 +760,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, false);
         camposActivo(jPanelBotones2, true);
         camposLimpiar();
+        cargarCombos();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -752,6 +777,15 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
         camposActivo(jPanelDetalles, true);
         camposActivo(jPanelBotones2, false);
+        
+        String unEquipoLocal = unPartidoSeleccionado.getUnEquipoLocal().getNombre(), unEquipoVisitante = unPartidoSeleccionado.getUnEquipoVisitante().getNombre();
+        cargarCombos();
+        jComboBoxEquipoLocal.addItem(unEquipoLocal);
+        jComboBoxEquipoLocal.addItem(unEquipoVisitante);
+        jComboBoxEquipoVisitante.addItem(unEquipoLocal);
+        jComboBoxEquipoVisitante.addItem(unEquipoVisitante);
+        jComboBoxEquipoLocal.setSelectedIndex(-1);
+        jComboBoxEquipoVisitante.setSelectedIndex(-1);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -763,10 +797,30 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                     arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
                 }
                 if (unPartidoSeleccionado == null) {
-                    unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
+                    Equipo unEquipoAuxLocal = null, unEquipoAuxVisitante = null;
+                    for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+                        if (unEquipo.getNombre().equals(jComboBoxEquipoLocal.getSelectedItem())) {
+                            unEquipoAuxLocal = unEquipo;
+                        } else {
+                            if (unEquipo.getNombre().equals(jComboBoxEquipoVisitante.getSelectedItem())) {
+                                unEquipoAuxVisitante = unEquipo;
+                            }
+                        }
+                    }
+                    unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
                     JOptionPane.showMessageDialog(this, "Partido Guardado");
                 } else {
-                    unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), (Equipo) jComboBoxEquipoLocal.getSelectedItem(), (Equipo) jComboBoxEquipoVisitante.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
+                    Equipo unEquipoAuxLocal = null, unEquipoAuxVisitante = null;
+                    for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+                        if (unEquipo.getNombre().equals(jComboBoxEquipoLocal.getSelectedItem())) {
+                            unEquipoAuxLocal = unEquipo;
+                        } else {
+                            if (unEquipo.getNombre().equals(jComboBoxEquipoVisitante.getSelectedItem())) {
+                                unEquipoAuxVisitante = unEquipo;
+                            }
+                        }
+                    }
+                    unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
                     JOptionPane.showMessageDialog(this, "Partido Modificado");
                     unPartidoSeleccionado = null;
                 }
@@ -786,6 +840,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 camposActivo(jPanelDetalles, false);
                 camposActivo(jPanelBotones2, true);
                 camposLimpiar();
+                cargarCombos();
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             }
@@ -803,9 +858,10 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 this.jLabelTotalFechas.setText(String.valueOf(this.unTorneo.getCantidadFechas()));
             }
             jTextFieldNroFecha.setText(String.valueOf(Integer.parseInt(this.jTextFieldNroFecha.getText()) - 1));
-            this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);            
+            this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(Integer.parseInt(jTextFieldNroFecha.getText()), unTorneo);
             cargarTabla();
             camposLimpiar();
+            cargarCombos();
             camposActivo(jPanelDetalles, false);
             jLabelFecha.setText(jTextFieldNroFecha.getText());
         }
@@ -825,7 +881,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
     private void irFinal() {
         jTextFieldNroFecha.setText(String.valueOf(unTorneo.getCantidadFechas()));
-        this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(unTorneo.getCantidadFechas(), unTorneo);        
+        this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(unTorneo.getCantidadFechas(), unTorneo);
         cargarTabla();
         camposLimpiar();
         camposActivo(jPanelDetalles, false);
@@ -839,9 +895,10 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private void jButtonInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonInicioMouseClicked
         if (unTorneo.getCantidadFechas() > 0) {
             jTextFieldNroFecha.setText("1");
-            this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(1, unTorneo);            
+            this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(1, unTorneo);
             cargarTabla();
             camposLimpiar();
+            cargarCombos();
             camposActivo(jPanelDetalles, false);
             jLabelFecha.setText(jTextFieldNroFecha.getText());
         }
@@ -883,6 +940,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 this.jLabelFecha.setText(this.jLabelTotalFechas.getText());
                 cargarTabla();
                 camposLimpiar();
+                cargarCombos();
             }
         } else {
             if (vacio == 0) {
@@ -904,6 +962,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                             unPartidoSeleccionado = null;
                             cargarTabla();
                             camposLimpiar();
+                            cargarCombos();
                         }
                     }
                 } else {
@@ -930,8 +989,8 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-      FixtureDS unFixtureDS = new FixtureDS (unaControladoraGlobal, unTorneo, unaFechaTorneoSeleccionada);
-      unFixtureDS.verReporte();
+        FixtureDS unFixtureDS = new FixtureDS(unaControladoraGlobal, unTorneo, unaFechaTorneoSeleccionada);
+        unFixtureDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

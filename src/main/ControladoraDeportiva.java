@@ -695,7 +695,7 @@ public class ControladoraDeportiva {
     public FechaTorneo getFechaTorneoBD(Long id) {
         FechaTorneo resultado;
         Query traerFechaTorneo = this.entityManager.createQuery("SELECT auxFT FROM FechaTorneo auxFT WHERE auxFT.idFechaTorneo = " + id);
-        resultado = (FechaTorneo) traerFechaTorneo.getSingleResult();
+        resultado = (FechaTorneo) traerFechaTorneo.getResultList().get(0);
         return resultado;
     }
 

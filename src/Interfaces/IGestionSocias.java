@@ -205,41 +205,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "DNI", "Apellido, Nombres", "Ex-Jugadora", "Estado", "Equipo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(jTableSocias);
-        if (jTableSocias.getColumnModel().getColumnCount() > 0) {
-            jTableSocias.getColumnModel().getColumn(0).setMinWidth(60);
-            jTableSocias.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTableSocias.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTableSocias.getColumnModel().getColumn(2).setMinWidth(80);
-            jTableSocias.getColumnModel().getColumn(2).setPreferredWidth(80);
-            jTableSocias.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTableSocias.getColumnModel().getColumn(3).setMinWidth(120);
-            jTableSocias.getColumnModel().getColumn(3).setPreferredWidth(120);
-            jTableSocias.getColumnModel().getColumn(3).setMaxWidth(120);
-        }
         jTableSocias.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 camposCargar();
