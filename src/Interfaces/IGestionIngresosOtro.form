@@ -293,18 +293,14 @@
                       <Component id="jLabelComentario" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTextFieldFecha" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jComboBoxConceptoIngreso" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldMonto" alignment="0" pref="200" max="32767" attributes="0"/>
-                              <Component id="jScrollPane3" alignment="0" pref="200" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonNuevoIngreso" min="-2" pref="22" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jComboBoxConceptoIngreso" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextFieldMonto" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="jDateChooserFecha" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonNuevoIngreso" min="-2" pref="22" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -312,10 +308,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFecha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFecha" alignment="3" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooserFecha" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -357,12 +353,6 @@
         <Component class="javax.swing.JLabel" name="jLabelComentario">
           <Properties>
             <Property name="text" type="java.lang.String" value="Observaci&#xf3;n"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFecha">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="dd/mm/aaaa"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMonto">
@@ -408,6 +398,8 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel1">
