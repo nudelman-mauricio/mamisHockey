@@ -19,7 +19,7 @@ import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class ISancion extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia = null;
@@ -32,7 +32,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     //Llamado Generico
     public ISancion(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
@@ -40,13 +40,13 @@ public class ISancion extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
         IMenuPrincipalInterface.centrar(this);
-
+        
         camposActivo(false);
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);        
+        jButtonEliminar.setEnabled(false);
     }
 
     //Llamado desde Gestion SOCIA
@@ -75,21 +75,22 @@ public class ISancion extends javax.swing.JInternalFrame {
 
     //deshabilitar todo lo de un contenedor
     private void camposActivo(boolean bandera) {
-        if (bandera) {
+        if (!bandera) {
+            jTextFieldPenalizacion.setEditable(false);
             jTextPaneDetalle.setBackground(new Color(228, 231, 237));
         } else {
             jTextPaneDetalle.setBackground(Color.WHITE);
         }
+        this.jTextPaneDetalle.setEnabled(bandera);
         this.jTextFieldFecha.setEditable(bandera);
         this.jTextFieldNumResolucion.setEditable(bandera);
         this.jTextFieldMotivo.setEditable(bandera);
-        this.jTextPaneDetalle.setEditable(bandera);
         this.jRadioButtonCantFechas.setEnabled(bandera);
         this.jRadioButtonHasta.setEnabled(bandera);
         this.jTextFieldPartido.setEditable(bandera);
         this.jTextFieldTarjeta.setEditable(bandera);
     }
-
+    
     private void camposLimpiar() {
         this.jTextFieldFecha.setText("");
         this.jTextFieldNumResolucion.setText("");
@@ -101,7 +102,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTextFieldPartido.setText("");
         this.jTextFieldTarjeta.setText("");
     }
-
+    
     private void camposCargar() {
         if (jTableSancion.getSelectedRow() > -1) {
             if (jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0) != null) {
@@ -119,24 +120,24 @@ public class ISancion extends javax.swing.JInternalFrame {
                     this.jRadioButtonCantFechas.setSelected(true);
                 }
                 this.jTextFieldFechasCumplidas.setText(Integer.toString(unaSancionSeleccionada.getCantFechasCumplidas()));
-                if(unaSancionSeleccionada.getUnPartido()!=null){
+                if (unaSancionSeleccionada.getUnPartido() != null) {
                     this.jTextFieldPartido.setText(unaSancionSeleccionada.getUnPartido().toString());
                 } else {
                     this.jTextFieldPartido.setText("");
                 }
-                if(unaSancionSeleccionada.getUnaTarjeta() != null){
-                      this.jTextFieldTarjeta.setText(unaSancionSeleccionada.getUnaTarjeta().getTipo());
+                if (unaSancionSeleccionada.getUnaTarjeta() != null) {
+                    this.jTextFieldTarjeta.setText(unaSancionSeleccionada.getUnaTarjeta().getTipo());
                 } else {
                     this.jTextFieldTarjeta.setText("");
                 }
-              
+                
                 jButtonEliminar.setEnabled(true);
                 jButtonEditar.setEnabled(true);
-             
+                
             }
         }
     }
-
+    
     private void cargarTabla() {
         limpiarTabla();
         Collection<SancionTribunal> sanciones = null;
@@ -166,14 +167,14 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         
     }
-
+    
     private void limpiarTabla() {
         int filas = modeloTableSancion.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTableSancion.removeRow(0);
         }
     }
-
+    
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldFecha.getText().isEmpty()) {
@@ -208,7 +209,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -585,9 +586,8 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
         
-
         jTableSancion.setEnabled(false);
-
+        
         camposActivo(true);
         camposLimpiar();
         unaSancionSeleccionada = null;
@@ -635,16 +635,15 @@ public class ISancion extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "La Socia " + unaSocia.getApellido() + ", " + unaSocia.getNombre() + "tiene uno o más partidos por jugar." + enter + "Es MUY NECESARIO actualizar las planillas de los siguientes partidos para que se refleje la Penalización: " + enter + partidos);
                     }
                 }
-
+                
                 jButtonNuevo.setEnabled(true);
                 jButtonEditar.setEnabled(false);
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonEliminar.setEnabled(false);
-               
-
+                
                 jTableSancion.setEnabled(true);
-
+                
                 camposActivo(false);
                 camposLimpiar();
                 cargarTabla();
@@ -661,9 +660,8 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
         
-
         jTableSancion.setEnabled(false);
-
+        
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -673,10 +671,9 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-      
-
+        
         jTableSancion.setEnabled(true);
-
+        
         camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -688,11 +685,10 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
         
-
         jTableSancion.setEnabled(true);
-
+        
         camposActivo(false);
-
+        
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -712,11 +708,11 @@ public class ISancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jRadioButtonCantFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCantFechasActionPerformed
-        jTextFieldPenalizacion.setEditable(true);
+        jTextFieldPenalizacion.setEditable(jRadioButtonCantFechas.isSelected());
     }//GEN-LAST:event_jRadioButtonCantFechasActionPerformed
 
     private void jRadioButtonHastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHastaActionPerformed
-        jTextFieldPenalizacion.setEditable(true);
+        jTextFieldPenalizacion.setEditable(jRadioButtonHasta.isSelected());
     }//GEN-LAST:event_jRadioButtonHastaActionPerformed
 
 
