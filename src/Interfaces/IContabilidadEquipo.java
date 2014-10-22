@@ -3,7 +3,6 @@ package Interfaces;
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -66,9 +65,9 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             if (jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0) != null) {
                 unaDeudaSeleccionada = unaControladoraGlobal.getDeudaBD((Long) jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0));
 
-                jTextFieldFechaRealizacion.setText(df.format(unaDeudaSeleccionada.getFechaGeneracion()));
+                jDateChooserFecha.setDate(unaDeudaSeleccionada.getFechaGeneracion());
                 jTextFieldConcepto.setText(unaDeudaSeleccionada.getUnConceptoDeportivo().getConcepto());
-                jTextFieldFechaVencimiento.setText(df.format(unaDeudaSeleccionada.getPrimerVencimiento()));
+                jDateChooserFechaVencimiento.setDate(unaDeudaSeleccionada.getPrimerVencimiento());
                 jTextFieldMontoTotalDeuda.setText(Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 jTextPaneObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
 
@@ -79,8 +78,8 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     }
 
     private void camposActivo(boolean bandera) {
-        jTextFieldFechaRealizacion.setEditable(bandera);
-        jTextFieldFechaVencimiento.setEditable(bandera);
+        jDateChooserFecha.setEnabled(bandera);
+        jDateChooserFechaVencimiento.setEnabled(bandera);
         jTextFieldMontoTotalDeuda.setEditable(bandera);
         jTextPaneObservacionDeuda.setEditable(bandera);
         if (bandera) {
@@ -92,22 +91,22 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
     //blanqueda componentes editables
     private void camposLimpiar() {
-        jTextFieldFechaRealizacion.setText("");
+        jDateChooserFecha.setDate(null);
         jTextFieldConcepto.setText("");
-        jTextFieldFechaVencimiento.setText("");
+        jDateChooserFechaVencimiento.setDate(null);
         jTextFieldMontoTotalDeuda.setText("");
         jTextPaneObservacionDeuda.setText("");
     }
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (jTextFieldFechaRealizacion.getText().isEmpty()) {
+        if (jDateChooserFecha.getDate()== null) {
             jLabelFechaRealizacion.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelFechaRealizacion.setForeground(Color.black);
         }
-        if (jTextFieldFechaVencimiento.getText().isEmpty()) {
+        if (jDateChooserFechaVencimiento.getDate()== null) {
             jLabelFechaVencimiento.setForeground(Color.red);
             bandera = false;
         } else {
@@ -140,9 +139,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jTableDeudas = new javax.swing.JTable();
         jPanelDetalleDeudas = new javax.swing.JPanel();
         jLabelFechaRealizacion = new javax.swing.JLabel();
-        jTextFieldFechaRealizacion = new javax.swing.JTextField();
         jLabelConcepto = new javax.swing.JLabel();
-        jTextFieldFechaVencimiento = new javax.swing.JTextField();
         jLabelFechaVencimiento = new javax.swing.JLabel();
         jLabelFechaRealizacion3 = new javax.swing.JLabel();
         jLabelMontoTotalDeuda = new javax.swing.JLabel();
@@ -150,6 +147,8 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPaneObservacionDeuda = new javax.swing.JTextPane();
         jTextFieldConcepto = new javax.swing.JTextField();
+        jDateChooserFecha = new com.toedter.calendar.JDateChooser();
+        jDateChooserFechaVencimiento = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(792, 481));
@@ -318,6 +317,12 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
         jLabelMontoTotalDeuda.setText("Monto ($)");
 
+        jTextFieldMontoTotalDeuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMontoTotalDeudaActionPerformed(evt);
+            }
+        });
+
         jScrollPane3.setViewportView(jTextPaneObservacionDeuda);
 
         jTextFieldConcepto.setEditable(false);
@@ -335,15 +340,16 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaVencimiento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldMontoTotalDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
-                        .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
-                        .addComponent(jLabelFechaRealizacion3))
-                    .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelFechaRealizacion3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addGap(26, 26, 26))
         );
         jPanelDetalleDeudasLayout.setVerticalGroup(
@@ -354,19 +360,20 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetalleDeudasLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelFechaRealizacion)
-                            .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFechaRealizacion3))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelFechaRealizacion)
+                                .addComponent(jLabelFechaRealizacion3))
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelConcepto)
                             .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelFechaVencimiento)
-                            .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelMontoTotalDeuda)
@@ -458,30 +465,21 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            try {
-                Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-                Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-
-                unaControladoraGlobal.crearDeudaEquipo(unEquipo, fechaRealizacion, unaControladoraGlobal.getConceptoDeportivoBD("Cancha"), jTextPaneObservacionDeuda.getText(), Double.parseDouble(jTextFieldMontoTotalDeuda.getText()), 1, fechaVencimiento);
-                JOptionPane.showMessageDialog(this, "Deuda Guardada");
-
-                cargarTabla();
-
-                jButtonNuevo.setEnabled(true);
-                jButtonGuardar.setEnabled(false);
-                jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                jButtonImprimir.setEnabled(false);
-
-                jTableDeudas.setEnabled(true);
-                jTableDeudas.clearSelection();
-                unaDeudaSeleccionada = null;
-
-                camposActivo(false);
-                camposLimpiar();
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-            }
+            Date fechaRealizacion = new java.sql.Date((jDateChooserFecha.getDate()).getTime());
+            Date fechaVencimiento = new java.sql.Date((jDateChooserFechaVencimiento.getDate()).getTime());
+            unaControladoraGlobal.crearDeudaEquipo(unEquipo, fechaRealizacion, unaControladoraGlobal.getConceptoDeportivoBD("Cancha"), jTextPaneObservacionDeuda.getText(), Double.parseDouble(jTextFieldMontoTotalDeuda.getText()), 1, fechaVencimiento);
+            JOptionPane.showMessageDialog(this, "Deuda Guardada");
+            cargarTabla();
+            jButtonNuevo.setEnabled(true);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
+            jTableDeudas.setEnabled(true);
+            jTableDeudas.clearSelection();
+            unaDeudaSeleccionada = null;
+            camposActivo(false);
+            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -504,6 +502,10 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void jTextFieldMontoTotalDeudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMontoTotalDeudaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMontoTotalDeudaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -511,6 +513,8 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaVencimiento;
     private javax.swing.JLabel jLabelConcepto;
     private javax.swing.JLabel jLabelFechaRealizacion;
     private javax.swing.JLabel jLabelFechaRealizacion3;
@@ -523,8 +527,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableDeudas;
     private javax.swing.JTextField jTextFieldConcepto;
-    private javax.swing.JTextField jTextFieldFechaRealizacion;
-    private javax.swing.JTextField jTextFieldFechaVencimiento;
     private javax.swing.JTextField jTextFieldMontoTotalDeuda;
     private javax.swing.JTextPane jTextPaneObservacionDeuda;
     // End of variables declaration//GEN-END:variables

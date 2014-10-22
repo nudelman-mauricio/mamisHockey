@@ -278,17 +278,19 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTextFieldConcepto" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                       <Component id="jTextFieldMontoTotalDeuda" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTextFieldFechaRealizacion" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jDateChooserFecha" max="32767" attributes="0"/>
+                              <Component id="jTextFieldConcepto" pref="160" max="32767" attributes="0"/>
+                              <Component id="jDateChooserFechaVencimiento" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="jLabelFechaRealizacion3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jTextFieldFechaVencimiento" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="326" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -302,11 +304,13 @@
                           <Component id="jScrollPane3" min="-2" pref="98" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFechaRealizacion3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaRealizacion3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jDateChooserFecha" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -314,9 +318,9 @@
                               <Component id="jTextFieldConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabelFechaVencimiento" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDateChooserFechaVencimiento" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -336,14 +340,10 @@
             <Property name="text" type="java.lang.String" value="Fecha"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabelConcepto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Concepto"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaVencimiento">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaVencimiento">
           <Properties>
@@ -361,6 +361,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMontoTotalDeuda">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMontoTotalDeudaActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
           <AuxValues>
@@ -377,6 +380,10 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaVencimiento">
         </Component>
       </SubComponents>
     </Container>

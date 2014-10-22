@@ -2,7 +2,6 @@ package Interfaces;
 
 import java.awt.Color;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -68,7 +67,7 @@ public class IEstado extends javax.swing.JInternalFrame {
         if (jTableEstado.getSelectedRow() > -1) {
             if (jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0) != null) {
                 unEstadoSeleccionado = unaControladoraGlobal.getEstadoBD((Long) jTableEstado.getValueAt(jTableEstado.getSelectedRow(), 0));
-                jTextFieldFecha.setText(df.format(unEstadoSeleccionado.getFecha()));
+                jDateChooserFecha.setDate((unEstadoSeleccionado.getFecha()));
                 jComboBoxEstado.setSelectedItem(unEstadoSeleccionado.getUnTipoEstado());
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
@@ -77,18 +76,18 @@ public class IEstado extends javax.swing.JInternalFrame {
     }
 
     public void camposActivo(boolean Editable) {
-        jTextFieldFecha.setEditable(Editable);
+        jDateChooserFecha.setEnabled(Editable);
         jComboBoxEstado.setEnabled(Editable);
     }
 
     public void camposLimpiar() {
-        jTextFieldFecha.setText("");
+        jDateChooserFecha.setDate(null);
         jComboBoxEstado.setSelectedIndex(-1);
     }
 
     public boolean camposValidar() {
         boolean bandera = true;
-        if (jTextFieldFecha.getText().isEmpty()) {
+        if (jDateChooserFecha.getDate() == null) {
             jLabelFecha.setForeground(Color.red);
             bandera = false;
         } else {
@@ -122,8 +121,8 @@ public class IEstado extends javax.swing.JInternalFrame {
         jPanelDetalles = new javax.swing.JPanel();
         jLabelFecha = new javax.swing.JLabel();
         jLabelEstado = new javax.swing.JLabel();
-        jTextFieldFecha = new javax.swing.JTextField();
         jComboBoxEstado = new javax.swing.JComboBox();
+        jDateChooserFecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 391));
@@ -292,18 +291,18 @@ public class IEstado extends javax.swing.JInternalFrame {
                     .addComponent(jLabelEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxEstado, 0, 160, Short.MAX_VALUE)
+                    .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFecha)
-                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
+                    .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEstado)
                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -347,7 +346,7 @@ public class IEstado extends javax.swing.JInternalFrame {
         jTableEstado.setEnabled(false);
         jTableEstado.clearSelection();
         
-        jTextFieldFecha.setText(df.format(unaControladoraGlobal.fechaSistema()));
+        jDateChooserFecha.setDate((unaControladoraGlobal.fechaSistema()));
 
         camposActivo(true);
         camposLimpiar();
@@ -356,28 +355,24 @@ public class IEstado extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            try {
-                Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
-                if (unEstadoSeleccionado == null) {
-                    unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem());
-                    JOptionPane.showMessageDialog(this, "Estado Guardado");
-                } else {
-                    unaControladoraGlobal.modificarEstado(unEstadoSeleccionado, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem(), unEstadoSeleccionado.isBorradoLogico());
-                    unEstadoSeleccionado = null;
-                    JOptionPane.showMessageDialog(this, "Estado Modificado");
-                }
-                cargarTabla();
-                jButtonNuevo.setEnabled(true);
-                jButtonEditar.setEnabled(false);
-                jButtonGuardar.setEnabled(false);
-                jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                jTableEstado.setEnabled(true);
-                camposActivo(false);
-                camposLimpiar();
-            } catch (ParseException e) {
-                System.out.println("ERROR EN LAS FECHAS" + e.getMessage());
+            Date fechaRealizacion = new java.sql.Date((jDateChooserFecha.getDate()).getTime());
+            if (unEstadoSeleccionado == null) {
+                unaControladoraGlobal.crearEstado(unaSocia, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem());
+                JOptionPane.showMessageDialog(this, "Estado Guardado");
+            } else {
+                unaControladoraGlobal.modificarEstado(unEstadoSeleccionado, fechaRealizacion, (TipoEstado) jComboBoxEstado.getSelectedItem(), unEstadoSeleccionado.isBorradoLogico());
+                unEstadoSeleccionado = null;
+                JOptionPane.showMessageDialog(this, "Estado Modificado");
             }
+            cargarTabla();
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jTableEstado.setEnabled(true);
+            camposActivo(false);
+            camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -447,6 +442,7 @@ public class IEstado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JComboBox jComboBoxEstado;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha;
     private javax.swing.JLabel jLabelEstado;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JPanel jPanelBotones;
@@ -454,6 +450,5 @@ public class IEstado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelTabla;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEstado;
-    private javax.swing.JTextField jTextFieldFecha;
     // End of variables declaration//GEN-END:variables
 }
