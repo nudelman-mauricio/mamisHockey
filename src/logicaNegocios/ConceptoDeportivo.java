@@ -20,29 +20,23 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     @Basic
     private double monto;
 
-
-    @OneToOne(targetEntity=TipoEstado.class)
+    @OneToOne(targetEntity = TipoEstado.class)
     private TipoEstado unTipoEstado;
 
-
-    @OneToMany(targetEntity=Mes.class)
+    @OneToMany(targetEntity = Mes.class)
     private Collection<Mes> meses;
-
 
     @Basic
     private String concepto;
 
-
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idConceptoDeportivo;
-
 
     @Basic
     private boolean borradoLogico;
 
-
-    @OneToOne(targetEntity=TipoCancha.class)
+    @OneToOne(targetEntity = TipoCancha.class)
     private TipoCancha unTipoCancha;
 // </editor-fold>
 
@@ -60,78 +54,59 @@ public class ConceptoDeportivo implements Serializable, Comparable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
-   public double getMonto() {
+    public double getMonto() {
         return this.monto;
     }
 
-
-  public void setMonto (double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
-
-
-   public TipoEstado getUnTipoEstado() {
+    public TipoEstado getUnTipoEstado() {
         return this.unTipoEstado;
     }
 
-
-  public void setUnTipoEstado (TipoEstado unTipoEstado) {
+    public void setUnTipoEstado(TipoEstado unTipoEstado) {
         this.unTipoEstado = unTipoEstado;
     }
 
-
-
-   public Collection<Mes> getMeses() {
+    public Collection<Mes> getMeses() {
         return this.meses;
     }
 
-
-  public void setMeses (Collection<Mes> meses) {
+    public void setMeses(Collection<Mes> meses) {
         this.meses = meses;
     }
 
-
-
-   public String getConcepto() {
+    public String getConcepto() {
         return this.concepto;
     }
 
-
-  public void setConcepto (String concepto) {
+    public void setConcepto(String concepto) {
         this.concepto = concepto;
     }
 
-
-
-   public Long getIdConceptoDeportivo() {
+    public Long getIdConceptoDeportivo() {
         return this.idConceptoDeportivo;
     }
 
-
-  public void setIdConceptoDeportivo (Long idConceptoDeportivo) {
+    public void setIdConceptoDeportivo(Long idConceptoDeportivo) {
         this.idConceptoDeportivo = idConceptoDeportivo;
     }
-
-
 
     public boolean isBorradoLogico() {
         return this.borradoLogico;
     }
 
-
-  public void setBorradoLogico (boolean borradoLogico) {
+    public void setBorradoLogico(boolean borradoLogico) {
         this.borradoLogico = borradoLogico;
     }
 
-
-
-   public TipoCancha getUnTipoCancha() {
+    public TipoCancha getUnTipoCancha() {
         return this.unTipoCancha;
     }
 
-
-  public void setUnTipoCancha (TipoCancha unTipoCancha) {
+    public void setUnTipoCancha(TipoCancha unTipoCancha) {
         this.unTipoCancha = unTipoCancha;
     }
 // </editor-fold>
@@ -149,12 +124,12 @@ public class ConceptoDeportivo implements Serializable, Comparable {
         }
     }
     // </editor-fold>
-    
+
     @Override
     public String toString() {
         return concepto;
     }
-    
+
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;

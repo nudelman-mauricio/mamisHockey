@@ -281,9 +281,9 @@
                       <Component id="jTextFieldMontoTotalDeuda" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jDateChooserFecha" max="32767" attributes="0"/>
-                              <Component id="jTextFieldConcepto" pref="160" max="32767" attributes="0"/>
+                              <Component id="jDateChooserFecha" pref="160" max="32767" attributes="0"/>
                               <Component id="jDateChooserFechaVencimiento" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jComboBoxConcepto" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="jLabelFechaRealizacion3" min="-2" max="-2" attributes="0"/>
@@ -315,7 +315,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabelConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -361,9 +361,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldMontoTotalDeuda">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMontoTotalDeudaActionPerformed"/>
-          </Events>
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
           <AuxValues>
@@ -373,17 +373,32 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="jTextPaneObservacionDeuda">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextFieldConcepto">
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
-        </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaVencimiento">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxConcepto">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxConceptoItemStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -779,6 +779,9 @@ public class ControladoraGlobal {
         }
         if (this.getConceptoDeportivoBD("Cuota Baja por Mora") == null) {
             this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
+        }        
+        if (this.getConceptoDeportivoBD("Seguro Técnicos") == null) {
+            this.crearConceptoDeportivo(70, "Seguro Técnicos", null, null, null);
         }
         if (this.getConceptoDeportivoBD("Cancha") == null) {
             this.crearConceptoDeportivo(0, "Cancha", null, null, null);

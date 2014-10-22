@@ -371,6 +371,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setEditable(false);
         jScrollPane3.setViewportView(jTextPaneDetalle);
 
+        jDateChooserFecha.setEnabled(false);
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(

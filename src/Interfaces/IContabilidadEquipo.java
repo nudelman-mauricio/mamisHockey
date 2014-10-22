@@ -1,8 +1,11 @@
 package Interfaces;
 
 import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -35,6 +38,13 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         this.setTitle("Contabilidad de: " + this.unEquipo.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
 
+        Vector<ConceptoDeportivo> conceptosEquipo = new Vector<ConceptoDeportivo>();
+        conceptosEquipo.add(unaControladoraGlobal.getConceptoDeportivoBD("Cancha"));
+        conceptosEquipo.add(unaControladoraGlobal.getConceptoDeportivoBD("Seguro Técnicos"));
+        DefaultComboBoxModel modelComboConcepto = new DefaultComboBoxModel(conceptosEquipo);
+        this.jComboBoxConcepto.setModel(modelComboConcepto);
+        this.jComboBoxConcepto.setSelectedIndex(-1);
+
         camposActivo(false);
 
         cargarTabla();
@@ -45,7 +55,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         limpiarTabla();
         for (Deuda unaDeuda : unEquipo.getDeudas()) {
             if (!unaDeuda.isBorradoLogico()) {
-                this.modeloTableDeudas.addRow(new Object[]{unaDeuda.getIdDeuda(), df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getUnConceptoDeportivo().getConcepto(), df.format(unaDeuda.getPrimerVencimiento()), unaDeuda.getMontoTotal(), unaDeuda.isSaldado()});
+                this.modeloTableDeudas.addRow(new Object[]{unaDeuda.getIdDeuda(), df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getUnConceptoDeportivo().toString(), df.format(unaDeuda.getPrimerVencimiento()), unaDeuda.getMontoTotal(), unaDeuda.isSaldado()});
             }
         }
         jButtonEliminar.setEnabled(false);
@@ -66,7 +76,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                 unaDeudaSeleccionada = unaControladoraGlobal.getDeudaBD((Long) jTableDeudas.getValueAt(jTableDeudas.getSelectedRow(), 0));
 
                 jDateChooserFecha.setDate(unaDeudaSeleccionada.getFechaGeneracion());
-                jTextFieldConcepto.setText(unaDeudaSeleccionada.getUnConceptoDeportivo().getConcepto());
+                jComboBoxConcepto.setSelectedItem(unaDeudaSeleccionada.getUnConceptoDeportivo());
                 jDateChooserFechaVencimiento.setDate(unaDeudaSeleccionada.getPrimerVencimiento());
                 jTextFieldMontoTotalDeuda.setText(Double.toString(unaDeudaSeleccionada.getMontoTotal()));
                 jTextPaneObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
@@ -82,6 +92,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jDateChooserFechaVencimiento.setEnabled(bandera);
         jTextFieldMontoTotalDeuda.setEditable(bandera);
         jTextPaneObservacionDeuda.setEditable(bandera);
+        jComboBoxConcepto.setEnabled(bandera);
         if (bandera) {
             jTextPaneObservacionDeuda.setBackground(Color.WHITE);
         } else {
@@ -92,7 +103,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     //blanqueda componentes editables
     private void camposLimpiar() {
         jDateChooserFecha.setDate(null);
-        jTextFieldConcepto.setText("");
+        jComboBoxConcepto.setSelectedIndex(-1);
         jDateChooserFechaVencimiento.setDate(null);
         jTextFieldMontoTotalDeuda.setText("");
         jTextPaneObservacionDeuda.setText("");
@@ -100,13 +111,13 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (jDateChooserFecha.getDate()== null) {
+        if (jDateChooserFecha.getDate() == null) {
             jLabelFechaRealizacion.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelFechaRealizacion.setForeground(Color.black);
         }
-        if (jDateChooserFechaVencimiento.getDate()== null) {
+        if (jDateChooserFechaVencimiento.getDate() == null) {
             jLabelFechaVencimiento.setForeground(Color.red);
             bandera = false;
         } else {
@@ -117,6 +128,12 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             bandera = false;
         } else {
             jLabelMontoTotalDeuda.setForeground(Color.black);
+        }
+        if (jComboBoxConcepto.getSelectedIndex() == -1) {
+            jLabelConcepto.setForeground(Color.red);
+            bandera = false;
+        } else {
+            jLabelConcepto.setForeground(Color.black);
         }
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
@@ -146,9 +163,9 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jTextFieldMontoTotalDeuda = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPaneObservacionDeuda = new javax.swing.JTextPane();
-        jTextFieldConcepto = new javax.swing.JTextField();
         jDateChooserFecha = new com.toedter.calendar.JDateChooser();
         jDateChooserFechaVencimiento = new com.toedter.calendar.JDateChooser();
+        jComboBoxConcepto = new javax.swing.JComboBox();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(792, 481));
@@ -317,15 +334,21 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
         jLabelMontoTotalDeuda.setText("Monto ($)");
 
-        jTextFieldMontoTotalDeuda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMontoTotalDeudaActionPerformed(evt);
-            }
-        });
+        jTextFieldMontoTotalDeuda.setEditable(false);
 
+        jTextPaneObservacionDeuda.setEditable(false);
         jScrollPane3.setViewportView(jTextPaneObservacionDeuda);
 
-        jTextFieldConcepto.setEditable(false);
+        jDateChooserFecha.setEnabled(false);
+
+        jDateChooserFechaVencimiento.setEnabled(false);
+
+        jComboBoxConcepto.setEnabled(false);
+        jComboBoxConcepto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxConceptoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelDetalleDeudasLayout = new javax.swing.GroupLayout(jPanelDetalleDeudas);
         jPanelDetalleDeudas.setLayout(jPanelDetalleDeudasLayout);
@@ -343,9 +366,9 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldMontoTotalDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxConcepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
                         .addComponent(jLabelFechaRealizacion3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -369,7 +392,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelConcepto)
-                            .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelFechaVencimiento)
@@ -450,24 +473,14 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         camposActivo(true);
         camposLimpiar();
         unaDeudaSeleccionada = null;
-
-        //cargar campos de ayuda para facturacion
-        ConceptoDeportivo cancha = unaControladoraGlobal.getConceptoDeportivoBD("Cancha");
-        jTextFieldConcepto.setText(cancha.getConcepto());
-        jTextFieldMontoTotalDeuda.setText(Double.toString(cancha.getMonto()));
-        int mes = unaControladoraGlobal.fechaSistema().getMonth(), anio = unaControladoraGlobal.fechaSistema().getYear();
-        String datosCanchas = "Canchas del Equipo:", enter = System.getProperty("line.separator");
-        for (Cancha unaCancha : unaControladoraGlobal.getClubBD(unEquipo).getCanchas()) {
-            datosCanchas += (enter + unaCancha.toString() + " - Usos en el mes actual: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, mes, anio)));
-        }
-        jTextPaneObservacionDeuda.setText(datosCanchas);
+        this.jDateChooserFecha.setDate(unaControladoraGlobal.fechaSistema());
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             Date fechaRealizacion = new java.sql.Date((jDateChooserFecha.getDate()).getTime());
             Date fechaVencimiento = new java.sql.Date((jDateChooserFechaVencimiento.getDate()).getTime());
-            unaControladoraGlobal.crearDeudaEquipo(unEquipo, fechaRealizacion, unaControladoraGlobal.getConceptoDeportivoBD("Cancha"), jTextPaneObservacionDeuda.getText(), Double.parseDouble(jTextFieldMontoTotalDeuda.getText()), 1, fechaVencimiento);
+            unaControladoraGlobal.crearDeudaEquipo(unEquipo, fechaRealizacion, (ConceptoDeportivo) jComboBoxConcepto.getSelectedItem(), jTextPaneObservacionDeuda.getText(), Double.parseDouble(jTextFieldMontoTotalDeuda.getText()), 1, fechaVencimiento);
             JOptionPane.showMessageDialog(this, "Deuda Guardada");
             cargarTabla();
             jButtonNuevo.setEnabled(true);
@@ -502,9 +515,23 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jTextFieldMontoTotalDeudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMontoTotalDeudaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMontoTotalDeudaActionPerformed
+    private void jComboBoxConceptoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxConceptoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (unaDeudaSeleccionada == null) {
+                ConceptoDeportivo unConceptoDeportivoSeleccionado = (ConceptoDeportivo) jComboBoxConcepto.getSelectedItem();
+                jTextFieldMontoTotalDeuda.setText(Double.toString(unConceptoDeportivoSeleccionado.getMonto()));
+                if (unConceptoDeportivoSeleccionado.getConcepto().equals("Cancha")) {
+                    //cargar campos de ayuda                                        
+                    int mes = unaControladoraGlobal.fechaSistema().getMonth(), anio = unaControladoraGlobal.fechaSistema().getYear();
+                    String datosCanchas = "Canchas del Equipo:", enter = System.getProperty("line.separator");
+                    for (Cancha unaCancha : unaControladoraGlobal.getClubBD(unEquipo).getCanchas()) {
+                        datosCanchas += (enter + unaCancha.toString() + " - Usos en el mes actual: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, mes, anio)));
+                    }
+                    jTextPaneObservacionDeuda.setText(datosCanchas);
+                }
+            }
+        }
+    }//GEN-LAST:event_jComboBoxConceptoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -513,6 +540,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JComboBox jComboBoxConcepto;
     private com.toedter.calendar.JDateChooser jDateChooserFecha;
     private com.toedter.calendar.JDateChooser jDateChooserFechaVencimiento;
     private javax.swing.JLabel jLabelConcepto;
@@ -526,7 +554,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableDeudas;
-    private javax.swing.JTextField jTextFieldConcepto;
     private javax.swing.JTextField jTextFieldMontoTotalDeuda;
     private javax.swing.JTextPane jTextPaneObservacionDeuda;
     // End of variables declaration//GEN-END:variables

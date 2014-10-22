@@ -70,6 +70,7 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
         jButtonImprimir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
+        setClosable(true);
         setMaximumSize(new java.awt.Dimension(545, 361));
         setMinimumSize(new java.awt.Dimension(545, 361));
         setPreferredSize(new java.awt.Dimension(545, 361));
