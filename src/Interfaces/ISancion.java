@@ -82,7 +82,7 @@ public class ISancion extends javax.swing.JInternalFrame {
             jTextPaneDetalle.setBackground(Color.WHITE);
         }
         this.jTextPaneDetalle.setEnabled(bandera);
-        this.jTextFieldFecha.setEditable(bandera);
+        this.jDateChooserFecha.setEnabled(bandera);
         this.jTextFieldNumResolucion.setEditable(bandera);
         this.jTextFieldMotivo.setEditable(bandera);
         this.jRadioButtonCantFechas.setEnabled(bandera);
@@ -92,7 +92,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     }
     
     private void camposLimpiar() {
-        this.jTextFieldFecha.setText("");
+        this.jDateChooserFecha.setDate(null);
         this.jTextFieldNumResolucion.setText("");
         this.jTextFieldMotivo.setText("");
         this.jTextPaneDetalle.setText("");
@@ -107,7 +107,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         if (jTableSancion.getSelectedRow() > -1) {
             if (jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0) != null) {
                 unaSancionSeleccionada = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
-                this.jTextFieldFecha.setText(df.format(unaSancionSeleccionada.getFecha()));
+                this.jDateChooserFecha.setDate(unaSancionSeleccionada.getFecha());
                 this.jTextFieldNumResolucion.setText(unaSancionSeleccionada.getNumeroResolucion());
                 this.jTextFieldMotivo.setText(unaSancionSeleccionada.getMotivo());
                 this.jTextPaneDetalle.setText(unaSancionSeleccionada.getDetalles());
@@ -177,7 +177,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     
     private boolean camposValidar() {
         boolean bandera = true;
-        if (jTextFieldFecha.getText().isEmpty()) {
+        if (jDateChooserFecha.getDate() == null) {
             jLabelFecha.setForeground(Color.red);
             bandera = false;
         } else {
@@ -227,7 +227,6 @@ public class ISancion extends javax.swing.JInternalFrame {
         jPanelDetalles = new javax.swing.JPanel();
         jLabelFecha = new javax.swing.JLabel();
         jLabelDetalle = new javax.swing.JLabel();
-        jTextFieldFecha = new javax.swing.JTextField();
         jLabel1NumResolucion = new javax.swing.JLabel();
         jTextFieldNumResolucion = new javax.swing.JTextField();
         jLabelMotivo = new javax.swing.JLabel();
@@ -244,6 +243,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         jTextFieldTarjeta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jDateChooserFecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 534));
@@ -401,8 +401,6 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jLabelDetalle.setText("Detalle");
 
-        jTextFieldFecha.setEditable(false);
-
         jLabel1NumResolucion.setText("N° de Resolución");
 
         jTextFieldNumResolucion.setEditable(false);
@@ -478,6 +476,8 @@ public class ISancion extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tarjeta");
 
+        jDateChooserFecha.setEnabled(false);
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
@@ -498,9 +498,9 @@ public class ISancion extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1NumResolucion)
                             .addComponent(jLabelFecha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNumResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldNumResolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,9 +520,9 @@ public class ISancion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelFecha)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1NumResolucion)
@@ -596,7 +596,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             try {
-                Date fecha = new java.sql.Date(df.parse(jTextFieldFecha.getText()).getTime());
+                Date fecha = new java.sql.Date(jDateChooserFecha.getDate().getTime());
                 Date fechaCaducidad = null;
                 int cantidadFechas = 0;
                 if (jRadioButtonHasta.isSelected()) {
@@ -723,6 +723,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1NumResolucion;
     private javax.swing.JLabel jLabel2;
@@ -739,7 +740,6 @@ public class ISancion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableSancion;
-    private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldFechasCumplidas;
     private javax.swing.JTextField jTextFieldMotivo;
     private javax.swing.JTextField jTextFieldNumResolucion;

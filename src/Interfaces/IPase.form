@@ -325,9 +325,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextFieldFechaVencimiento" max="32767" attributes="0"/>
                           <Component id="jComboBoxCuota" alignment="0" pref="168" max="32767" attributes="0"/>
                           <Component id="jTextFieldMonto" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jDateChooserFecha1Vto" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -349,10 +349,12 @@
                           <Component id="jComboBoxCuota" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabelFechaVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jDateChooserFecha1Vto" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -401,14 +403,14 @@
                 <Property name="text" type="java.lang.String" value="Fecha 1&#xb0; Vto"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFechaVencimiento">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="*"/>
+              </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha1Vto">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -430,8 +432,8 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jTextFieldEquipoOrigen" alignment="0" max="32767" attributes="0"/>
                           <Component id="jComboBoxEquipoDestino" alignment="0" pref="168" max="32767" attributes="0"/>
-                          <Component id="jTextFieldFechaRealizacion" alignment="0" max="32767" attributes="0"/>
                           <Component id="jTextFieldCamiseta" max="32767" attributes="0"/>
+                          <Component id="jDateChooserFechaRealizacion" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -441,9 +443,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldFechaRealizacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabelFechaRealizacion" min="-2" max="-2" attributes="0"/>
+                          <Component id="jDateChooserFechaRealizacion" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -469,11 +471,6 @@
             <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fecha de Realizaci&#xf3;n"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFechaRealizacion">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelOrigen">
@@ -507,6 +504,11 @@
             <Component class="javax.swing.JLabel" name="jLabelCamiseta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="N&#xba; Camiseta"/>
+              </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaRealizacion">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

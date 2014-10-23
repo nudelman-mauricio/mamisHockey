@@ -4,7 +4,6 @@ import DataSources.FormularioPaseDS;
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -46,13 +45,13 @@ public class IPase extends javax.swing.JInternalFrame {
     }
 
     public void camposActivo(boolean Editable) {
-        jTextFieldFechaRealizacion.setEditable(Editable);
+        jDateChooserFechaRealizacion.setEnabled(Editable);
         jTextFieldEquipoOrigen.setEditable(Editable);
         jComboBoxEquipoDestino.setEnabled(Editable);
         jTextFieldCamiseta.setEditable(Editable);
         jTextFieldMonto.setEditable(Editable);
         jComboBoxCuota.setEnabled(Editable);
-        jTextFieldFechaVencimiento.setEditable(Editable);
+        jDateChooserFecha1Vto.setEnabled(Editable);
         jTextPaneDetalle.setEditable(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
@@ -64,13 +63,13 @@ public class IPase extends javax.swing.JInternalFrame {
     }
 
     public void camposLimpiar() {
-        jTextFieldFechaRealizacion.setText("");
+        jDateChooserFechaRealizacion.setDate(null);
         jTextFieldEquipoOrigen.setText("");
         jComboBoxEquipoDestino.setSelectedIndex(-1);
         jTextFieldCamiseta.setText("");
         jTextFieldMonto.setText("");
         jComboBoxCuota.setSelectedIndex(-1);
-        jTextFieldFechaVencimiento.setText("");
+        jDateChooserFecha1Vto.setDate(null);
         jTextPaneDetalle.setText("");
         jCheckBoxLibreDeudaClub.setSelected(false);
         jCheckBoxSolicitudPase.setSelected(false);
@@ -81,7 +80,7 @@ public class IPase extends javax.swing.JInternalFrame {
             if (jTablePases.getValueAt(jTablePases.getSelectedRow(), 0) != null) {
                 unPaseSeleccionado = unaControladoraGlobal.getPaseBD((Long) jTablePases.getValueAt(jTablePases.getSelectedRow(), 0));
                 jLabelNumeroPase.setText(Integer.toString((int) jTablePases.getValueAt(jTablePases.getSelectedRow(), 1)));
-                jTextFieldFechaRealizacion.setText(df.format(unPaseSeleccionado.getFecha()));
+                jDateChooserFechaRealizacion.setDate((unPaseSeleccionado.getFecha()));
                 if (jTablePases.getSelectedRow() > 0) {
                     jTextFieldEquipoOrigen.setText(jTablePases.getValueAt(jTablePases.getSelectedRow() - 1, 3).toString());
                 } else {
@@ -90,7 +89,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 jComboBoxEquipoDestino.setSelectedItem(unPaseSeleccionado.getUnEquipo());
                 jTextFieldMonto.setText(Double.toString(unPaseSeleccionado.getUnaDeuda().getMontoTotal()));
                 jComboBoxCuota.setSelectedIndex(unPaseSeleccionado.getUnaDeuda().getCantidadCuotas() - 1);
-                jTextFieldFechaVencimiento.setText(df.format(unPaseSeleccionado.getUnaDeuda().getPrimerVencimiento()));
+                jDateChooserFecha1Vto.setDate((unPaseSeleccionado.getUnaDeuda().getPrimerVencimiento()));
                 jTextPaneDetalle.setText(unPaseSeleccionado.getObservacion());
                 jCheckBoxLibreDeudaClub.setSelected(unPaseSeleccionado.isLibreDeudaClub());
                 jCheckBoxSolicitudPase.setSelected(unPaseSeleccionado.isSolicitudPase());
@@ -119,7 +118,7 @@ public class IPase extends javax.swing.JInternalFrame {
 
     public boolean camposValidar() {
         boolean bandera = true;
-        if (jTextFieldFechaRealizacion.getText().isEmpty()) {
+        if (jDateChooserFechaRealizacion.getDate() == null) {
             jLabelMonto.setForeground(Color.red);
             bandera = false;
         } else {
@@ -143,7 +142,7 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jLabelMonto.setForeground(Color.black);
         }
-        if (jTextFieldFechaVencimiento.getText().isEmpty()) {
+        if (jDateChooserFecha1Vto.getDate()== null) {
             jLabelFechaVencimiento.setForeground(Color.red);
             bandera = false;
         } else {
@@ -195,17 +194,17 @@ public class IPase extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion5 = new javax.swing.JLabel();
         jComboBoxCuota = new javax.swing.JComboBox();
         jLabelFechaVencimiento = new javax.swing.JLabel();
-        jTextFieldFechaVencimiento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jDateChooserFecha1Vto = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jLabelFechaRealizacion = new javax.swing.JLabel();
-        jTextFieldFechaRealizacion = new javax.swing.JTextField();
         jLabelOrigen = new javax.swing.JLabel();
         jTextFieldEquipoOrigen = new javax.swing.JTextField();
         jLabelDestino = new javax.swing.JLabel();
         jComboBoxEquipoDestino = new javax.swing.JComboBox();
         jTextFieldCamiseta = new javax.swing.JTextField();
         jLabelCamiseta = new javax.swing.JLabel();
+        jDateChooserFechaRealizacion = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         jLabelDestino1 = new javax.swing.JLabel();
         jLabelDestino2 = new javax.swing.JLabel();
@@ -369,9 +368,9 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jLabelFechaVencimiento.setText("Fecha 1° Vto");
 
-        jTextFieldFechaVencimiento.setEditable(false);
-
         jLabel2.setText("*");
+
+        jDateChooserFecha1Vto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -385,9 +384,9 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldFechaVencimiento)
                     .addComponent(jComboBoxCuota, 0, 168, Short.MAX_VALUE)
-                    .addComponent(jTextFieldMonto))
+                    .addComponent(jTextFieldMonto)
+                    .addComponent(jDateChooserFecha1Vto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(22, 22, 22))
@@ -404,16 +403,15 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelFechaRealizacion5)
                     .addComponent(jComboBoxCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFechaVencimiento)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelFechaVencimiento)
+                        .addComponent(jLabel2))
+                    .addComponent(jDateChooserFecha1Vto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         jLabelFechaRealizacion.setText("Fecha de Realización");
-
-        jTextFieldFechaRealizacion.setEditable(false);
 
         jLabelOrigen.setText("Equipo Origen");
 
@@ -426,6 +424,8 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldCamiseta.setEditable(false);
 
         jLabelCamiseta.setText("Nº Camiseta");
+
+        jDateChooserFechaRealizacion.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -442,17 +442,17 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldEquipoOrigen)
                     .addComponent(jComboBoxEquipoDestino, 0, 168, Short.MAX_VALUE)
-                    .addComponent(jTextFieldFechaRealizacion)
-                    .addComponent(jTextFieldCamiseta))
+                    .addComponent(jTextFieldCamiseta)
+                    .addComponent(jDateChooserFechaRealizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaRealizacion)
-                    .addComponent(jTextFieldFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooserFechaRealizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelOrigen)
@@ -597,8 +597,8 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jTextFieldMonto.setText(String.valueOf(nPase * (montoPaseCero + (montoPaseCero * 0.25))));
         }
-        jTextFieldFechaRealizacion.setText(df.format(FechaSO.getTime()));
-        jTextFieldFechaVencimiento.setText(df.format(FechaSO.getTime()));
+        jDateChooserFechaRealizacion.setDate(FechaSO.getTime());
+        jDateChooserFecha1Vto.setDate(FechaSO.getTime());
         if (unaSocia.getEquipoActual() != null) {
             jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());
         }
@@ -619,34 +619,29 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            try {
-                Date fechaRealizacion = new java.sql.Date(df.parse(jTextFieldFechaRealizacion.getText()).getTime());
-                Date fechaVencimiento = new java.sql.Date(df.parse(jTextFieldFechaVencimiento.getText()).getTime());
-                if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
-                    Pase unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
-                    unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
-                    JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
-
-                    //Comportamientos Extras
-                    jButtonNuevo.setEnabled(true);
-                    jButtonGuardar.setEnabled(false);
-                    jButtonCancelar.setEnabled(false);
-                    jButtonEliminar.setEnabled(false);
-
-                    camposLimpiar();
-                    camposActivo(false);
-                    jTablePases.setEnabled(true);
-                    cargarTabla();
-
-                    //Formulario de Pase
-                    FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
-                    unFormularioPase.verReporte();
-                } else {
-                    JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
-                }
-
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+            Date fechaRealizacion = new java.sql.Date((jDateChooserFechaRealizacion.getDate()).getTime());
+            Date fechaVencimiento = new java.sql.Date((jDateChooserFecha1Vto.getDate()).getTime());
+            if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
+                Pase unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
+                JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
+                
+                //Comportamientos Extras
+                jButtonNuevo.setEnabled(true);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                
+                camposLimpiar();
+                camposActivo(false);
+                jTablePases.setEnabled(true);
+                cargarTabla();
+                
+                //Formulario de Pase
+                FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
+                unFormularioPase.verReporte();
+            } else {
+                JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
             }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -706,6 +701,8 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxSolicitudPase;
     private javax.swing.JComboBox jComboBoxCuota;
     private javax.swing.JComboBox jComboBoxEquipoDestino;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha1Vto;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaRealizacion;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelCamiseta;
@@ -730,8 +727,6 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTablePases;
     private javax.swing.JTextField jTextFieldCamiseta;
     private javax.swing.JTextField jTextFieldEquipoOrigen;
-    private javax.swing.JTextField jTextFieldFechaRealizacion;
-    private javax.swing.JTextField jTextFieldFechaVencimiento;
     private javax.swing.JTextField jTextFieldMonto;
     private javax.swing.JTextPane jTextPaneDetalle;
     // End of variables declaration//GEN-END:variables

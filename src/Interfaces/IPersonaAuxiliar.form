@@ -205,29 +205,29 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jCheckBoxEsCuerpoTecnico" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jTextFieldFotocopiaDni" min="-2" pref="113" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonExaminarFotocopia" min="-2" pref="41" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jTextFieldTelFijo" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldEmail" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldApellido" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldNombre" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jComboBoxLocalidad" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldDomicilio" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldFechaNacimiento" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldFechaIngreso" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldTelCelular" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextFieldDNI" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jCheckBoxEsArbitro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jCheckBoxPlantaPermanente" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jDateChooserFechaIngreso" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jDateChooserFechaNacimiento" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jTextFieldFotocopiaDni" min="-2" pref="113" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButtonExaminarFotocopia" min="-2" pref="41" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jTextFieldTelFijo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldEmail" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldApellido" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldNombre" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jComboBoxLocalidad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldDomicilio" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldTelCelular" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldDNI" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -268,14 +268,14 @@
                       <Component id="jTextFieldEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextFieldFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelFechaNacimiento" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooserFechaNacimiento" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFechaIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelFechaIngreso" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooserFechaIngreso" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -363,14 +363,10 @@
             <Property name="text" type="java.lang.String" value="Fecha de Nacimiento"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaNacimiento">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaIngreso">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha Ingreso"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaIngreso">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelFijo">
           <Properties>
@@ -421,6 +417,10 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xbf;Planta Permanente?"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaNacimiento">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaIngreso">
         </Component>
       </SubComponents>
     </Container>

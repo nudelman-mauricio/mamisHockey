@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -71,14 +70,14 @@ public class ITorneo extends javax.swing.JInternalFrame {
     }
 
     public void camposLimpiar() {
-        jTextFieldFechaInicio.setText("");
+        jDateChooserFechaInicio.setDate(null);
         jTextFieldNombreTorneo.setText("");
         jComboBoxCategoria.setSelectedIndex(-1);
         jComboBoxPadre.setSelectedIndex(-1);
     }
 
     private void camposCargar(Torneo unTorneo) {
-        jTextFieldFechaInicio.setText(df.format(unTorneo.getFechaInicio()));
+        jDateChooserFechaInicio.setDate(unTorneo.getFechaInicio());
         this.jTextFieldNombreTorneo.setText(unTorneo.getNombre());
         this.jComboBoxCategoria.setSelectedItem(unTorneo.getUnaCategoria());
         Torneo unTorneoPadre = unTorneo.getUnTorneoPadre();
@@ -109,7 +108,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
         } else {
             jLabelPadre.setForeground(Color.black);
         }
-        if (jTextFieldFechaInicio.getText().isEmpty()) {
+        if (jDateChooserFechaInicio.getDate() == null) {
             jLabelFechaInicio.setForeground(Color.red);
             bandera = false;
         } else {
@@ -134,10 +133,10 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jComboBoxCategoria = new javax.swing.JComboBox();
         jLabelCategoria = new javax.swing.JLabel();
         jLabelNombreTorneo = new javax.swing.JLabel();
-        jTextFieldFechaInicio = new javax.swing.JTextField();
         jTextFieldNombreTorneo = new javax.swing.JTextField();
         jComboBoxPadre = new javax.swing.JComboBox();
         jLabelPadre = new javax.swing.JLabel();
+        jDateChooserFechaInicio = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 235));
@@ -227,8 +226,6 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
         jLabelNombreTorneo.setText("Nombre del Torneo");
 
-        jTextFieldFechaInicio.setText("dd/mm/aaaa");
-
         jLabelPadre.setText("Torneo Padre:");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
@@ -245,9 +242,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldNombreTorneo)
-                    .addComponent(jTextFieldFechaInicio)
-                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxPadre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxCategoria, 0, 160, Short.MAX_VALUE)
+                    .addComponent(jComboBoxPadre, 0, 160, Short.MAX_VALUE)
+                    .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -258,9 +255,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNombreTorneo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaInicio)
-                    .addComponent(jTextFieldFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCategoria)
@@ -302,23 +299,19 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            try {
-                Date fechaInicio = new java.sql.Date(df.parse(jTextFieldFechaInicio.getText()).getTime());
-                Torneo unTorneoPadre = null;
-                if (jComboBoxPadre.getSelectedIndex() != 0) {
-                    unTorneoPadre = (Torneo) jComboBoxPadre.getSelectedItem();
-                }
-                if (this.unTorneo == null) {
-                    unaControladoraGlobal.crearTorneo(unTorneoPadre, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
-                    JOptionPane.showMessageDialog(this, "Torneo Guardado");
-                } else {
-                    unaControladoraGlobal.modificarTorneo(unTorneoPadre, unTorneo, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
-                    JOptionPane.showMessageDialog(this, "Torneo Modificado");
-                }
-                this.dispose();
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
+            Date fechaInicio = new java.sql.Date(jDateChooserFechaInicio.getDate().getTime());
+            Torneo unTorneoPadre = null;
+            if (jComboBoxPadre.getSelectedIndex() != 0) {
+                unTorneoPadre = (Torneo) jComboBoxPadre.getSelectedItem();
             }
+            if (this.unTorneo == null) {
+                unaControladoraGlobal.crearTorneo(unTorneoPadre, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
+                JOptionPane.showMessageDialog(this, "Torneo Guardado");
+            } else {
+                unaControladoraGlobal.modificarTorneo(unTorneoPadre, unTorneo, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
+                JOptionPane.showMessageDialog(this, "Torneo Modificado");
+            }
+            this.dispose();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -340,13 +333,13 @@ public class ITorneo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox jComboBoxCategoria;
     private javax.swing.JComboBox jComboBoxPadre;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaInicio;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelFechaInicio;
     private javax.swing.JLabel jLabelNombreTorneo;
     private javax.swing.JLabel jLabelPadre;
     private javax.swing.JPanel jPanelBotones;
     private javax.swing.JPanel jPanelDetalles;
-    private javax.swing.JTextField jTextFieldFechaInicio;
     private javax.swing.JTextField jTextFieldNombreTorneo;
     // End of variables declaration//GEN-END:variables
 

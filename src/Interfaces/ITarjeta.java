@@ -13,11 +13,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
-import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
 public class ITarjeta extends javax.swing.JInternalFrame {
@@ -93,7 +91,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                 if (unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada) != null) {
                     partido = unaControladoraGlobal.getPartidoTarjeta(unaTarjetaSeleccionada).toString();
                 }
-                jTextFieldFecha.setText(df.format(unaTarjetaSeleccionada.getFecha()));
+                jDateChooserFecha.setDate(unaTarjetaSeleccionada.getFecha());
                 jTextFieldTipoTarjeta.setText(unaTarjetaSeleccionada.getTipo());
                 jTextFieldTorneo.setText(unaTarjetaSeleccionada.getUnTorneo().getNombre());
                 jTextFieldPartido.setText(partido);
@@ -120,7 +118,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     }
 
     public void camposLimpiar() {
-        jTextFieldFecha.setText("");
+        jDateChooserFecha.setDate(null);
         jTextFieldTipoTarjeta.setText("");
         jTextFieldTorneo.setText("");
         jTextFieldPartido.setText("");
@@ -161,7 +159,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jLabelTorneo = new javax.swing.JLabel();
         jLabelTipoTarjeta = new javax.swing.JLabel();
         jTextFieldTipoTarjeta = new javax.swing.JTextField();
-        jTextFieldFecha = new javax.swing.JTextField();
         jLabelFecha = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPaneMotivo = new javax.swing.JTextPane();
@@ -176,6 +173,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         jLabelPartido1 = new javax.swing.JLabel();
         jTextFieldMinuto = new javax.swing.JTextField();
         jLabelPartido2 = new javax.swing.JLabel();
+        jDateChooserFecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(726, 652));
@@ -377,8 +375,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jTextFieldTipoTarjeta.setEditable(false);
 
-        jTextFieldFecha.setEditable(false);
-
         jLabelFecha.setText("Fecha");
 
         jTextPaneMotivo.setEditable(false);
@@ -444,6 +440,8 @@ public class ITarjeta extends javax.swing.JInternalFrame {
 
         jLabelPartido2.setText("Minuto");
 
+        jDateChooserFecha.setEnabled(false);
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
@@ -462,15 +460,15 @@ public class ITarjeta extends javax.swing.JInternalFrame {
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextFieldTipoTarjeta)
-                            .addComponent(jTextFieldFecha)
                             .addComponent(jTextFieldTorneo)
-                            .addComponent(jTextFieldPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldPartido)
                             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                                 .addComponent(jTextFieldTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabelPartido2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,10 +483,10 @@ public class ITarjeta extends javax.swing.JInternalFrame {
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelFecha)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelTipoTarjeta)
@@ -616,6 +614,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxRojas;
     private javax.swing.JCheckBox jCheckBoxVerdes;
     private javax.swing.JComboBox jComboBoxTorneos;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -637,7 +636,6 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableTarjeta;
-    private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldFechasCumplidas;
     private javax.swing.JTextField jTextFieldMinuto;
     private javax.swing.JTextField jTextFieldPartido;

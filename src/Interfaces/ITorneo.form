@@ -157,9 +157,9 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jTextFieldNombreTorneo" max="32767" attributes="0"/>
-                      <Component id="jTextFieldFechaInicio" max="32767" attributes="0"/>
-                      <Component id="jComboBoxCategoria" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="jComboBoxPadre" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="jComboBoxCategoria" alignment="0" pref="160" max="32767" attributes="0"/>
+                      <Component id="jComboBoxPadre" alignment="0" pref="160" max="32767" attributes="0"/>
+                      <Component id="jDateChooserFechaInicio" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -174,9 +174,9 @@
                       <Component id="jLabelNombreTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldFechaInicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabelFechaInicio" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooserFechaInicio" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -216,11 +216,6 @@
             <Property name="text" type="java.lang.String" value="Nombre del Torneo"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFechaInicio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="dd/mm/aaaa"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombreTorneo">
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxPadre">
@@ -229,6 +224,8 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Torneo Padre:"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaInicio">
         </Component>
       </SubComponents>
     </Container>

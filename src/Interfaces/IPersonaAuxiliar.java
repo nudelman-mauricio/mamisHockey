@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -73,8 +72,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jTextFieldNombre.setText("");
         jTextFieldDomicilio.setText("");
         jTextFieldEmail.setText("");
-        jTextFieldFechaNacimiento.setText("");
-        jTextFieldFechaIngreso.setText("");
+        jDateChooserFechaNacimiento.setDate(null);
+        jDateChooserFechaIngreso.setDate(null);
         jTextFieldTelFijo.setText("");
         jTextFieldTelCelular.setText("");
         jTextFieldFotocopiaDni.setText("");
@@ -91,8 +90,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jComboBoxLocalidad.setSelectedItem(unaPersonaAuxiliar.getUnaLocalidad());
         jTextFieldDomicilio.setText(unaPersonaAuxiliar.getDomicilio());
         jTextFieldEmail.setText(unaPersonaAuxiliar.getEmail());
-        jTextFieldFechaNacimiento.setText(df.format(unaPersonaAuxiliar.getFechaNacimiento()));
-        jTextFieldFechaIngreso.setText(df.format(unaPersonaAuxiliar.getFechaIngreso()));
+        jDateChooserFechaNacimiento.setDate(unaPersonaAuxiliar.getFechaNacimiento());
+        jDateChooserFechaIngreso.setDate(unaPersonaAuxiliar.getFechaIngreso());
         jTextFieldTelFijo.setText(unaPersonaAuxiliar.getTelFijo());
         jTextFieldTelCelular.setText(unaPersonaAuxiliar.getTelCelular());
         jCheckBoxEsArbitro.setSelected(unaPersonaAuxiliar.isArbitro());
@@ -133,13 +132,13 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         } else {
             jLabelDomicilio.setForeground(Color.black);
         }
-        if (jTextFieldFechaNacimiento.getText().isEmpty()) {
+        if (jDateChooserFechaNacimiento.getDate() == null) {
             jLabelFechaNacimiento.setForeground(Color.red);
             bandera = false;
         } else {
             jLabelFechaNacimiento.setForeground(Color.black);
         }
-        if (jTextFieldFechaIngreso.getText().isEmpty()) {
+        if (jDateChooserFechaIngreso.getDate() == null) {
             jLabelFechaIngreso.setForeground(Color.red);
             bandera = false;
         } else {
@@ -180,9 +179,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jLabelEmail = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabelFechaNacimiento = new javax.swing.JLabel();
-        jTextFieldFechaNacimiento = new javax.swing.JTextField();
         jLabelFechaIngreso = new javax.swing.JLabel();
-        jTextFieldFechaIngreso = new javax.swing.JTextField();
         jLabelTelFijo = new javax.swing.JLabel();
         jTextFieldTelFijo = new javax.swing.JTextField();
         jLabelTelCelular = new javax.swing.JLabel();
@@ -196,6 +193,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jCheckBoxEsCuerpoTecnico = new javax.swing.JCheckBox();
         jCheckBoxPlantaPermanente = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
+        jDateChooserFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        jDateChooserFechaIngreso = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(650, 479));
@@ -362,27 +361,27 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBoxEsCuerpoTecnico)
-                    .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                            .addComponent(jTextFieldFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonExaminarFotocopia, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addComponent(jCheckBoxEsArbitro)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxPlantaPermanente)))
+                        .addComponent(jCheckBoxPlantaPermanente))
+                    .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jDateChooserFechaIngreso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDateChooserFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                            .addComponent(jTextFieldFotocopiaDni, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonExaminarFotocopia, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldTelCelular, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldDNI, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -413,13 +412,13 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                     .addComponent(jLabelEmail)
                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFechaNacimiento))
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFechaNacimiento)
+                    .addComponent(jDateChooserFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelFechaIngreso)
-                    .addComponent(jTextFieldFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooserFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTelFijo)
@@ -477,8 +476,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
             try {
-                Date fechaNacimiento = new java.sql.Date(df.parse(jTextFieldFechaNacimiento.getText()).getTime());
-                Date fechaIngreso = new java.sql.Date(df.parse(jTextFieldFechaIngreso.getText()).getTime());
+                Date fechaNacimiento = new java.sql.Date(jDateChooserFechaNacimiento.getDate().getTime());
+                Date fechaIngreso = new java.sql.Date(jDateChooserFechaIngreso.getDate().getTime());
                 if (unaPersonaAuxiliar == null) {
                     unaControladoraGlobal.crearPersonaAuxiliar(
                             Long.parseLong(jTextFieldDNI.getText()),
@@ -517,8 +516,6 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Persona Auxiliar Modificada");
                 }
                 this.dispose();
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor ingrese el DNI sin '.'");
             }
@@ -556,6 +553,8 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxEsCuerpoTecnico;
     private javax.swing.JCheckBox jCheckBoxPlantaPermanente;
     private javax.swing.JComboBox jComboBoxLocalidad;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaIngreso;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelArbitro;
@@ -576,8 +575,6 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldDomicilio;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldFechaIngreso;
-    private javax.swing.JTextField jTextFieldFechaNacimiento;
     private javax.swing.JTextField jTextFieldFotocopiaDni;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTelCelular;
