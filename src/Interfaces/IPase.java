@@ -27,6 +27,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTablePases;
     private DateFormat df = DateFormat.getDateInstance();
     private Calendar FechaSO = Calendar.getInstance();
+    private boolean editarPaseAbierto = false;
 
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
@@ -55,6 +56,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setEditable(Editable);
         jCheckBoxLibreDeudaClub.setEnabled(Editable);
         jCheckBoxSolicitudPase.setEnabled(Editable);
+        jCheckBoxPaseAbierto.setEnabled(Editable);
         if (Editable) {
             jTextPaneDetalle.setBackground(Color.WHITE);
         } else {
@@ -124,17 +126,26 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jLabelMonto.setForeground(Color.black);
         }
-        if (jComboBoxEquipoDestino.getSelectedIndex() == -1) {
-            jLabelDestino.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelDestino.setForeground(Color.black);
-        }
-        if (jTextFieldCamiseta.getText().isEmpty()) {
-            jLabelCamiseta.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelCamiseta.setForeground(Color.black);
+        if (!jCheckBoxPaseAbierto.isSelected()) {
+            if (jComboBoxEquipoDestino.getSelectedIndex() == -1) {
+                jLabelDestino.setForeground(Color.red);
+                bandera = false;
+            } else {
+                jLabelDestino.setForeground(Color.black);
+            }
+            if (jTextFieldCamiseta.getText().isEmpty()) {
+                jLabelCamiseta.setForeground(Color.red);
+                bandera = false;
+            } else {
+                jLabelCamiseta.setForeground(Color.black);
+            }
+            if (jTextFieldEquipoOrigen.getText().equals(jComboBoxEquipoDestino.getSelectedItem().toString())) {
+                JOptionPane.showMessageDialog(this, "No se puede generar un pase entre equipos iguales");
+                jLabelDestino.setForeground(Color.red);
+                bandera = false;
+            } else {
+                jLabelDestino.setForeground(Color.black);
+            }
         }
         if (jTextFieldMonto.getText().isEmpty()) {
             jLabelMonto.setForeground(Color.red);
@@ -142,7 +153,7 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jLabelMonto.setForeground(Color.black);
         }
-        if (jDateChooserFecha1Vto.getDate()== null) {
+        if (jDateChooserFecha1Vto.getDate() == null) {
             jLabelFechaVencimiento.setForeground(Color.red);
             bandera = false;
         } else {
@@ -162,13 +173,6 @@ public class IPase extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
             return bandera;
         }
-        if (jTextFieldEquipoOrigen.getText().equals(jComboBoxEquipoDestino.getSelectedItem().toString())) {
-            JOptionPane.showMessageDialog(this, "No se puede generar un pase entre equipos iguales");
-            jLabelDestino.setForeground(Color.red);
-            bandera = false;
-        } else {
-            jLabelDestino.setForeground(Color.black);
-        }
         return bandera;
     }
 
@@ -181,6 +185,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
         jPanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePases = new javax.swing.JTable();
@@ -205,6 +210,8 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextFieldCamiseta = new javax.swing.JTextField();
         jLabelCamiseta = new javax.swing.JLabel();
         jDateChooserFechaRealizacion = new com.toedter.calendar.JDateChooser();
+        jLabelDestino3 = new javax.swing.JLabel();
+        jCheckBoxPaseAbierto = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jLabelDestino1 = new javax.swing.JLabel();
         jLabelDestino2 = new javax.swing.JLabel();
@@ -280,6 +287,17 @@ public class IPase extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Edit2.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
+        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
         jPanelBotonesLayout.setHorizontalGroup(
@@ -288,23 +306,30 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonNuevo)
-                    .addComponent(jButtonEliminar)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonGuardar))
-                .addGap(3, 3, 3))
+                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
+                        .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3))
+                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
+                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonNuevo)
+                            .addComponent(jButtonEliminar)
+                            .addComponent(jButtonCancelar)
+                            .addComponent(jButtonGuardar))
+                        .addGap(3, 3, 3))))
         );
 
         jTablePases.setModel(new javax.swing.table.DefaultTableModel(
@@ -394,7 +419,7 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMonto))
@@ -427,6 +452,14 @@ public class IPase extends javax.swing.JInternalFrame {
 
         jDateChooserFechaRealizacion.setEnabled(false);
 
+        jCheckBoxPaseAbierto.setText("Pase Abierto");
+        jCheckBoxPaseAbierto.setEnabled(false);
+        jCheckBoxPaseAbierto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxPaseAbiertoItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -437,13 +470,18 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelOrigen)
                     .addComponent(jLabelFechaRealizacion)
                     .addComponent(jLabelDestino)
-                    .addComponent(jLabelCamiseta))
+                    .addComponent(jLabelCamiseta)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabelDestino3)
+                        .addGap(81, 81, 81)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldEquipoOrigen)
-                    .addComponent(jComboBoxEquipoDestino, 0, 168, Short.MAX_VALUE)
-                    .addComponent(jTextFieldCamiseta)
-                    .addComponent(jDateChooserFechaRealizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextFieldEquipoOrigen)
+                        .addComponent(jComboBoxEquipoDestino, 0, 168, Short.MAX_VALUE)
+                        .addComponent(jTextFieldCamiseta)
+                        .addComponent(jDateChooserFechaRealizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jCheckBoxPaseAbierto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -457,11 +495,15 @@ public class IPase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelOrigen)
                     .addComponent(jTextFieldEquipoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDestino3)
+                    .addComponent(jCheckBoxPaseAbierto))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxEquipoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDestino))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCamiseta)
                     .addComponent(jTextFieldCamiseta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -541,15 +583,17 @@ public class IPase extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelNumeroPase)
                             .addComponent(jLabelPaseNumero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3))
@@ -619,31 +663,51 @@ public class IPase extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            Date fechaRealizacion = new java.sql.Date((jDateChooserFechaRealizacion.getDate()).getTime());
-            Date fechaVencimiento = new java.sql.Date((jDateChooserFecha1Vto.getDate()).getTime());
-            if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
-                Pase unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
-                unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
-                JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
-                
-                //Comportamientos Extras
-                jButtonNuevo.setEnabled(true);
-                jButtonGuardar.setEnabled(false);
-                jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                
-                camposLimpiar();
-                camposActivo(false);
-                jTablePases.setEnabled(true);
-                cargarTabla();
-                
-                //Formulario de Pase
-                FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
-                unFormularioPase.verReporte();
-            } else {
-                JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
+            Pase unPase = null;
+            if (!editarPaseAbierto) {//Pase nuevo
+                Date fechaRealizacion = new java.sql.Date((jDateChooserFechaRealizacion.getDate()).getTime());
+                Date fechaVencimiento = new java.sql.Date((jDateChooserFecha1Vto.getDate()).getTime());
+                if (jCheckBoxPaseAbierto.isSelected()) {//Pase Abierto
+                    unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, null, jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                    unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, "");
+                    JOptionPane.showMessageDialog(this, "Pase Abierto Guardado y Deuda Generada");
+                } else {//Pase con equipo destino                    
+                    if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
+                        unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                        unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
+                        JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
+                    }
+                }
+            } else {//Modificar pase abierto para asignar el nuevo equipo
+                if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
+                    unaControladoraGlobal.modificarPase(unPaseSeleccionado, unaSocia, (Equipo) jComboBoxEquipoDestino.getSelectedItem());
+                    unPase = unPaseSeleccionado;
+                    JOptionPane.showMessageDialog(this, "Se asignó correctamente el nuevo equipo de destino");
+                } else {
+                    JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
+                }
             }
+
+            //Comportamientos Extras
+            jButtonNuevo.setEnabled(true);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            camposLimpiar();
+            camposActivo(false);
+            jTablePases.setEnabled(true);
+            cargarTabla();
+
+            //Formulario de Pase
+            FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
+            unFormularioPase.verReporte();
+
         }
+
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -682,6 +746,30 @@ public class IPase extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void jCheckBoxPaseAbiertoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxPaseAbiertoItemStateChanged
+        jComboBoxEquipoDestino.setEnabled(!jCheckBoxPaseAbierto.isSelected());
+        jComboBoxEquipoDestino.setSelectedIndex(-1);
+        jTextFieldCamiseta.setEditable(!jCheckBoxPaseAbierto.isSelected());
+    }//GEN-LAST:event_jCheckBoxPaseAbiertoItemStateChanged
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        if (unPaseSeleccionado.getUnEquipo() == null) {
+            jButtonNuevo.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            jButtonEliminar.setEnabled(false);
+
+            jTextFieldCamiseta.setEditable(true);
+            jComboBoxEquipoDestino.setEnabled(true);
+
+            this.editarPaseAbierto = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Solo se pueden editar los pases abiertos");
+        }
+
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
     public int cantidadExJugadoras(Equipo unEquipoDestino) {
         int contador = 0;
         for (Socia unaSocia : unEquipoDestino.getPlantel()) {
@@ -694,10 +782,12 @@ public class IPase extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JCheckBox jCheckBoxLibreDeudaClub;
+    private javax.swing.JCheckBox jCheckBoxPaseAbierto;
     private javax.swing.JCheckBox jCheckBoxSolicitudPase;
     private javax.swing.JComboBox jComboBoxCuota;
     private javax.swing.JComboBox jComboBoxEquipoDestino;
@@ -709,6 +799,7 @@ public class IPase extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelDestino1;
     private javax.swing.JLabel jLabelDestino2;
+    private javax.swing.JLabel jLabelDestino3;
     private javax.swing.JLabel jLabelFechaRealizacion;
     private javax.swing.JLabel jLabelFechaRealizacion5;
     private javax.swing.JLabel jLabelFechaVencimiento;

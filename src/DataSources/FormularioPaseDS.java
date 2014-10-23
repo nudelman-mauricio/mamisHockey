@@ -1,6 +1,5 @@
 package DataSources;
 
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,8 +34,8 @@ public class FormularioPaseDS implements JRDataSource {
         this.unPase = unPase;
     }
 
-    public void verReporte() {           
-        
+    public void verReporte() {
+
         File archivo = new File("formularios/formularioPase.jasper");
         JasperReport reporte;
 
@@ -72,58 +71,66 @@ public class FormularioPaseDS implements JRDataSource {
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
         //General
-        if (null != jrf.getName()) switch (jrf.getName()) {
-            case "ruta":
-                valor = unaControladoraGlobal.rutaSistema();
-                break;
-            case "fecha":
-                valor = dateFormat.format(this.unPase.getFecha());
-                break;
-            case "socia":
-                valor = this.unaSocia;
-                break;
-            case "equipoOrigen":
-                valor = "falta";
-                break;
-            case "equipoDestino":
-                valor = this.unPase.getUnEquipo().getNombre();
-                break;
-            case "observacion":
-                valor = this.unPase.getObservacion();
-                break;
-            case "monto":
-                valor = this.unPase.getUnaDeuda().getMontoTotal();
-                break;
-            case "cuotas":
-                valor = this.unPase.getUnaDeuda().getCuotas().size();
-                break;
-            case "libreDeuda":
-                if (this.unPase.isLibreDeudaClub()) {
-                    valor = "Si";
-                } else {
-                    valor = "No";
-                }   break;
-            case "solicitudPase":
-                if (this.unPase.isSolicitudPase()) {
-                    valor = "Si";
-                } else {
-                    valor = "No";
-                }   break;
-            case "idPase":
-                valor = this.unPase.getIdPase();
-                break;
-            case "nPase":
-                int cont = 0;
-                for (Pase unPase : unaSocia.getPases()){
-                    if (!unPase.isBorradoLogico()){
-                        cont++;
+        if (null != jrf.getName()) {
+            switch (jrf.getName()) {
+                case "ruta":
+                    valor = unaControladoraGlobal.rutaSistema();
+                    break;
+                case "fecha":
+                    valor = dateFormat.format(this.unPase.getFecha());
+                    break;
+                case "socia":
+                    valor = this.unaSocia;
+                    break;
+                case "equipoOrigen":
+                    valor = "falta";
+                    break;
+                case "equipoDestino":
+                    if (this.unPase.getUnEquipo() == null) {
+                        valor = "Pase Abierto";
+                    } else {
+                        valor = this.unPase.getUnEquipo().getNombre();
                     }
-                }
-                valor = cont;
-                break;
-            case "Contabilidad":
-                valor = this.subReporteContabilidad();
-                break;
+                    break;
+                case "observacion":
+                    valor = this.unPase.getObservacion();
+                    break;
+                case "monto":
+                    valor = this.unPase.getUnaDeuda().getMontoTotal();
+                    break;
+                case "cuotas":
+                    valor = this.unPase.getUnaDeuda().getCuotas().size();
+                    break;
+                case "libreDeuda":
+                    if (this.unPase.isLibreDeudaClub()) {
+                        valor = "Si";
+                    } else {
+                        valor = "No";
+                    }
+                    break;
+                case "solicitudPase":
+                    if (this.unPase.isSolicitudPase()) {
+                        valor = "Si";
+                    } else {
+                        valor = "No";
+                    }
+                    break;
+                case "idPase":
+                    valor = this.unPase.getIdPase();
+                    break;
+                case "nPase":
+                    int cont = 0;
+                    for (Pase unPase : unaSocia.getPases()) {
+                        if (!unPase.isBorradoLogico()) {
+                            cont++;
+                        }
+                    }
+                    valor = cont;
+                    break;
+                case "Contabilidad":
+                    valor = this.subReporteContabilidad();
+                    break;
+            }
         }
         if ((valor == null) || ("".equals(valor))) {
             valor = "Falta";

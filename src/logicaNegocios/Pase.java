@@ -135,7 +135,12 @@ public class Pase implements Serializable, Comparable {
         }
         return retorno;
     }
-
+    
+    public void modificarEquipoDestino (EntityManager entityManager, Equipo unEquipo){
+        this.setUnEquipo(unEquipo);
+        this.persistir(entityManager);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

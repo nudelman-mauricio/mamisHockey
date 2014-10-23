@@ -157,6 +157,10 @@ public class ControladoraGlobal {
         return this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
 
+    public void modificarPase(Pase unPase, Socia unaSocia, Equipo unEquipoNuevo) {
+        unaControladoraEntidades.modificarPase(unPase, unaSocia, unEquipoNuevo);
+    }
+    
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
         if (ultimoPase.getUnaDeuda() != null) {//Se debe comprobar porque el pase CERO no posee deuda
             this.unaControladoraContabilidad.eliminarDeuda(ultimoPase.getUnaDeuda());
