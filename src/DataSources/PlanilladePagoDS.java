@@ -30,16 +30,17 @@ public class PlanilladePagoDS implements JRDataSource {
 
     private ControladoraGlobal unaControladoraGlobal;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-    private String titulo, idPlanilla, nombrePago, costoCancha, subTotal, total, idRecibo;
+    private String titulo, idPlanilla, nombrePago, costoCancha,costoSeguro, subTotal, total, idRecibo;
     private List<Socia> sociasPagaron;
     private List<Cuota> cuotasPagaron;
 
-    public PlanilladePagoDS(ControladoraGlobal unaControladoraGlobal, String titulo, String idPlanilla, String nombrePago, String costoCancha, String subTotal, String total, String idRecibo, List<Socia> sociasPagaron, List<Cuota> cuotasPagaron) {
+    public PlanilladePagoDS(ControladoraGlobal unaControladoraGlobal, String titulo, String idPlanilla, String nombrePago, String costoCancha,String costoSeguro,String subTotal, String total, String idRecibo, List<Socia> sociasPagaron, List<Cuota> cuotasPagaron) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.titulo = titulo;
         this.idPlanilla = idPlanilla;
         this.nombrePago = nombrePago;
         this.costoCancha = costoCancha;
+        this.costoSeguro = costoSeguro;
         this.subTotal = subTotal;
         this.total = total;
         this.idRecibo = idRecibo;
@@ -85,26 +86,40 @@ public class PlanilladePagoDS implements JRDataSource {
         Object valor = null;
         //General
 
-        if ("ruta".equals(jrf.getName())) {
-            valor = unaControladoraGlobal.rutaSistema();
-        } else if ("fecha".equals(jrf.getName())) {
-            valor = dateFormat.format(unaControladoraGlobal.fechaSistema());
-        } else if ("idPlanilla".equals(jrf.getName())) {
-            valor = this.idPlanilla;
-        } else if ("titulo".equals(jrf.getName())) {
-            valor = this.titulo;
-        } else if ("nombrePago".equals(jrf.getName())) {
-            valor = this.nombrePago;
-        } else if ("costoCancha".equals(jrf.getName())) {
-            valor = this.costoCancha;
-        } else if ("subTotal".equals(jrf.getName())) {
-            valor = this.subTotal;
-        } else if ("total".equals(jrf.getName())) {
-            valor = this.total;
-        }  else if ("idRecibo".equals(jrf.getName())) {
-            valor = this.idRecibo;
-        } else if ("subReporte".equals(jrf.getName())) {
-            valor = this.subReporte();
+        if (null != jrf.getName()) switch (jrf.getName()) {
+            case "ruta":
+                valor = unaControladoraGlobal.rutaSistema();
+                break;
+            case "fecha":
+                valor = dateFormat.format(unaControladoraGlobal.fechaSistema());
+                break;
+            case "idPlanilla":
+                valor = this.idPlanilla;
+                break;
+            case "titulo":
+                valor = this.titulo;
+                break;
+            case "nombrePago":
+                valor = this.nombrePago;
+                break;
+            case "costoCancha":
+                valor = this.costoCancha;
+                break;
+            case "costoSeguro":
+                valor = this.costoCancha;
+                break;
+            case "subTotal":
+                valor = this.subTotal;
+                break;
+            case "total":
+                valor = this.total;
+                break;
+            case "idRecibo":
+                valor = this.idRecibo;
+                break;
+            case "subReporte":
+                valor = this.subReporte();
+                break;
         }
         if ((valor == null) || ("".equals(valor))) {
             valor = "Falta";

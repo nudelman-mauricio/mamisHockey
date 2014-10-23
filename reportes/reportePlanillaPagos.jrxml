@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePlanillaPagos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
 	<property name="ireport.zoom" value="2.253944402704733"/>
-	<property name="ireport.x" value="52"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -55,6 +55,7 @@
 	<field name="total" class="java.lang.String"/>
 	<field name="subReporte" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="idRecibo" class="java.lang.String"/>
+	<field name="costoSeguro" class="java.lang.String"/>
 	<group name="Group1">
 		<groupFooter>
 			<band/>
@@ -150,12 +151,12 @@
 		</band>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="51">
+		<band height="69">
 			<rectangle radius="10">
-				<reportElement mode="Transparent" x="393" y="0" width="162" height="51" uuid="1bebbf31-dfce-483c-b7e1-965964e457ce"/>
+				<reportElement mode="Transparent" x="392" y="0" width="162" height="69" uuid="1bebbf31-dfce-483c-b7e1-965964e457ce"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement mode="Transparent" x="0" y="0" width="390" height="51" uuid="5039fc0b-dd89-4147-ab6c-0d4643c725c5"/>
+				<reportElement mode="Transparent" x="0" y="0" width="390" height="69" uuid="5039fc0b-dd89-4147-ab6c-0d4643c725c5"/>
 			</rectangle>
 			<textField>
 				<reportElement x="7" y="20" width="253" height="13" uuid="b11026aa-cb36-40a3-bfed-ed8503175db1"/>
@@ -163,7 +164,7 @@
 				<textFieldExpression><![CDATA["Pago efectuado por: " + $F{nombrePago}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="496" y="36" width="50" height="13" uuid="b9e2dc82-63d9-4201-8c46-c2dd04bb6070"/>
+				<reportElement x="496" y="52" width="50" height="13" uuid="b9e2dc82-63d9-4201-8c46-c2dd04bb6070"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
@@ -198,12 +199,12 @@
 				<text><![CDATA[Costo Cancha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="483" y="36" width="13" height="13" uuid="e748b85c-0aad-4a43-a734-4a1febc208aa"/>
+				<reportElement x="483" y="52" width="13" height="13" uuid="e748b85c-0aad-4a43-a734-4a1febc208aa"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="36" width="86" height="13" uuid="86fe85a3-c2c2-4cad-87db-fd394d901bc7"/>
+				<reportElement x="397" y="52" width="86" height="13" uuid="86fe85a3-c2c2-4cad-87db-fd394d901bc7"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
@@ -216,6 +217,21 @@
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA["N° de Planilla: " + $F{idPlanilla}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="397" y="36" width="86" height="13" uuid="b1e52d29-9a47-4431-9c0e-077908e20fa2"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Costo Seguros:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="496" y="36" width="50" height="13" uuid="5d38b49b-8459-46f8-b332-3a9711a78c42"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{costoSeguro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="483" y="36" width="13" height="13" uuid="5fd114a4-c038-4074-b3df-6d8d09bf3e4f"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
 		</band>
 	</lastPageFooter>
 </jasperReport>
