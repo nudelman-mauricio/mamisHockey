@@ -135,6 +135,10 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     public void cargarCampos() {
         // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
         jLabelTitulo.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
+        System.out.println(unPartido.getNombreVeedor() != null);
+        System.out.println(unPartido.getGoles().isEmpty());
+        System.out.println(unPartido.getGoles().size());
+        -----------------------------------------------
         if ((unPartido.getNombreVeedor() != null) || (unPartido.getGoles() != null)) { //El partido se jugo
             jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
         } else {
@@ -188,8 +192,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Local">
-        if(jTextFieldAyudanteDeMesaLocal.getText().equals("")){
-        jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());}
+        if (jTextFieldAyudanteDeMesaLocal.getText().equals("")) {
+            jTextFieldAyudanteDeMesaLocal.setText(unPartido.getNombreAyudanteMesaLocal());
+        }
         // </editor-fold>
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Datos Visitante">
@@ -227,8 +232,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Ayudante de Mesa - Visitante">
-        if(jTextFieldAyudanteDeMesaVisitante.getText().equals("")){
-        jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());}
+        if (jTextFieldAyudanteDeMesaVisitante.getText().equals("")) {
+            jTextFieldAyudanteDeMesaVisitante.setText(unPartido.getNombreAyudanteMesaVisitante());
+        }
         // </editor-fold>
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Datos Planteles">
