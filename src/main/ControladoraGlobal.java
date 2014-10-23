@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -35,8 +34,8 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, plantaPermanente);
     }
 
-    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente, boolean borradoLogico) {
-        this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, fotocopiaDni, arbitro, cuerpoTecnico, plantaPermanente, borradoLogico);
+    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente, boolean borradoLogico) {
+        this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, arbitro, cuerpoTecnico, plantaPermanente, borradoLogico);
     }
 
     public void agregarActaCompromiso(PersonaAuxiliar unaPersonaAuxiliar, Date unaFecha) {
@@ -101,8 +100,8 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Socias">
-    public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
-        Socia unSocia = this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
+    public void crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean exJugadora, String email, String telFijo, String telCelular) {
+        Socia unSocia = this.unaControladoraEntidades.crearSocia(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, exJugadora, email, telFijo, telCelular);
         TipoEstado unTipoEstadoSocia = this.getTipoEstadoBD("Socia");
         if (unTipoEstadoSocia == null) {
             unTipoEstadoSocia = this.crearTipoEstado("Socia");
@@ -435,8 +434,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.crearClub(nombre, nombrePresidente, unaLocalidad);
     }
 
-    public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarClub(unClub, nombre, logo, nombrePresidente, unaLocalidad, borradoLogico);
+    public void modificarClub(Club unClub, String nombre, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarClub(unClub, nombre, nombrePresidente, unaLocalidad, borradoLogico);
     }
 
     public void eliminarClub(Club unClub) {

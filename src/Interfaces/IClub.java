@@ -320,7 +320,7 @@ public class IClub extends javax.swing.JInternalFrame {
                 unaControladoraGlobal.crearClub(jTextFieldNombre.getText(), jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem());
                 JOptionPane.showMessageDialog(this, "Club Guardado");
             } else {
-                unaControladoraGlobal.modificarClub(unClub, jTextFieldNombre.getText(), "LOGO", jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), unClub.isBorradoLogico());
+                unaControladoraGlobal.modificarClub(unClub, jTextFieldNombre.getText(), jTextFieldPresidente.getText(), (Localidad) jComboBoxLocalidad.getSelectedItem(), unClub.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Club Modificado");
             }
             this.dispose();

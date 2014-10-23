@@ -16,7 +16,7 @@ import logicaNegocios.PersonaAuxiliar;
 import main.ControladoraGlobal;
 
 public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
-    
+
     private JInternalFrame unJInternalFrame;
     private ControladoraGlobal unaControladoraGlobal;
     private PersonaAuxiliar unaPersonaAuxiliar = null;
@@ -31,7 +31,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana
 
         this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
-        
+
         camposLimpiar();
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
@@ -45,7 +45,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         this.setTitle("Arbitro: " + unaPersonaAuxiliar.getApellido() + " " + unaPersonaAuxiliar.getNombre());
         camposCargar(unaPersonaAuxiliar);
         camposActivo(jPanelDetalles, false);
-        
+
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(true);
@@ -65,7 +65,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     public void camposLimpiar() {
         jTextFieldDNI.setText("");
         jTextFieldApellido.setText("");
@@ -82,7 +82,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jCheckBoxEsCuerpoTecnico.setSelected(false);
         jComboBoxLocalidad.setSelectedIndex(-1);
     }
-    
+
     private void camposCargar(PersonaAuxiliar unaPersonaAuxiliar) {
         jTextFieldDNI.setText(unaPersonaAuxiliar.getDni().toString());
         jTextFieldApellido.setText(unaPersonaAuxiliar.getApellido());
@@ -98,7 +98,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jCheckBoxPlantaPermanente.setSelected(unaPersonaAuxiliar.isPlantaPermanente());
         jCheckBoxEsCuerpoTecnico.setSelected(unaPersonaAuxiliar.isCuerpoTecnico());
     }
-    
+
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldDNI.getText().isEmpty()) {
@@ -113,7 +113,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         } else {
             jLabelApellido.setForeground(Color.black);
         }
-        
+
         if (jTextFieldNombre.getText().isEmpty()) {
             jLabelNombre.setForeground(Color.red);
             bandera = false;
@@ -154,7 +154,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -507,7 +507,6 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
                             jTextFieldTelCelular.getText(),
                             jTextFieldEmail.getText(),
                             fechaIngreso,
-                            "Fotocopia Dni",
                             jCheckBoxEsArbitro.isSelected(),
                             jCheckBoxEsCuerpoTecnico.isSelected(),
                             jCheckBoxPlantaPermanente.isSelected(),
@@ -531,7 +530,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonImprimir.setEnabled(false);
-        
+
         camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 

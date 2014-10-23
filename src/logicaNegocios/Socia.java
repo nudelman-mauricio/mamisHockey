@@ -2,11 +2,13 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,8 +18,9 @@ public class Socia extends Persona implements Serializable {
     @Basic
     private String numeroCamiseta;
 
+    @Lob
     @Basic
-    private String fotoCarnet;
+    private byte[] fotoCarnet;
 
     @OneToMany(targetEntity = Ergometria.class)
     private Collection<Ergometria> ergometrias;
@@ -45,9 +48,8 @@ public class Socia extends Persona implements Serializable {
 
     }
 
-    public Socia(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
+    public Socia(EntityManager entityManager, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean exJugadora, String email, String telFijo, String telCelular) {
         super(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular);
-        this.fotoCarnet = fotoCarnet;
         this.exJugadora = exJugadora;
         this.persistir(entityManager);
     }
@@ -61,11 +63,11 @@ public class Socia extends Persona implements Serializable {
         this.numeroCamiseta = numeroCamiseta;
     }
 
-    public String getFotoCarnet() {
+    public byte[] getFotoCarnet() {
         return this.fotoCarnet;
     }
 
-    public void setFotoCarnet(String fotoCarnet) {
+    public void setFotoCarnet(byte[] fotoCarnet) {
         this.fotoCarnet = fotoCarnet;
     }
 

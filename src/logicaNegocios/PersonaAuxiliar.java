@@ -8,6 +8,7 @@ import javax.persistence.Basic;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,8 +26,9 @@ public class PersonaAuxiliar extends Persona implements Serializable {
     @Basic
     private boolean cuerpoTecnico;
 
+    @Lob
     @Basic
-    private String fotocopiaDni;
+    private byte[] fotocopiaDni;
 
     @Basic
     private boolean cuerpoTecnicoActivo;
@@ -72,11 +74,11 @@ public class PersonaAuxiliar extends Persona implements Serializable {
         this.cuerpoTecnico = cuerpoTecnico;
     }
 
-    public String getFotocopiaDni() {
+    public byte[] getFotocopiaDni() {
         return this.fotocopiaDni;
     }
 
-    public void setFotocopiaDni(String fotocopiaDni) {
+    public void setFotocopiaDni(byte[] fotocopiaDni) {
         this.fotocopiaDni = fotocopiaDni;
     }
 

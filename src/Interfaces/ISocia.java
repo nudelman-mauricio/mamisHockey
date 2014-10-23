@@ -32,12 +32,12 @@ public class ISocia extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));//Icono de la ventana
         IMenuPrincipalInterface.centrar(this);//centrar ventana
 
-        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));       
+        this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
         camposLimpiar();
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        
+
         jDateChooserFechaIngreso.setDateFormatString(df.format(unaControladoraGlobal.fechaSistema()));
         jDateChooserFechaNacimiento.setBackground(new Color(228, 231, 237));
         //jDateChooserFechaNacimiento.putClientProperty("JCalendar.headerStyle", "Modern_Arrow");
@@ -54,7 +54,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEditar.setEnabled(true);       
+        jButtonEditar.setEnabled(true);
     }
 
     public void camposCargar(Socia unaSocia) {
@@ -425,7 +425,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonNuevo.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true); 
+        jButtonCancelar.setEnabled(true);
         camposActivo(jPanelDetalles, true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -442,7 +442,6 @@ public class ISocia extends javax.swing.JInternalFrame {
                         jTextFieldDomicilio.getText(),
                         fechaNacimiento,
                         fechaIngreso,
-                        "FOTO CARNET",
                         jCheckBoxExJugadora.isSelected(),
                         jTextFieldEmail.getText(),
                         jTextFieldTelFijo.getText(),

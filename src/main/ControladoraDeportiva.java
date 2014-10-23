@@ -3,7 +3,6 @@ package main;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -323,9 +322,8 @@ public class ControladoraDeportiva {
         new Club(this.entityManager, nombre, nombrePresidente, unaLocalidad);
     }
 
-    public void modificarClub(Club unClub, String nombre, String logo, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
+    public void modificarClub(Club unClub, String nombre, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         unClub.setNombre(nombre);
-        unClub.setLogo(logo);
         unClub.setNombrePresidente(nombrePresidente);
         unClub.setUnaLocalidad(unaLocalidad);
         unClub.setBorradoLogico(borradoLogico);

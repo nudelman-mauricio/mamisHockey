@@ -31,7 +31,7 @@ public class ControladoraEntidades {
         new PersonaAuxiliar(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, plantaPermanente);
     }
 
-    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, String fotocopiaDni, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente, boolean borradoLogico) {
+    public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente, boolean borradoLogico) {
         unaPersonaAuxiliar.setDni(dni);
         unaPersonaAuxiliar.setApellido(apellido);
         unaPersonaAuxiliar.setNombre(nombre);
@@ -42,7 +42,6 @@ public class ControladoraEntidades {
         unaPersonaAuxiliar.setTelCelular(telCelular);
         unaPersonaAuxiliar.setEmail(email);
         unaPersonaAuxiliar.setFechaIngreso(fechaIngreso);
-        unaPersonaAuxiliar.setFotocopiaDni(fotocopiaDni);
         unaPersonaAuxiliar.setArbitro(arbitro);
         unaPersonaAuxiliar.setCuerpoTecnico(cuerpoTecnico);
         unaPersonaAuxiliar.setPlantaPermanente(plantaPermanente);
@@ -183,8 +182,8 @@ public class ControladoraEntidades {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Socias">
-    public Socia crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String fotoCarnet, boolean exJugadora, String email, String telFijo, String telCelular) {
-        return new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, fotoCarnet, exJugadora, email, telFijo, telCelular);
+    public Socia crearSocia(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, boolean exJugadora, String email, String telFijo, String telCelular) {
+        return new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, exJugadora, email, telFijo, telCelular);
     }
 
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
@@ -199,7 +198,6 @@ public class ControladoraEntidades {
         unaSocia.setEmail(email);
         unaSocia.setFechaIngreso(fechaIngreso);
         unaSocia.setBorradoLogico(borradoLogico);
-        unaSocia.setFotoCarnet(fotoCarnet);
         unaSocia.setExJugadora(exJugadora);
         unaSocia.setBorradoLogico(borradoLogico);
         unaSocia.persistir(this.entityManager);

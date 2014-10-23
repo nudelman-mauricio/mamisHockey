@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -9,19 +10,24 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.swing.JOptionPane;
 
 @Entity
 public class Club implements Serializable, Comparable {
-
+    
     // <editor-fold defaultstate="collapsed" desc="Atributos">
+    @OneToOne(targetEntity = Socia.class)
+    private Socia unaResponsableSede;
+
     @Basic
     private String nombrePresidente;
 
+    @Lob
     @Basic
-    private String logo;
+    private byte[] logo;
 
     @OneToMany(targetEntity = Cancha.class)
     private Collection<Cancha> canchas;
@@ -39,7 +45,7 @@ public class Club implements Serializable, Comparable {
     @OneToMany(targetEntity = Equipo.class)
     private Collection<Equipo> equipos;
 
-    @OneToOne(optional = false, targetEntity = Localidad.class)
+    @OneToOne(targetEntity = Localidad.class)
     private Localidad unaLocalidad;
     // </editor-fold>
 
@@ -56,6 +62,14 @@ public class Club implements Serializable, Comparable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
+    public Socia getUnaResponsableSede() {
+        return this.unaResponsableSede;
+    }
+
+    public void setUnaResponsableSede(Socia unaResponsableSede) {
+        this.unaResponsableSede = unaResponsableSede;
+    }
+
     public String getNombrePresidente() {
         return this.nombrePresidente;
     }
@@ -64,11 +78,11 @@ public class Club implements Serializable, Comparable {
         this.nombrePresidente = nombrePresidente;
     }
 
-    public String getLogo() {
+    public byte[] getLogo() {
         return this.logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(byte[] logo) {
         this.logo = logo;
     }
 
