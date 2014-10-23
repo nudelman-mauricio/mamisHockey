@@ -56,6 +56,9 @@ public class Partido implements Serializable, Comparable {
     private PersonaAuxiliar unDTVisitante;
 
     @Basic
+    private boolean jugado;
+
+    @Basic
     private PersonaAuxiliar unPreparadorFisicoVisitante;
 
     @OneToMany(targetEntity = Tarjeta.class)
@@ -105,6 +108,7 @@ public class Partido implements Serializable, Comparable {
         this.unArbitro1 = unArbitro1;
         this.unArbitro2 = unArbitro2;
         this.unArbitro3 = unArbitro3;
+        this.jugado = false;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -188,6 +192,14 @@ public class Partido implements Serializable, Comparable {
 
     public void setUnDTVisitante(PersonaAuxiliar unDTVisitante) {
         this.unDTVisitante = unDTVisitante;
+    }
+
+    public boolean isJugado() {
+        return this.jugado;
+    }
+
+    public void setJugado(boolean jugado) {
+        this.jugado = jugado;
     }
 
     public PersonaAuxiliar getUnPreparadorFisicoVisitante() {

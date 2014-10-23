@@ -486,7 +486,7 @@
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Partido" visibile="true" minimized="true" id="_1397869509238">
+    <jpa:entity class="Partido" visibile="true" minimized="false" id="_1397869509238">
         <jpa:attributes>
             <jpa:id name="idPartido" attribute-type="Long" visibile="true" id="_1397869517159241">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -529,6 +529,9 @@
             <jpa:basic name="unAyudanteCampoVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845114024789">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
+            <jpa:basic name="jugado" attribute-type="boolean" visibile="true" id="_141408836251691">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
             <jpa:one-to-many name="goles" target-entity="Gol" collection-type="java.util.Collection" connected-entity-id="_1397866303816" visibile="true" id="_1397869932014253">
                 <jpa:join-table/>
             </jpa:one-to-many>
@@ -558,7 +561,7 @@
             </jpa:element-collection>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Tarjeta" visibile="true" minimized="false" id="_1397869941400">
+    <jpa:entity class="Tarjeta" visibile="true" minimized="true" id="_1397869941400">
         <jpa:attributes>
             <jpa:id name="idTarjeta" attribute-type="Long" visibile="true" id="_1398055421132525">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -795,7 +798,7 @@
                 <Bounds x="-412.0" y="-732.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865962543" id="_1397865962543_gui">
-                <Bounds x="1055.0" y="-461.0" width="189.0" height="24.0"/>
+                <Bounds x="1055.0" y="-461.0" width="187.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866303816" id="_1397866303816_gui">
                 <Bounds x="1213.0" y="-212.0" width="130.0" height="24.0"/>
@@ -840,10 +843,10 @@
                 <Bounds x="663.0" y="323.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="816.0" y="165.0" width="137.0" height="24.0"/>
+                <Bounds x="816.0" y="165.0" width="220.0" height="562.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
-                <Bounds x="1195.0" y="-3.0" width="136.0" height="252.0"/>
+                <Bounds x="1195.0" y="-3.0" width="138.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870308298" id="_1397870308298_gui">
                 <Bounds x="1195.0" y="311.0" width="188.0" height="24.0"/>

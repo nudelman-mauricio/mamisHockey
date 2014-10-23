@@ -75,11 +75,13 @@ public class ControladoraDeportiva {
         unaSancionTribunal.persistir(this.entityManager);
     }
 
-    public void descontarSancion(Collection<Jugadora> jugadoras, Date unaFechaParametro) {
-        for (Jugadora unaJugadora : jugadoras) {
-            for (SancionTribunal unaSancionTribunal : unaJugadora.getUnaSocia().getSancionesVigentes(unaFechaParametro)) {
-                unaSancionTribunal.sumarFechaCumplida();
-                unaSancionTribunal.persistir(this.entityManager);
+    public void descontarSancion(Partido unPartido) {
+        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
+            for (SancionTribunal unaSancionTribunal : unaJugadora.getUnaSocia().getSancionesVigentes(unPartido.getFecha())) {
+                if (!unaSancionTribunal.getUnPartido().equals(unPartido)) {
+                    unaSancionTribunal.sumarFechaCumplida();
+                    unaSancionTribunal.persistir(this.entityManager);
+                }
             }
         }
     }
@@ -758,11 +760,12 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
+    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
         unPartido.setNombreVeedor(nombreVeedor);
         unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
         unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
         unPartido.setObservaciones(observaciones);
+        unPartido.setJugado(jugado);
         unPartido.setBorradoLogico(borradoLogico);
         unPartido.persistir(this.entityManager);
     }

@@ -286,8 +286,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
 
-    public void descontarSancion(Collection<Jugadora> integrantes, Date unaFechaParametro) {
-        this.unaControladoraDeportiva.descontarSancion(integrantes, unaFechaParametro);
+    public void descontarSancion(Partido unPartido) {
+        this.unaControladoraDeportiva.descontarSancion(unPartido);
     }
 
     public SancionTribunal getSancionTribunalBD(Long id) {
@@ -662,8 +662,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarPartido(unPartido, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3, borradoLogico);
     }
 
-    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, borradoLogico);
+    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, jugado, borradoLogico);
     }
 
     public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
@@ -779,7 +779,7 @@ public class ControladoraGlobal {
         }
         if (this.getConceptoDeportivoBD("Cuota Baja por Mora") == null) {
             this.crearConceptoDeportivo(20, "Cuota Baja por Mora", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Baja por Mora"));
-        }        
+        }
         if (this.getConceptoDeportivoBD("Seguro Técnicos") == null) {
             this.crearConceptoDeportivo(70, "Seguro Técnicos", null, null, null);
         }

@@ -75,7 +75,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jButtonImprimir.setEnabled(false);
         }
-        if ((!unPartido.getJugadoras().isEmpty()) && (unPartido.getNombreVeedor() == null)) {
+        if ((!unPartido.getJugadoras().isEmpty()) && (!unPartido.isJugado())) {
             jButtonActualizar.setEnabled(true);
         } else {
             jButtonActualizar.setEnabled(false);
@@ -135,11 +135,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     public void cargarCampos() {
         // <editor-fold defaultstate="collapsed" desc="Encabezado de la Ventana">
         jLabelTitulo.setText(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        System.out.println(unPartido.getNombreVeedor() != null);
-        System.out.println(unPartido.getGoles().isEmpty());
-        System.out.println(unPartido.getGoles().size());
-        -----------------------------------------------
-        if ((unPartido.getNombreVeedor() != null) || (unPartido.getGoles() != null)) { //El partido se jugo
+        if (unPartido.isJugado()) { //El partido se jugo
             jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
         } else {
             jLabelResultado.setText("- a -");
@@ -1153,11 +1149,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 options)) {
 
             if (camposValidar()) {
-                if (unPartido.getNombreVeedor() == null) {//unicamente va descontar la primera vez que se precione el boton guardar
-                    unaControladoraGlobal.descontarSancion(unPartido.getJugadoras(), unPartido.getFecha());
-                }
-                unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), unPartido.isBorradoLogico());
-
+                unaControladoraGlobal.modificarPartido(unPartido, jTextFieldVeedor.getText(), jTextFieldAyudanteDeMesaLocal.getText(), jTextFieldAyudanteDeMesaVisitante.getText(), jTextPaneObservacion.getText(), true, unPartido.isBorradoLogico());
+                unaControladoraGlobal.descontarSancion(unPartido);
                 unaControladoraGlobal.computarTarjetasAcumuladas(unPartido);
 
                 jButtonGuardar.setEnabled(false);
@@ -1222,7 +1215,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        if (unPartido.getNombreVeedor() == null) {//Habilitado siempre y cuando no se haya jugado el partido.
+        if (unPartido.isJugado()) {//Habilitado siempre y cuando no se haya jugado el partido.
             Object[] options = {"OK", "Cancelar"};
             if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar los planteles?", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
                 //Carga la tabla con las socias habilitadas para jugar.
