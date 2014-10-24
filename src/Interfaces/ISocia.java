@@ -481,53 +481,21 @@ public class ISocia extends javax.swing.JInternalFrame {
             Date fechaNacimiento = new java.sql.Date((jDateChooserFechaNacimiento.getDate()).getTime());
             Date fechaIngreso = new java.sql.Date((jDateChooserFechaIngreso.getDate()).getTime());
             if (unaSocia == null) {
-                if (archivoImagen != null) {
-                    try {
-                        //redimensionar foto
-                        BufferedImage originalImage = ImageIO.read(archivoImagen);
-                        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-                        BufferedImage resizeImageJpg = resizeImage(originalImage, type);
-                        ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
-                        //fin redimensionar foto
-
-                        InputStream is = new FileInputStream(archivoImagen);
-                        byte[] buffer = new byte[(int) archivoImagen.length()];
-                        int readers = is.read(buffer);
-                        unaControladoraGlobal.crearSocia(
-                                Long.parseLong(jTextFieldDNI.getText()),
-                                jTextFieldApellido.getText(),
-                                jTextFieldNombres.getText(),
-                                (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                                jTextFieldDomicilio.getText(),
-                                fechaNacimiento,
-                                fechaIngreso,
-                                jCheckBoxExJugadora.isSelected(),
-                                jTextFieldEmail.getText(),
-                                jTextFieldTelFijo.getText(),
-                                jTextFieldTelCelular.getText(),
-                                buffer);
-                        JOptionPane.showMessageDialog(this, "Socia Guardada");
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    unaControladoraGlobal.crearSocia(
-                            Long.parseLong(jTextFieldDNI.getText()),
-                            jTextFieldApellido.getText(),
-                            jTextFieldNombres.getText(),
-                            (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                            jTextFieldDomicilio.getText(),
-                            fechaNacimiento,
-                            fechaIngreso,
-                            jCheckBoxExJugadora.isSelected(),
-                            jTextFieldEmail.getText(),
-                            jTextFieldTelFijo.getText(),
-                            jTextFieldTelCelular.getText(), null);
-                    JOptionPane.showMessageDialog(this, "Socia Guardada");
-                }
-            } else {                
+                unaControladoraGlobal.crearSocia(
+                        Long.parseLong(jTextFieldDNI.getText()),
+                        jTextFieldApellido.getText(),
+                        jTextFieldNombres.getText(),
+                        (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                        jTextFieldDomicilio.getText(),
+                        fechaNacimiento,
+                        fechaIngreso,
+                        jCheckBoxExJugadora.isSelected(),
+                        jTextFieldEmail.getText(),
+                        jTextFieldTelFijo.getText(),
+                        jTextFieldTelCelular.getText(),
+                        cargarImagen(archivoImagen));
+                JOptionPane.showMessageDialog(this, "Socia Guardada");
+            } else {
                 unaControladoraGlobal.modificarSocia(
                         unaSocia,
                         Long.parseLong(jTextFieldDNI.getText()),
@@ -541,7 +509,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                         jTextFieldEmail.getText(),
                         fechaIngreso,
                         unaSocia.isBorradoLogico(),
-                        "FOTO CARNET",
+                        cargarImagen(archivoImagen),
                         jCheckBoxExJugadora.isSelected()
                 );
                 JOptionPane.showMessageDialog(this, "Socia Modificada");
@@ -568,7 +536,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                 archivoImagen = chooser.getSelectedFile();
             }
             ImageIcon icon = new ImageIcon(archivoImagen.toString());
-            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(jLabelFotoCarnet.getWidth(), jLabelFotoCarnet.getHeight(), Image.SCALE_DEFAULT));           
+            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(jLabelFotoCarnet.getWidth(), jLabelFotoCarnet.getHeight(), Image.SCALE_DEFAULT));
             jLabelFotoCarnet.setText(null);
             jLabelFotoCarnet.setIcon(icono);
         }
@@ -580,6 +548,24 @@ public class ISocia extends javax.swing.JInternalFrame {
         g.drawImage(originalImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
         g.dispose();
         return resizedImage;
+    }
+
+    private static byte[] cargarImagen(File archivoImagen) {
+        byte[] buffer = null;
+        if (archivoImagen != null) {
+            try {
+                BufferedImage originalImage = ImageIO.read(archivoImagen);
+                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
+                InputStream is = new FileInputStream(archivoImagen);
+                buffer = new byte[(int) archivoImagen.length()];
+                int readers = is.read(buffer);
+            } catch (IOException ex) {
+                Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return buffer;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

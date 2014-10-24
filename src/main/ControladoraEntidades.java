@@ -186,7 +186,7 @@ public class ControladoraEntidades {
         return new Socia(this.entityManager, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, exJugadora, email, telFijo, telCelular,fotoCarnet);
     }
 
-    public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, String fotoCarnet, boolean exJugadora) {
+    public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, byte[] fotoCarnet, boolean exJugadora) {
         unaSocia.setDni(dni);
         unaSocia.setApellido(apellido);
         unaSocia.setNombre(nombre);
@@ -199,6 +199,7 @@ public class ControladoraEntidades {
         unaSocia.setFechaIngreso(fechaIngreso);
         unaSocia.setBorradoLogico(borradoLogico);
         unaSocia.setExJugadora(exJugadora);
+        unaSocia.setFotoCarnet(fotoCarnet);
         unaSocia.setBorradoLogico(borradoLogico);
         unaSocia.persistir(this.entityManager);
     }
