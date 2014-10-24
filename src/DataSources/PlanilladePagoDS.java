@@ -122,7 +122,7 @@ public class PlanilladePagoDS implements JRDataSource {
                 break;
         }
         if ((valor == null) || ("".equals(valor))) {
-            valor = "Falta";
+            valor = "-";
         }
         return valor;
     }

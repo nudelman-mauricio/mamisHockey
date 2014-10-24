@@ -86,7 +86,7 @@ public class IPase extends javax.swing.JInternalFrame {
                 if (jTablePases.getSelectedRow() > 0) {
                     jTextFieldEquipoOrigen.setText(jTablePases.getValueAt(jTablePases.getSelectedRow() - 1, 3).toString());
                 } else {
-                    jTextFieldEquipoOrigen.setText("----");
+                    jTextFieldEquipoOrigen.setText("-");
                 }
                 jComboBoxEquipoDestino.setSelectedItem(unPaseSeleccionado.getUnEquipo());
                 jTextFieldMonto.setText(Double.toString(unPaseSeleccionado.getUnaDeuda().getMontoTotal()));
@@ -97,6 +97,11 @@ public class IPase extends javax.swing.JInternalFrame {
                 jCheckBoxSolicitudPase.setSelected(unPaseSeleccionado.isSolicitudPase());
 
                 jButtonEliminar.setEnabled(true);
+                if (unPaseSeleccionado.getUnEquipo() ==null) {
+                     jButtonEditar.setEnabled(true);
+                }else{
+                    jButtonEditar.setEnabled(false);
+                }
             }
         }
     }
@@ -320,16 +325,12 @@ public class IPase extends javax.swing.JInternalFrame {
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonNuevo)
-                            .addComponent(jButtonEliminar)
-                            .addComponent(jButtonCancelar)
-                            .addComponent(jButtonGuardar))
-                        .addGap(3, 3, 3))))
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonNuevo)
+                    .addComponent(jButtonEliminar)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonGuardar))
+                .addGap(3, 3, 3))
         );
 
         jTablePases.setModel(new javax.swing.table.DefaultTableModel(
@@ -496,9 +497,9 @@ public class IPase extends javax.swing.JInternalFrame {
                     .addComponent(jLabelOrigen)
                     .addComponent(jTextFieldEquipoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDestino3)
-                    .addComponent(jCheckBoxPaseAbierto))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxPaseAbierto)
+                    .addComponent(jLabelDestino3))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxEquipoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -592,8 +593,8 @@ public class IPase extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3))

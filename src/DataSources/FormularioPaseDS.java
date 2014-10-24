@@ -133,7 +133,7 @@ public class FormularioPaseDS implements JRDataSource {
             }
         }
         if ((valor == null) || ("".equals(valor))) {
-            valor = "Falta";
+            valor = "-";
         }
         return valor;
     }

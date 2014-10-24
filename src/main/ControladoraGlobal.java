@@ -140,7 +140,11 @@ public class ControladoraGlobal {
         if (unaSocia.getEquipoActual() == null) {
             observacionDeuda = "Pase de Equipo: ---- a Equipo : " + unEquipoNuevo.getNombre();
         } else {
-            observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
+            if (unEquipoNuevo != null) {//Pase abierto
+                observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
+            }else{
+                observacionDeuda = "Pase abierto";
+            }
         }
         ConceptoDeportivo porPase = null;
         for (ConceptoDeportivo aux : this.getConceptosDeportivosBD()) {
@@ -160,7 +164,7 @@ public class ControladoraGlobal {
     public void modificarPase(Pase unPase, Socia unaSocia, Equipo unEquipoNuevo) {
         unaControladoraEntidades.modificarPase(unPase, unaSocia, unEquipoNuevo);
     }
-    
+
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
         if (ultimoPase.getUnaDeuda() != null) {//Se debe comprobar porque el pase CERO no posee deuda
             this.unaControladoraContabilidad.eliminarDeuda(ultimoPase.getUnaDeuda());

@@ -259,7 +259,7 @@ public class ControladoraEntidades {
         if (unEquipoActual != null) {//Se controla que el primer pase cero a un equipo no elimine el equipo null
             unEquipoActual.quitarPlantel(this.entityManager, unaSocia);
         }
-        if (unEquipoNuevo == null) { //Pase libre
+        if (unEquipoNuevo != null) { //Pase libre
             unEquipoNuevo.agregarPlantel(this.entityManager, unaSocia);
         }
         return unPase;
