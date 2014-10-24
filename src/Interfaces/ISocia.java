@@ -3,16 +3,20 @@ package Interfaces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -24,6 +28,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
+import sun.awt.image.ByteArrayImageSource;
+import sun.awt.image.ToolkitImage;
 
 public class ISocia extends javax.swing.JInternalFrame {
 
@@ -32,6 +38,8 @@ public class ISocia extends javax.swing.JInternalFrame {
     private DateFormat df = DateFormat.getDateInstance();
     private Socia unaSocia = null;
     private File archivoImagen = null;
+    private static final int IMG_WIDTH = 129;
+    private static final int IMG_HEIGHT = 126;
 
     //LLAMADO PARA UNA NUEVA SOCIA
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
@@ -50,8 +58,6 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
 
         jDateChooserFechaIngreso.setDateFormatString(df.format(unaControladoraGlobal.fechaSistema()));
-        jDateChooserFechaNacimiento.setBackground(new Color(228, 231, 237));
-        //jDateChooserFechaNacimiento.putClientProperty("JCalendar.headerStyle", "Modern_Arrow");
     }
 
     //LLAMADO MOSTRANDO UNA SOCIA
@@ -60,16 +66,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         this.unaSocia = unaSocia;
 
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
-
         camposCargar(unaSocia);
         camposActivo(jPanelDetalles, false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(true);
-
-        //para la imagen
-        /*Image image = new ToolkitImage(new ByteArrayImageSource(unaSocia.getImagen())); //lo convertimos a Image
-        JLabel label = new JLabel(new ImageIcon(image)); //creamos un JLabel con la imagen como icono*/
 
     }
 
@@ -85,6 +86,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jTextFieldTelFijo.setText(unaSocia.getTelFijo());
         jTextFieldTelCelular.setText(unaSocia.getTelCelular());
         jCheckBoxExJugadora.setSelected(unaSocia.isExJugadora());
+
+        //cargar imagen
+        ToolkitImage image = new ToolkitImage(new ByteArrayImageSource(unaSocia.getFotoCarnet()));
+        this.jLabelFotoCarnet.setIcon(new ImageIcon(image));
+
     }
 
     //deshabilitar todo lo de un contenedor
@@ -475,31 +481,53 @@ public class ISocia extends javax.swing.JInternalFrame {
             Date fechaNacimiento = new java.sql.Date((jDateChooserFechaNacimiento.getDate()).getTime());
             Date fechaIngreso = new java.sql.Date((jDateChooserFechaIngreso.getDate()).getTime());
             if (unaSocia == null) {
+                if (archivoImagen != null) {
+                    try {
+                        //redimensionar foto
+                        BufferedImage originalImage = ImageIO.read(archivoImagen);
+                        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                        BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                        ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
+                        //fin redimensionar foto
 
-                unaControladoraGlobal.crearSocia(
-                        Long.parseLong(jTextFieldDNI.getText()),
-                        jTextFieldApellido.getText(),
-                        jTextFieldNombres.getText(),
-                        (Localidad) jComboBoxLocalidad.getSelectedItem(),
-                        jTextFieldDomicilio.getText(),
-                        fechaNacimiento,
-                        fechaIngreso,
-                        jCheckBoxExJugadora.isSelected(),
-                        jTextFieldEmail.getText(),
-                        jTextFieldTelFijo.getText(),
-                        jTextFieldTelCelular.getText());
-                JOptionPane.showMessageDialog(this, "Socia Guardada");
-                /*if(archivoImagen != null){
-                 try {
-                 InputStream is = new FileInputStream(archivoImagen);
-                 byte[] buffer = new byte[(int) archivoImagen.length()];
-                 int readers = is.read(buffer);
-                 //unaSocia.setImagen(buffer); aca seteamos la imagen
-                 } catch (FileNotFoundException ex) {
-                 Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-                 }*/
-            } else {
+                        InputStream is = new FileInputStream(archivoImagen);
+                        byte[] buffer = new byte[(int) archivoImagen.length()];
+                        int readers = is.read(buffer);
+                        unaControladoraGlobal.crearSocia(
+                                Long.parseLong(jTextFieldDNI.getText()),
+                                jTextFieldApellido.getText(),
+                                jTextFieldNombres.getText(),
+                                (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                                jTextFieldDomicilio.getText(),
+                                fechaNacimiento,
+                                fechaIngreso,
+                                jCheckBoxExJugadora.isSelected(),
+                                jTextFieldEmail.getText(),
+                                jTextFieldTelFijo.getText(),
+                                jTextFieldTelCelular.getText(),
+                                buffer);
+                        JOptionPane.showMessageDialog(this, "Socia Guardada");
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    unaControladoraGlobal.crearSocia(
+                            Long.parseLong(jTextFieldDNI.getText()),
+                            jTextFieldApellido.getText(),
+                            jTextFieldNombres.getText(),
+                            (Localidad) jComboBoxLocalidad.getSelectedItem(),
+                            jTextFieldDomicilio.getText(),
+                            fechaNacimiento,
+                            fechaIngreso,
+                            jCheckBoxExJugadora.isSelected(),
+                            jTextFieldEmail.getText(),
+                            jTextFieldTelFijo.getText(),
+                            jTextFieldTelCelular.getText(), null);
+                    JOptionPane.showMessageDialog(this, "Socia Guardada");
+                }
+            } else {                
                 unaControladoraGlobal.modificarSocia(
                         unaSocia,
                         Long.parseLong(jTextFieldDNI.getText()),
@@ -536,19 +564,23 @@ public class ISocia extends javax.swing.JInternalFrame {
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (JFileChooser.APPROVE_OPTION == returnVal) {
-
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 archivoImagen = chooser.getSelectedFile();
-                System.out.println("You chose to open this file: "
-                        + chooser.getSelectedFile().getName());
             }
             ImageIcon icon = new ImageIcon(archivoImagen.toString());
-            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(jLabelFotoCarnet.getWidth(), jLabelFotoCarnet.getHeight(), Image.SCALE_DEFAULT));
+            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(jLabelFotoCarnet.getWidth(), jLabelFotoCarnet.getHeight(), Image.SCALE_DEFAULT));           
             jLabelFotoCarnet.setText(null);
             jLabelFotoCarnet.setIcon(icono);
         }
     }//GEN-LAST:event_jButtonExaminarActionPerformed
 
+    private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
+        BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, type);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+        g.dispose();
+        return resizedImage;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
