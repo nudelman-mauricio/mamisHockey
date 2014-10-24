@@ -187,7 +187,7 @@
                     <Column editable="false" title="N&#xb0; Camiseta" type="java.lang.Object"/>
                     <Column editable="false" title="Apellido y Nombres" type="java.lang.Object"/>
                     <Column editable="false" title="Estado" type="java.lang.Object"/>
-                    <Column editable="false" title="Puesto" type="java.lang.Object"/>
+                    <Column editable="false" title="Cargo" type="java.lang.Object"/>
                     <Column editable="false" title="&#xbf;Posee Deudas?" type="java.lang.Object"/>
                     <Column editable="false" title="Ergometr&#xed;a" type="java.lang.Boolean"/>
                   </Table>

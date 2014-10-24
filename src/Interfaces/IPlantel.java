@@ -234,7 +234,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Dni", "N° Camiseta", "Apellido y Nombres", "Estado", "Puesto", "¿Posee Deudas?", "Ergometría"
+                "Dni", "N° Camiseta", "Apellido y Nombres", "Estado", "Cargo", "¿Posee Deudas?", "Ergometría"
             }
         ) {
             Class[] types = new Class [] {
