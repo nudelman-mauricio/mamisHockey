@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -40,7 +39,8 @@ public class ISocia extends javax.swing.JInternalFrame {
     private Socia unaSocia = null;
     private File archivoImagen = null;
     private static final int IMG_WIDTH = 129;
-    private static final int IMG_HEIGHT = 126;
+    private static final int IMG_HEIGHT = 126;    
+    private String ext = null;
 
     //LLAMADO PARA UNA NUEVA SOCIA
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
@@ -89,8 +89,9 @@ public class ISocia extends javax.swing.JInternalFrame {
         jCheckBoxExJugadora.setSelected(unaSocia.isExJugadora());
 
         //cargar imagen
+        if(unaSocia.getFotoCarnet() != null){
         ToolkitImage image = new ToolkitImage(new ByteArrayImageSource(unaSocia.getFotoCarnet()));
-        this.jLabelFotoCarnet.setIcon(new ImageIcon(image));
+        this.jLabelFotoCarnet.setIcon(new ImageIcon(image));}
 
     }
 
@@ -536,11 +537,18 @@ public class ISocia extends javax.swing.JInternalFrame {
         if (JFileChooser.APPROVE_OPTION == returnVal) {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 archivoImagen = chooser.getSelectedFile();
+                ext = chooser.getTypeDescription(archivoImagen);
+                if (ext.equals("Imagen JPEG") || ext.equals("Imagen GIF")) {
+                    ImageIcon icon = new ImageIcon(archivoImagen.toString());
+                    Icon icono = new ImageIcon(icon.getImage().getScaledInstance(jLabelFotoCarnet.getWidth(), jLabelFotoCarnet.getHeight(), Image.SCALE_DEFAULT));
+                    jLabelFotoCarnet.setText(null);
+                    jLabelFotoCarnet.setIcon(icono);
+                } else {
+                    JOptionPane.showMessageDialog(this, "La extension del archivo es incorrecta.");
+                }
+
             }
-            ImageIcon icon = new ImageIcon(archivoImagen.toString());
-            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(jLabelFotoCarnet.getWidth(), jLabelFotoCarnet.getHeight(), Image.SCALE_DEFAULT));
-            jLabelFotoCarnet.setText(null);
-            jLabelFotoCarnet.setIcon(icono);
+
         }
     }//GEN-LAST:event_jButtonExaminarActionPerformed
 
@@ -552,19 +560,21 @@ public class ISocia extends javax.swing.JInternalFrame {
         return resizedImage;
     }
 
-    private static byte[] cargarImagen(File archivoImagen) {
-        byte[] buffer = null;
-        if (archivoImagen != null) {
-            try {
-                BufferedImage originalImage = ImageIO.read(archivoImagen);
-                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-                BufferedImage resizeImageJpg = resizeImage(originalImage, type);
-                ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
-                InputStream is = new FileInputStream(archivoImagen);
-                buffer = new byte[(int) archivoImagen.length()];
-                int readers = is.read(buffer);
-            } catch (IOException ex) {
-                Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+    private byte[] cargarImagen(File archivoImagen) {        
+        byte[] buffer = null;        
+        if (ext.equals("Imagen JPEG") || ext.equals("Imagen GIF")) {
+            if (archivoImagen != null) {
+                try {
+                    BufferedImage originalImage = ImageIO.read(archivoImagen);
+                    int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                    BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                    ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
+                    InputStream is = new FileInputStream(archivoImagen);
+                    buffer = new byte[(int) archivoImagen.length()];
+                    int readers = is.read(buffer);
+                } catch (IOException ex) {
+                    Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return buffer;
