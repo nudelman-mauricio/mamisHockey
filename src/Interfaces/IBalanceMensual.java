@@ -34,6 +34,9 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Balance Mensual"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
+        
+        jComboBoxDesdeAño.setSelectedItem(String.valueOf(unaControladoraGlobal.fechaSistema().getYear()));
+        jComboBoxHastaAño.setSelectedItem(String.valueOf(unaControladoraGlobal.fechaSistema().getYear()));        
     }
 
     private boolean camposValidar() {
