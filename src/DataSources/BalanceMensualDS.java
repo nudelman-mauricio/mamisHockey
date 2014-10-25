@@ -31,8 +31,8 @@ public class BalanceMensualDS implements JRDataSource {
     DateFormat df = DateFormat.getDateInstance();
     ArrayList<Balance> unBalance = new ArrayList();
     Balance unaBalanza;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");    
-    Date fechaEvaluada = null;    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
+    Date fechaEvaluada = null;
     double monto = 0;
     String desde, hasta;
     ControladoraGlobal unaControladoraGlobal;
@@ -112,7 +112,6 @@ public class BalanceMensualDS implements JRDataSource {
         this.hasta = hasta;
         List<ConceptoDeportivo> conceptosDeportivos = unaControladoraGlobal.getConceptosDeportivosBD();
         for (ConceptoDeportivo unConcepto : conceptosDeportivos) {
-            System.out.println(unConcepto.getConcepto());
             for (PagoCuota unPagoCuota : pagoCuotas) {
                 if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().equals(unConcepto)) {
                     if (fechaEvaluada == null) {

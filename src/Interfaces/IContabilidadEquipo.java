@@ -168,9 +168,9 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jComboBoxConcepto = new javax.swing.JComboBox();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(792, 481));
-        setMinimumSize(new java.awt.Dimension(792, 481));
-        setPreferredSize(new java.awt.Dimension(792, 481));
+        setMaximumSize(new java.awt.Dimension(792, 494));
+        setMinimumSize(new java.awt.Dimension(792, 494));
+        setPreferredSize(new java.awt.Dimension(792, 494));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -424,8 +424,8 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTablaDeudas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDetalleDeudas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addComponent(jPanelDetalleDeudas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

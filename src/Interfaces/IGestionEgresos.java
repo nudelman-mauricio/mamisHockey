@@ -6,6 +6,7 @@ import java.awt.event.ItemEvent;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -41,6 +42,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             cargarFechasFiltrado();
             cargarTabla();
         }
+        jTextPaneDetalle.setBackground(new Color(228, 231, 237));
     }
 
     private void cargarComboBoxConceptoEgreso() {
@@ -57,7 +59,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
             fecha = df.format(unaControladoraGlobal.getUltimoEgreso().getFecha());
             fechaDividida = fecha.split("/");
-            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]));//sin (-1) porque debe ser un mes mas del ultimo agreso
+            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
             jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
         }
     }
@@ -65,17 +67,18 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
-        String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
+        String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
         Date fechaHasta = null;
         Date fechaDesde = null;
         try {
             fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
             fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+
+            for (Egreso unEgreso : this.unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta)) {
+                this.modeloTablaGestionEgresos.addRow(new Object[]{unEgreso.getIdEgreso(), df.format(unEgreso.getFecha()), unEgreso.getUnConceptoEgreso(), unEgreso.getObservacion(), unEgreso.getMonto()});
+            }
         } catch (ParseException ex) {
             Logger.getLogger(IGestionEgresos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (Egreso unEgreso : this.unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta)) {
-            this.modeloTablaGestionEgresos.addRow(new Object[]{unEgreso.getIdEgreso(), df.format(unEgreso.getFecha()), unEgreso.getUnConceptoEgreso(), unEgreso.getObservacion(), unEgreso.getMonto()});
         }
     }
 
@@ -588,7 +591,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             for (int i = 0; i < filas; i++) {
                 unEgreso = unaControladoraGlobal.getEgresoBD((Long) jTableEgresos.getValueAt(i, 0));
                 unaListaEgresos.add(unEgreso);
-            }          
+            }
             GestionEgresosDS unaGestionEgresosDS = new GestionEgresosDS(unaControladoraGlobal, unaListaEgresos, fechaDesde, fechaHasta);
             unaGestionEgresosDS.verReporte();
         } else {

@@ -26,7 +26,9 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DateFormat df = DateFormat.getDateInstance();
-    SimpleDateFormat dateFormatSinDias = new SimpleDateFormat("MM/YYYY");
+    private SimpleDateFormat dateFormatSinDias = new SimpleDateFormat("MM/YYYY");
+    private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
+    private SimpleDateFormat dateFormatSoloAnio = new SimpleDateFormat("YYYY");
 
     public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -34,19 +36,17 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Balance Mensual"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
-        
-        jComboBoxDesdeAño.setSelectedItem(String.valueOf(unaControladoraGlobal.fechaSistema().getYear()));
-        jComboBoxHastaAño.setSelectedItem(String.valueOf(unaControladoraGlobal.fechaSistema().getYear()));        
+
+        jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxDesdeAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
+
+        jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxHastaAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
     }
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {
-            bandera = false;
-        }
-        if (!bandera) {
-            JOptionPane.showMessageDialog(this, "Las fechas son iguales. La diferencia debe ser como mínimo un mes.");
-        }
+        //por las dudas si despues surge algo que controlar
         return bandera;
     }
 
@@ -241,7 +241,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         if (camposValidar()) {
             String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
-            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
+            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
             try {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());

@@ -368,11 +368,11 @@ public class IConceptoIngresoOtro extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             if (unConceptoIngresoSeleccionado == null) {
                 unaControladoraGlobal.crearConceptoIngreso(jTextFieldNombre.getText(), jTextPaneDetalle.getText());
-                JOptionPane.showMessageDialog(this, "Concepto Ingreso Guardada");
+                JOptionPane.showMessageDialog(this, "Concepto Ingreso Guardado");
             } else {
                 unaControladoraGlobal.modificarConceptoIngreso(unConceptoIngresoSeleccionado, jTextFieldNombre.getText(), jTextPaneDetalle.getText(), false);
                 unConceptoIngresoSeleccionado = null;
-                JOptionPane.showMessageDialog(this, "Concepto Ingreso Modificada");
+                JOptionPane.showMessageDialog(this, "Concepto Ingreso Modificado");
             }
             if (unJInternalFrame != null) {
                 this.dispose();

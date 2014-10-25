@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +42,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
             cargarFechasFiltrado();
             cargarTabla();
         }
+        jTextPaneDetalle.setBackground(new Color(228, 231, 237));
     }
 
     private void cargarComboBoxConceptoIngreso() {
@@ -57,7 +59,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
 
             fecha = df.format(unaControladoraGlobal.getUltimoIngresoOtro().getFecha());
             fechaDividida = fecha.split("/");
-            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]));//sin (-1) porque debe ser un mes mas del ultimo agreso
+            jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
             jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
         }
     }
@@ -65,17 +67,17 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
-        String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
+        String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
         Date fechaHasta = null;
         Date fechaDesde = null;
         try {
             fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
             fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+            for (IngresoOtro unIngreso : this.unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta)) {
+                this.modeloTablaGestionIngresos.addRow(new Object[]{unIngreso.getIdIngresoOtro(), df.format(unIngreso.getFecha()), unIngreso.getUnConceptoIngreso(), unIngreso.getDetalle(), unIngreso.getMonto()});
+            }
         } catch (ParseException ex) {
             Logger.getLogger(IGestionIngresosOtro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (IngresoOtro unIngreso : this.unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta)) {
-            this.modeloTablaGestionIngresos.addRow(new Object[]{unIngreso.getIdIngresoOtro(), df.format(unIngreso.getFecha()), unIngreso.getUnConceptoIngreso(), unIngreso.getDetalle(), unIngreso.getMonto()});
         }
     }
 
@@ -130,7 +132,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
 
                 camposActivo(false);
                 jButtonEditar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);               
+                jButtonEliminar.setEnabled(true);
             }
         }
     }
@@ -199,9 +201,9 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jComboBoxHastaAño = new javax.swing.JComboBox();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(792, 665));
-        setMinimumSize(new java.awt.Dimension(792, 665));
-        setPreferredSize(new java.awt.Dimension(792, 665));
+        setMaximumSize(new java.awt.Dimension(792, 695));
+        setMinimumSize(new java.awt.Dimension(792, 695));
+        setPreferredSize(new java.awt.Dimension(792, 695));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -418,8 +420,8 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabelComentario)
-                        .addGap(0, 57, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -563,8 +565,8 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -575,7 +577,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);        
+        jButtonEliminar.setEnabled(false);
 
         jTableIngresos.setEnabled(false);
 
@@ -588,7 +590,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);      
+        jButtonEliminar.setEnabled(false);
 
         camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
@@ -616,7 +618,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);     
+        jButtonEliminar.setEnabled(false);
 
         jTableIngresos.setEnabled(false);
 
@@ -628,7 +630,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-      if (jTableIngresos.getRowCount() > 0) {
+        if (jTableIngresos.getRowCount() > 0) {
             String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
             String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
             Date fechaHasta = null;
@@ -646,7 +648,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
             for (int i = 0; i < filas; i++) {
                 unIngresoOtro = unaControladoraGlobal.getIngresoOtroBD((Long) jTableIngresos.getValueAt(i, 0));
                 unaListaIngreso.add(unIngresoOtro);
-            }          
+            }
             GestionIngresosDS unaGestionIgresosDS = new GestionIngresosDS(unaControladoraGlobal, unaListaIngreso, fechaDesde, fechaHasta);
             unaGestionIgresosDS.verReporte();
         } else {
