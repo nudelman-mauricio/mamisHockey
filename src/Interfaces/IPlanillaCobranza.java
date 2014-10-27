@@ -581,7 +581,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                             for (Cuota unaCuota : unaDeuda.getCuotas()) {
                                 if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
                                     cuotasPagaron.add(unaCuota);
-                                    //unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                                    unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
                                 }
                             }
                         }
@@ -597,7 +597,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                         && ("Cancha".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))
                         || ("Seguro Técnicos".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))) {
                     for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                        //unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                        unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
                     }
                 }
             }
