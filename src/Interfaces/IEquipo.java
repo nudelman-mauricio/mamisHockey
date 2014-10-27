@@ -328,7 +328,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
 
         jLabelFechaNacimiento1.setText("Capitana");
 
-        jLabelFechaIngreso1.setText("Capitana Suplente");
+        jLabelFechaIngreso1.setText("Sub-Capitana");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
