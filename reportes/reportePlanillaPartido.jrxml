@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePlanillaPartido" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="14" uuid="b1d1c8db-8a87-4dac-bc04-778ee67418b1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="641"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -126,7 +126,7 @@
 				<textFieldExpression><![CDATA["Torneo: " + $F{nombreTorneo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="207" y="26" width="140" height="15" uuid="9dd12cfc-4691-41c6-94cb-1d774334b9a1"/>
+				<reportElement x="192" y="28" width="140" height="13" uuid="9dd12cfc-4691-41c6-94cb-1d774334b9a1"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA["Categoria: " + $F{categoriaTorneo}]]></textFieldExpression>
 			</textField>
@@ -141,12 +141,12 @@
 				<textFieldExpression><![CDATA["Fecha: " + $F{fechaPartido}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="132" y="4" width="291" height="24" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
+				<reportElement mode="Transparent" x="0" y="3" width="555" height="21" forecolor="#006699" backcolor="#FFFFFF" uuid="d06f9600-2885-4dfc-a54a-a816616fd508"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{equipoLocal} + " vs " + $F{equipoVisitante}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{equipoLocal} + " ...... vs ...... " + $F{equipoVisitante}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -156,7 +156,7 @@
 	<detail>
 		<band height="653">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="6" width="217" height="16" uuid="e435ae61-cb56-4a58-9ed7-d4d467652878"/>
+				<reportElement x="0" y="6" width="326" height="16" uuid="e435ae61-cb56-4a58-9ed7-d4d467652878"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isUnderline="false"/>
 				</textElement>
@@ -169,7 +169,7 @@
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="330" width="258" height="16" uuid="b8f25a6a-d064-4331-a371-326e6133114a"/>
+				<reportElement x="0" y="330" width="326" height="16" uuid="b8f25a6a-d064-4331-a371-326e6133114a"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -224,7 +224,7 @@
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Capitana Suplente: " + $F{capitanaSuplenteLocal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Sub Capitana: " + $F{capitanaSuplenteLocal}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="385" y="309" width="84" height="12" uuid="b962205c-2652-4253-9cab-7105faac7412"/>
@@ -266,7 +266,7 @@
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Capitana Suplente: " + $F{capitanaSuplenteVisitante}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Sub Capitana: " + $F{capitanaSuplenteVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="637" width="170" height="12" uuid="6e6ff569-e8ac-48d8-a835-a3ab387685e7"/>
@@ -1460,7 +1460,7 @@
 				<textFieldExpression><![CDATA["Arbitro 2: " + $F{Arbitro2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="29" width="160" height="12" uuid="ef35601d-dfc9-4e3e-b9ca-f33b07ef4461"/>
+				<reportElement x="0" y="16" width="160" height="12" uuid="ef35601d-dfc9-4e3e-b9ca-f33b07ef4461"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
@@ -1473,13 +1473,6 @@
 				</textElement>
 				<text><![CDATA[Observación:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="16" width="160" height="12" uuid="ba57524a-6d92-4422-8f1e-05818fcdfb96"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Veedor:]]></text>
-			</staticText>
 			<line>
 				<reportElement x="0" y="0" width="555" height="1" uuid="2c544c39-d9d1-4021-a2c4-a29a4d007276"/>
 			</line>
@@ -1490,13 +1483,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="197" y="40" width="358" height="1" uuid="407d8cd7-5953-4b7b-b75d-18d875a55b6b"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineStyle="Dashed"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement x="32" y="28" width="142" height="1" uuid="ae003723-67d5-4731-bc84-fb262472b5e7"/>
+				<reportElement x="2" y="40" width="553" height="1" uuid="407d8cd7-5953-4b7b-b75d-18d875a55b6b"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineStyle="Dashed"/>
 				</graphicElement>
