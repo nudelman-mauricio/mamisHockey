@@ -174,10 +174,15 @@ public class BalanceMensualDS implements JRDataSource {
             valor = unBalance.get(indiceBalance).getMontoIngreso();
         } else if ("MontoE".equals(jrf.getName())) {
             valor = unBalance.get(indiceBalance).getMontoEgreso();
-        } else if ("desde".equals(jrf.getName())) {
-            valor = desde;
-        } else if ("hasta".equals(jrf.getName())) {
-            valor = hasta;
+        } else if ("fechaBalance".equals(jrf.getName())) {
+            int mes1 = Integer.parseInt(desde.substring(0, 2));
+            int mes2 = Integer.parseInt(hasta.substring(0, 2));            
+            if((mes2 - mes1) == 1){
+                valor = "Balance del mes "+ desde;
+            } else
+            {
+               valor = "Balance del mes " + desde + " hasta el mes " + (mes2-1)+hasta.substring(2);
+            }           
         } else if ("fecha".equals(jrf.getName())) {
             valor = df.format(unaControladoraGlobal.fechaSistema());
         }

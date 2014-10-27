@@ -549,7 +549,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="284" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" pref="287" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -642,14 +642,14 @@
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextFieldFechaPagoCuota" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                              <Component id="jTextFieldMontoCuotaAbonado" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jTextFieldMontoCuotaAbonado" pref="160" max="32767" attributes="0"/>
+                              <Component id="jDateChooserFechaPagoCuota" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="jLabelFechaRealizacion8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" pref="342" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -657,10 +657,10 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelFechaPagoCuota" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldFechaPagoCuota" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabelFechaPagoCuota" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDateChooserFechaPagoCuota" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -687,11 +687,6 @@
                 <Component class="javax.swing.JLabel" name="jLabelFechaPagoCuota">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fecha de Pago"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldFechaPagoCuota">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelFieldMontoCuotaAbonado">
@@ -723,6 +718,11 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFechaPagoCuota">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="jLabelTituloCuotas">
