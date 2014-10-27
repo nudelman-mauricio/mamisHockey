@@ -54,42 +54,43 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jComboBoxDelegadas.setSelectedIndex(-1);
 
         // <editor-fold defaultstate="collapsed" desc="Mes">
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
         String mes = "";
-        switch (unaControladoraGlobal.fechaSistema().getMonth()) {
-            case 1:
+        switch (dateFormat.format(unaControladoraGlobal.fechaSistema())) {
+            case "01":
                 mes = "Enero";
                 break;
-            case 2:
+            case "02":
                 mes = "Febrero";
                 break;
-            case 3:
+            case "03":
                 mes = "Marzo";
                 break;
-            case 4:
+            case "04":
                 mes = "Abril";
                 break;
-            case 5:
+            case "05":
                 mes = "Mayo";
                 break;
-            case 6:
+            case "06":
                 mes = "Junio";
                 break;
-            case 7:
+            case "07":
                 mes = "Julio";
                 break;
-            case 8:
+            case "08":
                 mes = "Agosto";
                 break;
-            case 9:
+            case "09":
                 mes = "Septiembre";
                 break;
-            case 10:
+            case "10":
                 mes = "Octubre";
                 break;
-            case 11:
+            case "11":
                 mes = "Noviembre";
                 break;
-            case 12:
+            case "12":
                 mes = "Diciembre";
                 break;
         }
