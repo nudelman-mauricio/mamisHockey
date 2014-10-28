@@ -758,8 +758,7 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
-    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
-        unPartido.setNombreVeedor(nombreVeedor);
+    public void modificarPartido(Partido unPartido, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
         unPartido.setNombreAyudanteMesaLocal(nombreAyudanteMesaLocal);
         unPartido.setNombreAyudanteMesaVisitante(nombreAyudanteMesaVisitante);
         unPartido.setObservaciones(observaciones);

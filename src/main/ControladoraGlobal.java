@@ -669,8 +669,8 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva.modificarPartido(unPartido, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3, borradoLogico);
     }
 
-    public void modificarPartido(Partido unPartido, String nombreVeedor, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
-        this.unaControladoraDeportiva.modificarPartido(unPartido, nombreVeedor, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, jugado, borradoLogico);
+    public void modificarPartido(Partido unPartido, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
+        this.unaControladoraDeportiva.modificarPartido(unPartido, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, jugado, borradoLogico);
     }
 
     public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
