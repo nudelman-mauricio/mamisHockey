@@ -44,12 +44,11 @@ public class PlanillaPago implements Serializable, Comparable {
 
     }
 
-    public PlanillaPago(EntityManager entityManager, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+    public PlanillaPago(EntityManager entityManager, Date fechaPago, double monto, long nroRecibo, Socia responsablePago) {
         this.fechaPago = fechaPago;
         this.monto = monto;
         this.nroRecibo = nroRecibo;
         this.responsablePago = responsablePago;
-        this.rutaPDF = rutaPDF;
         this.persistir(entityManager);
     }
 

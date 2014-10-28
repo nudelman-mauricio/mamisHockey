@@ -142,7 +142,7 @@ public class ControladoraGlobal {
         } else {
             if (unEquipoNuevo != null) {//Pase abierto
                 observacionDeuda = "Pase de Equipo: " + unaSocia.getEquipoActual().getNombre() + " a Equipo: " + unEquipoNuevo.getNombre();
-            }else{
+            } else {
                 observacionDeuda = "Pase abierto";
             }
         }
@@ -1035,8 +1035,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
-    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsable, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
-        return this.unaControladoraContabilidad.crearPlanillaPago(unEquipoResponsable, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
+    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsable, Date fechaPago, double monto, long nroRecibo, Socia responsablePago) {
+        return this.unaControladoraContabilidad.crearPlanillaPago(unEquipoResponsable, fechaPago, monto, nroRecibo, responsablePago);
+    }
+
+    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, String rutaPDF) {
+        this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, rutaPDF);
     }
 
     public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {

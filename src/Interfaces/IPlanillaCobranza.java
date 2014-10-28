@@ -48,9 +48,12 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         cargarCampos();
 
         jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));
-        jComboBoxDelegadas.removeAllItems();
-        jComboBoxDelegadas.addItem(unEquipo.getUnaDelegada());
-        jComboBoxDelegadas.addItem(unEquipo.getUnaDelegadaSuplente());
+        if (unEquipo.getUnaDelegada() != null) {
+            jComboBoxDelegadas.addItem(unEquipo.getUnaDelegada());
+        }
+        if (unEquipo.getUnaDelegadaSuplente() != null) {
+            jComboBoxDelegadas.addItem(unEquipo.getUnaDelegadaSuplente());
+        }
         jComboBoxDelegadas.setSelectedIndex(-1);
 
         // <editor-fold defaultstate="collapsed" desc="Mes">
@@ -95,7 +98,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 break;
         }
         // </editor-fold>
-        jLabelTitulo.setText("Planilla de Pago Mensual de " + unEquipo.getNombre() + " - " + mes + "/" + dateFormatYear.format(unaControladoraGlobal.fechaSistema()));
+        jLabelTitulo.setText("Pago Mensual: " + unEquipo.getNombre() + " - " + mes + "/" + dateFormatYear.format(unaControladoraGlobal.fechaSistema()));
 
     }
 
@@ -196,12 +199,16 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
     private boolean camposValidar() {
         boolean bandera = true;
-//        if (jComboBoxDelegadas.getSelectedIndex() == -1) {
-//            jLabelDelegadas.setForeground(Color.red);
-//            bandera = false;
-//        } else {
-//            jLabelDelegadas.setForeground(Color.black);
-//        }
+        if (jComboBoxDelegadas.getSelectedIndex() == -1) {
+            jLabelDelegadas.setForeground(Color.red);
+            bandera = false;
+            if (jComboBoxDelegadas.getItemCount() == 0) {
+                JOptionPane.showMessageDialog(this, "El equipo no tiene Delegada ni Delegada Suplente, no se puede pagar por falta de responsable de pago." + System.getProperty("line.separator") + "Asigne una Delegada y vuelva a intentarlo.");
+                return false;
+            }
+        } else {
+            jLabelDelegadas.setForeground(Color.black);
+        }
         if (jTextFieldIdRecibo.getText().isEmpty()) {
             jLabelIdRecibo.setForeground(Color.red);
             bandera = false;
@@ -225,6 +232,10 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jTablePlantel = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelFechaHoy = new javax.swing.JLabel();
+        jButtonImprimir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldTotal = new javax.swing.JTextField();
         jTextFieldSubTotal = new javax.swing.JTextField();
@@ -239,11 +250,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jComboBoxDelegadas = new javax.swing.JComboBox();
         jTextFieldCostoSeguro = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabelTitulo = new javax.swing.JLabel();
-        jLabelFechaHoy = new javax.swing.JLabel();
 
         setClosable(true);
+        setMaximumSize(new java.awt.Dimension(798, 742));
+        setMinimumSize(new java.awt.Dimension(798, 742));
+        setPreferredSize(new java.awt.Dimension(798, 742));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -300,27 +311,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         jTablePlantel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Pagar", "DNI", "Apellido y Nombre", "Estado", "Sub-Total"
@@ -373,17 +364,91 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Plantel:");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("Pago Mensual: \"Equipo\" - \"Mes\"");
+
+        jLabelFechaHoy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelFechaHoy.setText("Fecha: dd/MM/aaaa");
+
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelFechaHoy)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabelFechaHoy)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(3, 3, 3))
+        );
+
         jTextFieldTotal.setEditable(false);
 
         jTextFieldSubTotal.setEditable(false);
 
         jTextFieldCostoCancha.setEditable(false);
 
-        jLabel1.setText("SubTotal:");
+        jLabel1.setText("Total Plantel:");
 
-        jLabel3.setText("Total:");
+        jLabel3.setText("Total General:");
 
-        jLabel2.setText("Cancha:");
+        jLabel2.setText("Total Cancha:");
 
         jButtonPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Pagar.png"))); // NOI18N
         jButtonPagar.setText("Pagar");
@@ -399,11 +464,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         jLabelDelegadas.setText("Pagado por:");
 
-        jComboBoxDelegadas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Delegada", "Sub-Delegada" }));
-
         jTextFieldCostoSeguro.setEditable(false);
 
-        jLabel6.setText("Seguro Técnicos:");
+        jLabel6.setText("Total Seguro Técnicos:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -413,7 +476,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 493, Short.MAX_VALUE)
+                        .addGap(0, 453, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -472,67 +535,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane2)
-                .addComponent(jScrollPane1)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel4))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel5)
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Planilla Mensual \"Equipo\" - \"Mes\"");
-
-        jLabelFechaHoy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabelFechaHoy.setText("Fecha: dd/MM/aaaa");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelFechaHoy)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelFechaHoy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -540,18 +542,21 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -559,61 +564,72 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
         if (camposValidar()) {
-            List<Socia> sociaPagaron = new ArrayList();
-            List<Cuota> cuotasPagaron = new ArrayList();
+            Object[] options = {"OK", "Cancelar"};
+            if (0 == JOptionPane.showOptionDialog(
+                    this,
+                    "Confirme que desea generar el pago. Verifique el dinero y controle todo antes. Si Acepta no podrá deshacer los cambios.",
+                    "Confirme",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options)) {
+                List<Socia> sociaPagaron = new ArrayList();
+                List<Cuota> cuotasPagaron = new ArrayList();
 
-            // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
-            Socia unaSocia;
-            //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
-            Date fechaHasta = unaControladoraGlobal.fechaSistema();
-            fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-            fechaHasta.setDate(15);
+                // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
+                Socia unaSocia;
+                //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
+                Date fechaHasta = unaControladoraGlobal.fechaSistema();
+                fechaHasta.setMonth(fechaHasta.getMonth() + 1);
+                fechaHasta.setDate(15);
 
-            for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
-                if ((boolean) jTablePlantel.getValueAt(i, 0)) {
-                    unaSocia = (Socia) jTablePlantel.getValueAt(i, 2);
+                for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
+                    if ((boolean) jTablePlantel.getValueAt(i, 0)) {
+                        unaSocia = (Socia) jTablePlantel.getValueAt(i, 2);
 
-                    //Lista para el Reporte
-                    sociaPagaron.add(unaSocia);
+                        //Lista para el Reporte
+                        sociaPagaron.add(unaSocia);
 
-                    //Recorrido de las deudas para pagar
-                    for (Deuda unaDeuda : unaSocia.getDeudas()) {
-                        if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
-                            for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                                if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
-                                    cuotasPagaron.add(unaCuota);
-                                    unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                        //Recorrido de las deudas para pagar
+                        for (Deuda unaDeuda : unaSocia.getDeudas()) {
+                            if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
+                                for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                                    if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                                        cuotasPagaron.add(unaCuota);
+                                        unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                                    }
                                 }
                             }
                         }
-                    }
 
-                }
-            }
-            // </editor-fold>
-
-            // <editor-fold defaultstate="collapsed" desc="Pago Deudas Cancha y Seguro Tecnico">
-            for (Deuda unaDeuda : unEquipo.getDeudas()) {
-                if ((!unaDeuda.isSaldado())
-                        && ("Cancha".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))
-                        || ("Seguro Técnicos".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))) {
-                    for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                        unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
                     }
                 }
-            }
             // </editor-fold>
-            
-            //Guardar Reporte
-            PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) jComboBoxDelegadas.getSelectedItem(), "");
 
-            //Reporte
-            PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(),jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-            String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();
-            PlanilladePagoDS.verReporte(nombrePDF);
+                // <editor-fold defaultstate="collapsed" desc="Pago Deudas Cancha y Seguro Tecnico">
+                for (Deuda unaDeuda : unEquipo.getDeudas()) {
+                    if ((!unaDeuda.isSaldado())
+                            && ("Cancha".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))
+                            || ("Seguro Técnicos".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))) {
+                        for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                            unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
+                        }
+                    }
+                }
+            // </editor-fold>
 
-            unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, unaPlanillaPago.getFechaPago(), unaPlanillaPago.getMonto(), unaPlanillaPago.getNroRecibo(), unaPlanillaPago.getResponsablePago(), "Planillas de Pago/" + nombrePDF + ".pdf");
+                //Guardar Planilla
+                PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) jComboBoxDelegadas.getSelectedItem());
+
+                //Reporte
+                PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+                String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();                
+                PlanilladePagoDS.verReporte(nombrePDF);
+
+                unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
+            }
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
 
@@ -623,8 +639,13 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        JOptionPane.showMessageDialog(this, "FALTA ESTE REPORTE");
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JComboBox jComboBoxDelegadas;
     private javax.swing.JLabel jLabel1;
