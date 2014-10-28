@@ -467,7 +467,7 @@ public class ControladoraDeportiva {
         String[] fechaDividida;
         int resultado = 0;
         for (Partido unPartido : unaListaResultado) {
-            if (!unPartido.getNombreVeedor().isEmpty()) {
+            if (unPartido.isJugado()) {
                 fechaDividida = df.format(unPartido.getFecha()).split("/");
                 if ((Integer.parseInt(fechaDividida[2]) == anio) && (Integer.parseInt(fechaDividida[1]) == mes)) {
                     resultado++;

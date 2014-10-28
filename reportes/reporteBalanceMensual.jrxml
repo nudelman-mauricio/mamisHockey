@@ -207,7 +207,7 @@
 			<textField>
 				<reportElement mode="Opaque" x="0" y="25" width="515" height="13" backcolor="#FFFFFF" uuid="92a98aac-0b29-4453-917d-3b0d6fef1652"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement mode="Opaque" x="515" y="25" width="40" height="13" backcolor="#FFFFFF" uuid="8c941081-4a80-430f-8bb5-6bd2de1daf5e"/>
@@ -290,7 +290,7 @@
 			<textField>
 				<reportElement mode="Opaque" x="0" y="41" width="515" height="13" backcolor="#FFFFFF" uuid="54a3426a-4b37-4c10-8c50-8fb50f6f64ed"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement mode="Opaque" x="515" y="41" width="40" height="13" backcolor="#FFFFFF" uuid="1efb39ec-abeb-4cbe-96af-72fa5b656669"/>

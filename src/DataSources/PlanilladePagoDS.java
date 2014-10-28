@@ -132,7 +132,7 @@ public class PlanilladePagoDS implements JRDataSource {
                     valor = this.costoCancha;
                     break;
                 case "costoSeguro":
-                    valor = this.costoCancha;
+                    valor = this.costoSeguro;
                     break;
                 case "subTotal":
                     valor = this.subTotal;

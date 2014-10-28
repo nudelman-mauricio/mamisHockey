@@ -117,7 +117,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         if (unaFechaTorneoSeleccionada != null) {
             for (Partido unPartido : unaFechaTorneoSeleccionada.getPartidos()) {
                 if (!unPartido.isBorradoLogico()) {
-                    if (unPartido.getNombreVeedor() == null) {
+                    if (!unPartido.isJugado()) {
                         this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), "", "", unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
                     } else {
                         this.modeloTable.addRow(new Object[]{unPartido.getIdPartido(), df.format(unPartido.getFecha()), unPartido.getUnEquipoLocal(), unaControladoraGlobal.getGolesLocal(unPartido), unaControladoraGlobal.getGolesVisitante(unPartido), unPartido.getUnEquipoVisitante(), unPartido.getUnaCancha(), unPartido.getUnArbitro1(), unPartido.getUnArbitro2(), unPartido.getUnArbitro3()});
