@@ -1,6 +1,8 @@
 package DataSources;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,11 +32,11 @@ public class PlanilladePagoDS implements JRDataSource {
 
     private ControladoraGlobal unaControladoraGlobal;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-    private String titulo, idPlanilla, nombrePago, costoCancha,costoSeguro, subTotal, total, idRecibo;
+    private String titulo, idPlanilla, nombrePago, costoCancha, costoSeguro, subTotal, total, idRecibo;
     private List<Socia> sociasPagaron;
     private List<Cuota> cuotasPagaron;
 
-    public PlanilladePagoDS(ControladoraGlobal unaControladoraGlobal, String titulo, String idPlanilla, String nombrePago, String costoCancha,String costoSeguro,String subTotal, String total, String idRecibo, List<Socia> sociasPagaron, List<Cuota> cuotasPagaron) {
+    public PlanilladePagoDS(ControladoraGlobal unaControladoraGlobal, String titulo, String idPlanilla, String nombrePago, String costoCancha, String costoSeguro, String subTotal, String total, String idRecibo, List<Socia> sociasPagaron, List<Cuota> cuotasPagaron) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.titulo = titulo;
         this.idPlanilla = idPlanilla;
@@ -70,6 +72,29 @@ public class PlanilladePagoDS implements JRDataSource {
         }
     }
 
+    public void verReportePDFTemporal(String nombrePDF) {
+        File archivo = new File("reportes/reportePlanillaPagos.jasper");
+        JasperReport reporte;
+
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(archivo);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, this);
+
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Temporal/" + nombrePDF + ".pdf"));
+            exporter.exportReport();
+            try {
+                File path = new File("Temporal/" + nombrePDF + ".pdf");
+                Desktop.getDesktop().open(path);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } catch (JRException ex) {
+            Logger.getLogger(PlanilladePagoDS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private PlanilladePagoDS_unPlantel subReporte() {
         PlanilladePagoDS_unPlantel unaPlantelDS = new PlanilladePagoDS_unPlantel(unaControladoraGlobal, this.sociasPagaron, this.cuotasPagaron);
         return unaPlantelDS;
@@ -86,40 +111,42 @@ public class PlanilladePagoDS implements JRDataSource {
         Object valor = null;
         //General
 
-        if (null != jrf.getName()) switch (jrf.getName()) {
-            case "ruta":
-                valor = unaControladoraGlobal.rutaSistema();
-                break;
-            case "fecha":
-                valor = dateFormat.format(unaControladoraGlobal.fechaSistema());
-                break;
-            case "idPlanilla":
-                valor = this.idPlanilla;
-                break;
-            case "titulo":
-                valor = this.titulo;
-                break;
-            case "nombrePago":
-                valor = this.nombrePago;
-                break;
-            case "costoCancha":
-                valor = this.costoCancha;
-                break;
-            case "costoSeguro":
-                valor = this.costoCancha;
-                break;
-            case "subTotal":
-                valor = this.subTotal;
-                break;
-            case "total":
-                valor = this.total;
-                break;
-            case "idRecibo":
-                valor = this.idRecibo;
-                break;
-            case "subReporte":
-                valor = this.subReporte();
-                break;
+        if (null != jrf.getName()) {
+            switch (jrf.getName()) {
+                case "ruta":
+                    valor = unaControladoraGlobal.rutaSistema();
+                    break;
+                case "fecha":
+                    valor = dateFormat.format(unaControladoraGlobal.fechaSistema());
+                    break;
+                case "idPlanilla":
+                    valor = this.idPlanilla;
+                    break;
+                case "titulo":
+                    valor = this.titulo;
+                    break;
+                case "nombrePago":
+                    valor = this.nombrePago;
+                    break;
+                case "costoCancha":
+                    valor = this.costoCancha;
+                    break;
+                case "costoSeguro":
+                    valor = this.costoCancha;
+                    break;
+                case "subTotal":
+                    valor = this.subTotal;
+                    break;
+                case "total":
+                    valor = this.total;
+                    break;
+                case "idRecibo":
+                    valor = this.idRecibo;
+                    break;
+                case "subReporte":
+                    valor = this.subReporte();
+                    break;
+            }
         }
         if ((valor == null) || ("".equals(valor))) {
             valor = "-";

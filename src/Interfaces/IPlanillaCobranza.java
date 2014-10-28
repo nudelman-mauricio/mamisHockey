@@ -625,7 +625,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 //Reporte
                 PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-                String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();                
+                String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();
                 PlanilladePagoDS.verReporte(nombrePDF);
 
                 unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
@@ -640,7 +640,40 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        JOptionPane.showMessageDialog(this, "FALTA ESTE REPORTE");
+        List<Socia> sociaPagaron = new ArrayList();
+        List<Cuota> cuotasPagaron = new ArrayList();
+
+        // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
+        Socia unaSocia;
+        //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
+        Date fechaHasta = unaControladoraGlobal.fechaSistema();
+        fechaHasta.setMonth(fechaHasta.getMonth() + 1);
+        fechaHasta.setDate(15);
+
+        for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
+            if ((boolean) jTablePlantel.getValueAt(i, 0)) {
+                unaSocia = (Socia) jTablePlantel.getValueAt(i, 2);
+
+                //Lista para el Reporte
+                sociaPagaron.add(unaSocia);
+
+                //Recorrido de las deudas para pagar
+                for (Deuda unaDeuda : unaSocia.getDeudas()) {
+                    if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
+                        for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                            if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                                cuotasPagaron.add(unaCuota);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // </editor-fold>
+
+        //Reporte
+        PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "-", "-", jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), "-", sociaPagaron, cuotasPagaron);
+        PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
 
