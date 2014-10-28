@@ -93,7 +93,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
+		<band height="20">
 			<staticText>
 				<reportElement x="31" y="0" width="118" height="20" uuid="7595b64b-0ec2-4a16-8449-fe33bd57a7dd"/>
 				<box>
@@ -154,7 +154,7 @@
 		<band height="20">
 			<textField>
 				<reportElement x="149" y="0" width="146" height="20" uuid="b557c511-4820-47c0-8f07-13868d9fe76c"/>
-				<box>
+				<box leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -174,26 +174,27 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement x="416" y="0" width="112" height="20" uuid="8bfcb363-1077-4ce5-beb4-ee128f05d6d2"/>
-				<box>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{MontoE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="295" y="0" width="121" height="20" uuid="29c07489-d791-4d27-83b4-63bbb4c60f1f"/>
-				<box>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="295" y="0" width="121" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="29c07489-d791-4d27-83b4-63bbb4c60f1f"/>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{MontoI}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -232,30 +233,26 @@
 				</textElement>
 				<text><![CDATA[Subtotal]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="295" y="1" width="121" height="20" uuid="ae451771-2bd1-47c5-94e9-8cb883878203"/>
-				<box>
-					<pen lineWidth="1.0"/>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalI}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="416" y="1" width="112" height="20" uuid="1c66094d-cc1e-4b9e-93bb-a3530735a9a3"/>
-				<box>
-					<pen lineWidth="1.0"/>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalE}]]></textFieldExpression>
@@ -264,16 +261,14 @@
 	</pageFooter>
 	<lastPageFooter>
 		<band height="54">
-			<textField>
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="416" y="20" width="112" height="20" uuid="98197feb-d883-4c7d-b681-38c9e473cd1e"/>
-				<box>
-					<pen lineWidth="1.0"/>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
@@ -315,30 +310,26 @@
 				</textElement>
 				<text><![CDATA[Subtotal]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="295" y="0" width="121" height="20" uuid="382299b2-2f7e-4b70-8693-1f187e1443ab"/>
-				<box>
-					<pen lineWidth="1.0"/>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalI}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="416" y="0" width="112" height="20" uuid="60cc333a-0fd2-409a-a801-67af004052e7"/>
-				<box>
-					<pen lineWidth="1.0"/>
+				<box rightPadding="15">
 					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalE}]]></textFieldExpression>
