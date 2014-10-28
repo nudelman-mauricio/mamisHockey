@@ -80,14 +80,16 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         } else {
             jButtonActualizar.setEnabled(false);
         }
-        if ((unaControladoraGlobal.fechaSistema().after(unPartido.getFecha())) || (unaControladoraGlobal.fechaSistema().equals(unPartido.getFecha()))) {
-            if (unPartido.getJugadoras().isEmpty()) {
-                jButtonEditar.setEnabled(false);
+        if (!unPartido.isJugado()) {
+            if ((unaControladoraGlobal.fechaSistema().after(unPartido.getFecha())) || (unaControladoraGlobal.fechaSistema().equals(unPartido.getFecha()))) {
+                if (unPartido.getJugadoras().isEmpty()) {
+                    jButtonEditar.setEnabled(false);
+                } else {
+                    jButtonEditar.setEnabled(true);
+                }
             } else {
-                jButtonEditar.setEnabled(true);
+                jButtonEditar.setEnabled(false);
             }
-        } else {
-            jButtonEditar.setEnabled(false);
         }
         // </editor-fold>
     }

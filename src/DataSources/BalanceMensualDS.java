@@ -113,6 +113,14 @@ public class BalanceMensualDS implements JRDataSource {
         List<ConceptoDeportivo> conceptosDeportivos = unaControladoraGlobal.getConceptosDeportivosBD();
         for (ConceptoDeportivo unConcepto : conceptosDeportivos) {
             for (PagoCuota unPagoCuota : pagoCuotas) {
+//                System.out.println(unPagoCuota.getIdPagoCuota() + " - " + unPagoCuota.getMonto());
+//                if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota) == null) {
+//                    System.out.println("Null");
+//                } else {
+//                    if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo() == null) {
+//                        System.out.println("Null 2");
+//                    }
+//                }
                 if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().equals(unConcepto)) {
                     if (fechaEvaluada == null) {
                         fechaEvaluada = unPagoCuota.getFechaPago();
@@ -176,13 +184,12 @@ public class BalanceMensualDS implements JRDataSource {
             valor = unBalance.get(indiceBalance).getMontoEgreso();
         } else if ("fechaBalance".equals(jrf.getName())) {
             int mes1 = Integer.parseInt(desde.substring(0, 2));
-            int mes2 = Integer.parseInt(hasta.substring(0, 2));            
-            if((mes2 - mes1) == 1){
-                valor = "Balance del mes "+ desde;
-            } else
-            {
-               valor = "Balance del mes " + desde + " hasta el mes " + (mes2-1)+hasta.substring(2);
-            }           
+            int mes2 = Integer.parseInt(hasta.substring(0, 2));
+            if ((mes2 - mes1) == 1) {
+                valor = "Balance del mes " + desde;
+            } else {
+                valor = "Balance del mes " + desde + " hasta el mes " + (mes2 - 1) + hasta.substring(2);
+            }
         } else if ("fecha".equals(jrf.getName())) {
             valor = df.format(unaControladoraGlobal.fechaSistema());
         }

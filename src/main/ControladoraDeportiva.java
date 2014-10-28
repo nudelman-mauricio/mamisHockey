@@ -802,12 +802,9 @@ public class ControladoraDeportiva {
         boolean resultado = false;
         Partido unPartidoAnterior = this.getPartidoAnterior(unPartido);
         if (unPartido != unPartidoAnterior) {
-            if (unPartidoAnterior.getNombreVeedor() != null) {
-                if (!unPartidoAnterior.getNombreVeedor().isEmpty()) {
-                    resultado = true;
-                }
-            }
+            resultado = unPartidoAnterior.isJugado();
         } else {
+            //no tiene partido anterior
             resultado = true;
         }
         return resultado;
