@@ -26,6 +26,7 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         this.unEquipo = unEquipo;
         this.modeloTablaIndumentaria = (DefaultTableModel) jTableIndumentaria.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
+        this.setTitle("Equipo: " + unEquipo.getNombre());
         IMenuPrincipalInterface.centrar(this);
         cargarTabla();
     }

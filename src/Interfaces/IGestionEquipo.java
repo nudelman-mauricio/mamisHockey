@@ -37,6 +37,10 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
         this.setTitle("Gestión de Equipos");
         IMenuPrincipalInterface.centrar(this);
+
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
+        camposActivo(false);
     }
 
     private void limpiarTabla() {
@@ -419,7 +423,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 //          NO BORRAR LO ANTERIOR
 //        
         JOptionPane.showMessageDialog(this, "se tiene que cambiar de lugar este reporte");
-        
+
         Equipo_PlantelDS unPlantelDS = new Equipo_PlantelDS(unEquipoSeleccionado.getPlantel());
         EquipoDS unEquipoDS = new EquipoDS(unaControladoraGlobal, unEquipoSeleccionado);
         File archivo = new File("reportes/reporteEquipo.jasper");
@@ -482,6 +486,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unEquipo.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unEquipo);
+        jTableEquipo.clearSelection();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -501,15 +506,17 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarEquipo(unEquipoSeleccionado);
             jTextFieldBusqueda.setText("");
             cargarTabla();
+            jTableEquipo.clearSelection();
+            unEquipoSeleccionado = null;
         }
-        jTableEquipo.clearSelection();
-        unEquipoSeleccionado = null;
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        jTextFieldBusqueda.setText("");
-        cargarTabla();
-        camposActivo(false);
+        if (jTableEquipo.getSelectedRow() == -1) {
+            jTextFieldBusqueda.setText("");
+            cargarTabla();
+            camposActivo(false);
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -534,14 +541,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
         List<Equipo> equipos = new ArrayList();
-        int filas = this.modeloTablaEquipo.getRowCount();        
-        for (int i = 0; i < filas; i++) {           
-            unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(i, 0));            
+        int filas = this.modeloTablaEquipo.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquipo.getValueAt(i, 0));
             equipos.add(unEquipoSeleccionado);
         }
         ListaEquiposDS unaListaEquipoDS = new ListaEquiposDS(unaControladoraGlobal, equipos);
         unaListaEquipoDS.verReporte(false);
-        
+
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

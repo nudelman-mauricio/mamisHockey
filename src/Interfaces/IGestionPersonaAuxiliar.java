@@ -63,6 +63,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     private void camposActivo(boolean Editable) {
         jButtonDatos.setEnabled(Editable);
         jButtonSancion.setEnabled(Editable);
+        jButtonActasConformidad.setEnabled(Editable);
         jButtonEliminar.setEnabled(Editable);
         jButtonImprimir.setEnabled(Editable);
     }
