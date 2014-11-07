@@ -3,11 +3,14 @@ package Interfaces;
 import DataSources.EquiposTorneoDS;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Club;
 import logicaNegocios.Equipo;
+import logicaNegocios.FechaTorneo;
+import logicaNegocios.Partido;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
@@ -265,11 +268,23 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButtonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarActionPerformed
-        unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);
+        boolean bandera = true;
+        for(FechaTorneo unaFecha: unTorneo.getFechasTorneo()){
+            for(Partido unPartido : unaFecha.getPartidos()){
+                if(unPartido.getUnEquipoLocal().equals(unEquipoSeleccionado) || unPartido.getUnEquipoVisitante().equals(unEquipoSeleccionado)){
+                    bandera = false;
+                }
+            }
+        }
+        if(bandera){
+        unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);        
         unEquipoSeleccionado = null;        
         limpiarTabla();
         cargarTabla();
-        jButtonQuitar.setEnabled(false);
+        jButtonQuitar.setEnabled(false);}
+        else {           
+            JOptionPane.showMessageDialog(this,"El Equipo no puede ser eliminado del torneo debido a que tiene asignados partidos");
+        }
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
