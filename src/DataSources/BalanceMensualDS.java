@@ -113,14 +113,6 @@ public class BalanceMensualDS implements JRDataSource {
         List<ConceptoDeportivo> conceptosDeportivos = unaControladoraGlobal.getConceptosDeportivosBD();
         for (ConceptoDeportivo unConcepto : conceptosDeportivos) {
             for (PagoCuota unPagoCuota : pagoCuotas) {
-//                System.out.println(unPagoCuota.getIdPagoCuota() + " - " + unPagoCuota.getMonto());
-//                if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota) == null) {
-//                    System.out.println("Null");
-//                } else {
-//                    if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo() == null) {
-//                        System.out.println("Null 2");
-//                    }
-//                }
                 if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().equals(unConcepto)) {
                     if (fechaEvaluada == null) {
                         fechaEvaluada = unPagoCuota.getFechaPago();

@@ -70,7 +70,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         // <editor-fold defaultstate="collapsed" desc="Control de Botones">
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
-        if (unaControladoraGlobal.isPartidoAnteriorJugado(unPartido)) {
+        if (unaControladoraGlobal.isPartidoAnteriorJugado(unPartido) && (!unPartido.isJugado())) {
             jButtonImprimir.setEnabled(true);
         } else {
             jButtonImprimir.setEnabled(false);
@@ -90,6 +90,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             } else {
                 jButtonEditar.setEnabled(false);
             }
+        } else {
+            jButtonEditar.setEnabled(false);
         }
         // </editor-fold>
     }
@@ -1132,8 +1134,8 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
 
                 jButtonGuardar.setEnabled(false);
                 jButtonCancelar.setEnabled(false);
-                jButtonEditar.setEnabled(true);
-                jButtonImprimir.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
                 jButtonActualizar.setEnabled(false);
 
                 camposActivo(false);
@@ -1154,7 +1156,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         }
 
-        //Genera el reporte de la planilla de partido        
+        //Genera el reporte de la planilla de partido
         PlanillaPartidoDS unaPlanillaPartidoDS = new PlanillaPartidoDS(unaControladoraGlobal, unPartido);
         PlanillaPartidoDS_Plantel unPlantelLocalDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, unPartido, unPartido.getJugadorasLocales());
         PlanillaPartidoDS_Plantel unPlantelVisitanteDS = new PlanillaPartidoDS_Plantel(unaControladoraGlobal, unPartido, unPartido.getJugadorasVisitantes());
