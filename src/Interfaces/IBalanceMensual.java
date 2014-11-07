@@ -11,6 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import logicaNegocios.ConceptoDeportivo;
+import logicaNegocios.ConceptoEgreso;
+import logicaNegocios.ConceptoIngreso;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.PagoCuota;
@@ -42,6 +45,22 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
 
         jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
         jComboBoxHastaAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
+        
+        cargarComboBoxConcepto();
+    }
+    
+    private void cargarComboBoxConcepto(){
+        jComboBoxConcepto.addItem("Todo");
+        for(ConceptoDeportivo unConcepto: unaControladoraGlobal.getConceptosDeportivosBD()){
+            jComboBoxConcepto.addItem((Object)unConcepto);
+        }
+        for(ConceptoEgreso unConcepto: unaControladoraGlobal.getConceptosEgresosBD()){
+            jComboBoxConcepto.addItem((Object)unConcepto);
+        }
+        for(ConceptoIngreso unConcepto: unaControladoraGlobal.getConceptosIngresosBD()){
+            jComboBoxConcepto.addItem((Object)unConcepto);
+        }      
+        
     }
 
     private boolean camposValidar() {
@@ -65,14 +84,17 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jComboBoxConcepto = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(545, 214));
-        setMinimumSize(new java.awt.Dimension(545, 214));
-        setPreferredSize(new java.awt.Dimension(545, 214));
+        setMaximumSize(new java.awt.Dimension(545, 286));
+        setMinimumSize(new java.awt.Dimension(545, 286));
+        setPreferredSize(new java.awt.Dimension(545, 286));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -150,15 +172,44 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Mostrar"));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Concepto:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,7 +219,9 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -202,7 +255,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +285,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -249,7 +302,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
                 List<PagoCuota> pagoCuotas = unaControladoraGlobal.getPagosCuotasEntreFechasBD(fechaDesde, fechaHasta);
 
-                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta));
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta), jComboBoxConcepto.getSelectedItem().toString());
 
                 File archivo = new File("reportes/reporteBalanceMensual.jasper");
                 JasperReport reporte;
@@ -277,16 +330,19 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JComboBox jComboBoxConcepto;
     private javax.swing.JComboBox jComboBoxDesdeAño;
     private javax.swing.JComboBox jComboBoxDesdeMes;
     private javax.swing.JComboBox jComboBoxHastaAño;
     private javax.swing.JComboBox jComboBoxHastaMes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBotones;
     // End of variables declaration//GEN-END:variables
