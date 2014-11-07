@@ -490,9 +490,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        camposActivo(false);
-        jTableEquipo.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -509,6 +506,9 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             jTableEquipo.clearSelection();
             unEquipoSeleccionado = null;
         }
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTableEquipo.setEnabled(true);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
