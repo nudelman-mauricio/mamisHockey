@@ -15,6 +15,7 @@ import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.PagoCuota;
+import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -150,10 +151,34 @@ public class BalanceMensualDS implements JRDataSource {
                 unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
                 unBalance.add(unaBalanza);
             }
-            Collections.sort(unBalance, (Balance o1, Balance o2) -> ((Integer) o1.getFecha().getMonth()).compareTo((Integer) o2.getFecha().getMonth()));
+
         } else {
-            
+            if (!egresos.isEmpty()) {
+                for (Egreso unEgreso : egresos) {
+                    if (unEgreso.getUnConceptoEgreso().getNombre().equals(opcion)) {
+                        unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto(), df.format(unEgreso.getFecha()));
+                        unBalance.add(unaBalanza);
+                    }
+                }
+            } else {
+                if (!ingresos.isEmpty()) {
+                    for (IngresoOtro unIngreso : ingresos) {
+                        if (unIngreso.getUnConceptoIngreso().getNombre().equals(opcion)) {
+                            unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
+                            unBalance.add(unaBalanza);
+                        }
+                    }
+                } else {
+                    for (PagoCuota unPagoCuota : pagoCuotas) {
+                         if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)){  
+                             unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                             unBalance.add(unaBalanza);
+                         } 
+                    }
+                }
+            }
         }
+        Collections.sort(unBalance, (Balance o1, Balance o2) -> ((Integer) o1.getFecha().getMonth()).compareTo((Integer) o2.getFecha().getMonth()));
     }
 
     //Sector de la impresion del datasource
