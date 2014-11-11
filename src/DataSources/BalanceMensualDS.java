@@ -168,11 +168,11 @@ public class BalanceMensualDS implements JRDataSource {
                         }
                     }
                 } else {
-                    for (PagoCuota unPagoCuota : pagoCuotas) {                       
-                        if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)){  
-                             unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
-                             unBalance.add(unaBalanza);
-                         } 
+                    for (PagoCuota unPagoCuota : pagoCuotas) {
+                        if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)) {
+                            unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                            unBalance.add(unaBalanza);
+                        }
                     }
                 }
             }
