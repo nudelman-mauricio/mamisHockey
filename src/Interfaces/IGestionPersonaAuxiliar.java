@@ -24,6 +24,10 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         this.setTitle("Gestión de Auxiliares");
         IMenuPrincipalInterface.centrar(this);
+
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
+        camposActivo(false);
     }
 
     private void limpiarTabla() {
@@ -383,6 +387,8 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaPersonaAuxiliar.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaPersonaAuxiliar);
+        jTablePersonaAuxiliar.clearSelection();
+        unaPersonaAuxiliarSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
@@ -394,10 +400,16 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        jRadioButtonTodos.setSelected(true);
-        jTextFieldBusqueda.setText("");
-        cargarTabla();
-        camposActivo(false);
+        int filaSeleccionada = jTablePersonaAuxiliar.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            jRadioButtonTodos.setSelected(true);
+            jTextFieldBusqueda.setText("");
+            cargarTabla();
+            camposActivo(false);
+        } else {
+            cargarTabla();
+            jTablePersonaAuxiliar.getSelectionModel().setSelectionInterval(filaSeleccionada, filaSeleccionada);
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -405,9 +417,6 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        camposActivo(false);
-        jTablePersonaAuxiliar.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -420,11 +429,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
                 options)) {
             unaControladoraGlobal.eliminarPersonaAuxiliar(unaPersonaAuxiliarSeleccionado);
             jTextFieldBusqueda.setText("");
-            jRadioButtonTodos.setSelected(true);
             cargarTabla();
+            jTablePersonaAuxiliar.clearSelection();
+            unaPersonaAuxiliarSeleccionado = null;
+            jRadioButtonTodos.setSelected(true);
         }
-        jTablePersonaAuxiliar.clearSelection();
-        unaPersonaAuxiliarSeleccionado = null;
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTablePersonaAuxiliar.setEnabled(true);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jRadioButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosActionPerformed
@@ -470,7 +482,11 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     private void jButtonActasConformidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActasConformidadActionPerformed
-        // TODO add your handling code here:
+        IActasCompromiso unaIActasCompromiso = new IActasCompromiso(this, unaControladoraGlobal, unaPersonaAuxiliarSeleccionado);
+        unaIActasCompromiso.pack();
+        unaIActasCompromiso.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaIActasCompromiso);
     }//GEN-LAST:event_jButtonActasConformidadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -24,6 +24,10 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         this.setTitle("Gestión de Socias");
         IMenuPrincipalInterface.centrar(this);
+
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
+        camposActivo(false);
     }
 
     private void limpiarTabla() {
@@ -467,6 +471,8 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaSocia.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unaSocia);
+        this.jTableSocias.clearSelection();
+        unaSociaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -474,15 +480,18 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        jTextFieldBusqueda.setText("");
-        cargarTabla();
-        camposActivo(false);
+        int filaSeleccionada = jTableSocias.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            jTextFieldBusqueda.setText("");
+            cargarTabla();
+            camposActivo(false);
+        } else {
+            cargarTabla();
+            jTableSocias.getSelectionModel().setSelectionInterval(filaSeleccionada, filaSeleccionada);
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        camposActivo(false);
-        jTableSocias.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -496,9 +505,12 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarSocia(unaSociaSeleccionada);
             jTextFieldBusqueda.setText("");
             cargarTabla();
+            jTableSocias.clearSelection();
+            unaSociaSeleccionada = null;
         }
-        jTableSocias.clearSelection();
-        unaSociaSeleccionada = null;
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTableSocias.setEnabled(true);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -511,12 +523,12 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
         List<Socia> socias = new ArrayList();
-        int filas = this.modeloTablaSocia.getRowCount();        
-        for (int i = 0; i < filas; i++) { 
+        int filas = this.modeloTablaSocia.getRowCount();
+        for (int i = 0; i < filas; i++) {
             socias.add(unaControladoraGlobal.getSociaBD((Long) jTableSocias.getValueAt(i, 0)));
         }
         ListaSociasDS unaListaSociasDS = new ListaSociasDS(unaControladoraGlobal, socias);
-        unaListaSociasDS.verReporte(); // TODO add your handling code here:
+        unaListaSociasDS.verReporte();
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

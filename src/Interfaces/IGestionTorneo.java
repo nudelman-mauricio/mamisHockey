@@ -26,6 +26,10 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
         this.setTitle("Gestión de Torneos");
         IMenuPrincipalInterface.centrar(this);
+
+        jTextFieldBusqueda.setText("");
+        cargarTabla();
+        camposActivo(false);
     }
 
     private void limpiarTabla() {
@@ -404,6 +408,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unTorneo.setVisible(true);
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unTorneo);
+        jTableTorneo.clearSelection();
+        unTorneoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -411,9 +417,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        jButtonNuevo.setEnabled(true);
-        camposActivo(false);
-        jTableTorneo.setEnabled(true);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -427,15 +430,24 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarTorneo(unTorneoSeleccionado);
             jTextFieldBusqueda.setText("");
             cargarTabla();
+            jTableTorneo.clearSelection();
+            unTorneoSeleccionado = null;
         }
-        jTableTorneo.clearSelection();
-        unTorneoSeleccionado = null;
+        jButtonNuevo.setEnabled(true);
+        camposActivo(false);
+        jTableTorneo.setEnabled(true);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        jTextFieldBusqueda.setText("");
-        cargarTabla();
-        camposActivo(false);
+        int filaSeleccionada = jTableTorneo.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            jTextFieldBusqueda.setText("");
+            cargarTabla();
+            camposActivo(false);
+        } else {
+            cargarTabla();
+            jTableTorneo.getSelectionModel().setSelectionInterval(filaSeleccionada, filaSeleccionada);
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonTablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTablaPosicionesActionPerformed

@@ -40,8 +40,12 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
         for (Date unaFecha : unaPersonaAuxiliar.getActasCompromiso()) {
             this.modeloTable.addRow(new Object[]{unaFecha, df.format(unaFecha)});
         }
-        if (this.unaControladoraGlobal.fechaSistema().getYear() != ((Date) this.modeloTable.getValueAt(0, this.modeloTable.getRowCount() - 1)).getYear()) {
+        if (this.modeloTable.getRowCount() == 0) {
             this.jButtonNuevo.setEnabled(true);
+        } else {
+            if (this.unaControladoraGlobal.fechaSistema().getYear() != ((Date) this.modeloTable.getValueAt(this.modeloTable.getRowCount() - 1, 0)).getYear()) {
+                this.jButtonNuevo.setEnabled(true);
+            }
         }
         jButtonEliminar.setEnabled(false);
     }
@@ -57,6 +61,7 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
         if (jTableActasCompromiso.getSelectedRow() > -1) {
             if (jTableActasCompromiso.getValueAt(jTableActasCompromiso.getSelectedRow(), 0) != null) {
                 unaFechaSeleccionada = (Date) jTableActasCompromiso.getValueAt(jTableActasCompromiso.getSelectedRow(), 0);
+                this.jButtonEliminar.setEnabled(true);
             }
         }
     }
@@ -75,6 +80,23 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
         setMaximumSize(new java.awt.Dimension(400, 500));
         setMinimumSize(new java.awt.Dimension(400, 500));
         setPreferredSize(new java.awt.Dimension(400, 500));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -189,6 +211,7 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
                 options)) {
             unaControladoraGlobal.agregarActaCompromiso(unaPersonaAuxiliar, unaControladoraGlobal.fechaSistema());
             cargarTabla();
+            this.jButtonNuevo.setEnabled(false);
         }
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
@@ -210,6 +233,10 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
         }
         jTableActasCompromiso.clearSelection();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        this.unJInternalFrame.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

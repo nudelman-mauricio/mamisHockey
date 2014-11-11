@@ -487,6 +487,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         this.setVisible(false);
         IMenuPrincipalInterface.jDesktopPane.add(unEquipo);
         jTableEquipo.clearSelection();
+        unEquipoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -521,7 +522,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             cargarTabla();
             jTableEquipo.getSelectionModel().setSelectionInterval(filaSeleccionada, filaSeleccionada);
         }
-
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -553,7 +553,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         }
         ListaEquiposDS unaListaEquipoDS = new ListaEquiposDS(unaControladoraGlobal, equipos);
         unaListaEquipoDS.verReporte(false);
-
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

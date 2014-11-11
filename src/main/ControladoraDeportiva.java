@@ -219,16 +219,6 @@ public class ControladoraDeportiva {
         }
         return null;
     }
-
-    /**
-     * Devuelve las tarjetas de una Socia y un Partido
-     */
-//    public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
-//        String unaConsulta = "Select T FROM Tarjeta T, Partido P, Socia S WHERE P.tarjetas.idTarjeta = S.tarjetas.idTarjeta AND S.dni = " + unaSocia.getDni() + " AND P.idPartido = " + unPartido.getIdPartido();
-//        Query traerTarjeta = this.entityManager.createQuery(unaConsulta);
-//        List<Tarjeta> tarjetas = traerTarjeta.getResultList();
-//        return tarjetas;
-//    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Equipos">

@@ -389,11 +389,8 @@ public class ControladoraGlobal {
     public List<Tarjeta> getTarjetasBD() {
         return this.unaControladoraDeportiva.getTarjetasBD();
     }
-
-//    public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
-//        return unaControladoraDeportiva.getTarjetaSociaPartido(unPartido, unaSocia);
-//    }
     // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Equipos">
     public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
         return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
