@@ -390,11 +390,10 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTarjetasBD();
     }
 
-    public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
-        return unaControladoraDeportiva.getTarjetaSociaPartido(unPartido, unaSocia);
-    }
+//    public List<Tarjeta> getTarjetaSociaPartido(Partido unPartido, Socia unaSocia) {
+//        return unaControladoraDeportiva.getTarjetaSociaPartido(unPartido, unaSocia);
+//    }
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Equipos">
     public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
         return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
@@ -881,6 +880,14 @@ public class ControladoraGlobal {
 
     public List<Deuda> getDeudasMesSocias(Date fecha, Socia unaSocia) {
         return null;
+    }
+
+    public Socia getSociaResponsableDeuda(Deuda unaDeuda) {
+        return this.unaControladoraContabilidad.getSociaResponsableDeuda(unaDeuda);
+    }
+
+    public Equipo getEquipoResponsableDeuda(Deuda unaDeuda) {
+        return this.unaControladoraContabilidad.getEquipoResponsableDeuda(unaDeuda);
     }
     // </editor-fold>
 

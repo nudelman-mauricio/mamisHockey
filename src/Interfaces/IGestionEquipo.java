@@ -512,11 +512,16 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        if (jTableEquipo.getSelectedRow() == -1) {
+        int filaSeleccionada = jTableEquipo.getSelectedRow();
+        if (filaSeleccionada == -1) {
             jTextFieldBusqueda.setText("");
             cargarTabla();
             camposActivo(false);
+        } else {
+            cargarTabla();
+            jTableEquipo.getSelectionModel().setSelectionInterval(filaSeleccionada, filaSeleccionada);
         }
+
     }//GEN-LAST:event_formComponentShown
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
