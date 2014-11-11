@@ -15,7 +15,6 @@ import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.PagoCuota;
-import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -169,8 +168,8 @@ public class BalanceMensualDS implements JRDataSource {
                         }
                     }
                 } else {
-                    for (PagoCuota unPagoCuota : pagoCuotas) {
-                         if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)){  
+                    for (PagoCuota unPagoCuota : pagoCuotas) {                       
+                        if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)){  
                              unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
                              unBalance.add(unaBalanza);
                          } 
