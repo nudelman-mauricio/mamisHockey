@@ -152,24 +152,30 @@ public class BalanceMensualDS implements JRDataSource {
             }
 
         } else {
-            if (!egresos.isEmpty()) {
-                for (Egreso unEgreso : egresos) {
-                    if (unEgreso.getUnConceptoEgreso().getNombre().equals(opcion)) {
-                        unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto(), df.format(unEgreso.getFecha()));
-                        unBalance.add(unaBalanza);
-                    }
+
+            for (Egreso unEgreso : egresos) {
+                if (unEgreso.getUnConceptoEgreso().getNombre().equals(opcion)) {
+                    unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto(), df.format(unEgreso.getFecha()));
+                    unBalance.add(unaBalanza);
                 }
-            } else {
-                if (!ingresos.isEmpty()) {
-                    for (IngresoOtro unIngreso : ingresos) {
-                        if (unIngreso.getUnConceptoIngreso().getNombre().equals(opcion)) {
-                            unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
+            }
+            for (IngresoOtro unIngreso : ingresos) {
+                if (unIngreso.getUnConceptoIngreso().getNombre().equals(opcion)) {
+                    unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
+                    unBalance.add(unaBalanza);
+                }
+            }
+            for (PagoCuota unPagoCuota : pagoCuotas) {
+
+                if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)) {
+                    if (unaControladoraGlobal.getSociaResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)) != null) {
+                        unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion + " " + unaControladoraGlobal.getSociaResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)), unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                        unBalance.add(unaBalanza);
+                    } else {
+                        if (unaControladoraGlobal.getEquipoResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)) != null) {
+                            unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion + " " + unaControladoraGlobal.getEquipoResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)), unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
                             unBalance.add(unaBalanza);
-                        }
-                    }
-                } else {
-                    for (PagoCuota unPagoCuota : pagoCuotas) {
-                        if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)) {
+                        } else {
                             unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
                             unBalance.add(unaBalanza);
                         }
