@@ -45,7 +45,7 @@ public class FixtureDS_Fecha_Partido implements JRDataSource {
             valor = df.format(partidos.get(indicePartidos).getFecha());
         } else if ("golLocal".equals(jrf.getName())) {
            valor = unaControladoraGlobal.getGolesLocal(partidos.get(indicePartidos));
-           if (partidos.get(indicePartidos).getNombreVeedor() == null) { 
+           if (!partidos.get(indicePartidos).isJugado()) { 
                 valor = "";
             }        
         } else if ("local".equals(jrf.getName())) {
@@ -54,7 +54,7 @@ public class FixtureDS_Fecha_Partido implements JRDataSource {
             valor = partidos.get(indicePartidos).getUnEquipoVisitante().getNombre();
         } else if ("golVisitante".equals(jrf.getName())) {
             valor = unaControladoraGlobal.getGolesVisitante(partidos.get(indicePartidos));
-            if (partidos.get(indicePartidos).getNombreVeedor() == null) { 
+            if (!partidos.get(indicePartidos).isJugado()) { 
                 valor = "";
             }              
         } else if ("cancha".equals(jrf.getName())) {
