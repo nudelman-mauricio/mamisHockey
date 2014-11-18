@@ -632,6 +632,14 @@ public class ControladoraDeportiva {
         return unaListaResultado;
     }
 
+    public List<Torneo> getTorneosHijos(Torneo unTorneo) {
+        List<Torneo> unaListaResultado = this.entityManager.createQuery("SELECT T FROM Torneo T WHERE T.unTorneoPadre.idTorneo = " + unTorneo.getIdTorneo()).getResultList();
+        if (!unaListaResultado.isEmpty()) {
+            return unaListaResultado;
+        }
+        return null;
+    }
+
     /**
      * Devuelve los Torneos en los que participo una socia
      */

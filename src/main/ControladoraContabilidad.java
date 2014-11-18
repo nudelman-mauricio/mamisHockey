@@ -152,8 +152,9 @@ public class ControladoraContabilidad {
     public Deuda getDeudaPagoCuota(PagoCuota unPago) {
         List<Deuda> unaListaResultado = this.entityManager.createQuery("SELECT D FROM Deuda D, Cuota C, PagoCuota P JOIN D.cuotas R WHERE (R.idCuota = C.idCuota) AND (C.unPagoCuota.idPagoCuota = P.idPagoCuota) AND P.idPagoCuota =" + unPago.getIdPagoCuota()).getResultList();
         if (!unaListaResultado.isEmpty()) {
-        return unaListaResultado.get(0);
-        } return null;
+            return unaListaResultado.get(0);
+        }
+        return null;
 //        Alternativa que YA SABEMOS FUNCIONA BIEN
 //        
 //        for (Deuda unaDeuda : this.getDeudaBD()) {
@@ -169,7 +170,8 @@ public class ControladoraContabilidad {
     public Deuda getDeudaDeCuota(Cuota unaCuotaParametro) {
         List<Deuda> unaListaResultado = this.entityManager.createQuery("SELECT D FROM Deuda D, Cuota C JOIN D.cuotas R WHERE (R.idCuota = C.idCuota) AND C.idCuota=" + unaCuotaParametro.getIdCuota()).getResultList();
         if (!unaListaResultado.isEmpty()) {
-        return unaListaResultado.get(0);}
+            return unaListaResultado.get(0);
+        }
         return null;
 
 //Alternativa que YA SABEMOS FUNCIONA BIEN
@@ -187,15 +189,17 @@ public class ControladoraContabilidad {
     public Socia getSociaResponsableDeuda(Deuda unaDeuda) {
         List<Socia> unaListaResultado = this.entityManager.createQuery("SELECT S FROM Socia S, Deuda D JOIN S.deudas R WHERE (R.idDeuda = D.idDeuda) AND D.idDeuda=" + unaDeuda.getIdDeuda()).getResultList();
         if (!unaListaResultado.isEmpty()) {
-        return unaListaResultado.get(0);}
+            return unaListaResultado.get(0);
+        }
         return null;
     }
 
     public Equipo getEquipoResponsableDeuda(Deuda unaDeuda) {
         List<Equipo> unaListaResultado = this.entityManager.createQuery("SELECT E FROM Equipo E, Deuda D JOIN E.deudas R WHERE (R.idDeuda = D.idDeuda) AND D.idDeuda=" + unaDeuda.getIdDeuda()).getResultList();
         if (!unaListaResultado.isEmpty()) {
-        return unaListaResultado.get(0);
-        }return null;
+            return unaListaResultado.get(0);
+        }
+        return null;
     }
     // </editor-fold>
 

@@ -604,6 +604,10 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
+    
+    public List<Torneo> getTorneosHijos(Torneo unTorneo) {
+        return this.unaControladoraDeportiva.getTorneosHijos(unTorneo);
+    }
 
     public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getTorneoTarjeta(unaTarjeta);
