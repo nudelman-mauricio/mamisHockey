@@ -51,23 +51,39 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         //cargar inscriptos
         this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
-        for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
-            this.modeloTablaEquipoInscripto.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
-        }
-
-        //cargar disponibles
-        this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
-        boolean bandera = true;
-        for (Equipo unEquipo : unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria())) {
-            for (Equipo aux : unTorneo.getEquiposInscriptos()) {
-                if (aux.equals(unEquipo)) {
-                    bandera = false;
+            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+                this.modeloTablaEquipoInscripto.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+            }
+        if (unTorneo.getUnTorneoPadre() == null) {            
+            //cargar disponibles
+            this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
+            boolean bandera = true;
+            for (Equipo unEquipo : unaControladoraGlobal.getEquiposDBPorCategoria(unTorneo.getUnaCategoria())) {
+                for (Equipo aux : unTorneo.getEquiposInscriptos()) {
+                    if (aux.equals(unEquipo)) {
+                        bandera = false;
+                    }
                 }
+                if (bandera) {
+                    this.modeloTablaEquipoDisponible.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+                }
+                bandera = true;
             }
-            if (bandera) {
-                this.modeloTablaEquipoDisponible.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+        } else {           
+            
+            this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
+            boolean bandera = true;
+            for (Equipo unEquipo : unTorneo.getUnTorneoPadre().getEquiposInscriptos()) {
+                for (Equipo aux : unTorneo.getEquiposInscriptos()) {
+                    if (aux.equals(unEquipo)) {
+                        bandera = false;
+                    }
+                }
+                if (bandera) {
+                    this.modeloTablaEquipoDisponible.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+                }
+                bandera = true;
             }
-            bandera = true;
         }
     }
 
@@ -259,7 +275,7 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        EquiposTorneoDS unEquipoTorneoDS = new EquiposTorneoDS(unaControladoraGlobal,unTorneo);
+        EquiposTorneoDS unEquipoTorneoDS = new EquiposTorneoDS(unaControladoraGlobal, unTorneo);
         unEquipoTorneoDS.verReporte();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
@@ -269,27 +285,27 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
 
     private void jButtonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarActionPerformed
         boolean bandera = true;
-        for(FechaTorneo unaFecha: unTorneo.getFechasTorneo()){
-            for(Partido unPartido : unaFecha.getPartidos()){
-                if(unPartido.getUnEquipoLocal().equals(unEquipoSeleccionado) || unPartido.getUnEquipoVisitante().equals(unEquipoSeleccionado)){
+        for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
+            for (Partido unPartido : unaFecha.getPartidos()) {
+                if (unPartido.getUnEquipoLocal().equals(unEquipoSeleccionado) || unPartido.getUnEquipoVisitante().equals(unEquipoSeleccionado)) {
                     bandera = false;
                 }
             }
         }
-        if(bandera){
-        unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);        
-        unEquipoSeleccionado = null;        
-        limpiarTabla();
-        cargarTabla();
-        jButtonQuitar.setEnabled(false);}
-        else {           
-            JOptionPane.showMessageDialog(this,"El Equipo no puede ser eliminado del torneo debido a que tiene asignados partidos");
+        if (bandera) {
+            unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);
+            unEquipoSeleccionado = null;
+            limpiarTabla();
+            cargarTabla();
+            jButtonQuitar.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "El Equipo no puede ser eliminado del torneo debido a que tiene asignados partidos");
         }
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipoSeleccionado);
-        unEquipoSeleccionado = null;        
+        unEquipoSeleccionado = null;
         limpiarTabla();
         cargarTabla();
         jButtonAgregar.setEnabled(false);

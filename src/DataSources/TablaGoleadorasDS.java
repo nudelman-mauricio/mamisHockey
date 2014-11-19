@@ -105,6 +105,7 @@ public class TablaGoleadorasDS implements JRDataSource {
     }
 
     private void calcularGoles() {
+
         for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
             for (Partido unPartido : unaFecha.getPartidos()) {
                 for (Gol unGol : unPartido.getGoles()) {
@@ -118,6 +119,7 @@ public class TablaGoleadorasDS implements JRDataSource {
                         }
                     }
                     if (!bandera) {
+
                         unaJugadoraTablaAuxiliar = new JugadoraTabla(unaJugadora.getUnaSocia().toString(), unaJugadora.getUnaSocia().getEquipoActual().getNombre());
                         unaJugadoraTablaAuxiliar.setGoles(1);
                         jugadorasTablas.add(unaJugadoraTablaAuxiliar);
@@ -125,6 +127,29 @@ public class TablaGoleadorasDS implements JRDataSource {
                 }
             }
         }
+        if (unTorneo.getUnTorneoPadre().getFechasTorneo() != null) {
+            for (FechaTorneo unaFecha : unTorneo.getUnTorneoPadre().getFechasTorneo()) {
+                for (Partido unPartido : unaFecha.getPartidos()) {
+                    for (Gol unGol : unPartido.getGoles()) {
+                        unaJugadora = unaControladoraGlobal.getAutoraGol(unPartido, unGol);
+
+                        bandera = false;
+                        for (JugadoraTabla aux : jugadorasTablas) {
+                            if (aux.getNombreJugadora().equals(unaJugadora.getUnaSocia().toString())) {
+                                aux.setGoles(aux.getGoles() + 1);
+                                bandera = true;
+                            }
+                        }
+                        if (!bandera) {
+                            unaJugadoraTablaAuxiliar = new JugadoraTabla(unaJugadora.getUnaSocia().toString(), unaJugadora.getUnaSocia().getEquipoActual().getNombre());
+                            unaJugadoraTablaAuxiliar.setGoles(1);
+                            jugadorasTablas.add(unaJugadoraTablaAuxiliar);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     @Override
