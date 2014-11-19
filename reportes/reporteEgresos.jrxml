@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEgresos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ea58d44-b4e9-4f25-8162-a59079fe861f">
 	<property name="ireport.zoom" value="2.3579476910000023"/>
-	<property name="ireport.x" value="79"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="426"/>
+	<property name="ireport.y" value="11"/>
 	<field name="ruta" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
 	<field name="desde" class="java.lang.String"/>
@@ -178,7 +178,7 @@
 			<textField>
 				<reportElement mode="Opaque" x="0" y="0" width="515" height="13" backcolor="#FFFFFF" uuid="6ded3b8c-b191-4639-b8a5-1fcc4d8909f6"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

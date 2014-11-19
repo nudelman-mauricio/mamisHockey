@@ -199,13 +199,13 @@
 	<pageFooter>
 		<band height="24" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="522" y="10" width="40" height="13" backcolor="#FFFFFF" uuid="124bc0ef-86da-4bcf-a173-f95da9165871"/>
+				<reportElement mode="Opaque" x="513" y="10" width="40" height="13" backcolor="#FFFFFF" uuid="124bc0ef-86da-4bcf-a173-f95da9165871"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="7" y="10" width="515" height="13" backcolor="#FFFFFF" uuid="a49fdfae-5caa-41bb-9394-f8a0ddabc06c"/>
+				<reportElement mode="Opaque" x="-1" y="10" width="515" height="13" backcolor="#FFFFFF" uuid="a49fdfae-5caa-41bb-9394-f8a0ddabc06c"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

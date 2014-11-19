@@ -32,8 +32,8 @@ public class ITorneo extends javax.swing.JInternalFrame {
         this.setTitle("Nuevo Torneo");
         this.jComboBoxCategoria.setModel(new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getCategoriasBD()));
         Vector torneosPadres = new Vector();
-        torneosPadres.addElement("Ninguno");
-        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());
+        torneosPadres.addElement("Ninguno");        
+        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());       
         this.jComboBoxPadre.setModel(new DefaultComboBoxModel(torneosPadres));
 
         camposLimpiar();
@@ -47,6 +47,13 @@ public class ITorneo extends javax.swing.JInternalFrame {
         this(unaControladoraGlobal, unJInternalFrame);
         this.unTorneo = unTorneo;
         this.setTitle("Torneo: " + unTorneo.getNombre());
+        
+        Vector torneosPadres = new Vector();
+        torneosPadres.addElement("Ninguno");        
+        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());       
+        torneosPadres.remove(unTorneo);
+        this.jComboBoxPadre.setModel(new DefaultComboBoxModel(torneosPadres));
+        
         camposCargar(unTorneo);
         camposActivo(jPanelDetalles, false);
 

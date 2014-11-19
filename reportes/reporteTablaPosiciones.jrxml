@@ -333,7 +333,7 @@
 			<textField>
 				<reportElement mode="Opaque" x="0" y="12" width="515" height="13" backcolor="#FFFFFF" uuid="bfc92e34-58e3-4b7e-b485-a33af8cdb36e"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

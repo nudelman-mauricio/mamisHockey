@@ -70,7 +70,7 @@
 			<textField>
 				<reportElement mode="Opaque" x="0" y="11" width="515" height="13" backcolor="#FFFFFF" uuid="bae1b9bf-94d3-409b-9177-8b1962fed2cc"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement mode="Opaque" x="515" y="11" width="40" height="13" backcolor="#FFFFFF" uuid="11f0df2e-8370-4f0a-b657-4d77e4e1e876"/>
