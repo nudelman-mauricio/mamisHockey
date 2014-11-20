@@ -65,6 +65,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonSancion.setEnabled(Editable);
         jButtonContabilidad.setEnabled(Editable);
         jButtonIndumentaria.setEnabled(Editable);
+        jButtonTarjetas.setEnabled(Editable);
         jButtonPlanillaPagos.setEnabled(Editable);
         jButtonHistorialPagos.setEnabled(Editable);
         jButtonEliminar.setEnabled(Editable);
@@ -102,11 +103,12 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         jButtonIndumentaria = new javax.swing.JButton();
         jButtonPlanillaPagos = new javax.swing.JButton();
         jButtonHistorialPagos = new javax.swing.JButton();
+        jButtonTarjetas = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(845, 660));
-        setMinimumSize(new java.awt.Dimension(845, 660));
-        setPreferredSize(new java.awt.Dimension(845, 660));
+        setMaximumSize(new java.awt.Dimension(960, 660));
+        setMinimumSize(new java.awt.Dimension(960, 660));
+        setPreferredSize(new java.awt.Dimension(960, 660));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -343,6 +345,17 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonTarjetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png"))); // NOI18N
+        jButtonTarjetas.setText("Tarjetas");
+        jButtonTarjetas.setEnabled(false);
+        jButtonTarjetas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonTarjetas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonTarjetas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTarjetasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBotones2Layout = new javax.swing.GroupLayout(jPanelBotones2);
         jPanelBotones2.setLayout(jPanelBotones2Layout);
         jPanelBotones2Layout.setHorizontalGroup(
@@ -356,6 +369,8 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonSancion, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonContabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -375,7 +390,8 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
                     .addComponent(jButtonContabilidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonIndumentaria)
                     .addComponent(jButtonPlanillaPagos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonHistorialPagos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonHistorialPagos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonTarjetas))
                 .addGap(3, 3, 3))
         );
 
@@ -555,6 +571,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaListaEquipoDS.verReporte(false);
     }//GEN-LAST:event_jButtonImprimir1ActionPerformed
 
+    private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
+        ITarjetasEquipos unaITarjetasEquipos = new ITarjetasEquipos(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unaITarjetasEquipos.pack();
+        unaITarjetasEquipos.setVisible(true);
+        this.setVisible(false);
+        IMenuPrincipalInterface.jDesktopPane.add(unaITarjetasEquipos);
+    }//GEN-LAST:event_jButtonTarjetasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonContabilidad;
     private javax.swing.JButton jButtonDatos;
@@ -567,6 +591,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonPlanillaPagos;
     private javax.swing.JButton jButtonPlantel;
     private javax.swing.JButton jButtonSancion;
+    private javax.swing.JButton jButtonTarjetas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelBotones;

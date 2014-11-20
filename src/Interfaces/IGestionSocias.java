@@ -211,7 +211,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, "dddddddddddddddddddddddddddddddddddddddddddddddd", null, null, null}
             },
             new String [] {
                 "DNI", "Apellido, Nombres", "ExJugadora", "Estado", "Equipo"
@@ -221,7 +221,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
