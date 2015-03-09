@@ -39,7 +39,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     private Socia unaSocia = null;
     private File archivoImagen = null;
     private static final int IMG_WIDTH = 129;
-    private static final int IMG_HEIGHT = 126;    
+    private static final int IMG_HEIGHT = 126;
     private String ext = null;
 
     //LLAMADO PARA UNA NUEVA SOCIA
@@ -89,9 +89,10 @@ public class ISocia extends javax.swing.JInternalFrame {
         jCheckBoxExJugadora.setSelected(unaSocia.isExJugadora());
 
         //cargar imagen
-        if(unaSocia.getFotoCarnet() != null){
-        ToolkitImage image = new ToolkitImage(new ByteArrayImageSource(unaSocia.getFotoCarnet()));
-        this.jLabelFotoCarnet.setIcon(new ImageIcon(image));}
+        if (unaSocia.getFotoCarnet() != null) {
+            ToolkitImage image = new ToolkitImage(new ByteArrayImageSource(unaSocia.getFotoCarnet()));
+            this.jLabelFotoCarnet.setIcon(new ImageIcon(image));
+        }
 
     }
 
@@ -511,7 +512,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                         jTextFieldTelCelular.getText(),
                         jTextFieldEmail.getText(),
                         fechaIngreso,
-                        unaSocia.isBorradoLogico(),
+                        unaSocia.isBorradoLogico(),                        
                         cargarImagen(archivoImagen),
                         jCheckBoxExJugadora.isSelected()
                 );
@@ -560,20 +561,22 @@ public class ISocia extends javax.swing.JInternalFrame {
         return resizedImage;
     }
 
-    private byte[] cargarImagen(File archivoImagen) {        
-        byte[] buffer = null;        
-        if (ext.equals("Imagen JPEG") || ext.equals("Imagen GIF")) {
-            if (archivoImagen != null) {
-                try {
-                    BufferedImage originalImage = ImageIO.read(archivoImagen);
-                    int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-                    BufferedImage resizeImageJpg = resizeImage(originalImage, type);
-                    ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
-                    InputStream is = new FileInputStream(archivoImagen);
-                    buffer = new byte[(int) archivoImagen.length()];
-                    int readers = is.read(buffer);
-                } catch (IOException ex) {
-                    Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+    private byte[] cargarImagen(File archivoImagen) {
+        byte[] buffer = null;
+        if (ext != null) {
+            if (ext.equals("Imagen JPEG") || ext.equals("Imagen GIF")) {
+                if (archivoImagen != null) {
+                    try {
+                        BufferedImage originalImage = ImageIO.read(archivoImagen);
+                        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                        BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                        ImageIO.write(resizeImageJpg, "jpg", archivoImagen);
+                        InputStream is = new FileInputStream(archivoImagen);
+                        buffer = new byte[(int) archivoImagen.length()];
+                        int readers = is.read(buffer);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ISocia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
