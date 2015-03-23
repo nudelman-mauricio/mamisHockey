@@ -76,15 +76,39 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         for (Socia unaSocia : SociasDelEquipo) {
             for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
                 if (unaTarjeta.getUnTorneo() == unTorneo) {
-                    this.modeloTablaTarjetas.addRow(new Object[]{
+                    if (("Roja".equals(unaTarjeta.getTipo()))&& (jCheckBoxRojas.isSelected())) {
+                        SancionTribunal unaSancion = unaControladoraGlobal.getSancionTarjeta(unaTarjeta);
+                        this.modeloTablaTarjetas.addRow(new Object[]{
                             unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
                             unaSocia,
                             unaTarjeta.getTipo(),
                             unaTarjeta.getUnTorneo().getNombre(),
                             unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
-                            true,
-                            "? Pela sabe ?"});
+                            unaTarjeta.isComputado(),
+                            unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()}); 
+                    }else if (("Amarilla".equals(unaTarjeta.getTipo()))&& (jCheckBoxAmarillas.isSelected())) {
+                        this.modeloTablaTarjetas.addRow(new Object[]{
+                            unaTarjeta.getIdTarjeta(),
+                            df.format(unaTarjeta.getFecha()),
+                            unaSocia,
+                            unaTarjeta.getTipo(),
+                            unaTarjeta.getUnTorneo().getNombre(),
+                            unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
+                            unaTarjeta.isComputado(),
+                            " - "}); 
+                    }else if (("Verde".equals(unaTarjeta.getTipo()))&& (jCheckBoxVerdes.isSelected())) {
+                        this.modeloTablaTarjetas.addRow(new Object[]{
+                            unaTarjeta.getIdTarjeta(),
+                            df.format(unaTarjeta.getFecha()),
+                            unaSocia,
+                            unaTarjeta.getTipo(),
+                            unaTarjeta.getUnTorneo().getNombre(),
+                            unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
+                            unaTarjeta.isComputado(),
+                            " - "}); 
+                    }
+                    
                 }
             }
         }
@@ -107,6 +131,8 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         jCheckBoxAmarillas = new javax.swing.JCheckBox();
         jCheckBoxRojas = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jTableTarjeta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
