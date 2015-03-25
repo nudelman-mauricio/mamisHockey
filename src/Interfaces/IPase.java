@@ -47,7 +47,6 @@ public class IPase extends javax.swing.JInternalFrame {
 
     public void camposActivo(boolean Editable) {
         jDateChooserFechaRealizacion.setEnabled(Editable);
-        jTextFieldEquipoOrigen.setEditable(Editable);
         jComboBoxEquipoDestino.setEnabled(Editable);
         jTextFieldCamiseta.setEditable(Editable);
         jTextFieldMonto.setEditable(Editable);
@@ -97,9 +96,9 @@ public class IPase extends javax.swing.JInternalFrame {
                 jCheckBoxSolicitudPase.setSelected(unPaseSeleccionado.isSolicitudPase());
 
                 jButtonEliminar.setEnabled(true);
-                if (unPaseSeleccionado.getUnEquipo() ==null) {
-                     jButtonEditar.setEnabled(true);
-                }else{
+                if (unPaseSeleccionado.getUnEquipo() == null) {
+                    jButtonEditar.setEnabled(true);
+                } else {
                     jButtonEditar.setEnabled(false);
                 }
             }
@@ -147,9 +146,20 @@ public class IPase extends javax.swing.JInternalFrame {
             if (jTextFieldEquipoOrigen.getText().equals(jComboBoxEquipoDestino.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(this, "No se puede generar un pase entre equipos iguales");
                 jLabelDestino.setForeground(Color.red);
-                bandera = false;
+                return false;
             } else {
                 jLabelDestino.setForeground(Color.black);
+            }
+            if (unaControladoraGlobal.isCamisetaExiste((Equipo) jComboBoxEquipoDestino.getSelectedItem(), jTextFieldCamiseta.getText())) {
+                JOptionPane.showMessageDialog(this, "El equipo ya posee una jugadora con esa camiseta");
+                jLabelCamiseta.setForeground(Color.red);
+                return false;
+            } else {
+                jLabelCamiseta.setForeground(Color.black);
+            }
+            if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) >= 2) {
+                JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
+                return false;
             }
         }
         if (jTextFieldMonto.getText().isEmpty()) {
@@ -164,16 +174,17 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jLabelFechaVencimiento.setForeground(Color.black);
         }
+
         if (!jCheckBoxLibreDeudaClub.isSelected() && !jCheckBoxSolicitudPase.isSelected()) {
             jCheckBoxLibreDeudaClub.setForeground(Color.red);
             jCheckBoxSolicitudPase.setForeground(Color.red);
-            bandera = false;
             JOptionPane.showMessageDialog(this, "Es necesario que la socia entregue al menos un documento de los solicitdos: Libre Deuda o Solicitud Pase");
-            return bandera;
+            return false;
         } else {
             jCheckBoxLibreDeudaClub.setForeground(Color.black);
             jCheckBoxSolicitudPase.setForeground(Color.black);
         }
+
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios");
             return bandera;
@@ -672,23 +683,15 @@ public class IPase extends javax.swing.JInternalFrame {
                     unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, null, jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
                     unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, "");
                     JOptionPane.showMessageDialog(this, "Pase Abierto Guardado y Deuda Generada");
-                } else {//Pase con equipo destino                    
-                    if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
-                        unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
-                        unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
-                        JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
-                    }
+                } else {//Pase con equipo destino
+                    unPase = unaControladoraGlobal.crearPase(unaSocia, fechaRealizacion, Double.parseDouble(jTextFieldMonto.getText()), Integer.valueOf(jComboBoxCuota.getSelectedItem().toString()), fechaVencimiento, (Equipo) jComboBoxEquipoDestino.getSelectedItem(), jCheckBoxLibreDeudaClub.isSelected(), jCheckBoxSolicitudPase.isSelected(), jTextPaneDetalle.getText());
+                    unaControladoraGlobal.modificarNumeroCamiseta(unaSocia, jTextFieldCamiseta.getText());
+                    JOptionPane.showMessageDialog(this, "Pase Guardado y Deuda Generada");
                 }
-            } else {//Modificar pase abierto para asignar el nuevo equipo
-                if (cantidadExJugadoras((Equipo) jComboBoxEquipoDestino.getSelectedItem()) < 2) {
-                    unaControladoraGlobal.modificarPase(unPaseSeleccionado, unaSocia, (Equipo) jComboBoxEquipoDestino.getSelectedItem());
-                    unPase = unPaseSeleccionado;
-                    JOptionPane.showMessageDialog(this, "Se asignó correctamente el nuevo equipo de destino");
-                } else {
-                    JOptionPane.showMessageDialog(this, "El pase no se puede realizar debido a que el equipo destino ya posee 2 Ex Jugadoras");
-                }
+            } else {//Modificar pase abierto para asignar el nuevo equipo                
+                unaControladoraGlobal.modificarPase(unPaseSeleccionado, unaSocia, (Equipo) jComboBoxEquipoDestino.getSelectedItem());
+                unPase = unPaseSeleccionado;
+                JOptionPane.showMessageDialog(this, "Se asignó correctamente el nuevo equipo de destino");
             }
 
             //Comportamientos Extras
@@ -705,7 +708,6 @@ public class IPase extends javax.swing.JInternalFrame {
             //Formulario de Pase
             FormularioPaseDS unFormularioPase = new FormularioPaseDS(unaControladoraGlobal, unaSocia, unPase);
             unFormularioPase.verReporte();
-
         }
 
 

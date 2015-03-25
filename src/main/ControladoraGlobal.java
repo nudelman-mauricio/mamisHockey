@@ -431,6 +431,10 @@ public class ControladoraGlobal {
     public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
         return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha, unTorneo);
     }
+    
+    public boolean isCamisetaExiste(Equipo unEquipo, String Camiseta) {
+        return this.unaControladoraDeportiva.isCamisetaExiste(unEquipo, Camiseta);
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Clubes">

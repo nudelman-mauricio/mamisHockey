@@ -305,6 +305,16 @@ public class ControladoraDeportiva {
         }
         return unaListaResultado;
     }
+    
+    public boolean isCamisetaExiste(Equipo unEquipo, String camiseta) {
+        boolean resultado = false;
+        for (Socia unaSocia : unEquipo.getPlantel()){
+            if (unaSocia.getNumeroCamiseta().equals(camiseta)){
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Clubes">
