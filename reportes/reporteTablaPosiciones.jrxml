@@ -54,14 +54,13 @@
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="0" y="2" width="554" height="30" forecolor="#006699" backcolor="#FFFFFF" uuid="0795b0a8-d233-4a52-8f5b-e2ac0261c39f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+			<textField>
+				<reportElement x="0" y="2" width="555" height="33" forecolor="#006699" uuid="44c4c181-888b-4890-90b1-dd4363c1f81d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA["Tabla de Posiciones - Torneo " + $F{nombreTorneo}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA["Tabla de Posiciones - Torneo " + $F{nombreTorneo}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
