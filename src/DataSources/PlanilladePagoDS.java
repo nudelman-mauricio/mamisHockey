@@ -82,10 +82,10 @@ public class PlanilladePagoDS implements JRDataSource {
 
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Temporal/" + nombrePDF + ".pdf"));
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Planillas de Pago/Temporales/" + nombrePDF + ".pdf"));
             exporter.exportReport();
             try {
-                File path = new File("Temporal/" + nombrePDF + ".pdf");
+                File path = new File("Planillas de Pago/Temporales/" + nombrePDF + ".pdf");
                 Desktop.getDesktop().open(path);
             } catch (IOException ex) {
                 ex.printStackTrace();
