@@ -56,7 +56,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     private void camposActivo(boolean Editable) {
         jButtonEliminar.setEnabled(Editable);
-        jButtonImprimir.setEnabled(Editable);
+        //jButtonImprimir.setEnabled(Editable);
         jButtonDatos.setEnabled(Editable);
         jButtonEquipos.setEnabled(Editable);
         jButtonFechas.setEnabled(Editable);

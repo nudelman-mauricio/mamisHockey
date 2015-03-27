@@ -315,7 +315,7 @@ public class ITorneo extends javax.swing.JInternalFrame {
                 unaControladoraGlobal.crearTorneo(unTorneoPadre, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
                 JOptionPane.showMessageDialog(this, "Torneo Guardado");
             } else {
-                unaControladoraGlobal.modificarTorneo(unTorneoPadre, unTorneo, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
+                unaControladoraGlobal.modificarTorneo(unTorneo, unTorneoPadre, fechaInicio, (Categoria) jComboBoxCategoria.getSelectedItem(), jTextFieldNombreTorneo.getText());
                 JOptionPane.showMessageDialog(this, "Torneo Modificado");
             }
             this.dispose();
@@ -332,6 +332,9 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
 
         camposActivo(jPanelDetalles, true);
+        if(unTorneo.getCantidadEquiposInscriptos() > 0){
+            jComboBoxCategoria.setEnabled(false);
+        }
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

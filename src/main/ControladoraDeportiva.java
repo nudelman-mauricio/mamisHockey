@@ -305,11 +305,11 @@ public class ControladoraDeportiva {
         }
         return unaListaResultado;
     }
-    
+
     public boolean isCamisetaExiste(Equipo unEquipo, String camiseta) {
         boolean resultado = false;
-        for (Socia unaSocia : unEquipo.getPlantel()){
-            if (unaSocia.getNumeroCamiseta().equals(camiseta)){
+        for (Socia unaSocia : unEquipo.getPlantel()) {
+            if (unaSocia.getNumeroCamiseta().equals(camiseta)) {
                 resultado = true;
             }
         }
@@ -594,7 +594,8 @@ public class ControladoraDeportiva {
     }
 
     public void modificarTorneo(Torneo unTorneo, Torneo unTorneoPadre, Date fechaInicio, Categoria unaCategoria, String nombre) {
-        unTorneo.setUnTorneoPadre(unTorneoPadre);
+               
+        unTorneo.setUnTorneoPadre(unTorneoPadre);        
         unTorneo.setFechaInicio(fechaInicio);
         unTorneo.setUnaCategoria(unaCategoria);
         unTorneo.setNombre(nombre);
@@ -649,7 +650,6 @@ public class ControladoraDeportiva {
         }
         return null;
     }
-    
 
     /**
      * Devuelve los Torneos en los que participo una socia

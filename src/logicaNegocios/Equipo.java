@@ -122,7 +122,7 @@ public class Equipo implements Serializable, Comparable {
         this.unaCapitanaSuplente = unaCapitanaSuplente;
     }
 
-    public Collection<Indumentaria> getIndumentarias() {
+    public Collection<Indumentaria> getIndumentarias() {       
         return this.indumentarias;
     }
 

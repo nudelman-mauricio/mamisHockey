@@ -42,8 +42,9 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         limpiarTabla();
         int contador = 1;
         for (Indumentaria unaIndumentaria : unEquipo.getIndumentarias()) {
+            if(!unaIndumentaria.isBorradoLogico()){
             this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(), contador, unaIndumentaria.getCamiseta(), unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
-            contador++;
+            contador++;}
         }
     }
 
@@ -425,9 +426,11 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarIndumentaria(unaIndumentariaSeleccionada);
             cargarTabla();
         }
+        
         jTableIndumentaria.clearSelection();
         unaIndumentariaSeleccionada = null;
         camposLimpiar();
+        
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 
