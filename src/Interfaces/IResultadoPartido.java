@@ -484,7 +484,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Equipo.png"))); // NOI18N
+        jButtonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Actualizar.png"))); // NOI18N
         jButtonActualizar.setText("Actualizar");
         jButtonActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
