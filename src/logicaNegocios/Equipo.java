@@ -2,6 +2,7 @@ package logicaNegocios;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -238,7 +239,24 @@ public class Equipo implements Serializable, Comparable {
     public void agregarDeuda(EntityManager entityManager, Deuda unaDeuda) {
         this.deudas.add(unaDeuda);
         this.persistir(entityManager);
-    }
+    }    
+    
+    /**
+     * Devuelve True solo si hasta el dia de la fecha pasada por parametro no
+     * hay ninguna cuota vencida no pagada
+     *
+     * @param unaFecha
+     * @return
+     */
+    public boolean isAlDia(Date unaFecha) {
+        boolean resultado = true;
+        for (Deuda unaDeuda : this.getDeudas()) {
+            if ((!unaDeuda.isBorradoLogico()) && (unaDeuda.isVencido(unaFecha))) {
+                resultado = false;
+            }
+        }
+        return resultado;
+    }    
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillasPagos">

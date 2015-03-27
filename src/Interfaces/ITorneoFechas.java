@@ -4,12 +4,14 @@ import DataSources.FixtureDS;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Graphics;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Partido;
 import logicaNegocios.PersonaAuxiliar;
+import logicaNegocios.Socia;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
@@ -35,12 +38,21 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTable;
     private DateFormat df = DateFormat.getDateInstance();
 
-    ITorneoFechas(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
+    public ITorneoFechas(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unTorneo = unTorneo;
         this.modeloTable = (DefaultTableModel) jTableFechasTorneo.getModel();
+
+        this.jComboBoxEquipoLocal.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public void paint(Graphics g) {
+                setBackground(Color.RED);
+                setForeground(Color.BLUE);
+                super.paint(g);
+            }
+        });
 
         this.setTitle("Torneo: " + unTorneo.getNombre());
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
@@ -83,6 +95,12 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 if (!equiposParticipantes.contains(unEquipo.getNombre())) {
                     jComboBoxEquipoLocal.addItem(unEquipo.getNombre());
                     jComboBoxEquipoVisitante.addItem(unEquipo.getNombre());
+                    //if para controlar que el equipo no posea deuda
+                    //si tiene deuda pinta de rojo en el combo
+                    //deja crear el partido igual
+                    if (unEquipo.isAlDia(unaControladoraGlobal.fechaSistema())) {
+
+                    }
                 }
 
             }
@@ -137,13 +155,13 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             if (jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0) != null) {
                 unPartidoSeleccionado = unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(jTableFechasTorneo.getSelectedRow(), 0));
 
-                camposLimpiar();              
+                camposLimpiar();
                 jDateChooserFecha.setDate(unPartidoSeleccionado.getFecha());
                 jComboBoxCancha.setSelectedItem(unPartidoSeleccionado.getUnaCancha());
                 jComboBoxArbitro1.setSelectedItem(unPartidoSeleccionado.getUnArbitro1());
                 jComboBoxArbitro2.setSelectedItem(unPartidoSeleccionado.getUnArbitro2());
-                jComboBoxArbitro3.setSelectedItem(unPartidoSeleccionado.getUnArbitro3());                
-               
+                jComboBoxArbitro3.setSelectedItem(unPartidoSeleccionado.getUnArbitro3());
+
                 jComboBoxEquipoLocal.addItem(unPartidoSeleccionado.getUnEquipoLocal());
                 jComboBoxEquipoLocal.setSelectedItem(unPartidoSeleccionado.getUnEquipoLocal());
                 jComboBoxEquipoVisitante.addItem(unPartidoSeleccionado.getUnEquipoVisitante());
@@ -779,15 +797,15 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
         camposActivo(jPanelDetalles, true);
         camposActivo(jPanelBotones2, false);
-        
+
         String unEquipoLocal = unPartidoSeleccionado.getUnEquipoLocal().getNombre(), unEquipoVisitante = unPartidoSeleccionado.getUnEquipoVisitante().getNombre();
         cargarCombos();
         jComboBoxEquipoLocal.addItem(unEquipoLocal);
         jComboBoxEquipoLocal.setSelectedItem(unEquipoLocal);
-        jComboBoxEquipoLocal.addItem(unEquipoVisitante);        
+        jComboBoxEquipoLocal.addItem(unEquipoVisitante);
         jComboBoxEquipoVisitante.addItem(unEquipoLocal);
         jComboBoxEquipoVisitante.addItem(unEquipoVisitante);
-        jComboBoxEquipoVisitante.setSelectedItem(unEquipoVisitante);  
+        jComboBoxEquipoVisitante.setSelectedItem(unEquipoVisitante);
         jComboBoxArbitro1.setSelectedItem(unPartidoSeleccionado.getUnArbitro1());
         jComboBoxArbitro2.setSelectedItem(unPartidoSeleccionado.getUnArbitro2());
         jComboBoxArbitro3.setSelectedItem(unPartidoSeleccionado.getUnArbitro3());

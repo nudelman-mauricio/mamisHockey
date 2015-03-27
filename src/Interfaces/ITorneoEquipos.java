@@ -198,7 +198,16 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
             new String [] {
                 "id", "Nombre", "Club"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableEquiposDisponibles.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableEquiposDisponibles);
         if (jTableEquiposDisponibles.getColumnModel().getColumnCount() > 0) {
             jTableEquiposDisponibles.getColumnModel().getColumn(0).setMinWidth(0);
@@ -220,7 +229,16 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
             new String [] {
                 "id", "Nombre", "Club"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableEquiposInscriptos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableEquiposInscriptos);
         if (jTableEquiposInscriptos.getColumnModel().getColumnCount() > 0) {
             jTableEquiposInscriptos.getColumnModel().getColumn(0).setMinWidth(0);
