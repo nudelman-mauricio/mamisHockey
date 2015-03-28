@@ -1137,10 +1137,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 jButtonEditar.setEnabled(false);
                 jButtonImprimir.setEnabled(false);
                 jButtonActualizar.setEnabled(false);
-
+                
                 camposActivo(false);
             }
         }
+        if (unPartido.isJugado()) { //El partido se jugo
+            jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
+        } 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
