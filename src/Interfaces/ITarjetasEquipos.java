@@ -1,9 +1,8 @@
 package Interfaces;
 
-import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
-import java.util.TreeSet;
+import java.util.HashSet;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -12,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Jugadora;
-import logicaNegocios.Localidad;
 import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
@@ -58,7 +56,7 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
     public void cargarTabla() {
         limpiarTabla();
         Torneo unTorneo = (Torneo) jComboBoxTorneos.getSelectedItem();
-        TreeSet<Socia> SociasDelEquipo = new TreeSet();
+        HashSet<Socia> SociasDelEquipo = new HashSet();
 
         for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
             for (Partido unPartido : unaFecha.getPartidos()) {
@@ -73,11 +71,13 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
                 }
             }
         }
-        for (Socia unaSocia : SociasDelEquipo) {
-            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+        
+        for (Socia unaSocia : SociasDelEquipo) {            
+            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {                
                 if (unaTarjeta.getUnTorneo() == unTorneo) {
                     if (("Roja".equals(unaTarjeta.getTipo()))&& (jCheckBoxRojas.isSelected())) {
                         SancionTribunal unaSancion = unaControladoraGlobal.getSancionTarjeta(unaTarjeta);
+                        if(unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta)!=null){
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
@@ -86,7 +86,7 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
                             unaTarjeta.getUnTorneo().getNombre(),
                             unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
                             unaTarjeta.isComputado(),
-                            unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()}); 
+                            unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()}); }
                     }else if (("Amarilla".equals(unaTarjeta.getTipo()))&& (jCheckBoxAmarillas.isSelected())) {
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             unaTarjeta.getIdTarjeta(),
