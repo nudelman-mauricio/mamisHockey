@@ -53,8 +53,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                     }
             );
         }
-        jButtonEditar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);       
+        jButtonEditar.setEnabled(false);        
     }
 
     private String debe(Socia unaSocia) {
@@ -94,8 +93,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 jTextFieldNombre.setText(unaSociaSeleccionada.getNombre());
                 jTextFieldApellido.setText(unaSociaSeleccionada.getApellido());
                 jTextFieldNroCamiseta.setText(unaSociaSeleccionada.getNumeroCamiseta());
-                jButtonEditar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);                
+                jButtonEditar.setEnabled(true);                         
             }
         }
     }
@@ -368,8 +366,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);       
+        jButtonCancelar.setEnabled(true);        
 
         jTablePlantel.setEnabled(false);
 
@@ -384,8 +381,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
             cargarTabla();
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);           
+            jButtonCancelar.setEnabled(false);           
             jTablePlantel.setEnabled(true);
             jTextFieldNroCamiseta.setEditable(false);
             camposLimpiar();
@@ -395,8 +391,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);       
+        jButtonCancelar.setEnabled(false);    
 
         jTablePlantel.setEnabled(true);
         jTablePlantel.clearSelection();
