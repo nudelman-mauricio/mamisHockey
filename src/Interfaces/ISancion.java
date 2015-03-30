@@ -75,11 +75,13 @@ public class ISancion extends javax.swing.JInternalFrame {
 
     //deshabilitar todo lo de un contenedor
     private void camposActivo(boolean bandera) {
-        if (!bandera) {
-            //jTextFieldPenalizacion.setEditable(false);
-            jTextPaneDetalle.setBackground(new Color(228, 231, 237));
-        } else {
+        if (bandera) {
+            jTextFieldPenalizacion.setEnabled(bandera);
             jTextPaneDetalle.setBackground(Color.WHITE);
+        } else {
+            jTextFieldPenalizacion.setEnabled(bandera);
+            jDateChooserFechaHasta.setEnabled(bandera);
+            jTextPaneDetalle.setBackground(new Color(228, 231, 237));
         }
         this.jTextPaneDetalle.setEnabled(bandera);
         this.jDateChooserFecha.setEnabled(bandera);
@@ -641,6 +643,8 @@ public class ISancion extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Sancion Modificada");
                     unaSancionSeleccionada = null;
                 }
+                
+                
                 //Cartel donde se indica que la socia estaba inscripta a partidos que la involucran y se tiene que actualizar la tabla del partido para impactar la penalizacion
                 if (unaSocia != null) {
                     String partidos = "", enter = System.getProperty("line.separator");

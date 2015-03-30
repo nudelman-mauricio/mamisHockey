@@ -841,7 +841,18 @@ public class ControladoraDeportiva {
      * @return
      */
     public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
+<<<<<<< HEAD
         return this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.jugadoras <> NULL AND T.fecha >=" + fechaParametro).getResultList();
+=======
+        List<Partido> partidos = new ArrayList();
+        List<Partido> partidosConsulta = this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.jugado = FALSE AND T.fecha >=" + fechaParametro).getResultList();
+        for (Partido unPartido : partidosConsulta){
+            if (unPartido.getJugadoras() != null){
+               partidos.add(unPartido);
+            }
+        }
+        return partidos;
+>>>>>>> origin/master
     }
 
     /**

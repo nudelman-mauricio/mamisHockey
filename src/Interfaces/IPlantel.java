@@ -53,8 +53,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                     }
             );
         }
-        jButtonEditar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);       
+        jButtonEditar.setEnabled(false);        
     }
 
     private String debe(Socia unaSocia) {
@@ -94,8 +93,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 jTextFieldNombre.setText(unaSociaSeleccionada.getNombre());
                 jTextFieldApellido.setText(unaSociaSeleccionada.getApellido());
                 jTextFieldNroCamiseta.setText(unaSociaSeleccionada.getNumeroCamiseta());
-                jButtonEditar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);                
+                jButtonEditar.setEnabled(true);                         
             }
         }
     }
@@ -123,7 +121,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
         jPanelBotones = new javax.swing.JPanel();
         jButtonEditar = new javax.swing.JButton();
-        jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jPanelTabla = new javax.swing.JPanel();
@@ -174,12 +171,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/deletered.png"))); // NOI18N
-        jButtonEliminar.setText("Eliminar");
-        jButtonEliminar.setEnabled(false);
-        jButtonEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setEnabled(false);
@@ -213,8 +204,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
@@ -224,8 +213,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEliminar))
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
 
@@ -378,8 +366,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jButtonEliminar.setEnabled(false);       
+        jButtonCancelar.setEnabled(true);        
 
         jTablePlantel.setEnabled(false);
 
@@ -394,8 +381,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
             cargarTabla();
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);           
+            jButtonCancelar.setEnabled(false);           
             jTablePlantel.setEnabled(true);
             jTextFieldNroCamiseta.setEditable(false);
             camposLimpiar();
@@ -405,8 +391,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
-        jButtonEliminar.setEnabled(false);       
+        jButtonCancelar.setEnabled(false);    
 
         jTablePlantel.setEnabled(true);
         jTablePlantel.clearSelection();
@@ -422,7 +407,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelFechaMonto;
