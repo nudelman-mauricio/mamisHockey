@@ -841,7 +841,7 @@ public class ControladoraDeportiva {
      * @return
      */
     public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
-        return this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.plantelLocal <> NULL AND T.fecha >=" + fechaParametro).getResultList();
+        return this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.jugadoras <> NULL AND T.fecha >=" + fechaParametro).getResultList();
     }
 
     /**

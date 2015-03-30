@@ -14,10 +14,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Cancha;
 import logicaNegocios.Equipo;
@@ -37,22 +40,16 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private Partido unPartidoSeleccionado;
     private DefaultTableModel modeloTable;
     private DateFormat df = DateFormat.getDateInstance();
+    private Equipo unEquipoAuxLocal = null, unEquipoAuxVisitante = null;
 
     public ITorneoFechas(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unTorneo = unTorneo;
-        this.modeloTable = (DefaultTableModel) jTableFechasTorneo.getModel();
 
-        this.jComboBoxEquipoLocal.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public void paint(Graphics g) {
-                setBackground(Color.RED);
-                setForeground(Color.BLUE);
-                super.paint(g);
-            }
-        });
+        this.jTableFechasTorneo.setDefaultRenderer(Object.class, new TableCellRendererColor());
+        this.modeloTable = (DefaultTableModel) jTableFechasTorneo.getModel();
 
         this.setTitle("Torneo: " + unTorneo.getNombre());
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
@@ -95,14 +92,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 if (!equiposParticipantes.contains(unEquipo.getNombre())) {
                     jComboBoxEquipoLocal.addItem(unEquipo.getNombre());
                     jComboBoxEquipoVisitante.addItem(unEquipo.getNombre());
-                    //if para controlar que el equipo no posea deuda
-                    //si tiene deuda pinta de rojo en el combo
-                    //deja crear el partido igual
-                    if (unEquipo.isAlDia(unaControladoraGlobal.fechaSistema())) {
-
-                    }
                 }
-
             }
         }
 
@@ -129,6 +119,41 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             modeloTabla.removeRow(0);
         }
     }
+
+    // <editor-fold defaultstate="collapsed" desc="CLASS Renderización de la tabla para aplicar color">
+    public class TableCellRendererColor extends DefaultTableCellRenderer {
+
+        private JLabel componente;
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            componente = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.      
+            //centrar las columnas 1, 3 y 4
+            if ((column == 1) || (column == 3) || (column == 4)) {
+                componente.setHorizontalAlignment(CENTER);
+            }
+            if (value instanceof Equipo) {
+                if ((!(unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(row, 0)).isJugado())) && (!((Equipo) value).isAlDia(unaControladoraGlobal.fechaSistema()))) {
+                    if (column == 2) {//local
+                        componente.setBackground(Color.red);
+                    } else if (column == 5) {//visitante
+                        componente.setBackground(Color.red);
+                    }
+                }
+                if (isSelected) {
+                    componente.setForeground(Color.black);
+                }
+            } else {
+                if (isSelected) {
+                    componente.setBackground(Color.GRAY);
+                } else {
+                    componente.setBackground(Color.white);
+                }
+            }
+            return componente;
+        }
+    }
+    // </editor-fold>
 
     private void cargarTabla() {
         limpiarTabla(modeloTable);
@@ -237,10 +262,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         } else {
             jLabelArbitro2.setForeground(Color.black);
         }
-
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios.");
-            return bandera;
+            return false;
         }
         if (jComboBoxEquipoLocal.getSelectedItem() == jComboBoxEquipoVisitante.getSelectedItem()) {
             JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo equipo como Local y Visitante.");
@@ -256,6 +280,28 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             return false;
         }
         return bandera;
+    }
+
+    //verifica que los equipos seleccionados no posean deudas vencidas
+    //si poseen deudas vencidas SOLO INFORMA y deja continuar adelante
+    private void validarEquipos() {
+        unEquipoAuxLocal = null;
+        unEquipoAuxVisitante = null;
+        for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+            if (unEquipo.getNombre().equals(jComboBoxEquipoLocal.getSelectedItem())) {
+                unEquipoAuxLocal = unEquipo;
+            } else {
+                if (unEquipo.getNombre().equals(jComboBoxEquipoVisitante.getSelectedItem())) {
+                    unEquipoAuxVisitante = unEquipo;
+                }
+            }
+        }
+        if (!unEquipoAuxLocal.isAlDia(unaControladoraGlobal.fechaSistema())) {
+            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxLocal.getNombre() + " seleccionado como Local, registra deudas vencidas. No debería poder jugar.");
+        }
+        if (!unEquipoAuxVisitante.isAlDia(unaControladoraGlobal.fechaSistema())) {
+            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxVisitante.getNombre() + " seleccionado como Visitante, registra deudas vencidas. No debería poder jugar.");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -815,35 +861,16 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
+            this.validarEquipos();
             Date fecha = new java.sql.Date(jDateChooserFecha.getDate().getTime());
             PersonaAuxiliar arbitro3 = null;
             if (jComboBoxArbitro3.getSelectedIndex() != -1) {
                 arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
             }
             if (unPartidoSeleccionado == null) {
-                Equipo unEquipoAuxLocal = null, unEquipoAuxVisitante = null;
-                for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
-                    if (unEquipo.getNombre().equals(jComboBoxEquipoLocal.getSelectedItem())) {
-                        unEquipoAuxLocal = unEquipo;
-                    } else {
-                        if (unEquipo.getNombre().equals(jComboBoxEquipoVisitante.getSelectedItem())) {
-                            unEquipoAuxVisitante = unEquipo;
-                        }
-                    }
-                }
                 unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
                 JOptionPane.showMessageDialog(this, "Partido Guardado");
             } else {
-                Equipo unEquipoAuxLocal = null, unEquipoAuxVisitante = null;
-                for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
-                    if (unEquipo.getNombre().equals(jComboBoxEquipoLocal.getSelectedItem())) {
-                        unEquipoAuxLocal = unEquipo;
-                    } else {
-                        if (unEquipo.getNombre().equals(jComboBoxEquipoVisitante.getSelectedItem())) {
-                            unEquipoAuxVisitante = unEquipo;
-                        }
-                    }
-                }
                 unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
                 JOptionPane.showMessageDialog(this, "Partido Modificado");
                 unPartidoSeleccionado = null;
