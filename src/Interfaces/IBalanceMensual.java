@@ -87,6 +87,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jComboBoxConcepto = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jCheckBoxAgrupar = new javax.swing.JCheckBox();
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
@@ -177,16 +178,20 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Concepto:");
 
+        jCheckBoxAgrupar.setText("Agrupar");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBoxAgrupar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +199,8 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jCheckBoxAgrupar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -208,7 +214,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -301,8 +307,8 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
                 List<Egreso> egresos = unaControladoraGlobal.getEgresosEntreFechas(fechaDesde, fechaHasta);
                 List<IngresoOtro> ingresos = unaControladoraGlobal.getIngresoOtroEntreFechas(fechaDesde, fechaHasta);
                 List<PagoCuota> pagoCuotas = unaControladoraGlobal.getPagosCuotasEntreFechasBD(fechaDesde, fechaHasta);
-
-                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta), jComboBoxConcepto.getSelectedItem().toString());
+                
+                BalanceMensualDS unBalanceMensualDS = new BalanceMensualDS(egresos, ingresos, pagoCuotas, unaControladoraGlobal, dateFormatSinDias.format(fechaDesde), dateFormatSinDias.format(fechaHasta), jComboBoxConcepto.getSelectedItem().toString(),jCheckBoxAgrupar.isSelected());
 
                 File archivo = new File("reportes/reporteBalanceMensual.jasper");
                 JasperReport reporte;
@@ -330,6 +336,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JCheckBox jCheckBoxAgrupar;
     private javax.swing.JComboBox jComboBoxConcepto;
     private javax.swing.JComboBox jComboBoxDesdeAño;
     private javax.swing.JComboBox jComboBoxDesdeMes;

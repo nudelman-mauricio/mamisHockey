@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import logicaNegocios.ConceptoDeportivo;
+import logicaNegocios.ConceptoEgreso;
+import logicaNegocios.ConceptoIngreso;
 import logicaNegocios.Egreso;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.PagoCuota;
@@ -106,68 +108,121 @@ public class BalanceMensualDS implements JRDataSource {
     }
     // </editor-fold>
 
-    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal, String desde, String hasta, String opcion) {
+    public BalanceMensualDS(List<Egreso> egresos, List<IngresoOtro> ingresos, List<PagoCuota> pagoCuotas, ControladoraGlobal unaControladoraGlobal, String desde, String hasta, String opcion, boolean isAgrupar) {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.desde = desde;
         this.hasta = hasta;
         List<ConceptoDeportivo> conceptosDeportivos = unaControladoraGlobal.getConceptosDeportivosBD();
         if (opcion.equals("Todo")) {
-            for (ConceptoDeportivo unConcepto : conceptosDeportivos) {
-                for (PagoCuota unPagoCuota : pagoCuotas) {
-                    if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().equals(unConcepto)) {
-                        if (fechaEvaluada == null) {
-                            fechaEvaluada = unPagoCuota.getFechaPago();
-                        }
-                        if (unPagoCuota.getFechaPago().getMonth() != fechaEvaluada.getMonth()) {
-                            unaBalanza = new Balance(fechaEvaluada, unConcepto.getConcepto(), monto, 0, dateFormat.format(fechaEvaluada));
-                            unBalance.add(unaBalanza);
-                            fechaEvaluada = unPagoCuota.getFechaPago();
-                            monto = 0;
-                        }
-                        monto += unPagoCuota.getMonto();
-                        if (pagoCuotas.indexOf(unPagoCuota) == (pagoCuotas.size() - 1)) {
-                            unaBalanza = new Balance(unPagoCuota.getFechaPago(), unConcepto.getConcepto(), monto, 0, dateFormat.format(unPagoCuota.getFechaPago()));
-                            if (!unBalance.contains(unaBalanza)) {
-                                unBalance.add(unaBalanza);
-
+            if (isAgrupar) {
+                for (ConceptoDeportivo unConcepto : conceptosDeportivos) {
+                    for (PagoCuota unPagoCuota : pagoCuotas) {
+                        if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().equals(unConcepto)) {
+                            if (fechaEvaluada == null) {
+                                fechaEvaluada = unPagoCuota.getFechaPago();
                             }
-                            monto = 0;
+                            if (unPagoCuota.getFechaPago().getMonth() != fechaEvaluada.getMonth()) {
+                                unaBalanza = new Balance(fechaEvaluada, unConcepto.getConcepto(), monto, 0, dateFormat.format(fechaEvaluada));
+                                unBalance.add(unaBalanza);
+                                fechaEvaluada = unPagoCuota.getFechaPago();
+                                monto = 0;
+                            }
+                            monto += unPagoCuota.getMonto();
+                            if (pagoCuotas.indexOf(unPagoCuota) == (pagoCuotas.size() - 1)) {
+                                unaBalanza = new Balance(unPagoCuota.getFechaPago(), unConcepto.getConcepto(), monto, 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                                if (!unBalance.contains(unaBalanza)) {
+                                    unBalance.add(unaBalanza);
+
+                                }
+                                monto = 0;
+                            }
                         }
                     }
+                    if (monto != 0) {
+                        unaBalanza = new Balance(fechaEvaluada, unConcepto.getConcepto(), monto, 0, dateFormat.format(fechaEvaluada));
+                        unBalance.add(unaBalanza);
+                    }
+                    monto = 0;
+                    fechaEvaluada = null;
                 }
-                if (monto != 0) {
-                    unaBalanza = new Balance(fechaEvaluada, unConcepto.getConcepto(), monto, 0, dateFormat.format(fechaEvaluada));
-                    unBalance.add(unaBalanza);
-                }
+                this.desde = desde;
+                this.hasta = hasta;
                 monto = 0;
-                fechaEvaluada = null;
-            }
-            for (Egreso unEgreso : egresos) {
-                unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto(), df.format(unEgreso.getFecha()));
-                unBalance.add(unaBalanza);
-            }
-            for (IngresoOtro unIngreso : ingresos) {
-                unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
-                unBalance.add(unaBalanza);
-            }
+                List<ConceptoEgreso> conceptosEgresos = unaControladoraGlobal.getConceptosEgresosBD();
+                for (ConceptoEgreso unConcepto : conceptosEgresos) {
+                    for (Egreso unEgreso : egresos) {
+                        if (unEgreso.getUnConceptoEgreso().equals(unConcepto)) {
+                            if (fechaEvaluada == null) {
+                                fechaEvaluada = unEgreso.getFecha();
+                            }
+                            if (unEgreso.getFecha().getMonth() != fechaEvaluada.getMonth()) {
+                                unaBalanza = new Balance(fechaEvaluada, unEgreso.getUnConceptoEgreso().getNombre(), 0, monto, dateFormat.format(fechaEvaluada));
+                                unBalance.add(unaBalanza);
+                                fechaEvaluada = unEgreso.getFecha();
+                                monto = 0;
+                            }
+                            monto += unEgreso.getMonto();
+                            if (egresos.indexOf(unEgreso) == (pagoCuotas.size() - 1)) {
+                                unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, monto, dateFormat.format(unEgreso.getFecha()));
+                                if (!unBalance.contains(unaBalanza)) {
+                                    unBalance.add(unaBalanza);
 
-        } else {
+                                }
+                                monto = 0;
+                            }
+                        }
+                    }
+                    if (monto != 0) {
+                        unaBalanza = new Balance(fechaEvaluada, unConcepto.getNombre(), 0, monto, dateFormat.format(fechaEvaluada));
+                        unBalance.add(unaBalanza);
+                    }
+                    monto = 0;
+                    fechaEvaluada = null;
+                }
+                this.desde = desde;
+                this.hasta = hasta;
+                monto = 0;
+                List<ConceptoIngreso> conceptoIngresos = unaControladoraGlobal.getConceptosIngresosBD();
+                for (ConceptoIngreso unConcepto : conceptoIngresos) {
+                    for (IngresoOtro unIngresoOtro : ingresos) {
+                        if (unIngresoOtro.getUnConceptoIngreso().equals(unConcepto)) {
+                            if (fechaEvaluada == null) {
+                                fechaEvaluada = unIngresoOtro.getFecha();
+                            }
+                            if (unIngresoOtro.getFecha().getMonth() != fechaEvaluada.getMonth()) {
+                                unaBalanza = new Balance(fechaEvaluada, unIngresoOtro.getUnConceptoIngreso().getNombre(), monto, 0, dateFormat.format(fechaEvaluada));
+                                unBalance.add(unaBalanza);
+                                fechaEvaluada = unIngresoOtro.getFecha();
+                                monto = 0;
+                            }
+                            monto += unIngresoOtro.getMonto();
+                            if (ingresos.indexOf(unIngresoOtro) == (pagoCuotas.size() - 1)) {
+                                unaBalanza = new Balance(unIngresoOtro.getFecha(), unIngresoOtro.getUnConceptoIngreso().getNombre(), monto, 0, dateFormat.format(unIngresoOtro.getFecha()));
+                                if (!unBalance.contains(unaBalanza)) {
+                                    unBalance.add(unaBalanza);
 
-            for (Egreso unEgreso : egresos) {
-                if (unEgreso.getUnConceptoEgreso().getNombre().equals(opcion)) {
+                                }
+                                monto = 0;
+                            }
+                        }
+                    }
+                    if (monto != 0) {
+                        unaBalanza = new Balance(fechaEvaluada, unConcepto.getNombre(), monto, 0, dateFormat.format(fechaEvaluada));
+                        unBalance.add(unaBalanza);
+                    }
+                    monto = 0;
+                    fechaEvaluada = null;
+                }
+            } else {
+                for (Egreso unEgreso : egresos) {
                     unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto(), df.format(unEgreso.getFecha()));
                     unBalance.add(unaBalanza);
                 }
-            }
-            for (IngresoOtro unIngreso : ingresos) {
-                if (unIngreso.getUnConceptoIngreso().getNombre().equals(opcion)) {
+                for (IngresoOtro unIngreso : ingresos) {
                     unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
                     unBalance.add(unaBalanza);
                 }
-            }
-            for (PagoCuota unPagoCuota : pagoCuotas) {
-
-                if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)) {
+                for (PagoCuota unPagoCuota : pagoCuotas) {
                     if (unaControladoraGlobal.getSociaResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)) != null) {
                         unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion + " " + unaControladoraGlobal.getSociaResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)), unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
                         unBalance.add(unaBalanza);
@@ -179,6 +234,146 @@ public class BalanceMensualDS implements JRDataSource {
                             unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
                             unBalance.add(unaBalanza);
                         }
+                    }
+
+                }
+            }
+        } else {
+            if (!isAgrupar) {
+                for (Egreso unEgreso : egresos) {
+                    if (unEgreso.getUnConceptoEgreso().getNombre().equals(opcion)) {
+                        unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, unEgreso.getMonto(), df.format(unEgreso.getFecha()));
+                        unBalance.add(unaBalanza);
+                    }
+                }
+                for (IngresoOtro unIngreso : ingresos) {
+                    if (unIngreso.getUnConceptoIngreso().getNombre().equals(opcion)) {
+                        unaBalanza = new Balance(unIngreso.getFecha(), unIngreso.getUnConceptoIngreso().getNombre(), unIngreso.getMonto(), 0, df.format(unIngreso.getFecha()));
+                        unBalance.add(unaBalanza);
+                    }
+                }
+                for (PagoCuota unPagoCuota : pagoCuotas) {
+                    if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().getConcepto().equals(opcion)) {
+                        if (unaControladoraGlobal.getSociaResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)) != null) {
+                            unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion + " " + unaControladoraGlobal.getSociaResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)), unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                            unBalance.add(unaBalanza);
+                        } else {
+                            if (unaControladoraGlobal.getEquipoResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)) != null) {
+                                unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion + " " + unaControladoraGlobal.getEquipoResponsableDeuda(unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota)), unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                                unBalance.add(unaBalanza);
+                            } else {
+                                unaBalanza = new Balance(unPagoCuota.getFechaPago(), opcion, unPagoCuota.getMonto(), 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                                unBalance.add(unaBalanza);
+                            }
+                        }
+                    }
+                }
+            } else {
+                this.desde = desde;
+                this.hasta = hasta;
+                monto = 0;
+                for (ConceptoDeportivo unConcepto : conceptosDeportivos) {
+                    if (unConcepto.getConcepto().equals(opcion)) {
+                        for (PagoCuota unPagoCuota : pagoCuotas) {
+                            if (unaControladoraGlobal.getDeudaPagoCuota(unPagoCuota).getUnConceptoDeportivo().equals(unConcepto)) {
+                                if (fechaEvaluada == null) {
+                                    fechaEvaluada = unPagoCuota.getFechaPago();
+                                }
+                                if (unPagoCuota.getFechaPago().getMonth() != fechaEvaluada.getMonth()) {
+                                    unaBalanza = new Balance(fechaEvaluada, unConcepto.getConcepto(), monto, 0, dateFormat.format(fechaEvaluada));
+                                    unBalance.add(unaBalanza);
+                                    fechaEvaluada = unPagoCuota.getFechaPago();
+                                    monto = 0;
+                                }
+                                monto += unPagoCuota.getMonto();
+                                if (pagoCuotas.indexOf(unPagoCuota) == (pagoCuotas.size() - 1)) {
+                                    unaBalanza = new Balance(unPagoCuota.getFechaPago(), unConcepto.getConcepto(), monto, 0, dateFormat.format(unPagoCuota.getFechaPago()));
+                                    if (!unBalance.contains(unaBalanza)) {
+                                        unBalance.add(unaBalanza);
+
+                                    }
+                                    monto = 0;
+                                }
+                            }
+                        }
+                        if (monto != 0) {
+                            unaBalanza = new Balance(fechaEvaluada, unConcepto.getConcepto(), monto, 0, dateFormat.format(fechaEvaluada));
+                            unBalance.add(unaBalanza);
+                        }
+                        monto = 0;
+                        fechaEvaluada = null;
+                    }
+                }
+                this.desde = desde;
+                this.hasta = hasta;
+                monto = 0;
+                List<ConceptoEgreso> conceptosEgresos = unaControladoraGlobal.getConceptosEgresosBD();
+                for (ConceptoEgreso unConcepto : conceptosEgresos) {
+                    if (unConcepto.getNombre().equals(opcion)) {
+                        for (Egreso unEgreso : egresos) {
+                            if (unEgreso.getUnConceptoEgreso().equals(unConcepto)) {
+                                if (fechaEvaluada == null) {
+                                    fechaEvaluada = unEgreso.getFecha();
+                                }
+                                if (unEgreso.getFecha().getMonth() != fechaEvaluada.getMonth()) {
+                                    unaBalanza = new Balance(fechaEvaluada, unEgreso.getUnConceptoEgreso().getNombre(), 0, monto, dateFormat.format(fechaEvaluada));
+                                    unBalance.add(unaBalanza);
+                                    fechaEvaluada = unEgreso.getFecha();
+                                    monto = 0;
+                                }
+                                monto += unEgreso.getMonto();
+                                if (egresos.indexOf(unEgreso) == (pagoCuotas.size() - 1)) {
+                                    unaBalanza = new Balance(unEgreso.getFecha(), unEgreso.getUnConceptoEgreso().getNombre(), 0, monto, dateFormat.format(unEgreso.getFecha()));
+                                    if (!unBalance.contains(unaBalanza)) {
+                                        unBalance.add(unaBalanza);
+
+                                    }
+                                    monto = 0;
+                                }
+                            }
+                        }
+                        if (monto != 0) {
+                            unaBalanza = new Balance(fechaEvaluada, unConcepto.getNombre(), 0, monto, dateFormat.format(fechaEvaluada));
+                            unBalance.add(unaBalanza);
+                        }
+                        monto = 0;
+                        fechaEvaluada = null;
+                    }
+                }
+                this.desde = desde;
+                this.hasta = hasta;
+                monto = 0;
+                List<ConceptoIngreso> conceptoIngresos = unaControladoraGlobal.getConceptosIngresosBD();
+                for (ConceptoIngreso unConcepto : conceptoIngresos) {
+                    if (unConcepto.getNombre().equals(opcion)) {
+                        for (IngresoOtro unIngresoOtro : ingresos) {
+                            if (unIngresoOtro.getUnConceptoIngreso().equals(unConcepto)) {
+                                if (fechaEvaluada == null) {
+                                    fechaEvaluada = unIngresoOtro.getFecha();
+                                }
+                                if (unIngresoOtro.getFecha().getMonth() != fechaEvaluada.getMonth()) {
+                                    unaBalanza = new Balance(fechaEvaluada, unIngresoOtro.getUnConceptoIngreso().getNombre(), monto, 0, dateFormat.format(fechaEvaluada));
+                                    unBalance.add(unaBalanza);
+                                    fechaEvaluada = unIngresoOtro.getFecha();
+                                    monto = 0;
+                                }
+                                monto += unIngresoOtro.getMonto();
+                                if (ingresos.indexOf(unIngresoOtro) == (pagoCuotas.size() - 1)) {
+                                    unaBalanza = new Balance(unIngresoOtro.getFecha(), unIngresoOtro.getUnConceptoIngreso().getNombre(), monto, 0, dateFormat.format(unIngresoOtro.getFecha()));
+                                    if (!unBalance.contains(unaBalanza)) {
+                                        unBalance.add(unaBalanza);
+
+                                    }
+                                    monto = 0;
+                                }
+                            }
+                        }
+                        if (monto != 0) {
+                            unaBalanza = new Balance(fechaEvaluada, unConcepto.getNombre(), monto, 0, dateFormat.format(fechaEvaluada));
+                            unBalance.add(unaBalanza);
+                        }
+                        monto = 0;
+                        fechaEvaluada = null;
                     }
                 }
             }
