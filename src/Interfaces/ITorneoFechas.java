@@ -127,7 +127,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            componente = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.      
+            componente = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.            
             //centrar las columnas 1, 3 y 4
             if ((column == 1) || (column == 3) || (column == 4)) {
                 componente.setHorizontalAlignment(CENTER);
@@ -345,6 +345,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jButtonSiguiente = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
         jButtonFinal = new javax.swing.JButton();
+        jLabelEquiposMorosos = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(858, 527));
@@ -732,6 +733,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0))
         );
 
+        jLabelEquiposMorosos.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelEquiposMorosos.setText("* Los equipos en rojo poseen deuda vencida y no deverían jugar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -743,6 +747,8 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                     .addComponent(jPanelDetalles, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabelEquiposMorosos)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -757,7 +763,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelEquiposMorosos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1063,6 +1071,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelArbitro2;
     private javax.swing.JLabel jLabelArbitro3;
     private javax.swing.JLabel jLabelCancha;
+    private javax.swing.JLabel jLabelEquiposMorosos;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelFecha1;
     private javax.swing.JLabel jLabelFechaCalendario;
