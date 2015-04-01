@@ -26,6 +26,7 @@ public class ControladoraGlobal {
         this.unaControladoraEntidades = new ControladoraEntidades(entityManager);
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
         this.construirConceptosDeportivos();
+        this.construirConceptosEgresos();
     }
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
@@ -431,7 +432,7 @@ public class ControladoraGlobal {
     public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
         return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha, unTorneo);
     }
-    
+
     public boolean isCamisetaExiste(Equipo unEquipo, String Camiseta) {
         return this.unaControladoraDeportiva.isCamisetaExiste(unEquipo, Camiseta);
     }
@@ -608,7 +609,7 @@ public class ControladoraGlobal {
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
-    
+
     public List<Torneo> getTorneosHijos(Torneo unTorneo) {
         return this.unaControladoraDeportiva.getTorneosHijos(unTorneo);
     }
@@ -951,6 +952,12 @@ public class ControladoraGlobal {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Concepto Egreso">
+    private void construirConceptosEgresos() {
+        if (this.getConceptoEgresoBD("Cancha") == null) {
+            this.crearConceptoEgreso("Cancha", "Corresponde a los pagos DE la asociación A los Clubes que posean canchas y sean utilizadas.");
+        }
+    }
+
     public void crearConceptoEgreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoEgreso(nombre, detalle);
     }
@@ -965,6 +972,10 @@ public class ControladoraGlobal {
 
     public ConceptoEgreso getConceptoEgresoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoEgresoBD(id);
+    }
+
+    public ConceptoEgreso getConceptoEgresoBD(String concepto) {
+        return this.unaControladoraContabilidad.getConceptoEgresoBD(concepto);
     }
 
     public List<ConceptoEgreso> getConceptosEgresosBD() {

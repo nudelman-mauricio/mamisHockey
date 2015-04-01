@@ -523,7 +523,8 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                 if (unConceptoDeportivoSeleccionado.getConcepto().equals("Cancha")) {
                     //cargar campos de ayuda                                        
                     int mes = unaControladoraGlobal.fechaSistema().getMonth(), anio = unaControladoraGlobal.fechaSistema().getYear();
-                    String datosCanchas = "Canchas del Equipo:", enter = System.getProperty("line.separator");
+                    String enter = System.getProperty("line.separator");
+                    String datosCanchas = "CAMBIAR ESTO EN ALGUN MOMENTO" + enter + "Canchas del Equipo:";
                     for (Cancha unaCancha : unaControladoraGlobal.getClubBD(unEquipo).getCanchas()) {
                         datosCanchas += (enter + unaCancha.toString() + " - Usos en el mes actual: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, mes, anio)));
                     }

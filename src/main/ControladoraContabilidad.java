@@ -319,6 +319,18 @@ public class ControladoraContabilidad {
     }
 
     /**
+     * Devuelve ConceptoEgreso por CONCEPTO
+     */
+    public ConceptoEgreso getConceptoEgresoBD(String concepto) {
+        List<ConceptoEgreso> unaListaResultado = this.entityManager.createQuery("SELECT cd FROM ConceptoEgreso cd WHERE cd.borradoLogico = FALSE AND cd.nombre LIKE '" + concepto + "'").getResultList();
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
+        }
+    }
+
+    /**
      * Devuelve todos los ConceptoEgreso menos los borrados
      */
     public List<ConceptoEgreso> getConceptosEgresosBD() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings theme="MAC" version="2.0" persistenceUnitName="mamisHockeyPU" id="_139786521181046" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings theme="MAC" version="2.0" persistenceUnitName="mamisHockeyPU" jaxb-support="false" id="_139786521181046" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:package>logicaNegocios</jpa:package>
-    <jpa:mapped-superclass class="Persona" visibile="true" minimized="true" id="_1397865228592">
+    <jpa:mapped-superclass class="Persona" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865228592">
         <jpa:attributes>
             <jpa:id name="dni" attribute-type="Long" visibile="true" id="_139786524090959">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -44,7 +44,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:mapped-superclass>
-    <jpa:entity class="Localidad" visibile="true" minimized="true" id="_1397865386057">
+    <jpa:entity class="Localidad" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865386057">
         <jpa:attributes>
             <jpa:id name="idLocalidad" attribute-type="Long" visibile="true" id="_139786539453961">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -61,7 +61,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Socia" superclass="Persona" superclassId="_1397865228592" visibile="true" minimized="true" id="_1397865613179">
+    <jpa:entity class="Socia" jaxb-root-element="false" static-metamodel="false" superclassId="_1397865228592" visibile="true" minimized="true" id="_1397865613179">
         <jpa:attributes>
             <jpa:basic name="fotoCarnet" optional="true" attribute-type="byte[]" visibile="true" id="_139786561840269">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -93,7 +93,7 @@
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Cancha" visibile="true" minimized="true" id="_1397865626096">
+    <jpa:entity class="Cancha" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865626096">
         <jpa:attributes>
             <jpa:id name="idCancha" attribute-type="Long" visibile="true" id="_139786564302976">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -110,7 +110,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Club" visibile="true" minimized="true" id="_1397865799360">
+    <jpa:entity class="Club" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865799360">
         <jpa:attributes>
             <jpa:id name="idClub" attribute-type="Long" visibile="true" id="_139786580695080">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -143,7 +143,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PersonaAuxiliar" superclass="Persona" superclassId="_1397865228592" visibile="true" minimized="true" id="_1397865962543">
+    <jpa:entity class="PersonaAuxiliar" jaxb-root-element="false" static-metamodel="false" superclassId="_1397865228592" visibile="true" minimized="true" id="_1397865962543">
         <jpa:attributes>
             <jpa:basic name="fotocopiaDni" optional="true" attribute-type="byte[]" visibile="true" id="_139786599654088">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -167,7 +167,7 @@
             </jpa:element-collection>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Gol" visibile="true" minimized="true" id="_1397866303816">
+    <jpa:entity class="Gol" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866303816">
         <jpa:attributes>
             <jpa:id name="idGol" attribute-type="Long" visibile="true" id="_1397867808230159">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -184,7 +184,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Equipo" visibile="true" minimized="true" id="_1397866346227">
+    <jpa:entity class="Equipo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866346227">
         <jpa:attributes>
             <jpa:id name="idEquipo" attribute-type="Long" visibile="true" id="_139786637751197">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -234,7 +234,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Indumentaria" visibile="true" minimized="true" id="_1397866545595">
+    <jpa:entity class="Indumentaria" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866545595">
         <jpa:attributes>
             <jpa:id name="idIndumentaria" attribute-type="Long" visibile="true" id="_1397866552003101">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -254,7 +254,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Estado" visibile="true" minimized="true" id="_1397866760557">
+    <jpa:entity class="Estado" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866760557">
         <jpa:attributes>
             <jpa:id name="idEstado" attribute-type="Long" visibile="true" id="_1398054332211519">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -272,7 +272,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Pase" visibile="true" minimized="true" id="_1397867932817">
+    <jpa:entity class="Pase" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397867932817">
         <jpa:attributes>
             <jpa:id name="idPase" attribute-type="Long" visibile="true" id="_1397867938079163">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -302,14 +302,14 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Deuda" visibile="true" minimized="true" id="_1397868049586">
+    <jpa:entity class="Deuda" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_1397868049586">
         <jpa:attributes>
             <jpa:id name="idDeuda" attribute-type="Long" visibile="true" id="_1397868146347172">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
             <jpa:basic name="observacion" optional="true" attribute-type="String" visibile="true" id="_1397868154652175">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868346465184">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -326,7 +326,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoDeportivo" visibile="true" minimized="true" id="_1397868263876">
+    <jpa:entity class="ConceptoDeportivo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868263876">
         <jpa:attributes>
             <jpa:id name="idConceptoDeportivo" attribute-type="Long" visibile="true" id="_1397868279346179">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -352,7 +352,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Cuota" visibile="true" minimized="true" id="_1397868481186">
+    <jpa:entity class="Cuota" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868481186">
         <jpa:attributes>
             <jpa:id name="idCuota" attribute-type="Long" visibile="true" id="_1397868495580190">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -376,7 +376,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoEgreso" visibile="true" minimized="true" id="_1397868806733">
+    <jpa:entity class="ConceptoEgreso" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868806733">
         <jpa:attributes>
             <jpa:id name="idConceptoEgreso" attribute-type="Long" visibile="true" id="_1397868822568203">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -390,7 +390,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoIngreso" visibile="true" minimized="true" id="_1397868814587">
+    <jpa:entity class="ConceptoIngreso" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868814587">
         <jpa:attributes>
             <jpa:id name="idConceptoIngreso" attribute-type="Long" visibile="true" id="_1397868859739205">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -404,7 +404,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="IngresoOtro" visibile="true" minimized="true" id="_1397868975724">
+    <jpa:entity class="IngresoOtro" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868975724">
         <jpa:attributes>
             <jpa:id name="idIngresoOtro" attribute-type="Long" visibile="true" id="_1397868982697217">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -428,7 +428,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Egreso" visibile="true" minimized="true" id="_1397869170762">
+    <jpa:entity class="Egreso" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869170762">
         <jpa:attributes>
             <jpa:id name="idEgreso" attribute-type="Long" visibile="true" id="_1397869178872225">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -452,7 +452,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Categoria" visibile="true" minimized="true" id="_1397869355771">
+    <jpa:entity class="Categoria" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869355771">
         <jpa:attributes>
             <jpa:id name="idCategoria" attribute-type="Long" visibile="true" id="_1397869364721233">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -475,7 +475,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="FechaTorneo" visibile="true" minimized="true" id="_1397869438638">
+    <jpa:entity class="FechaTorneo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869438638">
         <jpa:attributes>
             <jpa:id name="idFecha" attribute-type="Long" visibile="true" id="_1397869445729238">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -492,7 +492,7 @@
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Partido" visibile="true" minimized="true" id="_1397869509238">
+    <jpa:entity class="Partido" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869509238">
         <jpa:attributes>
             <jpa:id name="idPartido" attribute-type="Long" visibile="true" id="_1397869517159241">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -567,7 +567,7 @@
             </jpa:element-collection>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Tarjeta" visibile="true" minimized="true" id="_1397869941400">
+    <jpa:entity class="Tarjeta" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869941400">
         <jpa:attributes>
             <jpa:id name="idTarjeta" attribute-type="Long" visibile="true" id="_1398055421132525">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -600,7 +600,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="SancionTribunal" visibile="true" minimized="true" id="_1397870308298">
+    <jpa:entity class="SancionTribunal" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397870308298">
         <jpa:attributes>
             <jpa:id name="idSancionTribunal" attribute-type="Long" visibile="true" id="_1397870321521266">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -640,7 +640,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Torneo" visibile="true" minimized="true" id="_1397870789243">
+    <jpa:entity class="Torneo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397870789243">
         <jpa:attributes>
             <jpa:id name="idTorneo" attribute-type="Long" visibile="true" id="_1397870794947278">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -670,7 +670,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Ergometria" visibile="true" minimized="true" id="_1398774975217">
+    <jpa:entity class="Ergometria" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1398774975217">
         <jpa:attributes>
             <jpa:id name="idErgometria" attribute-type="Long" visibile="true" id="_139877499551672">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -695,7 +695,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoCancha" visibile="true" minimized="true" id="_1399934614213">
+    <jpa:entity class="TipoCancha" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1399934614213">
         <jpa:attributes>
             <jpa:id name="idTipoCancha" attribute-type="Long" visibile="true" id="_139993462946377">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -709,7 +709,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Mes" visibile="true" minimized="true" id="_1399935106939">
+    <jpa:entity class="Mes" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1399935106939">
         <jpa:attributes>
             <jpa:id name="nombre" attribute-type="String" visibile="true" id="_139993535055288">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -717,7 +717,7 @@
             </jpa:id>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoEstado" visibile="true" minimized="true" id="_1399935822186">
+    <jpa:entity class="TipoEstado" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1399935822186">
         <jpa:attributes>
             <jpa:id name="idTipoEstado" attribute-type="Long" visibile="true" id="_139993584407797">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -731,7 +731,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PagoCuota" visibile="true" minimized="true" id="_1400096950412">
+    <jpa:entity class="PagoCuota" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1400096950412">
         <jpa:attributes>
             <jpa:id name="idPagoCuota" attribute-type="Long" visibile="true" id="_1400096982652160">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -752,7 +752,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PlanillaPago" visibile="true" minimized="true" id="_1412270930951">
+    <jpa:entity class="PlanillaPago" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1412270930951">
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" visibile="true" id="_1412270961429170">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
@@ -776,7 +776,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:embeddable class="Jugadora" visibile="true" minimized="true" id="_1411085510237">
+    <jpa:embeddable class="Jugadora" static-metamodel="false" visibile="true" minimized="true" id="_1411085510237">
         <jpa:attributes>
             <jpa:basic name="camiseta" attribute-type="String" visibile="true" id="_1411085528328183">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
@@ -795,22 +795,22 @@
                 <Bounds x="767.0" y="-732.0" width="151.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865613179" id="_1397865613179_gui">
-                <Bounds x="409.0" y="-407.0" width="149.0" height="24.0"/>
+                <Bounds x="409.0" y="-407.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865626096" id="_1397865626096_gui">
                 <Bounds x="326.0" y="-721.0" width="139.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865799360" id="_1397865799360_gui">
-                <Bounds x="-412.0" y="-732.0" width="184.0" height="24.0"/>
+                <Bounds x="-412.0" y="-732.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865962543" id="_1397865962543_gui">
-                <Bounds x="1055.0" y="-461.0" width="189.0" height="24.0"/>
+                <Bounds x="1055.0" y="-461.0" width="187.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866303816" id="_1397866303816_gui">
                 <Bounds x="1213.0" y="-212.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866346227" id="_1397866346227_gui">
-                <Bounds x="36.0" y="-168.0" width="183.0" height="24.0"/>
+                <Bounds x="36.0" y="-168.0" width="134.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397866545595" id="_1397866545595_gui">
                 <Bounds x="22.0" y="-3.0" width="171.0" height="24.0"/>
@@ -822,7 +822,7 @@
                 <Bounds x="-196.0" y="-351.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868049586" id="_1397868049586_gui">
-                <Bounds x="-565.0" y="-333.0" width="132.0" height="24.0"/>
+                <Bounds x="-565.0" y="-333.0" width="176.0" height="189.0"/>
             </shape>
             <shape elementRef="_1397868263876" id="_1397868263876_gui">
                 <Bounds x="-428.0" y="67.0" width="204.0" height="24.0"/>
@@ -831,7 +831,7 @@
                 <Bounds x="-638.0" y="-53.0" width="130.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868806733" id="_1397868806733_gui">
-                <Bounds x="-469.0" y="524.0" width="192.0" height="24.0"/>
+                <Bounds x="-469.0" y="524.0" width="190.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397868814587" id="_1397868814587_gui">
                 <Bounds x="-196.0" y="413.0" width="193.0" height="24.0"/>
@@ -840,7 +840,7 @@
                 <Bounds x="-196.0" y="287.0" width="164.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869170762" id="_1397869170762_gui">
-                <Bounds x="-443.0" y="311.0" width="166.0" height="24.0"/>
+                <Bounds x="-443.0" y="311.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869355771" id="_1397869355771_gui">
                 <Bounds x="406.0" y="466.0" width="151.0" height="24.0"/>
@@ -849,7 +849,7 @@
                 <Bounds x="663.0" y="323.0" width="170.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869509238" id="_1397869509238_gui">
-                <Bounds x="816.0" y="165.0" width="222.0" height="24.0"/>
+                <Bounds x="816.0" y="165.0" width="137.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397869941400" id="_1397869941400_gui">
                 <Bounds x="1195.0" y="-3.0" width="136.0" height="24.0"/>
@@ -858,7 +858,7 @@
                 <Bounds x="1195.0" y="311.0" width="188.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397870789243" id="_1397870789243_gui">
-                <Bounds x="507.0" y="524.0" width="158.0" height="24.0"/>
+                <Bounds x="507.0" y="524.0" width="136.0" height="24.0"/>
             </shape>
             <shape elementRef="_1398774975217" id="_1398774975217_gui">
                 <Bounds x="708.0" y="-472.0" width="159.0" height="24.0"/>
@@ -879,7 +879,7 @@
                 <Bounds x="940.0" y="327.0" width="166.0" height="24.0"/>
             </shape>
             <shape elementRef="_1397865228592" id="_1397865228592_gui">
-                <Bounds x="1198.0" y="-787.0" width="162.0" height="24.0"/>
+                <Bounds x="1198.0" y="-787.0" width="144.0" height="24.0"/>
             </shape>
             <shape elementRef="_1411085510237" id="_1411085510237_gui">
                 <Bounds x="121.0" y="369.0" width="154.0" height="24.0"/>
