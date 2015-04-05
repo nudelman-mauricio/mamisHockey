@@ -702,6 +702,15 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getPartidosConPlantelNoJugadosBD(fechaParametro);
     }
 
+    /**
+     * Devuelve la lista de partidos que jugo un Equipo en un mes
+     *
+     * @return Lista de Partidos
+     */
+    public List<Partido> getPartidosDeUnEquipoEnUnMes(Equipo unEquipo, int mes, int anio) {
+        return this.unaControladoraDeportiva.getPartidosDeUnEquipoEnUnMes(unEquipo, mes, anio);
+    }
+    
     public List<Partido> getPartidosBD() {
         return this.unaControladoraDeportiva.getPartidosBD();
     }

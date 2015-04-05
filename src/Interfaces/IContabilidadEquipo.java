@@ -16,6 +16,7 @@ import logicaNegocios.Cancha;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
+import logicaNegocios.Partido;
 import main.ControladoraGlobal;
 
 public class IContabilidadEquipo extends javax.swing.JInternalFrame {
@@ -520,13 +521,12 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             if (unaDeudaSeleccionada == null) {
                 ConceptoDeportivo unConceptoDeportivoSeleccionado = (ConceptoDeportivo) jComboBoxConcepto.getSelectedItem();
                 jTextFieldMontoTotalDeuda.setText(Double.toString(unConceptoDeportivoSeleccionado.getMonto()));
+                jTextPaneObservacionDeuda.setText("");
                 if (unConceptoDeportivoSeleccionado.getConcepto().equals("Cancha")) {
-                    //cargar campos de ayuda                                        
-                    int mes = unaControladoraGlobal.fechaSistema().getMonth(), anio = unaControladoraGlobal.fechaSistema().getYear();
-                    String enter = System.getProperty("line.separator");
-                    String datosCanchas = "CAMBIAR ESTO EN ALGUN MOMENTO" + enter + "Canchas del Equipo:";
-                    for (Cancha unaCancha : unaControladoraGlobal.getClubBD(unEquipo).getCanchas()) {
-                        datosCanchas += (enter + unaCancha.toString() + " - Usos en el mes actual: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, mes, anio)));
+                    //cargar campos de ayuda                    
+                    String datosCanchas = "Canchas Usadas por el equipo en el mes: ";
+                    for (Partido unPartido : unaControladoraGlobal.getPartidosDeUnEquipoEnUnMes(unEquipo, unaControladoraGlobal.fechaSistema().getMonth(), unaControladoraGlobal.fechaSistema().getYear())) {
+                        datosCanchas += (System.getProperty("line.separator") + unPartido.getUnaCancha().toString() + " (" + df.format(unPartido.getFecha()) + ")");
                     }
                     jTextPaneObservacionDeuda.setText(datosCanchas);
                 }

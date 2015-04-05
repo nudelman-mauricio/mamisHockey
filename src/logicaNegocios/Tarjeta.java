@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -22,32 +23,25 @@ public class Tarjeta implements Serializable, Comparable {
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTarjeta;
-
     @Basic
     private String tipo;
-
+    @Column(length = 1000)
     @Basic
     private String motivo;
-
     @Basic
     private String tiempo;
-
     @Basic
     private String minuto;
-
     @OneToOne(targetEntity = Torneo.class)
     private Torneo unTorneo;
-
     @Basic
     private boolean computado;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Tarjeta() {
 

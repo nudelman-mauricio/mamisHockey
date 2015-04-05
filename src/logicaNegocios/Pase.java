@@ -3,6 +3,7 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,29 +22,23 @@ public class Pase implements Serializable, Comparable {
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
-
-    @OneToOne(optional = false, targetEntity = Deuda.class)
+    @OneToOne(targetEntity = Deuda.class)
     private Deuda unaDeuda;
-
     @Basic
     private boolean libreDeudaClub;
-
     @Basic
     private boolean solicitudPase;
-
-    @OneToOne(optional = false, targetEntity = Equipo.class)
+    @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipo;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPase;
-
+    @Column(length = 1000)
     @Basic
     private String observacion;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Pase() {
 
@@ -135,12 +130,12 @@ public class Pase implements Serializable, Comparable {
         }
         return retorno;
     }
-    
-    public void modificarEquipoDestino (EntityManager entityManager, Equipo unEquipo){
+
+    public void modificarEquipoDestino(EntityManager entityManager, Equipo unEquipo) {
         this.setUnEquipo(unEquipo);
         this.persistir(entityManager);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Persistencia">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

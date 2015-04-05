@@ -27,7 +27,6 @@ import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Partido;
 import logicaNegocios.PersonaAuxiliar;
-import logicaNegocios.Socia;
 import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 
@@ -888,7 +887,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(true);
+            jButtonEliminar.setEnabled(false);
             jButtonImprimir.setEnabled(false);
             jButtonResultadoPartido.setEnabled(false);
             jButtonAgregarFecha.setEnabled(true);

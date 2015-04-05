@@ -1,9 +1,9 @@
 package logicaNegocios;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,20 +21,17 @@ public class PagoCuota implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPagoCuota;
-
     @Basic
     private double monto;
-
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaPago;
-
+    @Column(length = 1000)
     @Basic
     private String observacion;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public PagoCuota() {
 

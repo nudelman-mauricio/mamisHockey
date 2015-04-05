@@ -3,6 +3,7 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,23 +22,19 @@ public class Egreso implements Serializable, Comparable {
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
-
     @Basic
     private double monto;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEgreso;
-
-    @OneToOne(optional = false, targetEntity = ConceptoEgreso.class)
+    @OneToOne(targetEntity = ConceptoEgreso.class)
     private ConceptoEgreso unConceptoEgreso;
-
+    @Column(length = 1000)
     @Basic
     private String observacion;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Egreso() {
 

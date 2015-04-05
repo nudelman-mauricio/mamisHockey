@@ -19,7 +19,7 @@ import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class ISancion extends javax.swing.JInternalFrame {
-    
+
     private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Socia unaSocia = null;
@@ -32,7 +32,7 @@ public class ISancion extends javax.swing.JInternalFrame {
     //Llamado Generico
     public ISancion(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
+
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
@@ -40,7 +40,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
         IMenuPrincipalInterface.centrar(this);
-        
+
         camposActivo(false);
         jButtonNuevo.setEnabled(true);
         jButtonEditar.setEnabled(false);
@@ -73,14 +73,12 @@ public class ISancion extends javax.swing.JInternalFrame {
         cargarTabla();
     }
 
-    //deshabilitar todo lo de un contenedor
     private void camposActivo(boolean bandera) {
         if (bandera) {
-            jTextFieldPenalizacion.setEnabled(bandera);
             jTextPaneDetalle.setBackground(Color.WHITE);
         } else {
-            jTextFieldPenalizacion.setEnabled(bandera);
             jDateChooserFechaHasta.setEnabled(bandera);
+            jTextFieldPenalizacion.setEditable(bandera);
             jTextPaneDetalle.setBackground(new Color(228, 231, 237));
         }
         this.jTextPaneDetalle.setEnabled(bandera);
@@ -90,7 +88,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jRadioButtonCantFechas.setEnabled(bandera);
         this.jRadioButtonHasta.setEnabled(bandera);
     }
-    
+
     private void camposLimpiar() {
         this.jDateChooserFecha.setDate(null);
         this.jTextFieldNumResolucion.setText("");
@@ -103,11 +101,12 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTextFieldTarjeta.setText("");
         this.jDateChooserFechaHasta.setDate(null);
     }
-    
+
     private void camposCargar() {
         if (jTableSancion.getSelectedRow() > -1) {
             if (jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0) != null) {
                 unaSancionSeleccionada = unaControladoraGlobal.getSancionTribunalBD((Long) jTableSancion.getValueAt(jTableSancion.getSelectedRow(), 0));
+                camposLimpiar();
                 this.jDateChooserFecha.setDate(unaSancionSeleccionada.getFecha());
                 this.jTextFieldNumResolucion.setText(unaSancionSeleccionada.getNumeroResolucion());
                 this.jTextFieldMotivo.setText(unaSancionSeleccionada.getMotivo());
@@ -131,14 +130,14 @@ public class ISancion extends javax.swing.JInternalFrame {
                 } else {
                     this.jTextFieldTarjeta.setText("");
                 }
-                
+
                 jButtonEliminar.setEnabled(true);
                 jButtonEditar.setEnabled(true);
-                
+
             }
         }
     }
-    
+
     private void cargarTabla() {
         limpiarTabla();
         Collection<SancionTribunal> sanciones = null;
@@ -156,26 +155,26 @@ public class ISancion extends javax.swing.JInternalFrame {
             if (!unaSancion.isBorradoLogico()) {
                 penalizacion = "-";
                 if (unaSancion.getCantFechas() != 0) {
-                    penalizacion = Integer.toString(unaSancion.getCantFechas());
+                    penalizacion = Integer.toString(unaSancion.getCantFechas()) + " Fechas";
                 }
                 if (unaSancion.getVencimiento() != null) {
-                    penalizacion = df.format(unaSancion.getVencimiento());
+                    penalizacion = "Hasta " + df.format(unaSancion.getVencimiento());
                 }
                 this.modeloTableSancion.addRow(new Object[]{unaSancion.getIdSancionTribunal(), df.format(unaSancion.getFecha()), unaSancion.getMotivo(), unaSancion.getNumeroResolucion(), penalizacion, unaSancion.getCantFechasCumplidas(), unaSancion.getUnPartido()});
             }
         }
         jButtonEliminar.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        
+
     }
-    
+
     private void limpiarTabla() {
         int filas = modeloTableSancion.getRowCount();
         for (int i = 0; i < filas; i++) {
             modeloTableSancion.removeRow(0);
         }
     }
-    
+
     private boolean camposValidar() {
         boolean bandera = true;
         if (jDateChooserFecha.getDate() == null) {
@@ -210,7 +209,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -248,9 +247,9 @@ public class ISancion extends javax.swing.JInternalFrame {
         jDateChooserFecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 534));
-        setMinimumSize(new java.awt.Dimension(650, 534));
-        setPreferredSize(new java.awt.Dimension(650, 534));
+        setMaximumSize(new java.awt.Dimension(680, 534));
+        setMinimumSize(new java.awt.Dimension(680, 534));
+        setPreferredSize(new java.awt.Dimension(680, 534));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -445,25 +444,24 @@ public class ISancion extends javax.swing.JInternalFrame {
         jPanelPenalizacionLayout.setHorizontalGroup(
             jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
-                                .addComponent(jTextFieldPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDateChooserFechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
                                 .addComponent(jRadioButtonCantFechas)
                                 .addGap(42, 42, 42)
-                                .addComponent(jRadioButtonHasta)
-                                .addGap(0, 21, Short.MAX_VALUE)))
-                        .addContainerGap())
+                                .addComponent(jRadioButtonHasta))
+                            .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
+                                .addComponent(jTextFieldPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jDateChooserFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanelPenalizacionLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
                         .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextFieldFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jTextFieldFechasCumplidas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPenalizacionLayout.setVerticalGroup(
             jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,9 +471,9 @@ public class ISancion extends javax.swing.JInternalFrame {
                     .addComponent(jRadioButtonCantFechas)
                     .addComponent(jRadioButtonHasta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooserFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelPenalizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDateChooserFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -518,7 +516,11 @@ public class ISancion extends javax.swing.JInternalFrame {
                             .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(47, Short.MAX_VALUE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
@@ -526,11 +528,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(74, 74, 74))
-                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanelPenalizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,7 +561,7 @@ public class ISancion extends javax.swing.JInternalFrame {
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -603,72 +601,69 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        
+
         jTableSancion.setEnabled(false);
-        
+
         camposActivo(true);
         camposLimpiar();
         unaSancionSeleccionada = null;
-        
-        jRadioButtonCantFechas.setSelected(true);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-        //    try {
-                Date fecha = new java.sql.Date(jDateChooserFecha.getDate().getTime());
-                Date fechaCaducidad = null;
-                int cantidadFechas = 0;
-                if (jRadioButtonHasta.isSelected()) {
-                    fechaCaducidad = jDateChooserFechaHasta.getDate();
-                }
-                if (jRadioButtonCantFechas.isSelected()) {
-                    cantidadFechas = Integer.parseInt(jTextFieldPenalizacion.getText());
-                }
-                if (unaSancionSeleccionada == null) {
-                    SancionTribunal unaNuevaSancion = null;
-                    if (unaSocia != null) {
-                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
-                    }
-                    if (unaPersonaAuxiliar != null) {
-                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, null, unaPersonaAuxiliar, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
-                    }
-                    if (unEquipo != null) {
-                        unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, unEquipo, null, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
-                    }
-                    unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaNuevaSancion.isBorradoLogico());
-                    JOptionPane.showMessageDialog(this, "Sanción Guardada");
-                } else {
-                    unaControladoraGlobal.modificarSancionTribunal(unaSancionSeleccionada, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaSancionSeleccionada.isBorradoLogico());
-                    JOptionPane.showMessageDialog(this, "Sancion Modificada");
-                    unaSancionSeleccionada = null;
-                }
-                
-                
-                //Cartel donde se indica que la socia estaba inscripta a partidos que la involucran y se tiene que actualizar la tabla del partido para impactar la penalizacion
+            //    try {
+            Date fecha = new java.sql.Date(jDateChooserFecha.getDate().getTime());
+            Date fechaCaducidad = null;
+            int cantidadFechas = 0;
+            if (jRadioButtonHasta.isSelected()) {
+                fechaCaducidad = jDateChooserFechaHasta.getDate();
+            }
+            if (jRadioButtonCantFechas.isSelected()) {
+                cantidadFechas = Integer.parseInt(jTextFieldPenalizacion.getText());
+            }
+            if (unaSancionSeleccionada == null) {
+                SancionTribunal unaNuevaSancion = null;
                 if (unaSocia != null) {
-                    String partidos = "", enter = System.getProperty("line.separator");
-                    for (Partido aux : unaControladoraGlobal.getPartidosConPlantelNoJugadosBD(fecha)) {
-                        if (aux.isSociaParticipo(unaSocia)) {
-                            partidos += (aux.toString() + enter);
-                        }
-                    }
-                    if (!partidos.isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "La Socia " + unaSocia.getApellido() + ", " + unaSocia.getNombre() + "tiene uno o más partidos por jugar." + enter + "Es MUY NECESARIO actualizar las planillas de los siguientes partidos para que se refleje la Penalización: " + enter + partidos);
+                    unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, null, unaSocia, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
+                }
+                if (unaPersonaAuxiliar != null) {
+                    unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, null, unaPersonaAuxiliar, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
+                }
+                if (unEquipo != null) {
+                    unaNuevaSancion = unaControladoraGlobal.crearSancionTribunal(null, unEquipo, null, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText());
+                }
+                unaControladoraGlobal.modificarSancionTribunal(unaNuevaSancion, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaNuevaSancion.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Sanción Guardada");
+            } else {
+                unaControladoraGlobal.modificarSancionTribunal(unaSancionSeleccionada, fecha, jTextFieldMotivo.getText(), jTextPaneDetalle.getText(), jTextFieldNumResolucion.getText(), fechaCaducidad, cantidadFechas, unaSancionSeleccionada.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Sancion Modificada");
+                unaSancionSeleccionada = null;
+            }
+
+            //Cartel donde se indica que la socia estaba inscripta a partidos que la involucran y se tiene que actualizar la tabla del partido para impactar la penalizacion
+            if (unaSocia != null) {
+                String partidos = "", enter = System.getProperty("line.separator");
+                for (Partido aux : unaControladoraGlobal.getPartidosConPlantelNoJugadosBD(fecha)) {
+                    if (aux.isSociaParticipo(unaSocia)) {
+                        partidos += (aux.toString() + enter);
                     }
                 }
-                
-                jButtonNuevo.setEnabled(true);
-                jButtonEditar.setEnabled(false);
-                jButtonGuardar.setEnabled(false);
-                jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                
-                jTableSancion.setEnabled(true);
-                
-                camposActivo(false);
-                camposLimpiar();
-                cargarTabla();
+                if (!partidos.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "La Socia " + unaSocia.getApellido() + ", " + unaSocia.getNombre() + " tiene uno o más partidos por jugar." + enter + "Es MUY NECESARIO actualizar las planillas de los siguientes partidos para que se refleje la Penalización: " + enter + partidos);
+                }
+            }
+
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+
+            jTableSancion.setEnabled(true);
+
+            camposActivo(false);
+            camposLimpiar();
+            cargarTabla();
             //} catch (ParseException e) {
             //    JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
             //}
@@ -681,9 +676,9 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-        
+
         jTableSancion.setEnabled(false);
-        
+
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -693,9 +688,9 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        
+
         jTableSancion.setEnabled(true);
-        
+
         camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -706,11 +701,11 @@ public class ISancion extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        
+
         jTableSancion.setEnabled(true);
-        
+
         camposActivo(false);
-        
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -732,11 +727,13 @@ public class ISancion extends javax.swing.JInternalFrame {
     private void jRadioButtonCantFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCantFechasActionPerformed
         jTextFieldPenalizacion.setEditable(jRadioButtonCantFechas.isSelected());
         jDateChooserFechaHasta.setEnabled(!jRadioButtonCantFechas.isSelected());
+        jDateChooserFechaHasta.setDate(null);
     }//GEN-LAST:event_jRadioButtonCantFechasActionPerformed
 
     private void jRadioButtonHastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHastaActionPerformed
         jTextFieldPenalizacion.setEditable(!jRadioButtonHasta.isSelected());
         jDateChooserFechaHasta.setEnabled(jRadioButtonHasta.isSelected());
+        jTextFieldPenalizacion.setText("");
     }//GEN-LAST:event_jRadioButtonHastaActionPerformed
 
 

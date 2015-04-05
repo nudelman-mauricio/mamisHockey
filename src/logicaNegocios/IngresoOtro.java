@@ -3,6 +3,7 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,23 +22,19 @@ public class IngresoOtro implements Serializable, Comparable {
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idIngresoOtro;
-
     @Basic
     private double monto;
-
-    @OneToOne(optional = false, targetEntity = ConceptoIngreso.class)
+    @OneToOne(targetEntity = ConceptoIngreso.class)
     private ConceptoIngreso unConceptoIngreso;
-
+    @Column(length = 1000)
     @Basic
-    private String detalle;
-
+    private String observacion;
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public IngresoOtro() {
 
@@ -47,7 +44,7 @@ public class IngresoOtro implements Serializable, Comparable {
         this.fecha = fecha;
         this.unConceptoIngreso = unConceptoIngreso;
         this.monto = monto;
-        this.detalle = detalle;
+        this.observacion = detalle;
         this.borradoLogico = false;
         this.persistir(entityManager);
     }
@@ -86,11 +83,11 @@ public class IngresoOtro implements Serializable, Comparable {
     }
 
     public String getDetalle() {
-        return this.detalle;
+        return this.observacion;
     }
 
     public void setDetalle(String detalle) {
-        this.detalle = detalle;
+        this.observacion = detalle;
     }
 
     public boolean isBorradoLogico() {

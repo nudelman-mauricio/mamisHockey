@@ -144,7 +144,7 @@ public class ControladoraContabilidad {
     }
 
     public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
-        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion<'" + hasta + "' ORDER BY A.fechaGeneracion ASC";
+        String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion < '" + hasta + "' ORDER BY A.fechaGeneracion ASC";
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
@@ -252,7 +252,7 @@ public class ControladoraContabilidad {
     }
 
     public List<PagoCuota> getPagosCuotasEntreFechasBD(Date desde, Date hasta) {
-        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago<'" + hasta + "' AND A.monto > 0 ORDER BY A.fechaPago ASC";
+        String unaConsulta = "SELECT A FROM PagoCuota A WHERE A.borradoLogico = FALSE AND A.fechaPago >= '" + desde + "' AND A.fechaPago < '" + hasta + "' AND A.monto > 0 ORDER BY A.fechaPago ASC";
         List<PagoCuota> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
@@ -395,7 +395,7 @@ public class ControladoraContabilidad {
     }
 
     public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde, Date hasta) {
-        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha<'" + hasta + "' ORDER BY A.fecha ASC";
+        String unaConsulta = "SELECT A FROM IngresoOtro A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha < '" + hasta + "' ORDER BY A.fecha ASC";
         List<IngresoOtro> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }
@@ -458,7 +458,7 @@ public class ControladoraContabilidad {
     }
 
     public List<Egreso> getEgresosEntreFechas(Date desde, Date hasta) {
-        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha<'" + hasta + "' ORDER BY A.fecha ASC";
+        String unaConsulta = "SELECT A FROM Egreso A WHERE A.borradoLogico = FALSE AND A.fecha >= '" + desde + "' AND A.fecha < '" + hasta + "' ORDER BY A.fecha ASC";
         List<Egreso> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
     }

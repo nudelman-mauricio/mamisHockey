@@ -3,6 +3,7 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -20,40 +21,32 @@ public class SancionTribunal implements Serializable, Comparable {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Temporal(TemporalType.DATE)
     @Basic
-    private Date vencimiento = null;
-
+    private Date vencimiento;
     @Basic
-    private int cantFechas = 0;
-
+    private int cantFechas;
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
-
-    @OneToOne(optional = false, targetEntity = Tarjeta.class)
+    @OneToOne(targetEntity = Tarjeta.class)
     private Tarjeta unaTarjeta;
-
+    @Column(length = 1000)
     @Basic
     private String motivo;
-
-    @OneToOne(optional = false, targetEntity = Partido.class)
+    @OneToOne(targetEntity = Partido.class)
     private Partido unPartido;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSancionTribunal;
-
+    @Column(length = 1000)
     @Basic
     private String detalles;
-
     @Basic
-    private int cantFechasCumplidas = 0;
-
+    private int cantFechasCumplidas;
     @Basic
     private String numeroResolucion;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public SancionTribunal() {
 

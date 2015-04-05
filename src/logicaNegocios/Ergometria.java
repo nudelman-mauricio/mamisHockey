@@ -3,6 +3,7 @@ package logicaNegocios;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -20,24 +21,20 @@ public class Ergometria implements Serializable, Comparable {
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaCaducidad;
-
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaRealizacion;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idErgometria;
-
     @Basic
     private boolean aprobado;
-
+    @Column(length = 1000)
     @Basic
     private String comentarios;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Ergometria() {
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -26,75 +27,54 @@ public class Partido implements Serializable, Comparable {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @Basic
     private PersonaAuxiliar unAyudanteCampoLocal;
-
     @ElementCollection
     private Collection<Jugadora> jugadoras;
-
     @Basic
     private String nombreVeedor;
-
     @Basic
     private PersonaAuxiliar unDTLocal;
-
     @Basic
     private PersonaAuxiliar unPreparadorFisicoLocal;
-
     @OneToMany(targetEntity = Gol.class)
     private Collection<Gol> goles;
-
     @Basic
     private PersonaAuxiliar unAyudanteCampoVisitante;
-
     @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoVisitante;
-
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
-
     @Basic
     private PersonaAuxiliar unDTVisitante;
-
     @Basic
     private boolean jugado;
-
     @Basic
     private PersonaAuxiliar unPreparadorFisicoVisitante;
-
     @OneToMany(targetEntity = Tarjeta.class)
     private Collection<Tarjeta> tarjetas;
-
     @Basic
     private String nombreAyudanteMesaLocal;
-
     @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unArbitro1;
-
     @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unArbitro2;
-
     @OneToOne(targetEntity = Cancha.class)
     private Cancha unaCancha;
-
     @OneToOne(targetEntity = PersonaAuxiliar.class)
     private PersonaAuxiliar unArbitro3;
-
+    @Column(length = 1000)
     @Basic
     private String observaciones;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPartido;
-
     @OneToOne(targetEntity = Equipo.class)
     private Equipo unEquipoLocal;
-
     @Basic
     private String nombreAyudanteMesaVisitante;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Partido() {
 

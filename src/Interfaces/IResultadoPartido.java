@@ -1137,13 +1137,13 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                 jButtonEditar.setEnabled(false);
                 jButtonImprimir.setEnabled(false);
                 jButtonActualizar.setEnabled(false);
-                
+
                 camposActivo(false);
             }
         }
         if (unPartido.isJugado()) { //El partido se jugo
             jLabelResultado.setText(unaControladoraGlobal.getGolesLocal(unPartido) + " a " + unaControladoraGlobal.getGolesVisitante(unPartido));
-        } 
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -1199,12 +1199,14 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        if (unPartido.isJugado()) {//Habilitado siempre y cuando no se haya jugado el partido.
+        if (!unPartido.isJugado()) {//Habilitado siempre y cuando no se haya jugado el partido.
             Object[] options = {"OK", "Cancelar"};
             if (0 == JOptionPane.showOptionDialog(this, "Esta seguro que desea actualizar los planteles?", "Actualizar Plantel", JOptionPane.PLAIN_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options, options)) {
                 //Carga la tabla con las socias habilitadas para jugar.
                 cargarPlanteles();
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "El partido ya fué jugado, no puede actualizar los planteles.");
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 

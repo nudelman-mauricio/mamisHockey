@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -24,23 +25,19 @@ public class Deuda implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDeuda;
-
     @OneToOne(targetEntity = ConceptoDeportivo.class)
     private ConceptoDeportivo unConceptoDeportivo;
-
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaGeneracion;
-
     @OneToMany(targetEntity = Cuota.class)
     private Collection<Cuota> cuotas;
-
+    @Column(length = 1000)
     @Basic
     private String observacion;
-
     @Basic
     private boolean borradoLogico;
-    // </editor-fold>
+// </editor-fold>
 
     public Deuda() {
 
@@ -267,7 +264,7 @@ public class Deuda implements Serializable, Comparable {
     /**
      * Devuelve True solo si la Deuda esta totalmente pagada
      *
-     * @return True si estÃƒÂ¡ pagada
+     * @return True si estÃƒÆ’Ã‚Â¡ pagada
      */
     public boolean isSaldado() {
         boolean saldado = false;
@@ -278,7 +275,7 @@ public class Deuda implements Serializable, Comparable {
     }
 
     /**
-     * Devuelve True si hay al menos una cuota que no esté totalmente pagada y
+     * Devuelve True si hay al menos una cuota que no estÃ© totalmente pagada y
      * ya paso el vencimiento
      *
      * @return

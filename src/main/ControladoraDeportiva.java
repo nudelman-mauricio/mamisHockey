@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -594,8 +595,8 @@ public class ControladoraDeportiva {
     }
 
     public void modificarTorneo(Torneo unTorneo, Torneo unTorneoPadre, Date fechaInicio, Categoria unaCategoria, String nombre) {
-               
-        unTorneo.setUnTorneoPadre(unTorneoPadre);        
+
+        unTorneo.setUnTorneoPadre(unTorneoPadre);
         unTorneo.setFechaInicio(fechaInicio);
         unTorneo.setUnaCategoria(unaCategoria);
         unTorneo.setNombre(nombre);
@@ -842,13 +843,27 @@ public class ControladoraDeportiva {
      */
     public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
         List<Partido> partidos = new ArrayList();
-        List<Partido> partidosConsulta = this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.jugado = FALSE AND T.fecha >=" + fechaParametro).getResultList();
-        for (Partido unPartido : partidosConsulta){
-            if (unPartido.getJugadoras() != null){
-               partidos.add(unPartido);
+        List<Partido> partidosConsulta = this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.jugado = FALSE AND T.fecha >= '" + fechaParametro + "'").getResultList();
+        for (Partido unPartido : partidosConsulta) {
+            if (unPartido.getJugadoras() != null) {
+                partidos.add(unPartido);
             }
         }
         return partidos;
+    }
+
+    /**
+     * Devuelve la lista de partidos que jugo un Equipo en un mes
+     *
+     * @return Lista de Partidos
+     */
+    public List<Partido> getPartidosDeUnEquipoEnUnMes(Equipo unEquipo, int mes, int anio) {
+        Calendar instanciaCalendario = Calendar.getInstance();
+        instanciaCalendario.set(anio + 1900, mes, 1);
+        Date desde = new java.sql.Date(instanciaCalendario.getTime().getTime());
+        instanciaCalendario.set(anio + 1900, mes + 1, 1);
+        Date hasta = new java.sql.Date(instanciaCalendario.getTime().getTime());
+        return this.entityManager.createQuery("SELECT P FROM Partido P WHERE (P.borradoLogico = FALSE) AND (P.jugado = TRUE) AND (P.unEquipoLocal.idEquipo =" + unEquipo.getIdEquipo() + " OR P.unEquipoVisitante.idEquipo = " + unEquipo.getIdEquipo() + ") AND (P.fecha >= '" + desde + "' AND P.fecha <'" + hasta + "')").getResultList();
     }
 
     /**

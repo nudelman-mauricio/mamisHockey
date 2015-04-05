@@ -29,6 +29,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTablaGestionEgresos;
     private Egreso unEgresoSeleccionado;
     private DateFormat df = DateFormat.getDateInstance();
+    private String enter = System.getProperty("line.separator");
 
     public IGestionEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -45,19 +46,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
         camposLimpiar();
         jTextPaneDetalle.setBackground(new Color(228, 231, 237));
-        jTextPaneDetalleUsoCancha.setBackground(new Color(228, 231, 237));
-    }
-
-    private void cargarAyudaPagoCancha(java.awt.event.ItemEvent evt) {
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (camposCanchaValidar()) {
-                String datosCanchas = "", enter = System.getProperty("line.separator");
-                for (Cancha unaCancha : ((Club) jComboBoxClub.getSelectedItem()).getCanchas()) {
-                    datosCanchas += (unaCancha.toString() + " - Usos en el mes actual: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, this.jComboBoxAno.getSelectedIndex(), this.jComboBoxMes.getSelectedIndex())) + enter);
-                }
-                jTextPaneDetalleUsoCancha.setText(datosCanchas);
-            }
-        }
     }
 
     private void cargarComboBoxConceptoEgreso() {
@@ -136,15 +124,10 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jLabelAno.setEnabled(Editable);
         jLabelMes.setEnabled(Editable);
         jLabelClub.setEnabled(Editable);
-        jLabelDetalleCanchas.setEnabled(Editable);
         jComboBoxAno.setEnabled(Editable);
         jComboBoxMes.setEnabled(Editable);
         jComboBoxClub.setEnabled(Editable);
-        if (Editable) {
-            jTextPaneDetalleUsoCancha.setBackground(Color.WHITE);
-        } else {
-            jTextPaneDetalleUsoCancha.setBackground(new Color(228, 231, 237));
-        }
+        jButtonCargarDetalle.setEnabled(Editable);
     }
 
     //blanquea componentes editables
@@ -152,7 +135,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jComboBoxAno.setSelectedIndex(-1);
         jComboBoxMes.setSelectedIndex(-1);
         jComboBoxClub.setSelectedIndex(-1);
-        jTextPaneDetalleUsoCancha.setText("");
     }
 
     //blanquea componentes editables
@@ -265,9 +247,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jComboBoxMes = new javax.swing.JComboBox();
         jLabelClub = new javax.swing.JLabel();
         jComboBoxClub = new javax.swing.JComboBox();
-        jLabelDetalleCanchas = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPaneDetalleUsoCancha = new javax.swing.JTextPane();
+        jButtonCargarDetalle = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -468,65 +448,49 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
 
         jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
         jComboBoxAno.setEnabled(false);
-        jComboBoxAno.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxAnoItemStateChanged(evt);
-            }
-        });
 
         jLabelMes.setText("Mes:");
         jLabelMes.setEnabled(false);
 
         jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
         jComboBoxMes.setEnabled(false);
-        jComboBoxMes.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxMesItemStateChanged(evt);
-            }
-        });
 
         jLabelClub.setText("Club:");
         jLabelClub.setEnabled(false);
 
         jComboBoxClub.setEnabled(false);
-        jComboBoxClub.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxClubItemStateChanged(evt);
+
+        jButtonCargarDetalle.setText("Mostrar Detalle");
+        jButtonCargarDetalle.setEnabled(false);
+        jButtonCargarDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCargarDetalleActionPerformed(evt);
             }
         });
-
-        jLabelDetalleCanchas.setText("Detalle uso de canchas:");
-        jLabelDetalleCanchas.setEnabled(false);
-
-        jTextPaneDetalleUsoCancha.setEditable(false);
-        jScrollPane4.setViewportView(jTextPaneDetalleUsoCancha);
 
         javax.swing.GroupLayout jPanelPagoCanchaLayout = new javax.swing.GroupLayout(jPanelPagoCancha);
         jPanelPagoCancha.setLayout(jPanelPagoCanchaLayout);
         jPanelPagoCanchaLayout.setHorizontalGroup(
             jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPagoCanchaLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPagoCanchaLayout.createSequentialGroup()
-                        .addComponent(jLabelDetalleCanchas)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPagoCanchaLayout.createSequentialGroup()
-                        .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelPagoCanchaLayout.createSequentialGroup()
-                                .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelAno))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelMes)
-                                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxClub, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelClub))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanelPagoCanchaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelAno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelMes)
+                            .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxClub, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelClub)))
+                    .addGroup(jPanelPagoCanchaLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jButtonCargarDetalle)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPagoCanchaLayout.setVerticalGroup(
             jPanelPagoCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,18 +506,16 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelDetalleCanchas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButtonCargarDetalle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelMonto)
                     .addComponent(jLabelConceptoEgreso)
@@ -564,41 +526,38 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jDateChooserFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxConceptoEgreso, javax.swing.GroupLayout.Alignment.LEADING, 0, 200, Short.MAX_VALUE))
+                            .addComponent(jComboBoxConceptoEgreso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addComponent(jButtonNuevoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelPagoCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanelPagoCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(67, 67, 67))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFecha)
+                    .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelConceptoEgreso)
+                        .addComponent(jComboBoxConceptoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonNuevoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldMonto)
+                    .addComponent(jLabelMonto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelComentario)
                     .addComponent(jPanelPagoCancha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelFecha)
-                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelConceptoEgreso)
-                                .addComponent(jComboBoxConceptoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonNuevoEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldMonto)
-                            .addComponent(jLabelMonto))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabelComentario)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
 
@@ -664,7 +623,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", " " }));
+        jComboBoxHastaAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "" }));
         jComboBoxHastaAño.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxHastaAñoItemStateChanged(evt);
@@ -910,36 +869,36 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
 
-    private void jComboBoxAnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAnoItemStateChanged
-        cargarAyudaPagoCancha(evt);
-    }//GEN-LAST:event_jComboBoxAnoItemStateChanged
-
-    private void jComboBoxMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxMesItemStateChanged
-        cargarAyudaPagoCancha(evt);
-    }//GEN-LAST:event_jComboBoxMesItemStateChanged
-
     private void jComboBoxConceptoEgresoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxConceptoEgresoItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if ((evt.getStateChange() == ItemEvent.SELECTED) && (jComboBoxConceptoEgreso.isEnabled())) {
             ConceptoEgreso unConceptoEgresoSeleccionado = (ConceptoEgreso) jComboBoxConceptoEgreso.getSelectedItem();
             jTextPaneDetalle.setText(unConceptoEgresoSeleccionado.getDetalle());
-            camposCanchaActivo(false);
-            camposCanchaLimpiar();
             if (unConceptoEgresoSeleccionado.getNombre().equals("Cancha")) {
                 //habilitar los campos para seleccionar datos para la ayuda de cancha
                 camposCanchaActivo(true);
                 jComboBoxMes.setSelectedIndex(unaControladoraGlobal.fechaSistema().getMonth());
-                //jComboBoxAno.setSelectedIndex(unaControladoraGlobal.fechaSistema().getYear());
+                jComboBoxAno.setSelectedIndex(unaControladoraGlobal.fechaSistema().getYear() + 1901 - Integer.parseInt(jComboBoxAno.getItemAt(1).toString()));
+            } else {
+                camposCanchaActivo(false);
+                camposCanchaLimpiar();
             }
         }
     }//GEN-LAST:event_jComboBoxConceptoEgresoItemStateChanged
 
-    private void jComboBoxClubItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxClubItemStateChanged
-        cargarAyudaPagoCancha(evt);
-    }//GEN-LAST:event_jComboBoxClubItemStateChanged
+    private void jButtonCargarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarDetalleActionPerformed
+        if (camposCanchaValidar()) {
+            String datosCanchas = "Corresponde al pago de la Asociación por canchas al Club: " + jComboBoxClub.getSelectedItem() + enter + "Por el mes " + jComboBoxMes.getSelectedItem() + " del " + jComboBoxAno.getSelectedItem() + enter;
+            for (Cancha unaCancha : ((Club) jComboBoxClub.getSelectedItem()).getCanchas()) {
+                datosCanchas += (unaCancha.toString() + " - Usos en el mes: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, this.jComboBoxAno.getSelectedIndex(), this.jComboBoxMes.getSelectedIndex())) + enter);
+            }
+            jTextPaneDetalle.setText(datosCanchas);            
+        }
+    }//GEN-LAST:event_jButtonCargarDetalleActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCargarDetalle;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
@@ -963,7 +922,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelClub;
     private javax.swing.JLabel jLabelComentario;
     private javax.swing.JLabel jLabelConceptoEgreso;
-    private javax.swing.JLabel jLabelDetalleCanchas;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelMes;
     private javax.swing.JLabel jLabelMonto;
@@ -976,10 +934,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelPagoCancha;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableEgresos;
     private javax.swing.JTextField jTextFieldMonto;
     private javax.swing.JTextPane jTextPaneDetalle;
-    private javax.swing.JTextPane jTextPaneDetalleUsoCancha;
     // End of variables declaration//GEN-END:variables
 }
