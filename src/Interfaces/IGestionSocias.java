@@ -477,6 +477,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown

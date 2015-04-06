@@ -542,6 +542,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
         cargarTabla();
+        camposActivo(false);
     }//GEN-LAST:event_jTextFieldBusquedaKeyReleased
 
     private void jButtonPlanillaPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlanillaPagosActionPerformed
