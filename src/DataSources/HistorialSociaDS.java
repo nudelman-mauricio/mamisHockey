@@ -189,7 +189,7 @@ public class HistorialSociaDS implements JRDataSource {
             case "telCel":
                 valor = this.unaSocia.getTelCelular();
                 break;
-            case "exJugadora":
+            case "ex-Jugadora":
                 if (this.unaSocia.isExJugadora()) {
                     valor = "Si";
                 } else {
