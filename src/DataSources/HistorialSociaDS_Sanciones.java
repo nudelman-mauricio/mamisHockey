@@ -34,9 +34,9 @@ public class HistorialSociaDS_Sanciones implements JRDataSource {
                     valor = dateFormat.format(sancionesImprimir.get(indiceSancion).getFecha());
                     break;
                 case "nResolucion":
-                    if (sancionesImprimir.get(indiceSancion).getNumeroResolucion() != null){
-                       valor = sancionesImprimir.get(indiceSancion).getNumeroResolucion(); 
-                    }else{
+                    if (sancionesImprimir.get(indiceSancion).getNumeroResolucion() != null) {
+                        valor = sancionesImprimir.get(indiceSancion).getNumeroResolucion();
+                    } else {
                         valor = "-";
                     }
                     break;
@@ -44,7 +44,11 @@ public class HistorialSociaDS_Sanciones implements JRDataSource {
                     valor = sancionesImprimir.get(indiceSancion).getMotivo();
                     break;
                 case "partido":
-                    valor = sancionesImprimir.get(indiceSancion).getUnPartido().getUnEquipoLocal() + " vs " + sancionesImprimir.get(indiceSancion).getUnPartido().getUnEquipoVisitante();
+                    if (sancionesImprimir.get(indiceSancion).getUnPartido() == null) {
+                        valor = "Sanción sin Partido";
+                    } else {
+                        valor = sancionesImprimir.get(indiceSancion).getUnPartido().getUnEquipoLocal() + " vs " + sancionesImprimir.get(indiceSancion).getUnPartido().getUnEquipoVisitante();
+                    }
                     break;
             }
         }
