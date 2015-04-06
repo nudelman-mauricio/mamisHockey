@@ -439,6 +439,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jTextPaneDetalle.setBackground(new java.awt.Color(240, 240, 240));
         jTextPaneDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextPaneDetalle.setEnabled(false);
+        jTextPaneDetalle.setMinimumSize(new java.awt.Dimension(0, 0));
+        jTextPaneDetalle.setPreferredSize(new java.awt.Dimension(200, 114));
         jScrollPane3.setViewportView(jTextPaneDetalle);
 
         jDateChooserFecha.setEnabled(false);

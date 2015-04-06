@@ -60,7 +60,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             }
         }
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        //jButtonImprimir.setEnabled(false);
     }
 
     private void limpiarTabla() {
@@ -83,7 +83,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                 jTextPaneObservacionDeuda.setText(unaDeudaSeleccionada.getObservacion());
 
                 jButtonEliminar.setEnabled(true);
-                jButtonImprimir.setEnabled(true);
+                //jButtonImprimir.setEnabled(true);
             }
         }
     }
@@ -149,7 +149,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jPanelBotones = new javax.swing.JPanel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jButtonImprimir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jPanelTablaDeudas = new javax.swing.JPanel();
@@ -213,12 +212,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setEnabled(false);
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setEnabled(false);
@@ -254,8 +247,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
@@ -267,8 +258,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
                     .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3))
         );
 
@@ -437,7 +427,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        //jButtonImprimir.setEnabled(false);
 
         camposActivo(false);
 
@@ -488,7 +478,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
+            //jButtonImprimir.setEnabled(false);
             jTableDeudas.setEnabled(true);
             jTableDeudas.clearSelection();
             unaDeudaSeleccionada = null;
@@ -502,7 +492,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-        jButtonImprimir.setEnabled(false);
+        //jButtonImprimir.setEnabled(false);
 
         jTableDeudas.setEnabled(true);
         jTableDeudas.clearSelection();
@@ -539,7 +529,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JComboBox jComboBoxConcepto;
     private com.toedter.calendar.JDateChooser jDateChooserFecha;
