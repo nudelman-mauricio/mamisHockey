@@ -430,12 +430,14 @@ public class BalanceMensualDS implements JRDataSource {
             case "fechaBalance":
                 int mes1 = Integer.parseInt(desde.substring(0, 2));
                 int mes2 = Integer.parseInt(hasta.substring(0, 2));
-                if ((mes2 - mes1) == 1) {
+                int año1 = Integer.parseInt(desde.substring(3,7));
+                int año2 = Integer.parseInt(hasta.substring(3,7));                
+                if ((mes2 - mes1) == 1 && año1 == año2) {
                     valor = "Balance del mes " + desde;
                 } else {
                     valor = "Balance del mes " + desde + " hasta el mes " + (mes2 - 1) + hasta.substring(2);
                 }   break;
-            case "fecha":
+            case "Fecha":
                 valor = df.format(unaControladoraGlobal.fechaSistema());
                 break;
             case "fechaVencimiento":
