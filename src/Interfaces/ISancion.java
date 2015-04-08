@@ -611,7 +611,6 @@ public class ISancion extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if (camposValidar()) {
-            //    try {
             Date fecha = new java.sql.Date(jDateChooserFecha.getDate().getTime());
             Date fechaCaducidad = null;
             int cantidadFechas = 0;
@@ -653,6 +652,17 @@ public class ISancion extends javax.swing.JInternalFrame {
                 }
             }
 
+            //Cartel donde se indica que el equipo estaba inscripto a partidos que lo involucran y se tiene que eliminar el partido
+            if (unEquipo != null) {
+                String partidos = "", enter = System.getProperty("line.separator");
+                for (Partido aux : unaControladoraGlobal.getPartidosDeUnEquipoNoJugadosBD(unEquipo, fecha)) {
+                    partidos += (aux.toString() + enter);
+                }
+                if (!partidos.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El equipo " + unEquipo.toString() + " tiene uno o más partidos por jugar." + enter + "Es MUY NECESARIO ELIMINAR los siguientes partidos para que se refleje la Penalización: " + enter + partidos);
+                }
+            }
+
             jButtonNuevo.setEnabled(true);
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
@@ -664,9 +674,6 @@ public class ISancion extends javax.swing.JInternalFrame {
             camposActivo(false);
             camposLimpiar();
             cargarTabla();
-            //} catch (ParseException e) {
-            //    JOptionPane.showMessageDialog(this, "La fecha tiene un formato erróneo. Lo correcto es dd/mm/aaaa");
-            //}
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

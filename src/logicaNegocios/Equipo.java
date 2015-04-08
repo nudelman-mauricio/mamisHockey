@@ -1,6 +1,7 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -123,7 +124,7 @@ public class Equipo implements Serializable, Comparable {
         this.unaCapitanaSuplente = unaCapitanaSuplente;
     }
 
-    public Collection<Indumentaria> getIndumentarias() {       
+    public Collection<Indumentaria> getIndumentarias() {
         return this.indumentarias;
     }
 
@@ -239,8 +240,8 @@ public class Equipo implements Serializable, Comparable {
     public void agregarDeuda(EntityManager entityManager, Deuda unaDeuda) {
         this.deudas.add(unaDeuda);
         this.persistir(entityManager);
-    }    
-    
+    }
+
     /**
      * Devuelve True solo si hasta el dia de la fecha pasada por parametro no
      * hay ninguna cuota vencida no pagada
@@ -256,7 +257,7 @@ public class Equipo implements Serializable, Comparable {
             }
         }
         return resultado;
-    }    
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillasPagos">
@@ -287,6 +288,39 @@ public class Equipo implements Serializable, Comparable {
     public void quitarSancionTribunal(EntityManager entityManager, SancionTribunal unaSancionTribunal) {
         this.sancionesTribunal.remove(unaSancionTribunal);
         this.persistir(entityManager);
+    }
+
+    /**
+     * Devuelve Lista de sanciones vigentes, es decir que no se borraron y que
+     * no se terminaron de cumplir al dia de la fecha pasada por parametro
+     *
+     * @param unaFecha
+     * @return
+     */
+    public ArrayList<SancionTribunal> getSancionesVigentes(Date unaFecha) {
+        ArrayList<SancionTribunal> resultado = new ArrayList();
+        for (SancionTribunal unaSancionTribunal : this.getSancionesTribunal()) {
+            if (unaSancionTribunal.isVigente(unaFecha)) {
+                resultado.add(unaSancionTribunal);
+            }
+        }
+        return resultado;
+    }
+
+    /**
+     * Devuelve True si el equipo tiene al menos una SancionTribunal que no este
+     * borrada y que no haya terminado hasta el dia de la fecha pasada por
+     * parametro
+     *
+     * @param unaFecha
+     * @return
+     */
+    public boolean isSancionado(Date unaFecha) {
+        boolean resultado = true;
+        if (this.getSancionesVigentes(unaFecha).isEmpty()) {
+            resultado = false;
+        }
+        return resultado;
     }
     // </editor-fold>
 

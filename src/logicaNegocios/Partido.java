@@ -286,12 +286,13 @@ public class Partido implements Serializable, Comparable {
             Partido partido = (Partido) aux;
             retorno = this.fecha.compareTo(partido.getFecha());
         }
+        System.out.println(retorno);
         return retorno;
     }
 
     @Override
     public String toString() {
-        return unEquipoVisitante + " vs " + unEquipoLocal;
+        return unEquipoLocal + " vs " + unEquipoVisitante;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persistencia">

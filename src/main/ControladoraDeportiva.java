@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -725,8 +726,7 @@ public class ControladoraDeportiva {
         for (Torneo unTorneo : this.getTorneosBD()) {
             for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
                 if (unaFechaTorneo.getPartidos().contains(unPartido)) {
-                    resultado = unaFechaTorneo;
-                    return resultado;
+                    return unaFechaTorneo;
                 }
             }
         }
@@ -792,16 +792,20 @@ public class ControladoraDeportiva {
         unPartido.persistir(this.entityManager);
     }
 
+    //ARREGLAR ESTA FUNCION
     public Partido getPartidoAnterior(Partido unPartidoActual) {
-        Partido resultado = null;
-        FechaTorneo unaFechaTorneo = this.getFechaTorneoDePartido(unPartidoActual);
-        for (Partido unPartidoAnterior : unaFechaTorneo.getPartidos()) {
+        Partido resultado = unPartidoActual;
+        Date fechaControl = null;
+        try {
+            fechaControl = new java.sql.Date(DateFormat.getDateInstance().parse(String.valueOf("01/01/1900")).getTime());
+        } catch (ParseException ex) {
+            Logger.getLogger(ControladoraDeportiva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (Partido unPartidoAnterior : this.getFechaTorneoDePartido(unPartidoActual).getPartidos()) {
             if (!unPartidoAnterior.isBorradoLogico()) {
-                if (resultado == null) {
+                if ((unPartidoAnterior.getFecha().before(unPartidoActual.getFecha())) && unPartidoAnterior.getFecha().after(fechaControl)) {
                     resultado = unPartidoAnterior;
-                }
-                if ((unPartidoAnterior.getFecha().before(unPartidoActual.getFecha())) && unPartidoAnterior.getFecha().after(resultado.getFecha())) {
-                    resultado = unPartidoAnterior;
+                    fechaControl = unPartidoAnterior.getFecha();
                 }
             }
         }
@@ -850,6 +854,18 @@ public class ControladoraDeportiva {
             }
         }
         return partidos;
+    }
+
+    /**
+     * Devuelve los partidos a los que esta inscripto un Equipo pero que todavia
+     * no se jugaron hasta el dia de la fecha pasada como parametro
+     *
+     * @param unEquipo
+     * @param fechaParametro
+     * @return
+     */
+    public List<Partido> getPartidosDeUnEquipoNoJugadosBD(Equipo unEquipo, Date fechaParametro) {
+        return this.entityManager.createQuery("SELECT T FROM Partido T WHERE T.borradoLogico = FALSE AND T.jugado = FALSE  AND (T.unEquipoLocal.idEquipo = " + unEquipo.getIdEquipo() + " OR T.unEquipoVisitante.idEquipo = " + unEquipo.getIdEquipo() + ") AND T.fecha >= '" + fechaParametro + "'").getResultList();
     }
 
     /**

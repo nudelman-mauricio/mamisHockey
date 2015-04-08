@@ -132,11 +132,26 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 componente.setHorizontalAlignment(CENTER);
             }
             if (value instanceof Equipo) {
-                if ((!(unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(row, 0)).isJugado())) && (!((Equipo) value).isAlDia(unaControladoraGlobal.fechaSistema()))) {
-                    if (column == 2) {//local
-                        componente.setBackground(Color.red);
-                    } else if (column == 5) {//visitante
-                        componente.setBackground(Color.red);
+                //pregunta si esta juado el partido
+                if (!(unaControladoraGlobal.getPartidoBD((Long) jTableFechasTorneo.getValueAt(row, 0)).isJugado())) {
+                    //si no esta jugado
+                    //pregunta si esta al dia
+                    if (!((Equipo) value).isAlDia(unaControladoraGlobal.fechaSistema())) {
+                        //si no esta al dia marca el nombre en azul
+                        if (column == 2) {//local
+                            componente.setBackground(Color.BLUE);
+                        } else if (column == 5) {//visitante
+                            componente.setBackground(Color.BLUE);
+                        }
+                    }
+                    //pregunta si esta sancionado el equipo
+                    if (((Equipo) value).isSancionado(unaControladoraGlobal.fechaSistema())) {
+                        //si esta sancionado marca en rojo y tira mensaje pidiendo que se elimine el partido
+                        if (column == 2) {//local
+                            componente.setBackground(Color.RED);
+                        } else if (column == 5) {//visitante
+                            componente.setBackground(Color.RED);
+                        }
                     }
                 }
                 if (isSelected) {
@@ -281,9 +296,8 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         return bandera;
     }
 
-    //verifica que los equipos seleccionados no posean deudas vencidas
-    //si poseen deudas vencidas SOLO INFORMA y deja continuar adelante
-    private void validarEquipos() {
+    //simplemente asigna en las variables los equipos que se seleccionaron en los combos
+    private void tomarEquipos() {
         unEquipoAuxLocal = null;
         unEquipoAuxVisitante = null;
         for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
@@ -295,12 +309,31 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 }
             }
         }
+    }
+
+    //verifica que los equipos seleccionados no posean deudas vencidas
+    //si poseen deudas vencidas SOLO INFORMA y deja continuar adelante
+    private void validarEquiposDeuda() {
         if (!unEquipoAuxLocal.isAlDia(unaControladoraGlobal.fechaSistema())) {
             JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxLocal.getNombre() + " seleccionado como Local, registra deudas vencidas. No debería poder jugar.");
         }
         if (!unEquipoAuxVisitante.isAlDia(unaControladoraGlobal.fechaSistema())) {
             JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxVisitante.getNombre() + " seleccionado como Visitante, registra deudas vencidas. No debería poder jugar.");
         }
+    }
+
+    //verifica que los equipos seleccionados no posean sanciones    
+    private boolean validarEquiposSancion() {
+        boolean resultado = true;
+        if (unEquipoAuxLocal.isSancionado(unaControladoraGlobal.fechaSistema())) {
+            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxLocal.getNombre() + " seleccionado como Local, posee Sanciones Vigentes al día de la fecha. No pude jugar.");
+            resultado = false;
+        }
+        if (unEquipoAuxVisitante.isSancionado(unaControladoraGlobal.fechaSistema())) {
+            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxVisitante.getNombre() + " seleccionado como Visitante, posee Sanciones Vigentes al día de la fecha. No puede jugar.");
+            resultado = false;
+        }
+        return resultado;
     }
 
     @SuppressWarnings("unchecked")
@@ -345,11 +378,12 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jButtonAnterior = new javax.swing.JButton();
         jButtonFinal = new javax.swing.JButton();
         jLabelEquiposMorosos = new javax.swing.JLabel();
+        jLabelEquiposSancionados = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(858, 527));
-        setMinimumSize(new java.awt.Dimension(858, 527));
-        setPreferredSize(new java.awt.Dimension(858, 527));
+        setMaximumSize(new java.awt.Dimension(928, 620));
+        setMinimumSize(new java.awt.Dimension(928, 620));
+        setPreferredSize(new java.awt.Dimension(928, 620));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -470,7 +504,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonResultadoPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,7 +580,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -563,6 +597,9 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             jTableFechasTorneo.getColumnModel().getColumn(0).setMinWidth(0);
             jTableFechasTorneo.getColumnModel().getColumn(0).setPreferredWidth(0);
             jTableFechasTorneo.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTableFechasTorneo.getColumnModel().getColumn(1).setMinWidth(80);
+            jTableFechasTorneo.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jTableFechasTorneo.getColumnModel().getColumn(1).setMaxWidth(80);
             jTableFechasTorneo.getColumnModel().getColumn(3).setMinWidth(40);
             jTableFechasTorneo.getColumnModel().getColumn(3).setPreferredWidth(40);
             jTableFechasTorneo.getColumnModel().getColumn(3).setMaxWidth(40);
@@ -611,7 +648,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(170, 170, 170)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelCancha)
                     .addComponent(jLabelLocal)
@@ -732,8 +769,13 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0))
         );
 
-        jLabelEquiposMorosos.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelEquiposMorosos.setText("* Los equipos en rojo poseen deuda vencida y no deverían jugar");
+        jLabelEquiposMorosos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelEquiposMorosos.setForeground(new java.awt.Color(0, 0, 255));
+        jLabelEquiposMorosos.setText("* Los equipos en azul poseen deuda vencida");
+
+        jLabelEquiposSancionados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelEquiposSancionados.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelEquiposSancionados.setText("* Los equipos en rojo estan sancionados y no deben jugar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -746,15 +788,17 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                     .addComponent(jPanelDetalles, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabelEquiposMorosos)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelEquiposSancionados)
+                        .addGap(28, 28, 28))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelBotones2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(300, 300, 300))
+                .addGap(340, 340, 340))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -764,12 +808,14 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelEquiposMorosos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelEquiposMorosos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelEquiposSancionados)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelBotones2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -867,35 +913,44 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        //pregunta si los campos estan bien cargados
         if (camposValidar()) {
-            this.validarEquipos();
-            Date fecha = new java.sql.Date(jDateChooserFecha.getDate().getTime());
-            PersonaAuxiliar arbitro3 = null;
-            if (jComboBoxArbitro3.getSelectedIndex() != -1) {
-                arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
+            //levanta los equipos seleccionados en el combo a las variables globales
+            this.tomarEquipos();
+            //pregunta si no poseen sanciones los equipos
+            //si poseen no deja continuar y avisa con cartel
+            if (validarEquiposSancion()) {
+                //pregunta si no tienen deudas vencidas los equipos
+                //si tienen solo informa
+                this.validarEquiposDeuda();
+
+                PersonaAuxiliar arbitro3 = null;
+                if (jComboBoxArbitro3.getSelectedIndex() != -1) {
+                    arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
+                }
+                if (unPartidoSeleccionado == null) {
+                    unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, new java.sql.Date(jDateChooserFecha.getDate().getTime()), (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
+                    JOptionPane.showMessageDialog(this, "Partido Guardado");
+                } else {
+                    unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, new java.sql.Date(jDateChooserFecha.getDate().getTime()), (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
+                    JOptionPane.showMessageDialog(this, "Partido Modificado");
+                    unPartidoSeleccionado = null;
+                }
+                cargarTabla();
+                jButtonNuevo.setEnabled(true);
+                jButtonEditar.setEnabled(false);
+                jButtonGuardar.setEnabled(false);
+                jButtonCancelar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jButtonImprimir.setEnabled(false);
+                jButtonResultadoPartido.setEnabled(false);
+                jButtonAgregarFecha.setEnabled(true);
+                jTableFechasTorneo.setEnabled(true);
+                camposActivo(jPanelDetalles, false);
+                camposActivo(jPanelBotones2, true);
+                camposLimpiar();
+                cargarCombos();
             }
-            if (unPartidoSeleccionado == null) {
-                unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
-                JOptionPane.showMessageDialog(this, "Partido Guardado");
-            } else {
-                unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, fecha, (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
-                JOptionPane.showMessageDialog(this, "Partido Modificado");
-                unPartidoSeleccionado = null;
-            }
-            cargarTabla();
-            jButtonNuevo.setEnabled(true);
-            jButtonEditar.setEnabled(false);
-            jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonEliminar.setEnabled(false);
-            jButtonImprimir.setEnabled(false);
-            jButtonResultadoPartido.setEnabled(false);
-            jButtonAgregarFecha.setEnabled(true);
-            jTableFechasTorneo.setEnabled(true);
-            camposActivo(jPanelDetalles, false);
-            camposActivo(jPanelBotones2, true);
-            camposLimpiar();
-            cargarCombos();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -1071,6 +1126,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelArbitro3;
     private javax.swing.JLabel jLabelCancha;
     private javax.swing.JLabel jLabelEquiposMorosos;
+    private javax.swing.JLabel jLabelEquiposSancionados;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelFecha1;
     private javax.swing.JLabel jLabelFechaCalendario;

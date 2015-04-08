@@ -69,7 +69,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         camposActivo(false);
         // <editor-fold defaultstate="collapsed" desc="Control de Botones">
         jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);        
         if (unaControladoraGlobal.isPartidoAnteriorJugado(unPartido) && (!unPartido.isJugado())) {
             jButtonImprimir.setEnabled(true);
         } else {
