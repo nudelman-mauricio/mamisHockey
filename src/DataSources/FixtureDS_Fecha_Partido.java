@@ -32,7 +32,11 @@ public class FixtureDS_Fecha_Partido implements JRDataSource {
 
     @Override
     public boolean next() throws JRException {
-        return ++indicePartidos < partidos.size();
+        if(partidos !=null){
+        return ++indicePartidos < partidos.size();}
+        else {
+            return false;
+        }
     }
 
     

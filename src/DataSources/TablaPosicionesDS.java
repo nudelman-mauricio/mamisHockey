@@ -255,7 +255,7 @@ public class TablaPosicionesDS implements JRDataSource {
         int cantidadPartidosPerdidos = 0;        
         for (FechaTorneo unaFechaTorneo : fechasTorneo) {
             for (Partido unPartido : unaFechaTorneo.getPartidos()) {
-                if (unPartido.isJugado()) {
+                if (unPartido.isJugado() && !unPartido.isBorradoLogico()) {
                     if (unPartido.getUnEquipoLocal().equals(unEquipo)) {
                         cantidadPartidosJugados++;
                         if (unPartido.getGoles() != null) {

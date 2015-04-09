@@ -60,6 +60,16 @@ public class FechaTorneo implements Serializable, Comparable {
     public Collection<Partido> getPartidos() {
         return this.partidos;
     }
+    
+    public Collection<Partido> getPartidosNoBorrados() {
+        Collection<Partido> aux = null;
+        for(Partido unPartido : partidos){
+            if(!unPartido.isBorradoLogico()){
+                aux.add(unPartido);
+            }
+        }
+        return aux;
+    }
 
     public void setPartidos(Collection<Partido> partidos) {
         this.partidos = partidos;

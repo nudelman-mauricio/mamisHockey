@@ -50,7 +50,7 @@ public class FixtureDS_Fecha implements JRDataSource {
         } else if ("fechaNro".equals(jrf.getName())) {
             valor = fechasTorneo.get(indiceFecha).getNumeroFecha();
         } else if ("partido".equals(jrf.getName())) {
-            valor = subReporte((List<Partido>) fechasTorneo.get(indiceFecha).getPartidos());
+            valor = subReporte((List<Partido>) fechasTorneo.get(indiceFecha).getPartidosNoBorrados());
         }
         return valor;
     }
