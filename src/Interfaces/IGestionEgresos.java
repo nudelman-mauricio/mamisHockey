@@ -896,7 +896,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
             for (Cancha unaCancha : ((Club) jComboBoxClub.getSelectedItem()).getCanchas()) {
                 datosCanchas += (unaCancha.toString() + " - Usos en el mes: " + Integer.toString(unaControladoraGlobal.getCantCanchaOcupadaEnMes(unaCancha, this.jComboBoxAno.getSelectedIndex(), this.jComboBoxMes.getSelectedIndex())) + enter);
             }
-            jTextPaneDetalle.setText(datosCanchas);
+            jTextPaneDetalle.setText(datosCanchas);            
         }
     }//GEN-LAST:event_jButtonCargarDetalleActionPerformed
 

@@ -22,8 +22,8 @@ public class ControladoraEntidades {
 
     public ControladoraEntidades(EntityManager entityManager) {
         this.entityManager = entityManager;
-//        this.construirTiposEstados();
-//        this.construirLocalidades();
+        this.construirTiposEstados();
+        this.construirLocalidades();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Persona Auxiliar">

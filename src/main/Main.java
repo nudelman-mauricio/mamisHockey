@@ -14,58 +14,33 @@ import javax.swing.UIManager;
 public class Main {
 
     public static void main(String[] args) {
-        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(null);
+        // <editor-fold defaultstate="collapsed" desc="Conexion con la Base de Datos">
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
+            entityManager = entityManagerFactory.createEntityManager();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "Eror en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        // </editor-fold>
 
-            // <editor-fold defaultstate="collapsed" desc="Aplicar Skin">
-            try {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
-                Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/toxicthemepack.zip");
-                SkinLookAndFeel.setSkin(theSkinToUse);
-                UIManager.setLookAndFeel(new SkinLookAndFeel());
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, "Eror al aplicar el Skin, se ejecutará el programa con apariencia por defecto.", "Problema al cargar el Skin", JOptionPane.WARNING_MESSAGE);
-            }
-            // </editor-fold>
-
-            // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
-            IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
-            SwingUtilities.updateComponentTreeUI(unaVentana);
-            unaVentana.setLocationRelativeTo(null); //Mandar al centro
-            unaVentana.setVisible(true);
-            // </editor-fold>
-//        
-//        try {
-//            // <editor-fold defaultstate="collapsed" desc="Conexion con la Base de Datos">
-//            EntityManagerFactory entityManagerFactory = null;
-//            EntityManager entityManager = null;
-//            entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
-//            entityManager = entityManagerFactory.createEntityManager();
-//            // </editor-fold>
-//
-//            ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(entityManager);
-//
-//            // <editor-fold defaultstate="collapsed" desc="Aplicar Skin">
-//            try {
-//                JFrame.setDefaultLookAndFeelDecorated(true);
-//                //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
-//                Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/toxicthemepack.zip");
-//                SkinLookAndFeel.setSkin(theSkinToUse);
-//                UIManager.setLookAndFeel(new SkinLookAndFeel());
-//            } catch (Exception exception) {
-//                JOptionPane.showMessageDialog(null, "Eror al aplicar el Skin, se ejecutará el programa con apariencia por defecto.", "Problema al cargar el Skin", JOptionPane.WARNING_MESSAGE);
-//            }
-//            // </editor-fold>
-//
-//            // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
-//            IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
-//            SwingUtilities.updateComponentTreeUI(unaVentana);
-//            unaVentana.setLocationRelativeTo(null); //Mandar al centro
-//            unaVentana.setVisible(true);
-//            // </editor-fold>
-//
-//        } catch (Exception exception) {
-//            JOptionPane.showMessageDialog(null, "Error en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        // <editor-fold defaultstate="collapsed" desc="Aplicar Skin">
+        try {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            //Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/royalInspiratthemepack.zip");
+            Skin theSkinToUse = SkinLookAndFeel.loadThemePack("skins/toxicthemepack.zip");
+            SkinLookAndFeel.setSkin(theSkinToUse);
+            UIManager.setLookAndFeel(new SkinLookAndFeel());
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "Eror al aplicar el Skin, se ejecutará el programa con apariencia por defecto.", "Problema al cargar el Skin", JOptionPane.WARNING_MESSAGE);
+        }
+        // </editor-fold>
+        
+        ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(entityManager);
+        IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
+        SwingUtilities.updateComponentTreeUI(unaVentana);
+        unaVentana.setLocationRelativeTo(null); //Mandar al centro
+        unaVentana.setVisible(true);
     }
 }
