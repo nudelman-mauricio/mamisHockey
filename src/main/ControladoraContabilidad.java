@@ -28,7 +28,7 @@ public class ControladoraContabilidad {
 
     public ControladoraContabilidad(EntityManager em) {
         this.entityManager = em;
-        this.construirMeses();
+//        this.construirMeses();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Conceptos Deportivos">

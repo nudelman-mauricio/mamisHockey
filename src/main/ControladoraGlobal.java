@@ -25,8 +25,8 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
         this.unaControladoraEntidades = new ControladoraEntidades(entityManager);
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
-        this.construirConceptosDeportivos();
-        this.construirConceptosEgresos();
+//        this.construirConceptosDeportivos();
+//        this.construirConceptosEgresos();
     }
 
 // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">

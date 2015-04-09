@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mauricio/Documents/GitHub/mamisHockey/src/Interfaces/ISancion.java</file>
-            <file>file:/C:/Users/Mauricio/Documents/GitHub/mamisHockey/src/Interfaces/ITorneoFechas.java</file>
-            <file>file:/C:/Users/Mauricio/Documents/GitHub/mamisHockey/src/main/ControladoraDeportiva.java</file>
-            <file>file:/C:/Users/Mauricio/Documents/GitHub/mamisHockey/src/main/ControladoraGlobal.java</file>
-            <file>file:/C:/Users/Mauricio/Documents/GitHub/mamisHockey/src/Interfaces/IResultadoPartido.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/Interfaces/IMenuPrincipalInterface.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/main/ControladoraEntidades.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/main/ControladoraGlobal.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/main/Main.java</file>
+            <file>file:/D:/Documents/GitHub/mamisHockey/src/main/ControladoraContabilidad.java</file>
         </group>
     </open-files>
 </project-private>
