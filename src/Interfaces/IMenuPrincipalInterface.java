@@ -399,143 +399,128 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemGestionarEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarEgresosActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionEgresos unGestionEgresos = new IGestionEgresos(unaControladoraGlobal);
-            unGestionEgresos.pack();
-            unGestionEgresos.setVisible(true);
-            this.jDesktopPane.add(unGestionEgresos);
-        }
+        IGestionEgresos unGestionEgresos = new IGestionEgresos(unaControladoraGlobal);
+        unGestionEgresos.pack();
+        unGestionEgresos.setVisible(true);
+        this.jDesktopPane.add(unGestionEgresos);
+        unGestionEgresos.moveToFront();
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IConceptoIngresoOtro unConceptoIngresos = new IConceptoIngresoOtro(unaControladoraGlobal);
-            unConceptoIngresos.pack();
-            unConceptoIngresos.setVisible(true);
-            this.jDesktopPane.add(unConceptoIngresos);
-        }
+
+        IConceptoIngresoOtro unConceptoIngresos = new IConceptoIngresoOtro(unaControladoraGlobal);
+        unConceptoIngresos.pack();
+        unConceptoIngresos.setVisible(true);
+        this.jDesktopPane.add(unConceptoIngresos);
+        unConceptoIngresos.moveToFront();
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(unaControladoraGlobal);
-            unConceptoEgresos.pack();
-            unConceptoEgresos.setVisible(true);
-            this.jDesktopPane.add(unConceptoEgresos);
-        }
+        IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(unaControladoraGlobal);
+        unConceptoEgresos.pack();
+        unConceptoEgresos.setVisible(true);
+        this.jDesktopPane.add(unConceptoEgresos);
+        unConceptoEgresos.moveToFront();
     }//GEN-LAST:event_jMenuItemConceptosEgresosActionPerformed
 
     private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
-        this.setVisible(false);
         this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
     private void jMenuItemLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocalidadesActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            ILocalidad unLocalidad = new ILocalidad(unaControladoraGlobal);
-            unLocalidad.pack();
-            unLocalidad.setVisible(true);
-            this.jDesktopPane.add(unLocalidad);
-        }
+        ILocalidad unLocalidad = new ILocalidad(unaControladoraGlobal);
+        unLocalidad.pack();
+        unLocalidad.setVisible(true);
+        this.jDesktopPane.add(unLocalidad);
+        unLocalidad.moveToFront();
     }//GEN-LAST:event_jMenuItemLocalidadesActionPerformed
 
     private void jMenuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriaActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            ICategoria unaCategoria = new ICategoria(unaControladoraGlobal);
-            unaCategoria.pack();
-            unaCategoria.setVisible(true);
-            this.jDesktopPane.add(unaCategoria);
-        }
+        ICategoria unaCategoria = new ICategoria(unaControladoraGlobal);
+        unaCategoria.pack();
+        unaCategoria.setVisible(true);
+        this.jDesktopPane.add(unaCategoria);
+        unaCategoria.moveToFront();
     }//GEN-LAST:event_jMenuItemCategoriaActionPerformed
 
     private void jMenuItemEstadosSociaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosSociaActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IEstadoTipo unTipoEstado = new IEstadoTipo(unaControladoraGlobal);
-            unTipoEstado.pack();
-            unTipoEstado.setVisible(true);
-            this.jDesktopPane.add(unTipoEstado);
-        }
+        IEstadoTipo unTipoEstado = new IEstadoTipo(unaControladoraGlobal);
+        unTipoEstado.pack();
+        unTipoEstado.setVisible(true);
+        this.jDesktopPane.add(unTipoEstado);
+        unTipoEstado.moveToFront();
     }//GEN-LAST:event_jMenuItemEstadosSociaActionPerformed
 
     private void jMenuItemTipoCanchaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipoCanchaActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            ICanchaTipo unaVentanaTipoCancha = new ICanchaTipo(unaControladoraGlobal);
-            unaVentanaTipoCancha.pack();
-            unaVentanaTipoCancha.setVisible(true);
-            this.jDesktopPane.add(unaVentanaTipoCancha);
-        }
+        ICanchaTipo unaVentanaTipoCancha = new ICanchaTipo(unaControladoraGlobal);
+        unaVentanaTipoCancha.pack();
+        unaVentanaTipoCancha.setVisible(true);
+        this.jDesktopPane.add(unaVentanaTipoCancha);
+        unaVentanaTipoCancha.moveToFront();
     }//GEN-LAST:event_jMenuItemTipoCanchaActionPerformed
 
     private void jMenuItemConceptosDeportivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosDeportivosActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IConceptoIngresoDeportivo unaVentanaConceptosDeportivos = new IConceptoIngresoDeportivo(unaControladoraGlobal);
-            unaVentanaConceptosDeportivos.pack();
-            unaVentanaConceptosDeportivos.setVisible(true);
-            this.jDesktopPane.add(unaVentanaConceptosDeportivos);
-        }
+        IConceptoIngresoDeportivo unaVentanaConceptosDeportivos = new IConceptoIngresoDeportivo(unaControladoraGlobal);
+        unaVentanaConceptosDeportivos.pack();
+        unaVentanaConceptosDeportivos.setVisible(true);
+        this.jDesktopPane.add(unaVentanaConceptosDeportivos);
+        unaVentanaConceptosDeportivos.moveToFront();
     }//GEN-LAST:event_jMenuItemConceptosDeportivosActionPerformed
 
     private void jMenuItemGestionarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarIngresosActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IGestionIngresosOtro unaGestionIngresos = new IGestionIngresosOtro(unaControladoraGlobal);
-            unaGestionIngresos.pack();
-            unaGestionIngresos.setVisible(true);
-            this.jDesktopPane.add(unaGestionIngresos);
-        }
+        IGestionIngresosOtro unaGestionIngresos = new IGestionIngresosOtro(unaControladoraGlobal);
+        unaGestionIngresos.pack();
+        unaGestionIngresos.setVisible(true);
+        this.jDesktopPane.add(unaGestionIngresos);
+        unaGestionIngresos.moveToFront();
     }//GEN-LAST:event_jMenuItemGestionarIngresosActionPerformed
 
     private void jMenuItemBalanceMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBalanceMensualActionPerformed
-        if (jDesktopPane.getComponentCount() == 0) {
-            IBalanceMensual unaIBalanceMensual = new IBalanceMensual(this.unaControladoraGlobal);
-            unaIBalanceMensual.pack();
-            unaIBalanceMensual.setVisible(true);
-            this.jDesktopPane.add(unaIBalanceMensual);
-        }
+        IBalanceMensual unaIBalanceMensual = new IBalanceMensual(this.unaControladoraGlobal);
+        unaIBalanceMensual.pack();
+        unaIBalanceMensual.setVisible(true);
+        this.jDesktopPane.add(unaIBalanceMensual);
+        unaIBalanceMensual.moveToFront();
     }//GEN-LAST:event_jMenuItemBalanceMensualActionPerformed
 
     private void jMenuSociasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSociasMouseClicked
-        //if (jDesktopPane.getComponentCount() == 0) {
         IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal);
         unaGestionSocias.pack();
         unaGestionSocias.setVisible(true);
         this.jDesktopPane.add(unaGestionSocias);
-        //}
+        unaGestionSocias.moveToFront();
     }//GEN-LAST:event_jMenuSociasMouseClicked
 
     private void jMenuAuxiliaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAuxiliaresMouseClicked
-        //if (jDesktopPane.getComponentCount() == 0) {
         IGestionPersonaAuxiliar unaIGestionAuxiliares = new IGestionPersonaAuxiliar(unaControladoraGlobal);
         unaIGestionAuxiliares.pack();
         unaIGestionAuxiliares.setVisible(true);
         this.jDesktopPane.add(unaIGestionAuxiliares);
-        //}
+        unaIGestionAuxiliares.moveToFront();
     }//GEN-LAST:event_jMenuAuxiliaresMouseClicked
 
     private void jMenuClubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClubMouseClicked
-        //if (jDesktopPane.getComponentCount() == 0) {
         IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal);
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);
         this.jDesktopPane.add(unaGestionClub);
-        //}
+        unaGestionClub.moveToFront();
     }//GEN-LAST:event_jMenuClubMouseClicked
 
     private void jMenuEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEquipoMouseClicked
-        //if (jDesktopPane.getComponentCount() == 0) {
         IGestionEquipo unaGestionEquipo = new IGestionEquipo(this.unaControladoraGlobal);
         unaGestionEquipo.pack();
         unaGestionEquipo.setVisible(true);
         this.jDesktopPane.add(unaGestionEquipo);
-        //}
+        unaGestionEquipo.moveToFront();
     }//GEN-LAST:event_jMenuEquipoMouseClicked
 
     private void jMenuTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTorneoMouseClicked
-        //if (jDesktopPane.getComponentCount() == 0) {
         IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal);
         unGestionTorneo.pack();
         unGestionTorneo.setVisible(true);
         this.jDesktopPane.add(unGestionTorneo);
-        //}
+        unGestionTorneo.moveToFront();
     }//GEN-LAST:event_jMenuTorneoMouseClicked
 
     private void jMenuItemEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosActionPerformed
@@ -563,6 +548,19 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuItemCuotaMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCuotaMensualActionPerformed
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
+        
+        PONER IF NO ES NULL LA SELECCION
+        //Object[] dias = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};        
+        String fecha = JOptionPane.showInputDialog(this,
+                "Va a generar las deudas correspondientes a " + dateFormat.format(unaControladoraGlobal.fechaSistema()) + "." + System.lineSeparator() + "Ingrese el día de vencimiento por favor",
+                "Generar Deudas",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                dias,
+                "10").toString() + "/" + unaControladoraGlobal.fechaSistema().getMonth() + "/" + (unaControladoraGlobal.fechaSistema().getYear()+1900);
+                ;
+        System.out.println(fecha);
+        
         Object[] options = {"Generar", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
