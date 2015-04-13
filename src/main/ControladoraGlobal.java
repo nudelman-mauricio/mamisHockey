@@ -891,13 +891,14 @@ public class ControladoraGlobal {
                             }
                         }
                         if (bandera) {
+                            //Los Date tienen que ser instancias nuevas en cada deuda. Si no queda todo vinculado
                             this.crearDeudaSocia(unaSocia,
-                                    fechaSistema,
+                                    new java.sql.Date(fechaSistema.getTime()),
                                     unConceptoDeportivo,
                                     "Deuda mensual generada automáticamente.",
                                     unConceptoDeportivo.getMonto(),
                                     1,
-                                    fechaVencimiento);
+                                    new java.sql.Date(fechaVencimiento.getTime()));
                         }
                     }
                 }
@@ -1127,17 +1128,6 @@ public class ControladoraGlobal {
 
     public Date fechaSistema() {
         return new java.sql.Date(Calendar.getInstance().getTime().getTime());
-    }
-
-    public Date fechaSistemaViejo() {
-        Date fechaSO = null;
-        try {
-            DateFormat df = DateFormat.getDateInstance();
-            Calendar FechaSO = Calendar.getInstance();
-            fechaSO = new java.sql.Date(df.parse(df.format(FechaSO.getTime())).getTime());
-        } catch (ParseException ex) {
-        }
-        return fechaSO;
     }
 
     public String rutaSistema() {

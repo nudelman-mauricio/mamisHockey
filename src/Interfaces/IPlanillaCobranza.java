@@ -28,7 +28,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloPlantel;
     private DefaultTableModel modeloDeudas;
     private DateFormat df = DateFormat.getDateInstance();
-    private SimpleDateFormat dateFormatYear = new SimpleDateFormat("YYYY");
+    private SimpleDateFormat dFmesAno = new SimpleDateFormat("MMMM/YYYY");
 
     public IPlanillaCobranza(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -56,50 +56,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         }
         jComboBoxDelegadas.setSelectedIndex(-1);
 
-        // <editor-fold defaultstate="collapsed" desc="Mes">
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
-        String mes = "";
-        switch (dateFormat.format(unaControladoraGlobal.fechaSistema())) {
-            case "01":
-                mes = "Enero";
-                break;
-            case "02":
-                mes = "Febrero";
-                break;
-            case "03":
-                mes = "Marzo";
-                break;
-            case "04":
-                mes = "Abril";
-                break;
-            case "05":
-                mes = "Mayo";
-                break;
-            case "06":
-                mes = "Junio";
-                break;
-            case "07":
-                mes = "Julio";
-                break;
-            case "08":
-                mes = "Agosto";
-                break;
-            case "09":
-                mes = "Septiembre";
-                break;
-            case "10":
-                mes = "Octubre";
-                break;
-            case "11":
-                mes = "Noviembre";
-                break;
-            case "12":
-                mes = "Diciembre";
-                break;
-        }
-        // </editor-fold>
-        jLabelTitulo.setText("Pago Mensual: " + unEquipo.getNombre() + " - " + mes + "/" + dateFormatYear.format(unaControladoraGlobal.fechaSistema()));
-
+        jLabelTitulo.setText("Pago Mensual: " + unEquipo.getNombre() + " - " + dFmesAno.format(unaControladoraGlobal.fechaSistema()).toUpperCase());
     }
 
     public void cargarCampos() {
@@ -110,24 +67,25 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     public void cargarTablaPlantel() {
         limpiarTabla(this.modeloPlantel);
         double SubTotalxSocia;
+        boolean pagar = true;
+
+        //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas
+        Date fechaHasta = unaControladoraGlobal.fechaSistema();
+        fechaHasta.setMonth(fechaHasta.getMonth() + 1);
+        fechaHasta.setDate(15);//falta cambiar que lea de algun lugar como BD o TXT
+
         for (Socia unaSocia : unEquipo.getPlantel()) {
-            SubTotalxSocia = 0;
-
-            //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
-            Date fechaHasta = unaControladoraGlobal.fechaSistema();
-            fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-            fechaHasta.setDate(15);
-
+            SubTotalxSocia = 0.0;
             for (Deuda unaDeuda : unaSocia.getDeudas()) {
                 if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
                     for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                        if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                        if ((!unaCuota.isBorradoLogico()) && (!unaCuota.isSaldado()) && ((unaCuota.getFechaVencimiento().before(fechaHasta)) || (unaCuota.getFechaVencimiento().equals(fechaHasta)))) {
                             SubTotalxSocia += unaCuota.getMonto();
                         }
                     }
                 }
             }
-            boolean pagar = true;
+            pagar = true;
             if (SubTotalxSocia == 0.0) {
                 pagar = false;
             }
@@ -154,8 +112,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         }
     }
 
+    //Total Plantel , Costo cancha , Seguro Tecnicos , Total
     private void calcularCostos() {
-        //SubTotal:
+        //Total Plantel:
         double subTotalSocia = 0.0;
         for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
             if ((boolean) jTablePlantel.getValueAt(i, 0)) {
@@ -392,7 +351,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Pago Mensual: \"Equipo\" - \"Mes\"");
+        jLabelTitulo.setText("Pago Mensual: \"Equipo\" - \"MES\" / \"AÑO\"");
 
         jLabelFechaHoy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelFechaHoy.setText("Fecha: dd/MM/aaaa");
@@ -672,6 +631,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         // </editor-fold>
 
         //Reporte
+        aca hay que mirar que onda con los campos , "-", "-", que se estan mandando al reporte - Seguramente es algo viejo que quedo a mitad de trabajo;
         PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "-", "-", jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), "-", sociaPagaron, cuotasPagaron);
         PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
     }//GEN-LAST:event_jButtonImprimirActionPerformed

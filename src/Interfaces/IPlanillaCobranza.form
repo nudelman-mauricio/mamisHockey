@@ -278,7 +278,7 @@
               <Font name="Tahoma" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Pago Mensual: &quot;Equipo&quot; - &quot;Mes&quot;"/>
+            <Property name="text" type="java.lang.String" value="Pago Mensual: &quot;Equipo&quot; - &quot;MES&quot; / &quot;A&#xd1;O&quot;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFechaHoy">
