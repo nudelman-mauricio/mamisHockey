@@ -81,10 +81,12 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jComboBoxEquipoVisitante.removeAllItems();
         if (unaFechaAux != null) {
             for (Partido unPartido : unaFechaAux.getPartidos()) {
+                if(!unPartido.isBorradoLogico()){ 
                 equiposParticipantes.add(unPartido.getUnEquipoLocal().getNombre());
-                equiposParticipantes.add(unPartido.getUnEquipoVisitante().getNombre());
+                equiposParticipantes.add(unPartido.getUnEquipoVisitante().getNombre());}
+                
             }
-            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {                
                 if (!equiposParticipantes.contains(unEquipo.getNombre())) {
                     jComboBoxEquipoLocal.addItem(unEquipo.getNombre());
                     jComboBoxEquipoVisitante.addItem(unEquipo.getNombre());

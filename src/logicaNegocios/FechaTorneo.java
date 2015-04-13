@@ -1,7 +1,9 @@
 package logicaNegocios;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -59,17 +61,17 @@ public class FechaTorneo implements Serializable, Comparable {
 
     public Collection<Partido> getPartidos() {
         return this.partidos;
-    }
+    }   
     
-    public Collection<Partido> getPartidosNoBorrados() {
-        Collection<Partido> aux = null;
-        for(Partido unPartido : partidos){
+     public Collection<Partido> getPartidosNoBorrados() {
+        ArrayList<Partido> listaPartidosActivos = new ArrayList();
+        for(Partido unPartido : this.partidos){
             if(!unPartido.isBorradoLogico()){
-                aux.add(unPartido);
+                listaPartidosActivos.add(unPartido);
             }
         }
-        return aux;
-    }
+        return listaPartidosActivos;
+    }   
 
     public void setPartidos(Collection<Partido> partidos) {
         this.partidos = partidos;
