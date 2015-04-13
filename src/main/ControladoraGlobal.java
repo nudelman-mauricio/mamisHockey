@@ -20,6 +20,7 @@ public class ControladoraGlobal {
     private final ControladoraContabilidad unaControladoraContabilidad;
     private final ControladoraEntidades unaControladoraEntidades;
     private final ControladoraDeportiva unaControladoraDeportiva;
+    private DateFormat df = DateFormat.getDateInstance();
 
     public ControladoraGlobal(EntityManager entityManager) {
         this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
@@ -873,6 +874,37 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.crearDeudaEquipo(unEquipo, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
     }
 
+    public void crearDeudasMensualesAutomaticas(Date fechaVencimiento) {
+        boolean bandera;
+        Date fechaSistema = this.fechaSistema();
+        for (Socia unaSocia : this.getSociasBD()) {
+            for (ConceptoDeportivo unConceptoDeportivo : this.getConceptosDeportivosAutomaticosBD()) {
+                Estado unEstadoUltimo = unaSocia.getUltimoEstado();
+                if ((unEstadoUltimo) != null) {
+                    if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {
+                        bandera = true;
+                        for (Deuda unaDeuda : unaSocia.getDeudas()) {
+                            if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)
+                                    && (unaDeuda.getFechaGeneracion().getMonth() == fechaSistema.getMonth())
+                                    && (unaDeuda.getFechaGeneracion().getYear() == fechaSistema.getYear())) {
+                                bandera = false;
+                            }
+                        }
+                        if (bandera) {
+                            this.crearDeudaSocia(unaSocia,
+                                    fechaSistema,
+                                    unConceptoDeportivo,
+                                    "Deuda mensual generada automáticamente.",
+                                    unConceptoDeportivo.getMonto(),
+                                    1,
+                                    fechaVencimiento);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void eliminarDeuda(Deuda unaDeuda) {
         this.unaControladoraContabilidad.eliminarDeuda(unaDeuda);
     }
@@ -1094,6 +1126,10 @@ public class ControladoraGlobal {
 // </editor-fold>
 
     public Date fechaSistema() {
+        return new java.sql.Date(Calendar.getInstance().getTime().getTime());
+    }
+
+    public Date fechaSistemaViejo() {
         Date fechaSO = null;
         try {
             DateFormat df = DateFormat.getDateInstance();

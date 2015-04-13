@@ -21,16 +21,14 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
-import logicaNegocios.ConceptoDeportivo;
-import logicaNegocios.Deuda;
-import logicaNegocios.Estado;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
-    private ControladoraGlobal unaControladoraGlobal;
+    private final ControladoraGlobal unaControladoraGlobal;
+    private final DateFormat df = DateFormat.getDateInstance();
 
     public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
         initComponents();
@@ -547,56 +545,23 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItemCuotaMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCuotaMensualActionPerformed
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/YYYY");
-        
-        PONER IF NO ES NULL LA SELECCION
-        //Object[] dias = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};        
-        String fecha = JOptionPane.showInputDialog(this,
-                "Va a generar las deudas correspondientes a " + dateFormat.format(unaControladoraGlobal.fechaSistema()) + "." + System.lineSeparator() + "Ingrese el día de vencimiento por favor",
+        System.out.println("Fecha de Sistema nuevo metodo= " + unaControladoraGlobal.fechaSistema());
+        System.out.println("Fecha de Sistema viejo metodo= " + unaControladoraGlobal.fechaSistemaViejo());
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM");
+        Object[] dias = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+        String fechaVencimiento = String.valueOf(JOptionPane.showInputDialog(this,
+                "Va a generar las deudas correspondientes al mes de " + sdf.format(unaControladoraGlobal.fechaSistema()).toUpperCase() + " del corriente año." + System.lineSeparator() + System.lineSeparator() + "Los conceptos a generar serán: " + System.lineSeparator() + "Cuota Socia" + System.lineSeparator() + "Cuota Jugadora" + System.lineSeparator() + "Cuota Licencia" + System.lineSeparator() + "Cuota Baja por Mora" + System.lineSeparator() + "Pase" + System.lineSeparator() + System.lineSeparator() + "Seleccione el día de vencimiento por favor:",
                 "Generar Deudas",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 dias,
-                "10").toString() + "/" + unaControladoraGlobal.fechaSistema().getMonth() + "/" + (unaControladoraGlobal.fechaSistema().getYear()+1900);
-                ;
-        System.out.println(fecha);
-        
-        Object[] options = {"Generar", "Cancelar"};
-        if (0 == JOptionPane.showOptionDialog(
-                this,
-                "¿Esta seguro que desea generar las deudas correspondientes a " + dateFormat.format(unaControladoraGlobal.fechaSistema()) + "?",
-                "Generar Deudas",
-                JOptionPane.PLAIN_MESSAGE,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options)) {
-
-            boolean bandera;
-            DateFormat df = DateFormat.getDateInstance();
-            String fechaVencimientoS = "15/" + unaControladoraGlobal.fechaSistema().getMonth() + "/" + unaControladoraGlobal.fechaSistema().getYear();
+                "10"));
+        if (fechaVencimiento != null) {
+            fechaVencimiento += "/" + (unaControladoraGlobal.fechaSistema().getMonth() + 1) + "/" + (unaControladoraGlobal.fechaSistema().getYear() + 1900);
+            System.out.println("Fecha Vencimiento en String armado= " + fechaVencimiento);
             try {
-                for (Socia unaSocia : unaControladoraGlobal.getSociasBD()) {
-                    for (ConceptoDeportivo unConceptoDeportivo : unaControladoraGlobal.getConceptosDeportivosAutomaticosBD()) {
-                        Estado unEstadoUltimo = unaSocia.getUltimoEstado();
-                        if ((unEstadoUltimo) != null) {
-                            if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {
-                                bandera = true;
-                                for (Deuda unaDeuda : unaSocia.getDeudas()) {
-                                    if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)
-                                            && (unaDeuda.getFechaGeneracion().getMonth() == unaControladoraGlobal.fechaSistema().getMonth())
-                                            && (unaDeuda.getFechaGeneracion().getYear() == unaControladoraGlobal.fechaSistema().getYear())) {
-                                        bandera = false;
-                                    }
-                                }
-                                if (bandera) {
-                                    Date fechaVencimiento = new java.sql.Date(df.parse(String.valueOf(fechaVencimientoS)).getTime());
-                                    unaControladoraGlobal.crearDeudaSocia(unaSocia, unaControladoraGlobal.fechaSistema(), unConceptoDeportivo, "", unConceptoDeportivo.getMonto(), 1, fechaVencimiento);
-                                }
-                            }
-                        }
-                    }
-                }
+                System.out.println("Fecha Vencimiento en Date new= " + new java.sql.Date(df.parse(fechaVencimiento).getTime()));
+                //unaControladoraGlobal.crearDeudasMensualesAutomaticas(new java.sql.Date(df.parse(fechaVencimiento).getTime()));
             } catch (ParseException ex) {
                 Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
