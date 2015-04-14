@@ -140,6 +140,35 @@ public class Socia extends Persona implements Serializable {
         }
         return true;
     }
+
+    public String getMotivoSuspension(Date unaFecha) {
+        String cadena = "";
+
+        if (this.ergometrias != null) {
+            if (!this.isErgometriaAprobada_y_Vigente(unaFecha)) {
+                cadena += "Ergometria";
+            }
+        }
+        if (this.estados != null) {
+            if (!this.isAlDia(unaFecha)) {
+                if (cadena.equals("")) {
+                    cadena += "Deuda";
+                } else {
+                    cadena += " - Deuda";
+                }
+
+            } else {
+                if (this.isSancionada(unaFecha)) {
+                    if (cadena.equals("")) {
+                        cadena += "Sancionada";
+                    } else {
+                        cadena += " - Sancionada";
+                    }
+                }
+            }
+        }
+        return cadena;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Ergometria">

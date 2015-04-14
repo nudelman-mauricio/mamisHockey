@@ -275,16 +275,31 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     }
 
     private void cargarPlanteles() {
+        String enter = System.lineSeparator();
+        boolean bandera = true;
         limpiarTabla(modeloTableLocal);
         limpiarTabla(modeloTableVisitante);
         for (Socia unaSocia : unPartido.getUnEquipoLocal().getPlantel()) {
             if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
                 cargarCamposTablaControlando(modeloTableLocal, unaSocia, unaSocia.getNumeroCamiseta());
+            } else {
+                if(bandera){
+                    jTextPaneObservacion.setText("Jugadoras del equipo "+ unaSocia.getEquipoActual()+ " que estan inahilitadas para jugar:"+enter);
+                    bandera = false;
+                }
+                jTextPaneObservacion.setText(jTextPaneObservacion.getText()+unaSocia.getApellido()+", "+unaSocia.getNombre()+" no juega por: "+unaSocia.getMotivoSuspension(unPartido.getFecha())+enter);                
             }
         }
+        bandera = true;
         for (Socia unaSocia : unPartido.getUnEquipoVisitante().getPlantel()) {
             if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
                 cargarCamposTablaControlando(modeloTableVisitante, unaSocia, unaSocia.getNumeroCamiseta());
+            } else {
+                if(bandera){
+                    jTextPaneObservacion.setText(jTextPaneObservacion.getText()+enter+"Jugadoras del equipo "+ unaSocia.getEquipoActual()+ " que estan inahilitadas para jugar:"+enter);
+                    bandera = false;
+                }
+                jTextPaneObservacion.setText(jTextPaneObservacion.getText()+unaSocia.getApellido()+", "+unaSocia.getNombre()+" no juega por: "+unaSocia.getMotivoSuspension(unPartido.getFecha())+enter);                      
             }
         }
     }
