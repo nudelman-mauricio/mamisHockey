@@ -28,7 +28,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
         this.construirConceptosDeportivos();
         this.construirConceptosEgresos();
-        this.crearConfiguracion();
+       // this.crearConfiguracion();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
@@ -1143,13 +1143,13 @@ public class ControladoraGlobal {
         return path;
     }
     
-    private void crearConfiguracion(){
+   /* private void crearConfiguracion(){
         if (this.getConfiguracion("diaVencimientoEstandar") == null) {
             new Configuracion(this.entityManager, "diaVencimientoEstandar", "15");
         }        
-    }
+    }*/
 
-    public String getConfiguracion(String configuracionDeseada) {
+   /* public String getConfiguracion(String configuracionDeseada) {
         List<String> unaListaResultado = this.entityManager.createQuery("SELECT config FROM Configuracion config WHERE config.concepto LIKE '" + configuracionDeseada + "'").getResultList();
         if (unaListaResultado.isEmpty()) {
             return null;
@@ -1157,6 +1157,6 @@ public class ControladoraGlobal {
             return unaListaResultado.get(0);
         }
 
-    }
+    }*/
     // </editor-fold>
 }
