@@ -261,6 +261,9 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         jComboBoxHastaAño = new javax.swing.JComboBox();
 
         setClosable(true);
+        setMaximumSize(new java.awt.Dimension(826, 720));
+        setMinimumSize(new java.awt.Dimension(826, 720));
+        setPreferredSize(new java.awt.Dimension(826, 720));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -566,7 +569,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Desde"));
 
@@ -706,7 +709,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

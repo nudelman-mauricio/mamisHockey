@@ -2,6 +2,8 @@ package Interfaces;
 
 import DataSources.PlanilladePagoDS;
 import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloDeudas;
     private DateFormat df = DateFormat.getDateInstance();
     private SimpleDateFormat dFmesAno = new SimpleDateFormat("MMMM/YYYY");
+    private Date fechaFiltro;
 
     public IPlanillaCobranza(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
@@ -44,7 +47,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
         this.setTitle("Planilla de Pagos Mensuales de: " + unEquipo.getNombre());
         IMenuPrincipalInterface.centrar(this);
-
+        
         cargarCampos();
 
         jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));
@@ -60,26 +63,44 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     }
 
     public void cargarCampos() {
+        crearFechaFiltro();
         cargarTablaPlantel();
         calcularCostos();
     }
 
+    /**
+     * Crea la fecha para traer las cuotas que van a vencer en el mes, icluidas
+     * las del mes siguiente hasta el ultimo dia posible de pago. Es decir, si
+     * el rango habilitado para venir a la asociasion a pagar va del 5 al 10,
+     * eso quiere decir que se tiene que traer todas las deudas desde el 5 de
+     * este mes hasta el 10 del mes siguiente. Porque si existe una deuda que
+     * venza el 7 por ejemplo del mes que viene y el 8 de ese mes hay un partido
+     * y la Delegada todavía no vino con el dinero de ese mes entonces la Socia
+     * no va a poder jugar siendo que todavía no finalizo el plazo valido para
+     * pagos.
+     *
+     */
+    public void crearFechaFiltro() {
+        fechaFiltro = unaControladoraGlobal.fechaSistema();
+        fechaFiltro.setMonth(fechaFiltro.getMonth() + 1);
+        fechaFiltro.setDate(15);//falta cambiar que lea de algun lugar como BD o TXT
+    }
+
+    /**
+     * Para cada Socia del Equipo suma todas las Cuotas de las Deudas que no
+     * esten saldadas y que el vencimiento sea hasta el dia de la fecha pasada
+     * por parametro
+     */
     public void cargarTablaPlantel() {
         limpiarTabla(this.modeloPlantel);
         double SubTotalxSocia;
         boolean pagar = true;
-
-        //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas
-        Date fechaHasta = unaControladoraGlobal.fechaSistema();
-        fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-        fechaHasta.setDate(15);//falta cambiar que lea de algun lugar como BD o TXT
-
         for (Socia unaSocia : unEquipo.getPlantel()) {
             SubTotalxSocia = 0.0;
             for (Deuda unaDeuda : unaSocia.getDeudas()) {
                 if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
                     for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                        if ((!unaCuota.isBorradoLogico()) && (!unaCuota.isSaldado()) && ((unaCuota.getFechaVencimiento().before(fechaHasta)) || (unaCuota.getFechaVencimiento().equals(fechaHasta)))) {
+                        if ((!unaCuota.isBorradoLogico()) && (!unaCuota.isSaldado()) && ((unaCuota.getFechaVencimiento().before(fechaFiltro)) || (unaCuota.getFechaVencimiento().equals(fechaFiltro)))) {
                             SubTotalxSocia += unaCuota.getMonto();
                         }
                     }
@@ -93,18 +114,18 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Para cada Deuda de la Socia si no esta saldada ni borrada, mira sus
+     * Cuotas y si no estan Saldadas y vencen hasta la fecha pasada por
+     * parametro, las muestra en la tabla.
+     */
     public void cargarDeudas(Socia unaSocia) {
         limpiarTabla(this.modeloDeudas);
-
-        //Crea la fecha para traer las cuotas que vencieron o estan por vencer en un mes mas, hasta el dia 8
-        Date fechaHasta = unaControladoraGlobal.fechaSistema();
-        fechaHasta.setMonth(fechaHasta.getMonth() + 1);
-        fechaHasta.setDate(15);
 
         for (Deuda unaDeuda : unaSocia.getDeudas()) {
             if ((!unaDeuda.isBorradoLogico()) && (!unaDeuda.isSaldado())) {
                 for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                    if ((unaCuota.getFechaVencimiento().before(fechaHasta)) && (!unaCuota.isSaldado())) {
+                    if (((unaCuota.getFechaVencimiento().before(fechaFiltro)) || (unaCuota.getFechaVencimiento().equals(fechaFiltro))) && (!unaCuota.isSaldado())) {
                         this.modeloDeudas.addRow(new Object[]{df.format(unaDeuda.getFechaGeneracion()), unaDeuda.getUnConceptoDeportivo(), unaCuota.getNumero(), df.format(unaCuota.getFechaVencimiento()), unaDeuda.getObservacion(), unaCuota.getMonto()});
                     }
                 }
@@ -195,6 +216,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabelTitulo = new javax.swing.JLabel();
         jLabelFechaHoy = new javax.swing.JLabel();
         jButtonImprimir = new javax.swing.JButton();
+        jDateChooserFecha = new com.toedter.calendar.JDateChooser();
+        jLabelFecha = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldTotal = new javax.swing.JTextField();
         jTextFieldSubTotal = new javax.swing.JTextField();
@@ -211,9 +234,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(798, 742));
-        setMinimumSize(new java.awt.Dimension(798, 742));
-        setPreferredSize(new java.awt.Dimension(798, 742));
+        setMaximumSize(new java.awt.Dimension(900, 774));
+        setMinimumSize(new java.awt.Dimension(900, 774));
+        setPreferredSize(new java.awt.Dimension(900, 774));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -327,7 +350,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
             .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,6 +389,16 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             }
         });
 
+        jDateChooserFecha.getDateEditor().addPropertyChangeListener(new PropertyChangeListener(){
+            public void propertyChange(PropertyChangeEvent e) {
+                //Aquí agregaremos la funcionalidad que queremos
+                //por ejemplo al seleccionar una fecha le mostrare un diálogo con la fecha de hoy
+                JOptionPane.showMessageDialog(rootPane, "la fecha es "+new Date());
+            }
+        });
+
+        jLabelFecha.setText("Mostrar Hasta Fecha: ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -374,27 +407,37 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabelFechaHoy)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelFechaHoy)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabelFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+                        .addGap(65, 65, 65)))
+                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addComponent(jLabelFechaHoy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(3, 3, 3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jTextFieldTotal.setEditable(false);
@@ -435,7 +478,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 453, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -447,7 +490,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBoxDelegadas, 0, 180, Short.MAX_VALUE)
                             .addComponent(jTextFieldIdRecibo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -463,7 +506,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                                 .addComponent(jTextFieldCostoSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,7 +518,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldIdRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelIdRecibo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldCostoCancha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,7 +545,9 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -630,8 +675,12 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         }
         // </editor-fold>
 
-        //Reporte
-        aca hay que mirar que onda con los campos , "-", "-", que se estan mandando al reporte - Seguramente es algo viejo que quedo a mitad de trabajo;
+        /**
+         * Reporte para visualizar e imprimir. La Secretaria tiene que enviar
+         * por email para informar que monto tiene que traer la Delegada de cada
+         * Equipo. Luego cuando pagan se hace de nuevo el reporte ya bien y se
+         * guarda para siempre.
+         */
         PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "-", "-", jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), "-", sociaPagaron, cuotasPagaron);
         PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
     }//GEN-LAST:event_jButtonImprimirActionPerformed
@@ -641,6 +690,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JComboBox jComboBoxDelegadas;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -648,6 +698,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelDelegadas;
+    private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelFechaHoy;
     private javax.swing.JLabel jLabelIdRecibo;
     private javax.swing.JLabel jLabelTitulo;
