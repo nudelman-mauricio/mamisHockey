@@ -11,65 +11,51 @@ import javax.persistence.Id;
 import javax.swing.JOptionPane;
 
 @Entity
-public class ConceptoIngreso implements Serializable, Comparable {
+public class Configuracion implements Serializable, Comparable {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos">
+    @Basic
+    private String concepto;
+    @Basic
+    private String valor;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long idConceptoIngreso;
-
-    @Basic
-    private String nombre;
-
-    @Basic
-    private String detalle;
-
-    @Basic
-    private boolean borradoLogico;
+    private Long id;
     // </editor-fold>
 
-    public ConceptoIngreso() {
+    public Configuracion() {
 
     }
 
-    public ConceptoIngreso(EntityManager entityManager, String nombre, String detalle) {
-        this.nombre = nombre;
-        this.detalle = detalle;
-        this.borradoLogico = false;
+    public Configuracion(EntityManager entityManager, String concepto, String valor) {
+        this.concepto = concepto;
+        this.valor = valor;
         this.persistir(entityManager);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Geters y Seters">
-    public Long getIdConceptoIngreso() {
-        return this.idConceptoIngreso;
+    public String getConcepto() {
+        return this.concepto;
     }
 
-    public void setIdConceptoIngreso(Long idConceptoIngreso) {
-        this.idConceptoIngreso = idConceptoIngreso;
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
-    public String getNombre() {
-        return this.nombre;
+    public String getValor() {
+        return this.valor;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
-    public String getDetalle() {
-        return this.detalle;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
-    }
-
-    public boolean isBorradoLogico() {
-        return this.borradoLogico;
-    }
-
-    public void setBorradoLogico(boolean borradoLogico) {
-        this.borradoLogico = borradoLogico;
+    public void setId(Long id) {
+        this.id = id;
     }
     // </editor-fold>
 
@@ -90,9 +76,9 @@ public class ConceptoIngreso implements Serializable, Comparable {
     @Override
     public int compareTo(Object aux) {
         int retorno = -1;
-        if (aux instanceof ConceptoIngreso) {
-            ConceptoIngreso conceptoIngreso = (ConceptoIngreso) aux;
-            if (this.idConceptoIngreso > conceptoIngreso.idConceptoIngreso) {
+        if (aux instanceof Configuracion) {
+            Configuracion unaConfiguracion = (Configuracion) aux;
+            if (this.id > unaConfiguracion.id) {
                 retorno = 1;
             }
         }
@@ -101,6 +87,6 @@ public class ConceptoIngreso implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return nombre;
+        return this.concepto;
     }
 }

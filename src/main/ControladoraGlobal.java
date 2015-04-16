@@ -2,7 +2,6 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +27,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
         this.construirConceptosDeportivos();
         this.construirConceptosEgresos();
-       // this.crearConfiguracion();
+        this.crearConfiguracion();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
@@ -248,7 +247,7 @@ public class ControladoraGlobal {
         return this.unaControladoraEntidades.getEstadoBD(id);
     }
 
-        //Listado de todos los cambios de Estados - Este me parece que no seria tan generico.
+    //Listado de todos los cambios de Estados - Este me parece que no seria tan generico.
     //Se podria utilizar para alguna Consulta. Onda, todas las socias que cambiaron de estado entre fechas
     public List<Estado> getEstadosDB() {
         return this.unaControladoraEntidades.getEstadosDB();
@@ -1142,14 +1141,14 @@ public class ControladoraGlobal {
         }
         return path;
     }
-    
-   /* private void crearConfiguracion(){
+
+    private void crearConfiguracion() {
         if (this.getConfiguracion("diaVencimientoEstandar") == null) {
             new Configuracion(this.entityManager, "diaVencimientoEstandar", "15");
-        }        
-    }*/
+        }
+    }
 
-   /* public String getConfiguracion(String configuracionDeseada) {
+    public String getConfiguracion(String configuracionDeseada) {
         List<String> unaListaResultado = this.entityManager.createQuery("SELECT config FROM Configuracion config WHERE config.concepto LIKE '" + configuracionDeseada + "'").getResultList();
         if (unaListaResultado.isEmpty()) {
             return null;
@@ -1157,6 +1156,6 @@ public class ControladoraGlobal {
             return unaListaResultado.get(0);
         }
 
-    }*/
+    }
     // </editor-fold>
 }
