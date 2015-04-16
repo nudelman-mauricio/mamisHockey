@@ -1149,11 +1149,11 @@ public class ControladoraGlobal {
     }
 
     public String getConfiguracion(String configuracionDeseada) {
-        List<String> unaListaResultado = this.entityManager.createQuery("SELECT config FROM Configuracion config WHERE config.concepto LIKE '" + configuracionDeseada + "'").getResultList();
+        List<Configuracion> unaListaResultado = this.entityManager.createQuery("SELECT config FROM Configuracion config WHERE config.concepto LIKE '" + configuracionDeseada + "'").getResultList();
         if (unaListaResultado.isEmpty()) {
             return null;
         } else {
-            return unaListaResultado.get(0);
+            return unaListaResultado.get(0).getValor();
         }
 
     }

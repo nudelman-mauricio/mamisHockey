@@ -87,6 +87,6 @@ public class Configuracion implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return this.concepto;
+        return this.valor;
     }
 }

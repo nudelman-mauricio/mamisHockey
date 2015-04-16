@@ -321,14 +321,6 @@
           </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
-          <Properties>
-            <Property name="icon" type="javax.swing.ImageIcon" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="default"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="jDateChooserFecha.getDateEditor().addPropertyChangeListener(new PropertyChangeListener(){ &#xa;    public void propertyChange(PropertyChangeEvent e) {&#xa;        //Aqu&#xed; agregaremos la funcionalidad que queremos&#xa;        //por ejemplo al seleccionar una fecha le mostrare un di&#xe1;logo con la fecha de hoy&#xa;        JOptionPane.showMessageDialog(rootPane, &quot;la fecha es &quot;+new Date());&#xa;    }&#xa;});"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFecha">
           <Properties>

@@ -401,14 +401,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             }
         });
 
-        jDateChooserFecha.getDateEditor().addPropertyChangeListener(new PropertyChangeListener(){
-            public void propertyChange(PropertyChangeEvent e) {
-                //Aquí agregaremos la funcionalidad que queremos
-                //por ejemplo al seleccionar una fecha le mostrare un diálogo con la fecha de hoy
-                JOptionPane.showMessageDialog(rootPane, "la fecha es "+new Date());
-            }
-        });
-
         jLabelFecha.setText("Mostrar Hasta Fecha: ");
 
         jButtonMostrar.setText("Mostrar");

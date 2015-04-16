@@ -1,813 +1,810 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings theme="MAC" version="2.0" persistenceUnitName="mamisHockeyPU" id="_139786521181046" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings theme="MAC" version="2.0" persistenceUnitName="mamisHockeyPU" jaxb-support="false" id="_139786521181046" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:package>logicaNegocios</jpa:package>
-    <jpa:mapped-superclass class="Persona" minimized="true" id="_1397865228592">
+    <jpa:mapped-superclass class="Persona" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865228592">
         <jpa:attributes>
-            <jpa:id name="dni" attribute-type="Long" id="_139786524090959">
+            <jpa:id name="dni" attribute-type="Long" visibile="true" id="_139786524090959">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_139786523586750">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_139786523586750">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="100" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="apellido" attribute-type="String" id="_139786523684551">
+            <jpa:basic name="apellido" attribute-type="String" visibile="true" id="_139786523684551">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="100" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fechaNacimiento" attribute-type="java.util.Date" id="_139786523719652">
+            <jpa:basic name="fechaNacimiento" attribute-type="java.util.Date" visibile="true" id="_139786523719652">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="domicilio" attribute-type="String" id="_139786523756553">
+            <jpa:basic name="domicilio" attribute-type="String" visibile="true" id="_139786523756553">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="email" optional="true" attribute-type="String" id="_139786523790954">
+            <jpa:basic name="email" optional="true" attribute-type="String" visibile="true" id="_139786523790954">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="100" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="telCelular" optional="true" attribute-type="String" id="_139786523823755">
+            <jpa:basic name="telCelular" optional="true" attribute-type="String" visibile="true" id="_139786523823755">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="telFijo" optional="true" attribute-type="String" id="_139786523854056">
+            <jpa:basic name="telFijo" optional="true" attribute-type="String" visibile="true" id="_139786523854056">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fechaIngreso" attribute-type="java.util.Date" id="_139786523887757">
+            <jpa:basic name="fechaIngreso" attribute-type="java.util.Date" visibile="true" id="_139786523887757">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139786523931758">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139786523931758">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="sancionesTribunal" target-entity="SancionTribunal" collection-type="java.util.Collection" connected-entity-id="_1397870308298" id="_139880201175878">
+            <jpa:one-to-many name="sancionesTribunal" target-entity="SancionTribunal" collection-type="java.util.Collection" connected-entity-id="_1397870308298" visibile="true" id="_139880201175878">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unaLocalidad" target-entity="Localidad" optional="true" primaryKey="false" connected-entity-id="_1397865386057" id="_139786546835566">
+            <jpa:one-to-one name="unaLocalidad" target-entity="Localidad" optional="true" primaryKey="false" connected-entity-id="_1397865386057" visibile="true" id="_139786546835566">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:mapped-superclass>
-    <jpa:entity class="Localidad" minimized="true" id="_1397865386057">
+    <jpa:entity class="Localidad" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865386057">
         <jpa:attributes>
-            <jpa:id name="idLocalidad" attribute-type="Long" id="_139786539453961">
+            <jpa:id name="idLocalidad" attribute-type="Long" visibile="true" id="_139786539453961">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_139786542300064">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_139786542300064">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="codPostal" attribute-type="String" id="_139786543000665">
+            <jpa:basic name="codPostal" attribute-type="String" visibile="true" id="_139786543000665">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397866662853106">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397866662853106">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Socia" superclass="Persona" superclassId="_1397865228592" minimized="true" id="_1397865613179">
+    <jpa:entity class="Socia" jaxb-root-element="false" static-metamodel="false" superclassId="_1397865228592" visibile="true" minimized="true" id="_1397865613179">
         <jpa:attributes>
-            <jpa:basic name="fotoCarnet" optional="true" attribute-type="byte[]" id="_139786561840269">
+            <jpa:basic name="fotoCarnet" optional="true" attribute-type="byte[]" visibile="true" id="_139786561840269">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:lob/>
             </jpa:basic>
-            <jpa:basic name="exJugadora" attribute-type="boolean" id="_139786609868389">
+            <jpa:basic name="exJugadora" attribute-type="boolean" visibile="true" id="_139786609868389">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="numeroCamiseta" attribute-type="String" id="_139786612189190">
+            <jpa:basic name="numeroCamiseta" attribute-type="String" visibile="true" id="_139786612189190">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="goles" target-entity="Gol" collection-type="java.util.Collection" connected-entity-id="_1397866303816" id="_1397867802866158">
+            <jpa:one-to-many name="goles" target-entity="Gol" collection-type="java.util.Collection" connected-entity-id="_1397866303816" visibile="true" id="_1397867802866158">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="pases" target-entity="Pase" collection-type="java.util.Collection" connected-entity-id="_1397867932817" id="_1397867982957167">
+            <jpa:one-to-many name="pases" target-entity="Pase" collection-type="java.util.Collection" connected-entity-id="_1397867932817" visibile="true" id="_1397867982957167">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="deudas" target-entity="Deuda" collection-type="java.util.Collection" connected-entity-id="_1397868049586" id="_1397868616170197">
+            <jpa:one-to-many name="deudas" target-entity="Deuda" collection-type="java.util.Collection" connected-entity-id="_1397868049586" visibile="true" id="_1397868616170197">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="estados" target-entity="Estado" collection-type="java.util.Collection" connected-entity-id="_1397866760557" id="_1398053944072515">
+            <jpa:one-to-many name="estados" target-entity="Estado" collection-type="java.util.Collection" connected-entity-id="_1397866760557" visibile="true" id="_1398053944072515">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="tarjetas" target-entity="Tarjeta" collection-type="java.util.Collection" connected-entity-id="_1397869941400" id="_1398056175569533">
+            <jpa:one-to-many name="tarjetas" target-entity="Tarjeta" collection-type="java.util.Collection" connected-entity-id="_1397869941400" visibile="true" id="_1398056175569533">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="ergometrias" target-entity="Ergometria" collection-type="java.util.Collection" connected-entity-id="_1398774975217" id="_139877515399477">
+            <jpa:one-to-many name="ergometrias" target-entity="Ergometria" collection-type="java.util.Collection" connected-entity-id="_1398774975217" visibile="true" id="_139877515399477">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Cancha" minimized="true" id="_1397865626096">
+    <jpa:entity class="Cancha" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865626096">
         <jpa:attributes>
-            <jpa:id name="idCancha" attribute-type="Long" id="_139786564302976">
+            <jpa:id name="idCancha" attribute-type="Long" visibile="true" id="_139786564302976">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="String" id="_139786563590971">
+            <jpa:basic name="nombre" optional="true" attribute-type="String" visibile="true" id="_139786563590971">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139786568963077">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139786568963077">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unTipoCancha" target-entity="TipoCancha" optional="true" primaryKey="false" connected-entity-id="_1399934614213" id="_1399936078397103">
+            <jpa:one-to-one name="unTipoCancha" target-entity="TipoCancha" optional="true" primaryKey="false" connected-entity-id="_1399934614213" visibile="true" id="_1399936078397103">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Club" minimized="true" id="_1397865799360">
+    <jpa:entity class="Club" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397865799360">
         <jpa:attributes>
-            <jpa:id name="idClub" attribute-type="Long" id="_139786580695080">
+            <jpa:id name="idClub" attribute-type="Long" visibile="true" id="_139786580695080">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_139786580883081">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_139786580883081">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="nombrePresidente" attribute-type="String" id="_139786582891982">
+            <jpa:basic name="nombrePresidente" attribute-type="String" visibile="true" id="_139786582891982">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="logo" optional="true" attribute-type="byte[]" id="_139786584035183">
+            <jpa:basic name="logo" optional="true" attribute-type="byte[]" visibile="true" id="_139786584035183">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:lob/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139786585134584">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139786585134584">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="canchas" target-entity="Cancha" collection-type="java.util.Collection" connected-entity-id="_1397865626096" id="_139786590050986">
+            <jpa:one-to-many name="canchas" target-entity="Cancha" collection-type="java.util.Collection" connected-entity-id="_1397865626096" visibile="true" id="_139786590050986">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="equipos" target-entity="Equipo" collection-type="java.util.Collection" connected-entity-id="_1397866346227" id="_1397867335575125">
+            <jpa:one-to-many name="equipos" target-entity="Equipo" collection-type="java.util.Collection" connected-entity-id="_1397866346227" visibile="true" id="_1397867335575125">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unaLocalidad" target-entity="Localidad" optional="true" primaryKey="false" connected-entity-id="_1397865386057" id="_139786589126385">
+            <jpa:one-to-one name="unaLocalidad" target-entity="Localidad" optional="true" primaryKey="false" connected-entity-id="_1397865386057" visibile="true" id="_139786589126385">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaResponsableSede" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" id="_1414094301285182">
+            <jpa:one-to-one name="unaResponsableSede" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1414094301285182">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PersonaAuxiliar" superclass="Persona" superclassId="_1397865228592" minimized="true" id="_1397865962543">
+    <jpa:entity class="PersonaAuxiliar" jaxb-root-element="false" static-metamodel="false" superclassId="_1397865228592" visibile="true" minimized="true" id="_1397865962543">
         <jpa:attributes>
-            <jpa:basic name="fotocopiaDni" optional="true" attribute-type="byte[]" id="_139786599654088">
+            <jpa:basic name="fotocopiaDni" optional="true" attribute-type="byte[]" visibile="true" id="_139786599654088">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:lob/>
             </jpa:basic>
-            <jpa:basic name="cuerpoTecnicoActivo" attribute-type="boolean" id="_139786628141891">
+            <jpa:basic name="cuerpoTecnicoActivo" attribute-type="boolean" visibile="true" id="_139786628141891">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="arbitro" attribute-type="boolean" id="_140070226420584">
+            <jpa:basic name="arbitro" attribute-type="boolean" visibile="true" id="_140070226420584">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="cuerpoTecnico" attribute-type="boolean" id="_140070254049485">
+            <jpa:basic name="cuerpoTecnico" attribute-type="boolean" visibile="true" id="_140070254049485">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="plantaPermanente" attribute-type="boolean" id="_141347027816592">
+            <jpa:basic name="plantaPermanente" attribute-type="boolean" visibile="true" id="_141347027816592">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
             </jpa:basic>
-            <jpa:element-collection name="actasCompromiso" target-class="java.util.Date" collection-type="java.util.Collection" id="_141347113757295">
+            <jpa:element-collection name="actasCompromiso" target-class="java.util.Date" collection-type="java.util.Collection" visibile="true" id="_141347113757295">
                 <jpa:temporal>DATE</jpa:temporal>
                 <jpa:collection-table/>
             </jpa:element-collection>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Gol" minimized="true" id="_1397866303816">
+    <jpa:entity class="Gol" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866303816">
         <jpa:attributes>
-            <jpa:id name="idGol" attribute-type="Long" id="_1397867808230159">
+            <jpa:id name="idGol" attribute-type="Long" visibile="true" id="_1397867808230159">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="minuto" attribute-type="String" id="_1397867809475160">
+            <jpa:basic name="minuto" attribute-type="String" visibile="true" id="_1397867809475160">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817532147479">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817532147479">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="tiempo" attribute-type="String" id="_1406930401689171">
+            <jpa:basic name="tiempo" attribute-type="String" visibile="true" id="_1406930401689171">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Equipo" minimized="true" id="_1397866346227">
+    <jpa:entity class="Equipo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866346227">
         <jpa:attributes>
-            <jpa:id name="idEquipo" attribute-type="Long" id="_139786637751197">
+            <jpa:id name="idEquipo" attribute-type="Long" visibile="true" id="_139786637751197">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_139786637538094">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_139786637538094">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139786637671695">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139786637671695">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="indumentarias" target-entity="Indumentaria" collection-type="java.util.Collection" connected-entity-id="_1397866545595" id="_1397868106414170">
+            <jpa:one-to-many name="indumentarias" target-entity="Indumentaria" collection-type="java.util.Collection" connected-entity-id="_1397866545595" visibile="true" id="_1397868106414170">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="plantel" target-entity="Socia" collection-type="java.util.Collection" connected-entity-id="_1397865613179" id="_1397871322322296">
+            <jpa:one-to-many name="plantel" target-entity="Socia" collection-type="java.util.Collection" connected-entity-id="_1397865613179" visibile="true" id="_1397871322322296">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="sancionesTribunal" target-entity="SancionTribunal" collection-type="java.util.Collection" connected-entity-id="_1397870308298" id="_139880564807679">
+            <jpa:one-to-many name="sancionesTribunal" target-entity="SancionTribunal" collection-type="java.util.Collection" connected-entity-id="_1397870308298" visibile="true" id="_139880564807679">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="planillasPagos" target-entity="PlanillaPago" collection-type="java.util.Collection" connected-entity-id="_1412270930951" id="_1412271412943177">
+            <jpa:one-to-many name="planillasPagos" target-entity="PlanillaPago" collection-type="java.util.Collection" connected-entity-id="_1412270930951" visibile="true" id="_1412271412943177">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="deudas" target-entity="Deuda" collection-type="java.util.Collection" connected-entity-id="_1397868049586" id="_1412272281999265">
+            <jpa:one-to-many name="deudas" target-entity="Deuda" collection-type="java.util.Collection" connected-entity-id="_1397868049586" visibile="true" id="_1412272281999265">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unDT" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" id="_1397871100087289">
+            <jpa:one-to-one name="unDT" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_1397871100087289">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unPreparadorFisico" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" id="_1397871103894290">
+            <jpa:one-to-one name="unPreparadorFisico" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_1397871103894290">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unAyudanteCampo" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" id="_1397871107449291">
+            <jpa:one-to-one name="unAyudanteCampo" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_1397871107449291">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaCapitana" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" id="_1397871222819292">
+            <jpa:one-to-one name="unaCapitana" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1397871222819292">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaSubCapitana" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" id="_1397871228471293">
+            <jpa:one-to-one name="unaSubCapitana" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1397871228471293">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaDelegada" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" id="_1397871234514294">
+            <jpa:one-to-one name="unaDelegada" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1397871234514294">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaDelegadaSuplente" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" id="_1397871240359295">
+            <jpa:one-to-one name="unaDelegadaSuplente" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1397871240359295">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Indumentaria" minimized="true" id="_1397866545595">
+    <jpa:entity class="Indumentaria" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866545595">
         <jpa:attributes>
-            <jpa:id name="idIndumentaria" attribute-type="Long" id="_1397866552003101">
+            <jpa:id name="idIndumentaria" attribute-type="Long" visibile="true" id="_1397866552003101">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="camiseta" attribute-type="String" id="_139786655093999">
+            <jpa:basic name="camiseta" attribute-type="String" visibile="true" id="_139786655093999">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="pollera" attribute-type="String" id="_1397866551603100">
+            <jpa:basic name="pollera" attribute-type="String" visibile="true" id="_1397866551603100">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="media" attribute-type="String" id="_1397866553404102">
+            <jpa:basic name="media" attribute-type="String" visibile="true" id="_1397866553404102">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817555044483">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817555044483">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Estado" minimized="true" id="_1397866760557">
+    <jpa:entity class="Estado" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397866760557">
         <jpa:attributes>
-            <jpa:id name="idEstado" attribute-type="Long" id="_1398054332211519">
+            <jpa:id name="idEstado" attribute-type="Long" visibile="true" id="_1398054332211519">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_1398054938404524">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_1398054938404524">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817537680780">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817537680780">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" optional="true" primaryKey="false" connected-entity-id="_1399935822186" id="_1399936060742102">
+            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" optional="true" primaryKey="false" connected-entity-id="_1399935822186" visibile="true" id="_1399936060742102">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Pase" minimized="true" id="_1397867932817">
+    <jpa:entity class="Pase" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397867932817">
         <jpa:attributes>
-            <jpa:id name="idPase" attribute-type="Long" id="_1397867938079163">
+            <jpa:id name="idPase" attribute-type="Long" visibile="true" id="_1397867938079163">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_1397867938878164">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_1397867938878164">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868327853183">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868327853183">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="solicitudPase" optional="true" attribute-type="boolean" id="_140070602710990">
+            <jpa:basic name="solicitudPase" optional="true" attribute-type="boolean" visibile="true" id="_140070602710990">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="libreDeudaClub" optional="true" attribute-type="boolean" id="_140070602994191">
+            <jpa:basic name="libreDeudaClub" optional="true" attribute-type="boolean" visibile="true" id="_140070602994191">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="observacion" attribute-type="String" id="_140070603087792">
+            <jpa:basic name="observacion" attribute-type="String" visibile="true" id="_140070603087792">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unEquipo" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" id="_1397867967227166">
+            <jpa:one-to-one name="unEquipo" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" visibile="true" id="_1397867967227166">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaDeuda" target-entity="Deuda" optional="true" primaryKey="false" connected-entity-id="_1397868049586" id="_140050712552382">
+            <jpa:one-to-one name="unaDeuda" target-entity="Deuda" optional="true" primaryKey="false" connected-entity-id="_1397868049586" visibile="true" id="_140050712552382">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Deuda" minimized="true" id="_1397868049586">
+    <jpa:entity class="Deuda" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868049586">
         <jpa:attributes>
-            <jpa:id name="idDeuda" attribute-type="Long" id="_1397868146347172">
+            <jpa:id name="idDeuda" attribute-type="Long" visibile="true" id="_1397868146347172">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="observacion" optional="true" attribute-type="String" id="_1397868154652175">
+            <jpa:basic name="observacion" optional="true" attribute-type="String" visibile="true" id="_1397868154652175">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868346465184">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868346465184">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fechaGeneracion" attribute-type="java.util.Date" id="_1397871527668299">
+            <jpa:basic name="fechaGeneracion" attribute-type="java.util.Date" visibile="true" id="_1397871527668299">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:one-to-many name="cuotas" target-entity="Cuota" collection-type="java.util.Collection" connected-entity-id="_1397868481186" id="_1397868560427195">
+            <jpa:one-to-many name="cuotas" target-entity="Cuota" collection-type="java.util.Collection" connected-entity-id="_1397868481186" visibile="true" id="_1397868560427195">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unConceptoDeportivo" target-entity="ConceptoDeportivo" optional="true" primaryKey="false" connected-entity-id="_1397868263876" id="_140629131293183">
+            <jpa:one-to-one name="unConceptoDeportivo" target-entity="ConceptoDeportivo" optional="true" primaryKey="false" connected-entity-id="_1397868263876" visibile="true" id="_140629131293183">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoDeportivo" minimized="true" id="_1397868263876">
+    <jpa:entity class="ConceptoDeportivo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868263876">
         <jpa:attributes>
-            <jpa:id name="idConceptoDeportivo" attribute-type="Long" id="_1397868279346179">
+            <jpa:id name="idConceptoDeportivo" attribute-type="Long" visibile="true" id="_1397868279346179">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="concepto" attribute-type="String" id="_1397868280776180">
+            <jpa:basic name="concepto" attribute-type="String" visibile="true" id="_1397868280776180">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1397868283040182">
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1397868283040182">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868780091198">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868780091198">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="meses" target-entity="Mes" collection-type="java.util.Collection" connected-entity-id="_1399935106939" id="_141096078404086">
+            <jpa:one-to-many name="meses" target-entity="Mes" collection-type="java.util.Collection" connected-entity-id="_1399935106939" visibile="true" id="_141096078404086">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" optional="true" primaryKey="false" connected-entity-id="_1399935822186" id="_140692668961485">
+            <jpa:one-to-one name="unTipoEstado" target-entity="TipoEstado" optional="true" primaryKey="false" connected-entity-id="_1399935822186" visibile="true" id="_140692668961485">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unTipoCancha" target-entity="TipoCancha" optional="true" primaryKey="false" connected-entity-id="_1399934614213" id="_140692673298586">
+            <jpa:one-to-one name="unTipoCancha" target-entity="TipoCancha" optional="true" primaryKey="false" connected-entity-id="_1399934614213" visibile="true" id="_140692673298586">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Cuota" minimized="true" id="_1397868481186">
+    <jpa:entity class="Cuota" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868481186">
         <jpa:attributes>
-            <jpa:id name="idCuota" attribute-type="Long" id="_1397868495580190">
+            <jpa:id name="idCuota" attribute-type="Long" visibile="true" id="_1397868495580190">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fechaVencimiento" attribute-type="java.util.Date" id="_1397868496797191">
+            <jpa:basic name="fechaVencimiento" attribute-type="java.util.Date" visibile="true" id="_1397868496797191">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1397868502549193">
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1397868502549193">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868512780194">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868512780194">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="numero" attribute-type="String" id="_140050721802483">
+            <jpa:basic name="numero" attribute-type="String" visibile="true" id="_140050721802483">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unPagoCuota" target-entity="PagoCuota" optional="true" primaryKey="false" connected-entity-id="_1400096950412" id="_1400097145632165">
+            <jpa:one-to-one name="unPagoCuota" target-entity="PagoCuota" optional="true" primaryKey="false" connected-entity-id="_1400096950412" visibile="true" id="_1400097145632165">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoEgreso" minimized="true" id="_1397868806733">
+    <jpa:entity class="ConceptoEgreso" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868806733">
         <jpa:attributes>
-            <jpa:id name="idConceptoEgreso" attribute-type="Long" id="_1397868822568203">
+            <jpa:id name="idConceptoEgreso" attribute-type="Long" visibile="true" id="_1397868822568203">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_1397868821174201">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_1397868821174201">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868826416204">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868826416204">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="ConceptoIngreso" minimized="true" id="_1397868814587">
+    <jpa:entity class="ConceptoIngreso" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868814587">
         <jpa:attributes>
-            <jpa:id name="idConceptoIngreso" attribute-type="Long" id="_1397868859739205">
+            <jpa:id name="idConceptoIngreso" attribute-type="Long" visibile="true" id="_1397868859739205">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_1397868860149206">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_1397868860149206">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397868860501208">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397868860501208">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="IngresoOtro" minimized="true" id="_1397868975724">
+    <jpa:entity class="IngresoOtro" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397868975724">
         <jpa:attributes>
-            <jpa:id name="idIngresoOtro" attribute-type="Long" id="_1397868982697217">
+            <jpa:id name="idIngresoOtro" attribute-type="Long" visibile="true" id="_1397868982697217">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_1397868983573218">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_1397868983573218">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="observacion" attribute-type="String" id="_1397868983733219">
+            <jpa:basic name="observacion" attribute-type="String" visibile="true" id="_1397868983733219">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1397868985043220">
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1397868985043220">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1397869017290221">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1397869017290221">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unConceptoIngreso" target-entity="ConceptoIngreso" optional="true" primaryKey="false" connected-entity-id="_1397868814587" id="_1397869066209222">
+            <jpa:one-to-one name="unConceptoIngreso" target-entity="ConceptoIngreso" optional="true" primaryKey="false" connected-entity-id="_1397868814587" visibile="true" id="_1397869066209222">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Egreso" minimized="true" id="_1397869170762">
+    <jpa:entity class="Egreso" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869170762">
         <jpa:attributes>
-            <jpa:id name="idEgreso" attribute-type="Long" id="_1397869178872225">
+            <jpa:id name="idEgreso" attribute-type="Long" visibile="true" id="_1397869178872225">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_1397869180156226">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_1397869180156226">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="observacion" attribute-type="String" id="_1397869181325227">
+            <jpa:basic name="observacion" attribute-type="String" visibile="true" id="_1397869181325227">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1397869205472228">
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1397869205472228">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817502005172">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817502005172">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unConceptoEgreso" target-entity="ConceptoEgreso" optional="true" primaryKey="false" connected-entity-id="_1397868806733" id="_1397869235959229">
+            <jpa:one-to-one name="unConceptoEgreso" target-entity="ConceptoEgreso" optional="true" primaryKey="false" connected-entity-id="_1397868806733" visibile="true" id="_1397869235959229">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Categoria" minimized="true" id="_1397869355771">
+    <jpa:entity class="Categoria" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869355771">
         <jpa:attributes>
-            <jpa:id name="idCategoria" attribute-type="Long" id="_1397869364721233">
+            <jpa:id name="idCategoria" attribute-type="Long" visibile="true" id="_1397869364721233">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_1397869372870234">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_1397869372870234">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="edadParametro" attribute-type="int" id="_1397869373666235">
+            <jpa:basic name="edadParametro" attribute-type="int" visibile="true" id="_1397869373666235">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817495710871">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817495710871">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="cantidadMaxima" attribute-type="int" id="_1403636463653165">
+            <jpa:basic name="cantidadMaxima" attribute-type="int" visibile="true" id="_1403636463653165">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="cantidadMinima" attribute-type="int" id="_1403636466788166">
+            <jpa:basic name="cantidadMinima" attribute-type="int" visibile="true" id="_1403636466788166">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="FechaTorneo" minimized="true" id="_1397869438638">
+    <jpa:entity class="FechaTorneo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869438638">
         <jpa:attributes>
-            <jpa:id name="idFecha" attribute-type="Long" id="_1397869445729238">
+            <jpa:id name="idFecha" attribute-type="Long" visibile="true" id="_1397869445729238">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="numeroFecha" attribute-type="int" id="_1397869478036239">
+            <jpa:basic name="numeroFecha" attribute-type="int" visibile="true" id="_1397869478036239">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817512251174">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817512251174">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="partidos" target-entity="Partido" collection-type="java.util.Collection" connected-entity-id="_1397869509238" id="_1397869533024242">
+            <jpa:one-to-many name="partidos" target-entity="Partido" collection-type="java.util.Collection" connected-entity-id="_1397869509238" visibile="true" id="_1397869533024242">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Partido" minimized="true" id="_1397869509238">
+    <jpa:entity class="Partido" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869509238">
         <jpa:attributes>
-            <jpa:id name="idPartido" attribute-type="Long" id="_1397869517159241">
+            <jpa:id name="idPartido" attribute-type="Long" visibile="true" id="_1397869517159241">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_1397869675608247">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_1397869675608247">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="nombreAyudanteMesaLocal" attribute-type="String" id="_1397869837055250">
+            <jpa:basic name="nombreAyudanteMesaLocal" attribute-type="String" visibile="true" id="_1397869837055250">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="nombreAyudanteMesaVisitante" attribute-type="String" id="_1397869837613251">
+            <jpa:basic name="nombreAyudanteMesaVisitante" attribute-type="String" visibile="true" id="_1397869837613251">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="observaciones" attribute-type="String" id="_1397869901949252">
+            <jpa:basic name="observaciones" attribute-type="String" visibile="true" id="_1397869901949252">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817561023585">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817561023585">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="nombreVeedor" attribute-type="String" id="_140070449066789">
+            <jpa:basic name="nombreVeedor" attribute-type="String" visibile="true" id="_140070449066789">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="unDTLocal" attribute-type="logicaNegocios.PersonaAuxiliar" id="_140845109323484">
+            <jpa:basic name="unDTLocal" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845109323484">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="unDTVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" id="_140845113145485">
+            <jpa:basic name="unDTVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845113145485">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="unPreparadorFisicoLocal" attribute-type="logicaNegocios.PersonaAuxiliar" id="_140845113433586">
+            <jpa:basic name="unPreparadorFisicoLocal" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845113433586">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="unPreparadorFisicoVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" id="_140845113671187">
+            <jpa:basic name="unPreparadorFisicoVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845113671187">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="unAyudanteCampoLocal" attribute-type="logicaNegocios.PersonaAuxiliar" id="_140845113842388">
+            <jpa:basic name="unAyudanteCampoLocal" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845113842388">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="unAyudanteCampoVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" id="_140845114024789">
+            <jpa:basic name="unAyudanteCampoVisitante" attribute-type="logicaNegocios.PersonaAuxiliar" visibile="true" id="_140845114024789">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="jugado" attribute-type="boolean" id="_141408836251691">
+            <jpa:basic name="jugado" attribute-type="boolean" visibile="true" id="_141408836251691">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:one-to-many name="goles" target-entity="Gol" collection-type="java.util.Collection" connected-entity-id="_1397866303816" id="_1397869932014253">
+            <jpa:one-to-many name="goles" target-entity="Gol" collection-type="java.util.Collection" connected-entity-id="_1397866303816" visibile="true" id="_1397869932014253">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="tarjetas" target-entity="Tarjeta" collection-type="java.util.Collection" connected-entity-id="_1397869941400" id="_1398055930082532">
+            <jpa:one-to-many name="tarjetas" target-entity="Tarjeta" collection-type="java.util.Collection" connected-entity-id="_1397869941400" visibile="true" id="_1398055930082532">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unEquipoLocal" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" id="_1397869605249244">
+            <jpa:one-to-one name="unEquipoLocal" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" visibile="true" id="_1397869605249244">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unEquipoVisitante" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" id="_1397869609262245">
+            <jpa:one-to-one name="unEquipoVisitante" target-entity="Equipo" optional="true" primaryKey="false" connected-entity-id="_1397866346227" visibile="true" id="_1397869609262245">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unaCancha" target-entity="Cancha" optional="true" primaryKey="false" connected-entity-id="_1397865626096" id="_1397869659590246">
+            <jpa:one-to-one name="unaCancha" target-entity="Cancha" optional="true" primaryKey="false" connected-entity-id="_1397865626096" visibile="true" id="_1397869659590246">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unArbitro1" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" id="_140070275325186">
+            <jpa:one-to-one name="unArbitro1" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_140070275325186">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unArbitro2" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" id="_140070276064787">
+            <jpa:one-to-one name="unArbitro2" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_140070276064787">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unArbitro3" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" id="_140070277076188">
+            <jpa:one-to-one name="unArbitro3" target-entity="PersonaAuxiliar" optional="true" primaryKey="false" connected-entity-id="_1397865962543" visibile="true" id="_140070277076188">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:element-collection name="jugadoras" target-class="Jugadora" collection-type="java.util.Collection" connected-class-id="_1411085510237" id="_1411085633485186">
+            <jpa:element-collection name="jugadoras" target-class="Jugadora" collection-type="java.util.Collection" connected-class-id="_1411085510237" visibile="true" id="_1411085633485186">
                 <jpa:collection-table/>
             </jpa:element-collection>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Tarjeta" minimized="true" id="_1397869941400">
+    <jpa:entity class="Tarjeta" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397869941400">
         <jpa:attributes>
-            <jpa:id name="idTarjeta" attribute-type="Long" id="_1398055421132525">
+            <jpa:id name="idTarjeta" attribute-type="Long" visibile="true" id="_1398055421132525">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="tipo" attribute-type="String" id="_1398055423177526">
+            <jpa:basic name="tipo" attribute-type="String" visibile="true" id="_1398055423177526">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="motivo" attribute-type="String" id="_1398055436571529">
+            <jpa:basic name="motivo" attribute-type="String" visibile="true" id="_1398055436571529">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817525425577">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817525425577">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="tiempo" attribute-type="String" id="_1399474887957215">
+            <jpa:basic name="tiempo" attribute-type="String" visibile="true" id="_1399474887957215">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="minuto" attribute-type="String" id="_140070092023583">
+            <jpa:basic name="minuto" attribute-type="String" visibile="true" id="_140070092023583">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="computado" attribute-type="boolean" id="_141174058708685">
+            <jpa:basic name="computado" attribute-type="boolean" visibile="true" id="_141174058708685">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_141285772758689">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_141285772758689">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:one-to-one name="unTorneo" target-entity="Torneo" optional="true" primaryKey="false" connected-entity-id="_1397870789243" id="_141346941914589">
+            <jpa:one-to-one name="unTorneo" target-entity="Torneo" optional="true" primaryKey="false" connected-entity-id="_1397870789243" visibile="true" id="_141346941914589">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="SancionTribunal" minimized="true" id="_1397870308298">
+    <jpa:entity class="SancionTribunal" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397870308298">
         <jpa:attributes>
-            <jpa:id name="idSancionTribunal" attribute-type="Long" id="_1397870321521266">
+            <jpa:id name="idSancionTribunal" attribute-type="Long" visibile="true" id="_1397870321521266">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="numeroResolucion" optional="true" attribute-type="String" id="_1397870325640267">
+            <jpa:basic name="numeroResolucion" optional="true" attribute-type="String" visibile="true" id="_1397870325640267">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="detalles" attribute-type="String" id="_1397870328849268">
+            <jpa:basic name="detalles" attribute-type="String" visibile="true" id="_1397870328849268">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="vencimiento" optional="true" attribute-type="java.util.Date" id="_1397870331153269">
+            <jpa:basic name="vencimiento" optional="true" attribute-type="java.util.Date" visibile="true" id="_1397870331153269">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="cantFechas" optional="true" attribute-type="int" id="_1397870333130270">
+            <jpa:basic name="cantFechas" optional="true" attribute-type="int" visibile="true" id="_1397870333130270">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="cantFechasCumplidas" optional="true" attribute-type="int" id="_1397870334643271">
+            <jpa:basic name="cantFechasCumplidas" optional="true" attribute-type="int" visibile="true" id="_1397870334643271">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817521206776">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817521206776">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_139880187439676">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_139880187439676">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="motivo" attribute-type="String" id="_139947350466472">
+            <jpa:basic name="motivo" attribute-type="String" visibile="true" id="_139947350466472">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="unaTarjeta" target-entity="Tarjeta" optional="true" primaryKey="false" connected-entity-id="_1397869941400" id="_139880179023574">
+            <jpa:one-to-one name="unaTarjeta" target-entity="Tarjeta" optional="true" primaryKey="false" connected-entity-id="_1397869941400" visibile="true" id="_139880179023574">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unPartido" target-entity="Partido" optional="true" primaryKey="false" connected-entity-id="_1397869509238" id="_139880183515975">
+            <jpa:one-to-one name="unPartido" target-entity="Partido" optional="true" primaryKey="false" connected-entity-id="_1397869509238" visibile="true" id="_139880183515975">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Torneo" minimized="true" id="_1397870789243">
+    <jpa:entity class="Torneo" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1397870789243">
         <jpa:attributes>
-            <jpa:id name="idTorneo" attribute-type="Long" id="_1397870794947278">
+            <jpa:id name="idTorneo" attribute-type="Long" visibile="true" id="_1397870794947278">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_1397870795516279">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_1397870795516279">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fechaInicio" attribute-type="java.util.Date" id="_1397870798439280">
+            <jpa:basic name="fechaInicio" attribute-type="java.util.Date" visibile="true" id="_1397870798439280">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139817508561973">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139817508561973">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="fechasTorneo" target-entity="FechaTorneo" collection-type="java.util.Collection" connected-entity-id="_1397869438638" id="_1397870869810283">
+            <jpa:one-to-many name="fechasTorneo" target-entity="FechaTorneo" collection-type="java.util.Collection" connected-entity-id="_1397869438638" visibile="true" id="_1397870869810283">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="equiposInscriptos" target-entity="Equipo" collection-type="java.util.Collection" connected-entity-id="_1397866346227" id="_1403104797050163">
+            <jpa:one-to-many name="equiposInscriptos" target-entity="Equipo" collection-type="java.util.Collection" connected-entity-id="_1397866346227" visibile="true" id="_1403104797050163">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="unaCategoria" target-entity="Categoria" optional="true" primaryKey="false" connected-entity-id="_1397869355771" id="_1397870860243282">
+            <jpa:one-to-one name="unaCategoria" target-entity="Categoria" optional="true" primaryKey="false" connected-entity-id="_1397869355771" visibile="true" id="_1397870860243282">
                 <jpa:join-table/>
             </jpa:one-to-one>
-            <jpa:one-to-one name="unTorneoPadre" target-entity="Torneo" optional="true" primaryKey="false" connected-entity-id="_1397870789243" id="_141346978074090">
+            <jpa:one-to-one name="unTorneoPadre" target-entity="Torneo" optional="true" primaryKey="false" connected-entity-id="_1397870789243" visibile="true" id="_141346978074090">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Ergometria" minimized="true" id="_1398774975217">
+    <jpa:entity class="Ergometria" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1398774975217">
         <jpa:attributes>
-            <jpa:id name="idErgometria" attribute-type="Long" id="_139877499551672">
+            <jpa:id name="idErgometria" attribute-type="Long" visibile="true" id="_139877499551672">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fechaRealizacion" attribute-type="java.util.Date" id="_139877499768173">
+            <jpa:basic name="fechaRealizacion" attribute-type="java.util.Date" visibile="true" id="_139877499768173">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="aprobado" optional="false" attribute-type="boolean" id="_139877500229774">
+            <jpa:basic name="aprobado" optional="false" attribute-type="boolean" visibile="true" id="_139877500229774">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="comentarios" attribute-type="String" id="_139877501038475">
+            <jpa:basic name="comentarios" attribute-type="String" visibile="true" id="_139877501038475">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fechaCaducidad" attribute-type="java.util.Date" id="_139877510808276">
+            <jpa:basic name="fechaCaducidad" attribute-type="java.util.Date" visibile="true" id="_139877510808276">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139932596976072">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139932596976072">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoCancha" minimized="true" id="_1399934614213">
+    <jpa:entity class="TipoCancha" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1399934614213">
         <jpa:attributes>
-            <jpa:id name="idTipoCancha" attribute-type="Long" id="_139993462946377">
+            <jpa:id name="idTipoCancha" attribute-type="Long" visibile="true" id="_139993462946377">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_139993465045878">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_139993465045878">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_139993523745483">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_139993523745483">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Mes" minimized="true" id="_1399935106939">
+    <jpa:entity class="Mes" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1399935106939">
         <jpa:attributes>
-            <jpa:id name="nombre" attribute-type="String" id="_139993535055288">
+            <jpa:id name="nombre" attribute-type="String" visibile="true" id="_139993535055288">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value/>
             </jpa:id>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoEstado" minimized="true" id="_1399935822186">
+    <jpa:entity class="TipoEstado" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1399935822186">
         <jpa:attributes>
-            <jpa:id name="idTipoEstado" attribute-type="Long" id="_139993584407797">
+            <jpa:id name="idTipoEstado" attribute-type="Long" visibile="true" id="_139993584407797">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" id="_139993587629598">
+            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_139993587629598">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1399935991330100">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1399935991330100">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PagoCuota" minimized="true" id="_1400096950412">
+    <jpa:entity class="PagoCuota" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1400096950412">
         <jpa:attributes>
-            <jpa:id name="idPagoCuota" attribute-type="Long" id="_1400096982652160">
+            <jpa:id name="idPagoCuota" attribute-type="Long" visibile="true" id="_1400096982652160">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="fechaPago" attribute-type="java.util.Date" id="_1400097010727161">
+            <jpa:basic name="fechaPago" attribute-type="java.util.Date" visibile="true" id="_1400097010727161">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="observacion" attribute-type="String" id="_1400097026937162">
+            <jpa:basic name="observacion" attribute-type="String" visibile="true" id="_1400097026937162">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1400097027696163">
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1400097027696163">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="borradoLogico" attribute-type="boolean" id="_1400097028690164">
+            <jpa:basic name="borradoLogico" attribute-type="boolean" visibile="true" id="_1400097028690164">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PlanillaPago" minimized="true" id="_1412270930951">
+    <jpa:entity class="PlanillaPago" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1412270930951">
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" id="_1412270961429170">
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_1412270961429170">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nroRecibo" attribute-type="long" id="_1412270972863171">
+            <jpa:basic name="nroRecibo" attribute-type="long" visibile="true" id="_1412270972863171">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="rutaPDF" attribute-type="String" id="_1412270973077172">
+            <jpa:basic name="rutaPDF" attribute-type="String" visibile="true" id="_1412270973077172">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="monto" attribute-type="double" id="_1412270973707174">
+            <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1412270973707174">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="fechaPago" attribute-type="java.util.Date" id="_1412270974197175">
+            <jpa:basic name="fechaPago" attribute-type="java.util.Date" visibile="true" id="_1412270974197175">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:one-to-one name="responsablePago" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" id="_1412271305459176">
+            <jpa:one-to-one name="responsablePago" target-entity="Socia" optional="true" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1412271305459176">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Configuracion" minimized="false" id="_1429050077973">
+    <jpa:entity class="Configuracion" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_1429050077973">
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" id="_142905023418493">
+            <jpa:id name="id" attribute-type="Long" visibile="true" id="_142905023418493">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="concepto" attribute-type="String" id="_142905023556194">
+            <jpa:basic name="concepto" attribute-type="String" visibile="true" id="_142905023556194">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="valor" attribute-type="String" id="_142905092247697">
+            <jpa:basic name="valor" attribute-type="String" visibile="true" id="_142905092247697">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:embeddable class="Jugadora" minimized="true" id="_1411085510237">
+    <jpa:embeddable class="Jugadora" static-metamodel="false" visibile="true" minimized="true" id="_1411085510237">
         <jpa:attributes>
-            <jpa:basic name="camiseta" attribute-type="String" id="_1411085528328183">
+            <jpa:basic name="camiseta" attribute-type="String" visibile="true" id="_1411085528328183">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:basic name="local" attribute-type="boolean" id="_1411085530338184">
+            <jpa:basic name="local" attribute-type="boolean" visibile="true" id="_1411085530338184">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:one-to-one name="unaSocia" target-entity="Socia" optional="false" primaryKey="false" connected-entity-id="_1397865613179" id="_1411085541255185">
+            <jpa:one-to-one name="unaSocia" target-entity="Socia" optional="false" primaryKey="false" connected-entity-id="_1397865613179" visibile="true" id="_1411085541255185">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:embeddable>
     <jpa:diagram id="_139786521181047">
         <plane elementRef="_139786521181046" id="_139786521181048_p">
-            <shape elementRef="_1397865228592" id="_1397865228592_gui">
-                <Bounds x="1198.0" y="-787.0" width="144.0" height="24.0"/>
-            </shape>
             <shape elementRef="_1397865386057" id="_1397865386057_gui">
                 <Bounds x="767.0" y="-732.0" width="151.0" height="24.0"/>
             </shape>
@@ -896,7 +893,10 @@
                 <Bounds x="940.0" y="327.0" width="166.0" height="24.0"/>
             </shape>
             <shape elementRef="_1429050077973" id="_1429050077973_gui">
-                <Bounds x="-724.0" y="-640.0" width="175.0" height="113.0"/>
+                <Bounds x="-717.0" y="-655.0" width="175.0" height="113.0"/>
+            </shape>
+            <shape elementRef="_1397865228592" id="_1397865228592_gui">
+                <Bounds x="1198.0" y="-787.0" width="144.0" height="24.0"/>
             </shape>
             <shape elementRef="_1411085510237" id="_1411085510237_gui">
                 <Bounds x="121.0" y="369.0" width="154.0" height="24.0"/>
