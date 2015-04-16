@@ -4,7 +4,6 @@ import DataSources.FormularioPaseDS;
 import java.awt.Color;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -26,7 +25,6 @@ public class IPase extends javax.swing.JInternalFrame {
     private Pase unPaseSeleccionado = null;
     private DefaultTableModel modeloTablePases;
     private DateFormat df = DateFormat.getDateInstance();
-    private Calendar FechaSO = Calendar.getInstance();
     private boolean editarPaseAbierto = false;
 
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
@@ -237,9 +235,9 @@ public class IPase extends javax.swing.JInternalFrame {
         jTextPaneDetalle = new javax.swing.JTextPane();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 664));
-        setMinimumSize(new java.awt.Dimension(650, 664));
-        setPreferredSize(new java.awt.Dimension(650, 664));
+        setMaximumSize(new java.awt.Dimension(650, 708));
+        setMinimumSize(new java.awt.Dimension(650, 708));
+        setPreferredSize(new java.awt.Dimension(650, 708));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -653,8 +651,13 @@ public class IPase extends javax.swing.JInternalFrame {
         } else {
             jTextFieldMonto.setText(String.valueOf(nPase * (montoPaseCero + (montoPaseCero * 0.25))));
         }
-        jDateChooserFechaRealizacion.setDate(FechaSO.getTime());
-        jDateChooserFecha1Vto.setDate(FechaSO.getTime());
+        jDateChooserFechaRealizacion.setDate(unaControladoraGlobal.fechaSistema());
+
+        //Setear fecha de vencimiento con la fecha vencimiento estandar de la DB
+        Date fechaVencimientoEstandar = (Date) unaControladoraGlobal.fechaSistema();
+        fechaVencimientoEstandar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));
+        this.jDateChooserFecha1Vto.setDate(fechaVencimientoEstandar);
+
         if (unaSocia.getEquipoActual() != null) {
             jTextFieldEquipoOrigen.setText(unaSocia.getEquipoActual().getNombre());
         }

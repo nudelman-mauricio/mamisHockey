@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Cancha;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.Deuda;
 import logicaNegocios.Equipo;
@@ -464,7 +463,11 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         camposActivo(true);
         camposLimpiar();
         unaDeudaSeleccionada = null;
-        this.jDateChooserFecha.setDate(unaControladoraGlobal.fechaSistema());
+        
+        //Setear fecha de vencimiento con la fecha vencimiento estar de la DB
+        Date fechaVencimientoEstandar = (Date) unaControladoraGlobal.fechaSistema();
+        fechaVencimientoEstandar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));
+        this.jDateChooserFecha.setDate(fechaVencimientoEstandar);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -478,7 +481,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-            //jButtonImprimir.setEnabled(false);
             jTableDeudas.setEnabled(true);
             jTableDeudas.clearSelection();
             unaDeudaSeleccionada = null;

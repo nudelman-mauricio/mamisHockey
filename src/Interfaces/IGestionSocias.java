@@ -211,7 +211,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
         jTableSocias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "dddddddddddddddddddddddddddddddddddddddddddddddd", null, null, null}
+
             },
             new String [] {
                 "DNI", "Apellido, Nombres", "ExJugadora", "Estado", "Equipo"

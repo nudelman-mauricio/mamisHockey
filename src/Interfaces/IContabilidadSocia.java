@@ -741,8 +741,12 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.jComboBoxConcepto.setModel(modelComboConcepto);
         camposActivoDeudas(true);
         camposLimpiarDeuda();
-        unaDeudaSeleccionada = null;
-        this.jDateChooserFecha.setDate(unaControladoraGlobal.fechaSistema());
+        unaDeudaSeleccionada = null;        
+        
+        //Setear fecha de vencimiento con la fecha vencimiento estandar de la DB
+        Date fechaVencimientoEstandar = (Date) unaControladoraGlobal.fechaSistema();
+        fechaVencimientoEstandar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));
+        this.jDateChooserFecha.setDate(fechaVencimientoEstandar);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
