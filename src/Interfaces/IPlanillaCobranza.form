@@ -245,11 +245,9 @@
                                   <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jDateChooserFecha" min="-2" pref="170" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButtonMostrar" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="397" max="32767" attributes="0"/>
+                          <EmptySpace pref="472" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
@@ -275,7 +273,6 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabelFecha" max="32767" attributes="0"/>
                               <Component id="jDateChooserFecha" max="32767" attributes="0"/>
-                              <Component id="jButtonMostrar" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
@@ -321,19 +318,14 @@
           </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDateChooserFechaPropertyChange"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelFecha">
           <Properties>
             <Property name="text" type="java.lang.String" value="Mostrar Hasta Fecha: "/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonMostrar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Mostrar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMostrarActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
