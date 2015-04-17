@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,10 +21,40 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            // <editor-fold defaultstate="collapsed" desc="Lectura archivo conf BD">
+            String url = null, user = null, pass = null, driver = null;
+            try {
+                // Abrimos el archivo
+                FileInputStream fstream = new FileInputStream("src/Archivo/Conf BD.txt");
+                // Creamos el objeto de entrada
+                DataInputStream entrada = new DataInputStream(fstream);
+                // Creamos el Buffer de Lectura
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
+                
+                // Leer el archivo linea por linea
+                url = buffer.readLine();
+                user = buffer.readLine();
+                pass = buffer.readLine();
+                driver = buffer.readLine();
+                // Cerramos el archivo
+                entrada.close();
+            } catch (Exception e) { //Catch de excepciones
+                System.err.println("Ocurrio un error: " + e.getMessage());
+            }
+            // </editor-fold>
+
             // <editor-fold defaultstate="collapsed" desc="Conexion con la Base de Datos">
             EntityManagerFactory entityManagerFactory = null;
             EntityManager entityManager = null;
-            entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU"); //nombre de la unidad de persistencia 
+            
+            Map<String, String> persistenceMap = new HashMap<String, String>();   
+            persistenceMap.put("javax.persistence.jdbc.url", url);
+            persistenceMap.put("javax.persistence.jdbc.user", user);
+            persistenceMap.put("javax.persistence.jdbc.password", pass);
+            persistenceMap.put("javax.persistence.jdbc.driver", driver);        
+            
+            entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU",persistenceMap); //nombre de la unidad de persistencia 
+            
             entityManager = entityManagerFactory.createEntityManager();
             // </editor-fold>
 
