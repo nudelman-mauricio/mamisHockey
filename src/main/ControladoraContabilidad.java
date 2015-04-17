@@ -81,8 +81,8 @@ public class ControladoraContabilidad {
         return unaListaResultado;
     }
 
-    public Vector<ConceptoDeportivo> getConceptosDeportivosManualesBD() {
-        Vector<ConceptoDeportivo> unaListaResultado = new Vector<ConceptoDeportivo>();
+    public Vector<ConceptoDeportivo> getConceptosDeportivosParaComboContabilidadSociaBD() {
+        Vector<ConceptoDeportivo> unaListaResultado = getConceptosDeportivosAutomaticosBD();
         unaListaResultado.add(this.getConceptoDeportivoBD("Fichaje"));
         unaListaResultado.add(this.getConceptoDeportivoBD("Re-Fichaje"));
         unaListaResultado.add(this.getConceptoDeportivoBD("Inscripción"));

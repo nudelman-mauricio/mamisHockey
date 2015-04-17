@@ -3,6 +3,10 @@ package main;
 import Interfaces.IMenuPrincipalInterface;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -42,7 +46,6 @@ public class Main {
             unaVentana.setLocationRelativeTo(null); //Mandar al centro
             unaVentana.setVisible(true);
             // </editor-fold>
-
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(exception.toString());

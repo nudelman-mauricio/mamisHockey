@@ -5,6 +5,7 @@ import java.awt.event.ItemEvent;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -41,7 +42,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
 
-        modelComboConcepto = new DefaultComboBoxModel(unaControladoraGlobal.getConceptosDeportivosManualesBD());
+        modelComboConcepto = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getConceptosDeportivosParaComboContabilidadSociaBD());
         this.jComboBoxConcepto.setModel(modelComboConcepto);
         this.jComboBoxConcepto.setSelectedIndex(-1);
 

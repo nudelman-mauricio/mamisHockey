@@ -856,8 +856,8 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.getConceptosDeportivosAutomaticosBD();
     }
 
-    public Vector<ConceptoDeportivo> getConceptosDeportivosManualesBD() {
-        return this.unaControladoraContabilidad.getConceptosDeportivosManualesBD();
+    public Vector<ConceptoDeportivo> getConceptosDeportivosParaComboContabilidadSociaBD() {
+        return this.unaControladoraContabilidad.getConceptosDeportivosParaComboContabilidadSociaBD();
     }
 
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
