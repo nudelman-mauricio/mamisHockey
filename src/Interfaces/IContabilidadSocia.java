@@ -253,6 +253,10 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jTextPaneObservacionDeuda = new javax.swing.JTextPane();
         jDateChooserFecha = new com.toedter.calendar.JDateChooser();
         jDateChooserPrimerVencimiento = new com.toedter.calendar.JDateChooser();
+        jLabelFechaRealizacion4 = new javax.swing.JLabel();
+        jComboBoxDesdeMes = new javax.swing.JComboBox();
+        jComboBoxDesdeAño = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
         jPanelCuotas = new javax.swing.JPanel();
         jPanelTablaCuotas = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -432,7 +436,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jPanelTablaDeudas.setLayout(jPanelTablaDeudasLayout);
         jPanelTablaDeudasLayout.setHorizontalGroup(
             jPanelTablaDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
         );
         jPanelTablaDeudasLayout.setVerticalGroup(
             jPanelTablaDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,12 +490,30 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
         jDateChooserPrimerVencimiento.setEnabled(false);
 
+        jLabelFechaRealizacion4.setText("Cuota correspondiente al mes de");
+
+        jComboBoxDesdeMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jComboBoxDesdeMes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDesdeMesItemStateChanged(evt);
+            }
+        });
+
+        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+        jComboBoxDesdeAño.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDesdeAñoItemStateChanged(evt);
+            }
+        });
+
+        jLabel2.setText("del año");
+
         javax.swing.GroupLayout jPanelDetalleDeudasLayout = new javax.swing.GroupLayout(jPanelDetalleDeudas);
         jPanelDetalleDeudas.setLayout(jPanelDetalleDeudasLayout);
         jPanelDetalleDeudasLayout.setHorizontalGroup(
             jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(40, 40, 40)
                 .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelConcepto)
                     .addComponent(jLabelFechaRealizacion)
@@ -510,29 +532,41 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxConcepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jDateChooserPrimerVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
-                .addComponent(jLabelFechaRealizacion3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetalleDeudasLayout.createSequentialGroup()
+                        .addComponent(jLabelFechaRealizacion4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
+                        .addComponent(jLabelFechaRealizacion3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3)))
+                .addGap(31, 31, 31))
         );
         jPanelDetalleDeudasLayout.setVerticalGroup(
             jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelFechaRealizacion)
+                    .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelFechaRealizacion4)
+                        .addComponent(jLabel2)
+                        .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
-                    .addGroup(jPanelDetalleDeudasLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFechaRealizacion, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaRealizacion3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelConcepto)
-                            .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFechaRealizacion3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDetalleDeudasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelFechaVencimiento)
@@ -546,9 +580,9 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                             .addComponent(jLabelFechaRealizacion5)
                             .addComponent(jTextFieldMontoCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jLabel1)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelDeudasLayout = new javax.swing.GroupLayout(jPanelDeudas);
@@ -716,7 +750,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -961,6 +995,18 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         jComboBoxCantidadCuotas.setSelectedIndex(0);//para que tome el cambio
     }//GEN-LAST:event_jTextFieldMontoTotalDeudaKeyReleased
 
+    private void jComboBoxDesdeMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeMesItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+
+        }
+    }//GEN-LAST:event_jComboBoxDesdeMesItemStateChanged
+
+    private void jComboBoxDesdeAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeAñoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+
+        }
+    }//GEN-LAST:event_jComboBoxDesdeAñoItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -970,14 +1016,18 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JComboBox jComboBoxCantidadCuotas;
     private javax.swing.JComboBox jComboBoxConcepto;
+    private javax.swing.JComboBox jComboBoxDesdeAño;
+    private javax.swing.JComboBox jComboBoxDesdeMes;
     private com.toedter.calendar.JDateChooser jDateChooserFecha;
     private com.toedter.calendar.JDateChooser jDateChooserFechaPagoCuota;
     private com.toedter.calendar.JDateChooser jDateChooserPrimerVencimiento;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelConcepto;
     private javax.swing.JLabel jLabelFechaPagoCuota;
     private javax.swing.JLabel jLabelFechaRealizacion;
     private javax.swing.JLabel jLabelFechaRealizacion3;
+    private javax.swing.JLabel jLabelFechaRealizacion4;
     private javax.swing.JLabel jLabelFechaRealizacion5;
     private javax.swing.JLabel jLabelFechaRealizacion8;
     private javax.swing.JLabel jLabelFechaVencimiento;

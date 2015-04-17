@@ -38,7 +38,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanelBotones" max="32767" attributes="0"/>
-                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" pref="756" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -221,7 +221,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="731" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -316,8 +316,8 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabelConcepto" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelFechaRealizacion" min="-2" max="-2" attributes="0"/>
@@ -339,33 +339,48 @@
                               <Component id="jDateChooserFecha" alignment="0" max="32767" attributes="0"/>
                               <Component id="jDateChooserPrimerVencimiento" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="jLabelFechaRealizacion3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" pref="200" max="-2" attributes="0"/>
-                          <EmptySpace pref="113" max="32767" attributes="0"/>
+                          <EmptySpace pref="52" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabelFechaRealizacion4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jComboBoxDesdeMes" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jComboBoxDesdeAño" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabelFechaRealizacion3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="124" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jDateChooserFecha" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabelFechaRealizacion4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxDesdeAño" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxDesdeMes" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jDateChooserFecha" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaRealizacion" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelFechaRealizacion3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabelConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBoxConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelFechaRealizacion3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -384,10 +399,10 @@
                                       <Component id="jComboBoxCantidadCuotas" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="jScrollPane3" min="-2" pref="98" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="17" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -498,6 +513,66 @@
                 <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserPrimerVencimiento">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabelFechaRealizacion4">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cuota correspondiente al mes de"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBoxDesdeMes">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="12">
+                        <StringItem index="0" value="Enero"/>
+                        <StringItem index="1" value="Febrero"/>
+                        <StringItem index="2" value="Marzo"/>
+                        <StringItem index="3" value="Abril"/>
+                        <StringItem index="4" value="Mayo"/>
+                        <StringItem index="5" value="Julio"/>
+                        <StringItem index="6" value="Junio"/>
+                        <StringItem index="7" value="Agosto"/>
+                        <StringItem index="8" value="Septiembre"/>
+                        <StringItem index="9" value="Octubre"/>
+                        <StringItem index="10" value="Noviembre"/>
+                        <StringItem index="11" value="Diciembre"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDesdeMesItemStateChanged"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBoxDesdeA&#xf1;o">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="16">
+                        <StringItem index="0" value="2010"/>
+                        <StringItem index="1" value="2011"/>
+                        <StringItem index="2" value="2012"/>
+                        <StringItem index="3" value="2013"/>
+                        <StringItem index="4" value="2014"/>
+                        <StringItem index="5" value="2015"/>
+                        <StringItem index="6" value="2016"/>
+                        <StringItem index="7" value="2017"/>
+                        <StringItem index="8" value="2018"/>
+                        <StringItem index="9" value="2019"/>
+                        <StringItem index="10" value="2020"/>
+                        <StringItem index="11" value="2021"/>
+                        <StringItem index="12" value="2022"/>
+                        <StringItem index="13" value="2023"/>
+                        <StringItem index="14" value="2024"/>
+                        <StringItem index="15" value="2025"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDesdeA&#xf1;oItemStateChanged"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="del a&#xf1;o"/>
                   </Properties>
                 </Component>
               </SubComponents>
