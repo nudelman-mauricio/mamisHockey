@@ -227,7 +227,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jButtonImprimir = new javax.swing.JButton();
         jDateChooserFecha = new com.toedter.calendar.JDateChooser();
         jLabelFecha = new javax.swing.JLabel();
-        jButtonMostrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldTotal = new javax.swing.JTextField();
         jTextFieldSubTotal = new javax.swing.JTextField();
@@ -399,14 +398,13 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelFecha.setText("Mostrar Hasta Fecha: ");
-
-        jButtonMostrar.setText("Mostrar");
-        jButtonMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMostrarActionPerformed(evt);
+        jDateChooserFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooserFechaPropertyChange(evt);
             }
         });
+
+        jLabelFecha.setText("Mostrar Hasta Fecha: ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -421,10 +419,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabelFecha)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonMostrar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE))
+                                .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,8 +440,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(3, 3, 3))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
@@ -686,14 +681,15 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
-        cargarCampos();
-    }//GEN-LAST:event_jButtonMostrarActionPerformed
+    private void jDateChooserFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserFechaPropertyChange
+        if ("date".equals(evt.getPropertyName())) {                
+                cargarCampos();
+            }
+    }//GEN-LAST:event_jDateChooserFechaPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImprimir;
-    private javax.swing.JButton jButtonMostrar;
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JComboBox jComboBoxDelegadas;
     private com.toedter.calendar.JDateChooser jDateChooserFecha;
