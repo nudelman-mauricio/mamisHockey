@@ -105,9 +105,9 @@ public class ILocalidad extends javax.swing.JInternalFrame {
         jTextFieldNombre = new javax.swing.JTextField();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 410));
-        setMinimumSize(new java.awt.Dimension(650, 410));
-        setPreferredSize(new java.awt.Dimension(650, 410));
+        setMaximumSize(new java.awt.Dimension(650, 411));
+        setMinimumSize(new java.awt.Dimension(650, 411));
+        setPreferredSize(new java.awt.Dimension(650, 411));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -304,7 +304,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

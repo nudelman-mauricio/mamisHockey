@@ -23,47 +23,47 @@ import logicaNegocios.IngresoOtro;
 import main.ControladoraGlobal;
 
 public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaGestionIngresos;
     private IngresoOtro unIngresoSeleccionado;
     private DateFormat df = DateFormat.getDateInstance();
-
+    
     public IGestionIngresosOtro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionIngresos = (DefaultTableModel) jTableIngresos.getModel();
-
+        
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Ingresos Otro");
         IMenuPrincipalInterface.centrar(this);
-
+        
         if (unaControladoraGlobal.getIngresosOtrosBD().size() > 0) {
             cargarFechasFiltrado();
             cargarTabla();
         }
         jTextPaneDetalle.setBackground(new Color(228, 231, 237));
     }
-
+    
     private void cargarComboBoxConceptoIngreso() {
         this.jComboBoxConceptoIngreso.setModel(new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getConceptosIngresosBD()));
         this.jComboBoxConceptoIngreso.setSelectedIndex(-1);
     }
-
+    
     private void cargarFechasFiltrado() {
         if (unaControladoraGlobal.getPrimerIngresoOtro() != null) {
             String fecha = df.format(unaControladoraGlobal.getPrimerIngresoOtro().getFecha());
             String[] fechaDividida = fecha.split("/");
             jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
             jComboBoxDesdeAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
-
+            
             fecha = df.format(unaControladoraGlobal.getUltimoIngresoOtro().getFecha());
             fechaDividida = fecha.split("/");
             jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(fechaDividida[1]) - 1);
             jComboBoxHastaAño.setSelectedIndex(Integer.parseInt(fechaDividida[2]) + 1 - Integer.parseInt(jComboBoxDesdeAño.getItemAt(1).toString()));
         }
     }
-
+    
     private void cargarTabla() {
         limpiarTabla();
         String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
@@ -80,7 +80,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
             Logger.getLogger(IGestionIngresosOtro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void limpiarTabla() {
         int filas = this.modeloTablaGestionIngresos.getRowCount();
         for (int i = 0; i < filas; i++) {
@@ -88,14 +88,14 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         }
         camposLimpiar();
     }
-
+    
     private void camposFiltroActivo(boolean Editable) {
         jComboBoxDesdeMes.setEnabled(Editable);
         jComboBoxDesdeAño.setEnabled(Editable);
         jComboBoxHastaMes.setEnabled(Editable);
         jComboBoxHastaAño.setEnabled(Editable);
     }
-
+    
     private void camposActivo(boolean Editable) {
         jTextFieldMonto.setEditable(Editable);
         jDateChooserFecha.setEnabled(Editable);
@@ -122,21 +122,21 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         if (jTableIngresos.getSelectedRow() > -1) {
             if (jTableIngresos.getValueAt(jTableIngresos.getSelectedRow(), 0) != null) {
                 unIngresoSeleccionado = unaControladoraGlobal.getIngresoOtroBD((Long) jTableIngresos.getValueAt(jTableIngresos.getSelectedRow(), 0));
-
+                
                 camposLimpiar();
-
+                
                 jDateChooserFecha.setDate((unIngresoSeleccionado.getFecha()));
                 jTextFieldMonto.setText(String.valueOf(unIngresoSeleccionado.getMonto()));
                 jTextPaneDetalle.setText(unIngresoSeleccionado.getDetalle());
                 jComboBoxConceptoIngreso.setSelectedItem(unIngresoSeleccionado.getUnConceptoIngreso());
-
+                
                 camposActivo(false);
                 jButtonEditar.setEnabled(true);
                 jButtonEliminar.setEnabled(true);
             }
         }
     }
-
+    
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldMonto.getText().isEmpty()) {
@@ -162,7 +162,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -578,9 +578,9 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableIngresos.setEnabled(false);
-
+        
         camposFiltroActivo(false);
         camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -591,7 +591,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         camposActivo(false);
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -619,14 +619,16 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableIngresos.setEnabled(false);
-
+        
         camposFiltroActivo(false);
         camposActivo(true);
         camposLimpiar();
         cargarComboBoxConceptoIngreso();
         unIngresoSeleccionado = null;
+        
+        jDateChooserFecha.setDate(unaControladoraGlobal.fechaSistema());
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
@@ -638,7 +640,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
             try {
                 fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
-
+                
             } catch (ParseException ex) {
                 Logger.getLogger(IGestionEgresos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -687,9 +689,9 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableIngresos.setEnabled(true);
-
+        
         camposFiltroActivo(true);
         camposActivo(false);
         camposLimpiar();

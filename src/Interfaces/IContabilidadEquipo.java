@@ -463,11 +463,18 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         camposActivo(true);
         camposLimpiar();
         unaDeudaSeleccionada = null;
-        
-        //Setear fecha de vencimiento con la fecha vencimiento estar de la DB
+
+        //Setear fecha de generacion
+        this.jDateChooserFecha.setDate(unaControladoraGlobal.fechaSistema());
+
+        //Setear fecha de vencimiento con la fecha vencimiento estandar de la DB        
         Date fechaVencimientoEstandar = (Date) unaControladoraGlobal.fechaSistema();
         fechaVencimientoEstandar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));
-        this.jDateChooserFecha.setDate(fechaVencimientoEstandar);
+        //Si la fecha vencimiento parametro es anterior al dia de la fecha entonces setear vencimiento para el mes siguiente
+        if (fechaVencimientoEstandar.getDate() <= unaControladoraGlobal.fechaSistema().getDate()) {
+            fechaVencimientoEstandar.setMonth(fechaVencimientoEstandar.getMonth() + 1);
+        }
+        this.jDateChooserFechaVencimiento.setDate(fechaVencimientoEstandar);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed

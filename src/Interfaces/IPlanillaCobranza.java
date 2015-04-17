@@ -2,8 +2,6 @@ package Interfaces;
 
 import DataSources.PlanilladePagoDS;
 import java.awt.Color;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
         this.setTitle("Planilla de Pagos Mensuales de: " + unEquipo.getNombre());
         IMenuPrincipalInterface.centrar(this);
-        
+
         jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));
         if (unEquipo.getUnaDelegada() != null) {
             jComboBoxDelegadas.addItem(unEquipo.getUnaDelegada());
@@ -58,7 +56,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         jComboBoxDelegadas.setSelectedIndex(-1);
 
         jLabelTitulo.setText("Pago Mensual: " + unEquipo.getNombre() + " - " + dFmesAno.format(unaControladoraGlobal.fechaSistema()).toUpperCase());
-        
+
         inicializarFechaFiltro();
         cargarCampos();
     }
@@ -71,11 +69,11 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
      * es pagar el nuevo mes ya y no el actual
      */
     private void inicializarFechaFiltro() {
-        Date fechaAuxiliar=unaControladoraGlobal.fechaSistema();        
-        if(fechaAuxiliar.getDay() > Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar"))){
+        Date fechaAuxiliar = unaControladoraGlobal.fechaSistema();
+        if (fechaAuxiliar.getDate() > Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar"))) {
             fechaAuxiliar.setMonth(fechaAuxiliar.getMonth() + 1);
-        }        
-        fechaAuxiliar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));        
+        }
+        fechaAuxiliar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));
         jDateChooserFecha.setDate(fechaAuxiliar);
     }
 
