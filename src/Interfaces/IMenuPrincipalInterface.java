@@ -545,7 +545,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItemCuotaMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCuotaMensualActionPerformed
-        
+        IGeneradorMensual unIGeneradorMensual = new IGeneradorMensual(unaControladoraGlobal);
+        unIGeneradorMensual.pack();
+        unIGeneradorMensual.setVisible(true);
+        this.jDesktopPane.add(unIGeneradorMensual);
+        unIGeneradorMensual.moveToFront();
     }//GEN-LAST:event_jMenuItemCuotaMensualActionPerformed
 
     private void setCamSocia() {
