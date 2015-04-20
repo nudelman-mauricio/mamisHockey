@@ -2,7 +2,9 @@ package Interfaces;
 
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -41,8 +43,12 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrar(this);
 
         //Carga del comboBox con todos los torneos
-        this.jComboBoxTorneos.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTorneosBD()));
-
+        List<Torneo> torneos = unaControladoraGlobal.getTorneosBD();      
+        for (Torneo unTorneo : torneos) {
+            if (unTorneo.getEquiposInscriptos().contains(this.unEquipo) && !unTorneo.isBorradoLogico()) {
+                jComboBoxTorneos.addItem(unTorneo);
+            }
+        }        
         cargarTabla();
     }
 
@@ -57,27 +63,39 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         limpiarTabla();
         Torneo unTorneo = (Torneo) jComboBoxTorneos.getSelectedItem();
         HashSet<Socia> SociasDelEquipo = new HashSet();
-
-        for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
-            for (Partido unPartido : unaFecha.getPartidos()) {
-                if (unPartido.getUnEquipoLocal() == unEquipo) {
-                    for (Jugadora unaJugadora : unPartido.getJugadorasLocales()) {
-                        SociasDelEquipo.add(unaJugadora.getUnaSocia());
-                    }
-                } else if (unPartido.getUnEquipoVisitante() == unEquipo) {
-                    for (Jugadora unaJugadora : unPartido.getJugadorasVisitantes()) {
-                        SociasDelEquipo.add(unaJugadora.getUnaSocia());
+        if (unTorneo != null) {
+            for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
+                for (Partido unPartido : unaFecha.getPartidos()) {
+                    if (unPartido.getUnEquipoLocal() == unEquipo) {
+                        for (Jugadora unaJugadora : unPartido.getJugadorasLocales()) {
+                            SociasDelEquipo.add(unaJugadora.getUnaSocia());
+                        }
+                    } else if (unPartido.getUnEquipoVisitante() == unEquipo) {
+                        for (Jugadora unaJugadora : unPartido.getJugadorasVisitantes()) {
+                            SociasDelEquipo.add(unaJugadora.getUnaSocia());
+                        }
                     }
                 }
             }
         }
-        
-        for (Socia unaSocia : SociasDelEquipo) {            
-            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {                
+
+        for (Socia unaSocia : SociasDelEquipo) {
+            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
                 if (unaTarjeta.getUnTorneo() == unTorneo) {
-                    if (("Roja".equals(unaTarjeta.getTipo()))&& (jCheckBoxRojas.isSelected())) {
+                    if (("Roja".equals(unaTarjeta.getTipo())) && (jCheckBoxRojas.isSelected())) {
                         SancionTribunal unaSancion = unaControladoraGlobal.getSancionTarjeta(unaTarjeta);
-                        if(unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta)!=null){
+                        if (unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta) != null) {
+                            this.modeloTablaTarjetas.addRow(new Object[]{
+                                unaTarjeta.getIdTarjeta(),
+                                df.format(unaTarjeta.getFecha()),
+                                unaSocia,
+                                unaTarjeta.getTipo(),
+                                unaTarjeta.getUnTorneo().getNombre(),
+                                unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
+                                unaTarjeta.isComputado(),
+                                unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()});
+                        }
+                    } else if (("Amarilla".equals(unaTarjeta.getTipo())) && (jCheckBoxAmarillas.isSelected())) {
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
@@ -86,8 +104,8 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
                             unaTarjeta.getUnTorneo().getNombre(),
                             unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
                             unaTarjeta.isComputado(),
-                            unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()}); }
-                    }else if (("Amarilla".equals(unaTarjeta.getTipo()))&& (jCheckBoxAmarillas.isSelected())) {
+                            " - "});
+                    } else if (("Verde".equals(unaTarjeta.getTipo())) && (jCheckBoxVerdes.isSelected())) {
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
@@ -96,24 +114,14 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
                             unaTarjeta.getUnTorneo().getNombre(),
                             unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
                             unaTarjeta.isComputado(),
-                            " - "}); 
-                    }else if (("Verde".equals(unaTarjeta.getTipo()))&& (jCheckBoxVerdes.isSelected())) {
-                        this.modeloTablaTarjetas.addRow(new Object[]{
-                            unaTarjeta.getIdTarjeta(),
-                            df.format(unaTarjeta.getFecha()),
-                            unaSocia,
-                            unaTarjeta.getTipo(),
-                            unaTarjeta.getUnTorneo().getNombre(),
-                            unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
-                            unaTarjeta.isComputado(),
-                            " - "}); 
+                            " - "});
                     }
-                    
+
                 }
             }
         }
     }
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -407,7 +415,7 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCheckBoxRojasItemStateChanged
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-           unJInternalFrame.setVisible(true);
+        unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
 
