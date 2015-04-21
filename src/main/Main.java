@@ -30,7 +30,7 @@ public class Main {
                 DataInputStream entrada = new DataInputStream(fstream);
                 // Creamos el Buffer de Lectura
                 BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
-                
+
                 // Leer el archivo linea por linea
                 url = buffer.readLine();
                 user = buffer.readLine();
@@ -39,23 +39,27 @@ public class Main {
                 // Cerramos el archivo
                 entrada.close();
             } catch (Exception e) { //Catch de excepciones
-                System.err.println("Ocurrio un error: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error en la lectura del archivo de configuración de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
             }
             // </editor-fold>
 
             // <editor-fold defaultstate="collapsed" desc="Conexion con la Base de Datos">
             EntityManagerFactory entityManagerFactory = null;
             EntityManager entityManager = null;
-            
-            Map<String, String> persistenceMap = new HashMap<String, String>();   
+
+            Map<String, String> persistenceMap = new HashMap<String, String>();
             persistenceMap.put("javax.persistence.jdbc.url", url);
             persistenceMap.put("javax.persistence.jdbc.user", user);
             persistenceMap.put("javax.persistence.jdbc.password", pass);
-            persistenceMap.put("javax.persistence.jdbc.driver", driver);        
-            
-            entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU",persistenceMap); //nombre de la unidad de persistencia 
-            
-            entityManager = entityManagerFactory.createEntityManager();
+            persistenceMap.put("javax.persistence.jdbc.driver", driver);
+            try {
+                entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU", persistenceMap); //nombre de la unidad de persistencia 
+
+                entityManager = entityManagerFactory.createEntityManager();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Error propiedades", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println(exception.toString());
+            }
             // </editor-fold>
 
             ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(entityManager);

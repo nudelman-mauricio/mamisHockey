@@ -1,8 +1,11 @@
 package Interfaces;
 
 import java.awt.event.ItemEvent;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -16,6 +19,7 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private ConceptoDeportivo unConceptoDeportivoSeleccionado;
     private DefaultTableModel modeloTable;
+    private DateFormat dateFormatCompleto = DateFormat.getDateInstance();
     private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
     private SimpleDateFormat dateFormatSoloAnio = new SimpleDateFormat("YYYY");
     private String mesSeleccionado, anioSeleccionado, enter = System.lineSeparator();
@@ -70,7 +74,7 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
                 if (unConceptoDeportivo.getUnTipoEstado() != null) {
                     unAfectado = "Estado: " + unConceptoDeportivo.getUnTipoEstado().getNombre();
                 }
-                this.modeloTable.addRow(new Object[]{unConceptoDeportivo.getIdConceptoDeportivo(), true, unConceptoDeportivo.getConcepto(), unConceptoDeportivo.getMonto(), unAfectado});
+                this.modeloTable.addRow(new Object[]{unConceptoDeportivo, true, unConceptoDeportivo.getConcepto(), unConceptoDeportivo.getMonto(), unAfectado});
                 unAfectado = "No Especificado";
             }
         }
@@ -491,6 +495,26 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
 
     private void jButtonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarActionPerformed
         String cartelConfirmacion = "Va a generar las deudas correspondientes al mes de " + mesSeleccionado.toUpperCase() + " del año " + anioSeleccionado.toUpperCase() + "." + enter + enter + "Los conceptos a generar serán: " + enter;
+
+        // <editor-fold defaultstate="collapsed" desc="Crear Lista de Conceptos Seleccionados">
+        ConceptoDeportivo unConceptoDeportivo;
+        List<ConceptoDeportivo> conceptosSeleccionados = new ArrayList();
+        for (int i = 0; i < jTableConceptos.getRowCount(); i++) {
+            if ((boolean) jTableConceptos.getValueAt(i, 0)) {
+                unConceptoDeportivo = (ConceptoDeportivo) jTableConceptos.getValueAt(i, 0);
+
+                //Lista para el Reporte
+                conceptosSeleccionados.add(unConceptoDeportivo);
+
+                //Armar la lista para el cartel
+                cartelConfirmacion += unConceptoDeportivo.getConcepto() + enter;
+            }
+        }
+        // </editor-fold>
+
+        //Agregar vencimiento al cartel
+        cartelConfirmacion += "El día de vencimiento será: " + jDateChooserFechaVencimiento.get;
+
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
@@ -508,7 +532,6 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         }
 
 //                "Va a generar las deudas correspondientes al mes de " + sdf.format(unaControladoraGlobal.fechaSistema()).toUpperCase() + " del corriente año." + System.lineSeparator() + System.lineSeparator() + "Los conceptos a generar serán: " + System.lineSeparator() + "Cuota Socia" + System.lineSeparator() + "Cuota Jugadora" + System.lineSeparator() + "Cuota Licencia" + System.lineSeparator() + "Cuota Baja por Mora" + System.lineSeparator() + "Pase" + System.lineSeparator() + System.lineSeparator() + "Seleccione el día de vencimiento por favor:",
-
 //        if (!fechaVencimiento.equals("null")) {
 //            fechaVencimiento += "/" + (unaControladoraGlobal.fechaSistema().getMonth() + 1) + "/" + (unaControladoraGlobal.fechaSistema().getYear() + 1900);            
 //            try {
@@ -526,6 +549,9 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
             mesSeleccionado = String.valueOf(jComboBoxMes.getSelectedItem());
             anioSeleccionado = String.valueOf(jComboBoxAno.getSelectedItem());
             cargarTabla();
+            System.out.println("Date pelado" + jDateChooserFechaVencimiento.getDate());
+            System.out.println("Date string" + jDateChooserFechaVencimiento.getDateFormatString());
+            System.out.println("Date con df format" + dateFormatCompleto.format(jDateChooserFechaVencimiento.getDate()));
         }
     }//GEN-LAST:event_jComboBoxMesItemStateChanged
 
