@@ -1,10 +1,14 @@
 package Interfaces;
 
+import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoDeportivo;
-import logicaNegocios.Mes;
 import main.ControladoraGlobal;
 
 public class IGeneradorMensual extends javax.swing.JInternalFrame {
@@ -12,6 +16,9 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private ConceptoDeportivo unConceptoDeportivoSeleccionado;
     private DefaultTableModel modeloTable;
+    private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
+    private SimpleDateFormat dateFormatSoloAnio = new SimpleDateFormat("YYYY");
+    private String mesSeleccionado, anioSeleccionado, enter = System.lineSeparator();
 
     public IGeneradorMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -23,6 +30,21 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
         cargarTabla();
         camposLimpiar();
+
+        //Setear Combos para Mes actual y Año actual.
+        jComboBoxMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxAno.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
+
+        //Setear fecha de vencimiento con la fecha vencimiento estandar de la DB        
+        Date fechaVencimientoEstandar = (Date) unaControladoraGlobal.fechaSistema();
+        fechaVencimientoEstandar.setDate(Integer.parseInt(unaControladoraGlobal.getConfiguracion("diaVencimientoEstandar")));
+        //Si la fecha vencimiento parametro es anterior al dia de la fecha entonces setear vencimiento para el mes siguiente
+        if (fechaVencimientoEstandar.getDate() <= unaControladoraGlobal.fechaSistema().getDate()) {
+            fechaVencimientoEstandar.setMonth(fechaVencimientoEstandar.getMonth() + 1);
+            //Tambien setear el mes al que corresponde ya que se entiende que el mes actual ya se genero
+            jComboBoxMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())));
+        }
+        this.jDateChooserFechaVencimiento.setDate(fechaVencimientoEstandar);
     }
 
     private void limpiarTabla(DefaultTableModel modeloTabla) {
@@ -32,30 +54,36 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         }
     }
 
-    //Cargar Tabla con los conceptos deportivos
-    public void cargarTabla() {
+    /**
+     * Cargar Tabla con los conceptos deportivos. Pero verificar que el mes
+     * seleccionado corresponda con la Frecuencia establecida para cada
+     * concepto.
+     */
+    private void cargarTabla() {
         limpiarTabla(modeloTable);
         String unAfectado = "No Especificado";
         for (ConceptoDeportivo unConceptoDeportivo : unaControladoraGlobal.getConceptosDeportivosBD()) {
-            if (unConceptoDeportivo.getUnTipoCancha() != null) {
-                unAfectado = "Cancha: " + unConceptoDeportivo.getUnTipoCancha().getNombre();
+            if (unConceptoDeportivo.isMesEnFrecuencia(mesSeleccionado)) {
+                if (unConceptoDeportivo.getUnTipoCancha() != null) {
+                    unAfectado = "Cancha: " + unConceptoDeportivo.getUnTipoCancha().getNombre();
+                }
+                if (unConceptoDeportivo.getUnTipoEstado() != null) {
+                    unAfectado = "Estado: " + unConceptoDeportivo.getUnTipoEstado().getNombre();
+                }
+                this.modeloTable.addRow(new Object[]{unConceptoDeportivo.getIdConceptoDeportivo(), true, unConceptoDeportivo.getConcepto(), unConceptoDeportivo.getMonto(), unAfectado});
+                unAfectado = "No Especificado";
             }
-            if (unConceptoDeportivo.getUnTipoEstado() != null) {
-                unAfectado = "Estado: " + unConceptoDeportivo.getUnTipoEstado().getNombre();
-            }
-            this.modeloTable.addRow(new Object[]{unConceptoDeportivo.getIdConceptoDeportivo(), unConceptoDeportivo.getConcepto(), unConceptoDeportivo.getMonto(), unAfectado});
-            unAfectado = "No Especificado";
         }
     }
 
     //blanquea componentes editables
-    void camposLimpiar() {
+    private void camposLimpiar() {
         jTextFieldConcepto.setText("");
         jTextFieldMonto.setText("");
         camposLimpiarFrecuencia();
     }
 
-    void camposLimpiarFrecuencia() {
+    private void camposLimpiarFrecuencia() {
         jTextFieldAfectados.setText("");
         jCheckBox1.setSelected(false);
         jCheckBox2.setSelected(false);
@@ -72,51 +100,23 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
     }
 
     //cargar Check de Meses Frecuencia
-    void setMeses() {
-        for (Mes unMes : unConceptoDeportivoSeleccionado.getMeses()) {
-            switch (unMes.getNombre()) {
-                case "Enero":
-                    jCheckBox1.setSelected(true);
-                    break;
-                case "Febrero":
-                    jCheckBox2.setSelected(true);
-                    break;
-                case "Marzo":
-                    jCheckBox3.setSelected(true);
-                    break;
-                case "Abril":
-                    jCheckBox4.setSelected(true);
-                    break;
-                case "Mayo":
-                    jCheckBox5.setSelected(true);
-                    break;
-                case "Junio":
-                    jCheckBox6.setSelected(true);
-                    break;
-                case "Julio":
-                    jCheckBox7.setSelected(true);
-                    break;
-                case "Agosto":
-                    jCheckBox8.setSelected(true);
-                    break;
-                case "Septiembre":
-                    jCheckBox9.setSelected(true);
-                    break;
-                case "Octubre":
-                    jCheckBox10.setSelected(true);
-                    break;
-                case "Nobiembre":
-                    jCheckBox11.setSelected(true);
-                    break;
-                case "Diciembre":
-                    jCheckBox12.setSelected(true);
-                    break;
-            }
-        }
+    private void setMeses() {
+        jCheckBox1.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Enero"));
+        jCheckBox2.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Febrero"));
+        jCheckBox3.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Marzo"));
+        jCheckBox4.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Abril"));
+        jCheckBox5.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Mayo"));
+        jCheckBox6.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Junio"));
+        jCheckBox7.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Julio"));
+        jCheckBox8.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Agosto"));
+        jCheckBox9.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Septiembre"));
+        jCheckBox10.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Octubre"));
+        jCheckBox11.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Nobiembre"));
+        jCheckBox12.setSelected(unConceptoDeportivoSeleccionado.isMesEnFrecuencia("Diciembre"));
     }
 
     //actualizar campos al seleccionar en la tabla
-    void camposCargar() {
+    private void camposCargar() {
         if (jTableConceptos.getSelectedRow() > -1) {
             if (jTableConceptos.getValueAt(jTableConceptos.getSelectedRow(), 0) != null) {
                 unConceptoDeportivoSeleccionado = unaControladoraGlobal.getConceptoDeportivoBD((Long) jTableConceptos.getValueAt(jTableConceptos.getSelectedRow(), 0));
@@ -139,11 +139,6 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -153,9 +148,9 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         jDateChooserFechaVencimiento = new com.toedter.calendar.JDateChooser();
         jLabelFecha = new javax.swing.JLabel();
         jLabelFechaRealizacion4 = new javax.swing.JLabel();
-        jComboBoxDesdeMes = new javax.swing.JComboBox();
+        jComboBoxMes = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxDesdeAño = new javax.swing.JComboBox();
+        jComboBoxAno = new javax.swing.JComboBox();
         jPanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConceptos = new javax.swing.JTable();
@@ -181,9 +176,14 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         jCheckBox7 = new javax.swing.JCheckBox();
         jLabelMeses = new javax.swing.JLabel();
 
+        setClosable(true);
+        setMaximumSize(new java.awt.Dimension(659, 472));
+        setMinimumSize(new java.awt.Dimension(659, 472));
+        setPreferredSize(new java.awt.Dimension(659, 472));
+
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButtonGenerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Config.png"))); // NOI18N
+        jButtonGenerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); // NOI18N
         jButtonGenerar.setText("Generar");
         jButtonGenerar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGenerar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -197,63 +197,59 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
 
         jLabelFechaRealizacion4.setText("Cuota correspondiente al mes de");
 
-        jComboBoxDesdeMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        jComboBoxDesdeMes.addItemListener(new java.awt.event.ItemListener() {
+        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jComboBoxMes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxDesdeMesItemStateChanged(evt);
+                jComboBoxMesItemStateChanged(evt);
             }
         });
 
         jLabel2.setText("del año");
 
-        jComboBoxDesdeAño.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
-        jComboBoxDesdeAño.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxDesdeAñoItemStateChanged(evt);
-            }
-        });
+        jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
         jPanelBotonesLayout.setHorizontalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotonesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addComponent(jButtonGenerar)
-                .addGap(72, 72, 72)
+                .addGap(71, 71, 71)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaRealizacion4)
                     .addComponent(jLabelFecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addComponent(jButtonGenerar)
-                        .addContainerGap())
+                        .addGap(3, 3, 3)
+                        .addComponent(jButtonGenerar))
                     .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxDesdeAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFechaRealizacion4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFechaRealizacion4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooserFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(3, 3, 3))
         );
 
         jTableConceptos.setModel(new javax.swing.table.DefaultTableModel(
@@ -294,6 +290,11 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
             jTableConceptos.getColumnModel().getColumn(4).setPreferredWidth(110);
             jTableConceptos.getColumnModel().getColumn(4).setMaxWidth(110);
         }
+        jTableConceptos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                camposCargar();
+            }
+        });
 
         javax.swing.GroupLayout jPanelTablaLayout = new javax.swing.GroupLayout(jPanelTabla);
         jPanelTabla.setLayout(jPanelTablaLayout);
@@ -303,9 +304,7 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         );
         jPanelTablaLayout.setVerticalGroup(
             jPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaLayout.createSequentialGroup()
-                .addGap(0, 28, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
         );
 
         jPanelDetalles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -460,7 +459,7 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldAfectados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelAfectados))))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -480,10 +479,10 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -491,32 +490,25 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarActionPerformed
+        String cartelConfirmacion = "Va a generar las deudas correspondientes al mes de " + mesSeleccionado.toUpperCase() + " del año " + anioSeleccionado.toUpperCase() + "." + enter + enter + "Los conceptos a generar serán: " + enter;
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,
-                "Confirme que desea agregar un registro de Acta de Compromiso firmada con fecha actual.",
-                "Confirme",
+                cartelConfirmacion,
+                "Generar Deudas",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
-                options)) {
-            unaControladoraGlobal.agregarActaCompromiso(unaPersonaAuxiliar, unaControladoraGlobal.fechaSistema());
-            cargarTabla();
-            this.jButtonGenerar.setEnabled(false);
+                options
+        )) {
+//            unaControladoraGlobal.agregarActaCompromiso(unaPersonaAuxiliar, unaControladoraGlobal.fechaSistema());
+//            cargarTabla();
+//            this.jButtonGenerar.setEnabled(false);
         }
-        
-        
-//        SimpleDateFormat sdf = new SimpleDateFormat("MMMM");
-//        Object[] dias = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-//        String fechaVencimiento = String.valueOf(JOptionPane.showInputDialog(
-//                this,
+
 //                "Va a generar las deudas correspondientes al mes de " + sdf.format(unaControladoraGlobal.fechaSistema()).toUpperCase() + " del corriente año." + System.lineSeparator() + System.lineSeparator() + "Los conceptos a generar serán: " + System.lineSeparator() + "Cuota Socia" + System.lineSeparator() + "Cuota Jugadora" + System.lineSeparator() + "Cuota Licencia" + System.lineSeparator() + "Cuota Baja por Mora" + System.lineSeparator() + "Pase" + System.lineSeparator() + System.lineSeparator() + "Seleccione el día de vencimiento por favor:",
-//                "Generar Deudas",
-//                JOptionPane.QUESTION_MESSAGE,
-//                null,
-//                dias,
-//                "15"));
+
 //        if (!fechaVencimiento.equals("null")) {
 //            fechaVencimiento += "/" + (unaControladoraGlobal.fechaSistema().getMonth() + 1) + "/" + (unaControladoraGlobal.fechaSistema().getYear() + 1900);            
 //            try {
@@ -526,21 +518,16 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
 //                Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
 //            }
 //        }
-        
-        
+
     }//GEN-LAST:event_jButtonGenerarActionPerformed
 
-    private void jComboBoxDesdeMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeMesItemStateChanged
+    private void jComboBoxMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxMesItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-
+            mesSeleccionado = String.valueOf(jComboBoxMes.getSelectedItem());
+            anioSeleccionado = String.valueOf(jComboBoxAno.getSelectedItem());
+            cargarTabla();
         }
-    }//GEN-LAST:event_jComboBoxDesdeMesItemStateChanged
-
-    private void jComboBoxDesdeAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeAñoItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-
-        }
-    }//GEN-LAST:event_jComboBoxDesdeAñoItemStateChanged
+    }//GEN-LAST:event_jComboBoxMesItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -557,8 +544,8 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JComboBox jComboBoxDesdeAño;
-    private javax.swing.JComboBox jComboBoxDesdeMes;
+    private javax.swing.JComboBox jComboBoxAno;
+    private javax.swing.JComboBox jComboBoxMes;
     private com.toedter.calendar.JDateChooser jDateChooserFechaVencimiento;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelAfectados;

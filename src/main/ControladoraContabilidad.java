@@ -71,7 +71,7 @@ public class ControladoraContabilidad {
         }
     }
 
-    public Vector<ConceptoDeportivo> getConceptosDeportivosAutomaticosBD() {
+    private Vector<ConceptoDeportivo> getConceptosDeportivosAutomaticosBD() {
         Vector<ConceptoDeportivo> unaListaResultado = new Vector<ConceptoDeportivo>();
         unaListaResultado.add(this.getConceptoDeportivoBD("Cuota Socia"));
         unaListaResultado.add(this.getConceptoDeportivoBD("Cuota Jugadora"));

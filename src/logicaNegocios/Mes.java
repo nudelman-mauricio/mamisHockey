@@ -44,7 +44,7 @@ public class Mes implements Serializable, Comparable {
         }
         return retorno;
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="Persistir">
     public void persistir(EntityManager entityManager) {
         EntityTransaction tx = entityManager.getTransaction();

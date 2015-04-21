@@ -852,10 +852,6 @@ public class ControladoraGlobal {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(concepto);
     }
 
-    public Vector<ConceptoDeportivo> getConceptosDeportivosAutomaticosBD() {
-        return this.unaControladoraContabilidad.getConceptosDeportivosAutomaticosBD();
-    }
-
     public Vector<ConceptoDeportivo> getConceptosDeportivosParaComboContabilidadSociaBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosParaComboContabilidadSociaBD();
     }
@@ -863,7 +859,7 @@ public class ControladoraGlobal {
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosBD();
     }
-        // </editor-fold>
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Deudas">
     public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
@@ -875,40 +871,40 @@ public class ControladoraGlobal {
     }
 
     public void crearDeudasMensualesAutomaticas(Date fechaVencimiento) {
-        boolean bandera;
-        Date fechaSistema = this.fechaSistema();
-        for (Socia unaSocia : this.getSociasBD()) {
-            for (ConceptoDeportivo unConceptoDeportivo : this.getConceptosDeportivosAutomaticosBD()) {//fijarse que esta trayendo el concepto deportivo por pase que no deberia generar mensualmente de forma automatica. 
-                //al no poseer Estado de socia asignado al concepto deportivo por pase nunca genera, pero es un peligro
-
-                //
-                //De aca en adelante deberia empezar el filtro o la revision de cada concepto de acuerdo a su frecuencia establecida
-                //
-                Estado unEstadoUltimo = unaSocia.getUltimoEstado();
-                if ((unEstadoUltimo) != null) {
-                    if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {
-                        bandera = true;
-                        for (Deuda unaDeuda : unaSocia.getDeudas()) {
-                            if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)// aca me parece que esta mal el filtro por fecha de generacion. Ya que yo pued generar el 25 de este mes pero las cuotas correspondientes al mes que viene. Y luego el 5 del mes que viene se me ocurre volver a generar. Debería ser por fecha de vencimiento y la fecha de vencimiento deberia ser fija sin posibilidad a seleccionar
-                                    && (unaDeuda.getFechaGeneracion().getMonth() == fechaSistema.getMonth())
-                                    && (unaDeuda.getFechaGeneracion().getYear() == fechaSistema.getYear())) {
-                                bandera = false;
-                            }
-                        }
-                        if (bandera) {
-                            //Los Date tienen que ser instancias nuevas en cada deuda. Si no queda todo vinculado
-                            this.crearDeudaSocia(unaSocia,
-                                    new java.sql.Date(fechaSistema.getTime()),
-                                    unConceptoDeportivo,
-                                    "Deuda mensual generada automáticamente.",
-                                    unConceptoDeportivo.getMonto(),
-                                    1,
-                                    new java.sql.Date(fechaVencimiento.getTime()));
-                        }
-                    }
-                }
-            }
-        }
+//        boolean bandera;
+//        Date fechaSistema = this.fechaSistema();
+//        for (Socia unaSocia : this.getSociasBD()) {
+//            for (ConceptoDeportivo unConceptoDeportivo : this.getConceptosDeportivosAutomaticosBD()) {//fijarse que esta trayendo el concepto deportivo por pase que no deberia generar mensualmente de forma automatica. 
+//                //al no poseer Estado de socia asignado al concepto deportivo por pase nunca genera, pero es un peligro
+//
+//                //
+//                //De aca en adelante deberia empezar el filtro o la revision de cada concepto de acuerdo a su frecuencia establecida
+//                //
+//                Estado unEstadoUltimo = unaSocia.getUltimoEstado();
+//                if ((unEstadoUltimo) != null) {
+//                    if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {
+//                        bandera = true;
+//                        for (Deuda unaDeuda : unaSocia.getDeudas()) {
+//                            if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)// aca me parece que esta mal el filtro por fecha de generacion. Ya que yo pued generar el 25 de este mes pero las cuotas correspondientes al mes que viene. Y luego el 5 del mes que viene se me ocurre volver a generar. Debería ser por fecha de vencimiento y la fecha de vencimiento deberia ser fija sin posibilidad a seleccionar
+//                                    && (unaDeuda.getFechaGeneracion().getMonth() == fechaSistema.getMonth())
+//                                    && (unaDeuda.getFechaGeneracion().getYear() == fechaSistema.getYear())) {
+//                                bandera = false;
+//                            }
+//                        }
+//                        if (bandera) {
+//                            //Los Date tienen que ser instancias nuevas en cada deuda. Si no queda todo vinculado
+//                            this.crearDeudaSocia(unaSocia,
+//                                    new java.sql.Date(fechaSistema.getTime()),
+//                                    unConceptoDeportivo,
+//                                    "Deuda mensual generada automáticamente.",
+//                                    unConceptoDeportivo.getMonto(),
+//                                    1,
+//                                    new java.sql.Date(fechaVencimiento.getTime()));
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     public void eliminarDeuda(Deuda unaDeuda) {
