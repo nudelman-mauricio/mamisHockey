@@ -29,10 +29,12 @@ public class ICancha extends javax.swing.JInternalFrame {
 
     public ICancha(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         initComponents();
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unClub = unClub;
         this.modeloTable = (DefaultTableModel) jTableCancha.getModel();
+        this.jTableCancha.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png"))); //Icono Ventana
         this.setTitle("Canchas de Club: " + unClub.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar

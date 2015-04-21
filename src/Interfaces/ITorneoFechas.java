@@ -43,6 +43,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unTorneo = unTorneo;
+        this.jTableFechasTorneo.getTableHeader().setReorderingAllowed(false);
 
         this.jTableFechasTorneo.setDefaultRenderer(Object.class, new TableCellRendererColor());
         this.modeloTable = (DefaultTableModel) jTableFechasTorneo.getModel();

@@ -26,7 +26,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
         this.setTitle("Gestión de Torneos");
         IMenuPrincipalInterface.centrar(this);
-
+        this.jTableTorneo.getTableHeader().setReorderingAllowed(false);
+        
         jTextFieldBusqueda.setText("");
         cargarTabla();
         camposActivo(false);

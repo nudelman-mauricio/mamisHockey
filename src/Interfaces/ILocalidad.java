@@ -18,6 +18,7 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     public ILocalidad(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
+        this.jTableLocalidad.getTableHeader().setReorderingAllowed(false);
         this.modeloTablaLocalidad = (DefaultTableModel) jTableLocalidad.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Localidad.png"))); 
         this.setTitle("Localidades");

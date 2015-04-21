@@ -35,6 +35,7 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionEgresos = (DefaultTableModel) jTableEgresos.getModel();
+        this.jTableEgresos.getTableHeader().setReorderingAllowed(false);
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Egresos");

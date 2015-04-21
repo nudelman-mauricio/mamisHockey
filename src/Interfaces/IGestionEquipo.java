@@ -37,6 +37,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
         this.setTitle("Gestión de Equipos");
         IMenuPrincipalInterface.centrar(this);
+        this.jTableEquipo.getTableHeader().setReorderingAllowed(false);       
 
         jTextFieldBusqueda.setText("");
         cargarTabla();

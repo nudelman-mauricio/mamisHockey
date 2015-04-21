@@ -17,9 +17,10 @@ public class ICategoria extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaCategoria;
     private Categoria unaCategoriaSeleccionada;
-
-    public ICategoria(ControladoraGlobal unaControladoraGlobal) {
-        initComponents();
+    
+    public ICategoria(ControladoraGlobal unaControladoraGlobal) {        
+        initComponents(); 
+        this.jTableCategoria.getTableHeader().setReorderingAllowed(false);
         this.modeloTablaCategoria = (DefaultTableModel) jTableCategoria.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;        
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));

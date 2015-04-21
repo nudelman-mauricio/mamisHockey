@@ -33,7 +33,8 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
         this.modeloTableDeudas = (DefaultTableModel) jTableDeudas.getModel();
-
+        this.jTableDeudas.getTableHeader().setReorderingAllowed(false);
+        
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unEquipo.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar

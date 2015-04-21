@@ -26,7 +26,8 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
 
     public IConceptoIngresoDeportivo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-
+        
+        this.jTableConceptos.getTableHeader().setReorderingAllowed(false);
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
         camposActivo(jPanelDetalles, false);

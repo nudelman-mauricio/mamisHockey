@@ -25,6 +25,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
         this.modeloTablaPlantel = (DefaultTableModel) jTablePlantel.getModel();
+        this.jTablePlantel.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
         this.setTitle("Plantel de Equipo: " + unEquipo.getNombre());
         IMenuPrincipalInterface.centrar(this);

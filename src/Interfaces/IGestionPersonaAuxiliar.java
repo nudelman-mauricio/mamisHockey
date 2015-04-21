@@ -24,6 +24,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         this.setTitle("Gestión de Auxiliares");
         IMenuPrincipalInterface.centrar(this);
+        this.jTablePersonaAuxiliar.getTableHeader().setReorderingAllowed(false);
 
         jTextFieldBusqueda.setText("");
         cargarTabla();

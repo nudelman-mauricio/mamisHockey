@@ -25,6 +25,7 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
         this.modeloTable = (DefaultTableModel) jTableHistorico.getModel();
+        this.jTableHistorico.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/HistorialPagos.png")));

@@ -37,6 +37,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Ingresos Otro");
         IMenuPrincipalInterface.centrar(this);
+        this.jTableIngresos.getTableHeader().setReorderingAllowed(false);
         
         if (unaControladoraGlobal.getIngresosOtrosBD().size() > 0) {
             cargarFechasFiltrado();

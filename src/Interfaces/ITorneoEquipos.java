@@ -28,6 +28,8 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
         initComponents();
         IMenuPrincipalInterface.centrar(this);
         this.unJInternalFrame = unJInternalFrame;
+        this.jTableEquiposDisponibles.getTableHeader().setReorderingAllowed(false);
+        this.jTableEquiposInscriptos.getTableHeader().setReorderingAllowed(false);
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unTorneo = unTorneo;
         this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();

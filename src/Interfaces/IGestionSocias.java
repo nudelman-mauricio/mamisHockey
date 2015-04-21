@@ -24,6 +24,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         this.setTitle("Gestión de Socias");
         IMenuPrincipalInterface.centrar(this);
+        this.jTableSocias.getTableHeader().setReorderingAllowed(false);
 
         jTextFieldBusqueda.setText("");
         cargarTabla();

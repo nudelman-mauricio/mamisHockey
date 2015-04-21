@@ -60,6 +60,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.modeloTableGolLocal = (DefaultTableModel) jTableGolLocal.getModel();
         this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
         this.modeloTableGolVisitante = (DefaultTableModel) jTableGolVisitante.getModel();
+        
+        this.jTableGolLocal.getTableHeader().setReorderingAllowed(false);
+        this.jTableGolVisitante.getTableHeader().setReorderingAllowed(false);
+        this.jTableLocal.getTableHeader().setReorderingAllowed(false);
+        this.jTableVisitante.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));

@@ -36,7 +36,8 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.unaSocia = unaSocia;
         this.modeloTableDeudas = (DefaultTableModel) jTableDeudas.getModel();
         this.modeloTableCuotas = (DefaultTableModel) jTableCuotas.getModel();
-        
+        this.jTableCuotas.getTableHeader().setReorderingAllowed(false);
+        this.jTableDeudas.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar

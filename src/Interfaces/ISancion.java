@@ -36,6 +36,8 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
+        
+        this.jTableSancion.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));

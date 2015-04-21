@@ -34,6 +34,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
+        this.jTableTarjeta.getTableHeader().setReorderingAllowed(false);        
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));

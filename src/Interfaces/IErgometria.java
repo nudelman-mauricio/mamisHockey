@@ -30,6 +30,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
     public IErgometria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
+        this.jTableErgometrias.getTableHeader().setReorderingAllowed(false);
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();

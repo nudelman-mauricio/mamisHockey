@@ -17,6 +17,7 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
     
     public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub, JInternalFrame unJInternalFrame) {
         initComponents();
+        this.jTableEquipo.getTableHeader().setReorderingAllowed(false);
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unClub = unClub;     
         this.unJInternalFrame = unJInternalFrame;

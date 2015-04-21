@@ -32,6 +32,7 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         initComponents();
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaClub = (DefaultTableModel) jTableClub.getModel();
+        this.jTableClub.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
         this.setTitle("Gestión de Clubes");
         IMenuPrincipalInterface.centrar(this);

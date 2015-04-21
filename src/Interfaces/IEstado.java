@@ -34,6 +34,7 @@ public class IEstado extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
         IMenuPrincipalInterface.centrar(this);
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
+        this.jTableEstado.getTableHeader().setReorderingAllowed(false);
 
         this.jComboBoxEstado.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposEstadosBD()));
         this.modeloTableEstado = (DefaultTableModel) jTableEstado.getModel();
