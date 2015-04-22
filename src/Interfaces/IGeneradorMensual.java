@@ -507,7 +507,7 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
                 conceptosSeleccionados.add(unConceptoDeportivo);
 
                 //Armar la lista para el cartel
-                cartelConfirmacion += "     - "+unConceptoDeportivo.getConcepto() + enter;
+                cartelConfirmacion += "     - " + unConceptoDeportivo.getConcepto() + enter;
             }
         }
         // </editor-fold>
@@ -526,7 +526,8 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
                 options,
                 options
         )) {
-            unaControladoraGlobal.crearDeudasMensualesAutomaticas(jDateChooserFechaVencimiento.getDate(), conceptosSeleccionados);
+            String observacionParametro = "Cuota correspondiente al mes de " + mesSeleccionado.toUpperCase() + " del año " + anioSeleccionado.toUpperCase();
+            unaControladoraGlobal.crearDeudasMensualesAutomaticas(jDateChooserFechaVencimiento.getDate(), conceptosSeleccionados, observacionParametro);
             JOptionPane.showMessageDialog(this, "Se generaron las deudas Exitosamente. Gracias por aguardar.");
 
             this.jButtonGenerar.setEnabled(false);
