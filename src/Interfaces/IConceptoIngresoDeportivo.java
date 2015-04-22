@@ -273,9 +273,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jLabelFechaRealizacion3 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximumSize(new java.awt.Dimension(650, 588));
-        setMinimumSize(new java.awt.Dimension(650, 588));
-        setPreferredSize(new java.awt.Dimension(650, 588));
+        setMaximumSize(new java.awt.Dimension(650, 589));
+        setMinimumSize(new java.awt.Dimension(650, 589));
+        setPreferredSize(new java.awt.Dimension(650, 589));
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -433,8 +433,14 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jPanelFrecuencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Frecuencia de Autogeneración"));
 
         jCheckBox1.setText("E");
+        jCheckBox1.setMaximumSize(new java.awt.Dimension(33, 23));
+        jCheckBox1.setMinimumSize(new java.awt.Dimension(33, 23));
+        jCheckBox1.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox2.setText("F");
+        jCheckBox2.setMaximumSize(new java.awt.Dimension(33, 23));
+        jCheckBox2.setMinimumSize(new java.awt.Dimension(33, 23));
+        jCheckBox2.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox3.setText("M");
 
@@ -445,10 +451,14 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jCheckBox6.setText("J");
         jCheckBox6.setMaximumSize(new java.awt.Dimension(33, 23));
         jCheckBox6.setMinimumSize(new java.awt.Dimension(33, 23));
+        jCheckBox6.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox8.setText("A");
 
         jCheckBox9.setText("S");
+        jCheckBox9.setMaximumSize(new java.awt.Dimension(33, 23));
+        jCheckBox9.setMinimumSize(new java.awt.Dimension(33, 23));
+        jCheckBox9.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox10.setText("O");
 
@@ -457,6 +467,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jCheckBox12.setText("D");
 
         jCheckBox7.setText("J");
+        jCheckBox7.setMaximumSize(new java.awt.Dimension(33, 23));
+        jCheckBox7.setMinimumSize(new java.awt.Dimension(33, 23));
+        jCheckBox7.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jLabelMeses.setText("Meses a los que se aplica");
 
@@ -466,23 +479,17 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox8))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox9)
-                        .addGap(4, 4, 4)
-                        .addComponent(jCheckBox10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox12))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -490,7 +497,16 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox12)))
                 .addGap(16, 16, 16))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
@@ -503,17 +519,17 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
                 .addComponent(jLabelMeses)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox3)
                     .addComponent(jCheckBox4)
                     .addComponent(jCheckBox5)
                     .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox7)
+                    .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox8)
-                    .addComponent(jCheckBox9)
+                    .addComponent(jCheckBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox10)
                     .addComponent(jCheckBox11)
                     .addComponent(jCheckBox12))
