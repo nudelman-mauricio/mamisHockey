@@ -883,12 +883,17 @@ public class ControladoraGlobal {
 //        Date fechaSistema = this.fechaSistema();
 //        for (Socia unaSocia : this.getSociasBD()) {
 //            for (ConceptoDeportivo unConceptoDeportivo : conceptosSeleccionados) {
-//                Estado unEstadoUltimo = unaSocia.getUltimoEstado(); //Si la secretaria genera con demasiado tiempo de anticipacion puede surgir el caso de generar Cuota Socia Jugadora a una Socia que esta de Baja
+//                //Si la secretaria genera con demasiado tiempo de anticipacion puede surgir el caso de generar Cuota Socia Jugadora a una Socia que despues pasa a Baja
+//                //Acordamos que eso es problema de la Secretaria ya
+//                Estado unEstadoUltimo = unaSocia.getUltimoEstado();
 //                if ((unEstadoUltimo) != null) {
-////                    if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {// Falta cancha por ejemplo
-////                        bandera = true;
-////                        for (Deuda unaDeuda : unaSocia.getDeudas()) {
-////                            if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)// aca me parece que esta mal el filtro por fecha de generacion. Ya que yo pued generar el 25 de este mes pero las cuotas correspondientes al mes que viene. Y luego el 5 del mes que viene se me ocurre volver a generar. Debería ser por fecha de vencimiento y la fecha de vencimiento deberia ser fija sin posibilidad a seleccionar
+//                    if (unConceptoDeportivo.getUnTipoEstado() == unEstadoUltimo.getUnTipoEstado()) {
+//                        bandera = true;
+//                        for (Deuda unaDeuda : unaSocia.getDeudas()) {
+//                        //Aca me parece que esta mal el filtro por fecha de generacion. Ya que yo pued generar el 25 de este mes pero las cuotas correspondientes al mes que viene. Y luego el 5 del mes que viene se me ocurre volver a generar. Debería ser por fecha de vencimiento y la fecha de vencimiento deberia ser fija sin posibilidad a seleccionar        
+//                        //El filtro debe observar que la deuda generada no tenga el mismo comentario nada mas
+//                        //"Cuota correspondiente al mes de Enero del año 2010"
+////                            if ((unaDeuda.getUnConceptoDeportivo() == unConceptoDeportivo)
 ////                                    && (unaDeuda.getFechaGeneracion().getMonth() == fechaSistema.getMonth())
 ////                                    && (unaDeuda.getFechaGeneracion().getYear() == fechaSistema.getYear())) {
 ////                                bandera = false;
