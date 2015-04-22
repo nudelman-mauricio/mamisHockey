@@ -44,24 +44,16 @@ public class Main {
             // </editor-fold>
 
             // <editor-fold defaultstate="collapsed" desc="Conexion con la Base de Datos">
-            EntityManagerFactory entityManagerFactory = null;
-            EntityManager entityManager = null;
-
             Map<String, String> persistenceMap = new HashMap<String, String>();
             persistenceMap.put("javax.persistence.jdbc.url", url);
             persistenceMap.put("javax.persistence.jdbc.user", user);
             persistenceMap.put("javax.persistence.jdbc.password", pass);
             persistenceMap.put("javax.persistence.jdbc.driver", driver);
-            try {
-                entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU", persistenceMap); //nombre de la unidad de persistencia 
 
-                entityManager = entityManagerFactory.createEntityManager();
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, "Error propiedades", "Error", JOptionPane.ERROR_MESSAGE);
-                System.out.println(exception.toString());
-            }
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU", persistenceMap); //nombre de la unidad de persistencia 
+            EntityManager entityManager = entityManagerFactory.createEntityManager();            
             // </editor-fold>
-
+            
             ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(entityManager);
 
             // <editor-fold defaultstate="collapsed" desc="Aplicar Skin">

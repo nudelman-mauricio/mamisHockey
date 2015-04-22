@@ -115,10 +115,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemCategoria = new javax.swing.JMenuItem();
         jMenuItemTipoCancha = new javax.swing.JMenuItem();
         jMenuCargaDB = new javax.swing.JMenu();
-        jMenuItemEstados = new javax.swing.JMenuItem();
-        jMenuItemEquipos = new javax.swing.JMenuItem();
-        jMenuItemErgometrias = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemLos3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -326,38 +322,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
         jMenuCargaDB.setText("Asistentes de Carga DB");
 
-        jMenuItemEstados.setText("setEstadoSocia()");
-        jMenuItemEstados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEstadosActionPerformed(evt);
-            }
-        });
-        jMenuCargaDB.add(jMenuItemEstados);
-
-        jMenuItemEquipos.setText("setEquipoAleatorio()");
-        jMenuItemEquipos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEquiposActionPerformed(evt);
-            }
-        });
-        jMenuCargaDB.add(jMenuItemEquipos);
-
-        jMenuItemErgometrias.setText("setErgometrias()");
-        jMenuItemErgometrias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemErgometriasActionPerformed(evt);
-            }
-        });
-        jMenuCargaDB.add(jMenuItemErgometrias);
-
-        jMenuItem2.setText("setCamSocia() ");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenuCargaDB.add(jMenuItem2);
-
         jMenuItemLos3.setText("TODOS JUNTOS");
         jMenuItemLos3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -519,28 +483,12 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unGestionTorneo.moveToFront();
     }//GEN-LAST:event_jMenuTorneoMouseClicked
 
-    private void jMenuItemEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosActionPerformed
-        setEstadoSocia();
-    }//GEN-LAST:event_jMenuItemEstadosActionPerformed
-
-    private void jMenuItemEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEquiposActionPerformed
-        setEquipoAleatorio();
-    }//GEN-LAST:event_jMenuItemEquiposActionPerformed
-
-    private void jMenuItemErgometriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemErgometriasActionPerformed
-        setErgometrias();
-    }//GEN-LAST:event_jMenuItemErgometriasActionPerformed
-
     private void jMenuItemLos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLos3ActionPerformed
         setEstadoSocia();
         setEquipoAleatorio();
         setErgometrias();
         setCamSocia();
     }//GEN-LAST:event_jMenuItemLos3ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        setCamSocia();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItemCuotaMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCuotaMensualActionPerformed
         IGeneradorMensual unIGeneradorMensual = new IGeneradorMensual(unaControladoraGlobal);
@@ -629,7 +577,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFormularios;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -642,9 +589,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemConceptosDeportivos;
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
     private javax.swing.JMenuItem jMenuItemCuotaMensual;
-    private javax.swing.JMenuItem jMenuItemEquipos;
-    private javax.swing.JMenuItem jMenuItemErgometrias;
-    private javax.swing.JMenuItem jMenuItemEstados;
     private javax.swing.JMenuItem jMenuItemEstadosSocia;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
