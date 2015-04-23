@@ -19,11 +19,11 @@ import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
 public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
-
+    
     private ControladoraGlobal unaControladoraGlobal;
     private ConceptoDeportivo unConceptoDeportivoSeleccionado;
     private DefaultTableModel modeloTable;
-
+    
     public IConceptoIngresoDeportivo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
@@ -32,7 +32,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
         camposActivo(jPanelDetalles, false);
         cargarTabla();
-
+        
         Vector comboBoxItems = new Vector();
         for (TipoCancha aux : unaControladoraGlobal.getTiposCanchasBD()) {
             comboBoxItems.add(aux);
@@ -42,13 +42,13 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         }
         DefaultComboBoxModel modelComboAfectados = new DefaultComboBoxModel(comboBoxItems);
         this.jComboBoxAfectados.setModel(modelComboAfectados);
-
+        
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Gestión Conceptos Ingreso Deportivo"); //Titulo Ventana
         IMenuPrincipalInterface.centrar(this); //Centrar
         camposLimpiar();
     }
-
+    
     private void limpiarTabla(DefaultTableModel modeloTabla) {
         int filas = modeloTabla.getRowCount();
         for (int i = 0; i < filas; i++) {
@@ -76,17 +76,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
 
     //deshabilitar todo lo de un contenedor
     void camposActivo(Container c, boolean bandera) {
-        Component[] components = c.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            components[i].setEnabled(bandera);
-            if (components[i] instanceof JTextField) {
-                ((JTextField) components[i]).setEditable(bandera);
-            }
-            if (components[i] instanceof Container) {
-                camposActivo((Container) components[i], bandera);
-            }
-        }
-        jTextFieldConcepto.setEditable(false);
+        jTextFieldMonto.setEditable(bandera);
     }
 
     //blanquea componentes editables
@@ -95,7 +85,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jTextFieldMonto.setText("");
         camposLimpiarFrecuencia();
     }
-
+    
     void camposLimpiarFrecuencia() {
         jCheckBoxAutoGeneracion.setSelected(false);
         jComboBoxAfectados.setSelectedIndex(-1);
@@ -176,19 +166,19 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         if (jTableConceptos.getSelectedRow() > -1) {
             if (jTableConceptos.getValueAt(jTableConceptos.getSelectedRow(), 0) != null) {
                 unConceptoDeportivoSeleccionado = unaControladoraGlobal.getConceptoDeportivoBD((Long) jTableConceptos.getValueAt(jTableConceptos.getSelectedRow(), 0));
-
+                
                 camposLimpiar();
-
+                
                 jTextFieldConcepto.setText(unConceptoDeportivoSeleccionado.getConcepto());
                 jTextFieldMonto.setText(String.valueOf(unConceptoDeportivoSeleccionado.getMonto()));
-
+                
                 if (unConceptoDeportivoSeleccionado.getUnTipoCancha() != null) {
                     jComboBoxAfectados.setSelectedItem(unConceptoDeportivoSeleccionado.getUnTipoCancha());
                 }
                 if (unConceptoDeportivoSeleccionado.getUnTipoEstado() != null) {
                     jComboBoxAfectados.setSelectedItem(unConceptoDeportivoSeleccionado.getUnTipoEstado());
                 }
-
+                
                 if (!unConceptoDeportivoSeleccionado.getMeses().isEmpty()) {
                     jCheckBoxAutoGeneracion.setSelected(true);
                     setMeses();
@@ -199,7 +189,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     private boolean camposValidar() {
         boolean bandera = true;
         if (jTextFieldConcepto.getText().isEmpty()) {
@@ -233,7 +223,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         }
         return bandera;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -424,6 +414,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
 
         jTextFieldConcepto.setEditable(false);
 
+        jCheckBoxAutoGeneracion.setEnabled(false);
         jCheckBoxAutoGeneracion.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jCheckBoxAutoGeneracionStateChanged(evt);
@@ -433,40 +424,52 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jPanelFrecuencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Frecuencia de Autogeneración"));
 
         jCheckBox1.setText("E");
+        jCheckBox1.setEnabled(false);
         jCheckBox1.setMaximumSize(new java.awt.Dimension(33, 23));
         jCheckBox1.setMinimumSize(new java.awt.Dimension(33, 23));
         jCheckBox1.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox2.setText("F");
+        jCheckBox2.setEnabled(false);
         jCheckBox2.setMaximumSize(new java.awt.Dimension(33, 23));
         jCheckBox2.setMinimumSize(new java.awt.Dimension(33, 23));
         jCheckBox2.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox3.setText("M");
+        jCheckBox3.setEnabled(false);
 
         jCheckBox4.setText("A");
+        jCheckBox4.setEnabled(false);
 
         jCheckBox5.setText("M");
+        jCheckBox5.setEnabled(false);
 
         jCheckBox6.setText("J");
+        jCheckBox6.setEnabled(false);
         jCheckBox6.setMaximumSize(new java.awt.Dimension(33, 23));
         jCheckBox6.setMinimumSize(new java.awt.Dimension(33, 23));
         jCheckBox6.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox8.setText("A");
+        jCheckBox8.setEnabled(false);
 
         jCheckBox9.setText("S");
+        jCheckBox9.setEnabled(false);
         jCheckBox9.setMaximumSize(new java.awt.Dimension(33, 23));
         jCheckBox9.setMinimumSize(new java.awt.Dimension(33, 23));
         jCheckBox9.setPreferredSize(new java.awt.Dimension(33, 23));
 
         jCheckBox10.setText("O");
+        jCheckBox10.setEnabled(false);
 
         jCheckBox11.setText("N");
+        jCheckBox11.setEnabled(false);
 
         jCheckBox12.setText("D");
+        jCheckBox12.setEnabled(false);
 
         jCheckBox7.setText("J");
+        jCheckBox7.setEnabled(false);
         jCheckBox7.setMaximumSize(new java.awt.Dimension(33, 23));
         jCheckBox7.setMinimumSize(new java.awt.Dimension(33, 23));
         jCheckBox7.setPreferredSize(new java.awt.Dimension(33, 23));
@@ -488,9 +491,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
                         .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox4)
@@ -499,7 +502,6 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox10)
@@ -537,6 +539,8 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         );
 
         jLabelAfectados.setText("Le corresponde pagar a");
+
+        jComboBoxAfectados.setEnabled(false);
 
         javax.swing.GroupLayout jPanelFrecuenciaLayout = new javax.swing.GroupLayout(jPanelFrecuencia);
         jPanelFrecuencia.setLayout(jPanelFrecuenciaLayout);
@@ -643,9 +647,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableConceptos.setEnabled(false);
-
+        
         camposActivo(jPanelDetalles, true);
         camposActivo(jPanelFrecuencia, false);
         camposLimpiar();
@@ -658,9 +662,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableConceptos.setEnabled(false);
-
+        
         camposActivo(jPanelDetalles, true);
         camposActivo(jPanelFrecuencia, jCheckBoxAutoGeneracion.isSelected());
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -694,9 +698,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
             jButtonGuardar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
-
+            
             jTableConceptos.setEnabled(true);
-
+            
             camposActivo(jPanelDetalles, false);
             camposLimpiar();
         }
@@ -715,9 +719,9 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableConceptos.setEnabled(true);
-
+        
         camposActivo(jPanelDetalles, false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -728,11 +732,11 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableConceptos.setEnabled(false);
-
+        
         camposActivo(jPanelDetalles, false);
-
+        
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
                 this,

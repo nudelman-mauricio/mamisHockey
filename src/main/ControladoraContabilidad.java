@@ -478,7 +478,7 @@ public class ControladoraContabilidad {
             new Mes(entityManager, "Agosto");
             new Mes(entityManager, "Septiembre");
             new Mes(entityManager, "Octubre");
-            new Mes(entityManager, "Nobiembre");
+            new Mes(entityManager, "Noviembre");
             new Mes(entityManager, "Diciembre");
         }
     }
