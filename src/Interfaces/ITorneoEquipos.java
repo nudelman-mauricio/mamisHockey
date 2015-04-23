@@ -53,10 +53,10 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         //cargar inscriptos
         this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
-            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
-                this.modeloTablaEquipoInscripto.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
-            }
-        if (unTorneo.getUnTorneoPadre() == null) {            
+        for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+            this.modeloTablaEquipoInscripto.addRow(new Object[]{unEquipo.getIdEquipo(), unEquipo.getNombre(), unaControladoraGlobal.getClubBD(unEquipo)});
+        }
+        if (unTorneo.getUnTorneoPadre() == null) {
             //cargar disponibles
             this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
             boolean bandera = true;
@@ -71,8 +71,8 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
                 }
                 bandera = true;
             }
-        } else {           
-            
+        } else {
+
             this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
             boolean bandera = true;
             for (Equipo unEquipo : unTorneo.getUnTorneoPadre().getEquiposInscriptos()) {
@@ -284,11 +284,11 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
+                        .addGap(124, 124, 124)
                         .addComponent(jButtonAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonQuitar)
-                        .addContainerGap(152, Short.MAX_VALUE))))
+                        .addContainerGap(161, Short.MAX_VALUE))))
         );
 
         pack();
@@ -305,26 +305,35 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
 
     private void jButtonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarActionPerformed
         boolean bandera = true;
-        for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
-            for (Partido unPartido : unaFecha.getPartidos()) {
-                if (unPartido.getUnEquipoLocal().equals(unEquipoSeleccionado) || unPartido.getUnEquipoVisitante().equals(unEquipoSeleccionado)) {
-                    bandera = false;
+        Equipo unEquipo;
+        for (int indice : jTableEquiposInscriptos.getSelectedRows()) {
+            unEquipo = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposInscriptos.getValueAt(indice, 0));
+            for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
+                for (Partido unPartido : unaFecha.getPartidos()) {
+                    if (unPartido.getUnEquipoLocal().equals(unEquipo) || unPartido.getUnEquipoVisitante().equals(unEquipo)) {
+                        bandera = false;
+                    }
                 }
             }
-        }
-        if (bandera) {
-            unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipoSeleccionado);
-            unEquipoSeleccionado = null;
+            if (bandera) {
+                unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipo);
+            } else {
+                JOptionPane.showMessageDialog(this, "El Equipo "+unEquipo+" no puede ser eliminado del torneo debido a que tiene asignados partidos");
+            }
+            bandera = true;
+        }    
+        unEquipoSeleccionado = null;
             limpiarTabla();
             cargarTabla();
             jButtonQuitar.setEnabled(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "El Equipo no puede ser eliminado del torneo debido a que tiene asignados partidos");
-        }
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipoSeleccionado);
+        Equipo unEquipo;
+        for (int indice : jTableEquiposDisponibles.getSelectedRows()) {
+            unEquipo = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(indice, 0));
+            unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipo);
+        }
         unEquipoSeleccionado = null;
         limpiarTabla();
         cargarTabla();

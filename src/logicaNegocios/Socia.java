@@ -146,7 +146,7 @@ public class Socia extends Persona implements Serializable {
 
         if (this.ergometrias != null) {
             if (!this.isErgometriaAprobada_y_Vigente(unaFecha)) {
-                cadena += "Ergometria";
+                cadena += "Ergometría";
             }
         }
         if (this.estados != null) {
