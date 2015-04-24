@@ -686,7 +686,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="* Los equipos en rojo estan sancionados y no deben jugar"/>
+        <Property name="text" type="java.lang.String" value="* Los equipos en rojo est&#xe1;n sancionados y no deben jugar"/>
       </Properties>
     </Component>
   </SubComponents>

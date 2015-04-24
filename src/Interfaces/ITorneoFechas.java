@@ -775,7 +775,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
         jLabelEquiposSancionados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelEquiposSancionados.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelEquiposSancionados.setText("* Los equipos en rojo estan sancionados y no deben jugar");
+        jLabelEquiposSancionados.setText("* Los equipos en rojo están sancionados y no deben jugar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

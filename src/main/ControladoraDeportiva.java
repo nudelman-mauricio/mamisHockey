@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -77,8 +78,11 @@ public class ControladoraDeportiva {
     }
 
     public void descontarSancion(Partido unPartido) {
-        for (Jugadora unaJugadora : unPartido.getJugadoras()) {
-            for (SancionTribunal unaSancionTribunal : unaJugadora.getUnaSocia().getSancionesVigentes(unPartido.getFecha())) {
+        Collection<Socia> ambosEquiposCompletos = unPartido.getUnEquipoLocal().getPlantel();
+        ambosEquiposCompletos.addAll(unPartido.getUnEquipoVisitante().getPlantel());
+        for (Socia unaSocia : ambosEquiposCompletos) {
+            System.out.println(unaSocia.toString());
+            for (SancionTribunal unaSancionTribunal : unaSocia.getSancionesVigentes(unPartido.getFecha())) {
                 if (!unaSancionTribunal.getUnPartido().equals(unPartido)) {
                     unaSancionTribunal.sumarFechaCumplida();
                     unaSancionTribunal.persistir(this.entityManager);

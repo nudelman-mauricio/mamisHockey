@@ -60,7 +60,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.modeloTableGolLocal = (DefaultTableModel) jTableGolLocal.getModel();
         this.modeloTableVisitante = (DefaultTableModel) jTableVisitante.getModel();
         this.modeloTableGolVisitante = (DefaultTableModel) jTableGolVisitante.getModel();
-        
+
         this.jTableGolLocal.getTableHeader().setReorderingAllowed(false);
         this.jTableGolVisitante.getTableHeader().setReorderingAllowed(false);
         this.jTableLocal.getTableHeader().setReorderingAllowed(false);
@@ -74,7 +74,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         camposActivo(false);
         // <editor-fold defaultstate="collapsed" desc="Control de Botones">
         jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);        
+        jButtonCancelar.setEnabled(false);
         if (unaControladoraGlobal.isPartidoAnteriorJugado(unPartido) && (!unPartido.isJugado())) {
             jButtonImprimir.setEnabled(true);
         } else {
@@ -288,11 +288,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
                 cargarCamposTablaControlando(modeloTableLocal, unaSocia, unaSocia.getNumeroCamiseta());
             } else {
-                if(bandera){
-                    jTextPaneObservacion.setText("Jugadoras del equipo "+ unaSocia.getEquipoActual()+ " que estan inahilitadas para jugar:"+enter);
+                if (bandera) {
+                    jTextPaneObservacion.setText("Jugadoras del equipo " + unaSocia.getEquipoActual() + " que estan inahilitadas para jugar:" + enter);
                     bandera = false;
                 }
-                jTextPaneObservacion.setText(jTextPaneObservacion.getText()+unaSocia.getApellido()+", "+unaSocia.getNombre()+" no juega por: "+unaSocia.getMotivoSuspension(unPartido.getFecha())+enter);                
+                jTextPaneObservacion.setText(jTextPaneObservacion.getText() + unaSocia.getApellido() + ", " + unaSocia.getNombre() + " no juega por: " + unaSocia.getMotivoSuspension(unPartido.getFecha()) + enter);
             }
         }
         bandera = true;
@@ -300,11 +300,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
             if (unaSocia.isHabilitadaParaJugar(unPartido.getFecha())) {
                 cargarCamposTablaControlando(modeloTableVisitante, unaSocia, unaSocia.getNumeroCamiseta());
             } else {
-                if(bandera){
-                    jTextPaneObservacion.setText(jTextPaneObservacion.getText()+enter+"Jugadoras del equipo "+ unaSocia.getEquipoActual()+ " que estan inahilitadas para jugar:"+enter);
+                if (bandera) {
+                    jTextPaneObservacion.setText(jTextPaneObservacion.getText() + enter + "Jugadoras del equipo " + unaSocia.getEquipoActual() + " que estan inahilitadas para jugar:" + enter);
                     bandera = false;
                 }
-                jTextPaneObservacion.setText(jTextPaneObservacion.getText()+unaSocia.getApellido()+", "+unaSocia.getNombre()+" no juega por: "+unaSocia.getMotivoSuspension(unPartido.getFecha())+enter);                      
+                jTextPaneObservacion.setText(jTextPaneObservacion.getText() + unaSocia.getApellido() + ", " + unaSocia.getNombre() + " no juega por: " + unaSocia.getMotivoSuspension(unPartido.getFecha()) + enter);
             }
         }
     }
