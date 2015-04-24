@@ -6,13 +6,14 @@
 	<field name="partido" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="fechaNro" class="java.lang.String"/>
 	<field name="ruta" class="java.lang.String"/>
+	<field name="libre" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="76" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<subreport isUsingCache="true">
-				<reportElement x="0" y="20" width="555" height="56" uuid="9a560ad3-e223-4628-aa78-f3f584b6f502"/>
+				<reportElement x="0" y="20" width="555" height="10" uuid="9a560ad3-e223-4628-aa78-f3f584b6f502"/>
 				<dataSourceExpression><![CDATA[$F{partido}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteFixtureDS_partido.jasper"]]></subreportExpression>
 			</subreport>
@@ -31,6 +32,14 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaNro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="41" width="208" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a5813d38-d6ad-439a-8654-1bdf77ca5571"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

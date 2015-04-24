@@ -178,15 +178,15 @@
                       <Component id="jLabelFechaInicio" min="-2" max="-2" attributes="0"/>
                       <Component id="jDateChooserFechaInicio" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jComboBoxPadre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelPadre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -219,6 +219,9 @@
         <Component class="javax.swing.JTextField" name="jTextFieldNombreTorneo">
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxPadre">
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxPadreItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelPadre">
           <Properties>

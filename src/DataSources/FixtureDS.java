@@ -70,9 +70,9 @@ public class FixtureDS implements JRDataSource {
         if(this.unaFechaTorneo != null){
             List<FechaTorneo> unaFecha = new ArrayList();
             unaFecha.add(unaFechaTorneo);
-            unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal,unaFecha);    
+            unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal,unaFecha,unTorneo);    
         } else {
-            unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal, (List<FechaTorneo>) unTorneo.getFechasTorneo());  
+            unaFechaDS = new FixtureDS_Fecha(unaControladoraGlobal, (List<FechaTorneo>) unTorneo.getFechasTorneo(), unTorneo);  
         } 
         try {            
             reporte = (JasperReport) JRLoader.loadObject(archivo);

@@ -32,8 +32,8 @@ public class ITorneo extends javax.swing.JInternalFrame {
         this.setTitle("Nuevo Torneo");
         this.jComboBoxCategoria.setModel(new DefaultComboBoxModel((Vector) this.unaControladoraGlobal.getCategoriasBD()));
         Vector torneosPadres = new Vector();
-        torneosPadres.addElement("Ninguno");        
-        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());       
+        torneosPadres.addElement("Ninguno");
+        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());
         this.jComboBoxPadre.setModel(new DefaultComboBoxModel(torneosPadres));
 
         camposLimpiar();
@@ -47,13 +47,13 @@ public class ITorneo extends javax.swing.JInternalFrame {
         this(unaControladoraGlobal, unJInternalFrame);
         this.unTorneo = unTorneo;
         this.setTitle("Torneo: " + unTorneo.getNombre());
-        
+
         Vector torneosPadres = new Vector();
-        torneosPadres.addElement("Ninguno");        
-        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());       
+        torneosPadres.addElement("Ninguno");
+        torneosPadres.addAll(this.unaControladoraGlobal.getTorneosBD());
         torneosPadres.remove(unTorneo);
         this.jComboBoxPadre.setModel(new DefaultComboBoxModel(torneosPadres));
-        
+
         camposCargar(unTorneo);
         camposActivo(jPanelDetalles, false);
 
@@ -233,6 +233,12 @@ public class ITorneo extends javax.swing.JInternalFrame {
 
         jLabelNombreTorneo.setText("Nombre del Torneo");
 
+        jComboBoxPadre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxPadreItemStateChanged(evt);
+            }
+        });
+
         jLabelPadre.setText("Torneo Padre:");
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
@@ -265,14 +271,14 @@ public class ITorneo extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFechaInicio)
                     .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCategoria)
-                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxPadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelPadre))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCategoria)
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -332,10 +338,22 @@ public class ITorneo extends javax.swing.JInternalFrame {
         jButtonCancelar.setEnabled(true);
 
         camposActivo(jPanelDetalles, true);
-        if(unTorneo.getCantidadEquiposInscriptos() > 0){
+        if (unTorneo.getCantidadEquiposInscriptos() > 0) {
             jComboBoxCategoria.setEnabled(false);
         }
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jComboBoxPadreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPadreItemStateChanged
+        if (evt.getStateChange() == evt.SELECTED) {
+            if (!jComboBoxPadre.getSelectedItem().equals("Ninguno")) {
+                jComboBoxCategoria.setEnabled(false);              
+                jComboBoxCategoria.setSelectedItem(((Torneo) jComboBoxPadre.getSelectedItem()).getUnaCategoria());
+            } else {
+                jComboBoxCategoria.setSelectedIndex(-1);
+                jComboBoxCategoria.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxPadreItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
