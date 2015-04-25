@@ -19,11 +19,14 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
 
     public IGestionSocias(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
         this.setTitle("Gestión de Socias");
-        IMenuPrincipalInterface.centrar(this);
         this.jTableSocias.getTableHeader().setReorderingAllowed(false);
 
         jTextFieldBusqueda.setText("");
@@ -414,7 +417,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaIContabilidadSocia.pack();
         unaIContabilidadSocia.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadSocia);
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstadoActionPerformed
@@ -422,7 +424,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unIEstado.pack();
         unIEstado.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIEstado);
     }//GEN-LAST:event_jButtonEstadoActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
@@ -430,7 +431,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaISocia.pack();
         unaISocia.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaISocia);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
 
@@ -439,7 +439,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaIErgometria.pack();
         unaIErgometria.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIErgometria);
     }//GEN-LAST:event_jButtonErgometriaActionPerformed
 
     private void jButtonTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTarjetasActionPerformed
@@ -447,7 +446,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaITarjeta.pack();
         unaITarjeta.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaITarjeta);
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed
@@ -455,7 +453,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaISancion.pack();
         unaISancion.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasesActionPerformed
@@ -463,7 +460,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unIPase.pack();
         unIPase.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIPase);
     }//GEN-LAST:event_jButtonPasesActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -471,7 +467,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unaSocia.pack();
         unaSocia.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaSocia);
         this.jTableSocias.clearSelection();
         unaSociaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -520,7 +515,6 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         unIImprimirSocia.pack();
         unIImprimirSocia.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIImprimirSocia);
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed

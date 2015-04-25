@@ -30,12 +30,15 @@ public class IGestionClub extends javax.swing.JInternalFrame {
 
     public IGestionClub(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaClub = (DefaultTableModel) jTableClub.getModel();
         this.jTableClub.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
         this.setTitle("Gestión de Clubes");
-        IMenuPrincipalInterface.centrar(this);
     }
 
     private void limpiarTabla() {
@@ -352,7 +355,6 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         unClub.pack();
         unClub.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unClub);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonCanchasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCanchasActionPerformed
@@ -361,7 +363,6 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         unaICancha.pack();
         unaICancha.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaICancha);
     }//GEN-LAST:event_jButtonCanchasActionPerformed
 
     private void jTextFieldBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyReleased
@@ -395,7 +396,6 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         unIClub.pack();
         unIClub.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIClub);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEquiposActionPerformed
@@ -403,7 +403,6 @@ public class IGestionClub extends javax.swing.JInternalFrame {
         unIClubEquipo.pack();
         unIClubEquipo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIClubEquipo);
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown

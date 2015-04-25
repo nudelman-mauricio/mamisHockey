@@ -21,11 +21,14 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
         this.setTitle("Gestión de Torneos");
-        IMenuPrincipalInterface.centrar(this);
         this.jTableTorneo.getTableHeader().setReorderingAllowed(false);
         
         jTextFieldBusqueda.setText("");
@@ -384,7 +387,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unIEquipoTorneo.pack();
         unIEquipoTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIEquipoTorneo);
     }//GEN-LAST:event_jButtonEquiposActionPerformed
 
     private void jButtonFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFechasActionPerformed
@@ -392,7 +394,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unaFechaTorneo.pack();
         unaFechaTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaFechaTorneo);
     }//GEN-LAST:event_jButtonFechasActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
@@ -400,7 +401,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unTorneo);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -408,7 +408,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         unTorneo.pack();
         unTorneo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unTorneo);
         jTableTorneo.clearSelection();
         unTorneoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed

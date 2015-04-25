@@ -29,6 +29,10 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
 
     public IContabilidadEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
@@ -37,7 +41,6 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unEquipo.getNombre()); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
 
         Vector<ConceptoDeportivo> conceptosEquipo = new Vector<ConceptoDeportivo>();
         conceptosEquipo.add(unaControladoraGlobal.getConceptoDeportivoBD("Cancha"));

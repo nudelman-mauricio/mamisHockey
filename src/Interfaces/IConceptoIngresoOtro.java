@@ -20,7 +20,10 @@ public class IConceptoIngresoOtro extends javax.swing.JInternalFrame {
     //LLAMADO PARA GESTION CONCEPTOS
     public IConceptoIngresoOtro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        IMenuPrincipalInterface.centrar(this);
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.jTableConceptoIngreso.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Conceptos Ingreso Otro");

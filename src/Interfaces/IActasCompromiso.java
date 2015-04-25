@@ -22,6 +22,10 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
 
     public IActasCompromiso(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal, PersonaAuxiliar unaPersonaAuxiliar) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaPersonaAuxiliar = unaPersonaAuxiliar;
@@ -30,7 +34,6 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
         //Icono de la ventana
         this.setTitle("Actas de Compromiso de: " + unaPersonaAuxiliar.toString());
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));
-        IMenuPrincipalInterface.centrar(this);
 
         cargarTabla();
     }

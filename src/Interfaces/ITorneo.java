@@ -25,7 +25,10 @@ public class ITorneo extends javax.swing.JInternalFrame {
     //LLAMADO PARA UN NUEVO TORNEO
     public ITorneo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
-        IMenuPrincipalInterface.centrar(this);
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));

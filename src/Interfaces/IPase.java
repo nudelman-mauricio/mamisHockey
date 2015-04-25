@@ -30,6 +30,10 @@ public class IPase extends javax.swing.JInternalFrame {
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
@@ -37,7 +41,6 @@ public class IPase extends javax.swing.JInternalFrame {
         this.jTablePases.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana                
         this.setTitle("Pases de: " + unaSocia.toString()); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
         this.jComboBoxEquipoDestino.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposBD()));
         this.jComboBoxEquipoDestino.setSelectedIndex(-1);
         this.jComboBoxCuota.setSelectedIndex(-1);

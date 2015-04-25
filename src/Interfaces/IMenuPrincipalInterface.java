@@ -362,25 +362,18 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         IGestionEgresos unGestionEgresos = new IGestionEgresos(unaControladoraGlobal);
         unGestionEgresos.pack();
         unGestionEgresos.setVisible(true);
-        this.jDesktopPane.add(unGestionEgresos);
-        unGestionEgresos.moveToFront();
     }//GEN-LAST:event_jMenuItemGestionarEgresosActionPerformed
 
     private void jMenuItemConceptoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptoIngresoActionPerformed
-
         IConceptoIngresoOtro unConceptoIngresos = new IConceptoIngresoOtro(unaControladoraGlobal);
         unConceptoIngresos.pack();
         unConceptoIngresos.setVisible(true);
-        this.jDesktopPane.add(unConceptoIngresos);
-        unConceptoIngresos.moveToFront();
     }//GEN-LAST:event_jMenuItemConceptoIngresoActionPerformed
 
     private void jMenuItemConceptosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosEgresosActionPerformed
         IConceptoEgresos unConceptoEgresos = new IConceptoEgresos(unaControladoraGlobal);
         unConceptoEgresos.pack();
         unConceptoEgresos.setVisible(true);
-        this.jDesktopPane.add(unConceptoEgresos);
-        unConceptoEgresos.moveToFront();
     }//GEN-LAST:event_jMenuItemConceptosEgresosActionPerformed
 
     private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
@@ -391,96 +384,72 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         ILocalidad unLocalidad = new ILocalidad(unaControladoraGlobal);
         unLocalidad.pack();
         unLocalidad.setVisible(true);
-        this.jDesktopPane.add(unLocalidad);
-        unLocalidad.moveToFront();
     }//GEN-LAST:event_jMenuItemLocalidadesActionPerformed
 
     private void jMenuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoriaActionPerformed
         ICategoria unaCategoria = new ICategoria(unaControladoraGlobal);
         unaCategoria.pack();
         unaCategoria.setVisible(true);
-        this.jDesktopPane.add(unaCategoria);
-        unaCategoria.moveToFront();
     }//GEN-LAST:event_jMenuItemCategoriaActionPerformed
 
     private void jMenuItemEstadosSociaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadosSociaActionPerformed
         IEstadoTipo unTipoEstado = new IEstadoTipo(unaControladoraGlobal);
         unTipoEstado.pack();
         unTipoEstado.setVisible(true);
-        this.jDesktopPane.add(unTipoEstado);
-        unTipoEstado.moveToFront();
     }//GEN-LAST:event_jMenuItemEstadosSociaActionPerformed
 
     private void jMenuItemTipoCanchaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipoCanchaActionPerformed
         ICanchaTipo unaVentanaTipoCancha = new ICanchaTipo(unaControladoraGlobal);
         unaVentanaTipoCancha.pack();
         unaVentanaTipoCancha.setVisible(true);
-        this.jDesktopPane.add(unaVentanaTipoCancha);
-        unaVentanaTipoCancha.moveToFront();
     }//GEN-LAST:event_jMenuItemTipoCanchaActionPerformed
 
     private void jMenuItemConceptosDeportivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConceptosDeportivosActionPerformed
         IConceptoIngresoDeportivo unaVentanaConceptosDeportivos = new IConceptoIngresoDeportivo(unaControladoraGlobal);
         unaVentanaConceptosDeportivos.pack();
         unaVentanaConceptosDeportivos.setVisible(true);
-        this.jDesktopPane.add(unaVentanaConceptosDeportivos);
-        unaVentanaConceptosDeportivos.moveToFront();
     }//GEN-LAST:event_jMenuItemConceptosDeportivosActionPerformed
 
     private void jMenuItemGestionarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarIngresosActionPerformed
         IGestionIngresosOtro unaGestionIngresos = new IGestionIngresosOtro(unaControladoraGlobal);
         unaGestionIngresos.pack();
         unaGestionIngresos.setVisible(true);
-        this.jDesktopPane.add(unaGestionIngresos);
-        unaGestionIngresos.moveToFront();
     }//GEN-LAST:event_jMenuItemGestionarIngresosActionPerformed
 
     private void jMenuItemBalanceMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBalanceMensualActionPerformed
         IBalanceMensual unaIBalanceMensual = new IBalanceMensual(this.unaControladoraGlobal);
         unaIBalanceMensual.pack();
         unaIBalanceMensual.setVisible(true);
-        this.jDesktopPane.add(unaIBalanceMensual);
-        unaIBalanceMensual.moveToFront();
     }//GEN-LAST:event_jMenuItemBalanceMensualActionPerformed
 
     private void jMenuSociasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSociasMouseClicked
         IGestionSocias unaGestionSocias = new IGestionSocias(unaControladoraGlobal);
         unaGestionSocias.pack();
         unaGestionSocias.setVisible(true);
-        this.jDesktopPane.add(unaGestionSocias);
-        unaGestionSocias.moveToFront();
     }//GEN-LAST:event_jMenuSociasMouseClicked
 
     private void jMenuAuxiliaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuAuxiliaresMouseClicked
         IGestionPersonaAuxiliar unaIGestionAuxiliares = new IGestionPersonaAuxiliar(unaControladoraGlobal);
         unaIGestionAuxiliares.pack();
         unaIGestionAuxiliares.setVisible(true);
-        this.jDesktopPane.add(unaIGestionAuxiliares);
-        unaIGestionAuxiliares.moveToFront();
     }//GEN-LAST:event_jMenuAuxiliaresMouseClicked
 
     private void jMenuClubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClubMouseClicked
         IGestionClub unaGestionClub = new IGestionClub(this.unaControladoraGlobal);
         unaGestionClub.pack();
         unaGestionClub.setVisible(true);
-        this.jDesktopPane.add(unaGestionClub);
-        unaGestionClub.moveToFront();
     }//GEN-LAST:event_jMenuClubMouseClicked
 
     private void jMenuEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEquipoMouseClicked
         IGestionEquipo unaGestionEquipo = new IGestionEquipo(this.unaControladoraGlobal);
         unaGestionEquipo.pack();
         unaGestionEquipo.setVisible(true);
-        this.jDesktopPane.add(unaGestionEquipo);
-        unaGestionEquipo.moveToFront();
     }//GEN-LAST:event_jMenuEquipoMouseClicked
 
     private void jMenuTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTorneoMouseClicked
         IGestionTorneo unGestionTorneo = new IGestionTorneo(unaControladoraGlobal);
         unGestionTorneo.pack();
         unGestionTorneo.setVisible(true);
-        this.jDesktopPane.add(unGestionTorneo);
-        unGestionTorneo.moveToFront();
     }//GEN-LAST:event_jMenuTorneoMouseClicked
 
     private void jMenuItemLos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLos3ActionPerformed
@@ -494,8 +463,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         IGeneradorMensual unIGeneradorMensual = new IGeneradorMensual(unaControladoraGlobal);
         unIGeneradorMensual.pack();
         unIGeneradorMensual.setVisible(true);
-        this.jDesktopPane.add(unIGeneradorMensual);
-        unIGeneradorMensual.moveToFront();
     }//GEN-LAST:event_jMenuItemCuotaMensualActionPerformed
 
     private void setCamSocia() {
@@ -558,10 +525,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         }
     }
 
-    public static void centrar(JInternalFrame unJInternalFrame) {
+    public static void centrarYalFrente(JInternalFrame unJInternalFrame) {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = unJInternalFrame.getSize();
         unJInternalFrame.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+        unJInternalFrame.moveToFront();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

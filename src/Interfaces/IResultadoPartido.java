@@ -49,6 +49,9 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
     public IResultadoPartido(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Partido unPartido) {
         initComponents();
 
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unPartido = unPartido;
@@ -69,7 +72,6 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));
         this.setTitle(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
-        IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
         // <editor-fold defaultstate="collapsed" desc="Control de Botones">
@@ -1259,13 +1261,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.pack();
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
-                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
                     } else if (jTableLocal.getSelectedColumn() == 8) {
                         IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
                         unaICargarGol.pack();
                         unaICargarGol.setVisible(true);
                         this.setVisible(false);
-                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarGol);
                     }
                 }
             }
@@ -1339,13 +1339,11 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
                         unaICargarTarjeta.pack();
                         unaICargarTarjeta.setVisible(true);
                         this.setVisible(false);
-                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarTarjeta);
                     } else if (jTableVisitante.getSelectedColumn() == 8) {
                         IResultadoPartidoCargarGol unaICargarGol = new IResultadoPartidoCargarGol(unaControladoraGlobal, this, unaSociaSeleccionada, unPartido);
                         unaICargarGol.pack();
                         unaICargarGol.setVisible(true);
                         this.setVisible(false);
-                        IMenuPrincipalInterface.jDesktopPane.add(unaICargarGol);
                     }
                 }
             }

@@ -27,7 +27,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 class IBalanceMensual extends javax.swing.JInternalFrame {
 
-    private ControladoraGlobal unaControladoraGlobal;
+    private final ControladoraGlobal unaControladoraGlobal;
     private DateFormat df = DateFormat.getDateInstance();
     private SimpleDateFormat dateFormatSinDias = new SimpleDateFormat("MM/YYYY");
     private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
@@ -35,10 +35,13 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
 
     public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Balance Mensual"); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
 
         jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
         jComboBoxDesdeAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));

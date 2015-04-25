@@ -2,11 +2,8 @@ package Interfaces;
 
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
@@ -26,11 +23,13 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
     private Equipo unEquipo;
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaTarjetas;
-    private Tarjeta unaTarjetaSeleccionada = null;
     private DateFormat df = DateFormat.getDateInstance();
 
     public ITarjetasEquipos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
 
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
@@ -41,7 +40,6 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle("Tarjetas del Equipo: " + unEquipo.getNombre());
-        IMenuPrincipalInterface.centrar(this);
 
         //Carga del comboBox con todos los torneos
         List<Torneo> torneos = unaControladoraGlobal.getTorneosBD();      

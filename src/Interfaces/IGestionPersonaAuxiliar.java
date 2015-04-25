@@ -19,11 +19,14 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
     public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaPersonaAuxiliar = (DefaultTableModel) jTablePersonaAuxiliar.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
         this.setTitle("Gestión de Auxiliares");
-        IMenuPrincipalInterface.centrar(this);
         this.jTablePersonaAuxiliar.getTableHeader().setReorderingAllowed(false);
 
         jTextFieldBusqueda.setText("");
@@ -387,7 +390,6 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaPersonaAuxiliar.pack();
         unaPersonaAuxiliar.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaPersonaAuxiliar);
         jTablePersonaAuxiliar.clearSelection();
         unaPersonaAuxiliarSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -397,7 +399,6 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaIPersonaAuxiliar.pack();
         unaIPersonaAuxiliar.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIPersonaAuxiliar);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -457,7 +458,6 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaISancion.pack();
         unaISancion.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
@@ -487,7 +487,6 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaIActasCompromiso.pack();
         unaIActasCompromiso.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIActasCompromiso);
     }//GEN-LAST:event_jButtonActasConformidadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

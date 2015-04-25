@@ -40,6 +40,10 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
     public ITorneoFechas(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unTorneo = unTorneo;
@@ -50,7 +54,6 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
 
         this.setTitle("Torneo: " + unTorneo.getNombre());
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
-        IMenuPrincipalInterface.centrar(this);
 
         if (unTorneo.getCantidadFechas() > 0) {
             this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(1, unTorneo);
@@ -82,12 +85,13 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         jComboBoxEquipoVisitante.removeAllItems();
         if (unaFechaAux != null) {
             for (Partido unPartido : unaFechaAux.getPartidos()) {
-                if(!unPartido.isBorradoLogico()){ 
-                equiposParticipantes.add(unPartido.getUnEquipoLocal().getNombre());
-                equiposParticipantes.add(unPartido.getUnEquipoVisitante().getNombre());}
-                
+                if (!unPartido.isBorradoLogico()) {
+                    equiposParticipantes.add(unPartido.getUnEquipoLocal().getNombre());
+                    equiposParticipantes.add(unPartido.getUnEquipoVisitante().getNombre());
+                }
+
             }
-            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {                
+            for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
                 if (!equiposParticipantes.contains(unEquipo.getNombre())) {
                     jComboBoxEquipoLocal.addItem(unEquipo.getNombre());
                     jComboBoxEquipoVisitante.addItem(unEquipo.getNombre());
@@ -827,7 +831,6 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         unIResultadoPartido.pack();
         unIResultadoPartido.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIResultadoPartido);
     }//GEN-LAST:event_jButtonResultadoPartidoActionPerformed
 
     private void jButtonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSiguienteMouseClicked
@@ -1085,7 +1088,6 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
             unIResultadoPartido.pack();
             unIResultadoPartido.setVisible(true);
             this.setVisible(false);
-            IMenuPrincipalInterface.jDesktopPane.add(unIResultadoPartido);
         }
     }//GEN-LAST:event_jTableFechasTorneoMouseClicked
 

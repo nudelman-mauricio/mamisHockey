@@ -9,28 +9,26 @@ import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import logicaNegocios.PlanillaPago;
-import main.ControladoraGlobal;
 
 public class IHistoricoPagos extends javax.swing.JInternalFrame {
 
-    private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
-    private Equipo unEquipo;
     private DefaultTableModel modeloTable;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public IHistoricoPagos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
+    public IHistoricoPagos(JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
-        this.unaControladoraGlobal = unaControladoraGlobal;
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
-        this.unEquipo = unEquipo;
         this.modeloTable = (DefaultTableModel) jTableHistorico.getModel();
         this.jTableHistorico.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/HistorialPagos.png")));
         this.setTitle("Historial de Pagos Mensuales de: " + unEquipo.getNombre());
-        IMenuPrincipalInterface.centrar(this);
 
         for (PlanillaPago unaPlanillaPago : unEquipo.getPlanillasPagos()) {
             this.modeloTable.addRow(new Object[]{unaPlanillaPago.getId(), unaPlanillaPago.getRutaPDF(), df.format(unaPlanillaPago.getFechaPago()), unaPlanillaPago.getResponsablePago(), unaPlanillaPago.getNroRecibo(), unaPlanillaPago.getMonto()});

@@ -13,17 +13,20 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private Club unClub;
     private DefaultTableModel unModeloTablaEquipo;
-    private JInternalFrame unJInternalFrame;    
-    
+    private JInternalFrame unJInternalFrame;
+
     public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub, JInternalFrame unJInternalFrame) {
         initComponents();
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.jTableEquipo.getTableHeader().setReorderingAllowed(false);
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.unClub = unClub;     
+        this.unClub = unClub;
         this.unJInternalFrame = unJInternalFrame;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
         this.setTitle("Equipos de Club: " + unClub.getNombre()); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this);
         this.unModeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
         cargarTablaEquipo();
     }
@@ -147,7 +150,6 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
         unIEquipo.pack();
         unIEquipo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIEquipo);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown

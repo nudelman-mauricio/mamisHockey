@@ -21,6 +21,10 @@ public class IPlantel extends javax.swing.JInternalFrame {
 
     public IPlantel(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
@@ -28,7 +32,6 @@ public class IPlantel extends javax.swing.JInternalFrame {
         this.jTablePlantel.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/plantel.png")));
         this.setTitle("Plantel de Equipo: " + unEquipo.getNombre());
-        IMenuPrincipalInterface.centrar(this);
         cargarTabla();
     }
 
@@ -54,7 +57,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                     }
             );
         }
-        jButtonEditar.setEnabled(false);        
+        jButtonEditar.setEnabled(false);
     }
 
     private String debe(Socia unaSocia) {
@@ -94,7 +97,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
                 jTextFieldNombre.setText(unaSociaSeleccionada.getNombre());
                 jTextFieldApellido.setText(unaSociaSeleccionada.getApellido());
                 jTextFieldNroCamiseta.setText(unaSociaSeleccionada.getNumeroCamiseta());
-                jButtonEditar.setEnabled(true);                         
+                jButtonEditar.setEnabled(true);
             }
         }
     }
@@ -367,7 +370,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);        
+        jButtonCancelar.setEnabled(true);
 
         jTablePlantel.setEnabled(false);
 
@@ -382,7 +385,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
             cargarTabla();
             jButtonEditar.setEnabled(false);
             jButtonGuardar.setEnabled(false);
-            jButtonCancelar.setEnabled(false);           
+            jButtonCancelar.setEnabled(false);
             jTablePlantel.setEnabled(true);
             jTextFieldNroCamiseta.setEditable(false);
             camposLimpiar();
@@ -392,7 +395,7 @@ public class IPlantel extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         jButtonEditar.setEnabled(false);
         jButtonGuardar.setEnabled(false);
-        jButtonCancelar.setEnabled(false);    
+        jButtonCancelar.setEnabled(false);
 
         jTablePlantel.setEnabled(true);
         jTablePlantel.clearSelection();

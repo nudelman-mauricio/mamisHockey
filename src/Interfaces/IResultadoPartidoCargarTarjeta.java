@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Partido;
-import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
@@ -20,13 +19,16 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
 
     public IResultadoPartidoCargarTarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido, String unTipo) {
         initComponents();
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
-        IMenuPrincipalInterface.centrar(this);
         this.jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         this.jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         this.jComboBoxTiempo.setSelectedIndex(-1);

@@ -21,6 +21,10 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
 
     public IIndumentaria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
@@ -28,7 +32,6 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/equipo.png")));
         this.setTitle("Equipo: " + unEquipo.getNombre());
         this.jTableIndumentaria.getTableHeader().setReorderingAllowed(false);
-        IMenuPrincipalInterface.centrar(this);
         cargarTabla();
     }
 
@@ -43,9 +46,10 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
         limpiarTabla();
         int contador = 1;
         for (Indumentaria unaIndumentaria : unEquipo.getIndumentarias()) {
-            if(!unaIndumentaria.isBorradoLogico()){
-            this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(), contador, unaIndumentaria.getCamiseta(), unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
-            contador++;}
+            if (!unaIndumentaria.isBorradoLogico()) {
+                this.modeloTablaIndumentaria.addRow(new Object[]{unaIndumentaria.getIdIndumentaria(), contador, unaIndumentaria.getCamiseta(), unaIndumentaria.getMedia(), unaIndumentaria.getPollera()});
+                contador++;
+            }
         }
     }
 
@@ -427,11 +431,11 @@ public class IIndumentaria extends javax.swing.JInternalFrame {
             unaControladoraGlobal.eliminarIndumentaria(unaIndumentariaSeleccionada);
             cargarTabla();
         }
-        
+
         jTableIndumentaria.clearSelection();
         unaIndumentariaSeleccionada = null;
         camposLimpiar();
-        
+
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
 

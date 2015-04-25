@@ -35,6 +35,10 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
 
     public IContabilidadSocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
@@ -44,7 +48,6 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.jTableDeudas.getTableHeader().setReorderingAllowed(false);
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
 
         modelComboConcepto = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getConceptosDeportivosParaComboContabilidadSociaBD());
         this.jComboBoxConcepto.setModel(modelComboConcepto);

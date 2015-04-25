@@ -20,7 +20,10 @@ public class IConceptoEgresos extends javax.swing.JInternalFrame {
     //LLAMADO PARA GESTION CONCEPTOS
     public IConceptoEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        IMenuPrincipalInterface.centrar(this);
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Conceptos Egreso");
         this.jTableConceptoEgresos.getTableHeader().setReorderingAllowed(false);

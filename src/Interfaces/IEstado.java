@@ -28,11 +28,14 @@ public class IEstado extends javax.swing.JInternalFrame {
     //LLAMADO A TRAVES DE UNA SOCIA (unico)
     public IEstado(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
-        IMenuPrincipalInterface.centrar(this);
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         this.jTableEstado.getTableHeader().setReorderingAllowed(false);
 

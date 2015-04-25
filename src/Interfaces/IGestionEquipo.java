@@ -32,11 +32,14 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 
     public IGestionEquipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
         this.setTitle("Gestión de Equipos");
-        IMenuPrincipalInterface.centrar(this);
         this.jTableEquipo.getTableHeader().setReorderingAllowed(false);       
 
         jTextFieldBusqueda.setText("");
@@ -435,7 +438,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
 //        unIImprimirEquipo.pack();
 //        unIImprimirEquipo.setVisible(true);
 //        this.setVisible(false);
-//        IMenuPrincipalInterface.jDesktopPane.add(unIImprimirEquipo);
 //
 //          NO BORRAR LO ANTERIOR
 //        
@@ -462,7 +464,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaISancion.pack();
         unaISancion.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaISancion);
     }//GEN-LAST:event_jButtonSancionActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
@@ -470,7 +471,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unEquipo.pack();
         unEquipo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unEquipo);
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContabilidadActionPerformed
@@ -478,7 +478,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaIContabilidadEquipo.pack();
         unaIContabilidadEquipo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIContabilidadEquipo);
     }//GEN-LAST:event_jButtonContabilidadActionPerformed
 
     private void jButtonPlantelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlantelActionPerformed
@@ -486,7 +485,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unIPlantel.pack();
         unIPlantel.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unIPlantel);
     }//GEN-LAST:event_jButtonPlantelActionPerformed
 
     private void jButtonIndumentariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIndumentariaActionPerformed
@@ -494,7 +492,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaIIndumentaria.pack();
         unaIIndumentaria.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIIndumentaria);
     }//GEN-LAST:event_jButtonIndumentariaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -502,7 +499,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unEquipo.pack();
         unEquipo.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unEquipo);
         jTableEquipo.clearSelection();
         unEquipoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -551,15 +547,13 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaIPlanillaCobranza.pack();
         unaIPlanillaCobranza.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIPlanillaCobranza);
     }//GEN-LAST:event_jButtonPlanillaPagosActionPerformed
 
     private void jButtonHistorialPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistorialPagosActionPerformed
-        IHistoricoPagos unaIHistoricoPagos = new IHistoricoPagos(unaControladoraGlobal, this, unEquipoSeleccionado);
+        IHistoricoPagos unaIHistoricoPagos = new IHistoricoPagos(this, unEquipoSeleccionado);
         unaIHistoricoPagos.pack();
         unaIHistoricoPagos.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIHistoricoPagos);
     }//GEN-LAST:event_jButtonHistorialPagosActionPerformed
 
     private void jButtonImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimir1ActionPerformed
@@ -578,7 +572,6 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         unaITarjetasEquipos.pack();
         unaITarjetasEquipos.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaITarjetasEquipos);
     }//GEN-LAST:event_jButtonTarjetasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

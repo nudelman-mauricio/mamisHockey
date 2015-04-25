@@ -30,16 +30,18 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     public ITarjeta(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
 
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.modeloTablaTarjetas = (DefaultTableModel) jTableTarjeta.getModel();
-        this.jTableTarjeta.getTableHeader().setReorderingAllowed(false);        
+        this.jTableTarjeta.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
-        IMenuPrincipalInterface.centrar(this);
 
         //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"
         Vector VTorneo = new Vector();

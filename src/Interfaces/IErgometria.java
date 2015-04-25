@@ -29,6 +29,10 @@ public class IErgometria extends javax.swing.JInternalFrame {
     //LLAMADO MOSTRANDO UNA SOCIA
     public IErgometria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.jTableErgometrias.getTableHeader().setReorderingAllowed(false);
         this.unJInternalFrame = unJInternalFrame;
@@ -36,7 +40,6 @@ public class IErgometria extends javax.swing.JInternalFrame {
         this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/corazon.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
-        IMenuPrincipalInterface.centrar(this);
         camposActivo(jPanelDetalles, false);
         cargarTabla();
     }

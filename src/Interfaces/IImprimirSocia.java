@@ -19,13 +19,16 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
 
     public IImprimirSocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSociaSeleccionada = unaSocia;
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/printer.png"))); //Icono Ventana
         this.setTitle("Reportes para Imrimir de: " + unaSocia.toString()); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
         jLabelNombreJugadora.setText(unaSocia.toString());        
         
     }

@@ -17,11 +17,14 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
 
     public ICanchaTipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png")));
         this.setTitle("Tipos de Canchas");
-        IMenuPrincipalInterface.centrar(this);
         cargarTabla();
     }
 

@@ -19,13 +19,16 @@ public class IResultadoPartidoCargarGol extends javax.swing.JInternalFrame {
 
     public IResultadoPartidoCargarGol(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia, Partido unPartido) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Gol.png")));
         this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
-        IMenuPrincipalInterface.centrar(this);
         jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         this.jComboBoxTiempo.setSelectedIndex(-1);

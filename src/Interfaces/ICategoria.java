@@ -17,14 +17,17 @@ public class ICategoria extends javax.swing.JInternalFrame {
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaCategoria;
     private Categoria unaCategoriaSeleccionada;
-    
-    public ICategoria(ControladoraGlobal unaControladoraGlobal) {        
-        initComponents(); 
+
+    public ICategoria(ControladoraGlobal unaControladoraGlobal) {
+        initComponents();
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.jTableCategoria.getTableHeader().setReorderingAllowed(false);
         this.modeloTablaCategoria = (DefaultTableModel) jTableCategoria.getModel();
-        this.unaControladoraGlobal = unaControladoraGlobal;        
+        this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));
-        IMenuPrincipalInterface.centrar(this);
         camposActivo(jPanelDetalles, false);
         cargarTabla();
     }

@@ -33,13 +33,16 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     
     public IGestionEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionEgresos = (DefaultTableModel) jTableEgresos.getModel();
         this.jTableEgresos.getTableHeader().setReorderingAllowed(false);
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Egresos");
-        IMenuPrincipalInterface.centrar(this);
         
         if (unaControladoraGlobal.getEgresosBD().size() > 0) {
             cargarFechasFiltrado();
@@ -768,7 +771,6 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
         unaIConceptoEgresos.pack();
         unaIConceptoEgresos.setVisible(true);
         this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIConceptoEgresos);
     }//GEN-LAST:event_jButtonNuevoEgresoActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown

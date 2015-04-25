@@ -2,7 +2,6 @@ package Interfaces;
 
 import java.awt.Color;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -33,15 +32,17 @@ public class ISancion extends javax.swing.JInternalFrame {
     public ISancion(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTableSancion = (DefaultTableModel) jTableSancion.getModel();
-        
+
         this.jTableSancion.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
-        IMenuPrincipalInterface.centrar(this);
 
         camposActivo(false);
         jButtonNuevo.setEnabled(true);

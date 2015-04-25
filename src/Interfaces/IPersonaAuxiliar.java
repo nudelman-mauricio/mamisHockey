@@ -25,7 +25,10 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
     //LLAMADO PARA NUEVO PERSONA AUXILIAR
     public IPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
-        IMenuPrincipalInterface.centrar(this);
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana

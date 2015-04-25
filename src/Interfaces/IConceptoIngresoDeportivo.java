@@ -1,14 +1,11 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -27,10 +24,13 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
     public IConceptoIngresoDeportivo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.jTableConceptos.getTableHeader().setReorderingAllowed(false);
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableConceptos.getModel();
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         cargarTabla();
         
         Vector comboBoxItems = new Vector();
@@ -45,7 +45,6 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Gestión Conceptos Ingreso Deportivo"); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
         camposLimpiar();
     }
     
@@ -75,7 +74,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    void camposActivo(Container c, boolean bandera) {
+    void camposActivo(boolean bandera) {
         jTextFieldMonto.setEditable(bandera);
     }
 
@@ -183,7 +182,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
                     jCheckBoxAutoGeneracion.setSelected(true);
                     setMeses();
                 }
-                camposActivo(jPanelDetalles, false);
+                camposActivo(false);
                 jButtonEditar.setEnabled(true);
                 //jButtonEliminar.setEnabled(true);
             }
@@ -650,8 +649,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         
         jTableConceptos.setEnabled(false);
         
-        camposActivo(jPanelDetalles, true);
-        camposActivo(jPanelFrecuencia, false);
+        camposActivo(true);
         camposLimpiar();
         unConceptoDeportivoSeleccionado = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -665,8 +663,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         
         jTableConceptos.setEnabled(false);
         
-        camposActivo(jPanelDetalles, true);
-        camposActivo(jPanelFrecuencia, jCheckBoxAutoGeneracion.isSelected());
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -701,13 +698,12 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
             
             jTableConceptos.setEnabled(true);
             
-            camposActivo(jPanelDetalles, false);
+            camposActivo(false);
             camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jCheckBoxAutoGeneracionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxAutoGeneracionStateChanged
-        camposActivo(jPanelFrecuencia, jCheckBoxAutoGeneracion.isSelected());
         if (!jCheckBoxAutoGeneracion.isSelected()) {
             camposLimpiarFrecuencia();
         }
@@ -722,7 +718,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         
         jTableConceptos.setEnabled(true);
         
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -735,7 +731,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         
         jTableConceptos.setEnabled(false);
         
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(

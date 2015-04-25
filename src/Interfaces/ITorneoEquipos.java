@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import logicaNegocios.Club;
 import logicaNegocios.Equipo;
 import logicaNegocios.FechaTorneo;
 import logicaNegocios.Partido;
@@ -21,12 +20,13 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     private Torneo unTorneo = null;
     private DefaultTableModel modeloTablaEquipoInscripto;
     private DefaultTableModel modeloTablaEquipoDisponible;
-    private Club unClub = null;
-    private Equipo unEquipoSeleccionado = null;
 
     public ITorneoEquipos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
-        IMenuPrincipalInterface.centrar(this);
+
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+
         this.unJInternalFrame = unJInternalFrame;
         this.jTableEquiposDisponibles.getTableHeader().setReorderingAllowed(false);
         this.jTableEquiposInscriptos.getTableHeader().setReorderingAllowed(false);
@@ -95,7 +95,6 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
                 jButtonAgregar.setEnabled(true);
                 jButtonQuitar.setEnabled(false);
                 jTableEquiposInscriptos.clearSelection();
-                unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(jTableEquiposDisponibles.getSelectedRow(), 0));
             }
         }
     }
@@ -106,7 +105,6 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
                 jButtonAgregar.setEnabled(false);
                 jButtonQuitar.setEnabled(true);
                 jTableEquiposDisponibles.clearSelection();
-                unEquipoSeleccionado = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposInscriptos.getValueAt(jTableEquiposInscriptos.getSelectedRow(), 0));
             }
         }
     }
@@ -318,14 +316,13 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
             if (bandera) {
                 unaControladoraGlobal.quitarEquipoInscripto(unTorneo, unEquipo);
             } else {
-                JOptionPane.showMessageDialog(this, "El Equipo "+unEquipo+" no puede ser eliminado del torneo debido a que tiene asignados partidos");
+                JOptionPane.showMessageDialog(this, "El Equipo " + unEquipo + " no puede ser eliminado del torneo debido a que tiene asignados partidos");
             }
             bandera = true;
-        }    
-        unEquipoSeleccionado = null;
-            limpiarTabla();
-            cargarTabla();
-            jButtonQuitar.setEnabled(false);
+        }
+        limpiarTabla();
+        cargarTabla();
+        jButtonQuitar.setEnabled(false);
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
@@ -334,7 +331,6 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
             unEquipo = unaControladoraGlobal.getEquipoBD((Long) jTableEquiposDisponibles.getValueAt(indice, 0));
             unaControladoraGlobal.agregarEquipoInscripto(unTorneo, unEquipo);
         }
-        unEquipoSeleccionado = null;
         limpiarTabla();
         cargarTabla();
         jButtonAgregar.setEnabled(false);

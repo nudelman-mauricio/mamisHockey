@@ -25,7 +25,10 @@ public class IEquipo extends javax.swing.JInternalFrame {
     //LLAMADO PARA UN NUEVO EQUIPO
     public IEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
-        IMenuPrincipalInterface.centrar(this);
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));

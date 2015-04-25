@@ -11,20 +11,21 @@ import main.ControladoraGlobal;
 
 public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
-    private ControladoraGlobal unaControladoraGlobal;
     private JInternalFrame unJInternalFrame;
     private Equipo unEquipoSeleccionado = null;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public IImprimirEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
+    public IImprimirEquipo(JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
-        this.unaControladoraGlobal = unaControladoraGlobal;
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipoSeleccionado = unEquipo;
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/printer.png"))); //Icono Ventana
         this.setTitle("Reportes para Imrimir de: " + unEquipoSeleccionado.toString()); //Titulo Ventana
-        IMenuPrincipalInterface.centrar(this); //Centrar
         jLabelNombreEquipo.setText(unEquipoSeleccionado.toString());
     }
 

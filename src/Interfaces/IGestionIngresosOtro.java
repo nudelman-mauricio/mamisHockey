@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,12 +30,15 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
     
     public IGestionIngresosOtro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
+        
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
+        
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionIngresos = (DefaultTableModel) jTableIngresos.getModel();
         
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.setTitle("Gestión de Ingresos Otro");
-        IMenuPrincipalInterface.centrar(this);
+        this.setTitle("Gestión de Ingresos Otro");        
         this.jTableIngresos.getTableHeader().setReorderingAllowed(false);
         
         if (unaControladoraGlobal.getIngresosOtrosBD().size() > 0) {
@@ -702,8 +704,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         IConceptoIngresoOtro unaIConceptoIngresos = new IConceptoIngresoOtro(this, unaControladoraGlobal);
         unaIConceptoIngresos.pack();
         unaIConceptoIngresos.setVisible(true);
-        this.setVisible(false);
-        IMenuPrincipalInterface.jDesktopPane.add(unaIConceptoIngresos);
+        this.setVisible(false);        
     }//GEN-LAST:event_jButtonNuevoIngresoActionPerformed
 
     private void jComboBoxDesdeMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeMesItemStateChanged
