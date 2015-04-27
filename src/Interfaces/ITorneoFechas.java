@@ -327,17 +327,13 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     }
 
     //verifica que los equipos seleccionados no posean sanciones    
-    private boolean validarEquiposSancion() {
-        boolean resultado = true;
+    private void validarEquiposSancion() {
         if (unEquipoAuxLocal.isSancionado(unaControladoraGlobal.fechaSistema())) {
-            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxLocal.getNombre() + " seleccionado como Local, posee Sanciones Vigentes al día de la fecha. No pude jugar.");
-            resultado = false;
+            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxLocal.getNombre() + " seleccionado como Local, posee Sanciones Vigentes al día de la fecha. No debería poder jugar.");
         }
         if (unEquipoAuxVisitante.isSancionado(unaControladoraGlobal.fechaSistema())) {
-            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxVisitante.getNombre() + " seleccionado como Visitante, posee Sanciones Vigentes al día de la fecha. No puede jugar.");
-            resultado = false;
+            JOptionPane.showMessageDialog(this, "ADVERTENCIA: El equipo " + unEquipoAuxVisitante.getNombre() + " seleccionado como Visitante, posee Sanciones Vigentes al día de la fecha. No debería poder jugar.");
         }
-        return resultado;
     }
 
     @SuppressWarnings("unchecked")
@@ -917,42 +913,44 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         //pregunta si los campos estan bien cargados
         if (camposValidar()) {
-            //levanta los equipos seleccionados en el combo a las variables globales
-            this.tomarEquipos();
-            //pregunta si no poseen sanciones los equipos
-            //si poseen no deja continuar y avisa con cartel
-            if (validarEquiposSancion()) {
-                //pregunta si no tienen deudas vencidas los equipos
-                //si tienen solo informa
-                this.validarEquiposDeuda();
 
-                PersonaAuxiliar arbitro3 = null;
-                if (jComboBoxArbitro3.getSelectedIndex() != -1) {
-                    arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
-                }
-                if (unPartidoSeleccionado == null) {
-                    unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, new java.sql.Date(jDateChooserFecha.getDate().getTime()), (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
-                    JOptionPane.showMessageDialog(this, "Partido Guardado");
-                } else {
-                    unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, new java.sql.Date(jDateChooserFecha.getDate().getTime()), (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
-                    JOptionPane.showMessageDialog(this, "Partido Modificado");
-                    unPartidoSeleccionado = null;
-                }
-                cargarTabla();
-                jButtonNuevo.setEnabled(true);
-                jButtonEditar.setEnabled(false);
-                jButtonGuardar.setEnabled(false);
-                jButtonCancelar.setEnabled(false);
-                jButtonEliminar.setEnabled(false);
-                jButtonImprimir.setEnabled(false);
-                jButtonResultadoPartido.setEnabled(false);
-                jButtonAgregarFecha.setEnabled(true);
-                jTableFechasTorneo.setEnabled(true);
-                camposActivo(jPanelDetalles, false);
-                camposActivo(jPanelBotones2, true);
-                camposLimpiar();
-                cargarCombos();
+            //levanta los equipos seleccionados en el combo a las variables globales
+            tomarEquipos();
+
+            //pregunta si no poseen sanciones los equipos
+            //si poseen deja continuar y avisa con cartel
+            validarEquiposSancion();
+
+            //pregunta si no tienen deudas vencidas los equipos
+            //si tienen solo informa
+            validarEquiposDeuda();
+
+            PersonaAuxiliar arbitro3 = null;
+            if (jComboBoxArbitro3.getSelectedIndex() != -1) {
+                arbitro3 = (PersonaAuxiliar) jComboBoxArbitro3.getSelectedItem();
             }
+            if (unPartidoSeleccionado == null) {
+                unaControladoraGlobal.crearPartido(unaFechaTorneoSeleccionada, new java.sql.Date(jDateChooserFecha.getDate().getTime()), (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3);
+                JOptionPane.showMessageDialog(this, "Partido Guardado");
+            } else {
+                unaControladoraGlobal.modificarPartido(unPartidoSeleccionado, new java.sql.Date(jDateChooserFecha.getDate().getTime()), (Cancha) jComboBoxCancha.getSelectedItem(), unEquipoAuxLocal, unEquipoAuxVisitante, (PersonaAuxiliar) jComboBoxArbitro1.getSelectedItem(), (PersonaAuxiliar) jComboBoxArbitro2.getSelectedItem(), arbitro3, unPartidoSeleccionado.isBorradoLogico());
+                JOptionPane.showMessageDialog(this, "Partido Modificado");
+                unPartidoSeleccionado = null;
+            }
+            cargarTabla();
+            jButtonNuevo.setEnabled(true);
+            jButtonEditar.setEnabled(false);
+            jButtonGuardar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonEliminar.setEnabled(false);
+            jButtonImprimir.setEnabled(false);
+            jButtonResultadoPartido.setEnabled(false);
+            jButtonAgregarFecha.setEnabled(true);
+            jTableFechasTorneo.setEnabled(true);
+            camposActivo(jPanelDetalles, false);
+            camposActivo(jPanelBotones2, true);
+            camposLimpiar();
+            cargarCombos();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
