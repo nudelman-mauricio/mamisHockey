@@ -588,6 +588,10 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     null,
                     options,
                     options)) {
+                IProcesando unIProcesando = new IProcesando();
+                unIProcesando.setLocationRelativeTo(null);
+                unIProcesando.setVisible(true);
+
                 List<Socia> sociaPagaron = new ArrayList();
                 List<Cuota> cuotasPagaron = new ArrayList();
 
@@ -637,6 +641,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 PlanilladePagoDS.verReporte(nombrePDF);
 
                 unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
+            unIProcesando.dispose();
             }
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
@@ -654,6 +659,10 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
      * siempre.
      */
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        IProcesando unIProcesando = new IProcesando();
+        unIProcesando.setLocationRelativeTo(null);
+        unIProcesando.setVisible(true);
+
         List<Socia> sociaPagaron = new ArrayList();
         List<Cuota> cuotasPagaron = new ArrayList();
 
@@ -683,12 +692,14 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "-", "-", jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), "-", sociaPagaron, cuotasPagaron);
         PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
+
+        unIProcesando.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jDateChooserFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserFechaPropertyChange
-        if ("date".equals(evt.getPropertyName())) {                
-                cargarCampos();
-            }
+        if ("date".equals(evt.getPropertyName())) {
+            cargarCampos();
+        }
     }//GEN-LAST:event_jDateChooserFechaPropertyChange
 
 
