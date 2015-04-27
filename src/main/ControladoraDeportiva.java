@@ -80,8 +80,7 @@ public class ControladoraDeportiva {
     public void descontarSancion(Partido unPartido) {
         Collection<Socia> ambosEquiposCompletos = unPartido.getUnEquipoLocal().getPlantel();
         ambosEquiposCompletos.addAll(unPartido.getUnEquipoVisitante().getPlantel());
-        for (Socia unaSocia : ambosEquiposCompletos) {
-            System.out.println(unaSocia.toString());
+        for (Socia unaSocia : ambosEquiposCompletos) {            
             for (SancionTribunal unaSancionTribunal : unaSocia.getSancionesVigentes(unPartido.getFecha())) {
                 if (!unaSancionTribunal.getUnPartido().equals(unPartido)) {
                     unaSancionTribunal.sumarFechaCumplida();

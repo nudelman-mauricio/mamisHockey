@@ -2,6 +2,7 @@ package Interfaces;
 
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -27,7 +28,7 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
 
     public ITarjetasEquipos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
 
@@ -42,12 +43,13 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         this.setTitle("Tarjetas del Equipo: " + unEquipo.getNombre());
 
         //Carga del comboBox con todos los torneos
-        List<Torneo> torneos = unaControladoraGlobal.getTorneosBD();      
+        List<Torneo> torneos = unaControladoraGlobal.getTorneosBD();
+        jComboBoxTorneos.addItem("Todos");
         for (Torneo unTorneo : torneos) {
             if (unTorneo.getEquiposInscriptos().contains(this.unEquipo) && !unTorneo.isBorradoLogico()) {
                 jComboBoxTorneos.addItem(unTorneo);
             }
-        }        
+        }
         cargarTabla();
     }
 
@@ -60,9 +62,14 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
 
     public void cargarTabla() {
         limpiarTabla();
-        Torneo unTorneo = (Torneo) jComboBoxTorneos.getSelectedItem();
         HashSet<Socia> SociasDelEquipo = new HashSet();
-        if (unTorneo != null) {
+        List<Torneo> torneos = new ArrayList();
+        if (jComboBoxTorneos.getSelectedItem() != "Todos") {
+            torneos.add((Torneo) jComboBoxTorneos.getSelectedItem());
+        } else {
+            torneos = unaControladoraGlobal.getTorneosBD();
+        }
+        for (Torneo unTorneo : torneos) {
             for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
                 for (Partido unPartido : unaFecha.getPartidos()) {
                     if (unPartido.getUnEquipoLocal() == unEquipo) {
@@ -75,15 +82,26 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
                         }
                     }
                 }
-            }
-        }
 
-        for (Socia unaSocia : SociasDelEquipo) {
-            for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
-                if (unaTarjeta.getUnTorneo() == unTorneo) {
-                    if (("Roja".equals(unaTarjeta.getTipo())) && (jCheckBoxRojas.isSelected())) {
-                        SancionTribunal unaSancion = unaControladoraGlobal.getSancionTarjeta(unaTarjeta);
-                        if (unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta) != null) {
+            }
+
+            for (Socia unaSocia : SociasDelEquipo) {
+                for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
+                    if (unaTarjeta.getUnTorneo() == unTorneo) {
+                        if (("Roja".equals(unaTarjeta.getTipo())) && (jCheckBoxRojas.isSelected())) {
+                            SancionTribunal unaSancion = unaControladoraGlobal.getSancionTarjeta(unaTarjeta);
+                            if (unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta) != null) {
+                                this.modeloTablaTarjetas.addRow(new Object[]{
+                                    unaTarjeta.getIdTarjeta(),
+                                    df.format(unaTarjeta.getFecha()),
+                                    unaSocia,
+                                    unaTarjeta.getTipo(),
+                                    unaTarjeta.getUnTorneo().getNombre(),
+                                    unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
+                                    unaTarjeta.isComputado(),
+                                    unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()});
+                            }
+                        } else if (("Amarilla".equals(unaTarjeta.getTipo())) && (jCheckBoxAmarillas.isSelected())) {
                             this.modeloTablaTarjetas.addRow(new Object[]{
                                 unaTarjeta.getIdTarjeta(),
                                 df.format(unaTarjeta.getFecha()),
@@ -92,30 +110,20 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
                                 unaTarjeta.getUnTorneo().getNombre(),
                                 unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
                                 unaTarjeta.isComputado(),
-                                unaSancion.getCantFechasCumplidas() + "/" + unaSancion.getCantFechas()});
+                                " - "});
+                        } else if (("Verde".equals(unaTarjeta.getTipo())) && (jCheckBoxVerdes.isSelected())) {
+                            this.modeloTablaTarjetas.addRow(new Object[]{
+                                unaTarjeta.getIdTarjeta(),
+                                df.format(unaTarjeta.getFecha()),
+                                unaSocia,
+                                unaTarjeta.getTipo(),
+                                unaTarjeta.getUnTorneo().getNombre(),
+                                unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
+                                unaTarjeta.isComputado(),
+                                " - "});
                         }
-                    } else if (("Amarilla".equals(unaTarjeta.getTipo())) && (jCheckBoxAmarillas.isSelected())) {
-                        this.modeloTablaTarjetas.addRow(new Object[]{
-                            unaTarjeta.getIdTarjeta(),
-                            df.format(unaTarjeta.getFecha()),
-                            unaSocia,
-                            unaTarjeta.getTipo(),
-                            unaTarjeta.getUnTorneo().getNombre(),
-                            unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
-                            unaTarjeta.isComputado(),
-                            " - "});
-                    } else if (("Verde".equals(unaTarjeta.getTipo())) && (jCheckBoxVerdes.isSelected())) {
-                        this.modeloTablaTarjetas.addRow(new Object[]{
-                            unaTarjeta.getIdTarjeta(),
-                            df.format(unaTarjeta.getFecha()),
-                            unaSocia,
-                            unaTarjeta.getTipo(),
-                            unaTarjeta.getUnTorneo().getNombre(),
-                            unaControladoraGlobal.getFechaTorneoTarjeta(unaTarjeta).getNumeroFecha(),
-                            unaTarjeta.isComputado(),
-                            " - "});
-                    }
 
+                    }
                 }
             }
         }
@@ -129,7 +137,6 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTarjeta = new javax.swing.JTable();
         jPanelBotones = new javax.swing.JPanel();
-        jButtonImprimir = new javax.swing.JButton();
         jPanelFiltro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxTorneos = new javax.swing.JComboBox();
@@ -222,31 +229,15 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelBotones.setPreferredSize(new java.awt.Dimension(253, 69));
 
-        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
-        jButtonImprimir.setText("Imprimir");
-        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImprimirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
         jPanelBotonesLayout.setHorizontalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 439, Short.MAX_VALUE)
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jButtonImprimir)
-                .addGap(3, 3, 3))
+            .addGap(0, 65, Short.MAX_VALUE)
         );
 
         jPanelFiltro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -360,41 +351,6 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-//        List<Tarjeta> listaTarjetas = new ArrayList();
-//        int filas = this.modeloTablaTarjetas.getRowCount();
-//        for (int i = 0; i < filas; i++) {
-//            listaTarjetas.add(unaControladoraGlobal.getTarjetaBD((Long) jTableTarjeta.getValueAt(i, 0)));
-//        }
-//        String tipo = "";
-//        if (jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
-//            tipo = "Amarillas - Rojas";
-//        } else {
-//            if (jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
-//                tipo = "Amarillas";
-//            } else {
-//                if (jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()) {
-//                    tipo = "Amarillas - Verdes";
-//                } else {
-//                    if (!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && !jCheckBoxVerdes.isSelected()) {
-//                        tipo = "Rojas";
-//                    } else {
-//                        if (!jCheckBoxAmarillas.isSelected() && !jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()) {
-//                            tipo = "Verdes";
-//                        } else {
-//                            if (!jCheckBoxAmarillas.isSelected() && jCheckBoxRojas.isSelected() && jCheckBoxVerdes.isSelected()) {
-//                                tipo = "Rojas-Verdes";
-//                            }
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-//        TarjetaDS unaTarjetaDS = new TarjetaDS(unaControladoraGlobal, listaTarjetas, unaSocia, tipo);
-//        unaTarjetaDS.verReporte();
-    }//GEN-LAST:event_jButtonImprimirActionPerformed
-
     private void jComboBoxTorneosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTorneosItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             cargarTabla();
@@ -419,7 +375,6 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JCheckBox jCheckBoxAmarillas;
     private javax.swing.JCheckBox jCheckBoxRojas;
     private javax.swing.JCheckBox jCheckBoxVerdes;
