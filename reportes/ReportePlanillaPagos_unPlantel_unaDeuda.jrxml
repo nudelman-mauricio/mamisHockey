@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePlanillaPagos_unPlantel_unaDeuda" language="groovy" pageWidth="540" pageHeight="802" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="17b3249e-e4bd-464d-8d6b-823b806746b0">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="79"/>
 	<property name="ireport.y" value="0"/>
 	<field name="idCuota" class="java.lang.String"/>
 	<field name="fechaCreacion" class="java.lang.String"/>
@@ -59,32 +59,4 @@
 			</staticText>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="13" splitType="Stretch">
-			<textField>
-				<reportElement x="490" y="1" width="50" height="12" uuid="7fd83455-0809-458f-b328-c13632b3d1f6"/>
-				<textElement textAlignment="Right">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{SubTotal}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="475" y="1" width="13" height="12" uuid="12698808-ea63-4567-9236-36d95cfe461c"/>
-				<textElement textAlignment="Right">
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[$]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="417" y="1" width="58" height="12" uuid="c789b39f-e36f-4e3c-a65b-2f513c34ab7e"/>
-				<textElement textAlignment="Right">
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Sub Total:]]></text>
-			</staticText>
-			<line>
-				<reportElement x="475" y="0" width="65" height="1" uuid="293b6808-ebff-4362-abe3-bfbc0ebb15ea"/>
-			</line>
-		</band>
-	</pageFooter>
 </jasperReport>

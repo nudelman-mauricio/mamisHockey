@@ -36,7 +36,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipo = unEquipo;
@@ -590,7 +590,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     options)) {
                 IProcesando unIProcesando = new IProcesando();
                 unIProcesando.setLocationRelativeTo(null);
-                unIProcesando.setVisible(true);
+                unIProcesando.setVisible(true);              
 
                 List<Socia> sociaPagaron = new ArrayList();
                 List<Cuota> cuotasPagaron = new ArrayList();
@@ -617,31 +617,37 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                         }
                     }
                 }
+                boolean deudaEquipo = false;
                 // </editor-fold>
-
                 // <editor-fold defaultstate="collapsed" desc="Pago Deudas Cancha y Seguro Tecnico">
                 for (Deuda unaDeuda : unEquipo.getDeudas()) {
                     if ((!unaDeuda.isSaldado())
                             && ("Cancha".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))
                             || ("Seguro Técnicos".equalsIgnoreCase(unaDeuda.getUnConceptoDeportivo().getConcepto()))) {
                         for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                            deudaEquipo = true;
                             unaControladoraGlobal.crearPagoCuota(unaCuota, unaCuota.getMonto(), unaControladoraGlobal.fechaSistema(), "Pagado en Planilla id: " + "idPlanilla");
                         }
                     }
                 }
                 // </editor-fold>
+                if (!cuotasPagaron.isEmpty() || deudaEquipo) {
+                    //Guardar Planilla
+                    PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) jComboBoxDelegadas.getSelectedItem());
 
-                //Guardar Planilla
-                PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) jComboBoxDelegadas.getSelectedItem());
+                    //Reporte
+                    PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+                    String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();
+                    PlanilladePagoDS.verReporte(nombrePDF);
 
-                //Reporte
-                PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-                String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();
-                PlanilladePagoDS.verReporte(nombrePDF);
+                    unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
 
-                unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
-            unIProcesando.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No hay nada para pagar");
+                }
+                unIProcesando.dispose();
+                cargarCampos();
             }
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
