@@ -61,12 +61,13 @@ public class PlanilladePagoDS implements JRDataSource {
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, this);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
-
+            
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Planillas de Pago/" + nombrePDF + ".pdf"));
             exporter.exportReport();
-
+            
+            
         } catch (JRException ex) {
             Logger.getLogger(PlanilladePagoDS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,6 +80,7 @@ public class PlanilladePagoDS implements JRDataSource {
         try {
             reporte = (JasperReport) JRLoader.loadObject(archivo);
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, this);
+            
 
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -87,6 +89,7 @@ public class PlanilladePagoDS implements JRDataSource {
             try {
                 File path = new File("Planillas de Pago/Temporales/" + nombrePDF + ".pdf");
                 Desktop.getDesktop().open(path);
+                
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

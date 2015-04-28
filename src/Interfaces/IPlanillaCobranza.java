@@ -202,7 +202,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         } else {
             jLabelDelegadas.setForeground(Color.black);
         }
-        if (jTextFieldIdRecibo.getText().isEmpty()) {
+        if (jTextFieldIdRecibo.getText().isEmpty()) {   
             jLabelIdRecibo.setForeground(Color.red);
             bandera = false;
         } else {
@@ -588,13 +588,14 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     null,
                     options,
                     options)) {
-                IProcesando unIProcesando = new IProcesando();
-                unIProcesando.setLocationRelativeTo(null);
-                unIProcesando.setVisible(true);              
+//                IProcesando unIProcesando = new IProcesando();
+//                unIProcesando.setLocationRelativeTo(null);
+//                unIProcesando.setVisible(true);              
 
                 List<Socia> sociaPagaron = new ArrayList();
                 List<Cuota> cuotasPagaron = new ArrayList();
-
+                
+                
                 // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
                 Socia unaSocia;
                 for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
@@ -640,13 +641,14 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
                     String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();
                     PlanilladePagoDS.verReporte(nombrePDF);
-
+                    
                     unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
 
                 } else {
                     JOptionPane.showMessageDialog(this, "No hay nada para pagar");
                 }
-                unIProcesando.dispose();
+//                unIProcesando.dispose();
+                this.unJInternalFrame.toBack();
                 cargarCampos();
             }
         }
@@ -698,7 +700,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
         PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), "-", "-", jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), "-", sociaPagaron, cuotasPagaron);
         PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
-
+        this.unJInternalFrame.toBack();
+        this.jButtonImprimir.setEnabled(false);
         unIProcesando.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
