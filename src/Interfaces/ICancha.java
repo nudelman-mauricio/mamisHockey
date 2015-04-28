@@ -1,15 +1,12 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.text.DateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -29,10 +26,10 @@ public class ICancha extends javax.swing.JInternalFrame {
 
     public ICancha(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Club unClub) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unClub = unClub;
@@ -43,6 +40,9 @@ public class ICancha extends javax.swing.JInternalFrame {
         DefaultComboBoxModel modelCombo = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getTiposCanchasBD());
         this.jComboBoxTipo.setModel(modelCombo);
         cargarTabla();
+
+        jTextFieldNombre.setOpaque(true);
+        jComboBoxTipo.setOpaque(true);
     }
 
     private void limpiarTabla() {
@@ -79,17 +79,11 @@ public class ICancha extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    private void camposActivo(Container c, boolean bandera) {
-        Component[] components = c.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            components[i].setEnabled(bandera);
-            if (components[i] instanceof JTextField) {
-                ((JTextField) components[i]).setEditable(bandera);
-            }
-            if (components[i] instanceof Container) {
-                camposActivo((Container) components[i], bandera);
-            }
-        }
+    private void camposActivo(boolean bandera) {
+        jTextFieldNombre.setEditable(bandera);
+        jComboBoxTipo.setEnabled(bandera);
+        jTextFieldNombre.setOpaque(true);
+        jComboBoxTipo.setOpaque(true);
     }
 
     //blanqueda componentes editables
@@ -139,9 +133,9 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Canchas - Nombre Club");
-        setMaximumSize(new java.awt.Dimension(650, 409));
-        setMinimumSize(new java.awt.Dimension(650, 409));
-        setPreferredSize(new java.awt.Dimension(650, 409));
+        setMaximumSize(new java.awt.Dimension(650, 410));
+        setMinimumSize(new java.awt.Dimension(650, 410));
+        setPreferredSize(new java.awt.Dimension(650, 410));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -298,7 +292,7 @@ public class ICancha extends javax.swing.JInternalFrame {
         jLabelNombre.setText("Nombre");
 
         jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setEnabled(false);
+        jTextFieldNombre.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
         jLabelTipo.setText("Tipo");
 
@@ -353,7 +347,7 @@ public class ICancha extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -369,7 +363,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(false);
 
-        camposActivo(jPanelDetalles, true);
+        camposActivo(true);
         camposLimpiar();
         unaCanchaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -383,7 +377,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(false);
 
-        camposActivo(jPanelDetalles, true);
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
@@ -399,7 +393,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(true);
 
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         camposLimpiar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -420,7 +414,7 @@ public class ICancha extends javax.swing.JInternalFrame {
             jButtonCancelar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
             jTableCancha.setEnabled(true);
-            camposActivo(jPanelDetalles, false);
+            camposActivo(false);
             camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -434,7 +428,7 @@ public class ICancha extends javax.swing.JInternalFrame {
 
         jTableCancha.setEnabled(true);
 
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(

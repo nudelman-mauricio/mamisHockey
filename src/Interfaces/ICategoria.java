@@ -1,11 +1,8 @@
 package Interfaces;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +25,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
         this.modeloTablaCategoria = (DefaultTableModel) jTableCategoria.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
         cargarTabla();
     }
 
@@ -64,17 +61,11 @@ public class ICategoria extends javax.swing.JInternalFrame {
     }
 
     //deshabilitar todo lo de un contenedor
-    private void camposActivo(Container c, boolean bandera) {
-        Component[] components = c.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            components[i].setEnabled(bandera);
-            if (components[i] instanceof JTextField) {
-                ((JTextField) components[i]).setEditable(bandera);
-            }
-            if (components[i] instanceof Container) {
-                camposActivo((Container) components[i], bandera);
-            }
-        }
+    private void camposActivo(boolean bandera) {
+        jTextFieldNombre.setEditable(bandera);
+        jTextFieldEdadParametro.setEditable(bandera);
+        jTextFieldMaximoMenores.setEditable(bandera);
+        jTextFieldMinimoMenores.setEditable(bandera);
     }
 
     //blanqueda componentes editables
@@ -369,7 +360,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
 
         jTableCategoria.setEnabled(false);
 
-        camposActivo(jPanelDetalles, true);
+        camposActivo(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -381,7 +372,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
 
         jTableCategoria.setEnabled(true);
 
-        camposActivo(jPanelDetalles, false);
+        camposActivo(false);
 
         Object[] options = {"OK", "Cancelar"};
         if (0 == JOptionPane.showOptionDialog(
@@ -410,7 +401,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
 
         jTableCategoria.setEnabled(false);
 
-        camposActivo(jPanelDetalles, true);
+        camposActivo(true);
         camposLimpiar();
         unaCategoriaSeleccionada = null;
     }//GEN-LAST:event_jButtonNuevoActionPerformed
@@ -435,7 +426,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
 
             jTableCategoria.setEnabled(true);
 
-            camposActivo(jPanelDetalles, false);
+            camposActivo(false);
             camposLimpiar();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -446,11 +437,10 @@ public class ICategoria extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
-
+        
         jTableCategoria.setEnabled(true);
 
-        camposActivo(jPanelDetalles, false);
-        camposLimpiar();
+        camposActivo(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

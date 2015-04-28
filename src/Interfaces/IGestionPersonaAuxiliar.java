@@ -19,10 +19,10 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
     public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaPersonaAuxiliar = (DefaultTableModel) jTablePersonaAuxiliar.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
@@ -54,7 +54,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
             lista = this.unaControladoraGlobal.getCuerposTecnicosBDFiltro(jTextFieldBusqueda.getText());
         }
         for (PersonaAuxiliar unaPersonaAux : lista) {
-            this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre()});
+            this.modeloTablaPersonaAuxiliar.addRow(new Object[]{unaPersonaAux.getDni(), unaPersonaAux.getApellido(), unaPersonaAux.getNombre(), unaPersonaAux.isCuerpoTecnico(), unaPersonaAux.isArbitro(), unaPersonaAux.isPlantaPermanente()});
         }
         camposActivo(false);
     }
@@ -265,18 +265,39 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "DNI", "Apellido", "Nombre"
+                "DNI", "Apellido", "Nombre", "Técnico?", "Árbitro?", "Planta Perm?"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTablePersonaAuxiliar);
+        if (jTablePersonaAuxiliar.getColumnModel().getColumnCount() > 0) {
+            jTablePersonaAuxiliar.getColumnModel().getColumn(0).setMinWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(3).setMinWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(4).setMinWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(4).setPreferredWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(5).setMinWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(5).setPreferredWidth(80);
+            jTablePersonaAuxiliar.getColumnModel().getColumn(5).setMaxWidth(80);
+        }
         jTablePersonaAuxiliar.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 camposCargar();
