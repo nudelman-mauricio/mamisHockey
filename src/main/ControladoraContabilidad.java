@@ -543,7 +543,7 @@ public class ControladoraContabilidad {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
-    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsasble, Date fechaPago, double monto, long nroRecibo, Socia responsablePago) {
+    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsasble, Date fechaPago, double monto, String nroRecibo, Socia responsablePago) {
         PlanillaPago unaPlanillaPago = new PlanillaPago(this.entityManager, fechaPago, monto, nroRecibo, responsablePago);
         unEquipoResponsasble.agregarPlanillaPago(this.entityManager, unaPlanillaPago);
         return unaPlanillaPago;
@@ -555,7 +555,7 @@ public class ControladoraContabilidad {
         unaPlanillaPago.persistir(this.entityManager);
     }
 
-    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, String nroRecibo, Socia responsablePago, String rutaPDF) {
         unaPlanillaPago.setFechaPago(fechaPago);
         unaPlanillaPago.setMonto(monto);
         unaPlanillaPago.setNroRecibo(nroRecibo);

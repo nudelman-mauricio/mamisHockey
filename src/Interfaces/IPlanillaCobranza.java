@@ -202,7 +202,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         } else {
             jLabelDelegadas.setForeground(Color.black);
         }
-        if (jTextFieldIdRecibo.getText().isEmpty()) {   
+        if (jTextFieldIdRecibo.getText().isEmpty()) {
             jLabelIdRecibo.setForeground(Color.red);
             bandera = false;
         } else {
@@ -594,8 +594,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 
                 List<Socia> sociaPagaron = new ArrayList();
                 List<Cuota> cuotasPagaron = new ArrayList();
-                
-                
+
                 // <editor-fold defaultstate="collapsed" desc="Pago Cuotas Socia">
                 Socia unaSocia;
                 for (int i = 0; i < jTablePlantel.getRowCount(); i++) {
@@ -634,14 +633,14 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
                 // </editor-fold>
                 if (!cuotasPagaron.isEmpty() || deudaEquipo) {
                     //Guardar Planilla
-                    PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), Long.valueOf(jTextFieldIdRecibo.getText()), (Socia) jComboBoxDelegadas.getSelectedItem());
+                    PlanillaPago unaPlanillaPago = unaControladoraGlobal.crearPlanillaPago(unEquipo, unaControladoraGlobal.fechaSistema(), Double.valueOf(jTextFieldTotal.getText()), jTextFieldIdRecibo.getText(), (Socia) jComboBoxDelegadas.getSelectedItem());
 
                     //Reporte
                     PlanilladePagoDS PlanilladePagoDS = new PlanilladePagoDS(unaControladoraGlobal, jLabelTitulo.getText(), String.valueOf(unaPlanillaPago.getId()), unaPlanillaPago.getResponsablePago().toString(), jTextFieldCostoCancha.getText(), jTextFieldCostoSeguro.getText(), jTextFieldSubTotal.getText(), jTextFieldTotal.getText(), String.valueOf(unaPlanillaPago.getNroRecibo()), sociaPagaron, cuotasPagaron);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
                     String nombrePDF = dateFormat.format(unaControladoraGlobal.fechaSistema()) + " - " + unaPlanillaPago.getId() + " - " + unEquipo.getNombre();
                     PlanilladePagoDS.verReporte(nombrePDF);
-                    
+
                     unaControladoraGlobal.modificarPlanillaPago(unaPlanillaPago, "Planillas de Pago/" + nombrePDF + ".pdf");
 
                 } else {

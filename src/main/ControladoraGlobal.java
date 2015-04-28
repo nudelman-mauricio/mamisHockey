@@ -1112,7 +1112,7 @@ public class ControladoraGlobal {
         // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="PlanillaPago">
-    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsable, Date fechaPago, double monto, long nroRecibo, Socia responsablePago) {
+    public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsable, Date fechaPago, double monto, String nroRecibo, Socia responsablePago) {
         return this.unaControladoraContabilidad.crearPlanillaPago(unEquipoResponsable, fechaPago, monto, nroRecibo, responsablePago);
     }
 
@@ -1120,7 +1120,7 @@ public class ControladoraGlobal {
         this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, rutaPDF);
     }
 
-    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, long nroRecibo, Socia responsablePago, String rutaPDF) {
+    public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, String nroRecibo, Socia responsablePago, String rutaPDF) {
         this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
     }
 

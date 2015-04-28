@@ -752,17 +752,17 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="PlanillaPago" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="true" id="_1412270930951">
+    <jpa:entity class="PlanillaPago" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_1412270930951">
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" visibile="true" id="_1412270961429170">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="AUTO"/>
             </jpa:id>
-            <jpa:basic name="nroRecibo" attribute-type="long" visibile="true" id="_1412270972863171">
+            <jpa:basic name="nroRecibo" attribute-type="String" visibile="true" id="_1412270972863171">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
             <jpa:basic name="rutaPDF" attribute-type="String" visibile="true" id="_1412270973077172">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="500"/>
             </jpa:basic>
             <jpa:basic name="monto" attribute-type="double" visibile="true" id="_1412270973707174">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
@@ -890,7 +890,7 @@
                 <Bounds x="-852.0" y="21.0" width="158.0" height="24.0"/>
             </shape>
             <shape elementRef="_1412270930951" id="_1412270930951_gui">
-                <Bounds x="940.0" y="327.0" width="166.0" height="24.0"/>
+                <Bounds x="941.0" y="323.0" width="166.0" height="189.0"/>
             </shape>
             <shape elementRef="_1429050077973" id="_1429050077973_gui">
                 <Bounds x="-717.0" y="-655.0" width="175.0" height="113.0"/>

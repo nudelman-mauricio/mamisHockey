@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,30 +22,26 @@ public class PlanillaPago implements Serializable, Comparable {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     @OneToOne(targetEntity = Socia.class)
     private Socia responsablePago;
-
     @Basic
     private double monto;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Basic
-    private long nroRecibo;
-
+    private String nroRecibo;
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fechaPago;
-
+    @Column(length = 500)
     @Basic
     private String rutaPDF;
-    // </editor-fold>
+// </editor-fold>
 
     public PlanillaPago() {
 
     }
 
-    public PlanillaPago(EntityManager entityManager, Date fechaPago, double monto, long nroRecibo, Socia responsablePago) {
+    public PlanillaPago(EntityManager entityManager, Date fechaPago, double monto, String nroRecibo, Socia responsablePago) {
         this.fechaPago = fechaPago;
         this.monto = monto;
         this.nroRecibo = nroRecibo;
@@ -77,11 +74,11 @@ public class PlanillaPago implements Serializable, Comparable {
         this.id = id;
     }
 
-    public long getNroRecibo() {
+    public String getNroRecibo() {
         return this.nroRecibo;
     }
 
-    public void setNroRecibo(long nroRecibo) {
+    public void setNroRecibo(String nroRecibo) {
         this.nroRecibo = nroRecibo;
     }
 
