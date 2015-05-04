@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DataSources;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import logicaNegocios.FechaTorneo;
-import logicaNegocios.Partido;
-import static logicaNegocios.SancionTribunal_.unPartido;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
-import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;

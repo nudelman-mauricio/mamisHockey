@@ -41,6 +41,13 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        /**
+         * Momentaneamente Desactiado para no alargar mas la entrerga. Recordar
+         * que los formulasrios esos no pueden ser inventados. Hay que acordar
+         * con la comision directiva
+         */
+        jMenuFormularios.setVisible(false);
+
         //FONDO jDesktopPane
         jDesktopPane.setBorder(new ImagenFondo());
     }

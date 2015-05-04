@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import logicaNegocios.IngresoOtro;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
-import logicaNegocios.Torneo;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;

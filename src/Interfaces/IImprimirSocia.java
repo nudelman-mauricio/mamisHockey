@@ -3,6 +3,7 @@ package Interfaces;
 import DataSources.HistorialSociaDS;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -16,32 +17,35 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
     private JInternalFrame unJInternalFrame;
     private Socia unaSociaSeleccionada = null;
     private DateFormat df = DateFormat.getDateInstance();
+    private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
+    private SimpleDateFormat dateFormatSoloAnio = new SimpleDateFormat("YYYY");
 
     public IImprimirSocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unJInternalFrame = unJInternalFrame;
         this.unaSociaSeleccionada = unaSocia;
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/printer.png"))); //Icono Ventana
         this.setTitle("Reportes para Imrimir de: " + unaSocia.toString()); //Titulo Ventana
-        jLabelNombreJugadora.setText(unaSocia.toString());        
-        
+        jLabelNombreJugadora.setText(unaSocia.toString());
+
+        jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxDesdeAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
+
+        jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxHastaAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
     }
 
     private boolean camposValidar() {
         boolean bandera = true;
         if (!jCheckBoxTarjetas.isSelected() && !jCheckBoxPases.isSelected() && !jCheckBoxSanciones.isSelected() && !jCheckBoxErgometrias.isSelected() && !jCheckBoxContable.isSelected() && !jCheckBoxEstados.isSelected()) {
             bandera = false;
-        }
-        if ((jComboBoxDesdeMes.getSelectedItem() == jComboBoxHastaMes.getSelectedItem() && (jComboBoxDesdeAño.getSelectedItem() == jComboBoxHastaAño.getSelectedItem()))) {
-            JOptionPane.showMessageDialog(this, "Las fechas son iguales. La diferencia debe ser como mínimo un mes.");
-            return false;
-        }
+        }        
         if (!bandera) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione una opción");
         }
@@ -342,7 +346,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
                         jCheckBoxErgometrias.isSelected(),
                         jCheckBoxContable.isSelected(),
                         jCheckBoxEstados.isSelected());
-               unHistorialSociaDS.verReporte();
+                unHistorialSociaDS.verReporte();
 
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");

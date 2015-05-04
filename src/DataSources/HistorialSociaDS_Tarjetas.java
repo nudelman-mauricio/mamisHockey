@@ -3,7 +3,6 @@ package DataSources;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import logicaNegocios.Partido;
-import logicaNegocios.SancionTribunal;
 import logicaNegocios.Tarjeta;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;

@@ -263,11 +263,12 @@
             <Component class="javax.swing.JTable" name="jTableTarjeta">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
+                  <Table columnCount="7" rowCount="0">
                     <Column editable="false" title="id" type="java.lang.Long"/>
                     <Column editable="false" title="Fecha" type="java.lang.Object"/>
                     <Column editable="false" title="Tipo de Tarjeta" type="java.lang.Object"/>
                     <Column editable="false" title="Torneo" type="java.lang.Object"/>
+                    <Column editable="false" title="Fecha" type="java.lang.Object"/>
                     <Column editable="false" title="Partido" type="java.lang.Object"/>
                     <Column editable="false" title="Computado" type="java.lang.Boolean"/>
                   </Table>
@@ -279,7 +280,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -289,7 +295,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -345,7 +351,6 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jTextFieldTipoTarjeta" max="32767" attributes="0"/>
-                              <Component id="jTextFieldTorneo" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldPartido" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jTextFieldTiempo" min="-2" pref="60" max="-2" attributes="0"/>
@@ -355,6 +360,13 @@
                                   <Component id="jTextFieldMinuto" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jDateChooserFecha" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jTextFieldTorneo" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelFechaTorneo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jTextFieldFechaTorneo" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -390,6 +402,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabelTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFechaTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFechaTorneo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -591,6 +605,16 @@
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFecha">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelFechaTorneo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Fecha"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldFechaTorneo">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

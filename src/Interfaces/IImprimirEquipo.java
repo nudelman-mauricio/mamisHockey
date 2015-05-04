@@ -2,12 +2,12 @@ package Interfaces;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Equipo;
-import main.ControladoraGlobal;
 
 public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
@@ -17,10 +17,10 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
     public IImprimirEquipo(JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipoSeleccionado = unEquipo;
 
