@@ -163,19 +163,28 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelPresidente" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelLocalidad" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabelLocalidad1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextFieldResponsableSede" min="-2" pref="160" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabelPresidente" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelLocalidad" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jTextFieldPresidente" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jComboBoxLocalidad" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="jTextFieldNombre" min="-2" pref="160" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jTextFieldPresidente" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="jComboBoxLocalidad" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="jTextFieldNombre" min="-2" pref="160" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="92" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -197,7 +206,12 @@
                       <Component id="jLabelLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelLocalidad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldResponsableSede" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -228,6 +242,13 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelLocalidad1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Responsable de Sede"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldResponsableSede">
         </Component>
       </SubComponents>
     </Container>

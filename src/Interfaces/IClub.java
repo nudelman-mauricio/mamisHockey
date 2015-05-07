@@ -22,7 +22,6 @@ public class IClub extends javax.swing.JInternalFrame {
     //LLAMADO PARA NUEVO CLUB
     public IClub(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
-
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
 
@@ -42,6 +41,7 @@ public class IClub extends javax.swing.JInternalFrame {
         this(unaControladoraGlobal, unJInternalFrame);
         this.unClub = unClub;
         this.setTitle("Datos de Club: " + unClub.getNombre());
+
         camposCargar(unClub);
         camposActivo(jPanelDetalles, false);
 
@@ -62,6 +62,7 @@ public class IClub extends javax.swing.JInternalFrame {
                 camposActivo((Container) components[i], bandera);
             }
         }
+        jTextFieldResponsableSede.setEnabled(false);
     }
 
     public void camposLimpiar() {
@@ -74,6 +75,9 @@ public class IClub extends javax.swing.JInternalFrame {
         jTextFieldNombre.setText(unClub.getNombre());
         jTextFieldPresidente.setText(unClub.getNombrePresidente());
         jComboBoxLocalidad.setSelectedItem(unClub.getUnaLocalidad());
+        if (unClub.getUnaResponsableSede() != null) {
+            jTextFieldResponsableSede.setText(unClub.getUnaResponsableSede().toString());
+        }
     }
 
     private boolean camposValidar() {
@@ -118,6 +122,8 @@ public class IClub extends javax.swing.JInternalFrame {
         jTextFieldNombre = new javax.swing.JTextField();
         jTextFieldPresidente = new javax.swing.JTextField();
         jComboBoxLocalidad = new javax.swing.JComboBox();
+        jLabelLocalidad1 = new javax.swing.JLabel();
+        jTextFieldResponsableSede = new javax.swing.JTextField();
         jPanelEscudo = new javax.swing.JPanel();
         jLabelImagen = new javax.swing.JLabel();
         jButtonExaminarImagen = new javax.swing.JButton();
@@ -217,22 +223,30 @@ public class IClub extends javax.swing.JInternalFrame {
 
         jLabelLocalidad.setText("Localidad");
 
+        jLabelLocalidad1.setText("Responsable de Sede");
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                .addGap(104, 104, 104)
+                .addGap(62, 62, 62)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelPresidente)
-                    .addComponent(jLabelNombre)
-                    .addComponent(jLabelLocalidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextFieldPresidente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(jLabelLocalidad1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldResponsableSede, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelPresidente)
+                            .addComponent(jLabelNombre)
+                            .addComponent(jLabelLocalidad))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextFieldPresidente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,7 +263,11 @@ public class IClub extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLocalidad)
                     .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelLocalidad1)
+                    .addComponent(jTextFieldResponsableSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jLabelImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -347,6 +365,7 @@ public class IClub extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxLocalidad;
     private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelLocalidad;
+    private javax.swing.JLabel jLabelLocalidad1;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelPresidente;
     private javax.swing.JPanel jPanelBotones;
@@ -354,5 +373,6 @@ public class IClub extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelEscudo;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldPresidente;
+    private javax.swing.JTextField jTextFieldResponsableSede;
     // End of variables declaration//GEN-END:variables
 }

@@ -251,6 +251,8 @@ public class ControladoraEntidades {
         }
         return unaListaResultado;
     }
+    
+    
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Pases">

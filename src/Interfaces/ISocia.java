@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import logicaNegocios.Club;
 import logicaNegocios.Localidad;
 import logicaNegocios.Socia;
 import main.ControladoraGlobal;
@@ -45,10 +46,10 @@ public class ISocia extends javax.swing.JInternalFrame {
     //LLAMADO PARA UNA NUEVA SOCIA
     public ISocia(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
 
@@ -60,8 +61,12 @@ public class ISocia extends javax.swing.JInternalFrame {
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
-
+        
+        jCheckBoxResponsableSede.setSelected(false);
+        jComboBoxResponsableSede.setEnabled(false);
+        
         jDateChooserFechaIngreso.setDateFormatString(df.format(unaControladoraGlobal.fechaSistema()));
+        this.jComboBoxResponsableSede.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
     }
 
     //LLAMADO MOSTRANDO UNA SOCIA
@@ -75,7 +80,22 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonEditar.setEnabled(true);
-
+       
+        this.jComboBoxResponsableSede.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
+        jComboBoxResponsableSede.setSelectedIndex(-1);
+        for (Club unClub : unaControladoraGlobal.getClubesBD()) {
+            if (unClub.getUnaResponsableSede() != null) {
+                if (unClub.getUnaResponsableSede().equals(unaSocia)) {
+                    jComboBoxResponsableSede.setSelectedItem(unClub);
+                    jCheckBoxResponsableSede.setSelected(true);                    
+                }
+            }
+        }
+        if(jCheckBoxResponsableSede.isSelected()){
+             jComboBoxResponsableSede.setEnabled(false);
+        } else {
+             jComboBoxResponsableSede.setEnabled(true);
+        }
     }
 
     public void camposCargar(Socia unaSocia) {
@@ -213,6 +233,9 @@ public class ISocia extends javax.swing.JInternalFrame {
         jDateChooserFechaIngreso = new com.toedter.calendar.JDateChooser();
         jButtonExaminar = new javax.swing.JButton();
         jLabelFotoCarnet = new javax.swing.JLabel();
+        jLabelLocalidad1 = new javax.swing.JLabel();
+        jComboBoxResponsableSede = new javax.swing.JComboBox();
+        jCheckBoxResponsableSede = new javax.swing.JCheckBox();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -319,7 +342,19 @@ public class ISocia extends javax.swing.JInternalFrame {
 
         jLabelLocalidad.setText("Localidad");
 
+        jTextFieldDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDNIActionPerformed(evt);
+            }
+        });
+
         jLabelDomicilio.setText("Domicilio");
+
+        jTextFieldDomicilio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDomicilioActionPerformed(evt);
+            }
+        });
 
         jLabelFechaNacimiento.setText("Fecha de Nacimiento");
 
@@ -346,44 +381,53 @@ public class ISocia extends javax.swing.JInternalFrame {
 
         jLabelFotoCarnet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabelLocalidad1.setText("Responsable de Sede");
+
+        jComboBoxResponsableSede.setEnabled(false);
+
+        jCheckBoxResponsableSede.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxResponsableSedeItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelLocalidad)
+                    .addComponent(jLabelDomicilio)
+                    .addComponent(jLabelFechaIngreso)
+                    .addComponent(jLabelExJugadora)
+                    .addComponent(jLabelEmail)
+                    .addComponent(jLabelTelefonoFijo)
+                    .addComponent(jLabelTelefonoCelular)
+                    .addComponent(jLabelLocalidad1)
+                    .addComponent(jLabelNombres)
+                    .addComponent(jLabelFechaNacimiento)
+                    .addComponent(jLabelApellido)
+                    .addComponent(jLabelDni))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCheckBoxExJugadora)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNombres, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelLocalidad, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelDomicilio, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaNacimiento, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaIngreso, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelExJugadora, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelTelefonoFijo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelTelefonoCelular, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jCheckBoxResponsableSede)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jCheckBoxExJugadora)
-                            .addComponent(jTextFieldTelFijo)
-                            .addComponent(jTextFieldTelCelular)
-                            .addComponent(jComboBoxLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldNombres)
-                            .addComponent(jTextFieldDomicilio)
-                            .addComponent(jTextFieldEmail)
-                            .addComponent(jDateChooserFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jDateChooserFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelDni)
-                            .addComponent(jLabelApellido))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addComponent(jComboBoxResponsableSede, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNombres, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDateChooserFechaNacimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooserFechaIngreso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldTelCelular, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldApellido)
+                    .addComponent(jTextFieldDNI))
+                .addGap(30, 30, 30)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelFotoCarnet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
@@ -394,48 +438,54 @@ public class ISocia extends javax.swing.JInternalFrame {
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelApellido)
-                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelApellido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelNombres))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelLocalidad))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelDomicilio)
-                            .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                                .addComponent(jLabelLocalidad)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabelDomicilio))
+                            .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                                .addComponent(jComboBoxLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextFieldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelEmail)
                             .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDateChooserFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelFechaNacimiento))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelFechaIngreso)
-                            .addComponent(jDateChooserFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooserFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFechaIngreso))
+                        .addGap(6, 6, 6))
                     .addGroup(jPanelDetallesLayout.createSequentialGroup()
                         .addComponent(jLabelFotoCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonExaminar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTelefonoFijo)
-                    .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabelTelefonoFijo))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(jTextFieldTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTelefonoCelular)
@@ -444,7 +494,13 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelExJugadora)
                     .addComponent(jCheckBoxExJugadora))
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxResponsableSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jCheckBoxResponsableSede)
+                        .addComponent(jLabelLocalidad1)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -465,7 +521,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -481,6 +537,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jButtonGuardar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         camposActivo(jPanelDetalles, true);
+        if(jCheckBoxResponsableSede.isSelected()){
+             jComboBoxResponsableSede.setEnabled(true);
+        } else {
+             jComboBoxResponsableSede.setEnabled(false);
+        }
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -500,7 +561,7 @@ public class ISocia extends javax.swing.JInternalFrame {
                         jTextFieldEmail.getText(),
                         jTextFieldTelFijo.getText(),
                         jTextFieldTelCelular.getText(),
-                        cargarImagen(archivoImagen));
+                        cargarImagen(archivoImagen));                
                 JOptionPane.showMessageDialog(this, "Socia Guardada");
             } else {
                 unaControladoraGlobal.modificarSocia(
@@ -515,12 +576,16 @@ public class ISocia extends javax.swing.JInternalFrame {
                         jTextFieldTelCelular.getText(),
                         jTextFieldEmail.getText(),
                         fechaIngreso,
-                        unaSocia.isBorradoLogico(),                        
+                        unaSocia.isBorradoLogico(),
                         cargarImagen(archivoImagen),
                         jCheckBoxExJugadora.isSelected()
-                );
+                );                
                 JOptionPane.showMessageDialog(this, "Socia Modificada");
             }
+            if(jCheckBoxResponsableSede.isSelected()){
+                    Club unClubSeleccionado = (Club) jComboBoxResponsableSede.getSelectedItem();
+                    unClubSeleccionado.setUnaResponsableSede(unaControladoraGlobal.getSociaBD(Long.valueOf(jTextFieldDNI.getText())));
+             }
             this.dispose();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -555,6 +620,22 @@ public class ISocia extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_jButtonExaminarActionPerformed
+
+    private void jCheckBoxResponsableSedeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxResponsableSedeItemStateChanged
+        if (jCheckBoxResponsableSede.isSelected()) {
+            jComboBoxResponsableSede.setEnabled(true);
+        } else {
+            jComboBoxResponsableSede.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBoxResponsableSedeItemStateChanged
+
+    private void jTextFieldDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDNIActionPerformed
+
+    private void jTextFieldDomicilioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDomicilioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDomicilioActionPerformed
 
     private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
         BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, type);
@@ -592,7 +673,9 @@ public class ISocia extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JCheckBox jCheckBoxExJugadora;
+    private javax.swing.JCheckBox jCheckBoxResponsableSede;
     private javax.swing.JComboBox jComboBoxLocalidad;
+    private javax.swing.JComboBox jComboBoxResponsableSede;
     private com.toedter.calendar.JDateChooser jDateChooserFechaIngreso;
     private com.toedter.calendar.JDateChooser jDateChooserFechaNacimiento;
     private javax.swing.JLabel jLabelApellido;
@@ -604,6 +687,7 @@ public class ISocia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelFechaNacimiento;
     private javax.swing.JLabel jLabelFotoCarnet;
     private javax.swing.JLabel jLabelLocalidad;
+    private javax.swing.JLabel jLabelLocalidad1;
     private javax.swing.JLabel jLabelNombres;
     private javax.swing.JLabel jLabelTelefonoCelular;
     private javax.swing.JLabel jLabelTelefonoFijo;
