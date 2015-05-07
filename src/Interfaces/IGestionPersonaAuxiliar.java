@@ -1,6 +1,7 @@
 package Interfaces;
 
 import DataSources.ListaPersonaAuxiliarDS;
+import DataSources.PersonaAuxiliarDS;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -150,6 +151,11 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         jButtonImprimir.setEnabled(false);
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
 
         jButtonImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
         jButtonImprimir1.setText("Imprimir Lista");
@@ -509,6 +515,11 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
         unaIActasCompromiso.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonActasConformidadActionPerformed
+
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        PersonaAuxiliarDS unaPersonaAuxiliarDS = new PersonaAuxiliarDS(unaControladoraGlobal,unaPersonaAuxiliarSeleccionado);
+        unaPersonaAuxiliarDS.verReporte();
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
