@@ -13,6 +13,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import logicaNegocios.FechaTorneo;
+import logicaNegocios.Partido;
 import logicaNegocios.SancionTribunal;
 import logicaNegocios.Socia;
 import logicaNegocios.Tarjeta;
@@ -63,21 +65,29 @@ public class ITarjeta extends javax.swing.JInternalFrame {
     public void cargarTabla() {
         limpiarTabla();
         String partido;
+        int numeroFechaTorneo = 0;
+        Partido unPartidoDeTarjeta = null;
         for (Tarjeta unaTarjeta : unaSocia.getTarjetas()) {
             if (!unaTarjeta.isBorradoLogico()) {
                 if ((unaTarjeta.getTipo().equals("Verde") && jCheckBoxVerdes.isSelected()) || (unaTarjeta.getTipo().equals("Amarilla") && jCheckBoxAmarillas.isSelected()) || (unaTarjeta.getTipo().equals("Roja") && jCheckBoxRojas.isSelected())) {
                     if ((jComboBoxTorneos.getSelectedIndex() == 0) || (unaTarjeta.getUnTorneo().equals(jComboBoxTorneos.getSelectedItem()))) {
-                        if (unaControladoraGlobal.getPartidoTarjeta(unaTarjeta) != null) {
-                            partido = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta).toString();
+                        unPartidoDeTarjeta = unaControladoraGlobal.getPartidoTarjeta(unaTarjeta);
+                        if (unPartidoDeTarjeta != null) {
+                            partido = unPartidoDeTarjeta.toString();
+                            FechaTorneo fechaTorneoDeTarjeta = unaControladoraGlobal.getFechaTorneoDePartido(unPartidoDeTarjeta);
+                            if (fechaTorneoDeTarjeta != null) {
+                                numeroFechaTorneo = fechaTorneoDeTarjeta.getNumeroFecha();
+                            }
                         } else {
                             partido = "ACUMULADA";
+                            numeroFechaTorneo = 0;
                         }
                         this.modeloTablaTarjetas.addRow(new Object[]{
                             unaTarjeta.getIdTarjeta(),
                             df.format(unaTarjeta.getFecha()),
                             unaTarjeta.getTipo(),
                             unaTarjeta.getUnTorneo().getNombre(),
-                            unaControladoraGlobal.getFechaTorneoDePartido(unaControladoraGlobal.getPartidoTarjeta(unaTarjeta)).getNumeroFecha(),
+                            numeroFechaTorneo,
                             partido,
                             unaTarjeta.isComputado()});
                     }

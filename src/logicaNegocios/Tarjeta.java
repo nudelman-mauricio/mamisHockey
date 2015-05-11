@@ -53,9 +53,13 @@ public class Tarjeta implements Serializable, Comparable {
         this.motivo = motivo;
         this.tiempo = tiempo;
         this.minuto = minuto;
-        this.computado = false;
         this.fecha = fecha;
         this.borradoLogico = false;
+        if (tipo.equalsIgnoreCase("Roja")) {
+            this.computado = true;
+        } else {
+            this.computado = false;
+        }
         this.persistir(entityManager);
     }
 

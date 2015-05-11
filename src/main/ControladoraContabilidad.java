@@ -522,7 +522,7 @@ public class ControladoraContabilidad {
                                                 nombreMes = "Octubre";
                                             } else {
                                                 if (numeroMes == 11) {
-                                                    nombreMes = "Nobiembre";
+                                                    nombreMes = "Noviembre";
                                                 } else {
                                                     nombreMes = "Diciembre";
                                                 }
@@ -537,8 +537,12 @@ public class ControladoraContabilidad {
             }
         }
         String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
-        Query traerMes = this.entityManager.createQuery(unaConsulta);
-        return ((Mes) traerMes.getSingleResult());
+        List<Mes> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
+        if (unaListaResultado.isEmpty()) {
+            return null;            
+        } else {
+            return unaListaResultado.get(0);
+        }
     }
     // </editor-fold>
 

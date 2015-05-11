@@ -1163,7 +1163,6 @@ public class ControladoraGlobal {
         } else {
             return unaListaResultado.get(0).getValor();
         }
-
     }
     // </editor-fold>
 }
