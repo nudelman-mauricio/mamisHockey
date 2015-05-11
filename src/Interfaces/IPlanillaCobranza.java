@@ -591,7 +591,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 //                IProcesando unIProcesando = new IProcesando();
 //                unIProcesando.setLocationRelativeTo(null);
 //                unIProcesando.setVisible(true);              
-
+                JOptionPane.showMessageDialog(this, "El proceso puede demorar.");
+                
                 List<Socia> sociaPagaron = new ArrayList();
                 List<Cuota> cuotasPagaron = new ArrayList();
 
@@ -666,6 +667,8 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
      * siempre.
      */
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        JOptionPane.showMessageDialog(this, "El proceso puede demorar.");
+        
         IProcesando unIProcesando = new IProcesando();
         unIProcesando.setLocationRelativeTo(null);
         unIProcesando.setVisible(true);
