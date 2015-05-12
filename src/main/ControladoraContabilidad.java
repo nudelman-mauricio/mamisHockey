@@ -143,7 +143,7 @@ public class ControladoraContabilidad {
         return unaListaResultado;
     }
 
-    public List<Deuda> getDeudaoEntreFechas(Date desde, Date hasta) {
+    public List<Deuda> getDeudaEntreFechas(Date desde, Date hasta) {
         String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion < '" + hasta + "' ORDER BY A.fechaGeneracion ASC";
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         return unaListaResultado;
@@ -539,7 +539,7 @@ public class ControladoraContabilidad {
         String unaConsulta = "SELECT M FROM Mes M WHERE M.nombre LIKE '" + nombreMes + "'";
         List<Mes> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();
         if (unaListaResultado.isEmpty()) {
-            return null;            
+            return null;
         } else {
             return unaListaResultado.get(0);
         }

@@ -927,7 +927,7 @@ public class ControladoraGlobal {
     }
 
     public List<Deuda> getDeudasEntreFechas(Date desde, Date hasta) {
-        return this.unaControladoraContabilidad.getDeudaoEntreFechas(desde, hasta);
+        return this.unaControladoraContabilidad.getDeudaEntreFechas(desde, hasta);
     }
 
     public Deuda getDeudaPagoCuota(PagoCuota unPago) {
