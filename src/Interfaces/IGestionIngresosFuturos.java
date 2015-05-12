@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,13 +13,15 @@ import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
 import main.ControladoraGlobal;
 
-public class borrameNomas extends javax.swing.JInternalFrame {
+public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
     private DefaultTableModel modeloTablaGestionIngresos;
     private DateFormat df = DateFormat.getDateInstance();
+    private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
+    private SimpleDateFormat dateFormatSoloAnio = new SimpleDateFormat("YYYY");
 
-    public borrameNomas(ControladoraGlobal unaControladoraGlobal) {
+    public IGestionIngresosFuturos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
         IMenuPrincipalInterface.jDesktopPane.add(this);
@@ -28,8 +31,14 @@ public class borrameNomas extends javax.swing.JInternalFrame {
         this.modeloTablaGestionIngresos = (DefaultTableModel) jTableIngresos.getModel();
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
-        this.setTitle("Gestión de Ingresos Otro");
+        this.setTitle("Gestión de Ingresos Futuros");
         this.jTableIngresos.getTableHeader().setReorderingAllowed(false);
+
+        jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxDesdeAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
+
+        jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
+        jComboBoxHastaAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
 
         cargarTabla();
     }
@@ -84,7 +93,7 @@ public class borrameNomas extends javax.swing.JInternalFrame {
             jTextFieldRestante.setText(Double.toString(montoTotalRestante));
             jTextFieldVencido.setText(Double.toString(montoTotalVencido));
         } catch (ParseException ex) {
-            Logger.getLogger(borrameNomas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IGestionIngresosFuturos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -113,10 +122,12 @@ public class borrameNomas extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
-        jTextFieldVencido = new javax.swing.JTextField();
-        jLabelVencido = new javax.swing.JLabel();
-        jTextFieldRestante = new javax.swing.JTextField();
+        jPanelBotones = new javax.swing.JPanel();
+        jButtonImprimir = new javax.swing.JButton();
         jLabelRestante = new javax.swing.JLabel();
+        jTextFieldRestante = new javax.swing.JTextField();
+        jLabelVencido = new javax.swing.JLabel();
+        jTextFieldVencido = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(900, 500));
@@ -168,11 +179,11 @@ public class borrameNomas extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -280,7 +291,7 @@ public class borrameNomas extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,9 +303,38 @@ public class borrameNomas extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
         );
 
-        jLabelVencido.setText("Monto Total Vencido");
+        jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); // NOI18N
+        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
+        jPanelBotones.setLayout(jPanelBotonesLayout);
+        jPanelBotonesLayout.setHorizontalGroup(
+            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotonesLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelBotonesLayout.setVerticalGroup(
+            jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotonesLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jButtonImprimir)
+                .addGap(3, 3, 3))
+        );
 
         jLabelRestante.setText("Monto Total a Ingresar");
+
+        jLabelVencido.setText("Monto Total Vencido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -303,8 +343,9 @@ public class borrameNomas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBotones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,6 +363,8 @@ public class borrameNomas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -363,8 +406,36 @@ public class borrameNomas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
 
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+//        if (jTableIngresos.getRowCount() > 0) {
+//            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
+//            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
+//            Date fechaHasta = null;
+//            Date fechaDesde = null;
+//            try {
+//                fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
+//                fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+//
+//            } catch (ParseException ex) {
+//                Logger.getLogger(IGestionEgresos.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            List<IngresoOtro> unaListaIngreso = new ArrayList();
+//            IngresoOtro unIngresoOtro;
+//            int filas = this.modeloTablaGestionIngresos.getRowCount();
+//            for (int i = 0; i < filas; i++) {
+//                unIngresoOtro = unaControladoraGlobal.getIngresoOtroBD((Long) jTableIngresos.getValueAt(i, 0));
+//                unaListaIngreso.add(unIngresoOtro);
+//            }
+//            GestionIngresosDS unaGestionIgresosDS = new GestionIngresosDS(unaControladoraGlobal, unaListaIngreso, fechaDesde, fechaHasta);
+//            unaGestionIgresosDS.verReporte();
+//        } else {
+//            JOptionPane.showMessageDialog(this, "La tabla esta Vacia");
+//        }
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JComboBox jComboBoxDesdeAño;
     private javax.swing.JComboBox jComboBoxDesdeMes;
     private javax.swing.JComboBox jComboBoxHastaAño;
@@ -379,6 +450,7 @@ public class borrameNomas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelBotones;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableIngresos;
     private javax.swing.JTextField jTextFieldRestante;
