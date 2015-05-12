@@ -7,31 +7,34 @@
 	<field name="tipoTarjeta" class="java.lang.String"/>
 	<field name="torneo" class="java.lang.String"/>
 	<field name="partido" class="java.lang.String"/>
+	<field name="fechaTorneo" class="java.lang.String"/>
+	<field name="contabilizo" class="java.lang.String"/>
+	<field name="minuto" class="java.lang.String"/>
 	<columnHeader>
 		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="332" y="18" width="223" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
+				<reportElement x="280" y="18" width="180" height="13" uuid="b6ffb5fa-6545-4659-8b11-78eaf12901ff"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Partido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="182" y="18" width="150" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
+				<reportElement x="116" y="18" width="96" height="13" uuid="79725e77-201e-40ce-9a9e-51cc649ad893"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Torneo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="18" width="102" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
+				<reportElement x="58" y="18" width="58" height="13" uuid="01704f85-669c-4d8f-a261-beb1681436ef"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo Tarjeta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="18" width="80" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
+				<reportElement x="0" y="18" width="58" height="13" uuid="d9c38ab9-3527-4777-acf8-b1f787649e70"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -47,37 +50,77 @@
 				</textElement>
 				<text><![CDATA[Historico de Tarjetas:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="212" y="18" width="68" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="40c30537-dfb1-467c-8ce3-ab99121ee06c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fecha Torneo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="491" y="18" width="64" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="931d7a6d-9c68-4ec7-8016-0573b7f811af"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Contabilizo]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="12" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="0" width="80" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
+				<reportElement x="0" y="0" width="58" height="11" uuid="c09feaaa-d926-4d94-bb27-62106b15107e"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="182" y="0" width="150" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
+				<reportElement x="117" y="0" width="95" height="11" uuid="2f2d284a-be76-4a68-8314-110581fcdc8a"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{torneo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="332" y="0" width="223" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
+				<reportElement x="280" y="0" width="180" height="11" uuid="824165e9-dde3-43fe-8535-ccab9fada184"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{partido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="0" width="102" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
+				<reportElement x="58" y="0" width="59" height="11" uuid="de5f8a75-29d3-4b1a-b23c-6389f0192609"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipoTarjeta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="212" y="0" width="68" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="cac35315-9b52-4855-8dc8-860e41ea58d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaTorneo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="491" y="0" width="64" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="04e6d4d2-fe41-4030-9b7c-949b84b09e12"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contabilizo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="460" y="0" width="31" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="c4f73705-164e-49cc-9ce7-db4d4c55390c"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{minuto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

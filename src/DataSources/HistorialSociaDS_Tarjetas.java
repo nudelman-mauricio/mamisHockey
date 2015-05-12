@@ -41,17 +41,38 @@ public class HistorialSociaDS_Tarjetas implements JRDataSource {
                     valor = tarjetasImprimir.get(indiceTarjeta).getTipo();
                     break;
                 case "torneo":
-                    if (unaControladoraGlobal.getTorneoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null){
-                        valor = unaControladoraGlobal.getTorneoTarjeta(tarjetasImprimir.get(indiceTarjeta));   
-                    }else{
+                    if (unaControladoraGlobal.getTorneoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null) {
+                        valor = unaControladoraGlobal.getTorneoTarjeta(tarjetasImprimir.get(indiceTarjeta));
+                    } else {
                         valor = "-";
                     }
                     break;
+                case "fechaTorneo":
+                    if (unaControladoraGlobal.getFechaTorneoDePartido(unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta))) != null) {
+                        valor = unaControladoraGlobal.getFechaTorneoDePartido(unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta))).getNumeroFecha();
+                    } else {
+                        valor = "-";
+                    }
+                    break;
+                case "minuto":
+                    if (tarjetasImprimir.get(indiceTarjeta).getMinuto() != null) {
+                        valor = tarjetasImprimir.get(indiceTarjeta).getMinuto() + "' " + tarjetasImprimir.get(indiceTarjeta).getTiempo() + "T";
+                    } else {
+                        valor = "-";
+                    }
+                    break;
+                case "contabilizo":
+                    if (tarjetasImprimir.get(indiceTarjeta).isComputado()) {
+                        valor = "Si";
+                    } else {
+                        valor = "No";
+                    }
+                    break;
                 case "partido":
-                    if (unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null){
-                        Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta));   
-                        valor = unPartido.getUnEquipoLocal()+ " vs " + unPartido.getUnEquipoVisitante();
-                    }else{
+                    if (unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta)) != null) {
+                        Partido unPartido = unaControladoraGlobal.getPartidoTarjeta(tarjetasImprimir.get(indiceTarjeta));
+                        valor = unPartido.getUnEquipoLocal() + " vs " + unPartido.getUnEquipoVisitante();
+                    } else {
                         valor = "Por Acumulación";
                     }
                     break;
