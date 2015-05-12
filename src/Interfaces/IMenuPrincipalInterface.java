@@ -105,6 +105,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCuotaMensual = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuFormularios = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -252,6 +253,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenuContabilidad.add(jMenuItemCuotaMensual);
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuContabilidad.add(jMenuItem2);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -472,6 +481,12 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unIGeneradorMensual.setVisible(true);
     }//GEN-LAST:event_jMenuItemCuotaMensualActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        borrameNomas unborrameNomas = new borrameNomas(unaControladoraGlobal);
+        unborrameNomas.pack();
+        unborrameNomas.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     private void setCamSocia() {
         int Max = 99;
         int Min = 1;
@@ -552,6 +567,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFormularios;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
