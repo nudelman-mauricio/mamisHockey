@@ -29,13 +29,14 @@ public class Club_CanchaDS implements JRDataSource {
     {
         Object valor = null;
 
-        if ("Tipo".equals(jrf.getName()))
-        {
-            valor = canchas.get(indiceCanchaActual).getUnTipoCancha().getNombre();            
-        }
-        else if ("Nombre".equals(jrf.getName()))
-        {
-            valor = canchas.get(indiceCanchaActual).getNombre();           
+        if (null != jrf.getName())
+        switch (jrf.getName()) {
+            case "Tipo":
+                valor = canchas.get(indiceCanchaActual).getUnTipoCancha().getNombre();
+                break;
+            case "Nombre":
+                valor = canchas.get(indiceCanchaActual).getNombre();           
+                break;            
         }       
         return valor;
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteClub_equipo" language="groovy" pageWidth="555" pageHeight="822" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="51041f95-8c36-4010-831b-f8600b155e0e">
-	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.zoom" value="1.610510000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -11,48 +11,38 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="70" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="176" y="20" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f0d6da02-4a60-4cb0-981a-0579e12a4d8e"/>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+		<band height="16" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="268" y="4" width="140" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="60ba9da3-5638-4b28-94bc-c12b045b5ad4"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Delegada:]]></text>
-			</staticText>
-			<textField>
-				<reportElement mode="Transparent" x="35" y="0" width="132" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="924f998f-5e82-4bcf-be30-aac815103988"/>
+				<textFieldExpression><![CDATA[$F{delegada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="128" y="4" width="140" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="baae8e06-26f2-4a71-91bb-c635216b1b01"/>
 				<textElement verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{directorTecnico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="407" y="4" width="140" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="b3e8d4bc-1233-447e-b07b-014303893f88"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delegadaSuplente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="10" y="4" width="118" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="30f9465c-bdfe-4c57-9660-f817318775ed"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="288" y="20" width="110" height="20" uuid="60ba9da3-5638-4b28-94bc-c12b045b5ad4"/>
-				<textFieldExpression><![CDATA[$F{delegada}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="176" y="0" width="100" height="20" uuid="3c42d8db-427a-479f-84d4-3b22711415d3"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Director Técnico:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="288" y="0" width="110" height="20" uuid="baae8e06-26f2-4a71-91bb-c635216b1b01"/>
-				<textFieldExpression><![CDATA[$F{directorTecnico}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="176" y="40" width="100" height="20" uuid="9eee0e11-e47a-465f-bb71-be0d8aef8427"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Delegada Suplente:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="288" y="40" width="110" height="20" uuid="b3e8d4bc-1233-447e-b07b-014303893f88"/>
-				<textFieldExpression><![CDATA[$F{delegadaSuplente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
