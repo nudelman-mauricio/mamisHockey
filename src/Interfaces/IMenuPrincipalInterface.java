@@ -96,6 +96,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuClub = new javax.swing.JMenu();
         jMenuEquipo = new javax.swing.JMenu();
         jMenuContabilidad = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemGestionarIngresos = new javax.swing.JMenuItem();
         jMenuItemGestionarEgresos = new javax.swing.JMenuItem();
         jMenuItemBalanceMensual = new javax.swing.JMenuItem();
@@ -105,7 +106,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCuotaMensual = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuFormularios = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -196,6 +196,14 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.setText("Contabilidad");
         jMenuContabilidad.setMaximumSize(new java.awt.Dimension(129, 32767));
 
+        jMenuItem2.setText("Gestión Ingresos a Futuro");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuContabilidad.add(jMenuItem2);
+
         jMenuItemGestionarIngresos.setText("Gestión Ingresos Otro");
         jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,14 +261,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenuContabilidad.add(jMenuItemCuotaMensual);
-
-        jMenuItem2.setText("jMenuItem2");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItem2);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -482,9 +482,9 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCuotaMensualActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        borrameNomas unborrameNomas = new borrameNomas(unaControladoraGlobal);
-        unborrameNomas.pack();
-        unborrameNomas.setVisible(true);
+        IGestionIngresosFuturos unIGestionIngresosFuturos = new IGestionIngresosFuturos(unaControladoraGlobal);
+        unIGestionIngresosFuturos.pack();
+        unIGestionIngresosFuturos.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void setCamSocia() {
