@@ -143,6 +143,10 @@ public class ControladoraContabilidad {
         return unaListaResultado;
     }
 
+    public List<Deuda> getDeudasPorConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
+        return this.entityManager.createQuery("SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.unConceptoDeportivo.concepto LIKE '" + unConceptoDeportivo.getConcepto() + "'").getResultList();
+    }
+
     public List<Deuda> getDeudaEntreFechas(Date desde, Date hasta) {
         String unaConsulta = "SELECT A FROM Deuda A WHERE A.borradoLogico = FALSE AND A.fechaGeneracion >= '" + desde + "' AND A.fechaGeneracion < '" + hasta + "' ORDER BY A.fechaGeneracion ASC";
         List<Deuda> unaListaResultado = this.entityManager.createQuery(unaConsulta).getResultList();

@@ -925,6 +925,10 @@ public class ControladoraGlobal {
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
+    
+    public List<Deuda> getDeudasPorConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
+        return this.unaControladoraContabilidad.getDeudasPorConceptoDeportivo(unConceptoDeportivo);
+    }
 
     public List<Deuda> getDeudasEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getDeudaEntreFechas(desde, hasta);
