@@ -31,7 +31,7 @@ public class IEquipo extends javax.swing.JInternalFrame {
         
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Equipoo.png")));
 
         camposActivo(jPanelDetalles, true);
         jButtonGuardar.setEnabled(true);

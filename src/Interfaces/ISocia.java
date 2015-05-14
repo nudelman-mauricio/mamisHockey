@@ -54,7 +54,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
 
         this.setTitle("Nueva Socia");//titulo de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));//Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Socia2.png")));//Icono de la ventana
 
         this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
         camposLimpiar();

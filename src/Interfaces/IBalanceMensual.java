@@ -40,7 +40,7 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Balance Mensual"); //Titulo Ventana
 
         jComboBoxDesdeMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);

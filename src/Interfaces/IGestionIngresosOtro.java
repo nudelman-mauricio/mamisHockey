@@ -37,7 +37,7 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionIngresos = (DefaultTableModel) jTableIngresos.getModel();
         
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Ingresos Otro");        
         this.jTableIngresos.getTableHeader().setReorderingAllowed(false);
         

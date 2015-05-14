@@ -35,7 +35,7 @@ public class IEstado extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unaSocia = unaSocia;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         this.jTableEstado.getTableHeader().setReorderingAllowed(false);
 

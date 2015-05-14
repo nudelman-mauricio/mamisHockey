@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
@@ -32,15 +33,18 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         initComponents();
 
         this.unaControladoraGlobal = ControladoraGlobal;
-
-        //Icono de la ventana
-        setIconImage(new ImageIcon(getClass().getResource("../Iconos Nuevos/Hockey.png")).getImage());
-
-        //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        this.setMaximizedBounds(env.getMaximumWindowBounds());
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+        try {
+            //Icono de la ventana
+            setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Hockey.png")).getImage());
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "ICONO", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            this.setMaximizedBounds(env.getMaximumWindowBounds());
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
         /**
          * Momentaneamente Desactiado para no alargar mas la entrerga. Recordar
          * que los formulasrios esos no pueden ser inventados. Hay que acordar
@@ -50,6 +54,10 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
         //FONDO jDesktopPane
         jDesktopPane.setBorder(new ImagenFondo());
+        
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "MAS", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="CLASE Imagen Fondo">
@@ -59,7 +67,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
         public ImagenFondo() {
             try {
-                URL imagePath = new URL(getClass().getResource("../Iconos Nuevos/Fondo Mamis.png").toString());
+                URL imagePath = new URL(getClass().getResource("/Iconos Nuevos/Fondo Mamis.png").toString());
                 back = ImageIO.read(imagePath);
             } catch (IOException ex) {
             }
@@ -132,6 +140,11 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         setTitle("Asociación de Mami's Hockey");
         setBackground(new java.awt.Color(255, 0, 0));
         setExtendedState(1);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jDesktopPane.setBackground(new java.awt.Color(255, 255, 255));
         jDesktopPane.setForeground(new java.awt.Color(0, 0, 0));
@@ -394,6 +407,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
     private void jMenuItemLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocalidadesActionPerformed
@@ -486,6 +500,10 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unIGestionIngresosFuturos.pack();
         unIGestionIngresosFuturos.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosed
 
     private void setCamSocia() {
         int Max = 99;

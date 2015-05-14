@@ -31,7 +31,7 @@ public class IPersonaAuxiliar extends javax.swing.JInternalFrame {
         
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));//Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/referee.png")));//Icono de la ventana
 
         this.jComboBoxLocalidad.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getLocalidadesBD()));
 

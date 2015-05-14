@@ -43,7 +43,7 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         this.modeloTablaIngresosPorConcepto = (DefaultTableModel) jTableIngresosPorConcepto.getModel();
         this.modeloTablaIngresosPorDeuda = (DefaultTableModel) jTableIngresosPorDeuda.getModel();
 
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Ingresos Futuros");
         this.jTableIngresosPorConcepto.getTableHeader().setReorderingAllowed(false);
 

@@ -27,7 +27,7 @@ public class IResultadoPartidoCargarTarjeta extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         this.jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         this.jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());

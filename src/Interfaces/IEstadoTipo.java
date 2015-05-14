@@ -19,13 +19,12 @@ public class IEstadoTipo extends javax.swing.JInternalFrame {
 
     public IEstadoTipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablePases = (DefaultTableModel) jTableTipoEstado.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Estados.png")));//Icono de la ventana  
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Estados.png")));//Icono de la ventana  
         this.setTitle("Tipos de Estados");//Titulo Ventana
         cargarTabla();
     }

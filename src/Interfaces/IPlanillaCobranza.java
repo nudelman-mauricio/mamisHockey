@@ -47,7 +47,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         this.jTableDeudas.getTableHeader().setReorderingAllowed(false);
         this.jTablePlantel.getTableHeader().setReorderingAllowed(false);
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaPagos.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/PanillaPagos.png")));
         this.setTitle("Planilla de Pagos Mensuales de: " + unEquipo.getNombre());
 
         jLabelFechaHoy.setText("Fecha: " + df.format(unaControladoraGlobal.fechaSistema()));

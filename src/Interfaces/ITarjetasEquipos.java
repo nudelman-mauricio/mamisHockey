@@ -39,7 +39,7 @@ public class ITarjetasEquipos extends javax.swing.JInternalFrame {
         this.jTableTarjeta.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle("Tarjetas del Equipo: " + unEquipo.getNombre());
 
         //Carga del comboBox con todos los torneos

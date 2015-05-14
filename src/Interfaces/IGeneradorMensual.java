@@ -30,7 +30,7 @@ public class IGeneradorMensual extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
         
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));//Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png")));//Icono de la ventana
         this.setTitle("Generador Deudas Mensuales");//Titulo Ventana
 
         this.unaControladoraGlobal = unaControladoraGlobal;

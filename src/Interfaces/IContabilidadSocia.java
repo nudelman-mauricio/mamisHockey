@@ -46,7 +46,7 @@ public class IContabilidadSocia extends javax.swing.JInternalFrame {
         this.modeloTableCuotas = (DefaultTableModel) jTableCuotas.getModel();
         this.jTableCuotas.getTableHeader().setReorderingAllowed(false);
         this.jTableDeudas.getTableHeader().setReorderingAllowed(false);
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unaSocia.getNombre()); //Titulo Ventana
 
         modelComboConcepto = new DefaultComboBoxModel((Vector) unaControladoraGlobal.getConceptosDeportivosParaComboContabilidadSociaBD());
