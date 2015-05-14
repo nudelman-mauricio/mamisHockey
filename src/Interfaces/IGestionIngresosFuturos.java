@@ -14,15 +14,24 @@ import javax.swing.table.DefaultTableModel;
 import logicaNegocios.ConceptoDeportivo;
 import logicaNegocios.Cuota;
 import logicaNegocios.Deuda;
+import logicaNegocios.Equipo;
+import logicaNegocios.Socia;
 import main.ControladoraGlobal;
 
 public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
 
     private ControladoraGlobal unaControladoraGlobal;
-    private DefaultTableModel modeloTablaGestionIngresos;
+    private DefaultTableModel modeloTablaIngresosPorConcepto, modeloTablaIngresosPorDeuda;
     private DateFormat df = DateFormat.getDateInstance();
     private SimpleDateFormat dateFormatSoloMes = new SimpleDateFormat("MM");
     private SimpleDateFormat dateFormatSoloAnio = new SimpleDateFormat("YYYY");
+    private ConceptoDeportivo unConceptoDeportivoSeleccionado = null;
+    private double montoTotalRestante = 0;
+    private double montoTotalVencido = 0;
+    private double montoRestantePorConcepto = 0;
+    private double montoVencidoPorConcepto = 0;
+    private Date fechaDesde = null;
+    private Date fechaHasta = null;
 
     public IGestionIngresosFuturos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -31,7 +40,8 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         IMenuPrincipalInterface.centrarYalFrente(this);
 
         this.unaControladoraGlobal = unaControladoraGlobal;
-        this.modeloTablaGestionIngresos = (DefaultTableModel) jTableIngresosPorConcepto.getModel();
+        this.modeloTablaIngresosPorConcepto = (DefaultTableModel) jTableIngresosPorConcepto.getModel();
+        this.modeloTablaIngresosPorDeuda = (DefaultTableModel) jTableIngresosPorDeuda.getModel();
 
         setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png")));
         this.setTitle("Gestión de Ingresos Futuros");
@@ -43,62 +53,96 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         jComboBoxHastaMes.setSelectedIndex(Integer.parseInt(dateFormatSoloMes.format(unaControladoraGlobal.fechaSistema())) - 1);
         jComboBoxHastaAño.setSelectedItem(dateFormatSoloAnio.format(unaControladoraGlobal.fechaSistema()));
 
-        cargarTabla();
+        cargarTablaIngresosPorConcepto();
     }
 
-    private void cargarTabla() {
-        limpiarTabla(modeloTablaGestionIngresos);
+    private void cargarTablaIngresosPorConcepto() {
+        limpiarTabla(modeloTablaIngresosPorConcepto);
+        limpiarTabla(modeloTablaIngresosPorDeuda);
+
         jTextFieldRestante.setText("");
         jTextFieldVencido.setText("");
 
-        String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
-        String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
-        Date fechaHasta = null;
-        Date fechaDesde = null;
-        double montoTotalRestante = 0;
-        double montoTotalVencido = 0;
-        try {
-            fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
-            fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
+        montoTotalRestante = 0;
+        montoTotalVencido = 0;
 
-            double montoRestante;
-            double montoVencido;
+        try {
+            fechaDesde = new java.sql.Date(df.parse(String.valueOf("01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem()))).getTime());
+            fechaHasta = new java.sql.Date(df.parse(String.valueOf("01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem()))).getTime());
             for (ConceptoDeportivo unConceptoDeportivo : unaControladoraGlobal.getConceptosDeportivosBD()) {
-                montoRestante = 0;
-                montoVencido = 0;
-                for (Deuda unaDeuda : this.unaControladoraGlobal.getDeudasPorConceptoDeportivo(unConceptoDeportivo)) {
-                    for (Cuota unaCuota : unaDeuda.getCuotas()) {
-                        if (!unaCuota.isBorradoLogico()) {
-                            if (!unaCuota.isSaldado()) {
-                                //Si el vencimiento de la cuota esta dentro del rango especificado como parametro
-                                if (((unaCuota.getFechaVencimiento().after(fechaDesde)) || (unaCuota.getFechaVencimiento().equals(fechaDesde))) && ((unaCuota.getFechaVencimiento().before(fechaHasta))) || (unaCuota.getFechaVencimiento().equals(fechaHasta))) {
-                                    //Si hay que mostrar venicidos juntos con a futuro
-                                    if (!jCheckBoxSoloVencidos.isSelected()) {
-                                        montoRestante += montoASumar(unaCuota);
-                                        if (unaControladoraGlobal.fechaSistema().after(unaCuota.getFechaVencimiento())) {
-                                            montoVencido += montoRestante;
-                                        }
-                                    } else {//Si solo hay que mostrar vencidos
-                                        if (unaControladoraGlobal.fechaSistema().after(unaCuota.getFechaVencimiento())) {
-                                            montoRestante += montoASumar(unaCuota);
-                                            montoVencido += montoRestante;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                montoTotalRestante += montoRestante;
-                montoTotalVencido += montoVencido;
-                if (montoRestante != 0) {
-                    this.modeloTablaGestionIngresos.addRow(new Object[]{unConceptoDeportivo, montoRestante, montoVencido});
+                getListaDeudasPorConceptoConFiltros(unConceptoDeportivo, fechaDesde, fechaHasta, false);
+                montoTotalRestante += montoRestantePorConcepto;
+                montoTotalVencido += montoVencidoPorConcepto;
+                if (montoRestantePorConcepto != 0) {
+                    this.modeloTablaIngresosPorConcepto.addRow(new Object[]{unConceptoDeportivo, montoRestantePorConcepto, montoVencidoPorConcepto});
                 }
             }
             jTextFieldRestante.setText(Double.toString(montoTotalRestante));
             jTextFieldVencido.setText(Double.toString(montoTotalVencido));
         } catch (ParseException ex) {
             Logger.getLogger(IGestionIngresosFuturos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void getListaDeudasPorConceptoConFiltros(ConceptoDeportivo unConceptoDeportivo, Date fechaDesde, Date fechaHasta, boolean mostrarDeudas) {
+        montoRestantePorConcepto = 0;
+        montoVencidoPorConcepto = 0;
+        double montoRestantePorDeuda;
+        double montoVencidoPorDeuda;
+        boolean bandera;
+        for (Deuda unaDeuda : this.unaControladoraGlobal.getDeudasPorConceptoDeportivo(unConceptoDeportivo)) {
+            bandera = false;
+            montoRestantePorDeuda = 0;
+            montoVencidoPorDeuda = 0;
+            for (Cuota unaCuota : unaDeuda.getCuotas()) {
+                if (!unaCuota.isBorradoLogico()) {
+                    if (!unaCuota.isSaldado()) {
+                        //Si el vencimiento de la cuota esta dentro del rango especificado como parametro
+                        if (((unaCuota.getFechaVencimiento().after(fechaDesde)) || (unaCuota.getFechaVencimiento().equals(fechaDesde))) && ((unaCuota.getFechaVencimiento().before(fechaHasta))) || (unaCuota.getFechaVencimiento().equals(fechaHasta))) {
+                            if (jRadioButtonTodos.isSelected()) { //Si hay que mostrar vencidos juntos con a futuro
+                                montoRestantePorConcepto += montoASumar(unaCuota);
+                                montoRestantePorDeuda += montoASumar(unaCuota);
+                                if (unaControladoraGlobal.fechaSistema().after(unaCuota.getFechaVencimiento())) {
+                                    montoVencidoPorConcepto += montoRestantePorConcepto;
+                                    montoVencidoPorDeuda += montoRestantePorDeuda;
+                                }
+                                bandera = true;
+                            } else {
+                                if (jRadioButtonVencidos.isSelected()) { //Si solo hay que mostrar vencidos
+                                    if (unaControladoraGlobal.fechaSistema().after(unaCuota.getFechaVencimiento())) {
+                                        montoRestantePorConcepto += montoASumar(unaCuota);
+                                        montoRestantePorDeuda += montoASumar(unaCuota);
+                                        montoVencidoPorConcepto += montoRestantePorConcepto;
+                                        montoVencidoPorDeuda += montoRestantePorDeuda;
+                                        bandera = true;
+                                    }
+                                } else { //Si solo hay que mostrar los no vencidos
+                                    if (!unaControladoraGlobal.fechaSistema().after(unaCuota.getFechaVencimiento())) {
+                                        montoRestantePorConcepto += montoASumar(unaCuota);
+                                        montoRestantePorDeuda += montoASumar(unaCuota);
+                                        bandera = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (bandera && mostrarDeudas) {
+                String responsableDeuda;
+                Socia unaSociaResponsableDeuda = unaControladoraGlobal.getSociaResponsableDeuda(unaDeuda);
+                if (unaSociaResponsableDeuda != null) {
+                    responsableDeuda = unaSociaResponsableDeuda.toString();
+                } else {
+                    Equipo unEquipoResponsableDeuda = unaControladoraGlobal.getEquipoResponsableDeuda(unaDeuda);
+                    if (unEquipoResponsableDeuda != null) {
+                        responsableDeuda = unEquipoResponsableDeuda.toString();
+                    } else {
+                        responsableDeuda = "-";
+                    }
+                }
+                this.modeloTablaIngresosPorDeuda.addRow(new Object[]{responsableDeuda, unConceptoDeportivo.getConcepto(), unaDeuda.getObservacion(), unaDeuda.getMontoTotal(), (unaDeuda.getMontoTotal() - montoRestantePorDeuda), montoRestantePorDeuda, montoVencidoPorDeuda});
+            }
         }
     }
 
@@ -114,6 +158,16 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarTablaIngresosPorDeudas() {
+        limpiarTabla(modeloTablaIngresosPorDeuda);
+        if (jTableIngresosPorConcepto.getSelectedRow() > -1) {
+            if (jTableIngresosPorConcepto.getValueAt(jTableIngresosPorConcepto.getSelectedRow(), 0) != null) {
+                unConceptoDeportivoSeleccionado = (ConceptoDeportivo) jTableIngresosPorConcepto.getValueAt(jTableIngresosPorConcepto.getSelectedRow(), 0);
+                getListaDeudasPorConceptoConFiltros(unConceptoDeportivoSeleccionado, fechaDesde, fechaHasta, true);
+            }
+        }
+    }
+
     private void limpiarTabla(DefaultTableModel unModeloTabla) {
         int filas = unModeloTabla.getRowCount();
         for (int i = 0; i < filas; i++) {
@@ -121,14 +175,11 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         }
     }
 
-    private void cargarTablaDeudas() {
-
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -141,7 +192,6 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         jTextFieldRestante = new javax.swing.JTextField();
         jLabelVencido = new javax.swing.JLabel();
         jTextFieldVencido = new javax.swing.JTextField();
-        jCheckBoxSoloVencidos = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -152,6 +202,9 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
+        jRadioButtonSinVencer = new javax.swing.JRadioButton();
+        jRadioButtonVencidos = new javax.swing.JRadioButton();
+        jRadioButtonTodos = new javax.swing.JRadioButton();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(900, 700));
@@ -192,7 +245,7 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Concepto", "Monto Restante", "Monto Vencido"
+                "Concepto", "Monto a Ingresar", "Monto Vencido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -206,7 +259,7 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTableIngresosPorConcepto);
         jTableIngresosPorConcepto.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                cargarTablaDeudas();
+                cargarTablaIngresosPorDeudas();
             }
         });
 
@@ -226,11 +279,11 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Responsable", "F. Vencimiento", "Concepto", "Observación", "$ Total", "$ Pagado", "$ Restante", "$ Vencido"
+                "Responsable", "Concepto", "Observación", "$ Total", "$ Pagado", "$ Restante", "$ Vencido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -239,12 +292,12 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTableIngresosPorDeuda);
         if (jTableIngresosPorDeuda.getColumnModel().getColumnCount() > 0) {
-            jTableIngresosPorDeuda.getColumnModel().getColumn(1).setMinWidth(90);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(1).setPreferredWidth(90);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(1).setMaxWidth(90);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(2).setMinWidth(100);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(2).setPreferredWidth(100);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTableIngresosPorDeuda.getColumnModel().getColumn(1).setMinWidth(100);
+            jTableIngresosPorDeuda.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTableIngresosPorDeuda.getColumnModel().getColumn(1).setMaxWidth(100);
+            jTableIngresosPorDeuda.getColumnModel().getColumn(3).setMinWidth(70);
+            jTableIngresosPorDeuda.getColumnModel().getColumn(3).setPreferredWidth(70);
+            jTableIngresosPorDeuda.getColumnModel().getColumn(3).setMaxWidth(70);
             jTableIngresosPorDeuda.getColumnModel().getColumn(4).setMinWidth(70);
             jTableIngresosPorDeuda.getColumnModel().getColumn(4).setPreferredWidth(70);
             jTableIngresosPorDeuda.getColumnModel().getColumn(4).setMaxWidth(70);
@@ -254,16 +307,13 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
             jTableIngresosPorDeuda.getColumnModel().getColumn(6).setMinWidth(70);
             jTableIngresosPorDeuda.getColumnModel().getColumn(6).setPreferredWidth(70);
             jTableIngresosPorDeuda.getColumnModel().getColumn(6).setMaxWidth(70);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(7).setMinWidth(70);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(7).setPreferredWidth(70);
-            jTableIngresosPorDeuda.getColumnModel().getColumn(7).setMaxWidth(70);
         }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,13 +327,6 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
         jLabelVencido.setText("Monto Total Vencido");
 
         jTextFieldVencido.setEditable(false);
-
-        jCheckBoxSoloVencidos.setText("Mostrar Solo Vencidos");
-        jCheckBoxSoloVencidos.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jCheckBoxSoloVencidosStateChanged(evt);
-            }
-        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(" Desde Vencimiento"));
 
@@ -365,7 +408,7 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxHastaAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,6 +422,31 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
         );
 
+        buttonGroup1.add(jRadioButtonSinVencer);
+        jRadioButtonSinVencer.setText("Solo Sin Vencer");
+        jRadioButtonSinVencer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSinVencerActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonVencidos);
+        jRadioButtonVencidos.setText("Solo Vencidos");
+        jRadioButtonVencidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonVencidosActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonTodos);
+        jRadioButtonTodos.setSelected(true);
+        jRadioButtonTodos.setText("Todos");
+        jRadioButtonTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -390,24 +458,26 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabelVencido)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldVencido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabelRestante)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(84, 84, 84))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jCheckBoxSoloVencidos)
-                                .addGap(135, 135, 135)))))
+                                    .addComponent(jLabelVencido, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabelRestante, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldRestante, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldVencido)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButtonTodos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonVencidos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonSinVencer))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(85, 85, 85)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -419,8 +489,11 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jCheckBoxSoloVencidos)
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonTodos)
+                            .addComponent(jRadioButtonVencidos)
+                            .addComponent(jRadioButtonSinVencer))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -443,25 +516,25 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
 
     private void jComboBoxDesdeMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeMesItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            cargarTabla();
+            cargarTablaIngresosPorConcepto();
         }
     }//GEN-LAST:event_jComboBoxDesdeMesItemStateChanged
 
     private void jComboBoxDesdeAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDesdeAñoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            cargarTabla();
+            cargarTablaIngresosPorConcepto();
         }
     }//GEN-LAST:event_jComboBoxDesdeAñoItemStateChanged
 
     private void jComboBoxHastaMesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxHastaMesItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            cargarTabla();
+            cargarTablaIngresosPorConcepto();
         }
     }//GEN-LAST:event_jComboBoxHastaMesItemStateChanged
 
     private void jComboBoxHastaAñoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxHastaAñoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            cargarTabla();
+            cargarTablaIngresosPorConcepto();
         }
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
 
@@ -492,16 +565,22 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
 //        }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
-    private void jCheckBoxSoloVencidosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBoxSoloVencidosStateChanged
-        if (!jCheckBoxSoloVencidos.isSelected()) {
-            cargarTabla();
-        }
-    }//GEN-LAST:event_jCheckBoxSoloVencidosStateChanged
+    private void jRadioButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosActionPerformed
+        cargarTablaIngresosPorConcepto();
+    }//GEN-LAST:event_jRadioButtonTodosActionPerformed
+
+    private void jRadioButtonVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonVencidosActionPerformed
+        cargarTablaIngresosPorConcepto();
+    }//GEN-LAST:event_jRadioButtonVencidosActionPerformed
+
+    private void jRadioButtonSinVencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSinVencerActionPerformed
+        cargarTablaIngresosPorConcepto();
+    }//GEN-LAST:event_jRadioButtonSinVencerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonImprimir;
-    private javax.swing.JCheckBox jCheckBoxSoloVencidos;
     private javax.swing.JComboBox jComboBoxDesdeAño;
     private javax.swing.JComboBox jComboBoxDesdeMes;
     private javax.swing.JComboBox jComboBoxHastaAño;
@@ -517,6 +596,9 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JRadioButton jRadioButtonSinVencer;
+    private javax.swing.JRadioButton jRadioButtonTodos;
+    private javax.swing.JRadioButton jRadioButtonVencidos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableIngresosPorConcepto;
