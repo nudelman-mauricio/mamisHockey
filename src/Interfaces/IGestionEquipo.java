@@ -1,15 +1,8 @@
 package Interfaces;
 
-import DataSources.EquipoDS;
-import DataSources.Equipo_PlantelDS;
 import DataSources.ListaEquiposDS;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -17,12 +10,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logicaNegocios.Equipo;
 import main.ControladoraGlobal;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class IGestionEquipo extends javax.swing.JInternalFrame {
 
@@ -38,7 +25,7 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Equipoo.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Equipoo.png")));
         this.setTitle("Gestión de Equipos");
         this.jTableEquipo.getTableHeader().setReorderingAllowed(false);       
 
@@ -432,31 +419,13 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-//        DEBERIA SER LA VENTANA!!!
-
-//        IImprimirEquipo unIImprimirEquipo = new IImprimirEquipo(unaControladoraGlobal, this, unEquipoSeleccionado);
-//        unIImprimirEquipo.pack();
-//        unIImprimirEquipo.setVisible(true);
-//        this.setVisible(false);
-//
-//          NO BORRAR LO ANTERIOR
-//        
-        JOptionPane.showMessageDialog(this, "se tiene que cambiar de lugar este reporte");
-
-        Equipo_PlantelDS unPlantelDS = new Equipo_PlantelDS(unEquipoSeleccionado.getPlantel());
-        EquipoDS unEquipoDS = new EquipoDS(unaControladoraGlobal, unEquipoSeleccionado);
-        File archivo = new File("reportes/reporteEquipo.jasper");
-        JasperReport reporte;
-        try {
-            reporte = (JasperReport) JRLoader.loadObject(archivo);
-            Map parameters = new HashMap();
-            parameters.put("subreport_datasource", unPlantelDS);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, unEquipoDS);
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-            jasperViewer.setVisible(true);
-        } catch (JRException ex) {
-            Logger.getLogger(IGestionEquipo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        IImprimirEquipo unIImprimirEquipo = new IImprimirEquipo(unaControladoraGlobal, this, unEquipoSeleccionado);
+        unIImprimirEquipo.pack();
+        unIImprimirEquipo.setVisible(true);
+        this.setVisible(false);
+       
+        
+        
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonSancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSancionActionPerformed

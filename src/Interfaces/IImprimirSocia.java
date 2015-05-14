@@ -30,7 +30,7 @@ public class IImprimirSocia extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSociaSeleccionada = unaSocia;
 
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/printer.png"))); //Icono Ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); //Icono Ventana
         this.setTitle("Reportes para Imrimir de: " + unaSocia.toString()); //Titulo Ventana
         jLabelNombreJugadora.setText(unaSocia.toString());
 

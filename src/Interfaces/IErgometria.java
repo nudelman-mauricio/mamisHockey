@@ -38,7 +38,7 @@ public class IErgometria extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.modeloTableErgometrias = (DefaultTableModel) jTableErgometrias.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/corazon.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/corazon.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
         camposActivo(jPanelDetalles, false);
         cargarTabla();

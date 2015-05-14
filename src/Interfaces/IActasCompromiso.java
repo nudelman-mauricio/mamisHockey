@@ -33,7 +33,7 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
 
         //Icono de la ventana
         this.setTitle("Actas de Compromiso de: " + unaPersonaAuxiliar.toString());
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/categoria.png")));
 
         cargarTabla();
     }

@@ -25,7 +25,7 @@ public class IGestionSocias extends javax.swing.JInternalFrame {
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaSocia = (DefaultTableModel) jTableSocias.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Socia2.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Socia2.png")));
         this.setTitle("Gestión de Socias");
         this.jTableSocias.getTableHeader().setReorderingAllowed(false);
 

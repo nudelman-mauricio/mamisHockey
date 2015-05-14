@@ -27,7 +27,7 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png")));
         this.setTitle("Gestión de Torneos");
         this.jTableTorneo.getTableHeader().setReorderingAllowed(false);
         

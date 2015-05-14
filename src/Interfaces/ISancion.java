@@ -42,7 +42,7 @@ public class ISancion extends javax.swing.JInternalFrame {
         this.jTableSancion.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/sanciones.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/sanciones.png")));
 
         camposActivo(false);
         jButtonNuevo.setEnabled(true);

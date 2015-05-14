@@ -23,7 +23,7 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/club.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/club.png")));
         this.setTitle("Tipos de Canchas");
         cargarTabla();
     }

@@ -53,7 +53,7 @@ public class ITorneoFechas extends javax.swing.JInternalFrame {
         this.modeloTable = (DefaultTableModel) jTableFechasTorneo.getModel();
 
         this.setTitle("Torneo: " + unTorneo.getNombre());
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png")));
 
         if (unTorneo.getCantidadFechas() > 0) {
             this.unaFechaTorneoSeleccionada = unaControladoraGlobal.getUnaFecha(1, unTorneo);

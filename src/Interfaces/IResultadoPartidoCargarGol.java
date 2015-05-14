@@ -27,7 +27,7 @@ public class IResultadoPartidoCargarGol extends javax.swing.JInternalFrame {
         this.unJInternalFrame = unJInternalFrame;
         this.unaSocia = unaSocia;
         this.unPartido = unPartido;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Gol.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Gol.png")));
         this.setTitle(unaSocia.getApellido() + ", " + unaSocia.getNombre());
         jTextFieldCamiseta.setText(unaSocia.getNumeroCamiseta());
         jTextFieldNombre.setText(unaSocia.getApellido() + ", " + unaSocia.getNombre());

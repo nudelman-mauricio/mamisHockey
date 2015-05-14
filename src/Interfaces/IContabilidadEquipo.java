@@ -39,7 +39,7 @@ public class IContabilidadEquipo extends javax.swing.JInternalFrame {
         this.modeloTableDeudas = (DefaultTableModel) jTableDeudas.getModel();
         this.jTableDeudas.getTableHeader().setReorderingAllowed(false);
         
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); //Icono de la ventana
         this.setTitle("Contabilidad de: " + this.unEquipo.getNombre()); //Titulo Ventana
 
         Vector<ConceptoDeportivo> conceptosEquipo = new Vector<ConceptoDeportivo>();

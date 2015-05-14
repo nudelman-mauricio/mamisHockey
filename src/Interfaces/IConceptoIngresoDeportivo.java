@@ -43,7 +43,7 @@ public class IConceptoIngresoDeportivo extends javax.swing.JInternalFrame {
         DefaultComboBoxModel modelComboAfectados = new DefaultComboBoxModel(comboBoxItems);
         this.jComboBoxAfectados.setModel(modelComboAfectados);
         
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); //Icono Ventana
         this.setTitle("Gestión Conceptos Ingreso Deportivo"); //Titulo Ventana
         camposLimpiar();
     }

@@ -25,7 +25,7 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.unClub = unClub;
         this.unJInternalFrame = unJInternalFrame;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Club.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Club.png")));
         this.setTitle("Equipos de Club: " + unClub.getNombre()); //Titulo Ventana
         this.unModeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();
         cargarTablaEquipo();

@@ -39,7 +39,7 @@ public class IPase extends javax.swing.JInternalFrame {
         this.unaSocia = unaSocia;
         this.modeloTablePases = (DefaultTableModel) jTablePases.getModel();
         this.jTablePases.getTableHeader().setReorderingAllowed(false);
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Transferencia.png"))); //Icono de la ventana                
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Transferencia.png"))); //Icono de la ventana                
         this.setTitle("Pases de: " + unaSocia.toString()); //Titulo Ventana
         this.jComboBoxEquipoDestino.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getEquiposBD()));
         this.jComboBoxEquipoDestino.setSelectedIndex(-1);

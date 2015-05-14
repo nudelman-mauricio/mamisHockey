@@ -319,16 +319,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jCheckBoxDatos" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxPlantel" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxSanciones" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jCheckBoxIndumentaria" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBoxContabilidad" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxDeudas" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxPagos" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
@@ -339,31 +337,24 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jCheckBoxDatos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBoxIndumentaria" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jCheckBoxPlantel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxSanciones" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jCheckBoxDeudas" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxPagos" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jCheckBoxPlantel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBoxContabilidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jCheckBoxSanciones" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBoxPagos" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JCheckBox" name="jCheckBoxDatos">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Datos"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxPlantel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Plantel"/>
@@ -371,23 +362,21 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxSanciones">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sanciones del Equipo"/>
+            <Property name="text" type="java.lang.String" value="Sanciones"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBoxIndumentaria">
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxDeudas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Indumentaria"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBoxContabilidad">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Historia Contable"/>
+            <Property name="text" type="java.lang.String" value="Deudas"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxPagos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Historial Pagos"/>
+            <Property name="text" type="java.lang.String" value="Hist&#xf3;rico Pagos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxPagosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

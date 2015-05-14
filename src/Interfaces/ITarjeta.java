@@ -42,7 +42,7 @@ public class ITarjeta extends javax.swing.JInternalFrame {
         this.jTableTarjeta.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/tarjeta-roja-amarilla-verde.png")));
         this.setTitle("Socia: " + unaSocia.getApellido() + " " + unaSocia.getNombre());
 
         //Carga del comboBox con todos los torneos y el primero con "Todos los torneos"

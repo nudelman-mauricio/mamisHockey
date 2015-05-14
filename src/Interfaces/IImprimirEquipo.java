@@ -1,21 +1,23 @@
 package Interfaces;
 
+import DataSources.HistorialEquipoDS;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import logicaNegocios.Equipo;
+import main.ControladoraGlobal;
 
 public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
     private JInternalFrame unJInternalFrame;
+    private ControladoraGlobal unaControladoraGlobal;
     private Equipo unEquipoSeleccionado = null;
     private DateFormat df = DateFormat.getDateInstance();
 
-    public IImprimirEquipo(JInternalFrame unJInternalFrame, Equipo unEquipo) {
+    public IImprimirEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
 
         IMenuPrincipalInterface.jDesktopPane.add(this);
@@ -23,15 +25,16 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipoSeleccionado = unEquipo;
-
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/printer.png"))); //Icono Ventana
+        this.unaControladoraGlobal = unaControladoraGlobal;
+        
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/printer.png"))); //Icono Ventana
         this.setTitle("Reportes para Imrimir de: " + unEquipoSeleccionado.toString()); //Titulo Ventana
         jLabelNombreEquipo.setText(unEquipoSeleccionado.toString());
     }
 
     private boolean camposValidar() {
         boolean bandera = true;
-        if (!jCheckBoxDatos.isSelected() && !jCheckBoxPlantel.isSelected() && !jCheckBoxSanciones.isSelected() && !jCheckBoxIndumentaria.isSelected() && !jCheckBoxContabilidad.isSelected() && !jCheckBoxPagos.isSelected()) {
+        if (!jCheckBoxPlantel.isSelected() && !jCheckBoxSanciones.isSelected() && !jCheckBoxDeudas.isSelected() && !jCheckBoxPagos.isSelected()) {
             bandera = false;
         }
         if ((jComboBoxDesdeMes.getSelectedIndex() == jComboBoxHastaMes.getSelectedIndex() && (jComboBoxDesdeAño.getSelectedIndex() == jComboBoxHastaAño.getSelectedIndex()))) {
@@ -61,11 +64,9 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
         jComboBoxHastaMes = new javax.swing.JComboBox();
         jComboBoxHastaAño = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
-        jCheckBoxDatos = new javax.swing.JCheckBox();
         jCheckBoxPlantel = new javax.swing.JCheckBox();
         jCheckBoxSanciones = new javax.swing.JCheckBox();
-        jCheckBoxIndumentaria = new javax.swing.JCheckBox();
-        jCheckBoxContabilidad = new javax.swing.JCheckBox();
+        jCheckBoxDeudas = new javax.swing.JCheckBox();
         jCheckBoxPagos = new javax.swing.JCheckBox();
         jPanelBotones = new javax.swing.JPanel();
         jButtonImprimir = new javax.swing.JButton();
@@ -197,32 +198,31 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle a Imprimir", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         jPanel4.setName(""); // NOI18N
 
-        jCheckBoxDatos.setText("Datos");
-
         jCheckBoxPlantel.setText("Plantel");
 
-        jCheckBoxSanciones.setText("Sanciones del Equipo");
+        jCheckBoxSanciones.setText("Sanciones");
 
-        jCheckBoxIndumentaria.setText("Indumentaria");
+        jCheckBoxDeudas.setText("Deudas");
 
-        jCheckBoxContabilidad.setText("Historia Contable");
-
-        jCheckBoxPagos.setText("Historial Pagos");
+        jCheckBoxPagos.setText("Histórico Pagos");
+        jCheckBoxPagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxPagosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(57, 57, 57)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBoxDatos)
                     .addComponent(jCheckBoxPlantel)
                     .addComponent(jCheckBoxSanciones))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBoxIndumentaria)
-                    .addComponent(jCheckBoxContabilidad)
+                    .addComponent(jCheckBoxDeudas)
                     .addComponent(jCheckBoxPagos))
                 .addGap(85, 85, 85))
         );
@@ -230,18 +230,16 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxDatos)
-                    .addComponent(jCheckBoxIndumentaria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxPlantel)
-                    .addComponent(jCheckBoxContabilidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBoxSanciones)
-                    .addComponent(jCheckBoxPagos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxPlantel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxSanciones))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxDeudas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxPagos)))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jPanelBotones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -319,33 +317,23 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         if (camposValidar()) {
-            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedIndex() + 2010);
-            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedIndex() + 2010);
+            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
+            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 2) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
             try {
                 Date fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
                 Date fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
 
-                if (jCheckBoxDatos.isSelected()) {
-                    //llamar reporte
-                }
-                if (jCheckBoxPlantel.isSelected()) {
-                    //llamar reporte
-                }
-                if (jCheckBoxSanciones.isSelected()) {
-                    //llamar reporte
-                }
-                if (jCheckBoxIndumentaria.isSelected()) {
-                    //llamar reporte
-                }
-                if (jCheckBoxContabilidad.isSelected()) {
-                    //llamar reporte
-                }
-                if (jCheckBoxPagos.isSelected()) {
-                    //llamar reporte
-                }
+                HistorialEquipoDS unHistorialEquipoDS = new HistorialEquipoDS(unaControladoraGlobal, fechaDesde, fechaHasta, unEquipoSeleccionado,
+                        jCheckBoxPlantel.isSelected(),
+                        jCheckBoxDeudas.isSelected(),
+                        jCheckBoxPagos.isSelected(),
+                        jCheckBoxSanciones.isSelected());
+                unHistorialEquipoDS.verReporte();
+
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas. Verifique e intente nuevamente.");
             }
+
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
@@ -359,13 +347,15 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
         this.unJInternalFrame.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void jCheckBoxPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPagosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxPagosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
-    private javax.swing.JCheckBox jCheckBoxContabilidad;
-    private javax.swing.JCheckBox jCheckBoxDatos;
-    private javax.swing.JCheckBox jCheckBoxIndumentaria;
+    private javax.swing.JCheckBox jCheckBoxDeudas;
     private javax.swing.JCheckBox jCheckBoxPagos;
     private javax.swing.JCheckBox jCheckBoxPlantel;
     private javax.swing.JCheckBox jCheckBoxSanciones;

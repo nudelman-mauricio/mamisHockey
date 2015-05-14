@@ -26,7 +26,7 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
 
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaPersonaAuxiliar = (DefaultTableModel) jTablePersonaAuxiliar.getModel();
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/referee.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/referee.png")));
         this.setTitle("Gestión de Auxiliares");
         this.jTablePersonaAuxiliar.getTableHeader().setReorderingAllowed(false);
 

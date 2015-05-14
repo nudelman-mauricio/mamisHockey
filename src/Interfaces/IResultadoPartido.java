@@ -70,7 +70,7 @@ public class IResultadoPartido extends javax.swing.JInternalFrame {
         this.jTableVisitante.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/PanillaResultados.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/PanillaResultados.png")));
         this.setTitle(unPartido.getUnEquipoLocal().getNombre() + " vs " + unPartido.getUnEquipoVisitante().getNombre());
 
         camposActivo(false);

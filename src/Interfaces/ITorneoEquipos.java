@@ -35,7 +35,7 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
         this.modeloTablaEquipoInscripto = (DefaultTableModel) jTableEquiposInscriptos.getModel();
         this.modeloTablaEquipoDisponible = (DefaultTableModel) jTableEquiposDisponibles.getModel();
         this.setTitle("Torneo: " + unTorneo.getNombre());
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/Torneo.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png")));
         cargarTabla();
     }
 

@@ -27,7 +27,7 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
         this.jTableHistorico.getTableHeader().setReorderingAllowed(false);
 
         //Icono de la ventana
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/HistorialPagos.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/HistorialPagos.png")));
         this.setTitle("Historial de Pagos Mensuales de: " + unEquipo.getNombre());
 
         for (PlanillaPago unaPlanillaPago : unEquipo.getPlanillasPagos()) {

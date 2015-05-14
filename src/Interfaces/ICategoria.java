@@ -24,7 +24,7 @@ public class ICategoria extends javax.swing.JInternalFrame {
         this.jTableCategoria.getTableHeader().setReorderingAllowed(false);
         this.modeloTablaCategoria = (DefaultTableModel) jTableCategoria.getModel();
         this.unaControladoraGlobal = unaControladoraGlobal;
-        setFrameIcon(new ImageIcon(getClass().getResource("../Iconos Nuevos/categoria.png")));
+        setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/categoria.png")));
         camposActivo(false);
         cargarTabla();
     }
