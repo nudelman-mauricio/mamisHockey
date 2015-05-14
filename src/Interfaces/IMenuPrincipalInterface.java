@@ -35,7 +35,8 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         this.unaControladoraGlobal = ControladoraGlobal;
         try {
             //Icono de la ventana
-            setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Hockey.png")).getImage());
+            //setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Hockey.png")).getImage());
+            setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Logo.png")).getImage());
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "ICONO", "Error", JOptionPane.ERROR_MESSAGE);
         }
