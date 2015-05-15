@@ -8,7 +8,6 @@ package DataSources;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import logicaNegocios.SancionTribunal;
-import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -21,7 +20,7 @@ class HistorialEquipoDS_Sanciones implements JRDataSource {
 
     int indice = -1;
     List<SancionTribunal> sancionesImprimir;
-    SimpleDateFormat df;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
 
     HistorialEquipoDS_Sanciones(List<SancionTribunal> sancionesImprimir) {
         this.sancionesImprimir = sancionesImprimir;
@@ -38,8 +37,8 @@ class HistorialEquipoDS_Sanciones implements JRDataSource {
         //General
         if (null != jrf.getName()) {
             switch (jrf.getName()) {
-                case "fecha":
-                    valor = sancionesImprimir.get(indice).getFecha();
+                case "Fecha":
+                    valor = df.format(sancionesImprimir.get(indice).getFecha());
                     break;
                 case "motivo":
                     valor = sancionesImprimir.get(indice).getMotivo();
@@ -60,7 +59,11 @@ class HistorialEquipoDS_Sanciones implements JRDataSource {
                     valor = sancionesImprimir.get(indice).getCantFechasCumplidas();
                     break;
                 case "partido":
-                    valor = sancionesImprimir.get(indice).getUnPartido();
+                    if (sancionesImprimir.get(indice).getUnPartido() != null) {
+                        valor = sancionesImprimir.get(indice).getUnPartido().toString();
+                    } else {
+                        valor = "La sanción no corresponde a un partido";
+                    }
                     break;
             }
         }

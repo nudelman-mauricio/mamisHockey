@@ -47,7 +47,7 @@
 	<subDataset name="Table Dataset 2" uuid="64d804de-6719-45f9-ba17-1928d60aaa8c"/>
 	<field name="ruta" class="java.lang.String"/>
 	<field name="Pagos" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<field name="Contabilidad" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="Deudas" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="Plantel" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="Sanciones" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<field name="fecha" class="java.lang.String"/>
@@ -62,7 +62,7 @@
 	<field name="capitanaSuplente" class="java.lang.String"/>
 	<group name="Plantel">
 		<groupHeader>
-			<band height="1">
+			<band>
 				<subreport>
 					<reportElement x="0" y="0" width="555" height="0" uuid="aeae4ef7-841c-49b0-a3e5-50d656a35d93"/>
 					<dataSourceExpression><![CDATA[$F{Plantel}]]></dataSourceExpression>
@@ -73,7 +73,7 @@
 	</group>
 	<group name="Pagos">
 		<groupHeader>
-			<band height="1">
+			<band>
 				<subreport>
 					<reportElement x="0" y="0" width="555" height="0" uuid="30de4aab-1ed1-444d-9218-0ab0cbcfbd3d"/>
 					<dataSourceExpression><![CDATA[$F{Pagos}]]></dataSourceExpression>
@@ -84,7 +84,7 @@
 	</group>
 	<group name="Sanciones">
 		<groupHeader>
-			<band height="1">
+			<band>
 				<subreport>
 					<reportElement x="1" y="0" width="555" height="0" uuid="2931234f-6bf3-459f-88f4-dffecde470ca"/>
 					<dataSourceExpression><![CDATA[$F{Sanciones}]]></dataSourceExpression>
@@ -97,17 +97,17 @@
 	<group name="Pases"/>
 	<group name="Deudas">
 		<groupHeader>
-			<band height="1">
+			<band>
 				<subreport>
 					<reportElement x="1" y="0" width="555" height="0" uuid="6345e109-01df-4f91-a2d1-207587db738a"/>
-					<dataSourceExpression><![CDATA[$F{Contabilidad}]]></dataSourceExpression>
+					<dataSourceExpression><![CDATA[$F{Deudas}]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$F{ruta} + "\\reportes\\reporteHistorialEquipo_Contabilidad.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupHeader>
 	</group>
 	<title>
-		<band height="178">
+		<band height="158">
 			<rectangle radius="10">
 				<reportElement x="1" y="109" width="554" height="48" uuid="d159b363-4e4a-41bc-a4f4-15602fff81ee"/>
 			</rectangle>
@@ -156,7 +156,7 @@
 				</textElement>
 				<text><![CDATA[Preparador Fisico:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="91" y="121" width="137" height="12" uuid="33321801-52d2-4a6c-909e-2c23e78e75cb"/>
 				<textElement>
 					<font size="9"/>
@@ -170,7 +170,7 @@
 				</textElement>
 				<text><![CDATA[Club:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="34" y="109" width="186" height="12" uuid="77002c35-0940-4b51-886b-cb86b2fe0258"/>
 				<textElement>
 					<font size="9"/>
@@ -184,7 +184,7 @@
 				</textElement>
 				<text><![CDATA[Capitana:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="55" y="145" width="173" height="12" uuid="e1d9e852-7f7c-4ce4-8083-c06170755f84"/>
 				<textElement>
 					<font size="9"/>
@@ -198,7 +198,7 @@
 				</textElement>
 				<text><![CDATA[Delegada:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="55" y="133" width="173" height="12" uuid="305d742b-a87d-4226-ba51-1b3d944efee0"/>
 				<textElement>
 					<font size="9"/>
@@ -212,7 +212,7 @@
 				</textElement>
 				<text><![CDATA[Delegada Suplente:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="434" y="133" width="106" height="12" uuid="583d7615-e5f5-450b-8b0d-3efc46710a81"/>
 				<textElement>
 					<font size="9"/>
@@ -226,7 +226,7 @@
 				</textElement>
 				<text><![CDATA[Ayudante de Campo:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="443" y="121" width="97" height="12" uuid="06d133b6-dabd-4ab1-ac96-142e1d5537a2"/>
 				<textElement>
 					<font size="9"/>
@@ -240,7 +240,7 @@
 				</textElement>
 				<text><![CDATA[Director Tecnico:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="428" y="109" width="112" height="12" uuid="11c18a76-db04-460b-98ba-8ffbd7c6744a"/>
 				<textElement>
 					<font size="9"/>
@@ -254,16 +254,13 @@
 				</textElement>
 				<text><![CDATA[Capitana Suplente:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="434" y="145" width="106" height="12" uuid="9a264bf7-5307-4815-b17d-3e39d6757237"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{capitanaSuplente}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="176" width="555" height="1" uuid="61493d51-05eb-4a86-b339-699b9e9b7c43"/>
-			</line>
 		</band>
 	</title>
 	<pageHeader>
@@ -278,17 +275,17 @@
 	<pageFooter>
 		<band height="27">
 			<line>
-				<reportElement x="0" y="10" width="555" height="1" uuid="2c544c39-d9d1-4021-a2c4-a29a4d007276"/>
+				<reportElement x="0" y="13" width="555" height="1" uuid="2c544c39-d9d1-4021-a2c4-a29a4d007276"/>
 			</line>
 			<textField>
-				<reportElement x="434" y="13" width="80" height="11" uuid="b5e180ac-3674-4ef4-a097-8d4564d51ccf"/>
+				<reportElement x="434" y="16" width="80" height="11" uuid="b5e180ac-3674-4ef4-a097-8d4564d51ccf"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="514" y="13" width="40" height="11" uuid="34f7f454-27d2-4271-b835-b71368ff0cea"/>
+				<reportElement x="514" y="16" width="40" height="11" uuid="34f7f454-27d2-4271-b835-b71368ff0cea"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

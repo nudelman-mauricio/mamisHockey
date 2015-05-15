@@ -5,9 +5,9 @@
  */
 package DataSources;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import logicaNegocios.Deuda;
-import logicaNegocios.PlanillaPago;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -22,6 +22,7 @@ class HistorialEquipoDS_Deudas implements JRDataSource {
     int indice = -1;
     List<Deuda> deudasImprimir;
     ControladoraGlobal unaControladoraGlobal;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
 
     HistorialEquipoDS_Deudas(List<Deuda> deudasImprimir,ControladoraGlobal unaControladoraGlobal) {
         this.deudasImprimir = deudasImprimir;
@@ -40,19 +41,24 @@ class HistorialEquipoDS_Deudas implements JRDataSource {
         if (null != jrf.getName()) {
             switch (jrf.getName()) {
                 case "Fecha":
-                    valor = deudasImprimir.get(indice).getFechaGeneracion();
+                    valor = df.format(deudasImprimir.get(indice).getFechaGeneracion());
                     break;
                 case "Concepto":
                     valor = deudasImprimir.get(indice).getUnConceptoDeportivo();
                     break;
                 case "Vencimiento":
-                    valor = deudasImprimir.get(indice).getPrimerVencimiento();
+                    valor = df.format(deudasImprimir.get(indice).getPrimerVencimiento());
                     break;
                 case "Monto":
                     valor = deudasImprimir.get(indice).getMontoTotal();
                     break;
                 case "Deuda Saldada":
-                    valor =deudasImprimir.get(indice).isSaldado();
+                    
+                    if(deudasImprimir.get(indice).isSaldado() == true){
+                        valor = "Si";
+                    } else {
+                        valor = "No";
+                    }
                     break;
             }
         }

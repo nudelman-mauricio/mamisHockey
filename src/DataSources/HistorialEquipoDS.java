@@ -106,13 +106,15 @@ public class HistorialEquipoDS implements JRDataSource {
                 case "Deudas":
                     valor = this.subReporteDeudas();
                     break;
+                case "equipo":
+                    valor = this.unEquipo.getNombre();
+                    break;
             }
         }
         return valor;
     }
 
     public void verReporte() {
-
         File archivo = new File("reportes/reporteHistorialEquipo.jasper");
         JasperReport reporte;
         try {
@@ -128,9 +130,13 @@ public class HistorialEquipoDS implements JRDataSource {
     private HistorialEquipoDS_Pago subReportePagos() {
         List<PlanillaPago> planillasImprimir = new ArrayList();
         if (this.pagos) {
-            planillasImprimir = (List<PlanillaPago>) unEquipo.getPlanillasPagos();
+            for (PlanillaPago unaPlanilla : unEquipo.getPlanillasPagos()) {
+                if (unaPlanilla.getFechaPago().after(fechaDesde) && unaPlanilla.getFechaPago().before(fechaHasta)) {
+                    planillasImprimir.add(unaPlanilla);
+                }
+            }
         }
-        HistorialEquipoDS_Pago unPagosDS = new HistorialEquipoDS_Pago(planillasImprimir,unaControladoraGlobal);
+        HistorialEquipoDS_Pago unPagosDS = new HistorialEquipoDS_Pago(planillasImprimir, unaControladoraGlobal);
         return unPagosDS;
 
     }
@@ -151,11 +157,13 @@ public class HistorialEquipoDS implements JRDataSource {
         if (this.deuda) {
             for (Deuda unaDeuda : unEquipo.getDeudas()) {
                 if (!unaDeuda.isBorradoLogico()) {
-                    deudasImprimir.add(unaDeuda);
+                    if (unaDeuda.getFechaGeneracion().after(fechaDesde) && unaDeuda.getFechaGeneracion().before(fechaHasta)) {
+                        deudasImprimir.add(unaDeuda);
+                    }
                 }
             }
         }
-        HistorialEquipoDS_Deudas unaDeudaDs = new HistorialEquipoDS_Deudas(deudasImprimir,unaControladoraGlobal);
+        HistorialEquipoDS_Deudas unaDeudaDs = new HistorialEquipoDS_Deudas(deudasImprimir, unaControladoraGlobal);
         return unaDeudaDs;
     }
 
@@ -164,12 +172,13 @@ public class HistorialEquipoDS implements JRDataSource {
         if (this.sancion) {
             for (SancionTribunal unaSancion : unEquipo.getSancionesTribunal()) {
                 if (!unaSancion.isBorradoLogico()) {
-                    sancionesImprimir.add(unaSancion);
+                    if (unaSancion.getFecha().after(fechaDesde) && unaSancion.getFecha().before(fechaHasta)) {
+                        sancionesImprimir.add(unaSancion);
+                    }
                 }
             }
         }
         HistorialEquipoDS_Sanciones unaSancionDs = new HistorialEquipoDS_Sanciones(sancionesImprimir);
         return unaSancionDs;
     }
-
 }

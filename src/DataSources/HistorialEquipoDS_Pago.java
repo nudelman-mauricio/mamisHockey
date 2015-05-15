@@ -5,8 +5,8 @@
  */
 package DataSources;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
-import logicaNegocios.Deuda;
 import logicaNegocios.PlanillaPago;
 import main.ControladoraGlobal;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -22,6 +22,7 @@ class HistorialEquipoDS_Pago implements JRDataSource {
     int indice = -1;
     List<PlanillaPago> pagosImprimir;
     ControladoraGlobal unaControladoraGlobal;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
 
     HistorialEquipoDS_Pago(List<PlanillaPago> pagosImprimir, ControladoraGlobal unaControladoraGlobal) {
         this.pagosImprimir = pagosImprimir;
@@ -40,7 +41,7 @@ class HistorialEquipoDS_Pago implements JRDataSource {
         if (null != jrf.getName()) {
             switch (jrf.getName()) {
                 case "fechaPago":
-                    valor = pagosImprimir.get(indice).getFechaPago();
+                    valor = df.format(pagosImprimir.get(indice).getFechaPago());
                     break;
                 case "pagadoPor":
                     valor = pagosImprimir.get(indice).getResponsablePago();

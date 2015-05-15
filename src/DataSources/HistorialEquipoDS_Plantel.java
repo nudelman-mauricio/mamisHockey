@@ -38,7 +38,7 @@ public class HistorialEquipoDS_Plantel implements JRDataSource {
         //General
         if (null != jrf.getName()) {
             switch (jrf.getName()) {
-                case "numeroCamiseta":
+                case "nroCamiseta":
                     valor = plantelImprimir.get(indice).getNumeroCamiseta();
                     break;
                 case "apellidoynombre":
