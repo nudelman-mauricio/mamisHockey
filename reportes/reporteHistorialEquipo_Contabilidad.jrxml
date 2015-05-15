@@ -14,7 +14,7 @@
 	<columnHeader>
 		<band height="39" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="0" width="148" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="e54c0be6-6bd0-42a8-93a7-b9dc4fb76ff6"/>
+				<reportElement mode="Transparent" x="0" y="3" width="148" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="e54c0be6-6bd0-42a8-93a7-b9dc4fb76ff6"/>
 				<box leftPadding="5"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
