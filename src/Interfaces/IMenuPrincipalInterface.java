@@ -547,7 +547,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemHacerBackupActionPerformed
 
     private void jMenuItemRestaurarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestaurarBDActionPerformed
-        unaControladoraGlobal.restaurarBackUp();
+        unaControladoraGlobal.restaurarBackUp(jDesktopPane);
     }//GEN-LAST:event_jMenuItemRestaurarBDActionPerformed
 
     private void setCamSocia() {

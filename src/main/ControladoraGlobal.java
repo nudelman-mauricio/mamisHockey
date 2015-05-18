@@ -1,10 +1,14 @@
 package main;
 
+import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,7 +18,9 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -1178,47 +1184,100 @@ public class ControladoraGlobal {
     // <editor-fold defaultstate="collapsed" desc="BackUp DataBase">
     public void hacerBackUp() {
         try {
-            Process proceso = Runtime.getRuntime().exec("C:/Program Files/MySQL/MySQL Server 5.6/bin/mysqldump --user=root --password=Mauricio123 mamishockeydb");
+            // Abrimos el archivo
+            FileInputStream fstream = new FileInputStream("src/Archivo/Conf BD.txt");
+            // Creamos el objeto de entrada
+            DataInputStream entrada = new DataInputStream(fstream);
+            // Creamos el Buffer de Lectura
+            BufferedReader bufferLectura = new BufferedReader(new InputStreamReader(entrada));
 
-            InputStream flujoDeEntrada = proceso.getInputStream();
-            FileOutputStream flujoDeSalidaAArchivo = new FileOutputStream("backup_pruebas.sql");
-            byte[] buffer = new byte[1000];
+            
+            // Leer el archivo linea por linea
+            bufferLectura.readLine();//descartar inea
+            String user = bufferLectura.readLine();
+            String pass = bufferLectura.readLine();
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            String direccionMYSQL = bufferLectura.readLine();
+            // Cerramos el archivo
+            entrada.close();
+            
+            
+            try {
+                Process proceso = Runtime.getRuntime().exec("C:/Program Files/MySQL/MySQL Server 5.6/bin/mysqldump --user=root --password=Mauricio123 mamishockeydb");
 
-            int leido = flujoDeEntrada.read(buffer);
-            while (leido > 0) {
-                flujoDeSalidaAArchivo.write(buffer, 0, leido);
-                leido = flujoDeEntrada.read(buffer);
+                InputStream flujoDeEntrada = proceso.getInputStream();
+                FileOutputStream flujoDeSalidaAArchivo = new FileOutputStream("backup_pruebas.sql");
+                byte[] buffer = new byte[1000];
+
+                int leido = flujoDeEntrada.read(buffer);
+                while (leido > 0) {
+                    flujoDeSalidaAArchivo.write(buffer, 0, leido);
+                    leido = flujoDeEntrada.read(buffer);
+                }
+
+                flujoDeSalidaAArchivo.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al realizar el BackUp de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            flujoDeSalidaAArchivo.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al realizar el BackUp de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) { //Catch de excepciones
+            JOptionPane.showMessageDialog(null, "Error en la lectura del archivo de configuración de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void restaurarBackUp() {
+    public void restaurarBackUp(Component ventanaContenedora) {
         try {
-            Process proceso = Runtime.getRuntime().exec("C:/Program Files/MySQL/MySQL Server 5.6/bin/mysql --user=root --password=Mauricio123 mamishockeydb");
-            
-            OutputStream flujoDeSalida = proceso.getOutputStream();
-            FileInputStream flujoDeEntradaDesdeArchivo = new FileInputStream("backup_pruebas.sql");
-            byte[] buffer = new byte[1000];
+            // Abrimos el archivo
+            FileInputStream fstream = new FileInputStream("src/Archivo/Conf BD.txt");
+            // Creamos el objeto de entrada
+            DataInputStream entrada = new DataInputStream(fstream);
+            // Creamos el Buffer de Lectura
+            BufferedReader bufferLectura = new BufferedReader(new InputStreamReader(entrada));
 
-            int leido = flujoDeEntradaDesdeArchivo.read(buffer);
-            while (leido > 0) {
-                flujoDeSalida.write(buffer, 0, leido);
-                leido = flujoDeEntradaDesdeArchivo.read(buffer);
+            // Leer el archivo linea por linea
+            bufferLectura.readLine();//descartar inea
+            String user = bufferLectura.readLine();
+            String pass = bufferLectura.readLine();
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            String direccionMYSQL = bufferLectura.readLine();
+            // Cerramos el archivo
+            entrada.close();
+
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Script sql", "sql");
+            chooser.setFileFilter(filter);
+            chooser.setAcceptAllFileFilterUsed(false);
+            int returnVal = chooser.showOpenDialog(ventanaContenedora);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try {
+                    Process proceso = Runtime.getRuntime().exec(direccionMYSQL + "/mysql --user=" + user + " --password=" + pass + " mamishockeydb");
+
+                    OutputStream flujoDeSalida = proceso.getOutputStream();
+                    FileInputStream flujoDeEntradaDesdeArchivo = new FileInputStream(chooser.getSelectedFile().getName());
+                    byte[] buffer = new byte[1000];
+
+                    int leido = flujoDeEntradaDesdeArchivo.read(buffer);
+                    while (leido > 0) {
+                        flujoDeSalida.write(buffer, 0, leido);
+                        leido = flujoDeEntradaDesdeArchivo.read(buffer);
+                    }
+
+                    flujoDeSalida.flush();
+                    flujoDeSalida.close();
+                    flujoDeEntradaDesdeArchivo.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al restaurar la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-
-            flujoDeSalida.flush();
-            flujoDeSalida.close();
-            flujoDeEntradaDesdeArchivo.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al restaurar la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) { //Catch de excepciones
+            JOptionPane.showMessageDialog(null, "Error en la lectura del archivo de configuración de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     // </editor-fold>
