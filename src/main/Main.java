@@ -76,7 +76,6 @@ public class Main {
             // </editor-fold>
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println(exception.toString());
         }
     }
 }

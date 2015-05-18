@@ -1,7 +1,11 @@
 package main;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +14,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -925,7 +930,7 @@ public class ControladoraGlobal {
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
-    
+
     public List<Deuda> getDeudasPorConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         return this.unaControladoraContabilidad.getDeudasPorConceptoDeportivo(unConceptoDeportivo);
     }
@@ -1166,6 +1171,54 @@ public class ControladoraGlobal {
             return null;
         } else {
             return unaListaResultado.get(0).getValor();
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="BackUp DataBase">
+    public void hacerBackUp() {
+        try {
+            Process proceso = Runtime.getRuntime().exec("C:/Program Files/MySQL/MySQL Server 5.6/bin/mysqldump --user=root --password=Mauricio123 mamishockeydb");
+
+            InputStream flujoDeEntrada = proceso.getInputStream();
+            FileOutputStream flujoDeSalidaAArchivo = new FileOutputStream("backup_pruebas.sql");
+            byte[] buffer = new byte[1000];
+
+            int leido = flujoDeEntrada.read(buffer);
+            while (leido > 0) {
+                flujoDeSalidaAArchivo.write(buffer, 0, leido);
+                leido = flujoDeEntrada.read(buffer);
+            }
+
+            flujoDeSalidaAArchivo.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al realizar el BackUp de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void restaurarBackUp() {
+        try {
+            Process proceso = Runtime.getRuntime().exec("C:/Program Files/MySQL/MySQL Server 5.6/bin/mysql --user=root --password=Mauricio123 mamishockeydb");
+            
+            OutputStream flujoDeSalida = proceso.getOutputStream();
+            FileInputStream flujoDeEntradaDesdeArchivo = new FileInputStream("backup_pruebas.sql");
+            byte[] buffer = new byte[1000];
+
+            int leido = flujoDeEntradaDesdeArchivo.read(buffer);
+            while (leido > 0) {
+                flujoDeSalida.write(buffer, 0, leido);
+                leido = flujoDeEntradaDesdeArchivo.read(buffer);
+            }
+
+            flujoDeSalida.flush();
+            flujoDeSalida.close();
+            flujoDeEntradaDesdeArchivo.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al restaurar la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     // </editor-fold>

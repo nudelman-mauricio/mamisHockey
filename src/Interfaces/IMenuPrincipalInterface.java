@@ -52,6 +52,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
          * con la comision directiva
          */
         jMenuFormularios.setVisible(false);
+        jMenuCargaDB.setVisible(false);
 
         //FONDO jDesktopPane
         jDesktopPane.setBorder(new ImagenFondo());
@@ -105,16 +106,18 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuClub = new javax.swing.JMenu();
         jMenuEquipo = new javax.swing.JMenu();
         jMenuContabilidad = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItemGestionarIngresos = new javax.swing.JMenuItem();
-        jMenuItemGestionarEgresos = new javax.swing.JMenuItem();
         jMenuItemBalanceMensual = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItemConceptoIngreso = new javax.swing.JMenuItem();
-        jMenuItemConceptosDeportivos = new javax.swing.JMenuItem();
-        jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCuotaMensual = new javax.swing.JMenuItem();
+        jMenuIngresos = new javax.swing.JMenu();
+        jMenuItemGestionIngresosAFuturo = new javax.swing.JMenuItem();
+        jMenuItemGestionarIngresos = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemConceptosDeportivos = new javax.swing.JMenuItem();
+        jMenuItemConceptoIngreso = new javax.swing.JMenuItem();
+        jMenuEgresos = new javax.swing.JMenu();
+        jMenuItemGestionarEgresos = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemConceptosEgresos = new javax.swing.JMenuItem();
         jMenuFormularios = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -131,6 +134,10 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItemLocalidades = new javax.swing.JMenuItem();
         jMenuItemCategoria = new javax.swing.JMenuItem();
         jMenuItemTipoCancha = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemHacerBackup = new javax.swing.JMenuItem();
+        jMenuItemRestaurarBD = new javax.swing.JMenuItem();
         jMenuCargaDB = new javax.swing.JMenu();
         jMenuItemLos3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
@@ -210,30 +217,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuContabilidad.setText("Contabilidad");
         jMenuContabilidad.setMaximumSize(new java.awt.Dimension(129, 32767));
 
-        jMenuItem2.setText("Gestión Ingresos a Futuro");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItem2);
-
-        jMenuItemGestionarIngresos.setText("Gestión Ingresos Otro");
-        jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGestionarIngresosActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItemGestionarIngresos);
-
-        jMenuItemGestionarEgresos.setText("Gestión Egresos");
-        jMenuItemGestionarEgresos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGestionarEgresosActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItemGestionarEgresos);
-
         jMenuItemBalanceMensual.setText("Balance Mensual");
         jMenuItemBalanceMensual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,32 +224,6 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenuContabilidad.add(jMenuItemBalanceMensual);
-        jMenuContabilidad.add(jSeparator1);
-
-        jMenuItemConceptoIngreso.setText("Conceptos Ingreso Otro");
-        jMenuItemConceptoIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConceptoIngresoActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItemConceptoIngreso);
-
-        jMenuItemConceptosDeportivos.setText("Conceptos Ingreso Deportivo");
-        jMenuItemConceptosDeportivos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConceptosDeportivosActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItemConceptosDeportivos);
-
-        jMenuItemConceptosEgresos.setText("Conceptos Egresos");
-        jMenuItemConceptosEgresos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConceptosEgresosActionPerformed(evt);
-            }
-        });
-        jMenuContabilidad.add(jMenuItemConceptosEgresos);
-        jMenuContabilidad.add(jSeparator4);
 
         jMenuItemCuotaMensual.setText("Generar Cuota Mensual");
         jMenuItemCuotaMensual.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +232,64 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenuContabilidad.add(jMenuItemCuotaMensual);
+
+        jMenuIngresos.setText("Ingresos");
+
+        jMenuItemGestionIngresosAFuturo.setText("Gestión Ingresos a Futuro");
+        jMenuItemGestionIngresosAFuturo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGestionIngresosAFuturoActionPerformed(evt);
+            }
+        });
+        jMenuIngresos.add(jMenuItemGestionIngresosAFuturo);
+
+        jMenuItemGestionarIngresos.setText("Gestión Ingresos No Deportivos");
+        jMenuItemGestionarIngresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGestionarIngresosActionPerformed(evt);
+            }
+        });
+        jMenuIngresos.add(jMenuItemGestionarIngresos);
+        jMenuIngresos.add(jSeparator6);
+
+        jMenuItemConceptosDeportivos.setText("Conceptos Ingreso Deportivo");
+        jMenuItemConceptosDeportivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConceptosDeportivosActionPerformed(evt);
+            }
+        });
+        jMenuIngresos.add(jMenuItemConceptosDeportivos);
+
+        jMenuItemConceptoIngreso.setText("Conceptos Ingreso Otro");
+        jMenuItemConceptoIngreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConceptoIngresoActionPerformed(evt);
+            }
+        });
+        jMenuIngresos.add(jMenuItemConceptoIngreso);
+
+        jMenuContabilidad.add(jMenuIngresos);
+
+        jMenuEgresos.setText("Egresos");
+
+        jMenuItemGestionarEgresos.setText("Gestión Egresos");
+        jMenuItemGestionarEgresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGestionarEgresosActionPerformed(evt);
+            }
+        });
+        jMenuEgresos.add(jMenuItemGestionarEgresos);
+        jMenuEgresos.add(jSeparator7);
+
+        jMenuItemConceptosEgresos.setText("Conceptos Egresos");
+        jMenuItemConceptosEgresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConceptosEgresosActionPerformed(evt);
+            }
+        });
+        jMenuEgresos.add(jMenuItemConceptosEgresos);
+
+        jMenuContabilidad.add(jMenuEgresos);
 
         jMenuBar1.add(jMenuContabilidad);
 
@@ -347,6 +362,27 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
             }
         });
         jMenuConfiguracion.add(jMenuItemTipoCancha);
+        jMenuConfiguracion.add(jSeparator5);
+
+        jMenu1.setText("Base de Datos");
+
+        jMenuItemHacerBackup.setText("Hacer BackUp");
+        jMenuItemHacerBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHacerBackupActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemHacerBackup);
+
+        jMenuItemRestaurarBD.setText("Restaurar Base de Datos");
+        jMenuItemRestaurarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRestaurarBDActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemRestaurarBD);
+
+        jMenuConfiguracion.add(jMenu1);
 
         jMenuBar1.add(jMenuConfiguracion);
 
@@ -496,15 +532,23 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unIGeneradorMensual.setVisible(true);
     }//GEN-LAST:event_jMenuItemCuotaMensualActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemGestionIngresosAFuturoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionIngresosAFuturoActionPerformed
         IGestionIngresosFuturos unIGestionIngresosFuturos = new IGestionIngresosFuturos(unaControladoraGlobal);
         unIGestionIngresosFuturos.pack();
         unIGestionIngresosFuturos.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemGestionIngresosAFuturoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         System.exit(0);
     }//GEN-LAST:event_formWindowClosed
+
+    private void jMenuItemHacerBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHacerBackupActionPerformed
+        unaControladoraGlobal.hacerBackUp();
+    }//GEN-LAST:event_jMenuItemHacerBackupActionPerformed
+
+    private void jMenuItemRestaurarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestaurarBDActionPerformed
+        unaControladoraGlobal.restaurarBackUp();
+    }//GEN-LAST:event_jMenuItemRestaurarBDActionPerformed
 
     private void setCamSocia() {
         int Max = 99;
@@ -575,6 +619,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenuAuxiliares;
     private javax.swing.JMenuBar jMenuBar1;
@@ -582,11 +627,12 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuClub;
     private javax.swing.JMenu jMenuConfiguracion;
     private javax.swing.JMenu jMenuContabilidad;
+    private javax.swing.JMenu jMenuEgresos;
     private javax.swing.JMenu jMenuEquipo;
     private javax.swing.JMenu jMenuFormularios;
+    private javax.swing.JMenu jMenuIngresos;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -600,17 +646,21 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemConceptosEgresos;
     private javax.swing.JMenuItem jMenuItemCuotaMensual;
     private javax.swing.JMenuItem jMenuItemEstadosSocia;
+    private javax.swing.JMenuItem jMenuItemGestionIngresosAFuturo;
     private javax.swing.JMenuItem jMenuItemGestionarEgresos;
     private javax.swing.JMenuItem jMenuItemGestionarIngresos;
+    private javax.swing.JMenuItem jMenuItemHacerBackup;
     private javax.swing.JMenuItem jMenuItemLocalidades;
     private javax.swing.JMenuItem jMenuItemLos3;
+    private javax.swing.JMenuItem jMenuItemRestaurarBD;
     private javax.swing.JMenuItem jMenuItemTipoCancha;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     // End of variables declaration//GEN-END:variables
 }
