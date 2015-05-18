@@ -1,11 +1,15 @@
 package main;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,6 +39,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 public class ControladoraDeportiva {
 
@@ -687,8 +696,310 @@ public class ControladoraDeportiva {
         }
         return null;
     }
-    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Excel Tabla Posiciones">
+    /**
+     * Genera el excel de tarjetas, goles, tabla de posiciones
+     */
+    public void generarExcelTorneoPosiciones(Torneo unToneo) throws IOException {
+        /*La ruta donde se creará el archivo*/
+        //String rutaArchivo = System.getProperty("user.home")+"/ejemploExcelJava.xls";
+        String rutaArchivo = "Excel Pagina/" + unToneo.getNombre() + " - Posiciones.xls";
+        /*Se crea el objeto de tipo File con la ruta del archivo*/
+        File archivoXLS = new File(rutaArchivo);
+        /*Si el archivo existe se elimina*/
+        if (archivoXLS.exists()) {
+            archivoXLS.delete();
+        }
+        /*Se crea el archivo*/
+        archivoXLS.createNewFile();
+        /*Se crea el libro de excel usando el objeto de tipo Workbook*/
+        Workbook libro = new HSSFWorkbook();
+        /*Se inicializa el flujo de datos con el archivo xls*/
+        FileOutputStream archivo = new FileOutputStream(archivoXLS);
+        /*Utilizamos la clase Sheet para crear una nueva hoja de trabajo dentro del libro que creamos anteriormente*/
+        Sheet hoja = libro.createSheet("Tabla de Posiciones");
+        List<EquipoTablaPosiciones> listaTablaPosiciones = ArmadoTablaPosiciones(unToneo);
+        Row fila = hoja.createRow(0);
+        Cell celda = fila.createCell(0);
+        celda.setCellValue("Pos");
+        celda = fila.createCell(1);
+        celda.setCellValue("Equipo");
+        celda = fila.createCell(2);
+        celda.setCellValue("PJ");
+        celda = fila.createCell(3);
+        celda.setCellValue("PG");
+        celda = fila.createCell(4);
+        celda.setCellValue("PE");
+        celda = fila.createCell(5);
+        celda.setCellValue("PP");
+        celda = fila.createCell(6);
+        celda.setCellValue("GF");
+        celda = fila.createCell(7);
+        celda.setCellValue("GC");
+        celda = fila.createCell(8);
+        celda.setCellValue("DG");
+        celda = fila.createCell(9);
+        celda.setCellValue("Ptos");
+        int pos = 1;
+        for (EquipoTablaPosiciones unEquipo : listaTablaPosiciones) {
+            fila = hoja.createRow(pos);
+            celda = fila.createCell(0);
+            celda.setCellValue(pos);
+            celda = fila.createCell(1);
+            celda.setCellValue(unEquipo.nombreEquipo);
+            celda = fila.createCell(2);
+            celda.setCellValue(unEquipo.cantidadPartidosJugados);
+            celda = fila.createCell(3);
+            celda.setCellValue(unEquipo.cantidadPartidosGanados);
+            celda = fila.createCell(4);
+            celda.setCellValue(unEquipo.cantidadPartidosEmpatados);
+            celda = fila.createCell(5);
+            celda.setCellValue(unEquipo.cantidadPartidosPerdidos);
+            celda = fila.createCell(6);
+            celda.setCellValue(unEquipo.cantidadGoles);
+            celda = fila.createCell(7);
+            celda.setCellValue(unEquipo.cantidadGolesContrario);
+            celda = fila.createCell(8);
+            celda.setCellValue(unEquipo.diferenciaGol);
+            celda = fila.createCell(9);
+            celda.setCellValue(unEquipo.puntos);
+            pos++;
+        }
+        /*Escribimos en el libro*/
+        libro.write(archivo);
+        /*Cerramos el flujo de datos*/
+        archivo.close();
+        
+        /*Y abrimos el archivo con la clase Desktop*/
+        //Desktop.getDesktop().open(archivoXLS);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Objeto Tabla de Posiciones">
+    class EquipoTablaPosiciones {
+
+        private int cantidadPartidosJugados;
+        private int cantidadPartidosGanados;
+        private int cantidadGoles;
+        private int cantidadGolesContrario;
+        private int cantidadPartidosEmpatados;
+        private int cantidadPartidosPerdidos;
+        private int puntos;
+        private int diferenciaGol;
+        private String nombreEquipo;
+
+        public EquipoTablaPosiciones(int cantPartJug, int cantPartGan, int cantGoles, int cantGolesContrario, int cantPartEmpat, int cantPartPer, String nombreEquipo) {
+            this.cantidadPartidosJugados = cantPartJug;
+            this.cantidadPartidosGanados = cantPartGan;
+            this.cantidadGoles = cantGoles;
+            this.cantidadGolesContrario = cantGolesContrario;
+            this.cantidadPartidosEmpatados = cantPartEmpat;
+            this.cantidadPartidosPerdidos = cantPartPer;
+            this.puntos = (cantidadPartidosGanados * 3) + cantidadPartidosEmpatados;
+            this.diferenciaGol = cantidadGoles - cantidadGolesContrario;
+            this.nombreEquipo = nombreEquipo;
+        }
+
+        /**
+         * @return the cantidadPartidosJugados
+         */
+        public int getCantidadPartidosJugados() {
+            return cantidadPartidosJugados;
+        }
+
+        /**
+         * @param cantidadPartidosJugados the cantidadPartidosJugados to set
+         */
+        public void setCantidadPartidosJugados(int cantidadPartidosJugados) {
+            this.cantidadPartidosJugados = cantidadPartidosJugados;
+        }
+
+        /**
+         * @return the cantidadPartidosGanados
+         */
+        public int getCantidadPartidosGanados() {
+            return cantidadPartidosGanados;
+        }
+
+        /**
+         * @param cantidadPartidosGanados the cantidadPartidosGanados to set
+         */
+        public void setCantidadPartidosGanados(int cantidadPartidosGanados) {
+            this.cantidadPartidosGanados = cantidadPartidosGanados;
+        }
+
+        /**
+         * @return the cantidadGoles
+         */
+        public int getCantidadGoles() {
+            return cantidadGoles;
+        }
+
+        /**
+         * @param cantidadGoles the cantidadGoles to set
+         */
+        public void setCantidadGoles(int cantidadGoles) {
+            this.cantidadGoles = cantidadGoles;
+        }
+
+        /**
+         * @return the cantidadGolesContrario
+         */
+        public int getCantidadGolesContrario() {
+            return cantidadGolesContrario;
+        }
+
+        /**
+         * @param cantidadGolesContrario the cantidadGolesContrario to set
+         */
+        public void setCantidadGolesContrario(int cantidadGolesContrario) {
+            this.cantidadGolesContrario = cantidadGolesContrario;
+        }
+
+        /**
+         * @return the cantidadPartidosEmpatados
+         */
+        public int getCantidadPartidosEmpatados() {
+            return cantidadPartidosEmpatados;
+        }
+
+        /**
+         * @param cantidadPartidosEmpatados the cantidadPartidosEmpatados to set
+         */
+        public void setCantidadPartidosEmpatados(int cantidadPartidosEmpatados) {
+            this.cantidadPartidosEmpatados = cantidadPartidosEmpatados;
+        }
+
+        /**
+         * @return the cantidadPartidosPerdidos
+         */
+        public int getCantidadPartidosPerdidos() {
+            return cantidadPartidosPerdidos;
+        }
+
+        /**
+         * @param cantidadPartidosPerdidos the cantidadPartidosPerdidos to set
+         */
+        public void setCantidadPartidosPerdidos(int cantidadPartidosPerdidos) {
+            this.cantidadPartidosPerdidos = cantidadPartidosPerdidos;
+        }
+
+        /**
+         * @return the puntos
+         */
+        public int getPuntos() {
+            return puntos;
+        }
+
+        /**
+         * @param puntos the puntos to set
+         */
+        public void setPuntos(int puntos) {
+            this.puntos = puntos;
+        }
+
+        /**
+         * @return the diferenciaGol
+         */
+        public int getDiferenciaGol() {
+            return diferenciaGol;
+        }
+
+        /**
+         * @param diferenciaGol the diferenciaGol to set
+         */
+        public void setDiferenciaGol(int diferenciaGol) {
+            this.diferenciaGol = diferenciaGol;
+        }
+
+        /**
+         * @return the nombreEquipo
+         */
+        public String getNombreEquipo() {
+            return nombreEquipo;
+        }
+
+        /**
+         * @param nombreEquipo the nombreEquipo to set
+         */
+        public void setNombreEquipo(String nombreEquipo) {
+            this.nombreEquipo = nombreEquipo;
+        }
+    }
+    //</editor-fold> 
+
+    public List<EquipoTablaPosiciones> ArmadoTablaPosiciones(Torneo unTorneo) {
+        List<EquipoTablaPosiciones> listaTablaPosiciones = new ArrayList();
+        for (Equipo unEquipo : unTorneo.getEquiposInscriptos()) {
+            listaTablaPosiciones.add(calcularTablaPosiciones(unEquipo, unTorneo));
+        }
+        Collections.sort(listaTablaPosiciones, (EquipoTablaPosiciones equipo1, EquipoTablaPosiciones equipo2) -> {
+            int valor = ((Integer) equipo2.getPuntos()).compareTo((Integer) equipo1.getPuntos());
+            if (valor == 0) {
+                return ((Integer) equipo2.getDiferenciaGol()).compareTo((Integer) equipo1.getDiferenciaGol());
+            }
+            return valor;
+        });
+        //listaTablaPosicioones ordenada
+        return listaTablaPosiciones;
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Calculo de puntos">
+    private EquipoTablaPosiciones calcularTablaPosiciones(Equipo unEquipo, Torneo unTorneo) {
+        int cantidadPartidosJugados = 0;
+        int cantidadPartidosGanados = 0;
+        int cantidadGoles = 0;
+        int cantidadGolesContrario = 0;
+        int cantidadPartidosEmpatados = 0;
+        int cantidadPartidosPerdidos = 0;
+        for (FechaTorneo unaFechaTorneo : unTorneo.getFechasTorneo()) {
+            for (Partido unPartido : unaFechaTorneo.getPartidos()) {
+                if (unPartido.isJugado() && !unPartido.isBorradoLogico()) {
+                    if (unPartido.getUnEquipoLocal().equals(unEquipo)) {
+                        cantidadPartidosJugados++;
+                        if (unPartido.getGoles() != null) {
+                            cantidadGoles += getGolesLocal(unPartido);
+                            cantidadGolesContrario += getGolesVisitante(unPartido);
+                            if (getGolesLocal(unPartido) > getGolesVisitante(unPartido)) {
+                                cantidadPartidosGanados++;
+                            } else {
+                                if (getGolesLocal(unPartido) == getGolesVisitante(unPartido)) {
+                                    cantidadPartidosEmpatados++;
+
+                                } else {
+                                    cantidadPartidosPerdidos++;
+                                }
+                            }
+                        }
+                    } else {
+                        if (unPartido.getUnEquipoVisitante().equals(unEquipo)) {
+                            cantidadPartidosJugados++;
+                            if (unPartido.getGoles() != null) {
+                                cantidadGoles += getGolesVisitante(unPartido);
+                                cantidadGolesContrario += getGolesLocal(unPartido);
+                                if (getGolesLocal(unPartido) < getGolesVisitante(unPartido)) {
+                                    cantidadPartidosGanados++;
+                                } else {
+                                    if (getGolesLocal(unPartido) == getGolesVisitante(unPartido)) {
+                                        cantidadPartidosEmpatados++;
+                                    } else {
+                                        cantidadPartidosPerdidos++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        EquipoTablaPosiciones unEquipoTabla = new EquipoTablaPosiciones(cantidadPartidosJugados, cantidadPartidosGanados, cantidadGoles, cantidadGolesContrario, cantidadPartidosEmpatados, cantidadPartidosPerdidos, unEquipo.getNombre());
+
+        return unEquipoTabla;
+    }
+
+    //</editor-fold>
+    // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         FechaTorneo unaFechaTorneo = new FechaTorneo(this.entityManager, numeroFecha);

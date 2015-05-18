@@ -3,7 +3,11 @@ package Interfaces;
 import DataSources.FixtureDS;
 import DataSources.TablaGoleadorasDS;
 import DataSources.TablaPosicionesDS;
+import groovy.xml.Entity;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -453,6 +457,12 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     private void jButtonTablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTablaPosicionesActionPerformed
         TablaPosicionesDS unaTablaPosicionesDS = new TablaPosicionesDS(unaControladoraGlobal, unTorneoSeleccionado);
         unaTablaPosicionesDS.verReporte();
+        
+        try {
+            unaControladoraGlobal.generarExcelTorneoPosiciones(unTorneoSeleccionado);
+        } catch (IOException ex) {
+            Logger.getLogger(IGestionTorneo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonTablaPosicionesActionPerformed
 
     private void jButtonGoleadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoleadorasActionPerformed

@@ -637,6 +637,10 @@ public class ControladoraGlobal {
     public Torneo getTorneoDePartido(Partido unPartido) {
         return this.unaControladoraDeportiva.getTorneoDePartido(unPartido);
     }
+    
+    public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException{
+        this.unaControladoraDeportiva.generarExcelTorneoPosiciones(unTorneo);
+    }
         // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
