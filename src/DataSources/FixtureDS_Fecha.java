@@ -28,9 +28,8 @@ public class FixtureDS_Fecha implements JRDataSource {
     int indiceFecha = -1;
     List<FechaTorneo> fechasTorneo = new ArrayList();
     private DateFormat df = DateFormat.getDateInstance();
-    boolean libre = false,bandera = true;
-    String mensajeLibre ="";
-    
+    boolean libre = false, bandera = true;
+    String mensajeLibre = "";
 
     public FixtureDS_Fecha(ControladoraGlobal unaControladoraGlobal, List<FechaTorneo> listaFechasTorneo, Torneo unTorneo) {
         this.unaControladoraGlobal = unaControladoraGlobal;
@@ -60,23 +59,24 @@ public class FixtureDS_Fecha implements JRDataSource {
             valor = fechasTorneo.get(indiceFecha).getNumeroFecha();
         } else if ("partido".equals(jrf.getName())) {
             valor = subReporte((List<Partido>) fechasTorneo.get(indiceFecha).getPartidosNoBorrados());
-        } else if ("libre".equals(jrf.getName())) {
+        } /*else if ("libre".equals(jrf.getName())) {
             if (libre) {
                 FechaTorneo unaFechaAux = fechasTorneo.get(indiceFecha);
-                for (Equipo unEquipoAux : unTorneo.getEquiposInscriptos()) {
-                    bandera = true;
-                    for (Partido unPartidoAux : unaFechaAux.getPartidosNoBorrados()) {
-                        if(unPartidoAux.getUnEquipoLocal().equals(unEquipoAux) || unPartidoAux.getUnEquipoVisitante().equals(unEquipoAux)){
-                            bandera = false;
+                if (((unaFechaAux.getPartidosNoBorrados().size()*2) + 1) == unTorneo.getCantidadEquiposInscriptos()) {
+                    for (Equipo unEquipoAux : unTorneo.getEquiposInscriptos()) {
+                        bandera = true;
+                        for (Partido unPartidoAux : unaFechaAux.getPartidosNoBorrados()) {
+                            if (unPartidoAux.getUnEquipoLocal().equals(unEquipoAux) || unPartidoAux.getUnEquipoVisitante().equals(unEquipoAux)) {
+                                bandera = false;
+                            }
                         }
-                    }
-                    if(bandera){
-                        valor = "Nota: "+ unEquipoAux.getNombre() + " está libre en esta fecha";
+                        if (bandera) {
+                            valor = "Nota: " + unEquipoAux.getNombre() + " está libre en esta fecha";
+                        }
                     }
                 }
             }
-            
-        }
+        }*/
         return valor;
     }
 

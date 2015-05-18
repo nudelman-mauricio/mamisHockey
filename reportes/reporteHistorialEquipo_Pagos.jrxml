@@ -13,7 +13,7 @@
 	<columnHeader>
 		<band height="39" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="36" width="441" height="1" uuid="f68f99d8-59ac-4929-a8d8-163ce0887d1a"/>
+				<reportElement x="0" y="36" width="555" height="1" uuid="f68f99d8-59ac-4929-a8d8-163ce0887d1a"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
@@ -72,7 +72,7 @@
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="100" y="0" width="155" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="49289df9-7b8d-4a32-9868-95c3890e7177"/>
-				<box leftPadding="5"/>
+				<box leftPadding="15"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -88,8 +88,8 @@
 				<textFieldExpression><![CDATA[$F{nroRecibo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="367" y="0" width="74" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9352f596-6c64-495c-991d-d92fb9c5050d"/>
-				<box leftPadding="5"/>
+				<reportElement mode="Transparent" x="352" y="0" width="89" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9352f596-6c64-495c-991d-d92fb9c5050d"/>
+				<box leftPadding="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>

@@ -44,8 +44,8 @@ public class HistorialEquipoDS_Plantel implements JRDataSource {
                 case "apellidoynombre":
                     valor = plantelImprimir.get(indice).getApellido() + ", " + plantelImprimir.get(indice).getNombre();
                     break;
-                case "ergometrias":
-                    valor = plantelImprimir.get(indice).isErgometriaAprobada_y_Vigente(unaControladoraGlobal.fechaSistema());
+                case "dni":
+                    valor = plantelImprimir.get(indice).getDni();
                     break;
             }
         }

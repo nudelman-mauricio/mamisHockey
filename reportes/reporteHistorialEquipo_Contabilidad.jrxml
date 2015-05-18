@@ -63,7 +63,7 @@
 				<text><![CDATA[Deuda Saldada]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="34" width="518" height="1" uuid="579d7a06-4fd0-47bb-b566-661134ca9f7e"/>
+				<reportElement x="0" y="34" width="555" height="1" uuid="579d7a06-4fd0-47bb-b566-661134ca9f7e"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>

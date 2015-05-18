@@ -153,9 +153,10 @@
 	<detail>
 		<band height="11">
 			<textField>
-				<reportElement x="100" y="0" width="191" height="11" uuid="b557c511-4820-47c0-8f07-13868d9fe76c"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="8"/>
+				<reportElement mode="Transparent" x="100" y="0" width="191" height="11" forecolor="#000000" backcolor="#FFFFFF" uuid="b557c511-4820-47c0-8f07-13868d9fe76c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
 			</textField>

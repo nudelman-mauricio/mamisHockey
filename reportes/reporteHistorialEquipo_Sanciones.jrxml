@@ -63,7 +63,7 @@
 				<text><![CDATA[Fechas Cumplidas]]></text>
 			</staticText>
 			<line>
-				<reportElement x="2" y="40" width="543" height="1" uuid="3488f8b8-7f0f-43bd-90df-9550a3659a71"/>
+				<reportElement x="2" y="40" width="553" height="1" uuid="3488f8b8-7f0f-43bd-90df-9550a3659a71"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>

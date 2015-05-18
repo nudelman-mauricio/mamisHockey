@@ -1,9 +1,11 @@
 package Interfaces;
 
+import DataSources.IngresosFuturosDS;
 import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +34,43 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
     private double montoVencidoPorConcepto = 0;
     private Date fechaDesde = null;
     private Date fechaHasta = null;
+
+    // <editor-fold defaultstate="collapsed" desc="Clase Objecto de la Tabla">
+    public class ObjectoTabla {
+
+        private ConceptoDeportivo unConceptoDeportivo;
+        private double montoVencido;
+        private double montoAIngresar;
+
+        public ObjectoTabla(ConceptoDeportivo unConcepto, Double montoVencido, Double montoAIngresar) {
+            this.unConceptoDeportivo = unConcepto;
+            this.montoVencido = montoVencido;
+            this.montoAIngresar = montoAIngresar;
+        }
+
+        /**
+         * @return the unConceptoDeportivo
+         */
+        public ConceptoDeportivo getUnConceptoDeportivo() {
+            return unConceptoDeportivo;
+        }
+
+        /**
+         * @return the montoVencido
+         */
+        public double getMontoVencido() {
+            return montoVencido;
+        }
+
+        /**
+         * @return the montoAIngresar
+         */
+        public double getMontoAIngresar() {
+            return montoAIngresar;
+        }
+
+    }
+// </editor-fold> 
 
     public IGestionIngresosFuturos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
@@ -539,30 +578,26 @@ public class IGestionIngresosFuturos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxHastaAñoItemStateChanged
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-//        if (jTableIngresos.getRowCount() > 0) {
-//            String desde = "01/" + String.valueOf(jComboBoxDesdeMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxDesdeAño.getSelectedItem());
-//            String hasta = "01/" + String.valueOf(jComboBoxHastaMes.getSelectedIndex() + 1) + "/" + String.valueOf(jComboBoxHastaAño.getSelectedItem());
-//            Date fechaHasta = null;
-//            Date fechaDesde = null;
-//            try {
-//                fechaDesde = new java.sql.Date(df.parse(String.valueOf(desde)).getTime());
-//                fechaHasta = new java.sql.Date(df.parse(String.valueOf(hasta)).getTime());
-//
-//            } catch (ParseException ex) {
-//                Logger.getLogger(IGestionEgresos.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            List<IngresoOtro> unaListaIngreso = new ArrayList();
-//            IngresoOtro unIngresoOtro;
-//            int filas = this.modeloTablaGestionIngresos.getRowCount();
-//            for (int i = 0; i < filas; i++) {
-//                unIngresoOtro = unaControladoraGlobal.getIngresoOtroBD((Long) jTableIngresos.getValueAt(i, 0));
-//                unaListaIngreso.add(unIngresoOtro);
-//            }
-//            GestionIngresosDS unaGestionIgresosDS = new GestionIngresosDS(unaControladoraGlobal, unaListaIngreso, fechaDesde, fechaHasta);
-//            unaGestionIgresosDS.verReporte();
-//        } else {
-//            JOptionPane.showMessageDialog(this, "La tabla esta Vacia");
-//        }
+        ArrayList<ObjectoTabla> unaLista = new ArrayList();
+        ConceptoDeportivo unConcepto;
+        Double montoVencido, montoImporte;
+        ObjectoTabla unObjectoTabla;
+        for (int i = 0; i < jTableIngresosPorConcepto.getRowCount(); i++) {
+            unConcepto = (ConceptoDeportivo) jTableIngresosPorConcepto.getValueAt(i, 0);
+            montoVencido = (Double) jTableIngresosPorConcepto.getValueAt(i, 1);
+            montoImporte = (Double) jTableIngresosPorConcepto.getValueAt(i, 2);
+            unObjectoTabla = new ObjectoTabla(unConcepto, montoVencido, montoImporte);
+            unaLista.add(unObjectoTabla);
+        }
+        String titulo;
+        if (this.jComboBoxDesdeMes.getSelectedItem().equals(this.jComboBoxHastaMes.getSelectedItem()) && this.jComboBoxDesdeAño.getSelectedItem().equals(this.jComboBoxHastaAño.getSelectedItem())) {
+           titulo = "Ingresos Futuros del Mes de "+ jComboBoxDesdeMes.getSelectedItem().toString()+" "+jComboBoxDesdeAño.getSelectedItem().toString();
+        } else {
+           titulo = "Ingresos Futuros de: "+ jComboBoxDesdeMes.getSelectedItem().toString() + " " + jComboBoxDesdeAño.getSelectedItem().toString() + " hasta " + jComboBoxHastaMes.getSelectedItem().toString() + " " +jComboBoxHastaAño.getSelectedItem().toString();
+        }
+        IngresosFuturosDS unIngresoFuturo = new IngresosFuturosDS(unaLista, unaControladoraGlobal, titulo);
+        unIngresoFuturo.verReporte();
+
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jRadioButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosActionPerformed
