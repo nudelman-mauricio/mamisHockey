@@ -3,4 +3,8 @@ root
 Mauricio123
 com.mysql.jdbc.Driver
 
-C:/Program Files/MySQL/MySQL Server 5.7/bin/
+MySQL carpeta bin:
+C:/Program Files/MySQL/MySQL Server 5.7/bin
+
+DropBox:
+D:/Documents/GitHub/mamisHockey/src/Archivo

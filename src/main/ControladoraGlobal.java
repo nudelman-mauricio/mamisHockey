@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -1195,7 +1197,7 @@ public class ControladoraGlobal {
             // Creamos el Buffer de Lectura
             BufferedReader bufferLectura = new BufferedReader(new InputStreamReader(entrada));
 
-            
+            // <editor-fold defaultstate="collapsed" desc="Leer Conf del Archivo txt">
             // Leer el archivo linea por linea
             bufferLectura.readLine();//descartar inea
             String user = bufferLectura.readLine();
@@ -1204,15 +1206,18 @@ public class ControladoraGlobal {
             bufferLectura.readLine();//descartar inea
             bufferLectura.readLine();//descartar inea
             String direccionMYSQL = bufferLectura.readLine();
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            String direccionDropBox = bufferLectura.readLine();
             // Cerramos el archivo
             entrada.close();
-            
-            
+            // </editor-fold>
+
             try {
-                Process proceso = Runtime.getRuntime().exec("C:/Program Files/MySQL/MySQL Server 5.6/bin/mysqldump --user=root --password=Mauricio123 mamishockeydb");
+                Process proceso = Runtime.getRuntime().exec(direccionMYSQL + "/mysqldump --user=" + user + " --password=" + pass + " mamishockeydb");
 
                 InputStream flujoDeEntrada = proceso.getInputStream();
-                FileOutputStream flujoDeSalidaAArchivo = new FileOutputStream("backup_pruebas.sql");
+                FileOutputStream flujoDeSalidaAArchivo = new FileOutputStream(direccionDropBox + "/BackUP (" + new SimpleDateFormat("YYYY-MM-dd").format(fechaSistema()) + ").sql");
                 byte[] buffer = new byte[1000];
 
                 int leido = flujoDeEntrada.read(buffer);
@@ -1223,6 +1228,7 @@ public class ControladoraGlobal {
 
                 flujoDeSalidaAArchivo.close();
 
+                JOptionPane.showMessageDialog(null, "Archivo generado correctamente.", "BackUp", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Error al realizar el BackUp de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1241,6 +1247,7 @@ public class ControladoraGlobal {
             // Creamos el Buffer de Lectura
             BufferedReader bufferLectura = new BufferedReader(new InputStreamReader(entrada));
 
+            // <editor-fold defaultstate="collapsed" desc="Leer Conf del Archivo txt">
             // Leer el archivo linea por linea
             bufferLectura.readLine();//descartar inea
             String user = bufferLectura.readLine();
@@ -1251,6 +1258,7 @@ public class ControladoraGlobal {
             String direccionMYSQL = bufferLectura.readLine();
             // Cerramos el archivo
             entrada.close();
+            // </editor-fold>
 
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Script sql", "sql");
@@ -1275,6 +1283,7 @@ public class ControladoraGlobal {
                     flujoDeSalida.close();
                     flujoDeEntradaDesdeArchivo.close();
 
+                    JOptionPane.showMessageDialog(null, "Se restauró con éxito la Base de Datos", "BackUP", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception e) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Error al restaurar la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
