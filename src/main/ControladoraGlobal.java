@@ -643,8 +643,16 @@ public class ControladoraGlobal {
     public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException{
         this.unaControladoraDeportiva.generarExcelTorneoPosiciones(unTorneo);
     }
+    
+    public void generarExcelTablaGoleadoras(Torneo unTorneo) throws IOException{
+        this.unaControladoraDeportiva.generarExcelTablaGoleadoras(unTorneo);
+    }
+    
+    public void generarExcelTablaTarjetas(Torneo unTorneo) throws IOException{
+        this.unaControladoraDeportiva.generarExcelTablaTarjetas(unTorneo);
+    }
         // </editor-fold>
-
+    
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);

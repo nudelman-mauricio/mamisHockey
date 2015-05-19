@@ -701,10 +701,10 @@ public class ControladoraDeportiva {
     /**
      * Genera el excel de tarjetas, goles, tabla de posiciones
      */
-    public void generarExcelTorneoPosiciones(Torneo unToneo) throws IOException {
+    public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException {
         /*La ruta donde se creará el archivo*/
         //String rutaArchivo = System.getProperty("user.home")+"/ejemploExcelJava.xls";
-        String rutaArchivo = "Excel Pagina/" + unToneo.getNombre() + " - Posiciones.xls";
+        String rutaArchivo = "Excel Pagina/" + unTorneo.getNombre() + " - Posiciones.xls";
         /*Se crea el objeto de tipo File con la ruta del archivo*/
         File archivoXLS = new File(rutaArchivo);
         /*Si el archivo existe se elimina*/
@@ -719,7 +719,7 @@ public class ControladoraDeportiva {
         FileOutputStream archivo = new FileOutputStream(archivoXLS);
         /*Utilizamos la clase Sheet para crear una nueva hoja de trabajo dentro del libro que creamos anteriormente*/
         Sheet hoja = libro.createSheet("Tabla de Posiciones");
-        List<EquipoTablaPosiciones> listaTablaPosiciones = ArmadoTablaPosiciones(unToneo);
+        List<EquipoTablaPosiciones> listaTablaPosiciones = ArmadoTablaPosiciones(unTorneo);
         Row fila = hoja.createRow(0);
         Cell celda = fila.createCell(0);
         celda.setCellValue("Pos");
@@ -770,7 +770,7 @@ public class ControladoraDeportiva {
         libro.write(archivo);
         /*Cerramos el flujo de datos*/
         archivo.close();
-        
+
         /*Y abrimos el archivo con la clase Desktop*/
         //Desktop.getDesktop().open(archivoXLS);
     }
@@ -1000,6 +1000,232 @@ public class ControladoraDeportiva {
     //</editor-fold>
     // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Excel Tabla Goleadoras">
+    public void generarExcelTablaGoleadoras(Torneo unTorneo)  throws IOException {
+        /*La ruta donde se creará el archivo*/
+        //String rutaArchivo = System.getProperty("user.home")+"/ejemploExcelJava.xls";
+        String rutaArchivo = "Excel Pagina/" + unTorneo.getNombre() + " - Goleadoras.xls";
+        /*Se crea el objeto de tipo File con la ruta del archivo*/
+        File archivoXLS = new File(rutaArchivo);
+        /*Si el archivo existe se elimina*/
+        if (archivoXLS.exists()) {
+            archivoXLS.delete();
+        }
+        /*Se crea el archivo*/
+        archivoXLS.createNewFile();
+        /*Se crea el libro de excel usando el objeto de tipo Workbook*/
+        Workbook libro = new HSSFWorkbook();
+        /*Se inicializa el flujo de datos con el archivo xls*/
+        FileOutputStream archivo = new FileOutputStream(archivoXLS);
+        /*Utilizamos la clase Sheet para crear una nueva hoja de trabajo dentro del libro que creamos anteriormente*/
+        Sheet hoja = libro.createSheet("Tabla de Goleadoras");
+        List<JugadoraTabla> listaGoleadoras = ArmadoTablaGoleadoras(unTorneo);
+        Row fila = hoja.createRow(0);
+        Cell celda = fila.createCell(0);
+        celda.setCellValue("Pos");
+        celda = fila.createCell(1);
+        celda.setCellValue("Apellido y Nombre");
+        celda = fila.createCell(2);
+        celda.setCellValue("Equipo");
+        celda = fila.createCell(3);
+        celda.setCellValue("Goles");
+        
+        int pos = 1;
+        for (JugadoraTabla unaGoleadora : listaGoleadoras) {
+            fila = hoja.createRow(pos);
+            celda = fila.createCell(0);
+            celda.setCellValue(pos);
+            celda = fila.createCell(1);
+            celda.setCellValue(unaGoleadora.nombreJugadora);
+            celda = fila.createCell(2);
+            celda.setCellValue(unaGoleadora.nombreEquipo);
+            celda = fila.createCell(3);
+            celda.setCellValue(unaGoleadora.goles);
+            pos++;
+        }
+        /*Escribimos en el libro*/
+        libro.write(archivo);
+        /*Cerramos el flujo de datos*/
+        archivo.close();
+
+        /*Y abrimos el archivo con la clase Desktop*/
+        //Desktop.getDesktop().open(archivoXLS);
+    }
+    
+    public List<JugadoraTabla> ArmadoTablaGoleadoras(Torneo unTorneo){
+        Jugadora unaJugadora;
+        boolean bandera = false;
+        List<JugadoraTabla> jugadorasTablas = new ArrayList();
+        JugadoraTabla unaJugadoraTablaAuxiliar;
+
+        for (FechaTorneo unaFecha : unTorneo.getFechasTorneo()) {
+            for (Partido unPartido : unaFecha.getPartidos()) {
+                if (!unPartido.isBorradoLogico()) {
+                    for (Gol unGol : unPartido.getGoles()) {
+                        unaJugadora = getAutoraGol(unPartido, unGol);
+
+                        bandera = false;
+                        for (JugadoraTabla aux : jugadorasTablas) {
+                            if (aux.getNombreJugadora().equals(unaJugadora.getUnaSocia().toString())) {
+                                aux.setGoles(aux.getGoles() + 1);
+                                bandera = true;
+                            }
+                        }
+                        if (!bandera) {
+
+                            unaJugadoraTablaAuxiliar = new JugadoraTabla(unaJugadora.getUnaSocia().toString(), unaJugadora.getUnaSocia().getEquipoActual().getNombre());
+                            unaJugadoraTablaAuxiliar.setGoles(1);
+                            jugadorasTablas.add(unaJugadoraTablaAuxiliar);
+                        }
+                    }
+                }
+            }
+        }
+        if (unTorneo.getUnTorneoPadre() != null) {
+            if (unTorneo.getUnTorneoPadre().getFechasTorneo() != null) {
+                for (FechaTorneo unaFecha : unTorneo.getUnTorneoPadre().getFechasTorneo()) {
+                    for (Partido unPartido : unaFecha.getPartidos()) {
+                        for (Gol unGol : unPartido.getGoles()) {
+                            unaJugadora = getAutoraGol(unPartido, unGol);
+
+                            bandera = false;
+                            for (JugadoraTabla aux : jugadorasTablas) {
+                                if (aux.getNombreJugadora().equals(unaJugadora.getUnaSocia().toString())) {
+                                    aux.setGoles(aux.getGoles() + 1);
+                                    bandera = true;
+                                }
+                            }
+                            if (!bandera) {
+                                unaJugadoraTablaAuxiliar = new JugadoraTabla(unaJugadora.getUnaSocia().toString(), unaJugadora.getUnaSocia().getEquipoActual().getNombre());
+                                unaJugadoraTablaAuxiliar.setGoles(1);
+                                jugadorasTablas.add(unaJugadoraTablaAuxiliar);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //Ordena el arraylist. Lambda Expresion
+        Collections.sort(jugadorasTablas, (JugadoraTabla jugadora1, JugadoraTabla jugadora2) -> ((Integer) jugadora2.getGoles()).compareTo((Integer) jugadora1.getGoles()));
+
+        return jugadorasTablas;
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="JugadoraTabla">
+    class JugadoraTabla {
+
+        private String nombreJugadora;
+        private String nombreEquipo;
+        private int goles;
+
+        public JugadoraTabla(String nombreJugadora, String nombreEquipo) {
+            this.nombreJugadora = nombreJugadora;
+            this.nombreEquipo = nombreEquipo;
+
+        }
+
+        /**
+         * @return the nombreJugadora
+         */
+        public String getNombreJugadora() {
+            return nombreJugadora;
+        }
+
+        /**
+         * @param nombreJugadora the nombreJugadora to set
+         */
+        public void setNombreJugadora(String nombreJugadora) {
+            this.nombreJugadora = nombreJugadora;
+        }
+
+        /**
+         * @return the nombreEquipo
+         */
+        public String getNombreEquipo() {
+            return nombreEquipo;
+        }
+
+        /**
+         * @param nombreEquipo the nombreEquipo to set
+         */
+        public void setNombreEquipo(String nombreEquipo) {
+            this.nombreEquipo = nombreEquipo;
+        }
+
+        /**
+         * @return the goles
+         */
+        public int getGoles() {
+            return goles;
+        }
+
+        /**
+         * @param goles the goles to set
+         */
+        public void setGoles(int goles) {
+            this.goles = goles;
+        }
+    }
+//</editor-fold>
+
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Excel Tabla Tarjetas">
+    public void generarExcelTablaTarjetas(Torneo unTorneo)  throws IOException {
+        /*La ruta donde se creará el archivo*/
+        //String rutaArchivo = System.getProperty("user.home")+"/ejemploExcelJava.xls";
+        String rutaArchivo = "Excel Pagina/" + unTorneo.getNombre() + " - Tarjetas.xls";
+        /*Se crea el objeto de tipo File con la ruta del archivo*/
+        File archivoXLS = new File(rutaArchivo);
+        /*Si el archivo existe se elimina*/
+        if (archivoXLS.exists()) {
+            archivoXLS.delete();
+        }
+        /*Se crea el archivo*/
+        archivoXLS.createNewFile();
+        /*Se crea el libro de excel usando el objeto de tipo Workbook*/
+        Workbook libro = new HSSFWorkbook();
+        /*Se inicializa el flujo de datos con el archivo xls*/
+        FileOutputStream archivo = new FileOutputStream(archivoXLS);
+        /*Utilizamos la clase Sheet para crear una nueva hoja de trabajo dentro del libro que creamos anteriormente*/
+        Sheet hoja = libro.createSheet("Tabla de Tarjetas");
+        List<JugadoraTabla> listaGoleadoras = ArmadoTablaGoleadoras(unTorneo);
+        Row fila = hoja.createRow(0);
+        Cell celda = fila.createCell(0);
+        celda.setCellValue("Pos");
+        celda = fila.createCell(1);
+        celda.setCellValue("Apellido y Nombre");
+        celda = fila.createCell(2);
+        celda.setCellValue("Equipo");
+        celda = fila.createCell(3);
+        celda.setCellValue("Tarjetas");
+        
+        int pos = 1;
+        for (JugadoraTabla unaGoleadora : listaGoleadoras) {
+            fila = hoja.createRow(pos);
+            celda = fila.createCell(0);
+            celda.setCellValue(pos);
+            celda = fila.createCell(1);
+            celda.setCellValue(unaGoleadora.nombreJugadora);
+            celda = fila.createCell(2);
+            celda.setCellValue(unaGoleadora.nombreEquipo);
+            celda = fila.createCell(3);
+            celda.setCellValue(unaGoleadora.goles);
+            pos++;
+        }
+        /*Escribimos en el libro*/
+        libro.write(archivo);
+        /*Cerramos el flujo de datos*/
+        archivo.close();
+
+        /*Y abrimos el archivo con la clase Desktop*/
+        //Desktop.getDesktop().open(archivoXLS);
+    }
+    //</editor-fold>
+
+    // </editor-fold>
+        
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         FechaTorneo unaFechaTorneo = new FechaTorneo(this.entityManager, numeroFecha);
