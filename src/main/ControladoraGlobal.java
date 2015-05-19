@@ -1275,9 +1275,10 @@ public class ControladoraGlobal {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 try {
                     Process proceso = Runtime.getRuntime().exec(direccionMYSQL + "/mysql --user=" + user + " --password=" + pass + " mamishockeydb");
-
+                    
+                   
                     OutputStream flujoDeSalida = proceso.getOutputStream();
-                    FileInputStream flujoDeEntradaDesdeArchivo = new FileInputStream(chooser.getSelectedFile().getName());
+                    FileInputStream flujoDeEntradaDesdeArchivo = new FileInputStream(chooser.getSelectedFile().getPath());
                     byte[] buffer = new byte[1000];
 
                     int leido = flujoDeEntradaDesdeArchivo.read(buffer);
@@ -1290,7 +1291,7 @@ public class ControladoraGlobal {
                     flujoDeSalida.close();
                     flujoDeEntradaDesdeArchivo.close();
 
-                    JOptionPane.showMessageDialog(null, "Se restauró con éxito la Base de Datos", "BackUP", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Se restauró con éxito la Base de Datos", "BackUP", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Error al restaurar la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
