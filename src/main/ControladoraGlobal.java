@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -639,8 +638,8 @@ public class ControladoraGlobal {
     public Torneo getTorneoDePartido(Partido unPartido) {
         return this.unaControladoraDeportiva.getTorneoDePartido(unPartido);
     }
-    
-    public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException{
+
+    public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException {
         this.unaControladoraDeportiva.generarExcelTorneoPosiciones(unTorneo);
     }
     

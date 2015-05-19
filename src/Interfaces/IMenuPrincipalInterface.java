@@ -18,7 +18,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
@@ -27,25 +26,20 @@ import main.ControladoraGlobal;
 public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
     private final ControladoraGlobal unaControladoraGlobal;
-    private final DateFormat df = DateFormat.getDateInstance();
 
     public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
         initComponents();
 
         this.unaControladoraGlobal = ControladoraGlobal;
-        try {
-            //Icono de la ventana
-            //setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Hockey.png")).getImage());
-            setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Logo.png")).getImage());
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "ICONO", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
-            //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            this.setMaximizedBounds(env.getMaximumWindowBounds());
-            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+        //Icono de la ventana
+        //setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Hockey.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Logo.png")).getImage());
+
+        //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        this.setMaximizedBounds(env.getMaximumWindowBounds());
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         /**
          * Momentaneamente Desactiado para no alargar mas la entrerga. Recordar
          * que los formulasrios esos no pueden ser inventados. Hay que acordar
@@ -56,10 +50,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
 
         //FONDO jDesktopPane
         jDesktopPane.setBorder(new ImagenFondo());
-        
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "MAS", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="CLASE Imagen Fondo">

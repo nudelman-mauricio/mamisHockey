@@ -1,25 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaces;
 
 import main.ControladoraGlobal;
 
-/**
- *
- * @author Lucas
- */
-public class IProcesando extends javax.swing.JFrame {
+public class IProcesando extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form IProcesando
-     */
     public IProcesando() {
         initComponents();
+        IMenuPrincipalInterface.jDesktopPane.add(this);
+        IMenuPrincipalInterface.centrarYalFrente(this);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

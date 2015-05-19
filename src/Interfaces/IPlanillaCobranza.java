@@ -592,7 +592,7 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
 //                unIProcesando.setLocationRelativeTo(null);
 //                unIProcesando.setVisible(true);              
                 JOptionPane.showMessageDialog(this, "El proceso puede demorar.");
-                
+
                 List<Socia> sociaPagaron = new ArrayList();
                 List<Cuota> cuotasPagaron = new ArrayList();
 
@@ -668,10 +668,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
      */
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         JOptionPane.showMessageDialog(this, "El proceso puede demorar.");
-        
-        IProcesando unIProcesando = new IProcesando();
-        unIProcesando.setLocationRelativeTo(null);
-        unIProcesando.setVisible(true);
 
         List<Socia> sociaPagaron = new ArrayList();
         List<Cuota> cuotasPagaron = new ArrayList();
@@ -704,7 +700,6 @@ public class IPlanillaCobranza extends javax.swing.JInternalFrame {
         PlanilladePagoDS.verReportePDFTemporal(unEquipo.getNombre());
         this.unJInternalFrame.toBack();
         this.jButtonImprimir.setEnabled(false);
-        unIProcesando.dispose();
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jDateChooserFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserFechaPropertyChange
