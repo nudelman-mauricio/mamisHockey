@@ -140,7 +140,7 @@ public class IPanelLoge extends javax.swing.JFrame {
         }
         // </editor-fold>
 
-        if (intentos < 3) {
+        if (intentos > 2) {
 
             if (pass.equals(jPasswordField1.getText())) {
                 // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
