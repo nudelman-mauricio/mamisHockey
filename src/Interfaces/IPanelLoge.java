@@ -140,7 +140,7 @@ public class IPanelLoge extends javax.swing.JFrame {
         }
         // </editor-fold>
 
-        if (intentos > 2) {
+        if (intentos < 2) {
 
             if (pass.equals(jPasswordField1.getText())) {
                 // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
@@ -149,15 +149,17 @@ public class IPanelLoge extends javax.swing.JFrame {
                 unaVentana.setLocationRelativeTo(null); //Mandar al centro
                 unaVentana.setVisible(true);
                 // </editor-fold>    
+                this.dispose();
             } else {
                 intentos++;
+                jPasswordField1.setText("");
                 JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             this.dispose();
             System.exit(0);
         }
-        this.dispose();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
