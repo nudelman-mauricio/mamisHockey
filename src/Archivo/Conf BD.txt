@@ -8,3 +8,6 @@ C:/Program Files/MySQL/MySQL Server 5.7/bin
 
 DropBox:
 D:/Documents/GitHub/mamisHockey/src/Archivo
+
+Passwords:
+123456

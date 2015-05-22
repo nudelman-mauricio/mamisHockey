@@ -1,6 +1,7 @@
 package main;
 
 import Interfaces.IMenuPrincipalInterface;
+import Interfaces.IPanelLoge;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.io.BufferedReader;
@@ -68,12 +69,19 @@ public class Main {
             }
             // </editor-fold>
 
-            // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
-            IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
+            // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Log">
+            IPanelLoge unaVentana = new IPanelLoge(unaControladoraGlobal);
             SwingUtilities.updateComponentTreeUI(unaVentana);
             unaVentana.setLocationRelativeTo(null); //Mandar al centro
             unaVentana.setVisible(true);
-            // </editor-fold>
+            // </editor-fold>   
+
+//// <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
+//            IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
+//            SwingUtilities.updateComponentTreeUI(unaVentana);
+//            unaVentana.setLocationRelativeTo(null); //Mandar al centro
+//            unaVentana.setVisible(true);
+//            // </editor-fold>
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
