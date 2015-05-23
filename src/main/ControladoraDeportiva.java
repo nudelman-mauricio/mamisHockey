@@ -701,7 +701,7 @@ public class ControladoraDeportiva {
     /**
      * Genera el excel de tarjetas, goles, tabla de posiciones
      */
-    public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException {
+    public String generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException {
         /*La ruta donde se creará el archivo*/
         //String rutaArchivo = System.getProperty("user.home")+"/ejemploExcelJava.xls";
         String rutaArchivo = "Excel Pagina/" + unTorneo.getNombre() + " - Posiciones.xls";
@@ -773,6 +773,7 @@ public class ControladoraDeportiva {
 
         /*Y abrimos el archivo con la clase Desktop*/
         //Desktop.getDesktop().open(archivoXLS);
+        return rutaArchivo;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Objeto Tabla de Posiciones">

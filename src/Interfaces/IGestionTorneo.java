@@ -3,8 +3,12 @@ package Interfaces;
 import DataSources.FixtureDS;
 import DataSources.TablaGoleadorasDS;
 import DataSources.TablaPosicionesDS;
-import groovy.xml.Entity;
+import static com.sun.org.apache.xerces.internal.xinclude.XIncludeHandler.BUFFER_SIZE;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,16 +29,16 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
 
     public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
-        
+
         IMenuPrincipalInterface.jDesktopPane.add(this);
         IMenuPrincipalInterface.centrarYalFrente(this);
-        
+
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();
         setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Torneo.png")));
         this.setTitle("Gestión de Torneos");
         this.jTableTorneo.getTableHeader().setReorderingAllowed(false);
-        
+
         jTextFieldBusqueda.setText("");
         cargarTabla();
         camposActivo(false);
@@ -457,12 +461,45 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     private void jButtonTablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTablaPosicionesActionPerformed
         TablaPosicionesDS unaTablaPosicionesDS = new TablaPosicionesDS(unaControladoraGlobal, unTorneoSeleccionado);
         unaTablaPosicionesDS.verReporte();
-        
+
+//        String ftpUrl = "ftp://%s:%s@%s/%s;type=i";
+//        String host = "ftp.mamishockeymisiones.com.ar";
+//        String user = "mamishoc";
+//        String pass = "UnaContraseñaFacil";
+//        String filePath = "src/Archivo/Conf BD.txt";
+//        String uploadPath = "/Conf BD.txt";
+//
+//        ftpUrl = String.format(ftpUrl, user, pass, host, uploadPath);
+//        System.out.println("Upload URL: " + ftpUrl);
+//
+//        try {
+//            URL url = new URL(ftpUrl);
+//            URLConnection conn = url.openConnection();
+//            OutputStream outputStream = conn.getOutputStream();
+//            FileInputStream inputStream = new FileInputStream(filePath);
+//
+//            byte[] buffer = new byte[4096];
+//            int bytesRead = -1;
+//            while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, bytesRead);
+//            }
+//
+//            inputStream.close();
+//            outputStream.close();
+//
+//            System.out.println("File uploaded");
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+
+        String rutaExcel = "";
         try {
-            unaControladoraGlobal.generarExcelTorneoPosiciones(unTorneoSeleccionado);
+            rutaExcel = unaControladoraGlobal.generarExcelTorneoPosiciones(unTorneoSeleccionado);
         } catch (IOException ex) {
             Logger.getLogger(IGestionTorneo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        unaControladoraGlobal.subirAchivoFTP(rutaExcel);
     }//GEN-LAST:event_jButtonTablaPosicionesActionPerformed
 
     private void jButtonGoleadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoleadorasActionPerformed

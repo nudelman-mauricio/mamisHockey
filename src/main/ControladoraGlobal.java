@@ -1,5 +1,6 @@
 package main;
 
+import Interfaces.IGestionTorneo;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -639,8 +642,8 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.getTorneoDePartido(unPartido);
     }
 
-    public void generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException {
-        this.unaControladoraDeportiva.generarExcelTorneoPosiciones(unTorneo);
+    public String generarExcelTorneoPosiciones(Torneo unTorneo) throws IOException {
+        return this.unaControladoraDeportiva.generarExcelTorneoPosiciones(unTorneo);
     }
     
     public void generarExcelTablaGoleadoras(Torneo unTorneo) throws IOException{
@@ -1299,6 +1302,84 @@ public class ControladoraGlobal {
             }
         } catch (Exception e) { //Catch de excepciones
             JOptionPane.showMessageDialog(null, "Error en la lectura del archivo de configuración de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Subir Archivos a un FTP">
+    public void subirAchivoFTP(String dirAchivo) {
+        String host= "",user = "",pass = "";
+
+        // <editor-fold defaultstate="collapsed" desc="Leer Conf del Archivo txt">
+        try {
+            // Abrimos el archivo
+            FileInputStream fstream = new FileInputStream("src/Archivo/Conf BD.txt");
+            // Creamos el objeto de entrada
+            DataInputStream entrada = new DataInputStream(fstream);
+            // Creamos el Buffer de Lectura
+            BufferedReader bufferLectura = new BufferedReader(new InputStreamReader(entrada));
+
+            // Leer el archivo linea por linea
+            //Conf BD
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//descartar inea
+            bufferLectura.readLine();//Linea Blanco
+            bufferLectura.readLine();//MySQL carpeta bin:
+            bufferLectura.readLine();//DIR
+            bufferLectura.readLine();//Linea Blanco
+            bufferLectura.readLine();//DropBox:
+            bufferLectura.readLine();//DIR
+            bufferLectura.readLine();//Linea Blanco
+            bufferLectura.readLine();//FTP
+            bufferLectura.readLine();//Host
+            host = bufferLectura.readLine();
+            bufferLectura.readLine();//User
+            user = bufferLectura.readLine();
+            bufferLectura.readLine();//Pass
+            pass = bufferLectura.readLine();
+            
+
+            // Cerramos el archivo
+            entrada.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error lectura archivo en ventana log", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        // </editor-fold>
+      
+        String ftpUrl = "ftp://%s:%s@%s/%s;type=i";
+//        host = "ftp.mamishockeymisiones.com.ar";
+//        user = "mamishoc";
+//        pass = "UnaContraseñaFacil";
+        
+        String filePath = dirAchivo;
+        //String filePath = "src/Archivo/Conf BD.txt";
+        String uploadPath = "/public_ftp/Sistema/" + filePath; //filePath NOMBRE ARCHIVO?
+        //String uploadPath = "/Conf BD.txt";
+
+        ftpUrl = String.format(ftpUrl, user, pass, host, uploadPath);
+        System.out.println("Upload URL: " + ftpUrl);
+
+        try {
+            URL url = new URL(ftpUrl);
+            URLConnection conn = url.openConnection();
+            OutputStream outputStream = conn.getOutputStream();
+            FileInputStream inputStream = new FileInputStream(filePath);
+
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            inputStream.close();
+            outputStream.close();
+
+            System.out.println("File uploaded");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
     // </editor-fold>
