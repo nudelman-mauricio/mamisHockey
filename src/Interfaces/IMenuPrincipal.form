@@ -264,6 +264,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cambiar Fecha de Vencimiento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemVencimientoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPassword">
               <Properties>

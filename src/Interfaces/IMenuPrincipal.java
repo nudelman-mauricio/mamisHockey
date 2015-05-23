@@ -18,7 +18,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
@@ -325,6 +324,11 @@ public class IMenuPrincipal extends javax.swing.JFrame {
         jMenuConfiguracion.setMaximumSize(new java.awt.Dimension(129, 32767));
 
         jMenuItemVencimiento.setText("Cambiar Fecha de Vencimiento");
+        jMenuItemVencimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVencimientoActionPerformed(evt);
+            }
+        });
         jMenuConfiguracion.add(jMenuItemVencimiento);
 
         jMenuItemPassword.setText("Cambiar Contraseña");
@@ -559,6 +563,12 @@ public class IMenuPrincipal extends javax.swing.JFrame {
         unPanelLogueo.setVisible(true);
         unPanelLogueo.setLocationRelativeTo(null); //Mandar al centro
     }//GEN-LAST:event_jMenuItemPasswordActionPerformed
+
+    private void jMenuItemVencimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVencimientoActionPerformed
+        IVencimiento unIVencimiento = new IVencimiento(unaControladoraGlobal);
+        unIVencimiento.pack();
+        unIVencimiento.setVisible(true);
+    }//GEN-LAST:event_jMenuItemVencimientoActionPerformed
 
     private void setCamSocia() {
         int Max = 99;
