@@ -459,39 +459,6 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void jButtonTablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTablaPosicionesActionPerformed
-        TablaPosicionesDS unaTablaPosicionesDS = new TablaPosicionesDS(unaControladoraGlobal, unTorneoSeleccionado);
-        unaTablaPosicionesDS.verReporte();
-
-//        String ftpUrl = "ftp://%s:%s@%s/%s;type=i";
-//        String host = "ftp.mamishockeymisiones.com.ar";
-//        String user = "mamishoc";
-//        String pass = "UnaContraseñaFacil";
-//        String filePath = "src/Archivo/Conf BD.txt";
-//        String uploadPath = "/Conf BD.txt";
-//
-//        ftpUrl = String.format(ftpUrl, user, pass, host, uploadPath);
-//        System.out.println("Upload URL: " + ftpUrl);
-//
-//        try {
-//            URL url = new URL(ftpUrl);
-//            URLConnection conn = url.openConnection();
-//            OutputStream outputStream = conn.getOutputStream();
-//            FileInputStream inputStream = new FileInputStream(filePath);
-//
-//            byte[] buffer = new byte[4096];
-//            int bytesRead = -1;
-//            while ((bytesRead = inputStream.read(buffer)) != -1) {
-//                outputStream.write(buffer, 0, bytesRead);
-//            }
-//
-//            inputStream.close();
-//            outputStream.close();
-//
-//            System.out.println("File uploaded");
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-
         String rutaExcel = "";
         try {
             rutaExcel = unaControladoraGlobal.generarExcelTorneoPosiciones(unTorneoSeleccionado);
@@ -500,6 +467,9 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
         }
         
         unaControladoraGlobal.subirAchivoFTP(rutaExcel);
+        
+        TablaPosicionesDS unaTablaPosicionesDS = new TablaPosicionesDS(unaControladoraGlobal, unTorneoSeleccionado);
+        unaTablaPosicionesDS.verReporte();
     }//GEN-LAST:event_jButtonTablaPosicionesActionPerformed
 
     private void jButtonGoleadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoleadorasActionPerformed

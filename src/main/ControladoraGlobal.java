@@ -1328,7 +1328,8 @@ public class ControladoraGlobal {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Subir Archivos a un FTP">
-    public void subirAchivoFTP(String dirAchivo) {
+    public boolean subirAchivoFTP(String dirArchivo) {
+        boolean resultado = false;
         String host= "",user = "",pass = "";
 
         // <editor-fold defaultstate="collapsed" desc="Leer Conf del Archivo txt">
@@ -1375,13 +1376,14 @@ public class ControladoraGlobal {
 //        user = "mamishoc";
 //        pass = "UnaContraseñaFacil";
         
-        String filePath = dirAchivo;
-        //String filePath = "src/Archivo/Conf BD.txt";
-        String uploadPath = "/public_ftp/Sistema/" + filePath; //filePath NOMBRE ARCHIVO?
-        //String uploadPath = "/Conf BD.txt";
+        String filePath = dirArchivo;
+        System.out.println(dirArchivo);
+        dirArchivo = dirArchivo.replace("\\","/");
+        
+        String uploadPath = "public_ftp/Sistema/" + dirArchivo ; //filePath NOMBRE ARCHIVO
 
         ftpUrl = String.format(ftpUrl, user, pass, host, uploadPath);
-        System.out.println("Upload URL: " + ftpUrl);
+        //System.out.println("Upload URL: " + ftpUrl);
 
         try {
             URL url = new URL(ftpUrl);
@@ -1398,10 +1400,12 @@ public class ControladoraGlobal {
             inputStream.close();
             outputStream.close();
 
-            System.out.println("File uploaded");
+            //System.out.println("File uploaded");
+            resultado = true;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return resultado;
     }
     // </editor-fold>
 }

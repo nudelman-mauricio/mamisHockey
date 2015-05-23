@@ -773,7 +773,7 @@ public class ControladoraDeportiva {
 
         /*Y abrimos el archivo con la clase Desktop*/
         //Desktop.getDesktop().open(archivoXLS);
-        return rutaArchivo;
+        return archivoXLS.getPath();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Objeto Tabla de Posiciones">
