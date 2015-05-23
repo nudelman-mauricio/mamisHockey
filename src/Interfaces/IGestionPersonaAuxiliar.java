@@ -21,8 +21,8 @@ public class IGestionPersonaAuxiliar extends javax.swing.JInternalFrame {
     public IGestionPersonaAuxiliar(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaPersonaAuxiliar = (DefaultTableModel) jTablePersonaAuxiliar.getModel();

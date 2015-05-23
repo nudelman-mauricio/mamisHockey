@@ -31,8 +31,8 @@ public class IPase extends javax.swing.JInternalFrame {
     public IPase(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;

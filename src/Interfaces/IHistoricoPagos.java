@@ -19,8 +19,8 @@ public class IHistoricoPagos extends javax.swing.JInternalFrame {
     public IHistoricoPagos(JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unJInternalFrame = unJInternalFrame;
         this.modeloTable = (DefaultTableModel) jTableHistorico.getModel();

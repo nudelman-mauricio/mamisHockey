@@ -18,8 +18,8 @@ public class ICanchaTipo extends javax.swing.JInternalFrame {
     public ICanchaTipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTable = (DefaultTableModel) jTableTipoCancha.getModel();

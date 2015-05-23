@@ -18,8 +18,8 @@ public class IClubEquipo extends javax.swing.JInternalFrame {
     public IClubEquipo(ControladoraGlobal unaControladoraGlobal, Club unClub, JInternalFrame unJInternalFrame) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.jTableEquipo.getTableHeader().setReorderingAllowed(false);
         this.unaControladoraGlobal = unaControladoraGlobal;

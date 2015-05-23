@@ -20,8 +20,8 @@ public class IGestionEquipo extends javax.swing.JInternalFrame {
     public IGestionEquipo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaEquipo = (DefaultTableModel) jTableEquipo.getModel();

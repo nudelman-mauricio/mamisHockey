@@ -29,12 +29,12 @@ import logicaNegocios.*;
 import net.sf.jasperreports.engine.JasperPrint;
 
 public class ControladoraGlobal {
-
+    
     private final ControladoraContabilidad unaControladoraContabilidad;
     private final ControladoraEntidades unaControladoraEntidades;
     private final ControladoraDeportiva unaControladoraDeportiva;
     private final EntityManager entityManager;
-
+    
     public ControladoraGlobal(EntityManager entityManager) {
         this.entityManager = entityManager;
         this.unaControladoraContabilidad = new ControladoraContabilidad(entityManager);
@@ -42,7 +42,7 @@ public class ControladoraGlobal {
         this.unaControladoraDeportiva = new ControladoraDeportiva(entityManager);
         this.construirConceptosDeportivos();
         this.construirConceptosEgresos();
-        this.crearConfiguracion();
+        this.crearConfiguracionesIniciales();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Controladora Entidades">
@@ -50,67 +50,67 @@ public class ControladoraGlobal {
     public void crearPersonaAuxiliar(Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, Date fechaIngreso, String email, String telFijo, String telCelular, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente) {
         this.unaControladoraEntidades.crearPersonaAuxiliar(dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, fechaIngreso, email, telFijo, telCelular, arbitro, cuerpoTecnico, plantaPermanente);
     }
-
+    
     public void modificarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean arbitro, boolean cuerpoTecnico, boolean plantaPermanente, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarPersonaAuxiliar(unaPersonaAuxiliar, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, arbitro, cuerpoTecnico, plantaPermanente, borradoLogico);
     }
-
+    
     public void agregarActaCompromiso(PersonaAuxiliar unaPersonaAuxiliar, Date unaFecha) {
         this.unaControladoraEntidades.agregarActaCompromiso(unaPersonaAuxiliar, unaFecha);
     }
-
+    
     public void quitarActaCompromiso(PersonaAuxiliar unaPersonaAuxiliar, Date unaFecha) {
         this.unaControladoraEntidades.quitarActaCompromiso(unaPersonaAuxiliar, unaFecha);
     }
-
+    
     public void marcarCuerpoTecnicoActivo(PersonaAuxiliar unaPersonaAuxiliar, boolean activo) {
         this.unaControladoraEntidades.marcarCuerpoTecnicoActivo(unaPersonaAuxiliar, activo);
     }
-
+    
     public void eliminarPersonaAuxiliar(PersonaAuxiliar unaPersonaAuxiliar) {
         this.unaControladoraEntidades.eliminarPersonaAuxiliar(unaPersonaAuxiliar);
     }
-
+    
     public PersonaAuxiliar getPersonaAuxiliarBD(Long dni) {
         return this.unaControladoraEntidades.getPersonaAuxiliarBD(dni);
     }
-
+    
     public PersonaAuxiliar getCuerpoTecnicoBD(Long dni) {
         return this.unaControladoraEntidades.getCuerpoTecnicoBD(dni);
     }
-
+    
     public PersonaAuxiliar getArbitroBD(Long dni) {
         return this.unaControladoraEntidades.getArbitroBD(dni);
     }
-
+    
     public List<PersonaAuxiliar> getCuerposTecnicosBD() {
         return this.unaControladoraEntidades.getCuerposTecnicosBD();
     }
-
+    
     public List<PersonaAuxiliar> getCuerposTecnicosDesocupadosBD() {
         return this.unaControladoraEntidades.getCuerposTecnicosDesocupadosBD();
     }
-
+    
     public List<PersonaAuxiliar> getArbitrosBD() {
         return this.unaControladoraEntidades.getArbitrosBD();
     }
-
+    
     public List<PersonaAuxiliar> getCuerposTecnicosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getCuerposTecnicosBDFiltro(dato);
     }
-
+    
     public List<PersonaAuxiliar> getCuerposTecnicosDesocupadosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getCuerposTecnicosDesocupadosBDFiltro(dato);
     }
-
+    
     public List<PersonaAuxiliar> getArbitrosBDFiltro(String dato) {
         return this.unaControladoraEntidades.getArbitrosBDFiltro(dato);
     }
-
+    
     public List<PersonaAuxiliar> getPersonaAuxiliarBDFiltro(String dato) {
         return this.unaControladoraEntidades.getPersonasAuxiliarBDFiltro(dato);
     }
-
+    
     public List<PersonaAuxiliar> getArbitrosPorFecha(FechaTorneo unaFecha) {
         return this.unaControladoraEntidades.getArbitrosPorFecha(unaFecha);
     }
@@ -125,27 +125,27 @@ public class ControladoraGlobal {
         }
         this.crearEstado(unSocia, fechaIngreso, unTipoEstadoSocia);
     }
-
+    
     public void modificarSocia(Socia unaSocia, Long dni, String apellido, String nombre, Localidad unaLocalidad, String domicilio, Date fechaNacimiento, String telFijo, String telCelular, String email, Date fechaIngreso, boolean borradoLogico, byte[] fotoCarnet, boolean exJugadora) {
         this.unaControladoraEntidades.modificarSocia(unaSocia, dni, apellido, nombre, unaLocalidad, domicilio, fechaNacimiento, telFijo, telCelular, email, fechaIngreso, borradoLogico, fotoCarnet, exJugadora);
     }
-
+    
     public void modificarNumeroCamiseta(Socia unaSocia, String numeroCamiseta) {
         this.unaControladoraEntidades.modificarNumeroCamiseta(unaSocia, numeroCamiseta);
     }
-
+    
     public void eliminarSocia(Socia unaSocia) {
         this.unaControladoraEntidades.eliminarSocia(unaSocia);
     }
-
+    
     public Socia getSociaBD(Long dni) {
         return this.unaControladoraEntidades.getSociaBD(dni);
     }
-
+    
     public List<Socia> getSociasBD() {
         return this.unaControladoraEntidades.getSociasBD();
     }
-
+    
     public List<Socia> getSociasBDFiltro(String dato) {
         return this.unaControladoraEntidades.getSociasBDFiltro(dato);
     }
@@ -172,23 +172,23 @@ public class ControladoraGlobal {
         if (porPase == null) {
             porPase = this.crearConceptoDeportivo(0.0, "Pase", null, null, null);
         }
-
+        
         Deuda unaDeuda = this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, this.getConceptoDeportivoBD("Pase"), observacionDeuda, montoTotal, cantCuotas, primerVencimiento);
-
+        
         return this.unaControladoraEntidades.crearPase(unaSocia, fechaGeneracion, unaSocia.getEquipoActual(), unEquipoNuevo, unaDeuda, libreDeudaClub, solicitudPase, observacionPase);
     }
-
+    
     public void modificarPase(Pase unPase, Socia unaSocia, Equipo unEquipoNuevo) {
         unaControladoraEntidades.modificarPase(unPase, unaSocia, unEquipoNuevo);
     }
-
+    
     public void eliminarUltimoPase(Pase ultimoPase, Socia unaSocia) {
         if (ultimoPase.getUnaDeuda() != null) {//Se debe comprobar porque el pase CERO no posee deuda
             this.unaControladoraContabilidad.eliminarDeuda(ultimoPase.getUnaDeuda());
         }
         this.unaControladoraEntidades.eliminarUltimoPase(ultimoPase, unaSocia);
     }
-
+    
     public Pase getPaseBD(Long id) {
         return this.unaControladoraEntidades.getPaseBD(id);
     }
@@ -203,19 +203,19 @@ public class ControladoraGlobal {
     public void crearLocalidad(String nombre, String codPostal) {
         this.unaControladoraEntidades.crearLocalidad(nombre, codPostal);
     }
-
+    
     public void modificarLocalidad(Localidad unaLocalidad, String nombre, String codPostal, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarLocalidad(unaLocalidad, nombre, codPostal, borradoLogico);
     }
-
+    
     public void eliminarLocalidad(Localidad unaLocalidad) {
         this.unaControladoraEntidades.eliminarLocalidad(unaLocalidad);
     }
-
+    
     public Localidad getLocalidadBD(Long id) {
         return this.unaControladoraEntidades.getLocalidadBD(id);
     }
-
+    
     public List<Localidad> getLocalidadesBD() {
         return unaControladoraEntidades.getLocalidadesBD();
     }
@@ -225,7 +225,7 @@ public class ControladoraGlobal {
     public void crearErgometria(Socia unaSocia, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios) {
         this.unaControladoraEntidades.crearErgometria(unaSocia, fechaCaducidad, fechaRealizacion, aprobado, comentarios);
     }
-
+    
     public void modificarErgometria(Ergometria unaErgometria, Date fechaCaducidad, Date fechaRealizacion, boolean aprobado, String comentarios, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarErgometria(unaErgometria, fechaCaducidad, fechaRealizacion, aprobado, comentarios, borradoLogico);
     }
@@ -234,11 +234,11 @@ public class ControladoraGlobal {
     public void cambiarErgometriaDeSocia(Ergometria unaErgometria, Socia unaSociaActual, Socia unaSociaNueva) {
         this.unaControladoraEntidades.cambiarErgometriaDeSocia(unaErgometria, unaSociaActual, unaSociaNueva);
     }
-
+    
     public void eliminarErgometria(Ergometria unaErgometria) {
         this.unaControladoraEntidades.eliminarErgometria(unaErgometria);
     }
-
+    
     public Ergometria getErgometriaBD(Long id) {
         return this.unaControladoraEntidades.getErgometriaBD(id);
     }
@@ -248,11 +248,11 @@ public class ControladoraGlobal {
     public void crearEstado(Socia unaSocia, Date fecha, TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.crearEstado(unaSocia, fecha, unTipoEstado);
     }
-
+    
     public void modificarEstado(Estado unEstado, Date fecha, TipoEstado unTipoEstado, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarEstado(unEstado, fecha, unTipoEstado, borradoLogico);
     }
-
+    
     public void eliminarEstado(Estado unEstado) {
         this.unaControladoraEntidades.eliminarEstado(unEstado);
     }
@@ -273,23 +273,23 @@ public class ControladoraGlobal {
     public TipoEstado crearTipoEstado(String nombre) {
         return this.unaControladoraEntidades.crearTipoEstado(nombre);
     }
-
+    
     public void modificarTipoEstado(TipoEstado unTipoEstado, String nombre, boolean borradoLogico) {
         this.unaControladoraEntidades.modificarTipoEstado(unTipoEstado, nombre, borradoLogico);
     }
-
+    
     public void eliminarTipoEstado(TipoEstado unTipoEstado) {
         this.unaControladoraEntidades.eliminarTipoEstado(unTipoEstado);
     }
-
+    
     public TipoEstado getTipoEstadoBD(String tipo) {
         return this.unaControladoraEntidades.getTipoEstadoBD(tipo);
     }
-
+    
     public TipoEstado getTipoEstadoBD(Long id) {
         return this.unaControladoraEntidades.getTipoEstadoBD(id);
     }
-
+    
     public List<TipoEstado> getTiposEstadosBD() {
         return unaControladoraEntidades.getTiposEstadosBD();
     }
@@ -301,31 +301,31 @@ public class ControladoraGlobal {
     public SancionTribunal crearSancionTribunal(Partido unPartido, Equipo unEquipo, Persona unaPersona, Date fecha, String motivo, String detalles) {
         return this.unaControladoraDeportiva.crearSancionTribunal(unPartido, unEquipo, unaPersona, fecha, motivo, detalles);
     }
-
+    
     public void modificarSancionTribunal(SancionTribunal unaSancionTribunal, Date fecha, String motivo, String detalles, String numeroResolucion, Date vencimiento, int cantFechas, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarSancionTribunal(unaSancionTribunal, fecha, motivo, detalles, numeroResolucion, vencimiento, cantFechas, borradoLogico);
     }
-
+    
     public void eliminarSancionTribunal(SancionTribunal unaSancionTribunal) {
         this.unaControladoraDeportiva.eliminarSancionTribunal(unaSancionTribunal);
     }
-
+    
     public void descontarSancion(Partido unPartido) {
         this.unaControladoraDeportiva.descontarSancion(unPartido);
     }
-
+    
     public SancionTribunal getSancionTribunalBD(Long id) {
         return this.unaControladoraDeportiva.getSancionTribunalBD(id);
     }
-
+    
     public List<SancionTribunal> getSancionesTribunalesBD() {
         return this.unaControladoraDeportiva.getSancionesTribunalesBD();
     }
-
+    
     public SancionTribunal getSancionTarjeta(Tarjeta unaTarjeta) {
         return this.unaControladoraDeportiva.getSancionTarjeta(unaTarjeta);
     }
-
+    
     public List<SancionTribunal> getSancionesTribunalesDePartido(Partido unPartido) {
         return this.unaControladoraDeportiva.getSancionesTribunalesDePartido(unPartido);
     }
@@ -338,19 +338,19 @@ public class ControladoraGlobal {
             this.unaControladoraDeportiva.crearSancionTribunalParaTarjetaRoja(unPartido, unaSocia, fecha, "Tarjeta Roja", "Como mínimo una fecha de penalización", 1, unaTarjeta);
         }
     }
-
+    
     public void modificarTarjeta(Tarjeta unaTarjeta, Date fecha, String tipo, String motivo, String tiempo, String minuto, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarTarjeta(unaTarjeta, fecha, tipo, motivo, tiempo, minuto, borradoLogico);
     }
-
+    
     public void eliminarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.eliminarTarjeta(unaTarjeta);
     }
-
+    
     public void computarTarjeta(Tarjeta unaTarjeta) {
         this.unaControladoraDeportiva.computarTarjeta(unaTarjeta);
     }
-
+    
     public void computarTarjetasAcumuladas(Partido unPartido) {
         for (Jugadora unaJugadora : unPartido.getJugadoras()) {
             while (computarTarjetaSocia(unaJugadora.getUnaSocia(), this.getTorneoDePartido(unPartido)));
@@ -398,11 +398,11 @@ public class ControladoraGlobal {
         }
         return false;
     }
-
+    
     public Tarjeta getTarjetaBD(Long id) {
         return this.unaControladoraDeportiva.getTarjetaBD(id);
     }
-
+    
     public List<Tarjeta> getTarjetasBD() {
         return this.unaControladoraDeportiva.getTarjetasBD();
     }
@@ -412,43 +412,43 @@ public class ControladoraGlobal {
     public Equipo crearEquipo(Club unClub, String nombre, PersonaAuxiliar unDT, Socia unaCapitana, Socia unaCapitanaSup, Socia unaDelegada, Socia unaDelegadaSup, PersonaAuxiliar unPF, PersonaAuxiliar unAC) {
         return this.unaControladoraDeportiva.crearEquipo(unClub, nombre, unDT, unaCapitana, unaCapitanaSup, unaDelegada, unaDelegadaSup, unPF, unAC);
     }
-
+    
     public void modificarEquipo(Equipo unEquipo, String nombre, Socia unaCapitana, Socia unaCapitanaSuplente, Socia unaDelegada, Socia unaDelegadaSuplente, PersonaAuxiliar unDT, PersonaAuxiliar unPreparadorFisico, PersonaAuxiliar unAyudanteCampo, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarEquipo(unEquipo, nombre, unaCapitana, unaCapitanaSuplente, unaDelegada, unaDelegadaSuplente, unDT, unPreparadorFisico, unAyudanteCampo, borradoLogico);
     }
-
+    
     public void cambiarEquipoDeClub(Equipo unEquipo, Club unClubActual, Club unClubNuevo) {
         this.unaControladoraDeportiva.cambiarEquipoDeClub(unEquipo, unClubActual, unClubNuevo);
     }
-
+    
     public void eliminarEquipo(Equipo unEquipo) {
         this.unaControladoraDeportiva.eliminarEquipo(unEquipo);
     }
-
+    
     public Equipo getEquipoBD(Long id) {
         return this.unaControladoraDeportiva.getEquipoBD(id);
     }
-
+    
     public Club getClubBD(Equipo unEquipo) {
         return this.unaControladoraDeportiva.getClubBD(unEquipo);
     }
-
+    
     public List<Equipo> getEquiposDBPorCategoria(Categoria unaCategoria) {
         return this.unaControladoraDeportiva.getEquiposDBPorCategoria(unaCategoria);
     }
-
+    
     public List<Equipo> getEquiposBD() {
         return unaControladoraDeportiva.getEquiposBD();
     }
-
+    
     public List<Equipo> getEquiposBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getEquiposBDFiltro(dato);
     }
-
+    
     public List<Equipo> getEquipoPorFecha(FechaTorneo unaFecha, Torneo unTorneo) {
         return this.unaControladoraDeportiva.getEquipoPorFecha(unaFecha, unTorneo);
     }
-
+    
     public boolean isCamisetaExiste(Equipo unEquipo, String Camiseta) {
         return this.unaControladoraDeportiva.isCamisetaExiste(unEquipo, Camiseta);
     }
@@ -458,27 +458,27 @@ public class ControladoraGlobal {
     public void crearClub(String nombre, String nombrePresidente, Localidad unaLocalidad) {
         this.unaControladoraDeportiva.crearClub(nombre, nombrePresidente, unaLocalidad);
     }
-
+    
     public void modificarClub(Club unClub, String nombre, String nombrePresidente, Localidad unaLocalidad, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarClub(unClub, nombre, nombrePresidente, unaLocalidad, borradoLogico);
     }
-
+    
     public void eliminarClub(Club unClub) {
         this.unaControladoraDeportiva.eliminarClub(unClub);
     }
-
+    
     public Club getClubBD(Long id) {
         return this.unaControladoraDeportiva.getClubBD(id);
     }
-
+    
     public List<Club> getClubesBD() {
         return this.unaControladoraDeportiva.getClubesBD();
     }
-
+    
     public JasperPrint generarReporteClub() {
         return this.unaControladoraDeportiva.generarReporteClub();
     }
-
+    
     public List<Club> getClubesBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getClubesBDFiltro(dato);
     }
@@ -488,23 +488,23 @@ public class ControladoraGlobal {
     public void crearIndumentaria(Equipo unEquipo, String camiseta, String media, String pollera) {
         this.unaControladoraDeportiva.crearIndumentaria(unEquipo, camiseta, media, pollera);
     }
-
+    
     public void modificarIndumentaria(Indumentaria unaIndumentaria, String camiseta, String media, String pollera, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarIndumentaria(unaIndumentaria, camiseta, media, pollera, borradoLogico);
     }
-
+    
     public void cambiarIndumentariaDeEquipo(Indumentaria unaIndumentaria, Equipo unEquipoActual, Equipo unEquipoNuevo) {
         this.unaControladoraDeportiva.cambiarIndumentariaDeEquipo(unaIndumentaria, unEquipoActual, unEquipoNuevo);
     }
-
+    
     public void eliminarIndumentaria(Indumentaria unaIndumentaria) {
         this.unaControladoraDeportiva.eliminarIndumentaria(unaIndumentaria);
     }
-
+    
     public Indumentaria getIndumentariaBD(Long id) {
         return this.unaControladoraDeportiva.getIndumentariaBD(id);
     }
-
+    
     public List<Indumentaria> getIndumentariasBD() {
         return this.unaControladoraDeportiva.getIndumentariasBD();
     }
@@ -514,11 +514,11 @@ public class ControladoraGlobal {
     public void crearCancha(Club unClub, String nombre, TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.crearCancha(unClub, nombre, unTipoCancha);
     }
-
+    
     public void modificarCancha(Cancha unaCancha, String nombre, TipoCancha unTipoCancha, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarCancha(unaCancha, nombre, unTipoCancha, borradoLogico);
     }
-
+    
     public void eliminarCancha(Cancha unaCancha) {
         this.unaControladoraDeportiva.eliminarCancha(unaCancha);
     }
@@ -535,15 +535,15 @@ public class ControladoraGlobal {
     public int getCantCanchaOcupadaEnMes(Cancha unaCancha, int mes, int anio) {
         return this.unaControladoraDeportiva.getCantCanchaOcupadaEnMes(unaCancha, mes, anio);
     }
-
+    
     public Cancha getCanchaBD(Long id) {
         return this.unaControladoraDeportiva.getCanchaBD(id);
     }
-
+    
     public List<Cancha> getCanchasBD() {
         return this.unaControladoraDeportiva.getCanchasBD();
     }
-
+    
     public List<Cancha> getCanchasPorFecha(FechaTorneo unaFecha) {
         return this.unaControladoraDeportiva.getCanchasPorFecha(unaFecha);
     }
@@ -553,19 +553,19 @@ public class ControladoraGlobal {
     public void crearTipoCancha(String nombre) {
         this.unaControladoraDeportiva.crearTipoCancha(nombre);
     }
-
+    
     public void modificarTipoCancha(TipoCancha unTipoCancha, String nombre, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarTipoCancha(unTipoCancha, nombre, borradoLogico);
     }
-
+    
     public void eliminarTipoCancha(TipoCancha unTipoCancha) {
         this.unaControladoraDeportiva.eliminarTipoCancha(unTipoCancha);
     }
-
+    
     public TipoCancha getTipoCanchaBD(Long id) {
         return this.unaControladoraDeportiva.getTipoCanchaBD(id);
     }
-
+    
     public List<TipoCancha> getTiposCanchasBD() {
         return this.unaControladoraDeportiva.getTiposCanchasBD();
     }
@@ -575,19 +575,19 @@ public class ControladoraGlobal {
     public void crearCategoria(String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima) {
         this.unaControladoraDeportiva.crearCategoria(nombre, edadParametro, cantidadMinima, cantidadMaxima);
     }
-
+    
     public void modificarCategoria(Categoria unaCategoria, String nombre, int edadParametro, int cantidadMinima, int cantidadMaxima, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarCategoria(unaCategoria, nombre, edadParametro, cantidadMinima, cantidadMaxima, borradoLogico);
     }
-
+    
     public void eliminarCategoria(Categoria unaCategoria) {
         this.unaControladoraDeportiva.eliminarCategoria(unaCategoria);
     }
-
+    
     public Categoria getCategoriaBD(Long id) {
         return this.unaControladoraDeportiva.getCategoriaBD(id);
     }
-
+    
     public List<Categoria> getCategoriasBD() {
         return this.unaControladoraDeportiva.getCategoriasBD();
     }
@@ -597,47 +597,47 @@ public class ControladoraGlobal {
     public void crearTorneo(Torneo unTorneoPadre, Date diaInicio, Categoria unaCategoria, String nombre) {
         this.unaControladoraDeportiva.crearTorneo(unTorneoPadre, diaInicio, unaCategoria, nombre);
     }
-
+    
     public void modificarTorneo(Torneo unTorneo, Torneo unTorneoPadre, Date fechaInicio, Categoria unaCategoria, String nombre) {
         this.unaControladoraDeportiva.modificarTorneo(unTorneo, unTorneoPadre, fechaInicio, unaCategoria, nombre);
     }
-
+    
     public void eliminarTorneo(Torneo unTorneo) {
         this.unaControladoraDeportiva.eliminarTorneo(unTorneo);
     }
-
+    
     public int agregarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return this.unaControladoraDeportiva.agregarEquipoInscripto(unTorneo, unEquipo);
     }
-
+    
     public int quitarEquipoInscripto(Torneo unTorneo, Equipo unEquipo) {
         return this.unaControladoraDeportiva.quitarEquipoInscripto(unTorneo, unEquipo);
     }
-
+    
     public Torneo getTorneoBD(Long idTorneo) {
         return this.unaControladoraDeportiva.getTorneoBD(idTorneo);
     }
-
+    
     public List<Torneo> getTorneosBD() {
         return this.unaControladoraDeportiva.getTorneosBD();
     }
-
+    
     public List<Torneo> getTorneosBDFiltro(String dato) {
         return this.unaControladoraDeportiva.getTorneosBDFiltro(dato);
     }
-
+    
     public List<Torneo> getTorneosHijos(Torneo unTorneo) {
         return this.unaControladoraDeportiva.getTorneosHijos(unTorneo);
     }
-
+    
     public Torneo getTorneoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getTorneoTarjeta(unaTarjeta);
     }
-
+    
     public List<Torneo> getTorneoParticipoSocia(Socia unaSocia) {
         return this.unaControladoraDeportiva.getTorneoParticipoSocia(unaSocia);
     }
-
+    
     public Torneo getTorneoDePartido(Partido unPartido) {
         return this.unaControladoraDeportiva.getTorneoDePartido(unPartido);
     }
@@ -646,48 +646,48 @@ public class ControladoraGlobal {
         return this.unaControladoraDeportiva.generarExcelTorneoPosiciones(unTorneo);
     }
     
-    public void generarExcelTablaGoleadoras(Torneo unTorneo) throws IOException{
+    public void generarExcelTablaGoleadoras(Torneo unTorneo) throws IOException {
         this.unaControladoraDeportiva.generarExcelTablaGoleadoras(unTorneo);
     }
     
-    public void generarExcelTablaTarjetas(Torneo unTorneo) throws IOException{
+    public void generarExcelTablaTarjetas(Torneo unTorneo) throws IOException {
         this.unaControladoraDeportiva.generarExcelTablaTarjetas(unTorneo);
     }
         // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Fechas Torneo">
     public void crearFechaTorneo(Torneo unTorneo, int numeroFecha) {
         this.unaControladoraDeportiva.crearFechaTorneo(unTorneo, numeroFecha);
     }
-
+    
     public void modificarFechaTorneo(FechaTorneo unaFechaTorneo, int numeroFecha, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarFechaTorneo(unaFechaTorneo, numeroFecha, borradoLogico);
     }
-
+    
     public void eliminarFechaTorneo(FechaTorneo unaFechaTorneo) {
         this.unaControladoraDeportiva.eliminarFechaTorneo(unaFechaTorneo);
     }
-
+    
     public FechaTorneo getFechaTorneoBD(Long id) {
         return this.unaControladoraDeportiva.getFechaTorneoBD(id);
     }
-
+    
     public List<FechaTorneo> getFechasTorneosBD() {
         return this.unaControladoraDeportiva.getFechasTorneosBD();
     }
-
+    
     public FechaTorneo getSiguienteFecha(FechaTorneo fechaActual, Torneo unTorneo) {
         return this.unaControladoraDeportiva.getSiguienteFecha(fechaActual, unTorneo);
     }
-
+    
     public FechaTorneo getUnaFecha(int numeroFecha, Torneo unTorneo) {
         return this.unaControladoraDeportiva.getUnaFecha(numeroFecha, unTorneo);
     }
-
+    
     public FechaTorneo getFechaTorneoDePartido(Partido unPartido) {
         return unaControladoraDeportiva.getFechaTorneoDePartido(unPartido);
     }
-
+    
     public FechaTorneo getFechaTorneoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getFechaTorneoTarjeta(unaTarjeta);
     }
@@ -697,39 +697,39 @@ public class ControladoraGlobal {
     public void crearPartido(FechaTorneo unaFechaTorneo, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3) {
         this.unaControladoraDeportiva.crearPartido(unaFechaTorneo, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3);
     }
-
+    
     public void modificarPartido(Partido unPartido, Date fecha, Cancha unaCancha, Equipo unEquipoLocal, Equipo unEquipoVisitante, PersonaAuxiliar unArbitro1, PersonaAuxiliar unArbitro2, PersonaAuxiliar unArbitro3, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarPartido(unPartido, fecha, unaCancha, unEquipoLocal, unEquipoVisitante, unArbitro1, unArbitro2, unArbitro3, borradoLogico);
     }
-
+    
     public void modificarPartido(Partido unPartido, String nombreAyudanteMesaLocal, String nombreAyudanteMesaVisitante, String observaciones, boolean jugado, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarPartido(unPartido, nombreAyudanteMesaLocal, nombreAyudanteMesaVisitante, observaciones, jugado, borradoLogico);
     }
-
+    
     public void agregarJugadora(Partido unPartido, Socia unaSocia, String camiseta, boolean local) {
         this.unaControladoraDeportiva.agregarJugadora(unPartido, unaSocia, camiseta, local);
     }
-
+    
     public void vaciarJugadoras(Partido unPartido) {
         this.unaControladoraDeportiva.vaciarJugadoras(unPartido);
     }
-
+    
     public void eliminarPartido(Partido unPartido) {
         this.unaControladoraDeportiva.eliminarPartido(unPartido);
     }
-
+    
     public boolean isPartidoAnteriorJugado(Partido unPartido) {
         return this.unaControladoraDeportiva.isPartidoAnteriorJugado(unPartido);
     }
-
+    
     public Partido getPartidoBD(Long id) {
         return this.unaControladoraDeportiva.getPartidoBD(id);
     }
-
+    
     public List<Partido> getPartidosConPlantelNoJugadosBD(Date fechaParametro) {
         return this.unaControladoraDeportiva.getPartidosConPlantelNoJugadosBD(fechaParametro);
     }
-
+    
     public List<Partido> getPartidosDeUnEquipoNoJugadosBD(Equipo unEquipo, Date fechaParametro) {
         return this.unaControladoraDeportiva.getPartidosDeUnEquipoNoJugadosBD(unEquipo, fechaParametro);
     }
@@ -742,15 +742,15 @@ public class ControladoraGlobal {
     public List<Partido> getPartidosDeUnEquipoEnUnMes(Equipo unEquipo, int mes, int anio) {
         return this.unaControladoraDeportiva.getPartidosDeUnEquipoEnUnMes(unEquipo, mes, anio);
     }
-
+    
     public List<Partido> getPartidosBD() {
         return this.unaControladoraDeportiva.getPartidosBD();
     }
-
+    
     public Partido getPartidoTarjeta(Tarjeta unaTarjeta) {
         return unaControladoraDeportiva.getPartidoTarjeta(unaTarjeta);
     }
-
+    
     public String getCamisetaPartido(Partido unPartido, Socia unaSocia) {
         return unaControladoraDeportiva.getCamisetaPartido(unPartido, unaSocia);
     }
@@ -760,31 +760,31 @@ public class ControladoraGlobal {
     public void crearGol(Socia unaSocia, Partido unPartido, String tiempo, String minuto) {
         this.unaControladoraDeportiva.crearGol(unaSocia, unPartido, tiempo, minuto);
     }
-
+    
     public void modificarGol(Gol unGol, String tiempo, String minuto, boolean borradoLogico) {
         this.unaControladoraDeportiva.modificarGol(unGol, tiempo, minuto, borradoLogico);
     }
-
+    
     public void eliminarGol(Gol unGol) {
         this.unaControladoraDeportiva.eliminarGol(unGol);
     }
-
+    
     public Gol getGolBD(Long id) {
         return this.unaControladoraDeportiva.getGolBD(id);
     }
-
+    
     public List<Gol> getGolesBD() {
         return this.unaControladoraDeportiva.getGolesBD();
     }
-
+    
     public Jugadora getAutoraGol(Partido unPartido, Gol unGol) {
         return this.unaControladoraDeportiva.getAutoraGol(unPartido, unGol);
     }
-
+    
     public int getGolesLocal(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesLocal(unPartido);
     }
-
+    
     public int getGolesVisitante(Partido unPartido) {
         return this.unaControladoraDeportiva.getGolesVisitante(unPartido);
     }
@@ -819,7 +819,7 @@ public class ControladoraGlobal {
         meses.add(this.getMesDB(12));
         return meses;
     }
-
+    
     private void construirConceptosDeportivos() {
         if (this.getConceptoDeportivoBD("Cuota Socia") == null) {
             this.crearConceptoDeportivo(70, "Cuota Socia", crearMesesParaConceptoDeportivo(), null, this.getTipoEstadoBD("Socia"));
@@ -858,31 +858,31 @@ public class ControladoraGlobal {
             this.crearConceptoDeportivo(0, "Otro", null, null, null);
         }
     }
-
+    
     public ConceptoDeportivo crearConceptoDeportivo(double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado) {
         return this.unaControladoraContabilidad.crearConceptoDeportivo(monto, concepto, meses, unTipoCancha, unTipoEstado);
     }
-
+    
     public void modificarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo, double monto, String concepto, ArrayList<Mes> meses, TipoCancha unTipoCancha, TipoEstado unTipoEstado, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarConceptoDeportivo(unConceptoDeportivo, monto, concepto, meses, unTipoCancha, unTipoEstado, borradoLogico);
     }
-
+    
     public void eliminarConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         this.unaControladoraContabilidad.eliminarConceptoDeportivo(unConceptoDeportivo);
     }
-
+    
     public ConceptoDeportivo getConceptoDeportivoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(id);
     }
-
+    
     public ConceptoDeportivo getConceptoDeportivoBD(String concepto) {
         return this.unaControladoraContabilidad.getConceptoDeportivoBD(concepto);
     }
-
+    
     public Vector<ConceptoDeportivo> getConceptosDeportivosParaComboContabilidadSociaBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosParaComboContabilidadSociaBD();
     }
-
+    
     public List<ConceptoDeportivo> getConceptosDeportivosBD() {
         return this.unaControladoraContabilidad.getConceptosDeportivosBD();
     }
@@ -892,7 +892,7 @@ public class ControladoraGlobal {
     public void crearDeudaSocia(Socia unaSocia, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.unaControladoraContabilidad.crearDeudaSocia(unaSocia, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
     }
-
+    
     public void crearDeudaEquipo(Equipo unEquipo, Date fechaGeneracion, ConceptoDeportivo unConceptoDeportivo, String observacion, double montoTotal, int cantCuotas, Date primerVencimiento) {
         this.unaControladoraContabilidad.crearDeudaEquipo(unEquipo, fechaGeneracion, unConceptoDeportivo, observacion, montoTotal, cantCuotas, primerVencimiento);
     }
@@ -940,43 +940,43 @@ public class ControladoraGlobal {
             }
         }
     }
-
+    
     public void eliminarDeuda(Deuda unaDeuda) {
         this.unaControladoraContabilidad.eliminarDeuda(unaDeuda);
     }
-
+    
     public Deuda getDeudaBD(Long id) {
         return this.unaControladoraContabilidad.getDeudaBD(id);
     }
-
+    
     public List<Deuda> getDeudasBD() {
         return this.unaControladoraContabilidad.getDeudaBD();
     }
-
+    
     public List<Deuda> getDeudasPorConceptoDeportivo(ConceptoDeportivo unConceptoDeportivo) {
         return this.unaControladoraContabilidad.getDeudasPorConceptoDeportivo(unConceptoDeportivo);
     }
-
+    
     public List<Deuda> getDeudasEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getDeudaEntreFechas(desde, hasta);
     }
-
+    
     public Deuda getDeudaPagoCuota(PagoCuota unPago) {
         return this.unaControladoraContabilidad.getDeudaPagoCuota(unPago);
     }
-
+    
     public Deuda getDeudaDeCuota(Cuota unaCuota) {
         return this.unaControladoraContabilidad.getDeudaDeCuota(unaCuota);
     }
-
+    
     public List<Deuda> getDeudasMesSocias(Date fecha, Socia unaSocia) {
         return null;
     }
-
+    
     public Socia getSociaResponsableDeuda(Deuda unaDeuda) {
         return this.unaControladoraContabilidad.getSociaResponsableDeuda(unaDeuda);
     }
-
+    
     public Equipo getEquipoResponsableDeuda(Deuda unaDeuda) {
         return this.unaControladoraContabilidad.getEquipoResponsableDeuda(unaDeuda);
     }
@@ -992,23 +992,23 @@ public class ControladoraGlobal {
     public void crearPagoCuota(Cuota unaCuota, double monto, Date fechaPago, String observacion) {
         this.unaControladoraContabilidad.crearPagoCuota(unaCuota, monto, fechaPago, observacion);
     }
-
+    
     public void modificarPagoCuota(PagoCuota unPagoCuota, double monto, Date fechaPago, String observacion, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarPagoCuota(unPagoCuota, monto, fechaPago, observacion, borradoLogico);
     }
-
+    
     public void eliminarPagoCuota(PagoCuota unPagoCuota) {
         this.unaControladoraContabilidad.eliminarPagoCuota(unPagoCuota);
     }
-
+    
     public PagoCuota getPagoCuotaBD(Long id) {
         return this.unaControladoraContabilidad.getPagoCuotaBD(id);
     }
-
+    
     public List<PagoCuota> getPagosCuotasBD() {
         return this.unaControladoraContabilidad.getPagosCuotasBD();
     }
-
+    
     public List<PagoCuota> getPagosCuotasEntreFechasBD(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getPagosCuotasEntreFechasBD(desde, hasta);
     }
@@ -1018,19 +1018,19 @@ public class ControladoraGlobal {
     public void crearConceptoIngreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoIngreso(nombre, detalle);
     }
-
+    
     public void modificarConceptoIngreso(ConceptoIngreso unConceptoIngreso, String nombre, String detalle, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarConceptoIngreso(unConceptoIngreso, nombre, detalle, borradoLogico);
     }
-
+    
     public void eliminarConceptoIngreso(ConceptoIngreso unConceptoIngreso) {
         this.unaControladoraContabilidad.eliminarConceptoIngreso(unConceptoIngreso);
     }
-
+    
     public ConceptoIngreso getConceptoIngresoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoIngresoBD(id);
     }
-
+    
     public List<ConceptoIngreso> getConceptosIngresosBD() {
         return this.unaControladoraContabilidad.getConceptosIngresosBD();
     }
@@ -1042,27 +1042,27 @@ public class ControladoraGlobal {
             this.crearConceptoEgreso("Cancha", "Corresponde a los pagos DE la asociación A los Clubes que posean canchas y sean utilizadas.");
         }
     }
-
+    
     public void crearConceptoEgreso(String nombre, String detalle) {
         this.unaControladoraContabilidad.crearConceptoEgreso(nombre, detalle);
     }
-
+    
     public void modificarConceptoEgreso(ConceptoEgreso unConceptoEgreso, String nombre, String detalle, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarConceptoEgreso(unConceptoEgreso, nombre, detalle, borradoLogico);
     }
-
+    
     public void eliminarConceptoEgreso(ConceptoEgreso unConceptoEgreso) {
         this.unaControladoraContabilidad.eliminarConceptoEgreso(unConceptoEgreso);
     }
-
+    
     public ConceptoEgreso getConceptoEgresoBD(Long id) {
         return this.unaControladoraContabilidad.getConceptoEgresoBD(id);
     }
-
+    
     public ConceptoEgreso getConceptoEgresoBD(String concepto) {
         return this.unaControladoraContabilidad.getConceptoEgresoBD(concepto);
     }
-
+    
     public List<ConceptoEgreso> getConceptosEgresosBD() {
         return this.unaControladoraContabilidad.getConceptosEgresosBD();
     }
@@ -1072,31 +1072,31 @@ public class ControladoraGlobal {
     public void crearIngresoOtro(Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle) {
         this.unaControladoraContabilidad.crearIngresoOtro(fecha, monto, unConceptoIngreso, detalle);
     }
-
+    
     public void modificarIngresoOtro(IngresoOtro unIngresoOtro, Date fecha, double monto, ConceptoIngreso unConceptoIngreso, String detalle, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarIngresoOtro(unIngresoOtro, fecha, monto, unConceptoIngreso, detalle, borradoLogico);
     }
-
+    
     public void eliminarIngresoOtro(IngresoOtro unIngresoOtro) {
         this.unaControladoraContabilidad.eliminarIngresoOtro(unIngresoOtro);
     }
-
+    
     public IngresoOtro getIngresoOtroBD(Long id) {
         return this.unaControladoraContabilidad.getIngresoOtroBD(id);
     }
-
+    
     public List<IngresoOtro> getIngresosOtrosBD() {
         return this.unaControladoraContabilidad.getIngresosOtrosBD();
     }
-
+    
     public IngresoOtro getUltimoIngresoOtro() {
         return this.unaControladoraContabilidad.getUltimoIngresoOtro();
     }
-
+    
     public IngresoOtro getPrimerIngresoOtro() {
         return this.unaControladoraContabilidad.getPrimerIngresoOtro();
     }
-
+    
     public List<IngresoOtro> getIngresoOtroEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getIngresoOtroEntreFechas(desde, hasta);
     }
@@ -1106,31 +1106,31 @@ public class ControladoraGlobal {
     public void crearEgreso(Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion) {
         this.unaControladoraContabilidad.crearEgreso(fecha, monto, unConceptoEgreso, observacion);
     }
-
+    
     public void modificarEgreso(Egreso unEgreso, Date fecha, double monto, ConceptoEgreso unConceptoEgreso, String observacion, boolean borradoLogico) {
         this.unaControladoraContabilidad.modificarEgreso(unEgreso, fecha, monto, unConceptoEgreso, observacion, borradoLogico);
     }
-
+    
     public void eliminarEgreso(Egreso unEgreso) {
         this.unaControladoraContabilidad.eliminarEgreso(unEgreso);
     }
-
+    
     public Egreso getEgresoBD(Long id) {
         return this.unaControladoraContabilidad.getEgresoBD(id);
     }
-
+    
     public List<Egreso> getEgresosBD() {
         return this.unaControladoraContabilidad.getEgresosBD();
     }
-
+    
     public Egreso getUltimoEgreso() {
         return this.unaControladoraContabilidad.getUltimoEgreso();
     }
-
+    
     public Egreso getPrimerEgreso() {
         return this.unaControladoraContabilidad.getPrimerEgreso();
     }
-
+    
     public List<Egreso> getEgresosEntreFechas(Date desde, Date hasta) {
         return this.unaControladoraContabilidad.getEgresosEntreFechas(desde, hasta);
     }
@@ -1146,19 +1146,19 @@ public class ControladoraGlobal {
     public PlanillaPago crearPlanillaPago(Equipo unEquipoResponsable, Date fechaPago, double monto, String nroRecibo, Socia responsablePago) {
         return this.unaControladoraContabilidad.crearPlanillaPago(unEquipoResponsable, fechaPago, monto, nroRecibo, responsablePago);
     }
-
+    
     public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, String rutaPDF) {
         this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, rutaPDF);
     }
-
+    
     public void modificarPlanillaPago(PlanillaPago unaPlanillaPago, Date fechaPago, double monto, String nroRecibo, Socia responsablePago, String rutaPDF) {
         this.unaControladoraContabilidad.modificarPlanillaPago(unaPlanillaPago, fechaPago, monto, nroRecibo, responsablePago, rutaPDF);
     }
-
+    
     public PlanillaPago getPlanillaPagoBD(Long id) {
         return this.unaControladoraContabilidad.getPlanillaPagoBD(id);
     }
-
+    
     public List<PlanillaPago> getPlanillasPagosBD() {
         return this.unaControladoraContabilidad.getPlanillasPagosBD();
     }
@@ -1169,7 +1169,7 @@ public class ControladoraGlobal {
     public Date fechaSistema() {
         return new java.sql.Date(Calendar.getInstance().getTime().getTime());
     }
-
+    
     public String rutaSistema() {
         String path = "";
         try {
@@ -1180,19 +1180,41 @@ public class ControladoraGlobal {
         }
         return path;
     }
-
-    private void crearConfiguracion() {
+    
+    private void crearConfiguracionesIniciales() {
         if (this.getConfiguracion("diaVencimientoEstandar") == null) {
             new Configuracion(this.entityManager, "diaVencimientoEstandar", "15");
         }
+        if (this.getConfiguracion("password") == null) {
+            new Configuracion(this.entityManager, "password", "123456");
+        }
     }
-
+    
+    public void setConfiguracion(String concepto, String valor) {
+        Configuracion unaConfiguracion = this.getConfiguracionCompleto(concepto);
+        if (unaConfiguracion == null) {
+            new Configuracion(this.entityManager, concepto, valor);
+        } else {
+            unaConfiguracion.setValor(valor);
+            unaConfiguracion.persistir(entityManager);
+        }
+    }
+    
     public String getConfiguracion(String configuracionDeseada) {
         List<Configuracion> unaListaResultado = this.entityManager.createQuery("SELECT config FROM Configuracion config WHERE config.concepto LIKE '" + configuracionDeseada + "'").getResultList();
         if (unaListaResultado.isEmpty()) {
             return null;
         } else {
             return unaListaResultado.get(0).getValor();
+        }
+    }
+    
+    private Configuracion getConfiguracionCompleto(String configuracionDeseada) {
+        List<Configuracion> unaListaResultado = this.entityManager.createQuery("SELECT config FROM Configuracion config WHERE config.concepto LIKE '" + configuracionDeseada + "'").getResultList();
+        if (unaListaResultado.isEmpty()) {
+            return null;
+        } else {
+            return unaListaResultado.get(0);
         }
     }
     // </editor-fold>
@@ -1225,19 +1247,19 @@ public class ControladoraGlobal {
 
             try {
                 Process proceso = Runtime.getRuntime().exec(direccionMYSQL + "/mysqldump --user=" + user + " --password=" + pass + " mamishockeydb");
-
+                
                 InputStream flujoDeEntrada = proceso.getInputStream();
                 FileOutputStream flujoDeSalidaAArchivo = new FileOutputStream(direccionDropBox + "/BackUP (" + new SimpleDateFormat("YYYY-MM-dd").format(fechaSistema()) + ").sql");
                 byte[] buffer = new byte[1000];
-
+                
                 int leido = flujoDeEntrada.read(buffer);
                 while (leido > 0) {
                     flujoDeSalidaAArchivo.write(buffer, 0, leido);
                     leido = flujoDeEntrada.read(buffer);
                 }
-
+                
                 flujoDeSalidaAArchivo.close();
-
+                
                 JOptionPane.showMessageDialog(null, "Archivo generado correctamente.", "BackUp", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1247,7 +1269,7 @@ public class ControladoraGlobal {
             JOptionPane.showMessageDialog(null, "Error en la lectura del archivo de configuración de la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     public void restaurarBackUp(Component ventanaContenedora) {
         try {
             // Abrimos el archivo
@@ -1279,21 +1301,20 @@ public class ControladoraGlobal {
                 try {
                     Process proceso = Runtime.getRuntime().exec(direccionMYSQL + "/mysql --user=" + user + " --password=" + pass + " mamishockeydb");
                     
-                   
                     OutputStream flujoDeSalida = proceso.getOutputStream();
                     FileInputStream flujoDeEntradaDesdeArchivo = new FileInputStream(chooser.getSelectedFile().getPath());
                     byte[] buffer = new byte[1000];
-
+                    
                     int leido = flujoDeEntradaDesdeArchivo.read(buffer);
                     while (leido > 0) {
                         flujoDeSalida.write(buffer, 0, leido);
                         leido = flujoDeEntradaDesdeArchivo.read(buffer);
                     }
-
+                    
                     flujoDeSalida.flush();
                     flujoDeSalida.close();
                     flujoDeEntradaDesdeArchivo.close();
-
+                    
                     JOptionPane.showMessageDialog(null, "Se restauró con éxito la Base de Datos", "BackUP", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                     e.printStackTrace();

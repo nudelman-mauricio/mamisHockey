@@ -31,8 +31,8 @@ public class IGestionClub extends javax.swing.JInternalFrame {
     public IGestionClub(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaClub = (DefaultTableModel) jTableClub.getModel();

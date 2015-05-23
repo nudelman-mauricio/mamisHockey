@@ -30,8 +30,8 @@ public class IErgometria extends javax.swing.JInternalFrame {
     public IErgometria(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Socia unaSocia) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.jTableErgometrias.getTableHeader().setReorderingAllowed(false);

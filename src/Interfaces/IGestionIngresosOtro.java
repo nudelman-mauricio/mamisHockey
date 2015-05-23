@@ -31,8 +31,8 @@ public class IGestionIngresosOtro extends javax.swing.JInternalFrame {
     public IGestionIngresosOtro(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionIngresos = (DefaultTableModel) jTableIngresos.getModel();

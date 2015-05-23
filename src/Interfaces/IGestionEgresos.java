@@ -34,8 +34,8 @@ public class IGestionEgresos extends javax.swing.JInternalFrame {
     public IGestionEgresos(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaGestionEgresos = (DefaultTableModel) jTableEgresos.getModel();

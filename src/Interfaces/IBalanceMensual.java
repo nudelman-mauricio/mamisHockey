@@ -36,8 +36,8 @@ class IBalanceMensual extends javax.swing.JInternalFrame {
     public IBalanceMensual(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         setFrameIcon(new ImageIcon(getClass().getResource("/Iconos Nuevos/Contabilidad.png"))); //Icono Ventana

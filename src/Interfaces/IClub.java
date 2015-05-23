@@ -22,8 +22,8 @@ public class IClub extends javax.swing.JInternalFrame {
     //LLAMADO PARA NUEVO CLUB
     public IClub(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame) {
         initComponents();
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;

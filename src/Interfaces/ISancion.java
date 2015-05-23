@@ -32,8 +32,8 @@ public class ISancion extends javax.swing.JInternalFrame {
     public ISancion(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;

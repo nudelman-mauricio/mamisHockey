@@ -18,21 +18,21 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import logicaNegocios.Socia;
 import logicaNegocios.TipoEstado;
 import main.ControladoraGlobal;
 
-public class IMenuPrincipalInterface extends javax.swing.JFrame {
+public class IMenuPrincipal extends javax.swing.JFrame {
 
     private final ControladoraGlobal unaControladoraGlobal;
 
-    public IMenuPrincipalInterface(ControladoraGlobal ControladoraGlobal) {
+    public IMenuPrincipal(ControladoraGlobal ControladoraGlobal) {
         initComponents();
 
         this.unaControladoraGlobal = ControladoraGlobal;
         //Icono de la ventana
-        //setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Hockey.png")).getImage());
         setIconImage(new ImageIcon(getClass().getResource("/Iconos Nuevos/Logo.png")).getImage());
 
         //Setea fullscreen teniendo en cuenta el tamaño de la pantalla de windows sin el inicio
@@ -121,6 +121,8 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuConfiguracion = new javax.swing.JMenu();
+        jMenuItemVencimiento = new javax.swing.JMenuItem();
+        jMenuItemPassword = new javax.swing.JMenuItem();
         jMenuItemEstadosSocia = new javax.swing.JMenuItem();
         jMenuItemLocalidades = new javax.swing.JMenuItem();
         jMenuItemCategoria = new javax.swing.JMenuItem();
@@ -321,6 +323,17 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         jMenuConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos Nuevos/Config.png"))); // NOI18N
         jMenuConfiguracion.setText("Configuración");
         jMenuConfiguracion.setMaximumSize(new java.awt.Dimension(129, 32767));
+
+        jMenuItemVencimiento.setText("Cambiar Fecha de Vencimiento");
+        jMenuConfiguracion.add(jMenuItemVencimiento);
+
+        jMenuItemPassword.setText("Cambiar Contraseña");
+        jMenuItemPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPasswordActionPerformed(evt);
+            }
+        });
+        jMenuConfiguracion.add(jMenuItemPassword);
 
         jMenuItemEstadosSocia.setText("Estados de una Socia");
         jMenuItemEstadosSocia.addActionListener(new java.awt.event.ActionListener() {
@@ -541,6 +554,12 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
         unaControladoraGlobal.restaurarBackUp(jDesktopPane);
     }//GEN-LAST:event_jMenuItemRestaurarBDActionPerformed
 
+    private void jMenuItemPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPasswordActionPerformed
+        IPanelLogueo unPanelLogueo = new IPanelLogueo(unaControladoraGlobal, true);
+        unPanelLogueo.setVisible(true);
+        unPanelLogueo.setLocationRelativeTo(null); //Mandar al centro
+    }//GEN-LAST:event_jMenuItemPasswordActionPerformed
+
     private void setCamSocia() {
         int Max = 99;
         int Min = 1;
@@ -597,7 +616,7 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
                 }
             }
         } catch (ParseException ex) {
-            Logger.getLogger(IMenuPrincipalInterface.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -643,8 +662,10 @@ public class IMenuPrincipalInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemHacerBackup;
     private javax.swing.JMenuItem jMenuItemLocalidades;
     private javax.swing.JMenuItem jMenuItemLos3;
+    private javax.swing.JMenuItem jMenuItemPassword;
     private javax.swing.JMenuItem jMenuItemRestaurarBD;
     private javax.swing.JMenuItem jMenuItemTipoCancha;
+    private javax.swing.JMenuItem jMenuItemVencimiento;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenu jMenuSocias;
     private javax.swing.JMenu jMenuTorneo;

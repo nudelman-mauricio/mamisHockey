@@ -20,8 +20,8 @@ public class IImprimirEquipo extends javax.swing.JInternalFrame {
     public IImprimirEquipo(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Equipo unEquipo) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.unJInternalFrame = unJInternalFrame;
         this.unEquipoSeleccionado = unEquipo;
