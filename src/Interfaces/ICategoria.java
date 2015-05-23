@@ -18,8 +18,8 @@ public class ICategoria extends javax.swing.JInternalFrame {
     public ICategoria(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.jTableCategoria.getTableHeader().setReorderingAllowed(false);
         this.modeloTablaCategoria = (DefaultTableModel) jTableCategoria.getModel();

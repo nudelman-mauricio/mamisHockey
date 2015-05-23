@@ -6,8 +6,8 @@ public class IProcesando extends javax.swing.JInternalFrame {
 
     public IProcesando() {
         initComponents();
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
     }
 
     @SuppressWarnings("unchecked")

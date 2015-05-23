@@ -1,7 +1,6 @@
 package main;
 
-import Interfaces.IMenuPrincipalInterface;
-import Interfaces.IPanelLoge;
+import Interfaces.IPanelLogueo;
 import com.l2fprod.gui.plaf.skin.Skin;
 import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 import java.io.BufferedReader;
@@ -52,9 +51,9 @@ public class Main {
             persistenceMap.put("javax.persistence.jdbc.driver", driver);
 
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mamisHockeyPU", persistenceMap); //nombre de la unidad de persistencia 
-            EntityManager entityManager = entityManagerFactory.createEntityManager();            
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             // </editor-fold>
-            
+
             ControladoraGlobal unaControladoraGlobal = new ControladoraGlobal(entityManager);
 
             // <editor-fold defaultstate="collapsed" desc="Aplicar Skin">
@@ -70,18 +69,11 @@ public class Main {
             // </editor-fold>
 
             // <editor-fold defaultstate="collapsed" desc="Abrir Ventana Log">
-            IPanelLoge unaVentana = new IPanelLoge(unaControladoraGlobal);
+            IPanelLogueo unaVentana = new IPanelLogueo(unaControladoraGlobal, false);
             SwingUtilities.updateComponentTreeUI(unaVentana);
             unaVentana.setLocationRelativeTo(null); //Mandar al centro
             unaVentana.setVisible(true);
-            // </editor-fold>   
-
-//// <editor-fold defaultstate="collapsed" desc="Abrir Ventana Principal">
-//            IMenuPrincipalInterface unaVentana = new IMenuPrincipalInterface(unaControladoraGlobal);
-//            SwingUtilities.updateComponentTreeUI(unaVentana);
-//            unaVentana.setLocationRelativeTo(null); //Mandar al centro
-//            unaVentana.setVisible(true);
-//            // </editor-fold>
+            // </editor-fold>
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la Base de Datos", "Error", JOptionPane.ERROR_MESSAGE);
         }

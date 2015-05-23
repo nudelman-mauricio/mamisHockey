@@ -18,8 +18,8 @@ public class ILocalidad extends javax.swing.JInternalFrame {
     public ILocalidad(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.jTableLocalidad.getTableHeader().setReorderingAllowed(false);

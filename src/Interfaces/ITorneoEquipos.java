@@ -24,8 +24,8 @@ public class ITorneoEquipos extends javax.swing.JInternalFrame {
     public ITorneoEquipos(ControladoraGlobal unaControladoraGlobal, JInternalFrame unJInternalFrame, Torneo unTorneo) {
         initComponents();
 
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
 
         this.unJInternalFrame = unJInternalFrame;
         this.jTableEquiposDisponibles.getTableHeader().setReorderingAllowed(false);

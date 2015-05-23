@@ -26,8 +26,8 @@ public class IGestionTorneo extends javax.swing.JInternalFrame {
     public IGestionTorneo(ControladoraGlobal unaControladoraGlobal) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unaControladoraGlobal = unaControladoraGlobal;
         this.modeloTablaTorneo = (DefaultTableModel) jTableTorneo.getModel();

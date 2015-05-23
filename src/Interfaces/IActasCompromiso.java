@@ -23,8 +23,8 @@ public class IActasCompromiso extends javax.swing.JInternalFrame {
     public IActasCompromiso(JInternalFrame unJInternalFrame, ControladoraGlobal unaControladoraGlobal, PersonaAuxiliar unaPersonaAuxiliar) {
         initComponents();
         
-        IMenuPrincipalInterface.jDesktopPane.add(this);
-        IMenuPrincipalInterface.centrarYalFrente(this);
+        IMenuPrincipal.jDesktopPane.add(this);
+        IMenuPrincipal.centrarYalFrente(this);
         
         this.unJInternalFrame = unJInternalFrame;
         this.unaControladoraGlobal = unaControladoraGlobal;
