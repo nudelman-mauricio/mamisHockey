@@ -1,0 +1,11 @@
+Despues de pasar el REBUILD:
+Copiar de: C:\Github\mamisHockey las siguientes carpetas:
+
+Excel Pagina
+Formularios
+Planillas de Pago
+Repotes
+Skins
+src
+
+en: C:\Github\mamisHockey\dist

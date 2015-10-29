@@ -65,7 +65,11 @@ public class ISocia extends javax.swing.JInternalFrame {
         jCheckBoxResponsableSede.setSelected(false);
         jComboBoxResponsableSede.setEnabled(false);
         
-        jDateChooserFechaIngreso.setDateFormatString(df.format(unaControladoraGlobal.fechaSistema()));
+        
+        //PARA REEVER PERO PARA LUCAS ACA ESTABA EL ERROR Y QDO FUNCIONANDO
+        //jDateChooserFechaIngreso.setDateFormatString(df.format(unaControladoraGlobal.fechaSistema()));
+        jDateChooserFechaIngreso.setDate(unaControladoraGlobal.fechaSistema());
+        
         this.jComboBoxResponsableSede.setModel(new DefaultComboBoxModel((Vector) unaControladoraGlobal.getClubesBD()));
     }
 
@@ -548,6 +552,7 @@ public class ISocia extends javax.swing.JInternalFrame {
         if (camposValidar()) {
             Date fechaNacimiento = new java.sql.Date((jDateChooserFechaNacimiento.getDate()).getTime());
             Date fechaIngreso = new java.sql.Date((jDateChooserFechaIngreso.getDate()).getTime());
+            System.out.println(fechaIngreso);
             if (unaSocia == null) {
                 unaControladoraGlobal.crearSocia(
                         Long.parseLong(jTextFieldDNI.getText()),
